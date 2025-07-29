@@ -1,0 +1,17 @@
+{
+  "name": "Adrian Wedd - Professional CV",
+  "short_name": "Adrian Wedd",
+  "description": "Innovative AI Engineer and Software Architect with extensive expertise in developing autonomous systems that push the boundaries of artificial intelligence. Based in Tasmania, I specialize in creating intelligent solutions that seamlessly integrate cutting-edge machine learning with robust, scalable software architecture. My work focuses on autonomous agents, real-time processing systems, and innovative human-AI collaboration interfaces that deliver measurable impact across diverse industries.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text y=\".9em\" font-size=\"90\">🤖</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
