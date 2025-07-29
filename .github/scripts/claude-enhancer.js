@@ -810,4 +810,4 @@ if (require.main === module) {
     main().catch(console.error);
 }
 
-module.exports = { CVContentEnhancer, CONFIG };
+module.exports = { CVContentEnhancer, CONFIG, ClaudeApiClient };

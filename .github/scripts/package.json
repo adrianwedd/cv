@@ -7,7 +7,7 @@
     "analyze": "node activity-analyzer.js",
     "enhance": "node claude-enhancer.js",
     "generate": "node cv-generator.js",
-    "test": "node --test *.test.js",
+    "test": "node --test",
     "lint": "eslint *.js",
     "format": "prettier --write *.js"
   },

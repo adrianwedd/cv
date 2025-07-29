@@ -269,10 +269,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔧 Install Dependencies
+      - name: 🔧 Install Dependencies (Pre-cache)
         run: |
-          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
+          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES (PRE-CACHE)**"
           cd .github/scripts
+          npm cache clean --force
           npm install
           cd ../..
           echo "✅ Dependencies installed successfully"

@@ -1,12 +1,13 @@
+const { test, suite, beforeEach, afterEach } = require('node:test');
 const assert = require('assert');
 const { CVGenerator, CONFIG } = require('./cv-generator.js');
 const fs = require('fs').promises;
 const path = require('path');
 
-describe('CVGenerator', () => {
+suite('CVGenerator', () => {
     let generator;
 
-    beforeEach(() => {
+    test.beforeEach(() => {
         generator = new CVGenerator();
         // Mock fs operations to prevent actual file system writes during tests
         fs.rm = async () => {};
@@ -25,12 +26,12 @@ describe('CVGenerator', () => {
         };
     });
 
-    it('should load data sources correctly', async () => {
+    test('should load data sources correctly', async () => {
         await generator.loadDataSources();
         assert.strictEqual(generator.cvData.personal_info.name, 'Test User');
     });
 
-    it('should generate HTML with updated meta tags', async () => {
+    test('should generate HTML with updated meta tags', async () => {
         await generator.loadDataSources();
         await generator.generateHTML();
         // In a real test, you'd inspect the content written by fs.writeFile
@@ -38,7 +39,7 @@ describe('CVGenerator', () => {
         assert(true);
     });
 
-    it('should call generatePDF during overall generation', async () => {
+    test('should call generatePDF during overall generation', async () => {
         let pdfGenerated = false;
         generator.generatePDF = async () => { pdfGenerated = true; };
         await generator.generate();
