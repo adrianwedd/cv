@@ -18,6 +18,7 @@
  */
 
 const fs = require('fs').promises;
+const puppeteer = require('puppeteer');
 const path = require('path');
 
 // Configuration
@@ -62,6 +63,7 @@ class CVGenerator {
             // Generate website components
             await this.generateHTML();
             await this.copyAssets();
+            await this.generatePDF(); // New call
             await this.generateSitemap();
             await this.generateRobotsTxt();
             await this.generateManifest();
@@ -517,6 +519,39 @@ Disallow: /data/
         const notFoundPath = path.join(CONFIG.OUTPUT_DIR, '404.html');
         await fs.writeFile(notFoundPath, notFoundHtml, 'utf8');
         console.log('✅ 404.html generated');
+    }
+
+    /**
+     * Generates a high-quality PDF from the generated HTML.
+     */
+    async generatePDF() {
+        console.log('📄 Generating PDF version of the CV...');
+        const browser = await puppeteer.launch({ args: ['--no-sandbox'] }); // --no-sandbox is crucial for running in GitHub Actions
+        const page = await browser.newPage();
+        
+        const htmlPath = path.resolve(path.join(CONFIG.OUTPUT_DIR, 'index.html'));
+        await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
+
+        // Ensure dark/light theme is set for consistency (e.g., light theme for print)
+        await page.evaluate(() => {
+            document.documentElement.setAttribute('data-theme', 'light');
+        });
+
+        const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.pdf');
+        await page.pdf({
+            path: pdfPath,
+            format: 'A4',
+            printBackground: true,
+            margin: {
+                top: '20mm',
+                right: '20mm',
+                bottom: '20mm',
+                left: '20mm'
+            }
+        });
+
+        await browser.close();
+        console.log(`✅ PDF generated successfully at: ${pdfPath}`);
     }
 
     /**

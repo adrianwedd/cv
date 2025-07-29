@@ -66,12 +66,12 @@ class ClaudeApiClient {
     /**
      * Make Claude API request with caching and token tracking
      */
-    async makeRequest(messages, options = {}) {
+    async makeRequest(messages, options = {}, sourceContent = '') {
         const temperature = CONFIG.TEMPERATURE_MAP[CONFIG.CREATIVITY_LEVEL] || 0.5;
         const maxTokens = options.maxTokens || CONFIG.MAX_TOKENS;
         
         // Generate cache key for identical requests
-        const cacheKey = this.generateCacheKey(messages, temperature, maxTokens);
+        const cacheKey = this.generateCacheKey({ messages, temperature, maxTokens }, sourceContent);
         const cachedResponse = await this.getCachedResponse(cacheKey);
         
         if (cachedResponse && !options.skipCache) {
@@ -160,11 +160,18 @@ class ClaudeApiClient {
     }
 
     /**
-     * Generate cache key for request deduplication
+     * Generate a content-aware cache key for request deduplication.
+     * @param {object} requestPayload - The core request object (messages, temperature, maxTokens).
+     * @param {string} [sourceContent=''] - The raw source content being enhanced (e.g., the original summary text).
+     * @returns {string} A SHA256 hash representing the unique request.
      */
-    generateCacheKey(messages, temperature, maxTokens) {
-        const content = JSON.stringify({ messages, temperature, maxTokens });
-        return crypto.createHash('sha256').update(content).digest('hex').substring(0, 16);
+    generateCacheKey(requestPayload, sourceContent = '') {
+        // Combine the request structure with a hash of the actual content being processed.
+        const contentHash = crypto.createHash('sha256').update(sourceContent).digest('hex');
+        const payloadString = JSON.stringify(requestPayload);
+        
+        // The final key depends on both the prompt and the data.
+        return crypto.createHash('sha256').update(payloadString + contentHash).digest('hex').substring(0, 16);
     }
 
     /**
@@ -346,7 +353,7 @@ Please provide an enhanced professional summary that positions the candidate as 
         ];
 
         try {
-            const response = await this.client.makeRequest(messages, { maxTokens: 300 });
+            const response = await this.client.makeRequest(messages, { maxTokens: 300 }, currentSummary);
             const enhancedSummary = response.content[0]?.text?.trim();
 
             return {
@@ -406,7 +413,7 @@ Please provide a comprehensive skills analysis and enhancement strategy.`
         ];
 
         try {
-            const response = await this.client.makeRequest(messages, { maxTokens: 600 });
+            const response = await this.client.makeRequest(messages, { maxTokens: 600 }, JSON.stringify(cvData.skills));
             const skillsAnalysis = response.content[0]?.text?.trim();
 
             return {
@@ -465,7 +472,7 @@ Focus on creating compelling, authentic experience narratives that position the 
         ];
 
         try {
-            const response = await this.client.makeRequest(messages, { maxTokens: 500 });
+            const response = await this.client.makeRequest(messages, { maxTokens: 500 }, JSON.stringify(cvData.experience));
             const experienceEnhancement = response.content[0]?.text?.trim();
 
             return {
@@ -531,7 +538,7 @@ Create compelling project narratives that showcase technical expertise and innov
         ];
 
         try {
-            const response = await this.client.makeRequest(messages, { maxTokens: 600 });
+            const response = await this.client.makeRequest(messages, { maxTokens: 600 }, JSON.stringify(cvData.projects));
             const projectEnhancement = response.content[0]?.text?.trim();
 
             return {
@@ -590,7 +597,7 @@ Please provide strategic career insights that position this professional as a th
         ];
 
         try {
-            const response = await this.client.makeRequest(messages, { maxTokens: 700 });
+            const response = await this.client.makeRequest(messages, { maxTokens: 700 }, JSON.stringify(cvData));
             const strategicInsights = response.content[0]?.text?.trim();
 
             return {
