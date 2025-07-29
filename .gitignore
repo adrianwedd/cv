@@ -6,7 +6,7 @@ temp_issue_body.txt
 # Dependencies
 node_modules/
 .github/scripts/node_modules/
-package-lock.json
+# package-lock.json - keep this for CI caching
 
 # Build outputs
 dist/
