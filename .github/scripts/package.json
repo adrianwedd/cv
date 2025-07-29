@@ -1,0 +1,48 @@
+{
+  "name": "cv-enhancement-scripts",
+  "version": "2.1.0",
+  "description": "AI-powered CV enhancement scripts with GitHub activity integration",
+  "main": "cv-generator.js",
+  "scripts": {
+    "analyze": "node activity-analyzer.js",
+    "enhance": "node claude-enhancer.js",
+    "generate": "node cv-generator.js",
+    "test": "node --test",
+    "lint": "eslint *.js",
+    "format": "prettier --write *.js"
+  },
+  "keywords": [
+    "cv",
+    "resume",
+    "ai",
+    "claude",
+    "github",
+    "automation",
+    "career"
+  ],
+  "author": "Adrian Wedd <adrian@adrianwedd.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "date-fns": "^2.30.0",
+    "lodash": "^4.17.21",
+    "marked": "^9.1.0",
+    "node-cache": "^5.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adrianwedd/cv.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adrianwedd/cv/issues"
+  },
+  "homepage": "https://adrianwedd.github.io/cv"
+}

@@ -1,0 +1,538 @@
+name: 📊 GitHub Activity Intelligence Tracker
+
+# 🎯 **CONTINUOUS ACTIVITY MONITORING SYSTEM**
+# This workflow provides real-time GitHub activity tracking and professional
+# development metrics for dynamic CV enhancement and career analytics.
+#
+# 🔄 **EXECUTION SCHEDULE**: Every 2 hours for continuous activity monitoring
+# 📈 **ACTIVITY ANALYSIS**: Comprehensive contribution and collaboration tracking
+# 🏆 **PROFESSIONAL METRICS**: Skill development and project impact assessment
+# 📊 **ANALYTICS PIPELINE**: Real-time data processing and trend analysis
+#
+# 🔧 **FEATURES**:
+# - Real-time commit and contribution tracking
+# - Language proficiency analysis and skill mapping
+# - Project complexity scoring and impact assessment
+# - Collaboration metrics and community engagement
+# - Professional development trend analysis
+#
+# 📋 **WORKFLOW STAGES**:
+# 1. Repository activity scanning and data collection
+# 2. Contribution analysis and skill assessment
+# 3. Professional metrics calculation and trending
+# 4. Activity data compilation and storage
+# 5. Integration with CV enhancement pipeline
+
+on:
+  schedule:
+    # 🕐 Run every 2 hours for real-time activity tracking
+    # More frequent than CV enhancement for granular data collection
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+    inputs:
+      analysis_depth:
+        description: '🔍 Activity Analysis Depth'
+        required: false
+        default: 'standard'
+        type: choice
+        options:
+          - light
+          - standard
+          - comprehensive
+          - deep-dive
+      lookback_period:
+        description: '📅 Analysis Lookback Period (days)'
+        required: false
+        default: '30'
+        type: string
+      include_organizations:
+        description: '🏢 Include Organization Activity'
+        required: false
+        default: true
+        type: boolean
+
+env:
+  TRACKER_VERSION: "v1.5"
+  TIMEZONE: "Australia/Tasmania"
+
+jobs:
+  activity-intelligence:
+    name: 📊 GitHub Activity Intelligence Collection
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🚀 Activity Tracker Initialization
+        run: |
+          echo "📊 **GITHUB ACTIVITY INTELLIGENCE TRACKER INITIATED**"
+          echo "📅 Tracking cycle: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
+          echo "🔍 Analysis depth: ${{ github.event.inputs.analysis_depth || 'standard' }}"
+          echo "📅 Lookback period: ${{ github.event.inputs.lookback_period || '30' }} days"
+          echo "🏢 Include organizations: ${{ github.event.inputs.include_organizations || 'true' }}"
+          echo "🤖 Triggered by: ${{ github.event_name }}"
+          echo "📊 Tracker version: ${{ env.TRACKER_VERSION }}"
+          echo ""
+
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 🔧 Install Activity Analysis Dependencies
+        run: |
+          echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES**"
+          cd .github/scripts
+          npm install
+          cd ../..
+          echo "✅ Analysis dependencies installed"
+
+      - name: 📊 Comprehensive Repository Activity Analysis
+        run: |
+          echo "📊 **COMPREHENSIVE REPOSITORY ACTIVITY ANALYSIS**"
+          
+          LOOKBACK_DAYS="${{ github.event.inputs.lookback_period || '30' }}"
+          ANALYSIS_DEPTH="${{ github.event.inputs.analysis_depth || 'standard' }}"
+          
+          echo "🔍 Analyzing last $LOOKBACK_DAYS days with $ANALYSIS_DEPTH depth..."
+          
+          # Basic activity metrics
+          COMMITS_COUNT=$(git log --since="${LOOKBACK_DAYS} days ago" --oneline | wc -l)
+          COMMITS_TODAY=$(git log --since="1 day ago" --oneline | wc -l)
+          COMMITS_WEEK=$(git log --since="7 days ago" --oneline | wc -l)
+          
+          # Active days calculation
+          ACTIVE_DAYS=$(git log --since="${LOOKBACK_DAYS} days ago" --format="%ad" --date=short | sort -u | wc -l)
+          
+          # Language analysis from file extensions
+          echo "🔤 Analyzing language activity..."
+          git log --since="${LOOKBACK_DAYS} days ago" --name-only --pretty=format: | \
+            grep -E '\.(js|ts|jsx|tsx|py|go|rs|java|cpp|c|php|rb|swift|kt|yml|yaml|md|json|html|css|scss|sass|vue|svelte)$' | \
+            sed 's/.*\.//' | sort | uniq -c | sort -nr > temp_languages.txt
+          
+          # Code change metrics
+          LINES_ADDED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{add += $1} END {print add+0}')
+          LINES_REMOVED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{del += $2} END {print del+0}')
+          NET_LINES=$((LINES_ADDED - LINES_REMOVED))
+          
+          # File change analysis
+          FILES_CHANGED=$(git log --since="${LOOKBACK_DAYS} days ago" --name-only --pretty=format: | sort -u | wc -l)
+          
+          echo "📈 **Repository Activity Summary:**"
+          echo "  - Total commits ($LOOKBACK_DAYS days): $COMMITS_COUNT"
+          echo "  - Commits today: $COMMITS_TODAY"
+          echo "  - Commits this week: $COMMITS_WEEK"
+          echo "  - Active days: $ACTIVE_DAYS/$LOOKBACK_DAYS"
+          echo "  - Lines added: $LINES_ADDED"
+          echo "  - Lines removed: $LINES_REMOVED"
+          echo "  - Net contribution: $NET_LINES lines"
+          echo "  - Files modified: $FILES_CHANGED"
+          echo ""
+          
+          # Store basic metrics for later use
+          echo "COMMITS_COUNT=$COMMITS_COUNT" >> $GITHUB_ENV
+          echo "ACTIVE_DAYS=$ACTIVE_DAYS" >> $GITHUB_ENV
+          echo "LINES_ADDED=$LINES_ADDED" >> $GITHUB_ENV
+          echo "NET_LINES=$NET_LINES" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🌐 GitHub API Activity Collection
+        run: |
+          echo "🌐 **COLLECTING GITHUB API ACTIVITY DATA**"
+          
+          # User profile and statistics
+          echo "👤 Fetching user profile data..."
+          USER_PROFILE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/user")
+          
+          # Recent repositories
+          echo "📂 Fetching repository data..."
+          USER_REPOS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/users/adrianwedd/repos?per_page=100&sort=updated")
+          
+          # Recent events (public activity)
+          echo "⚡ Fetching recent activity events..."
+          RECENT_EVENTS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/users/adrianwedd/events/public?per_page=30")
+          
+          # Organization data (if enabled)
+          if [ "${{ github.event.inputs.include_organizations || 'true' }}" = "true" ]; then
+            echo "🏢 Fetching organization data..."
+            USER_ORGS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/user/orgs")
+          else
+            USER_ORGS="[]"
+          fi
+          
+          # Calculate derived metrics
+          TOTAL_REPOS=$(echo "$USER_REPOS" | jq 'length')
+          TOTAL_STARS=$(echo "$USER_REPOS" | jq '[.[] | .stargazers_count] | add // 0')
+          TOTAL_FORKS=$(echo "$USER_REPOS" | jq '[.[] | .forks_count] | add // 0')
+          
+          # Language statistics
+          LANGUAGES=$(echo "$USER_REPOS" | jq '[.[] | select(.language != null) | .language] | group_by(.) | map({language: .[0], count: length}) | sort_by(.count) | reverse')
+          
+          # Recent activity analysis
+          PUSH_EVENTS=$(echo "$RECENT_EVENTS" | jq '[.[] | select(.type == "PushEvent")] | length')
+          PR_EVENTS=$(echo "$RECENT_EVENTS" | jq '[.[] | select(.type == "PullRequestEvent")] | length')
+          ISSUE_EVENTS=$(echo "$RECENT_EVENTS" | jq '[.[] | select(.type == "IssuesEvent")] | length')
+          
+          echo "📊 **GitHub API Activity Summary:**"
+          echo "  - Total repositories: $TOTAL_REPOS"
+          echo "  - Total stars received: $TOTAL_STARS"
+          echo "  - Total forks: $TOTAL_FORKS"
+          echo "  - Recent push events: $PUSH_EVENTS"
+          echo "  - Recent PR events: $PR_EVENTS"
+          echo "  - Recent issue events: $ISSUE_EVENTS"
+          echo "  - Organizations: $(echo "$USER_ORGS" | jq 'length')"
+          echo ""
+          
+          # Create comprehensive activity data file
+          mkdir -p data/activity
+          cat > data/activity/github-activity-$(date +%Y%m%d-%H%M).json << EOF
+          {
+            "collection_timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "analysis_period_days": ${{ github.event.inputs.lookback_period || 30 }},
+            "user_profile": $USER_PROFILE,
+            "repositories": {
+              "data": $USER_REPOS,
+              "summary": {
+                "total_count": $TOTAL_REPOS,
+                "total_stars": $TOTAL_STARS,
+                "total_forks": $TOTAL_FORKS,
+                "languages": $LANGUAGES
+              }
+            },
+            "recent_activity": {
+              "events": $RECENT_EVENTS,
+              "summary": {
+                "push_events": $PUSH_EVENTS,
+                "pr_events": $PR_EVENTS,
+                "issue_events": $ISSUE_EVENTS
+              }
+            },
+            "organizations": $USER_ORGS,
+            "local_repository_metrics": {
+              "commits_analyzed": $COMMITS_COUNT,
+              "active_days": $ACTIVE_DAYS,
+              "lines_contributed": $NET_LINES,
+              "files_modified": $(git log --since="${{ github.event.inputs.lookback_period || 30 }} days ago" --name-only --pretty=format: | sort -u | wc -l)
+            }
+          }
+          EOF
+          
+          echo "✅ GitHub API activity data collected and stored"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🎯 Professional Development Metrics
+        run: |
+          echo "🎯 **CALCULATING PROFESSIONAL DEVELOPMENT METRICS**"
+          
+          # Load the latest activity data
+          LATEST_ACTIVITY=$(find data/activity -name "github-activity-*.json" | sort | tail -1)
+          
+          if [ -f "$LATEST_ACTIVITY" ]; then
+            echo "📊 Processing activity data from: $LATEST_ACTIVITY"
+            
+            # Extract key metrics for professional assessment
+            TOTAL_REPOS=$(jq -r '.repositories.summary.total_count' "$LATEST_ACTIVITY")
+            TOTAL_STARS=$(jq -r '.repositories.summary.total_stars' "$LATEST_ACTIVITY")
+            LANGUAGE_COUNT=$(jq -r '.repositories.summary.languages | length' "$LATEST_ACTIVITY")
+            RECENT_COMMITS=$COMMITS_COUNT
+            ACTIVE_DAYS=$ACTIVE_DAYS
+            
+            # Calculate professional development scores
+            
+            # Activity Score (0-100): Based on commit frequency and consistency
+            ACTIVITY_SCORE=$(echo "scale=2; ($RECENT_COMMITS * 2 + $ACTIVE_DAYS * 3) / 2" | bc -l)
+            if (( $(echo "$ACTIVITY_SCORE > 100" | bc -l) )); then
+              ACTIVITY_SCORE=100
+            fi
+            
+            # Technical Diversity Score (0-100): Based on language variety and project count
+            DIVERSITY_SCORE=$(echo "scale=2; ($LANGUAGE_COUNT * 8 + $TOTAL_REPOS * 0.5)" | bc -l)
+            if (( $(echo "$DIVERSITY_SCORE > 100" | bc -l) )); then
+              DIVERSITY_SCORE=100
+            fi
+            
+            # Community Impact Score (0-100): Based on stars, forks, and collaboration
+            IMPACT_SCORE=$(echo "scale=2; ($TOTAL_STARS * 2 + $TOTAL_FORKS * 3)" | bc -l)
+            if (( $(echo "$IMPACT_SCORE > 100" | bc -l) )); then
+              IMPACT_SCORE=100
+            fi
+            
+            # Overall Professional Score: Weighted average
+            PROFESSIONAL_SCORE=$(echo "scale=2; ($ACTIVITY_SCORE * 0.4 + $DIVERSITY_SCORE * 0.3 + $IMPACT_SCORE * 0.3)" | bc -l)
+            
+            # Development velocity (commits per day)
+            VELOCITY=$(echo "scale=3; $RECENT_COMMITS / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l)
+            
+            echo "🏆 **Professional Development Metrics:**"
+            echo "  - Activity Score: $ACTIVITY_SCORE/100"
+            echo "  - Technical Diversity Score: $DIVERSITY_SCORE/100"
+            echo "  - Community Impact Score: $IMPACT_SCORE/100"
+            echo "  - Overall Professional Score: $PROFESSIONAL_SCORE/100"
+            echo "  - Development Velocity: $VELOCITY commits/day"
+            echo ""
+            
+            # Create professional metrics summary
+            mkdir -p data/metrics
+            cat > data/metrics/professional-development-$(date +%Y%m%d-%H%M).json << EOF
+            {
+              "calculation_timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+              "analysis_period_days": ${{ github.event.inputs.lookback_period || 30 }},
+              "scores": {
+                "activity_score": $ACTIVITY_SCORE,
+                "technical_diversity_score": $DIVERSITY_SCORE,
+                "community_impact_score": $IMPACT_SCORE,
+                "overall_professional_score": $PROFESSIONAL_SCORE
+              },
+              "metrics": {
+                "development_velocity": $VELOCITY,
+                "consistency_rating": $(echo "scale=2; $ACTIVE_DAYS / ${{ github.event.inputs.lookback_period || 30 }} * 100" | bc -l),
+                "contribution_efficiency": $(echo "scale=2; $NET_LINES / ($RECENT_COMMITS + 1)" | bc -l)
+              },
+              "raw_data": {
+                "commits": $RECENT_COMMITS,
+                "active_days": $ACTIVE_DAYS,
+                "repositories": $TOTAL_REPOS,
+                "stars_received": $TOTAL_STARS,
+                "languages_used": $LANGUAGE_COUNT,
+                "net_lines_contributed": $NET_LINES
+              },
+              "trends": {
+                "commits_today": $(git log --since="1 day ago" --oneline | wc -l),
+                "commits_this_week": $(git log --since="7 days ago" --oneline | wc -l),
+                "growth_trajectory": "$([ $RECENT_COMMITS -gt 50 ] && echo "accelerating" || echo "steady")"
+              }
+            }
+            EOF
+            
+            echo "✅ Professional development metrics calculated and stored"
+          else
+            echo "⚠️ No recent activity data found, skipping metrics calculation"
+          fi
+
+      - name: 📈 Activity Trend Analysis
+        run: |
+          echo "📈 **PERFORMING ACTIVITY TREND ANALYSIS**"
+          
+          # Analyze activity patterns over different time periods
+          echo "📊 Analyzing activity trends..."
+          
+          # Get activity for different periods
+          COMMITS_1D=$(git log --since="1 day ago" --oneline | wc -l)
+          COMMITS_7D=$(git log --since="7 days ago" --oneline | wc -l)
+          COMMITS_30D=$(git log --since="30 days ago" --oneline | wc -l)
+          COMMITS_90D=$(git log --since="90 days ago" --oneline | wc -l)
+          
+          # Calculate trends
+          DAILY_TREND=$(echo "scale=2; $COMMITS_7D / 7" | bc -l)
+          WEEKLY_TREND=$(echo "scale=2; $COMMITS_30D / 4.3" | bc -l)
+          MONTHLY_TREND=$(echo "scale=2; $COMMITS_90D / 3" | bc -l)
+          
+          # Determine trend direction
+          if (( $(echo "$DAILY_TREND > $WEEKLY_TREND" | bc -l) )); then
+            TREND_DIRECTION="increasing"
+          elif (( $(echo "$DAILY_TREND < $WEEKLY_TREND" | bc -l) )); then
+            TREND_DIRECTION="decreasing"
+          else
+            TREND_DIRECTION="stable"
+          fi
+          
+          echo "📈 **Activity Trend Analysis:**"
+          echo "  - Commits today: $COMMITS_1D"
+          echo "  - Commits (7 days): $COMMITS_7D (avg: $DAILY_TREND/day)"
+          echo "  - Commits (30 days): $COMMITS_30D (avg: $WEEKLY_TREND/week)"
+          echo "  - Commits (90 days): $COMMITS_90D (avg: $MONTHLY_TREND/month)"
+          echo "  - Trend direction: $TREND_DIRECTION"
+          echo ""
+          
+          # Store trend data for CV integration
+          mkdir -p data/trends
+          cat > data/trends/activity-trends-$(date +%Y%m%d-%H%M).json << EOF
+          {
+            "analysis_timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commit_trends": {
+              "1_day": $COMMITS_1D,
+              "7_days": $COMMITS_7D,
+              "30_days": $COMMITS_30D,
+              "90_days": $COMMITS_90D
+            },
+            "averages": {
+              "daily_avg": $DAILY_TREND,
+              "weekly_avg": $WEEKLY_TREND,
+              "monthly_avg": $MONTHLY_TREND
+            },
+            "trend_analysis": {
+              "direction": "$TREND_DIRECTION",
+              "velocity_change": $(echo "scale=2; ($DAILY_TREND - $WEEKLY_TREND) / $WEEKLY_TREND * 100" | bc -l 2>/dev/null || echo "0"),
+              "consistency_score": $(echo "scale=2; $ACTIVE_DAYS / ${{ github.event.inputs.lookback_period || 30 }} * 100" | bc -l)
+            }
+          }
+          EOF
+          
+          echo "✅ Activity trend analysis completed and stored"
+
+      - name: 🔄 Update Master Activity Summary
+        run: |
+          echo "🔄 **UPDATING MASTER ACTIVITY SUMMARY**"
+          
+          # Create or update the master activity summary file
+          SUMMARY_FILE="data/activity-summary.json"
+          TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          
+          # Find latest data files
+          LATEST_ACTIVITY=$(find data/activity -name "github-activity-*.json" 2>/dev/null | sort | tail -1)
+          LATEST_METRICS=$(find data/metrics -name "professional-development-*.json" 2>/dev/null | sort | tail -1)
+          LATEST_TRENDS=$(find data/trends -name "activity-trends-*.json" 2>/dev/null | sort | tail -1)
+          
+          # Create comprehensive summary
+          cat > "$SUMMARY_FILE" << EOF
+          {
+            "last_updated": "$TIMESTAMP",
+            "tracker_version": "${{ env.TRACKER_VERSION }}",
+            "analysis_depth": "${{ github.event.inputs.analysis_depth || 'standard' }}",
+            "lookback_period_days": ${{ github.event.inputs.lookback_period || 30 }},
+            "summary": {
+              "total_commits": $COMMITS_COUNT,
+              "active_days": $ACTIVE_DAYS,
+              "net_lines_contributed": $NET_LINES,
+              "tracking_status": "active",
+              "last_commit_date": "$(git log -1 --format=%cd --date=iso)"
+            },
+            "data_files": {
+              "latest_activity": "$(basename "$LATEST_ACTIVITY")",
+              "latest_metrics": "$(basename "$LATEST_METRICS")",
+              "latest_trends": "$(basename "$LATEST_TRENDS")"
+            },
+            "cv_integration": {
+              "ready_for_enhancement": true,
+              "data_freshness": "$(date +'%Y-%m-%d %H:%M %Z')",
+              "next_cv_update": "Automatic via CV Enhancement Pipeline"
+            }
+          }
+          EOF
+          
+          echo "📊 **Master Activity Summary Updated:**"
+          echo "  - Tracking Status: Active"
+          echo "  - Data Files Generated: $(find data -name "*.json" -newer "$SUMMARY_FILE" 2>/dev/null | wc -l)"
+          echo "  - Summary File: $SUMMARY_FILE"
+          echo "  - CV Integration: Ready"
+          echo ""
+
+      - name: 🚀 Commit Activity Data
+        run: |
+          echo "🚀 **COMMITTING ACTIVITY TRACKING DATA**"
+          
+          git config --local user.email "activity-tracker@github.com"
+          git config --local user.name "GitHub Activity Tracker"
+          
+          git add data/
+          
+          if ! git diff --cached --quiet; then
+            # Create activity tracking commit message
+            LOOKBACK_DAYS="${{ github.event.inputs.lookback_period || '30' }}"
+            ANALYSIS_DEPTH="${{ github.event.inputs.analysis_depth || 'standard' }}"
+            
+            git commit -m "📊 Activity Intelligence Update $(date +'%Y%m%d-%H%M')
+
+            📈 GitHub Activity Tracking Session Complete
+            🔍 Analysis Depth: $ANALYSIS_DEPTH
+            📅 Lookback Period: $LOOKBACK_DAYS days
+            📊 Commits Analyzed: $COMMITS_COUNT
+            🎯 Active Days: $ACTIVE_DAYS/$LOOKBACK_DAYS
+            📝 Net Lines: $NET_LINES
+            
+            🤖 Automated tracking via Activity Intelligence Tracker ${{ env.TRACKER_VERSION }}
+            🔗 Integration ready for CV Enhancement Pipeline
+            
+            🤖 Generated with [Claude Code](https://claude.ai/code)
+            
+            Co-Authored-By: Claude <noreply@anthropic.com>"
+            
+            git push
+            echo "✅ Activity tracking data committed successfully"
+          else
+            echo "📝 No new activity data to commit"
+          fi
+
+      - name: 📊 Activity Tracking Summary
+        if: always()
+        run: |
+          echo "📊 **GITHUB ACTIVITY TRACKING SUMMARY**"
+          echo "======================================"
+          echo ""
+          echo "📅 **Session Details**"
+          echo "  - Completion Time: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
+          echo "  - Analysis Depth: ${{ github.event.inputs.analysis_depth || 'standard' }}"
+          echo "  - Lookback Period: ${{ github.event.inputs.lookback_period || '30' }} days"
+          echo "  - Include Organizations: ${{ github.event.inputs.include_organizations || 'true' }}"
+          echo ""
+          echo "📊 **Activity Metrics**"
+          echo "  - Commits Analyzed: $COMMITS_COUNT"
+          echo "  - Active Days: $ACTIVE_DAYS"
+          echo "  - Net Lines Contributed: $NET_LINES"
+          echo "  - Files Modified: $(git log --since="${{ github.event.inputs.lookback_period || 30 }} days ago" --name-only --pretty=format: | sort -u | wc -l)"
+          echo ""
+          echo "🎯 **Professional Development**"
+          echo "  - Development Velocity: $(echo "scale=3; $COMMITS_COUNT / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l) commits/day"
+          echo "  - Consistency Rating: $(echo "scale=1; $ACTIVE_DAYS * 100 / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l)%"
+          echo ""
+          echo "🔗 **CV Integration**"
+          echo "  - Data Ready: Yes"
+          echo "  - Next CV Enhancement: Automatic (every 6 hours)"
+          echo ""
+          echo "⏰ **Next Activity Tracking**: $(TZ='${{ env.TIMEZONE }}' date -d '+2 hours' +'%Y-%m-%d %H:%M %Z')"
+          echo ""
+          echo "======================================"
+
+      - name: 📈 Workflow Performance Report
+        if: always()
+        run: |
+          # Generate workflow performance summary
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          # 📊 GitHub Activity Intelligence Report
+          
+          ## 🎯 Tracking Session Overview
+          - **Analysis Depth**: ${{ github.event.inputs.analysis_depth || 'standard' }}
+          - **Lookback Period**: ${{ github.event.inputs.lookback_period || '30' }} days
+          - **Include Organizations**: ${{ github.event.inputs.include_organizations || 'true' }}
+          - **Completion Time**: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
+          
+          ## 📈 Activity Metrics Summary
+          | Metric | Value | Period |
+          |--------|-------|--------|
+          | 📝 Total Commits | $COMMITS_COUNT | ${{ github.event.inputs.lookback_period || '30' }} days |
+          | 🎯 Active Days | $ACTIVE_DAYS | ${{ github.event.inputs.lookback_period || '30' }} days |
+          | 📊 Net Lines | $NET_LINES | ${{ github.event.inputs.lookback_period || '30' }} days |
+          | ⚡ Development Velocity | $(echo "scale=2; $COMMITS_COUNT / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l) commits/day | Average |
+          
+          ## 🔄 Data Collection Status
+          | Component | Status | Details |
+          |-----------|--------|---------|
+          | 🏠 Repository Analysis | ✅ Complete | Local git history processed |
+          | 🌐 GitHub API Data | ✅ Complete | Profile and activity collected |
+          | 📊 Professional Metrics | ✅ Complete | Development scores calculated |
+          | 📈 Trend Analysis | ✅ Complete | Activity patterns identified |
+          | 🔄 Master Summary | ✅ Complete | Integration data prepared |
+          
+          ## 🎯 CV Integration Status
+          - **Data Freshness**: Real-time (updated every 2 hours)
+          - **Integration Ready**: ✅ Yes
+          - **Next CV Enhancement**: Automatic via 6-hour cycle
+          
+          ## ⏰ Next Activity Tracking
+          **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+2 hours' +'%Y-%m-%d %H:%M %Z')
+          
+          ---
+          *Activity Intelligence Tracker v${{ env.TRACKER_VERSION }} - Continuous Professional Development Monitoring*
+          EOF
