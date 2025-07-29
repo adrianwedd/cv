@@ -1,5 +1,22 @@
 {
-  "daily_usage": [],
-  "enhancement_history": [],
+  "daily_usage": [
+    {
+      "timestamp": "2025-07-30 03:53 AEST",
+      "utc_timestamp": "2025-07-29T17:53:33Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 15.00,
+      "outcome": "success"
+    }
+  ],
+  "enhancement_history": [
+    {
+      "date": "2025-07-29",
+      "mode": "comprehensive",
+      "activity_score": 15.00,
+      "success": true
+    }
+  ],
   "performance_metrics": []
 }

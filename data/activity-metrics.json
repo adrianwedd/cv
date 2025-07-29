@@ -1,33 +1,55 @@
 {
-  "timestamp": "2025-07-29T17:00:00Z",
+  "timestamp": "2025-07-29T17:52:48Z",
   "user_profile": {
-    "login": "adrianwedd",
-    "name": "Adrian Wedd",
-    "public_repos": 15,
-    "followers": 50,
-    "following": 25
-  },
+  "message": "Resource not accessible by integration",
+  "documentation_url": "https://docs.github.com/rest/users/users#get-the-authenticated-user",
+  "status": "403"
+},
   "repositories": {
-    "total_count": 15,
-    "total_stars": 120,
-    "total_forks": 25,
+    "total_count": 100,
+    "total_stars": 5,
+    "total_forks": 4,
     "languages": [
-      {"language": "JavaScript", "count": 8},
-      {"language": "Python", "count": 4},
-      {"language": "TypeScript", "count": 2},
-      {"language": "Go", "count": 1}
-    ]
+  {
+    "language": "Python",
+    "count": 24
+  },
+  {
+    "language": "TypeScript",
+    "count": 4
+  },
+  {
+    "language": "JavaScript",
+    "count": 4
+  },
+  {
+    "language": "Jupyter Notebook",
+    "count": 3
+  },
+  {
+    "language": "Shell",
+    "count": 2
+  },
+  {
+    "language": "Rust",
+    "count": 1
+  },
+  {
+    "language": "CSS",
+    "count": 1
+  }
+]
   },
   "activity_30d": {
-    "commits": 5,
-    "lines_added": 2500,
-    "lines_deleted": 800,
-    "net_contribution": 1700,
-    "active_days": 3
+    "commits": 8,
+    "lines_added": 11351,
+    "lines_deleted": 804700001582,
+    "net_contribution": -804699990231,
+    "active_days": 1
   },
   "professional_metrics": {
-    "activity_score": 12.0,
-    "contribution_velocity": 0.167,
-    "code_quality_ratio": 0.757
+    "activity_score": 15.00,
+    "contribution_velocity": .26,
+    "code_quality_ratio": 0
   }
 }
