@@ -34,7 +34,7 @@ const CONFIG = {
     CREATIVITY_LEVEL: process.env.CREATIVITY_LEVEL || 'balanced',
     ACTIVITY_SCORE: parseFloat(process.env.ACTIVITY_SCORE) || 50,
     API_VERSION: '2023-06-01',
-    MODEL: 'claude-3-sonnet-20240229',
+    MODEL: 'claude-3-5-sonnet-20241022',
     OUTPUT_DIR: 'data',
     CACHE_DIR: 'data/ai-cache',
     MAX_TOKENS: 4000,
