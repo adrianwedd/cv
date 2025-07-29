@@ -1,0 +1,31 @@
+{
+  "name": "cv-system",
+  "version": "2.0.0",
+  "description": "AI-Enhanced CV System with GitHub activity integration",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "validate": "for file in data/*.json; do jq . \"$file\" > /dev/null && echo \"✅ $file valid\"; done",
+    "scripts:install": "cd .github/scripts && npm install",
+    "scripts:lint": "cd .github/scripts && npm run lint",
+    "scripts:test": "cd .github/scripts && npm test"
+  },
+  "keywords": [
+    "cv",
+    "resume", 
+    "ai",
+    "github-actions",
+    "automation"
+  ],
+  "author": "Adrian Wedd <adrian@adrianwedd.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adrianwedd/cv.git"
+  },
+  "homepage": "https://adrianwedd.github.io/cv",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

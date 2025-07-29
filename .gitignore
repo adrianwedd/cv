@@ -2,3 +2,19 @@
 agents/
 temp/
 temp_issue_body.txt
+
+# Dependencies
+node_modules/
+.github/scripts/node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
