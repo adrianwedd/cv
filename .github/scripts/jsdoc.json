@@ -1,0 +1,13 @@
+{
+    "source": {
+        "include": [".github/scripts/activity-analyzer.js", ".github/scripts/claude-enhancer.js", ".github/scripts/cv-generator.js", "assets/script.js"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "plugins": [],
+    "opts": {
+        "encoding": "utf8",
+        "destination": "docs/jsdoc_output/",
+        "recurse": true
+    }
+}
