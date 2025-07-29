@@ -132,31 +132,45 @@ class ClaudeApiClient {
     /**
      * HTTP request wrapper
      */
-    httpRequest(url, options) {
-        return new Promise((resolve, reject) => {
-            const req = https.request(url, options, (res) => {
-                let body = '';
-                res.on('data', chunk => body += chunk);
-                res.on('end', () => {
-                    if (res.statusCode >= 200 && res.statusCode < 300) {
-                        resolve({ body, statusCode: res.statusCode });
-                    } else {
-                        reject(new Error(`HTTP ${res.statusCode}: ${body}`));
+    async httpRequest(url, options, maxRetries = 3, retryDelay = 1000) {
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                return await new Promise((resolve, reject) => {
+                    const req = https.request(url, options, (res) => {
+                        let body = '';
+                        res.on('data', chunk => body += chunk);
+                        res.on('end', () => {
+                            if (res.statusCode >= 200 && res.statusCode < 300) {
+                                resolve({ body, statusCode: res.statusCode });
+                            } else if (res.statusCode >= 500 || res.statusCode === 429) { // Retry on 5xx or Too Many Requests
+                                reject(new Error(`HTTP ${res.statusCode}: ${body}`));
+                            } else {
+                                reject(new Error(`HTTP ${res.statusCode}: ${body}`));
+                            }
+                        });
+                    });
+
+                    req.on('error', reject);
+                    req.setTimeout(60000, () => {
+                        req.destroy();
+                        reject(new Error('Request timeout'));
+                    });
+
+                    if (options.body) {
+                        req.write(options.body);
                     }
+                    req.end();
                 });
-            });
-
-            req.on('error', reject);
-            req.setTimeout(60000, () => {
-                req.destroy();
-                reject(new Error('Request timeout'));
-            });
-
-            if (options.body) {
-                req.write(options.body);
+            } catch (error) {
+                if (i < maxRetries - 1) {
+                    const delay = retryDelay * Math.pow(2, i);
+                    console.warn(`Retrying ${url} in ${delay}ms due to error: ${error.message}`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                } else {
+                    throw error; // Last retry failed
+                }
             }
-            req.end();
-        });
+        }
     }
 
     /**

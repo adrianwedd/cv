@@ -269,6 +269,22 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🔧 Install Dependencies
+        run: |
+          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
+          cd .github/scripts
+          npm install
+          cd ../..
+          echo "✅ Dependencies installed successfully"
+
+      - name: ✅ Run Unit Tests
+        run: |
+          echo "✅ **RUNNING UNIT TESTS**"
+          cd .github/scripts
+          npm test
+          cd ../..
+          echo "✅ Unit tests completed successfully"
+
       - name: 📦 Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
@@ -279,14 +295,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libnss3 libatk-bridge2.0-0 libxkbcommon0 libgbm-dev
-
-      - name: 🔧 Install Dependencies
-        run: |
-          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
-          cd .github/scripts
-          npm install
-          cd ../..
-          echo "✅ Dependencies installed successfully"
 
       - name: 📊 GitHub Activity Data Collection
         if: needs.cv-intelligence-analysis.outputs.enhancement-strategy != 'ai-only'
@@ -405,6 +413,29 @@ jobs:
           echo "✅ CV website generated successfully"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ✅ Validate & Lint Generated Assets
+        run: |
+          echo "✅ **VALIDATING AND LINTING GENERATED ASSETS**"
+          
+          # Run ESLint on JavaScript files
+          echo "Running ESLint..."
+          cd .github/scripts
+          npm run lint
+          cd ../..
+          echo "✅ ESLint completed"
+
+          # Validate JSON files
+          echo "Validating JSON files..."
+          for file in data/*.json; do
+            if jq . "$file" > /dev/null; then
+              echo "✅ $file is valid JSON"
+            else
+              echo "❌ $file is invalid JSON"
+              exit 1
+            fi
+          done
+          echo "✅ JSON validation completed"
 
       - name: 📄 Generate PDF Asset
         run: |
