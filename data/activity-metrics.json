@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-07-29T17:00:00Z",
+  "user_profile": {
+    "login": "adrianwedd",
+    "name": "Adrian Wedd",
+    "public_repos": 15,
+    "followers": 50,
+    "following": 25
+  },
+  "repositories": {
+    "total_count": 15,
+    "total_stars": 120,
+    "total_forks": 25,
+    "languages": [
+      {"language": "JavaScript", "count": 8},
+      {"language": "Python", "count": 4},
+      {"language": "TypeScript", "count": 2},
+      {"language": "Go", "count": 1}
+    ]
+  },
+  "activity_30d": {
+    "commits": 5,
+    "lines_added": 2500,
+    "lines_deleted": 800,
+    "net_contribution": 1700,
+    "active_days": 3
+  },
+  "professional_metrics": {
+    "activity_score": 12.0,
+    "contribution_velocity": 0.167,
+    "code_quality_ratio": 0.757
+  }
+}
