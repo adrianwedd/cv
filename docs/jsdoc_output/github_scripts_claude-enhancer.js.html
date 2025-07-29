@@ -1,4 +1,32 @@
-#!/usr/bin/env node
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: .github/scripts/claude-enhancer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: .github/scripts/claude-enhancer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>#!/usr/bin/env node
 
 /**
  * Claude AI Content Enhancement Engine
@@ -74,7 +102,7 @@ class ClaudeApiClient {
         const cacheKey = this.generateCacheKey({ messages, temperature, maxTokens }, sourceContent);
         const cachedResponse = await this.getCachedResponse(cacheKey);
         
-        if (cachedResponse && !options.skipCache) {
+        if (cachedResponse &amp;&amp; !options.skipCache) {
             console.log('📦 Cache hit for Claude request');
             this.cacheHits++;
             return cachedResponse;
@@ -133,14 +161,14 @@ class ClaudeApiClient {
      * HTTP request wrapper
      */
     async httpRequest(url, options, maxRetries = 3, retryDelay = 1000) {
-        for (let i = 0; i < maxRetries; i++) {
+        for (let i = 0; i &lt; maxRetries; i++) {
             try {
                 return await new Promise((resolve, reject) => {
                     const req = https.request(url, options, (res) => {
                         let body = '';
                         res.on('data', chunk => body += chunk);
                         res.on('end', () => {
-                            if (res.statusCode >= 200 && res.statusCode < 300) {
+                            if (res.statusCode >= 200 &amp;&amp; res.statusCode &lt; 300) {
                                 resolve({ body, statusCode: res.statusCode });
                             } else if (res.statusCode >= 500 || res.statusCode === 429) { // Retry on 5xx or Too Many Requests
                                 reject(new Error(`HTTP ${res.statusCode}: ${body}`));
@@ -162,7 +190,7 @@ class ClaudeApiClient {
                     req.end();
                 });
             } catch (error) {
-                if (i < maxRetries - 1) {
+                if (i &lt; maxRetries - 1) {
                     const delay = retryDelay * Math.pow(2, i);
                     console.warn(`Retrying ${url} in ${delay}ms due to error: ${error.message}`);
                     await new Promise(resolve => setTimeout(resolve, delay));
@@ -198,7 +226,7 @@ class ClaudeApiClient {
             const cachedData = JSON.parse(cached);
             
             // Check if cache is still valid (24 hours)
-            if (Date.now() - cachedData.timestamp < 24 * 60 * 60 * 1000) {
+            if (Date.now() - cachedData.timestamp &lt; 24 * 60 * 60 * 1000) {
                 return cachedData.response;
             }
         } catch (error) {
@@ -296,7 +324,7 @@ class CVContentEnhancer {
             console.log('📝 Stage 1: Professional Summary Enhancement');
             enhancementPlan.professional_summary = await this.enhanceProfessionalSummary(currentCVData, activityMetrics);
 
-            console.log('⚡ Stage 2: Skills Analysis & Optimization');
+            console.log('⚡ Stage 2: Skills Analysis &amp; Optimization');
             enhancementPlan.skills_enhancement = await this.enhanceSkillsSection(currentCVData, activityMetrics);
 
             console.log('🎯 Stage 3: Experience Description Optimization');
@@ -305,7 +333,7 @@ class CVContentEnhancer {
             console.log('🚀 Stage 4: Project Impact Analysis');
             enhancementPlan.project_enhancement = await this.enhanceProjects(currentCVData, activityMetrics);
 
-            if (CONFIG.AI_BUDGET !== 'insufficient' && (CONFIG.CREATIVITY_LEVEL === 'creative' || CONFIG.CREATIVITY_LEVEL === 'innovative')) {
+            if (CONFIG.AI_BUDGET !== 'insufficient' &amp;&amp; (CONFIG.CREATIVITY_LEVEL === 'creative' || CONFIG.CREATIVITY_LEVEL === 'innovative')) {
                 console.log('🔮 Stage 5: Strategic Career Insights');
                 enhancementPlan.strategic_insights = await this.generateStrategicInsights(currentCVData, activityMetrics);
             }
@@ -378,8 +406,8 @@ class CVContentEnhancer {
                                  (activityMetrics?.top_languages?.length || 3) >= 3 ? 'solid multi-language expertise with platform agility' :
                                  'deep specialization with focused technical mastery';
         
-        const professionalArchetype = CONFIG.ACTIVITY_SCORE >= 70 && (activityMetrics?.total_repos || 0) >= 20 ? 'prolific innovator' :
-                                     CONFIG.ACTIVITY_SCORE >= 50 && (activityMetrics?.total_repos || 0) >= 10 ? 'strategic technologist' :
+        const professionalArchetype = CONFIG.ACTIVITY_SCORE >= 70 &amp;&amp; (activityMetrics?.total_repos || 0) >= 20 ? 'prolific innovator' :
+                                     CONFIG.ACTIVITY_SCORE >= 50 &amp;&amp; (activityMetrics?.total_repos || 0) >= 10 ? 'strategic technologist' :
                                      'specialized expert';
 
         const messages = [
@@ -624,7 +652,7 @@ PROVIDE STRUCTURED JSON ANALYSIS:
                                    (activityMetrics?.total_repos || 0) >= 10 ? 'strategic technical contributor with impactful project selection' :
                                    'focused technical expert with high-impact project concentration';
         
-        const marketPositioning = CONFIG.ACTIVITY_SCORE >= 70 && (activityMetrics?.total_stars || 0) >= 50 ? 'industry-recognized technical leader ready for executive roles' :
+        const marketPositioning = CONFIG.ACTIVITY_SCORE >= 70 &amp;&amp; (activityMetrics?.total_stars || 0) >= 50 ? 'industry-recognized technical leader ready for executive roles' :
                                   CONFIG.ACTIVITY_SCORE >= 50 ? 'emerging technical authority positioned for senior leadership' :
                                   'specialized technical expert ready for expanded influence';
 
@@ -747,11 +775,11 @@ DELIVER STRUCTURED JSON ENHANCEMENT:
 5. Show progression from simple to sophisticated projects
 
 **Target Project Categories:**
-- AI/ML Systems & Autonomous Agents
-- Software Architecture & System Design
-- Real-time Processing & Edge Computing
-- Developer Tools & Automation
-- Research & Innovation Projects
+- AI/ML Systems &amp; Autonomous Agents
+- Software Architecture &amp; System Design
+- Real-time Processing &amp; Edge Computing
+- Developer Tools &amp; Automation
+- Research &amp; Innovation Projects
 
 **Enhancement Style:** ${CONFIG.CREATIVITY_LEVEL}
 
@@ -920,7 +948,7 @@ PROVIDE COMPREHENSIVE STRATEGIC ANALYSIS AS JSON:
                 innovation_profile: innovationProfile,
                 market_context: {
                     activity_score: CONFIG.ACTIVITY_SCORE,
-                    specialization: 'AI Engineering & Autonomous Systems Leadership',
+                    specialization: 'AI Engineering &amp; Autonomous Systems Leadership',
                     location_advantage: 'Tasmania, Australia (Global AI Collaboration Hub)',
                     innovation_focus: 'Autonomous AI Architecture, Human-AI Collaboration Leadership, Sustainable AI Development'
                 },
@@ -995,7 +1023,7 @@ PROVIDE COMPREHENSIVE STRATEGIC ANALYSIS AS JSON:
         return {
             enhancement_overview: {
                 total_stages_completed: Object.keys(enhancementPlan).filter(key => 
-                    key !== 'metadata' && key !== 'enhancement_summary'
+                    key !== 'metadata' &amp;&amp; key !== 'enhancement_summary'
                 ).length,
                 creativity_level: CONFIG.CREATIVITY_LEVEL,
                 ai_budget_used: CONFIG.AI_BUDGET,
@@ -1071,7 +1099,7 @@ PROVIDE COMPREHENSIVE STRATEGIC ANALYSIS AS JSON:
 
     extractSkillRecommendations(skillsData) {
         // Extract actionable recommendations from structured skills analysis
-        if (skillsData && skillsData.development_roadmap) {
+        if (skillsData &amp;&amp; skillsData.development_roadmap) {
             return [
                 ...skillsData.development_roadmap.immediate_priorities || [],
                 ...skillsData.development_roadmap.strategic_investments || [],
@@ -1122,4 +1150,26 @@ if (require.main === module) {
     main().catch(console.error);
 }
 
-module.exports = { CVContentEnhancer, CONFIG, ClaudeApiClient };
+module.exports = { CVContentEnhancer, CONFIG, ClaudeApiClient };</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ActivityAnalyzer.html">ActivityAnalyzer</a></li><li><a href="CVApplication.html">CVApplication</a></li><li><a href="CVContentEnhancer.html">CVContentEnhancer</a></li><li><a href="CVGenerator.html">CVGenerator</a></li><li><a href="ClaudeApiClient.html">ClaudeApiClient</a></li><li><a href="GitHubApiClient.html">GitHubApiClient</a></li></ul><h3>Global</h3><ul><li><a href="global.html#fs">fs</a></li><li><a href="global.html#https">https</a></li><li><a href="global.html#main">main</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jul 30 2025 04:45:15 GMT+1000 (Australian Eastern Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

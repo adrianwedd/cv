@@ -26,6 +26,7 @@
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "date-fns": "^2.30.0",
+    "jsdoc": "^4.0.4",
     "lodash": "^4.17.21",
     "marked": "^9.1.0",
     "node-cache": "^5.1.2"

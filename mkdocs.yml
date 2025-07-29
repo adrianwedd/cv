@@ -1,0 +1,59 @@
+site_name: AI-Enhanced CV System Documentation
+site_url: https://adrianwedd.github.io/cv/docs/
+site_description: Comprehensive technical documentation for the AI-Enhanced CV System.
+
+nav:
+  - Introduction: index.md
+  - System Architecture: architecture.md
+  - GitHub Actions Workflows: workflows.md
+  - Data Models: data_models.md
+  - Script Reference: script_reference.md
+  - Testing & Validation: testing.md
+  - API Integrations: api_integrations.md
+  - Deployment: deployment.md
+  - Contribution Guidelines: contributing.md
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/toggle-switch-on-outline
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+
+extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+
+# Extra CSS for custom styling (optional)
+extra_css:
+  - assets/extra.css
+
+# Extra JavaScript for custom functionality (optional)
+extra_javascript:
+  - assets/extra.js
