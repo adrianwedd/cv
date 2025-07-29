@@ -1,0 +1,4 @@
+.env
+agents/
+temp/
+temp_issue_body.txt

@@ -275,6 +275,11 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: 🌐 Install Browser Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3 libatk-bridge2.0-0 libxkbcommon0 libgbm-dev
+
       - name: 🔧 Install Dependencies
         run: |
           echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
@@ -400,6 +405,12 @@ jobs:
           echo "✅ CV website generated successfully"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📄 Generate PDF Asset
+        run: |
+          echo "📄 **GENERATING PDF VERSION OF CV**"
+          node .github/scripts/cv-generator.js
+          echo "✅ PDF asset generated successfully"
 
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
