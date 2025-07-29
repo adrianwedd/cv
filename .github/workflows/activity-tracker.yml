@@ -79,19 +79,19 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🔧 Install Activity Analysis Dependencies (Pre-cache)
+        run: |
+          echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES (PRE-CACHE)**"
+          cd .github/scripts
+          npm install
+          cd ../..
+          echo "✅ Analysis dependencies installed"
+
       - name: 📦 Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: 🔧 Install Activity Analysis Dependencies
-        run: |
-          echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES**"
-          cd .github/scripts
-          npm install
-          cd ../..
-          echo "✅ Analysis dependencies installed"
 
       - name: 📊 Comprehensive Repository Activity Analysis
         run: |
@@ -478,14 +478,14 @@ jobs:
           echo "  - Include Organizations: ${{ github.event.inputs.include_organizations || 'true' }}"
           echo ""
           echo "📊 **Activity Metrics**"
-          echo "  - Commits Analyzed: $COMMITS_COUNT"
-          echo "  - Active Days: $ACTIVE_DAYS"
-          echo "  - Net Lines Contributed: $NET_LINES"
+          echo "  - Commits Analyzed: ${COMMITS_COUNT:-0}"
+          echo "  - Active Days: ${ACTIVE_DAYS:-0}"
+          echo "  - Net Lines Contributed: ${NET_LINES:-0}"
           echo "  - Files Modified: $(git log --since="${{ github.event.inputs.lookback_period || 30 }} days ago" --name-only --pretty=format: | sort -u | wc -l)"
           echo ""
           echo "🎯 **Professional Development**"
-          echo "  - Development Velocity: $(echo "scale=3; $COMMITS_COUNT / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l) commits/day"
-          echo "  - Consistency Rating: $(echo "scale=1; $ACTIVE_DAYS * 100 / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l)%"
+          echo "  - Development Velocity: $(echo "scale=3; ${COMMITS_COUNT:-0} / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l) commits/day"
+          echo "  - Consistency Rating: $(echo "scale=1; ${ACTIVE_DAYS:-0} * 100 / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l)%"
           echo ""
           echo "🔗 **CV Integration**"
           echo "  - Data Ready: Yes"
