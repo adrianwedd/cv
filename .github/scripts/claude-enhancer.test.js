@@ -1,15 +1,16 @@
+const { test, suite, beforeEach, afterEach } = require('node:test');
 const assert = require('assert');
 const { CVContentEnhancer, ClaudeApiClient, CONFIG } = require('./claude-enhancer.js');
 const crypto = require('crypto');
 
-describe('ClaudeApiClient', () => {
+suite('ClaudeApiClient', () => {
     let client;
 
-    beforeEach(() => {
+    test.beforeEach(() => {
         client = new ClaudeApiClient('mock_api_key');
     });
 
-    it('should generate different cache keys for different source content', () => {
+    test('should generate different cache keys for different source content', () => {
         const messages = [{ role: 'user', content: 'test prompt' }];
         const temperature = 0.5;
         const maxTokens = 100;
@@ -24,7 +25,7 @@ describe('ClaudeApiClient', () => {
         assert.strictEqual(key1, key3, 'Keys should be the same for identical source content');
     });
 
-    it('should generate different cache keys for different messages', () => {
+    test('should generate different cache keys for different messages', () => {
         const temperature = 0.5;
         const maxTokens = 100;
         const sourceContent = 'some source';
@@ -42,10 +43,10 @@ describe('ClaudeApiClient', () => {
     });
 });
 
-describe('CVContentEnhancer', () => {
+suite('CVContentEnhancer', () => {
     let enhancer;
 
-    beforeEach(() => {
+    test.beforeEach(() => {
         process.env.ANTHROPIC_API_KEY = 'mock_key';
         enhancer = new CVContentEnhancer();
         // Mock the makeRequest to avoid actual API calls during testing
@@ -56,11 +57,11 @@ describe('CVContentEnhancer', () => {
         enhancer.loadActivityMetrics = async () => ({});
     });
 
-    afterEach(() => {
+    test.afterEach(() => {
         delete process.env.ANTHROPIC_API_KEY;
     });
 
-    it('should enhance professional summary', async () => {
+    test('should enhance professional summary', async () => {
         const result = await enhancer.enhanceProfessionalSummary({}, {});
         assert.strictEqual(result.enhanced.startsWith('Enhanced:'), true);
         assert.strictEqual(result.enhancement_applied, true);

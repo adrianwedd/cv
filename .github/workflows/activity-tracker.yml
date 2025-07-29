@@ -83,6 +83,7 @@ jobs:
         run: |
           echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES (PRE-CACHE)**"
           cd .github/scripts
+          npm cache clean --force
           npm install
           cd ../..
           echo "✅ Analysis dependencies installed"
@@ -511,10 +512,10 @@ jobs:
           ## 📈 Activity Metrics Summary
           | Metric | Value | Period |
           |--------|-------|--------|
-          | 📝 Total Commits | $COMMITS_COUNT | ${{ github.event.inputs.lookback_period || '30' }} days |
-          | 🎯 Active Days | $ACTIVE_DAYS | ${{ github.event.inputs.lookback_period || '30' }} days |
-          | 📊 Net Lines | $NET_LINES | ${{ github.event.inputs.lookback_period || '30' }} days |
-          | ⚡ Development Velocity | $(echo "scale=2; $COMMITS_COUNT / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l) commits/day | Average |
+          | 📝 Total Commits | ${{ env.COMMITS_COUNT }} | ${{ github.event.inputs.lookback_period || '30' }} days |
+          | 🎯 Active Days | ${{ env.ACTIVE_DAYS }} | ${{ github.event.inputs.lookback_period || '30' }} days |
+          | 📊 Net Lines | ${{ env.NET_LINES }} | ${{ github.event.inputs.lookback_period || '30' }} days |
+          | ⚡ Development Velocity | $(echo "scale=2; ${{ env.COMMITS_COUNT }} / ${{ github.event.inputs.lookback_period || 30 }}" | bc -l) commits/day | Average |
           
           ## 🔄 Data Collection Status
           | Component | Status | Details |
@@ -536,3 +537,7 @@ jobs:
           ---
           *Activity Intelligence Tracker v${{ env.TRACKER_VERSION }} - Continuous Professional Development Monitoring*
           EOF
+        env:
+          COMMITS_COUNT: ${{ env.COMMITS_COUNT }}
+          ACTIVE_DAYS: ${{ env.ACTIVE_DAYS }}
+          NET_LINES: ${{ env.NET_LINES }}
