@@ -235,6 +235,7 @@ class CVApplication {
             }
             
             const activityData = await response.json();
+            // Fixed: correct path to languages array
             const languages = activityData?.repositories?.summary?.languages || [];
             
             return languages.length;
