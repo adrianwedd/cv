@@ -22,8 +22,9 @@ const puppeteer = require('puppeteer');
 const path = require('path');
 
 // Determine if we're running from .github/scripts or from project root
-const isRunningFromScripts = __dirname.endsWith('.github/scripts');
-const rootPrefix = isRunningFromScripts ? '../..' : '.';
+// Check if current working directory is the project root (contains package.json)
+const isRunningFromRoot = require('fs').existsSync(path.join(process.cwd(), 'package.json'));
+const rootPrefix = isRunningFromRoot ? '.' : '../..';
 
 // Configuration
 const CONFIG = {
