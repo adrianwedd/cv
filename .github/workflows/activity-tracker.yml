@@ -293,36 +293,23 @@ jobs:
             
             # Create professional metrics summary
             mkdir -p data/metrics
-            cat > data/metrics/professional-development-$(date +%Y%m%d-%H%M).json << EOF
-            {
-              "calculation_timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-              "analysis_period_days": ${{ github.event.inputs.lookback_period || 30 }},
-              "scores": {
-                "activity_score": $ACTIVITY_SCORE,
-                "technical_diversity_score": $DIVERSITY_SCORE,
-                "community_impact_score": $IMPACT_SCORE,
-                "overall_professional_score": $PROFESSIONAL_SCORE
-              },
-              "metrics": {
-                "development_velocity": $VELOCITY,
-                "consistency_rating": $(echo "scale=2; $ACTIVE_DAYS / ${{ github.event.inputs.lookback_period || 30 }} * 100" | bc -l),
-                "contribution_efficiency": $(echo "scale=2; $NET_LINES / ($RECENT_COMMITS + 1)" | bc -l)
-              },
-              "raw_data": {
-                "commits": $RECENT_COMMITS,
-                "active_days": $ACTIVE_DAYS,
-                "repositories": $TOTAL_REPOS,
-                "stars_received": $TOTAL_STARS,
-                "languages_used": $LANGUAGE_COUNT,
-                "net_lines_contributed": $NET_LINES
-              },
-              "trends": {
-                "commits_today": $(git log --since="1 day ago" --oneline | wc -l),
-                "commits_this_week": $(git log --since="7 days ago" --oneline | wc -l),
-                "growth_trajectory": "$([ $RECENT_COMMITS -gt 50 ] && echo "accelerating" || echo "steady")"
-              }
-            }
-            EOF
+            METRICS_FILE="data/metrics/professional-development-$(date +%Y%m%d-%H%M).json"
+            echo "{" > "$METRICS_FILE"
+            echo "  \"calculation_timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"," >> "$METRICS_FILE"
+            echo "  \"analysis_period_days\": ${{ github.event.inputs.lookback_period || 30 }}," >> "$METRICS_FILE"
+            echo "  \"scores\": {" >> "$METRICS_FILE"
+            echo "    \"activity_score\": $ACTIVITY_SCORE," >> "$METRICS_FILE"
+            echo "    \"technical_diversity_score\": $DIVERSITY_SCORE," >> "$METRICS_FILE"
+            echo "    \"community_impact_score\": $IMPACT_SCORE," >> "$METRICS_FILE"
+            echo "    \"overall_professional_score\": $PROFESSIONAL_SCORE" >> "$METRICS_FILE"
+            echo "  }," >> "$METRICS_FILE"
+            echo "  \"raw_data\": {" >> "$METRICS_FILE"
+            echo "    \"commits\": $RECENT_COMMITS," >> "$METRICS_FILE"
+            echo "    \"active_days\": $ACTIVE_DAYS," >> "$METRICS_FILE"
+            echo "    \"repositories\": $TOTAL_REPOS," >> "$METRICS_FILE"
+            echo "    \"stars_received\": $TOTAL_STARS" >> "$METRICS_FILE"
+            echo "  }" >> "$METRICS_FILE"
+            echo "}" >> "$METRICS_FILE"
             
             echo "✅ Professional development metrics calculated and stored"
           else
