@@ -21,12 +21,16 @@ const fs = require('fs').promises;
 const puppeteer = require('puppeteer');
 const path = require('path');
 
+// Determine if we're running from .github/scripts or from project root
+const isRunningFromScripts = __dirname.endsWith('.github/scripts');
+const rootPrefix = isRunningFromScripts ? '../..' : '.';
+
 // Configuration
 const CONFIG = {
-    INPUT_DIR: '../..',
-    OUTPUT_DIR: '../../dist',
-    DATA_DIR: '../../data',
-    ASSETS_DIR: '../../assets',
+    INPUT_DIR: rootPrefix,
+    OUTPUT_DIR: path.join(rootPrefix, 'dist'),
+    DATA_DIR: path.join(rootPrefix, 'data'),
+    ASSETS_DIR: path.join(rootPrefix, 'assets'),
     TEMPLATE_FILE: 'index.html',
     SITE_URL: 'https://adrianwedd.github.io/cv',
     GITHUB_USERNAME: 'adrianwedd'
