@@ -21,26 +21,28 @@ const fs = require('fs').promises;
 const puppeteer = require('puppeteer');
 const path = require('path');
 
-// Determine root directory by finding package.json
-// This works whether we're run from root or from .github/scripts
+// Determine root directory by checking for project-specific files
+// We look for index.html as the definitive indicator of project root
 let rootPrefix = '.';
 
-// Check if we're in the project root (has package.json)
-if (require('fs').existsSync(path.join(process.cwd(), 'package.json'))) {
+console.log(`📂 Current working directory: ${process.cwd()}`);
+
+// Check if index.html exists in current directory (we're in project root)
+if (require('fs').existsSync(path.join(process.cwd(), 'index.html'))) {
     rootPrefix = '.';
-    console.log('🔍 Detected execution from project root');
-} else if (require('fs').existsSync(path.join(process.cwd(), '../../package.json'))) {
+    console.log('🔍 Found index.html in current directory - we are in project root');
+} else if (require('fs').existsSync(path.join(process.cwd(), '../../index.html'))) {
     // We're likely in .github/scripts
     rootPrefix = '../..';
-    console.log('🔍 Detected execution from .github/scripts directory');
+    console.log('🔍 Found index.html two levels up - we are in .github/scripts');
 } else {
-    // Try to find package.json by walking up the directory tree
+    // Try to find index.html by walking up the directory tree
     let currentDir = process.cwd();
     let levelsUp = 0;
     while (levelsUp < 5) {
-        if (require('fs').existsSync(path.join(currentDir, 'package.json'))) {
+        if (require('fs').existsSync(path.join(currentDir, 'index.html'))) {
             rootPrefix = '../'.repeat(levelsUp) || '.';
-            console.log(`🔍 Found package.json ${levelsUp} levels up`);
+            console.log(`🔍 Found index.html ${levelsUp} levels up`);
             break;
         }
         currentDir = path.dirname(currentDir);
@@ -49,7 +51,6 @@ if (require('fs').existsSync(path.join(process.cwd(), 'package.json'))) {
 }
 
 console.log(`🎯 Using root prefix: "${rootPrefix}"`);
-console.log(`📂 Current working directory: ${process.cwd()}`);
 console.log(`📍 Looking for index.html at: ${path.join(rootPrefix, 'index.html')}`);
 
 // Configuration
