@@ -23,8 +23,14 @@ const path = require('path');
 
 // Determine if we're running from .github/scripts or from project root
 // Check if current working directory is the project root (contains package.json)
-const isRunningFromRoot = require('fs').existsSync(path.join(process.cwd(), 'package.json'));
-const rootPrefix = isRunningFromRoot ? '.' : '../..';
+// If not in root, check if we're in .github/scripts (two levels down from root)
+let rootPrefix = '.';
+if (!require('fs').existsSync(path.join(process.cwd(), 'package.json'))) {
+    // Check if we're in .github/scripts by looking for package.json two levels up
+    if (require('fs').existsSync(path.join(process.cwd(), '../../package.json'))) {
+        rootPrefix = '../..';
+    }
+}
 
 // Configuration
 const CONFIG = {
