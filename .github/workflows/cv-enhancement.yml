@@ -154,7 +154,7 @@ jobs:
           
           # Check if core CV files exist
           CV_DATA_EXISTS=$([ -f "data/base-cv.json" ] && echo "true" || echo "false")
-          ACTIVITY_DATA_EXISTS=$([ -f "data/activity-metrics.json" ] && echo "true" || echo "false")
+          ACTIVITY_DATA_EXISTS=$([ -f "data/activity-summary.json" ] && echo "true" || echo "false")
           AI_DATA_EXISTS=$([ -f "data/ai-enhancements.json" ] && echo "true" || echo "false")
           
           # Calculate content health score
@@ -330,32 +330,8 @@ jobs:
           RECENT_ADDITIONS=$(git log --since="30 days ago" --numstat | awk '{add += $1} END {print add+0}')
           RECENT_DELETIONS=$(git log --since="30 days ago" --numstat | awk '{del += $2} END {print del+0}')
           
-          # Create comprehensive activity metrics
-          mkdir -p data
-          cat > data/activity-metrics.json << EOF
-          {
-            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "user_profile": $USER_DATA,
-            "repositories": {
-              "total_count": $(echo "$REPOS_DATA" | jq 'length'),
-              "total_stars": $(echo "$REPOS_DATA" | jq '[.[] | .stargazers_count] | add // 0'),
-              "total_forks": $(echo "$REPOS_DATA" | jq '[.[] | .forks_count] | add // 0'),
-              "languages": $LANGUAGES_DATA
-            },
-            "activity_30d": {
-              "commits": $RECENT_COMMITS,
-              "lines_added": $RECENT_ADDITIONS,
-              "lines_deleted": $RECENT_DELETIONS,
-              "net_contribution": $((RECENT_ADDITIONS - RECENT_DELETIONS)),
-              "active_days": $(git log --since="30 days ago" --format="%ad" --date=short | sort -u | wc -l)
-            },
-            "professional_metrics": {
-              "activity_score": ${{ needs.cv-intelligence-analysis.outputs.activity-score }},
-              "contribution_velocity": $(echo "scale=2; $RECENT_COMMITS / 30" | bc -l),
-              "code_quality_ratio": $(echo "scale=3; $RECENT_ADDITIONS / ($RECENT_ADDITIONS + $RECENT_DELETIONS + 1)" | bc -l)
-            }
-          }
-          EOF
+          # Note: Activity metrics are now handled by the dedicated Activity Tracker workflow
+          # This ensures consistency and avoids duplicate data generation
           
           echo "✅ GitHub activity data collected and processed"
         env:
