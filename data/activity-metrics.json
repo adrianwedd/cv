@@ -49,7 +49,7 @@
   },
   "professional_metrics": {
     "activity_score": 15.00,
-    "contribution_velocity": .26,
+    "contribution_velocity": 0.26,
     "code_quality_ratio": 0
   }
 }
