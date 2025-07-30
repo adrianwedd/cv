@@ -23,11 +23,11 @@ const path = require('path');
 
 // Configuration
 const CONFIG = {
-    INPUT_DIR: '.',
-    OUTPUT_DIR: 'dist',
-    DATA_DIR: 'data',
-    ASSETS_DIR: 'assets',
-    TEMPLATE_FILE: 'index.html',
+    INPUT_DIR: '../..',
+    OUTPUT_DIR: '../../dist',
+    DATA_DIR: '../../data',
+    ASSETS_DIR: '../../assets',
+    TEMPLATE_FILE: '../../index.html',
     SITE_URL: 'https://adrianwedd.github.io/cv',
     GITHUB_USERNAME: 'adrianwedd'
 };
