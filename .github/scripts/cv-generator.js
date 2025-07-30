@@ -21,16 +21,36 @@ const fs = require('fs').promises;
 const puppeteer = require('puppeteer');
 const path = require('path');
 
-// Determine if we're running from .github/scripts or from project root
-// Check if current working directory is the project root (contains package.json)
-// If not in root, check if we're in .github/scripts (two levels down from root)
+// Determine root directory by finding package.json
+// This works whether we're run from root or from .github/scripts
 let rootPrefix = '.';
-if (!require('fs').existsSync(path.join(process.cwd(), 'package.json'))) {
-    // Check if we're in .github/scripts by looking for package.json two levels up
-    if (require('fs').existsSync(path.join(process.cwd(), '../../package.json'))) {
-        rootPrefix = '../..';
+
+// Check if we're in the project root (has package.json)
+if (require('fs').existsSync(path.join(process.cwd(), 'package.json'))) {
+    rootPrefix = '.';
+    console.log('🔍 Detected execution from project root');
+} else if (require('fs').existsSync(path.join(process.cwd(), '../../package.json'))) {
+    // We're likely in .github/scripts
+    rootPrefix = '../..';
+    console.log('🔍 Detected execution from .github/scripts directory');
+} else {
+    // Try to find package.json by walking up the directory tree
+    let currentDir = process.cwd();
+    let levelsUp = 0;
+    while (levelsUp < 5) {
+        if (require('fs').existsSync(path.join(currentDir, 'package.json'))) {
+            rootPrefix = '../'.repeat(levelsUp) || '.';
+            console.log(`🔍 Found package.json ${levelsUp} levels up`);
+            break;
+        }
+        currentDir = path.dirname(currentDir);
+        levelsUp++;
     }
 }
+
+console.log(`🎯 Using root prefix: "${rootPrefix}"`);
+console.log(`📂 Current working directory: ${process.cwd()}`);
+console.log(`📍 Looking for index.html at: ${path.join(rootPrefix, 'index.html')}`);
 
 // Configuration
 const CONFIG = {
