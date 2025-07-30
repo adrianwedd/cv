@@ -1,0 +1,17 @@
+{
+  "last_verification": "2025-07-30T03:58:15.366Z",
+  "summary": {
+    "total_claims_analyzed": 0,
+    "verified_claims": 0,
+    "unverified_claims": 0,
+    "flagged_discrepancies": 0,
+    "overall_confidence": 0
+  },
+  "urgent_recommendations": [
+    {
+      "type": "critical",
+      "message": "Overall confidence score is low (0.0%)",
+      "action": "Revise AI prompts to focus on verifiable achievements and metrics"
+    }
+  ]
+}
