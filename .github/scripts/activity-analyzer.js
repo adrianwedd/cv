@@ -21,9 +21,9 @@
  * - LOOKBACK_DAYS: Number of days to analyze (default: 30)
  */
 
-const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
+const { httpRequest, sleep } = require('./utils/apiClient');
 
 // Configuration
 const CONFIG = {
@@ -85,7 +85,7 @@ class GitHubApiClient {
         if (this.rateLimitRemaining < 100 && Date.now() < this.rateLimitReset) {
             const waitTime = this.rateLimitReset - Date.now();
             console.log(`⏳ Rate limit protection: waiting ${Math.ceil(waitTime / 1000)}s`);
-            await this.sleep(waitTime);
+            await sleep(waitTime);
         }
 
         const url = `${CONFIG.API_BASE_URL}${endpoint}`;
@@ -101,7 +101,7 @@ class GitHubApiClient {
 
         try {
             console.log(`🌐 API Request: ${endpoint}`);
-            const response = await this.httpRequest(url, requestOptions);
+            const response = await httpRequest(url, requestOptions);
             
             // Update rate limit info
             this.rateLimitRemaining = parseInt(response.headers['x-ratelimit-remaining']) || this.rateLimitRemaining;
@@ -120,57 +120,6 @@ class GitHubApiClient {
             console.error(`❌ API request failed for ${endpoint}:`, error.message);
             throw error;
         }
-    }
-
-    /**
-     * HTTP request wrapper with Promise support
-     */
-    async httpRequest(url, options, maxRetries = 3, retryDelay = 1000) {
-        for (let i = 0; i < maxRetries; i++) {
-            try {
-                return await new Promise((resolve, reject) => {
-                    const req = https.request(url, options, (res) => {
-                        let body = '';
-                        res.on('data', chunk => body += chunk);
-                        res.on('end', () => {
-                            if (res.statusCode >= 200 && res.statusCode < 300) {
-                                resolve({ body, headers: res.headers, statusCode: res.statusCode });
-                            } else if (res.statusCode >= 500 || res.statusCode === 429) { // Retry on 5xx or Too Many Requests
-                                reject(new Error(`HTTP ${res.statusCode}: ${body}`));
-                            } else {
-                                reject(new Error(`HTTP ${res.statusCode}: ${body}`));
-                            }
-                        });
-                    });
-
-                    req.on('error', reject);
-                    req.setTimeout(30000, () => {
-                        req.destroy();
-                        reject(new Error('Request timeout'));
-                    });
-
-                    if (options.body) {
-                        req.write(options.body);
-                    }
-                    req.end();
-                });
-            } catch (error) {
-                if (i < maxRetries - 1) {
-                    const delay = retryDelay * Math.pow(2, i);
-                    console.warn(`Retrying ${url} in ${delay}ms due to error: ${error.message}`);
-                    await this.sleep(delay);
-                } else {
-                    throw error; // Last retry failed
-                }
-            }
-        }
-    }
-
-    /**
-     * Sleep utility for rate limiting
-     */
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 

@@ -22,10 +22,10 @@
  * - ACTIVITY_SCORE: Current GitHub activity score for context
  */
 
-const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
+const { httpRequest, sleep } = require('./utils/apiClient');
 
 // Configuration
 const CONFIG = {
@@ -165,7 +165,7 @@ class ClaudeApiClient {
                 if (i < maxRetries - 1) {
                     const delay = retryDelay * Math.pow(2, i);
                     console.warn(`Retrying ${url} in ${delay}ms due to error: ${error.message}`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
+                    await sleep(delay);
                 } else {
                     throw error; // Last retry failed
                 }
