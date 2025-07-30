@@ -357,6 +357,42 @@ jobs:
             echo "⚠️ Claude AI enhancement failed, continuing with existing content"
           fi
           cd ../..
+          
+      - name: 🔍 AI Claim Verification
+        if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
+        run: |
+          echo "🔍 **VERIFYING AI-GENERATED CLAIMS AGAINST GITHUB DATA**"
+          echo "📊 Cross-referencing quantifiable claims with actual metrics..."
+          echo ""
+          
+          cd .github/scripts
+          if node claim-verifier.js; then
+            echo "✅ Claim verification completed successfully"
+            
+            # Display verification summary
+            if [ -f "../../data/verification-summary.json" ]; then
+              echo ""
+              echo "📋 **VERIFICATION SUMMARY:**"
+              cat ../../data/verification-summary.json | jq -r '
+                "📊 Last Verification: " + .last_verification,
+                "✅ Total Claims: " + (.summary.total_claims_analyzed | tostring),
+                "✅ Verified: " + (.summary.verified_claims | tostring),
+                "⚠️ Unverified: " + (.summary.unverified_claims | tostring),
+                "🚨 Flagged: " + (.summary.flagged_discrepancies | tostring),
+                "🎯 Confidence: " + ((.summary.overall_confidence * 100) | round | tostring) + "%"
+              '
+              
+              # Show urgent recommendations
+              if [ $(cat ../../data/verification-summary.json | jq '.urgent_recommendations | length') -gt 0 ]; then
+                echo ""
+                echo "🚨 **URGENT RECOMMENDATIONS:**"
+                cat ../../data/verification-summary.json | jq -r '.urgent_recommendations[] | "- " + .message'
+              fi
+            fi
+          else
+            echo "⚠️ Claim verification failed, continuing with enhanced content"
+          fi
+          cd ../..
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
