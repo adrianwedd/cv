@@ -392,15 +392,35 @@ jobs:
         run: |
           echo "📊 **CALCULATING PROFESSIONAL DEVELOPMENT METRICS**"
           
-          # Load activity data
-          if [ -f "data/activity-metrics.json" ]; then
-            ACTIVITY_SCORE=$(jq -r '.professional_metrics.activity_score' data/activity-metrics.json)
-            CONTRIB_VELOCITY=$(jq -r '.professional_metrics.contribution_velocity' data/activity-metrics.json)
+          # Load activity data from the new activity summary structure
+          if [ -f "data/activity-summary.json" ]; then
+            # Extract basic activity metrics
+            TOTAL_COMMITS=$(jq -r '.summary.total_commits // 0' data/activity-summary.json)
+            ACTIVE_DAYS=$(jq -r '.summary.active_days // 0' data/activity-summary.json)
+            NET_LINES=$(jq -r '.summary.net_lines_contributed // 0' data/activity-summary.json)
+            LOOKBACK_DAYS=$(jq -r '.lookback_period_days // 30' data/activity-summary.json)
             
-            # Calculate additional metrics
-            TOTAL_REPOS=$(jq -r '.repositories.total_count' data/activity-metrics.json)
-            TOTAL_STARS=$(jq -r '.repositories.total_stars' data/activity-metrics.json)
-            LANGUAGE_DIVERSITY=$(jq -r '.repositories.languages | length' data/activity-metrics.json)
+            # Calculate professional metrics
+            CONTRIB_VELOCITY=$(echo "scale=2; $TOTAL_COMMITS / $LOOKBACK_DAYS" | bc -l)
+            ACTIVITY_SCORE=$(echo "scale=2; ($TOTAL_COMMITS * 3 + $ACTIVE_DAYS * 5) / 2" | bc -l)
+            
+            # Load additional data from latest activity file if available
+            LATEST_ACTIVITY=$(jq -r '.data_files.latest_activity // ""' data/activity-summary.json)
+            if [ -n "$LATEST_ACTIVITY" ] && [ -f "data/activity/$LATEST_ACTIVITY" ]; then
+              TOTAL_REPOS=$(jq -r '.repositories.summary.total_count // 0' "data/activity/$LATEST_ACTIVITY")
+              TOTAL_STARS=$(jq -r '.repositories.summary.total_stars // 0' "data/activity/$LATEST_ACTIVITY")
+              LANGUAGE_DIVERSITY=$(jq -r '.repositories.summary.languages | length // 0' "data/activity/$LATEST_ACTIVITY")
+            else
+              # Fallback values
+              TOTAL_REPOS=0
+              TOTAL_STARS=0
+              LANGUAGE_DIVERSITY=0
+            fi
+            
+            # Cap scores at reasonable maximums
+            if (( $(echo "$ACTIVITY_SCORE > 100" | bc -l) )); then
+              ACTIVITY_SCORE=100
+            fi
             
             # Professional growth indicators
             GROWTH_SCORE=$(echo "scale=2; ($ACTIVITY_SCORE + ($TOTAL_STARS * 0.5) + ($LANGUAGE_DIVERSITY * 2)) / 3" | bc -l)
@@ -414,7 +434,13 @@ jobs:
             echo "  - Professional Growth Score: $GROWTH_SCORE/100"
             echo ""
           else
-            echo "⚠️ Activity metrics not available, using defaults"
+            echo "⚠️ Activity summary not available, using defaults"
+            ACTIVITY_SCORE=50
+            CONTRIB_VELOCITY=1.0
+            TOTAL_REPOS=10
+            TOTAL_STARS=5
+            LANGUAGE_DIVERSITY=3
+            GROWTH_SCORE=40
           fi
 
       - name: 🎨 Dynamic CV Website Generation
