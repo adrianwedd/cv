@@ -17,6 +17,15 @@
       "estimated_tokens": 8000,
       "activity_score": 34.50,
       "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-30 13:50 AEST",
+      "utc_timestamp": "2025-07-30T03:50:35Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 37.50,
+      "outcome": "success"
     }
   ],
   "enhancement_history": [
@@ -30,6 +39,12 @@
       "date": "2025-07-30",
       "mode": "comprehensive",
       "activity_score": 34.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 37.50,
       "success": true
     }
   ],
