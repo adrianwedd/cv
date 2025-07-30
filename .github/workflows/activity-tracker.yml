@@ -117,10 +117,16 @@ jobs:
             grep -E '\.(js|ts|jsx|tsx|py|go|rs|java|cpp|c|php|rb|swift|kt|yml|yaml|md|json|html|css|scss|sass|vue|svelte)$' | \
             sed 's/.*\.//' | sort | uniq -c | sort -nr > temp_languages.txt
           
-          # Code change metrics
-          LINES_ADDED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{add += $1} END {print add+0}')
-          LINES_REMOVED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{del += $2} END {print del+0}')
+          # Code change metrics (with safety bounds)
+          LINES_ADDED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{if($1 != "-") add += $1} END {print add+0}')
+          LINES_REMOVED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{if($2 != "-") del += $2} END {print del+0}')
           NET_LINES=$((LINES_ADDED - LINES_REMOVED))
+          
+          # Cap extreme values (likely binary files or data corruption)
+          if [ ${NET_LINES#-} -gt 1000000 ]; then
+            echo "⚠️ Extreme NET_LINES value detected ($NET_LINES), capping to reasonable range"
+            NET_LINES=0
+          fi
           
           # File change analysis
           FILES_CHANGED=$(git log --since="${LOOKBACK_DAYS} days ago" --name-only --pretty=format: | sort -u | wc -l)
@@ -246,6 +252,7 @@ jobs:
             # Extract key metrics for professional assessment
             TOTAL_REPOS=$(jq -r '.repositories.summary.total_count' "$LATEST_ACTIVITY")
             TOTAL_STARS=$(jq -r '.repositories.summary.total_stars' "$LATEST_ACTIVITY")
+            TOTAL_FORKS=$(jq -r '.repositories.summary.total_forks' "$LATEST_ACTIVITY")
             LANGUAGE_COUNT=$(jq -r '.repositories.summary.languages | length' "$LATEST_ACTIVITY")
             RECENT_COMMITS=$COMMITS_COUNT
             ACTIVE_DAYS=$ACTIVE_DAYS
