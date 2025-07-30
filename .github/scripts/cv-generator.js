@@ -353,6 +353,30 @@ class CVGenerator {
                 }
             }
 
+            // Copy activity data directory if it exists
+            try {
+                const activitySourceDir = path.join(CONFIG.DATA_DIR, 'activity');
+                const activityOutputDir = path.join(dataOutputDir, 'activity');
+                
+                const activityExists = await fs.access(activitySourceDir).then(() => true).catch(() => false);
+                if (activityExists) {
+                    await fs.mkdir(activityOutputDir, { recursive: true });
+                    
+                    // Copy all activity files
+                    const activityFiles = await fs.readdir(activitySourceDir);
+                    for (const file of activityFiles) {
+                        if (file.endsWith('.json')) {
+                            const sourcePath = path.join(activitySourceDir, file);
+                            const targetPath = path.join(activityOutputDir, file);
+                            await fs.copyFile(sourcePath, targetPath);
+                        }
+                    }
+                    console.log(`✅ Activity data directory copied (${activityFiles.length} files)`);
+                }
+            } catch (error) {
+                console.warn('⚠️ Could not copy activity directory:', error.message);
+            }
+
             console.log('✅ Assets copied successfully');
 
         } catch (error) {
