@@ -25,16 +25,12 @@ const path = require('path');
 // We look for index.html as the definitive indicator of project root
 let rootPrefix = '.';
 
-console.log(`📂 Current working directory: ${process.cwd()}`);
-
 // Check if index.html exists in current directory (we're in project root)
 if (require('fs').existsSync(path.join(process.cwd(), 'index.html'))) {
     rootPrefix = '.';
-    console.log('🔍 Found index.html in current directory - we are in project root');
 } else if (require('fs').existsSync(path.join(process.cwd(), '../../index.html'))) {
     // We're likely in .github/scripts
     rootPrefix = '../..';
-    console.log('🔍 Found index.html two levels up - we are in .github/scripts');
 } else {
     // Try to find index.html by walking up the directory tree
     let currentDir = process.cwd();
@@ -42,16 +38,12 @@ if (require('fs').existsSync(path.join(process.cwd(), 'index.html'))) {
     while (levelsUp < 5) {
         if (require('fs').existsSync(path.join(currentDir, 'index.html'))) {
             rootPrefix = '../'.repeat(levelsUp) || '.';
-            console.log(`🔍 Found index.html ${levelsUp} levels up`);
             break;
         }
         currentDir = path.dirname(currentDir);
         levelsUp++;
     }
 }
-
-console.log(`🎯 Using root prefix: "${rootPrefix}"`);
-console.log(`📍 Looking for index.html at: ${path.join(rootPrefix, 'index.html')}`);
 
 // Configuration
 const CONFIG = {
