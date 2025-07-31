@@ -176,171 +176,110 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Load initial dashboard data
+     * Load initial dashboard data from pre-processed static file
      */
     async loadInitialData() {
-        console.log('📊 Loading initial dashboard data...');
+        console.log('📊 Loading initial dashboard data from static source...');
         
-        const promises = [
-            this.loadUserActivity(),
-            this.loadRepositoryData(),
-            this.loadRecentCommits(),
-            this.loadIssuesAndPRs()
-        ];
-
         try {
-            const results = await Promise.allSettled(promises);
+            // Load pre-processed data from static JSON file
+            const dashboardData = await this.loadStaticDashboardData();
             
-            // Process results
-            this.processUserActivity(results[0].status === 'fulfilled' ? results[0].value : []);
-            this.processRepositoryData(results[1].status === 'fulfilled' ? results[1].value : []);
-            this.processCommitsData(results[2].status === 'fulfilled' ? results[2].value : []);
-            this.processIssuesData(results[3].status === 'fulfilled' ? results[3].value : []);
+            if (!dashboardData) {
+                throw new Error('No dashboard data available');
+            }
+            
+            console.log('✅ Loaded pre-processed dashboard data');
+            console.log(`📊 Data generated: ${dashboardData.metadata?.generated_at || 'unknown'}`);
+            console.log(`📈 Activities: ${dashboardData.activities?.length || 0}`);
+            console.log(`📦 Repositories: ${dashboardData.repositories?.length || 0}`);
+            
+            // Process loaded data
+            this.processDashboardData(dashboardData);
             
             // Update UI
             this.updateMetrics();
             this.updateActivityTimeline();
             this.updateRepositoryGrid();
             
-            this.lastRefresh = new Date();
+            this.lastRefresh = new Date(dashboardData.metadata?.generated_at || new Date());
             this.updateFooterTimestamp();
             
+            // Update repository list for filters
+            CONFIG.REPOSITORIES = dashboardData.repositories?.map(repo => repo.name) || [];
+            this.initializeFilters();
+            
         } catch (error) {
-            console.error('❌ Failed to load initial data:', error);
+            console.error('❌ Failed to load dashboard data:', error);
+            this.showErrorState(error);
         }
     }
 
     /**
-     * Load user activity from GitHub API
+     * Load static dashboard data from pre-processed JSON file
      */
-    async loadUserActivity() {
+    async loadStaticDashboardData() {
         try {
-            const response = await fetch(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=100`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            console.log('📁 Loading static dashboard data...');
             
-            return await response.json();
+            const response = await fetch('data/watch-me-work-data.json');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: Could not load dashboard data`);
+            }
+            
+            const data = await response.json();
+            console.log(`📊 Loaded dashboard data (generated: ${data.metadata?.generated_at || 'unknown'})`);
+            
+            return data;
         } catch (error) {
-            console.warn('⚠️ Could not load user activity:', error.message);
-            return [];
-        }
-    }
-
-    /**
-     * Load repository data (filtering forks unless recently active)
-     */
-    async loadRepositoryData() {
-        try {
-            const response = await fetch(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            console.warn('⚠️ Could not load static dashboard data:', error.message);
             
-            const allRepos = await response.json();
+            // Fallback: try to load from alternative locations
+            const fallbackUrls = [
+                './data/watch-me-work-data.json',
+                '../data/watch-me-work-data.json'
+            ];
             
-            // Filter repositories: include non-forks OR forks with recent activity
-            const filteredRepos = [];
-            const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-            
-            for (const repo of allRepos) {
-                if (!repo.fork) {
-                    // Include all non-fork repositories
-                    filteredRepos.push(repo);
-                } else {
-                    // For forks, check if we have recent commits
-                    try {
-                        const commitsResponse = await fetch(
-                            `${CONFIG.GITHUB_API}/repos/${repo.full_name}/commits?author=${CONFIG.USERNAME}&since=${thirtyDaysAgo.toISOString()}&per_page=1`
-                        );
-                        if (commitsResponse.ok) {
-                            const commits = await commitsResponse.json();
-                            if (commits.length > 0) {
-                                // Include fork if we have recent commits
-                                filteredRepos.push({
-                                    ...repo,
-                                    _isForkWithActivity: true
-                                });
-                            }
-                        }
-                        // Add small delay to avoid rate limiting
-                        await new Promise(resolve => setTimeout(resolve, 100));
-                    } catch (error) {
-                        console.warn(`⚠️ Could not check fork activity for ${repo.name}:`, error.message);
+            for (const url of fallbackUrls) {
+                try {
+                    console.log(`🔄 Trying fallback location: ${url}`);
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(`✅ Loaded from fallback: ${url}`);
+                        return data;
                     }
+                } catch (fallbackError) {
+                    console.warn(`⚠️ Fallback failed for ${url}:`, fallbackError.message);
                 }
             }
             
-            // Update CONFIG.REPOSITORIES with active repository names
-            CONFIG.REPOSITORIES = filteredRepos.map(repo => repo.name);
-            
-            console.log(`📊 Loaded ${filteredRepos.length} repositories (${allRepos.length - filteredRepos.length} forks filtered out)`);
-            return filteredRepos;
-            
-        } catch (error) {
-            console.warn('⚠️ Could not load repository data:', error.message);
-            return [];
+            return null;
         }
     }
 
     /**
-     * Load recent commits across repositories
+     * Process dashboard data from static file
      */
-    async loadRecentCommits() {
-        const commits = [];
-        const since = this.getTimeRangeDate();
+    processDashboardData(dashboardData) {
+        // Extract data components
+        this.metadata = dashboardData.metadata || {};
+        this.userInfo = dashboardData.user || {};
+        this.precomputedMetrics = dashboardData.metrics || {};
+        this.activities = dashboardData.activities || [];
+        this.repositories = new Map();
+        this.recentCommits = dashboardData.recent_commits || [];
+        this.recentIssues = dashboardData.recent_issues || [];
+        this.timeline = dashboardData.timeline || [];
         
-        for (const repo of CONFIG.REPOSITORIES) {
-            try {
-                const response = await fetch(
-                    `${CONFIG.GITHUB_API}/repos/${CONFIG.USERNAME}/${repo}/commits?author=${CONFIG.USERNAME}&since=${since.toISOString()}&per_page=10`
-                );
-                
-                if (response.ok) {
-                    const repoCommits = await response.json();
-                    commits.push(...repoCommits.map(commit => ({
-                        ...commit,
-                        repository: repo
-                    })));
-                }
-                
-                // Rate limiting protection
-                await this.sleep(100);
-            } catch (error) {
-                console.warn(`⚠️ Could not load commits for ${repo}:`, error.message);
-            }
+        // Process repositories
+        if (dashboardData.repositories) {
+            dashboardData.repositories.forEach(repo => {
+                this.repositories.set(repo.name, repo);
+            });
         }
         
-        return commits.sort((a, b) => new Date(b.commit.author.date) - new Date(a.commit.author.date));
-    }
-
-    /**
-     * Load issues and pull requests
-     */
-    async loadIssuesAndPRs() {
-        const issues = [];
-        const since = this.getTimeRangeDate();
-        
-        for (const repo of CONFIG.REPOSITORIES) {
-            try {
-                // Load issues
-                const issuesResponse = await fetch(
-                    `${CONFIG.GITHUB_API}/repos/${CONFIG.USERNAME}/${repo}/issues?state=all&since=${since.toISOString()}&per_page=20`
-                );
-                
-                if (issuesResponse.ok) {
-                    const repoIssues = await issuesResponse.json();
-                    issues.push(...repoIssues.map(issue => ({
-                        ...issue,
-                        repository: repo,
-                        type: issue.pull_request ? 'pull_request' : 'issue'
-                    })));
-                }
-                
-                // Rate limiting protection
-                await this.sleep(100);
-            } catch (error) {
-                console.warn(`⚠️ Could not load issues for ${repo}:`, error.message);
-            }
-        }
-        
-        return issues.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+        console.log(`✅ Processed dashboard data: ${this.activities.length} activities, ${this.repositories.size} repositories`);
     }
 
     /**
@@ -412,35 +351,64 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Update live metrics display
+     * Update live metrics display using pre-computed data
      */
     updateMetrics() {
-        const now = new Date();
-        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        // Use pre-computed metrics if available, otherwise calculate
+        const metrics = this.precomputedMetrics || {};
         
-        // Commits today
-        const commitsToday = this.recentCommits?.filter(commit => 
-            new Date(commit.created_at) >= todayStart
-        ).length || 0;
-        
-        // Streak calculation (simplified)
-        const streakDays = this.calculateStreakDays();
-        
-        // Velocity score (commits + issues + PRs in last 7 days)
-        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        const velocityScore = (
-            (this.recentCommits?.filter(c => new Date(c.created_at) >= weekAgo).length || 0) * 3 +
-            (this.recentIssues?.filter(i => new Date(i.updated_at) >= weekAgo).length || 0) * 2
-        );
-        
-        // Focus time (estimated from commit frequency)
-        const focusTime = Math.min(8, Math.max(0, commitsToday * 1.5));
+        const commitsToday = metrics.commits_today || 0;
+        const streakDays = metrics.streak_days || 0;
+        const velocityScore = metrics.velocity_score || 0;
+        const focusTime = metrics.focus_time || 0;
         
         // Update UI
         this.updateElement('commits-today', commitsToday);
         this.updateElement('streak-days', streakDays);
         this.updateElement('velocity-score', velocityScore);
-        this.updateElement('focus-time', `${focusTime.toFixed(1)}h`);
+        this.updateElement('focus-time', `${focusTime}h`);
+        
+        console.log(`📊 Updated metrics: ${commitsToday} commits today, ${streakDays} day streak, ${velocityScore} velocity`);
+    }
+
+    /**
+     * Show error state when data loading fails
+     */
+    showErrorState(error) {
+        console.error('📊 Showing error state:', error);
+        
+        // Update status
+        this.updateLiveStatus('error');
+        
+        // Show error in timeline
+        const container = document.getElementById('timeline-container');
+        if (container) {
+            container.innerHTML = `
+                <div class="timeline-error">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Data Loading Failed</h3>
+                    <p>Could not load dashboard data. This is likely due to:</p>
+                    <ul>
+                        <li>The data processing pipeline hasn't run yet</li>
+                        <li>Network connectivity issues</li>
+                        <li>Missing or corrupted data files</li>
+                    </ul>
+                    <p class="error-detail">Error: ${error.message}</p>
+                    <button class="btn-primary" onclick="location.reload()">🔄 Retry</button>
+                </div>
+            `;
+        }
+        
+        // Show error in repository grid
+        const grid = document.getElementById('repo-grid');
+        if (grid) {
+            grid.innerHTML = `
+                <div class="repo-error">
+                    <p>📦 Repository data unavailable</p>
+                    <p>Please try refreshing the page or check back later.</p>
+                </div>
+            `;
+        }
     }
 
     /**
@@ -476,13 +444,15 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Update activity timeline
+     * Update activity timeline using processed timeline data
      */
     updateActivityTimeline() {
         const container = document.getElementById('timeline-container');
         if (!container) return;
 
-        const filteredActivities = this.getFilteredActivities();
+        // Use the pre-built timeline from processed data
+        const timelineData = this.timeline || this.activities || [];
+        const filteredActivities = this.getFilteredTimelineItems(timelineData);
         
         if (filteredActivities.length === 0) {
             container.innerHTML = `
@@ -495,24 +465,25 @@ class WatchMeWorkDashboard {
             return;
         }
 
-        const timelineHTML = filteredActivities.map(activity => {
-            const icon = this.getActivityIcon(activity.type);
-            const color = CONFIG.COLORS[activity.type] || '#6b7280';
-            const timeAgo = this.getTimeAgo(activity.created_at);
+        const timelineHTML = filteredActivities.map(item => {
+            const icon = item._icon || this.getActivityIcon(item.type);
+            const color = item._color || CONFIG.COLORS[item.type] || '#6b7280';
+            const timeAgo = this.getTimeAgo(item.timestamp || item.created_at);
+            const description = item._formatted || this.formatActivityDescription(item);
             
             return `
-                <div class="timeline-item" data-activity-id="${activity.id}">
+                <div class="timeline-item" data-activity-id="${item.id}">
                     <div class="timeline-marker" style="background-color: ${color}">
                         ${icon}
                     </div>
                     <div class="timeline-content">
                         <div class="timeline-header">
-                            <span class="activity-type">${this.formatActivityType(activity.type)}</span>
-                            <span class="activity-repo">${activity.repo}</span>
+                            <span class="activity-type">${this.formatActivityType(item.type || item.subtype)}</span>
+                            <span class="activity-repo">${item.repo}</span>
                             <span class="activity-time">${timeAgo}</span>
                         </div>
                         <div class="timeline-description">
-                            ${this.formatActivityDescription(activity)}
+                            ${description}
                         </div>
                     </div>
                 </div>
@@ -531,10 +502,12 @@ class WatchMeWorkDashboard {
                 }
             });
         });
+        
+        console.log(`🕐 Updated activity timeline with ${filteredActivities.length} items`);
     }
 
     /**
-     * Update repository grid
+     * Update repository grid using processed data
      */
     updateRepositoryGrid() {
         const grid = document.getElementById('repo-grid');
@@ -543,20 +516,32 @@ class WatchMeWorkDashboard {
         const repoArray = Array.from(this.repositories.values())
             .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
+        if (repoArray.length === 0) {
+            grid.innerHTML = `
+                <div class="repo-empty">
+                    <div class="empty-icon">📦</div>
+                    <p>No repositories found</p>
+                    <p class="empty-subtitle">Repository data may still be loading</p>
+                </div>
+            `;
+            return;
+        }
+
         const gridHTML = repoArray.map(repo => {
             const lastUpdate = this.getTimeAgo(repo.updated_at);
-            const recentActivity = this.getRepoRecentActivity(repo.name);
+            const recentActivity = repo.recent_activity || { commits: 0, issues: 0, total: 0 };
             
             return `
                 <div class="repo-card" data-repo="${repo.name}">
                     <div class="repo-header">
                         <h3 class="repo-name">
                             <a href="${repo.html_url}" target="_blank">${repo.name}</a>
-                            ${repo._isForkWithActivity ? '<span class="fork-badge">🍴 Active Fork</span>' : ''}
+                            ${repo._is_fork_with_activity ? '<span class="fork-badge">🍴 Active Fork</span>' : ''}
+                            ${repo._is_main_repo ? '<span class="main-badge">⭐ Main</span>' : ''}
                         </h3>
                         <div class="repo-stats">
-                            <span class="repo-stat">⭐ ${repo.stars}</span>
-                            <span class="repo-stat">🍴 ${repo.forks}</span>
+                            <span class="repo-stat">⭐ ${repo.stars || 0}</span>
+                            <span class="repo-stat">🍴 ${repo.forks || 0}</span>
                         </div>
                     </div>
                     
@@ -592,6 +577,8 @@ class WatchMeWorkDashboard {
                 }
             });
         });
+        
+        console.log(`📦 Updated repository grid with ${repoArray.length} repositories`);
     }
 
     /**
@@ -609,29 +596,39 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Get filtered activities based on current filters
+     * Get filtered timeline items based on current filters
      */
-    getFilteredActivities() {
+    getFilteredTimelineItems(timelineData) {
         const timeRange = this.getTimeRangeDate();
         
-        return this.activities.filter(activity => {
+        return timelineData.filter(item => {
+            const timestamp = new Date(item.timestamp || item.created_at);
+            
             // Time range filter
-            if (new Date(activity.created_at) < timeRange) return false;
+            if (timestamp < timeRange) return false;
             
             // Activity type filters
-            if (activity.type === 'PushEvent' && !this.filters.commits) return false;
-            if (activity.type === 'IssuesEvent' && !this.filters.issues) return false;
-            if (activity.type === 'PullRequestEvent' && !this.filters.prs) return false;
-            if (activity.type === 'IssueCommentEvent' && !this.filters.comments) return false;
+            const itemType = item.type || item.subtype;
+            if ((itemType === 'PushEvent' || itemType === 'commit') && !this.filters.commits) return false;
+            if ((itemType === 'IssuesEvent' || itemType === 'issue') && !this.filters.issues) return false;
+            if ((itemType === 'PullRequestEvent' || itemType === 'pull_request') && !this.filters.prs) return false;
+            if (itemType === 'IssueCommentEvent' && !this.filters.comments) return false;
             
             // Repository filters
             if (this.filters.repositories.length > 0) {
-                const repoName = activity.repo.split('/')[1];
+                const repoName = item.repo || (item.repo_full_name && item.repo_full_name.split('/')[1]);
                 if (this.filters.repositories.includes(repoName)) return false;
             }
             
             return true;
         }).slice(0, CONFIG.MAX_ACTIVITIES);
+    }
+
+    /**
+     * Get filtered activities based on current filters (legacy method for compatibility)
+     */
+    getFilteredActivities() {
+        return this.getFilteredTimelineItems(this.activities);
     }
 
     /**
@@ -690,7 +687,7 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Refresh all data
+     * Refresh all data by reloading static data
      */
     async refreshData() {
         if (this.isPaused) return;
@@ -698,8 +695,10 @@ class WatchMeWorkDashboard {
         this.updateLiveStatus('refreshing');
         
         try {
+            console.log('🔄 Refreshing dashboard data...');
             await this.loadInitialData();
             this.updateLiveStatus('live');
+            console.log('✅ Dashboard data refreshed successfully');
         } catch (error) {
             console.error('❌ Refresh failed:', error);
             this.updateLiveStatus('error');

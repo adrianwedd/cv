@@ -337,6 +337,42 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🎬 Watch Me Work Dashboard Data Processing
+        run: |
+          echo "🎬 **PROCESSING WATCH ME WORK DASHBOARD DATA**"
+          echo "📊 Generating static data for dashboard to avoid rate limiting..."
+          
+          cd .github/scripts
+          
+          # Process Watch Me Work dashboard data
+          if node watch-me-work-data-processor.js; then
+            echo "✅ Watch Me Work data processed successfully"
+            
+            # Verify data file was created
+            if [ -f "../../data/watch-me-work-data.json" ]; then
+              echo "📁 Dashboard data file created successfully"
+              
+              # Show data summary
+              echo "📊 **Data Summary:**"
+              node -e "
+                const data = require('../../data/watch-me-work-data.json');
+                console.log('  - Generated:', data.metadata?.generated_at || 'unknown');
+                console.log('  - Activities:', data.activities?.length || 0);
+                console.log('  - Repositories:', data.repositories?.length || 0);
+                console.log('  - Recent Commits:', data.recent_commits?.length || 0);
+                console.log('  - Recent Issues:', data.recent_issues?.length || 0);
+                console.log('  - Timeline Events:', data.timeline?.length || 0);
+                console.log('  - API Calls Used:', data.metadata?.api_calls_made || 0);
+              " || echo "  - Data file created but summary unavailable"
+            else
+              echo "⚠️ Dashboard data file was not created"
+            fi
+          else
+            echo "⚠️ Watch Me Work data processing failed, dashboard may show errors"
+          fi
+          
+          cd ../..
+
       - name: 🔍 Comprehensive GitHub Data Mining
         if: needs.cv-intelligence-analysis.outputs.enhancement-strategy == 'comprehensive' || needs.cv-intelligence-analysis.outputs.enhancement-strategy == 'full-rebuild'
         run: |
