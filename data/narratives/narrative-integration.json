@@ -1,16 +1,23 @@
 {
-  "generated_at": "2025-07-31T00:11:53.850Z",
+  "generated_at": "2025-07-31T15:28:14.586Z",
   "narratives_available": {
     "professional_summary": true,
     "technical_achievements": 11,
     "leadership_examples": 0,
-    "collaboration_stories": 22,
+    "collaboration_stories": 26,
     "skill_validations": 8,
     "growth_narrative": true
   },
   "integration_ready": true,
-  "enhanced_summary": "AI Engineer and Software Architect with proven track record in backend development, machine learning, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 742+ GitHub issues, authored 632+ commits demonstrating consistent development activity, demonstrates high technical depth with 85% of contributions involving complex technical solutions, maintains 78% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+  "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, frontend development, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 772+ GitHub issues, authored 577+ commits demonstrating consistent development activity, demonstrates high technical depth with 86% of contributions involving complex technical solutions, maintains 83% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
   "top_achievements": [
+    {
+      "achievement": "Led technical development in cv repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 537,
+      "details": "67 commits, 100 technical discussions, 34 high-complexity issues resolved",
+      "repository": "cv"
+    },
     {
       "achievement": "Led technical development in adrianwedd repository",
       "evidence_type": "repository_leadership",
@@ -24,20 +31,13 @@
       "impact_score": 378,
       "details": "63 commits, 100 technical discussions, 3 high-complexity issues resolved",
       "repository": "TEL3SIS"
-    },
-    {
-      "achievement": "Led technical development in cv repository",
-      "evidence_type": "repository_leadership",
-      "impact_score": 316,
-      "details": "27 commits, 68 technical discussions, 17 high-complexity issues resolved",
-      "repository": "cv"
     }
   ],
   "validated_skills": [
     "Testing",
     "JavaScript",
     "Performance Optimization",
-    "Software Architecture",
-    "Python"
+    "Python",
+    "Software Architecture"
   ]
 }
