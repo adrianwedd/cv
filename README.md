@@ -60,9 +60,11 @@ cv/
 
 ### 🤖 **AI-Powered Enhancement**
 - **Intelligent Content Optimization**: Claude AI analyzes and enhances CV content for maximum impact
+- **💰 Zero-Cost AI Usage**: Browser automation provides free Claude AI access (saves $200-400/month)
 - **Professional Tone Refinement**: Automatic improvement of descriptions and summaries
 - **Skills Gap Analysis**: AI-driven recommendations for professional development
 - **Industry Trend Integration**: Dynamic updates based on current tech landscape
+- **🔐 Multiple Authentication Methods**: Browser automation, OAuth, and API key fallbacks
 
 ### 📊 **GitHub Activity Integration**
 - **Live Commit Analytics**: Real-time tracking of coding activity and contributions
@@ -95,15 +97,37 @@ gh api repos/adrianwedd/cv -X PATCH -f has_pages=true
 gh api repos/adrianwedd/cv/pages -X POST -f source.branch=main -f source.path=/
 ```
 
-### 2. **Configure Secrets**
+### 2. **Configure Authentication**
+
+#### **🆓 Browser Authentication (Recommended - FREE)**
 ```bash
-# Add required GitHub secrets
+# Navigate to scripts directory
+cd .github/scripts
+
+# Copy environment template
+cp .env.example .env
+
+# Extract cookies from claude.ai (see CLAUDE.md for detailed instructions)
+# Edit .env with your Claude.ai session cookies
+
+# Test authentication
+node claude-browser-client.js test --visible
+
+# Save cookies to GitHub secrets
+node setup-claude-cookies.js
+```
+
+#### **💳 Alternative: API Key Authentication**
+```bash
+# Add required GitHub secrets for API-based usage
 gh secret set ANTHROPIC_API_KEY --body "your-claude-api-key"
 gh secret set PERSONAL_ACCESS_TOKEN --body "your-github-token-with-repo-access"
 
 # Optional: Configure custom domain
 gh secret set CUSTOM_DOMAIN --body "cv.adrianwedd.com"
 ```
+
+> **💡 Cost Comparison**: Browser authentication saves $200-400/month compared to API usage!
 
 ### 3. **Customize Configuration**
 ```bash
