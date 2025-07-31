@@ -26,10 +26,10 @@ class WatchMeWorkDataProcessor {
             username: config.username || 'adrianwedd',
             dataDir: config.dataDir || path.join(process.cwd(), 'data'),
             outputFile: 'watch-me-work-data.json',
-            lookbackDays: config.lookbackDays || 30,
+            lookbackDays: config.lookbackDays || 90, // Extend to 90 days for better streak calculation
             maxActivities: config.maxActivities || 100,
-            maxCommits: config.maxCommits || 50,
-            maxIssues: config.maxIssues || 30,
+            maxCommits: config.maxCommits || 200, // Increase for better streak data
+            maxIssues: config.maxIssues || 50,
             ...config
         };
 
@@ -146,17 +146,35 @@ class WatchMeWorkDataProcessor {
             
             if (!allRepos) return [];
             
-            // Filter repositories: include non-forks OR forks with recent activity
+            // Filter repositories: only include repos with recent activity (30 days)
             const filteredRepos = [];
             const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
             
             for (const repo of allRepos) {
+                // Skip repos that haven't been updated in the last 30 days
+                const repoUpdated = new Date(repo.updated_at);
+                if (repoUpdated < thirtyDaysAgo) {
+                    continue;
+                }
+                
                 if (!repo.fork) {
-                    // Include all non-fork repositories
-                    filteredRepos.push({
-                        ...repo,
-                        _isMainRepo: true
-                    });
+                    // Check if non-fork has recent commits by me
+                    try {
+                        const commits = await this.makeGitHubRequest(
+                            `/repos/${repo.full_name}/commits?author=${this.config.username}&since=${thirtyDaysAgo.toISOString()}&per_page=1`
+                        );
+                        
+                        if (commits && commits.length > 0) {
+                            filteredRepos.push({
+                                ...repo,
+                                _isMainRepo: true
+                            });
+                        }
+                        
+                        await this.sleep(50);
+                    } catch (error) {
+                        console.warn(`⚠️ Could not check commits for ${repo.name}:`, error.message);
+                    }
                 } else {
                     // For forks, check if we have recent commits
                     try {
@@ -305,21 +323,24 @@ class WatchMeWorkDataProcessor {
         const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
         
-        // Commits today
+        // Commits today (for backward compatibility)
         const commitsToday = commits.filter(commit => 
             new Date(commit.commit.author.date) >= todayStart
         ).length;
         
-        // Calculate streak days
+        // Commits this week (main metric)
+        const commitsThisWeek = commits.filter(c => new Date(c.commit.author.date) >= weekAgo).length;
+        
+        // Calculate streak days with better accuracy
         const streakDays = this.calculateStreakDays(commits);
         
         // Velocity score (commits + issues + PRs in last 7 days)
-        const weeklyCommits = commits.filter(c => new Date(c.commit.author.date) >= weekAgo).length;
+        const weeklyCommits = commitsThisWeek;
         const weeklyIssues = issues.filter(i => new Date(i.updated_at) >= weekAgo).length;
         const velocityScore = weeklyCommits * 3 + weeklyIssues * 2;
         
-        // Focus time estimate
-        const focusTime = Math.min(8, Math.max(0, commitsToday * 1.5));
+        // Focus time estimate based on weekly activity
+        const focusTime = Math.min(40, Math.max(0, commitsThisWeek * 2));
         
         // Activity distribution
         const activityTypes = {};
@@ -329,6 +350,7 @@ class WatchMeWorkDataProcessor {
         
         return {
             commits_today: commitsToday,
+            commits_this_week: commitsThisWeek,
             streak_days: streakDays,
             velocity_score: velocityScore,
             focus_time: parseFloat(focusTime.toFixed(1)),
@@ -532,22 +554,42 @@ class WatchMeWorkDataProcessor {
         switch (activity.type) {
             case 'PushEvent':
                 const commits = activity.payload?.commits?.length || 0;
-                return `Pushed ${commits} commit${commits !== 1 ? 's' : ''}`;
+                const commitMessages = activity.payload?.commits?.map(c => c.message?.split('\n')[0]).slice(0, 2) || [];
+                let desc = `Pushed ${commits} commit${commits !== 1 ? 's' : ''}`;
+                if (commitMessages.length > 0) {
+                    desc += `: ${commitMessages[0]}`;
+                    if (commits > 1) desc += ` (and ${commits - 1} more)`;
+                }
+                return desc;
             case 'IssuesEvent':
                 const action = activity.payload?.action || 'updated';
                 const issueNumber = activity.payload?.issue?.number || '';
-                return `${action.charAt(0).toUpperCase() + action.slice(1)} issue #${issueNumber}`;
+                const issueTitle = activity.payload?.issue?.title?.slice(0, 60) || '';
+                return `${action.charAt(0).toUpperCase() + action.slice(1)} issue #${issueNumber}${issueTitle ? `: ${issueTitle}` : ''}`;
             case 'PullRequestEvent':
                 const prAction = activity.payload?.action || 'updated';
                 const prNumber = activity.payload?.pull_request?.number || '';
-                return `${prAction.charAt(0).toUpperCase() + prAction.slice(1)} PR #${prNumber}`;
+                const prTitle = activity.payload?.pull_request?.title?.slice(0, 60) || '';
+                return `${prAction.charAt(0).toUpperCase() + prAction.slice(1)} PR #${prNumber}${prTitle ? `: ${prTitle}` : ''}`;
+            case 'IssueCommentEvent':
+                const commentIssue = activity.payload?.issue?.number || '';
+                const commentTitle = activity.payload?.issue?.title?.slice(0, 50) || '';
+                return `Commented on issue #${commentIssue}${commentTitle ? `: ${commentTitle}` : ''}`;
             case 'CreateEvent':
                 const refType = activity.payload?.ref_type || 'repository';
-                return `Created ${refType}`;
+                const refName = activity.payload?.ref || '';
+                return `Created ${refType}${refName ? ` "${refName}"` : ''}`;
+            case 'DeleteEvent':
+                const deletedRefType = activity.payload?.ref_type || 'branch';
+                const deletedRef = activity.payload?.ref || '';
+                return `Deleted ${deletedRefType}${deletedRef ? ` "${deletedRef}"` : ''}`;
             case 'ForkEvent':
                 return 'Forked repository';
             case 'WatchEvent':
                 return 'Starred repository';
+            case 'ReleaseEvent':
+                const releaseName = activity.payload?.release?.name || activity.payload?.release?.tag_name || '';
+                return `Published release${releaseName ? ` "${releaseName}"` : ''}`;
             default:
                 return `${activity.type.replace('Event', '')} activity`;
         }

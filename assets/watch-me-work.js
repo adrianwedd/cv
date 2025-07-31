@@ -357,18 +357,18 @@ class WatchMeWorkDashboard {
         // Use pre-computed metrics if available, otherwise calculate
         const metrics = this.precomputedMetrics || {};
         
-        const commitsToday = metrics.commits_today || 0;
+        const commitsThisWeek = metrics.commits_this_week || metrics.commits_today || 0;
         const streakDays = metrics.streak_days || 0;
         const velocityScore = metrics.velocity_score || 0;
         const focusTime = metrics.focus_time || 0;
         
         // Update UI
-        this.updateElement('commits-today', commitsToday);
+        this.updateElement('commits-today', commitsThisWeek);
         this.updateElement('streak-days', streakDays);
         this.updateElement('velocity-score', velocityScore);
         this.updateElement('focus-time', `${focusTime}h`);
         
-        console.log(`📊 Updated metrics: ${commitsToday} commits today, ${streakDays} day streak, ${velocityScore} velocity`);
+        console.log(`📊 Updated metrics: ${commitsThisWeek} commits this week, ${streakDays} day streak, ${velocityScore} velocity`);
     }
 
     /**
