@@ -1,0 +1,22 @@
+{
+    "LANGUAGE_SKILLS": {
+        "JavaScript": { "category": "Frontend/Backend", "weight": 1.0, "aliases": ["js", "jsx"] },
+        "TypeScript": { "category": "Frontend/Backend", "weight": 1.1, "aliases": ["ts", "tsx"] },
+        "Python": { "category": "Backend/AI/ML", "weight": 1.2, "aliases": ["py"] },
+        "Go": { "category": "Backend/Systems", "weight": 1.0, "aliases": ["golang"] },
+        "Rust": { "category": "Systems/Performance", "weight": 1.1, "aliases": ["rs"] },
+        "Java": { "category": "Backend/Enterprise", "weight": 0.9, "aliases": [] },
+        "C++": { "category": "Systems/Performance", "weight": 1.1, "aliases": ["cpp", "cc"] },
+        "C": { "category": "Systems/Embedded", "weight": 1.0, "aliases": [] },
+        "PHP": { "category": "Backend/Web", "weight": 0.8, "aliases": [] },
+        "Ruby": { "category": "Backend/Web", "weight": 0.8, "aliases": ["rb"] },
+        "Swift": { "category": "Mobile/iOS", "weight": 0.9, "aliases": [] },
+        "Kotlin": { "category": "Mobile/Android", "weight": 0.9, "aliases": ["kt"] },
+        "HTML": { "category": "Frontend", "weight": 0.6, "aliases": ["htm"] },
+        "CSS": { "category": "Frontend", "weight": 0.6, "aliases": ["scss", "sass", "less"] },
+        "Shell": { "category": "DevOps/Automation", "weight": 0.7, "aliases": ["bash", "sh"] },
+        "YAML": { "category": "DevOps/Config", "weight": 0.5, "aliases": ["yml"] },
+        "JSON": { "category": "Data/Config", "weight": 0.4, "aliases": [] },
+        "Markdown": { "category": "Documentation", "weight": 0.3, "aliases": ["md"] }
+    }
+}
