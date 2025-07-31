@@ -30,6 +30,7 @@ The system is built on three pillars, ensuring a comprehensive and dynamic CV:
 This section contains detailed research papers and insights that underpin the design and functionality of the AI-enhanced CV system.
 
 *   [Architecting Intelligence: A Framework for Advanced Prompt and Pipeline Engineering with Anthropic's Claude for the Autonomous Career Agent](research/claude-prompt-engineering-framework.md)
+*   [Prompt Engineering Strategy for Claude AI](prompt_construction.md)
 
 ## Getting Started
 
