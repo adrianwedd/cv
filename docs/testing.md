@@ -4,28 +4,43 @@ This section outlines the testing and validation strategies employed in the AI-e
 
 ## Unit Testing
 
-Unit tests are implemented for the core JavaScript business logic to ensure individual components function as expected. These tests are executed both locally and as part of the CI/CD pipeline.
+Unit tests are implemented for the core JavaScript and Python business logic to ensure individual components function as expected. These tests are executed both locally and as part of the CI/CD pipeline.
 
-### Framework
+### Frameworks
 
-The project utilizes Node.js's built-in test runner (`node:test`). This lightweight framework provides basic testing capabilities without requiring external dependencies like Jest or Mocha.
+*   **JavaScript**: The project utilizes Node.js's built-in test runner (`node:test`). This lightweight framework provides basic testing capabilities without requiring external dependencies like Jest or Mocha.
+*   **Python**: The project uses Python's built-in `unittest` module for writing and running tests. This module provides a rich set of tools for constructing and running tests.
 
 ### How to Run Tests
 
-To execute the unit tests locally, navigate to the `.github/scripts` directory and run the following command:
+To execute the unit tests locally:
 
-```bash
-npm test
-```
+*   **JavaScript Tests**: Navigate to the `.github/scripts` directory and run the following command:
 
-This command will execute all files ending with `.test.js` within the `.github/scripts` directory.
+    ```bash
+    npm test
+    ```
+
+    This command will execute all files ending with `.test.js` within the `.github/scripts` directory.
+
+*   **Python Tests**: Navigate to the directory containing the Python test files (e.g., `src/python/utils`, `src/python/api_wrappers`, `src/python/config_manager`, `src/python/data_validation`) and run the following command:
+
+    ```bash
+    python -m unittest discover -s . -p "test_*.py"
+    ```
+
+    Alternatively, you can run individual test files directly:
+
+    ```bash
+    python -m src.python.utils.test_logging_utils
+    ```
 
 ### Test File Structure and Conventions
 
-*   Test files are located alongside their respective source files in the `.github/scripts` directory.
-*   Test files are named with the `.test.js` suffix (e.g., `activity-analyzer.test.js`).
-*   Tests are structured using `suite()` for test suites and `test()` for individual test cases, as per `node:test` conventions.
-*   `test.beforeEach()` and `test.afterEach()` hooks are used for setup and teardown operations, such as mocking API clients or environment variables.
+*   **JavaScript**: Test files are located alongside their respective source files in the `.github/scripts` directory. Test files are named with the `.test.js` suffix (e.g., `activity-analyzer.test.js`). Tests are structured using `suite()` for test suites and `test()` for individual test cases, as per `node:test` conventions.
+*   **Python**: Test files are located within the respective module directories (e.g., `src/python/utils/test_logging_utils.py`). Test files are named with the `test_*.py` prefix (e.g., `test_logging_utils.py`). Tests are structured using `unittest.TestCase` classes and methods starting with `test_`.
+
+`test.beforeEach()` and `test.afterEach()` hooks (for JavaScript) and `setUp()` and `tearDown()` methods (for Python) are used for setup and teardown operations, such as mocking API clients or environment variables.
 
 ## CI/CD Validation
 

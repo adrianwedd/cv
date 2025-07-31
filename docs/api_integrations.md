@@ -70,3 +70,41 @@ The `claude-enhancer.js` script employs sophisticated prompt engineering to guid
 *   **Clear Requirements**: Explicitly defining the desired output format, tone, and content constraints.
 *   **Quantifiable Achievements**: Encouraging the AI to incorporate measurable impacts where possible.
 *   **Creativity Control**: Utilizing the `CREATIVITY_LEVEL` parameter to adjust the AI's generation style.
+
+## Python External API Wrappers
+
+This section details the Python wrappers for external APIs, located in `src/python/api_wrappers/external_apis.py`. These wrappers provide a standardized way to interact with third-party services for data such as firmographics and funding information.
+
+### Abstract API (Firmographics)
+
+**Purpose**: Used to retrieve firmographics data (e.g., company size, industry, location) based on a company domain.
+
+**Class**: `AbstractApiWrapper`
+
+**Authentication**: Requires an API key, which can be provided during initialization or set as an environment variable.
+
+*   **Environment Variable**: `ABSTRACT_API_KEY`
+
+**Key Method**: `get_company_info(domain)`
+
+*   **Description**: Fetches company information for the given domain.
+*   **Parameters**: `domain` (string) - The domain name of the company (e.g., "google.com").
+*   **Returns**: A dictionary containing company information, or `None` if the request fails.
+
+### Intellizence API (Funding Data)
+
+**Purpose**: Used to retrieve startup funding data.
+
+**Class**: `IntellizenceApiWrapper`
+
+**Authentication**: Requires an API key, which can be provided during initialization or set as an environment variable.
+
+*   **Environment Variable**: `INTELLIZENCE_API_KEY`
+
+**Key Method**: `get_funding_data(query_params=None)`
+
+*   **Description**: Fetches funding data based on specified query parameters.
+*   **Parameters**: `query_params` (dictionary, optional) - A dictionary of parameters to filter the funding data (e.g., `{'country': 'USA', 'limit': 10}`).
+*   **Returns**: A dictionary containing funding data, or `None` if the request fails.
+
+**Important Note**: For both wrappers, it is highly recommended to manage API keys securely using environment variables rather than hardcoding them in the application code.
