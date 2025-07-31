@@ -46,7 +46,7 @@ jobs:
       - name: 📦 Install Dependencies
         run: |
           cd .github/scripts
-          npm ci --only=production --silent
+          npm ci --silent
           
       - name: 🧪 Run Quality Checks
         id: quality-check
@@ -113,7 +113,7 @@ jobs:
       - name: 📦 Install Dependencies
         run: |
           cd .github/scripts
-          npm ci --only=production --silent
+          npm ci --silent
           
       - name: 🤖 GitHub Activity Analysis
         run: |
