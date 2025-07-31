@@ -62,4 +62,4 @@ All generated JSON data files (e.g., `activity-summary.json`, `ai-enhancements.j
 
 ### (Future) HTML Validation
 
-While not yet fully implemented, a future enhancement will include HTML validation of the generated `dist/index.html` file. This will ensure that the output HTML adheres to web standards and is free of structural errors.
+**Planned Enhancement**: A future enhancement will include HTML validation of the generated `dist/index.html` file. This will ensure that the output HTML adheres to web standards and is free of structural errors.

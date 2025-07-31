@@ -225,6 +225,22 @@ jobs:
           SESSION_ID="cv-$(date +%Y%m%d-%H%M%S)-${GITHUB_RUN_NUMBER}"
           echo "🔢 Session ID: $SESSION_ID"
           echo "id=$SESSION_ID" >> $GITHUB_OUTPUT
+          
+      - name: 📝 Intelligence Summary
+        if: always()
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## 🧠 Intelligence Analysis Results
+          
+          | Analysis | Result |
+          |----------|--------|
+          | 🎯 Strategy | ${{ steps.strategy.outputs.strategy }} |
+          | 📈 Activity Score | ${{ steps.activity.outputs.score }}/100 |
+          | 💰 Budget Status | ${{ steps.budget.outputs.budget }} |
+          | 💲 Est. Cost | \$${{ steps.cost.outputs.estimated }} |
+          | 🌍 Target | ${{ steps.environment.outputs.target }} |
+          | 🔢 Session | `${{ steps.session.outputs.id }}` |
+          EOF
 
   # 📊 DATA COLLECTION & ANALYSIS
   data-collection:
@@ -656,6 +672,46 @@ jobs:
           echo "  🔗 URL: ${{ needs.deployment.outputs.deployment-url }}"
           echo ""
           echo "✅ **CV Successfully Enhanced and Deployed!**"
+          
+          # Write comprehensive summary to GitHub Actions UI
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          # 🚀 CV Enhancement Pipeline Summary
+          
+          ## 📊 Pipeline Metrics
+          | Metric | Value |
+          |--------|-------|
+          | 🎯 **Enhancement Strategy** | ${{ needs.intelligence-analysis.outputs.enhancement-strategy }} |
+          | 📈 **Activity Score** | ${{ needs.intelligence-analysis.outputs.activity-score }}/100 |
+          | 🏢 **Repositories Analyzed** | ${{ needs.data-collection.outputs.repo-count }} |
+          | 💻 **Languages** | ${{ needs.data-collection.outputs.languages }} |
+          | 🤖 **AI Enhancement** | ${{ needs.ai-enhancement.outputs.enhancement-status }} |
+          | 🔐 **Auth Method** | ${{ needs.ai-enhancement.outputs.auth-method }} |
+          | 💰 **Estimated Cost** | \$${{ needs.intelligence-analysis.outputs.estimated-cost }} |
+          | 💸 **Actual Cost** | \$${{ needs.ai-enhancement.outputs.cost-actual || '0.0000' }} |
+          | 🔢 **Tokens Used** | ${{ needs.ai-enhancement.outputs.tokens-used || 0 }} |
+          | 📦 **Build Assets** | ${{ needs.website-build.outputs.asset-count }} |
+          | 📏 **Build Size** | ${{ needs.website-build.outputs.build-size }} |
+          | 📄 **PDF Status** | ${{ needs.website-build.outputs.pdf-status }} |
+          
+          ## 🌐 Deployment Information
+          - **Environment**: `${{ needs.deployment.outputs.environment }}`
+          - **Live URL**: [${{ needs.deployment.outputs.deployment-url }}](${{ needs.deployment.outputs.deployment-url }})
+          - **Deploy Time**: ${{ needs.deployment.outputs.deploy-time }}
+          
+          ## 🔗 Quick Links
+          - 🌐 [Live CV](${{ needs.deployment.outputs.deployment-url }})
+          - 📊 [Status Dashboard](${{ needs.deployment.outputs.deployment-url }}/status-dashboard.html)
+          - 📈 [Activity Tracker](${{ needs.deployment.outputs.deployment-url }}/watch-me-work.html)
+          - 📄 [PDF Download](${{ needs.deployment.outputs.deployment-url }}/assets/adrian-wedd-cv.pdf)
+          
+          ## 📈 Success Metrics
+          - **Pipeline Success Rate**: $SUCCESS_RATE%
+          - **Session ID**: `${{ needs.intelligence-analysis.outputs.session-id }}`
+          - **Enhancement Mode**: ${{ github.event.inputs.enhancement_mode || 'comprehensive' }}
+          
+          ---
+          > 🤖 Generated with [Claude Code](https://claude.ai/code)
+          EOF
 
       - name: 💾 Commit Analytics Data
         run: |

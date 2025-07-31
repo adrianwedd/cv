@@ -1,3 +1,32 @@
+# GitHub Actions Workflows
+
+This document serves as the comprehensive and authoritative reference for all GitHub Actions workflows within this project. It details the purpose, triggers, environment variables, and jobs for each workflow, providing a centralized source of truth for understanding the automated processes that power the AI-enhanced CV system.
+
+### Workflows Overview
+
+| Workflow Name | Purpose |
+|---|---|
+| `📈 Activity Tracker` (`activity-tracker.yml`) | Continuously tracks and analyzes GitHub activity. |
+| `🚀 CV Auto-Enhancement Pipeline` (`cv-enhancement.yml`) | Orchestrates the entire CV enhancement process, from initial intelligence analysis to AI-powered content optimization, dynamic website generation, and deployment to GitHub Pages. |
+| `🎭 Granular Workflow Visualization` (`cv-enhancement-visualized.yml`) | A specialized version of the CV Auto-Enhancement Pipeline, designed to provide granular visualization of each job and step within the GitHub Actions UI. |
+
+---
+
+## `📈 Activity Tracker` (`activity-tracker.yml`)
+
+This workflow is dedicated to continuously tracking and analyzing GitHub activity, providing up-to-date metrics for the CV system.
+
+### Purpose
+To provide continuous, real-time GitHub activity data for the AI-enhanced CV system, ensuring that professional development metrics are always current.
+
+### Triggers
+*   **`schedule`**: Runs automatically at specified intervals.
+    *   **Cron Schedule**: `0 */2 * * *` (Runs every 2 hours).
+*   **`workflow_dispatch`**: Allows manual triggering of the workflow from the GitHub Actions UI.
+
+### Environment Variables
+*   `TIMEZONE`: Timezone used for timestamping (`Australia/Tasmania`).
+
 ### Jobs
 
 #### 1. `📊 GitHub Activity Intelligence Collection` (`activity-intelligence`)
@@ -20,35 +49,7 @@ This job collects raw GitHub activity data and processes it into structured metr
     *   **`📊 Activity Tracking Summary`**: Provides a summary of the activity tracking execution.
     *   **`📈 Workflow Performance Report`**: Generates a detailed summary report visible in the GitHub Actions UI.
 
-### Integrating Python Utilities in Workflows
-
-The project now includes a suite of Python utilities (`src/python/`) that can be leveraged within GitHub Actions workflows to enhance functionality, improve data processing, and provide more robust solutions.
-
-**General Approach:**
-To use Python scripts within a GitHub Actions job, you typically need to:
-1.  **Set up Python:** Use `actions/setup-python@v5` to set up a Python environment.
-2.  **Install Dependencies:** Install any Python dependencies using `pip` (e.g., from a `requirements.txt` file).
-3.  **Run Python Script:** Execute your Python script using `python your_script.py`.
-
-**Example Integration (Conceptual):**
-```yaml
-- name: 🐍 Setup Python Environment
-  uses: actions/setup-python@v5
-  with:
-    python-version: '3.x' # Specify your Python version
-
-- name: 📦 Install Python Dependencies
-  run: pip install -r requirements.txt # If you have a requirements.txt
-
-- name: 📊 Run Python Data Validation
-  run: python src/python/data_validation/data_validator.py # Example usage
-```
-
-**Potential Enhancements using Python Utilities:**
-*   **`logging_utils.py`**: Integrate for more structured and persistent logging within workflow steps, especially for complex data processing or API interactions.
-*   **`api_wrappers/external_apis.py`**: Utilize for more robust and maintainable interactions with external APIs (e.g., firmographics, funding data) directly from Python scripts within the workflow.
-*   **`config_manager/config_manager.py`**: Externalize workflow configurations into `.ini` files managed by this utility, allowing for easier updates without modifying the workflow YAML directly.
-*   **`data_validation/data_validator.py`**: Implement dedicated Python steps to validate the integrity and format of collected data before it's used in subsequent stages, enhancing data quality assurance.
+---
 
 ## `🚀 CV Auto-Enhancement Pipeline` (`cv-enhancement.yml`)
 
@@ -126,7 +127,71 @@ This job executes the main CV enhancement process, leveraging the outputs from t
     *   **`🎯 Enhancement Summary`**: Provides a summary of the CV enhancement execution.
     *   **`📊 Workflow Summary Report`**: Generates a detailed summary report visible in the GitHub Actions UI.
 
-### Integrating Python Utilities in Workflows
+---
+
+## `🎭 Granular Workflow Visualization` (`cv-enhancement-visualized.yml`)
+
+This workflow is a specialized version of the `cv-enhancement.yml` pipeline, designed to provide granular visualization of each job and step within the GitHub Actions UI. It leverages advanced GitHub Actions features to bubble up status, URLs, and metrics directly into the workflow graph, enhancing transparency and operational insight.
+
+### Purpose
+To demonstrate and implement best practices for GitHub Actions workflow visualization, providing real-time, actionable insights into the CV enhancement pipeline's status, performance, and cost.
+
+### Triggers
+*   **`workflow_dispatch`**: Manual triggering from the GitHub Actions UI.
+    *   **`enhancement_mode`**: (Same as `cv-enhancement.yml`)
+    *   **`force_refresh`**: (Same as `cv-enhancement.yml`)
+    *   **`ai_creativity`**: (Same as `cv-enhancement.yml`)
+
+### Environment Variables
+*   `CV_SYSTEM_VERSION`: Current version of the CV system (`v2.0`).
+*   `TIMEZONE`: Timezone used for timestamping (`Australia/Tasmania`).
+
+### Jobs
+
+#### 1. `🧠 CV Intelligence Pre-Analysis (Visualized)` (`cv-intelligence-analysis-visualized`)
+This job performs initial analysis and determines the optimal enhancement strategy, with enhanced visualization.
+
+*   **Runs on**: `ubuntu-latest`
+*   **Outputs**: (Same as `cv-intelligence-analysis`)
+*   **Steps**:
+    *   **`🚀 CV Enhancement System Initialization (Visualized)`**: Displays initial workflow parameters and sets job summary.
+    *   **`📥 Repository Checkout`**: Checks out the repository code.
+    *   **`🎯 Enhancement Strategy Determination (Visualized)`**: Determines the overall enhancement strategy and updates job summary with strategy.
+    *   **`📊 GitHub Activity Analysis (Visualized)`**: Analyzes GitHub activity and updates job summary with activity score.
+    *   **`🔍 Content Health Assessment (Visualized)`**: Assesses content health and updates job summary.
+    *   **`💰 AI Budget Analysis (Visualized)`**: Analyzes AI budget and updates job summary.
+    *   **`✅ Job Summary Output`**: Finalizes job summary with key outputs.
+
+#### 2. `🎯 CV Enhancement Execution (Visualized)` (`cv-enhancement-pipeline-visualized`)
+This job executes the main CV enhancement process with granular visualization for each step.
+
+*   **Runs on**: `ubuntu-latest`
+*   **Needs**: `cv-intelligence-analysis-visualized`
+*   **Permissions**: (Same as `cv-enhancement-pipeline`)
+*   **Steps**:
+    *   **`🚀 CV Enhancement Pipeline Initialization (Visualized)`**: Displays initial workflow parameters and sets job summary.
+    *   **`📥 Repository Checkout`**: Checks out the repository code.
+    *   **`🔧 Install Dependencies (Visualized)`**: Installs Node.js dependencies and updates job summary.
+    *   **`✅ Run Unit Tests (Visualized)`**: Executes unit tests and updates job summary with test results.
+    *   **`📦 Setup Node.js Environment (Visualized)`**: Sets up the Node.js environment and updates job summary.
+    *   **`🌐 Install Browser Dependencies (Visualized)`**: Installs browser dependencies and updates job summary.
+    *   **`📊 GitHub Activity Data Collection (Visualized)`**: Collects GitHub activity data and updates job summary.
+    *   **`🔍 Comprehensive GitHub Data Mining (Visualized)`**: Initiates data mining and updates job summary.
+    *   **`🤖 Claude AI Content Enhancement (Visualized)`**: Initiates AI enhancement and updates job summary with token usage.
+    *   **`🔍 AI Claim Verification (Visualized)`**: Verifies AI claims and updates job summary with verification status.
+    *   **`📊 Professional Metrics Calculation (Visualized)`**: Calculates metrics and updates job summary.
+    *   **`🎨 Dynamic CV Website Generation (Visualized)`**: Generates website and updates job summary with build status.
+    *   **`✅ Validate & Lint Generated Assets (Visualized)`**: Validates assets and updates job summary with linting results.
+    *   **`📄 Generate PDF Asset (Visualized)`**: Generates PDF and updates job summary with PDF status.
+    *   **`🚀 Deploy to GitHub Pages (Visualized)`**: Deploys to GitHub Pages and updates job summary with deployment URL.
+    *   **`📈 Usage Analytics Recording (Visualized)`**: Records usage analytics for the enhancement session.
+    *   **`🚀 Commit Enhanced CV Data (Visualized)`**: Commits data and updates job summary with commit details.
+    *   **`🎯 Enhancement Summary (Visualized)`**: Provides final summary and updates job summary.
+    *   **`✅ Job Summary Output`**: Finalizes job summary with key outputs and badges.
+
+---
+
+## Integrating Python Utilities in Workflows
 
 The project now includes a suite of Python utilities (`src/python/`) that can be leveraged within GitHub Actions workflows to enhance functionality, improve data processing, and provide more robust solutions.
 

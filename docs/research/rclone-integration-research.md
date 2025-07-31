@@ -101,4 +101,4 @@ The process for analyzing historical CV/resume documents would involve the follo
 *   **Document Formats:** Parsing various document formats (PDF, DOCX) reliably can be complex.
 *   **Data Privacy:** Ensuring sensitive historical data is handled securely and not exposed.
 
-This research confirms the feasibility of using `rclone` for historical document retrieval, laying the groundwork for Issue #34's implementation.
+This research confirms the feasibility of using `rclone` for historical document retrieval, laying the groundwork for implementing a historical CV/resume analysis feature.

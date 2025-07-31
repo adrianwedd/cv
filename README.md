@@ -25,12 +25,11 @@ cv/
 ├── 🎨 assets/
 │   ├── styles.css             # Modern CSS with dark/light themes
 │   ├── script.js              # Interactive features and animations
-│   └── cv-data.json           # Dynamic CV data (AI & activity enhanced)
+│   └── base-cv.json           # Dynamic CV data (AI & activity enhanced)
 ├── 📊 .github/
 │   ├── workflows/
 │   │   ├── cv-enhancement.yml    # Main CV enrichment workflow
-│   │   ├── activity-tracker.yml  # GitHub activity integration
-│   │   └── claude-optimizer.yml  # AI content optimization
+│   │   └── activity-tracker.yml  # GitHub activity integration
 │   └── scripts/
 │       ├── activity-analyzer.js  # GitHub metrics processor
 │       ├── claude-enhancer.js    # AI content enhancement
@@ -63,10 +62,7 @@ cv/
 - **Collaboration Metrics**: Team contributions and open-source engagement analysis
 
 ### 🔄 **Automated CI/CD Pipeline**
-- **6-Hour Enhancement Cycles**: Regular CV optimization and content updates
-- **Multi-Stage Processing**: Activity analysis → AI enhancement → Content generation
-- **Intelligent Caching**: Efficient token usage and rate limit management
-- **Error Recovery**: Robust failure handling with detailed logging
+The system leverages sophisticated GitHub Actions for continuous integration and delivery of your CV. For detailed information on the workflows, their schedules, and purposes, please refer to the [Workflow Documentation](docs/workflows.md).
 
 ### 📱 **Modern Professional Presentation**
 - **Responsive Design**: Optimized for desktop, tablet, and mobile viewing
@@ -122,50 +118,6 @@ git push origin main
 # Manual trigger for immediate processing
 gh workflow run cv-enhancement.yml
 ```
-
-## 📊 **Workflow Automation**
-
-### 🔄 **CV Enhancement Pipeline** (`cv-enhancement.yml`)
-**Schedule**: Every 6 hours  
-**Purpose**: Complete CV analysis and enhancement
-
-1. **📥 Activity Data Collection**
-   - Fetch recent commits, issues, and contributions
-   - Analyze repository activity and language usage
-   - Calculate professional development metrics
-
-2. **🤖 AI Content Enhancement**
-   - Claude AI analysis of current CV content
-   - Professional description optimization
-   - Skills and experience enhancement suggestions
-
-3. **📊 Metrics Integration**
-   - Dynamic skill proficiency updates
-   - Project complexity scoring
-   - Professional growth tracking
-
-4. **🎨 Content Generation**
-   - Updated CV webpage generation
-   - Dynamic data file compilation
-   - Responsive design optimization
-
-### 📈 **Activity Tracker** (`activity-tracker.yml`)
-**Schedule**: Every 2 hours  
-**Purpose**: Continuous GitHub activity monitoring
-
-- Real-time commit tracking and analysis
-- Repository contribution assessment
-- Language proficiency updates
-- Collaboration metrics calculation
-
-### 🧠 **Claude Optimizer** (`claude-optimizer.yml`)
-**Schedule**: Daily at 9 AM AEST  
-**Purpose**: Deep AI-powered content analysis
-
-- Comprehensive CV content review
-- Industry trend integration
-- Professional development recommendations
-- Content strategy optimization
 
 ## 🎨 **Professional Design System**
 
@@ -307,40 +259,10 @@ When using this system, please maintain attribution to:
 - Claude AI integration methodology
 - GitHub Actions workflow patterns
 
-## 🔮 **Roadmap & Future Enhancements**
+## 📚 **Documentation & Research**
 
-### **Short Term** (Next 30 Days)
-- [ ] **Enhanced GitHub Integration**: Organization activity tracking
-- [ ] **Skills Market Analysis**: Real-time job market alignment
-- [ ] **PDF Generation Pipeline**: Automated professional PDF creation
-- [ ] **Performance Benchmarking**: Core Web Vitals optimization
+For detailed information on the system's architecture, workflows, and underlying research, please refer to our comprehensive documentation:
 
-### **Medium Term** (Next 90 Days)
-- [ ] **Multi-Platform Integration**: LinkedIn, Stack Overflow activity
-- [ ] **AI Career Coaching**: Professional development recommendations
-- [ ] **Industry Trend Analysis**: Technology adoption insights
-- [ ] **Networking Analytics**: Professional network growth tracking
-
-### **Long Term** (Next Year)
-- [ ] **Machine Learning Pipeline**: Predictive career development
-- [ ] **Enterprise Integration**: Team and organization CV systems
-- [ ] **Advanced AI Models**: GPT-4, specialized career models
-- [ ] **Global Developer Insights**: Comparative professional analytics
-
----
-
-## 🎯 **Success Metrics**
-
-This CV system tracks its own effectiveness through:
-
-- **📊 Professional Visibility**: Increased profile views and engagement
-- **🎯 Career Opportunities**: Job interview conversion rates  
-- **🚀 Skill Development**: Measurable professional growth indicators
-- **💡 Industry Alignment**: Relevance to current technology trends
-- **🔄 System Efficiency**: CI/CD pipeline performance and reliability
-
----
-
-**🤖 Built with Claude AI | 📊 Powered by GitHub Analytics | 🚀 Deployed via GitHub Actions**
-
-*This README represents the foundation for your dynamic, AI-enhanced professional CV system. The combination of GitHub activity integration, Claude AI optimization, and modern web technologies creates a living document that evolves with your professional development.*
+- [**Full Documentation Site**](docs/index.md)
+- [**Prompt Engineering Strategy**](docs/prompt_construction.md) (Practical Guide)
+- [**Advanced Prompt & Pipeline Engineering Framework**](docs/research/claude-prompt-engineering-framework.md) (Research Paper)
