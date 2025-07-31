@@ -1,0 +1,484 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github.com/adrianwedd/cv/workflows/CV%20Auto-Enhancement/badge.svg$",
+      "reason": "GitHub Actions workflow badge, may not resolve directly"
+    },
+    {
+      "pattern": "^https://adrianwedd.github.io/cv$",
+      "reason": "Live CV site, may not resolve directly in CI"
+    },
+    {
+      "pattern": "^https://claude.ai$",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.anthropic.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://docs.anthropic.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.siddharthbharath.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://datachain.ai/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.prompthub.us/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://coresignal.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.thecompaniesapi.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.firmographics.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://intellizence.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.jobscan.co/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.myperfectresume.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.browserstack.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://saucelabs.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://blog.apify.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.npmjs.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/berstend/puppeteer-extra/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://latenode.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.scrapingdog.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.scrapingbee.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://app.unpkg.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://scrapingant.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://pypi.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/Kaliiiiiiiiii-Vinyzu/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.youtube.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://medium.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://rtouti.github.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.redblobgames.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/oxylabs/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://scrapeops.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/spinlud/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/speedyapply/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://crawlee.dev/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://docs.github.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://graphite.dev/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.zenrows.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.glukhov.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://arxiv.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.researchgate.net/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.1000minds.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.wgtn.ac.nz/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://productschool.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.geeksforgeeks.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://labex.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.nected.ai/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://dev.to/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/GodsScion/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://jobcopilot.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/wodsuz/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/AloysJehwin/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.visiblethread.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://latitude.so/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://digitaconnect.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.siddharthbharath.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://blogs.cfainstitute.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://geoffcain.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.browserless.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://pixeljets.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://proxyway.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://cyberinsider.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.typeitjs.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://community.lambdatest.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.jobscan.co/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.myperfectresume.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://my.onu.edu/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://enhancv.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.browserstack.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://saucelabs.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://blog.apify.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.npmjs.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/berstend/puppeteer-extra/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://latenode.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.scrapingdog.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.scrapingbee.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://app.unpkg.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://scrapingant.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://pypi.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/Kaliiiiiiiiii-Vinyzu/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.youtube.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://medium.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://rtouti.github.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.redblobgames.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/oxylabs/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://scrapeops.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/spinlud/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/speedyapply/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://crawlee.dev/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://docs.github.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://graphite.dev/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.zenrows.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.glukhov.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://arxiv.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.researchgate.net/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.1000minds.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.wgtn.ac.nz/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://productschool.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.geeksforgeeks.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://labex.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.nected.ai/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://dev.to/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/GodsScion/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://jobcopilot.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/wodsuz/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/AloysJehwin/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://github.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.visiblethread.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://latitude.so/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://digitaconnect.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.siddharthbharath.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://blogs.cfainstitute.org/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://geoffcain.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.browserless.io/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://pixeljets.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://proxyway.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://cyberinsider.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://www.typeitjs.com/",
+      "reason": "External site, prone to false positives"
+    },
+    {
+      "pattern": "^https://community.lambdatest.com/",
+      "reason": "External site, prone to false positives"
+    }
+  ]
+}
