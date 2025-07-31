@@ -19,10 +19,7 @@ const CONFIG = {
     USERNAME: 'adrianwedd',
     REFRESH_INTERVAL: 30000, // 30 seconds
     MAX_ACTIVITIES: 100,
-    REPOSITORIES: [
-        'cv', 'ticketsmith', 'agentic-research-engine', 
-        'ai-career-advisor', 'multi-agent-research'
-    ],
+    REPOSITORIES: [], // Will be populated dynamically
     COLORS: {
         commit: '#22c55e',
         issue: '#f59e0b',
@@ -229,14 +226,53 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Load repository data
+     * Load repository data (filtering forks unless recently active)
      */
     async loadRepositoryData() {
         try {
             const response = await fetch(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
-            return await response.json();
+            const allRepos = await response.json();
+            
+            // Filter repositories: include non-forks OR forks with recent activity
+            const filteredRepos = [];
+            const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+            
+            for (const repo of allRepos) {
+                if (!repo.fork) {
+                    // Include all non-fork repositories
+                    filteredRepos.push(repo);
+                } else {
+                    // For forks, check if we have recent commits
+                    try {
+                        const commitsResponse = await fetch(
+                            `${CONFIG.GITHUB_API}/repos/${repo.full_name}/commits?author=${CONFIG.USERNAME}&since=${thirtyDaysAgo.toISOString()}&per_page=1`
+                        );
+                        if (commitsResponse.ok) {
+                            const commits = await commitsResponse.json();
+                            if (commits.length > 0) {
+                                // Include fork if we have recent commits
+                                filteredRepos.push({
+                                    ...repo,
+                                    _isForkWithActivity: true
+                                });
+                            }
+                        }
+                        // Add small delay to avoid rate limiting
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                    } catch (error) {
+                        console.warn(`⚠️ Could not check fork activity for ${repo.name}:`, error.message);
+                    }
+                }
+            }
+            
+            // Update CONFIG.REPOSITORIES with active repository names
+            CONFIG.REPOSITORIES = filteredRepos.map(repo => repo.name);
+            
+            console.log(`📊 Loaded ${filteredRepos.length} repositories (${allRepos.length - filteredRepos.length} forks filtered out)`);
+            return filteredRepos;
+            
         } catch (error) {
             console.warn('⚠️ Could not load repository data:', error.message);
             return [];
@@ -516,6 +552,7 @@ class WatchMeWorkDashboard {
                     <div class="repo-header">
                         <h3 class="repo-name">
                             <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                            ${repo._isForkWithActivity ? '<span class="fork-badge">🍴 Active Fork</span>' : ''}
                         </h3>
                         <div class="repo-stats">
                             <span class="repo-stat">⭐ ${repo.stars}</span>
@@ -730,7 +767,7 @@ class WatchMeWorkDashboard {
                     <strong>Type:</strong> ${this.formatActivityType(activity.type)}
                 </div>
                 <div class="detail-row">
-                    <strong>Repository:</strong> ${activity.repo}
+                    <strong>Repository:</strong> <a href="https://github.com/${activity.repo}" target="_blank">${activity.repo}</a>
                 </div>
                 <div class="detail-row">
                     <strong>Time:</strong> ${new Date(activity.created_at).toLocaleString()}
@@ -739,8 +776,9 @@ class WatchMeWorkDashboard {
                     <strong>Actor:</strong> ${activity.actor?.display_login || 'Unknown'}
                 </div>
                 <div class="detail-content">
-                    <strong>Details:</strong>
-                    <pre>${JSON.stringify(activity.payload, null, 2)}</pre>
+                    <strong>Description:</strong>
+                    <p>${this.formatActivityDescription(activity)}</p>
+                    ${this.getActivityExtraDetails(activity)}
                 </div>
             </div>
         `;
@@ -817,19 +855,104 @@ class WatchMeWorkDashboard {
         return types[type] || type;
     }
 
+    getActivityExtraDetails(activity) {
+        switch (activity.type) {
+            case 'PushEvent':
+                const commits = activity.payload?.commits || [];
+                if (commits.length === 0) return '';
+                
+                const commitsList = commits.map(commit => 
+                    `<li><code>${commit.sha?.slice(0, 7) || 'unknown'}</code> ${commit.message}</li>`
+                ).join('');
+                
+                return `
+                    <div class="commits-list">
+                        <strong>Commits:</strong>
+                        <ul>${commitsList}</ul>
+                    </div>
+                `;
+                
+            case 'IssuesEvent':
+            case 'PullRequestEvent':
+                const item = activity.payload?.issue || activity.payload?.pull_request;
+                if (!item) return '';
+                
+                return `
+                    <div class="issue-details">
+                        <strong>Labels:</strong> ${item.labels?.map(l => `<span class="label">${l.name}</span>`).join(' ') || 'None'}
+                        ${item.body ? `<div class="body-preview"><strong>Description:</strong><p>${item.body.slice(0, 200)}${item.body.length > 200 ? '...' : ''}</p></div>` : ''}
+                    </div>
+                `;
+                
+            case 'ReleaseEvent':
+                const release = activity.payload?.release;
+                if (!release) return '';
+                
+                return `
+                    <div class="release-details">
+                        <strong>Tag:</strong> ${release.tag_name || 'Unknown'}
+                        <strong>Downloads:</strong> ${release.assets?.length || 0} assets
+                        ${release.body ? `<div class="body-preview"><strong>Release Notes:</strong><p>${release.body.slice(0, 200)}${release.body.length > 200 ? '...' : ''}</p></div>` : ''}
+                    </div>
+                `;
+                
+            default:
+                return '';
+        }
+    }
+
     formatActivityDescription(activity) {
         switch (activity.type) {
             case 'PushEvent':
                 const commits = activity.payload?.commits?.length || 0;
-                return `Pushed ${commits} commit${commits !== 1 ? 's' : ''}`;
+                const commitMessages = activity.payload?.commits?.map(c => c.message).slice(0, 2) || [];
+                let description = `Pushed ${commits} commit${commits !== 1 ? 's' : ''}`;
+                if (commitMessages.length > 0) {
+                    description += `: ${commitMessages[0]}`;
+                    if (commits > 1) description += ` (and ${commits - 1} more)`;
+                }
+                return description;
+                
             case 'IssuesEvent':
-                return `${activity.payload?.action || 'Updated'} issue #${activity.payload?.issue?.number}`;
+                const action = activity.payload?.action || 'updated';
+                const issueTitle = activity.payload?.issue?.title || 'Unknown issue';
+                const issueNumber = activity.payload?.issue?.number || '';
+                return `${action.charAt(0).toUpperCase() + action.slice(1)} issue #${issueNumber}: ${issueTitle}`;
+                
             case 'PullRequestEvent':
-                return `${activity.payload?.action || 'Updated'} PR #${activity.payload?.pull_request?.number}`;
+                const prAction = activity.payload?.action || 'updated';
+                const prTitle = activity.payload?.pull_request?.title || 'Unknown PR';
+                const prNumber = activity.payload?.pull_request?.number || '';
+                return `${prAction.charAt(0).toUpperCase() + prAction.slice(1)} PR #${prNumber}: ${prTitle}`;
+                
             case 'IssueCommentEvent':
-                return `Commented on #${activity.payload?.issue?.number}`;
+                const commentIssue = activity.payload?.issue?.title || 'Unknown issue';
+                const commentNumber = activity.payload?.issue?.number || '';
+                return `Commented on issue #${commentNumber}: ${commentIssue}`;
+                
+            case 'CreateEvent':
+                const refType = activity.payload?.ref_type || 'repository';
+                const refName = activity.payload?.ref || activity.repo?.split('/')[1] || '';
+                return `Created ${refType}${refName ? `: ${refName}` : ''}`;
+                
+            case 'DeleteEvent':
+                const deletedRefType = activity.payload?.ref_type || 'branch';
+                const deletedRef = activity.payload?.ref || '';
+                return `Deleted ${deletedRefType}${deletedRef ? `: ${deletedRef}` : ''}`;
+                
+            case 'ForkEvent':
+                const forkee = activity.payload?.forkee?.full_name || '';
+                return `Forked repository${forkee ? ` to ${forkee}` : ''}`;
+                
+            case 'WatchEvent':
+                return 'Starred repository';
+                
+            case 'ReleaseEvent':
+                const releaseName = activity.payload?.release?.name || activity.payload?.release?.tag_name || '';
+                return `Published release${releaseName ? `: ${releaseName}` : ''}`;
+                
             default:
-                return activity.payload?.action || 'Activity';
+                return `Activity on ${activity.repo?.split('/')[1] || 'repository'}`;
         }
     }
 
