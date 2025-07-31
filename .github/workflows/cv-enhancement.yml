@@ -453,6 +453,35 @@ jobs:
           # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
+      - name: 🍪 Cookie Health Check
+        run: |
+          echo "🍪 **CLAUDE COOKIE HEALTH MONITORING**"
+          echo "🔍 Checking session cookie validity and expiration..."
+          echo ""
+          
+          cd .github/scripts
+          
+          # Run cookie health monitor
+          COOKIE_STATUS=$(node cookie-health-monitor.js status)
+          echo "📊 Cookie Status: $COOKIE_STATUS"
+          
+          # Full health check (will exit with appropriate code)
+          if [ "$COOKIE_STATUS" = "expired" ] || [ "$COOKIE_STATUS" = "error" ]; then
+            echo "🚨 CRITICAL: Claude cookies need immediate refresh!"
+            echo "::warning::Claude.ai session cookies are expired or failing. Please refresh using: node setup-claude-cookies.js"
+            node cookie-health-monitor.js monitor || true
+          elif [ "$COOKIE_STATUS" = "warning" ] || [ "$COOKIE_STATUS" = "caution" ]; then
+            echo "⚠️ WARNING: Claude cookies should be refreshed soon"
+            echo "::notice::Consider refreshing Claude.ai session cookies within the next few days"
+          else
+            echo "✅ Cookie health check passed"
+          fi
+        env:
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
+          CLAUDE_COOKIES_JSON: ${{ secrets.CLAUDE_COOKIES_JSON }}
+
       - name: 🛡️ AI Hallucination Detection & Validation
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
         run: |
