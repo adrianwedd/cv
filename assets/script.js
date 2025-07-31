@@ -62,6 +62,7 @@ class CVApplication {
             // Initialize UI components
             this.initializeLiveStats();
             this.initializeContentSections();
+            this.initializeVisualizations();
             
             // Handle initial route
             this.handleInitialRoute();
@@ -206,13 +207,24 @@ class CVApplication {
      */
     async loadActivityData() {
         try {
-            const response = await fetch(CONFIG.DATA_ENDPOINTS.ACTIVITY_SUMMARY);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+            const summaryResponse = await fetch(CONFIG.DATA_ENDPOINTS.ACTIVITY_SUMMARY);
+            if (!summaryResponse.ok) {
+                throw new Error(`HTTP ${summaryResponse.status}`);
             }
-            return await response.json();
+            const activitySummary = await summaryResponse.json();
+
+            // Load detailed activity data for skill proficiency
+            const latestActivityFile = activitySummary?.data_files?.latest_activity;
+            if (latestActivityFile) {
+                const detailedActivityResponse = await fetch(`data/activity/${latestActivityFile}`);
+                if (detailedActivityResponse.ok) {
+                    const detailedActivityData = await detailedActivityResponse.json();
+                    activitySummary.skill_analysis = detailedActivityData.skill_analysis; // Add detailed skill analysis
+                }
+            }
+            return activitySummary;
         } catch (error) {
-            console.warn('⚠️ Activity data not available');
+            console.warn('⚠️ Activity data not available', error);
             return {};
         }
     }
@@ -576,6 +588,45 @@ class CVApplication {
                 </div>
             </div>
         `).join('');
+    }
+
+    /**
+     * Initialize data visualizations
+     */
+    initializeVisualizations() {
+        const languageChartCanvas = document.getElementById('languageChart');
+        if (!languageChartCanvas) return;
+
+        const skillProficiency = this.activityData?.skill_analysis?.skill_proficiency;
+
+        if (skillProficiency) {
+            const labels = Object.keys(skillProficiency);
+            const data = Object.values(skillProficiency).map(skill => skill.proficiency_score);
+
+            new Chart(languageChartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Proficiency Score',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
     }
 
     /**
