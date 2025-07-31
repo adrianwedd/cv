@@ -111,14 +111,23 @@ Data flows through the system in a well-defined pipeline, ensuring that each sta
 7.  **Output Formats -> GitHub Pages Deployment**: The generated assets are deployed to GitHub Pages for public access.
 8.  **GitHub Actions**: Orchestrates all these steps, from data collection to deployment, and commits updated data back to the repository, closing the loop for continuous integration.
 
+### 6. Python Utilities (`src/python/`)
+
+This new set of Python modules provides foundational utilities for various aspects of the system, promoting modularity, reusability, and maintainability.
+
+*   **`logging_utils.py`**: Provides advanced logging and metrics collection capabilities, allowing for structured logging and performance monitoring.
+*   **`api_wrappers/external_apis.py`**: Contains wrappers for external APIs (e.g., firmographics, funding data), abstracting API interactions and handling authentication and error management.
+*   **`config_manager/config_manager.py`**: Implements a flexible configuration management system that can load settings from `.ini` files and environment variables, with environment variables taking precedence.
+*   **`data_validation/data_validator.py`**: Offers a suite of data validation functions for common tasks such as type checking, range validation, and format validation (e.g., email, URL).
+
 ## Technology Stack
 
-*   **Primary Languages**: JavaScript (Node.js), Shell Scripting (Bash).
+*   **Primary Languages**: JavaScript (Node.js), Python, Shell Scripting (Bash).
 *   **AI/ML**: Anthropic Claude API.
 *   **Web Technologies**: HTML5, CSS3.
 *   **Frontend Frameworks/Libraries**: None (Vanilla JavaScript).
 *   **Build/Automation**: npm, GitHub Actions.
 *   **PDF Generation**: Puppeteer.
-*   **Data Processing**: `jq` (JSON processor).
-*   **Testing**: Node.js native test runner.
+*   **Data Processing**: `jq` (JSON processor), Python libraries (e.g., `configparser`, `requests`).
+*   **Testing**: Node.js native test runner, Python `unittest` module.
 
