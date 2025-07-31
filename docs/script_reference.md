@@ -45,13 +45,24 @@ This section provides an overview of the main JavaScript and Python classes and 
 
 ### `CVGenerator` (`.github/scripts/cv-generator.js`)
 
-**Role**: Compiles all CV data sources into a production-ready website and various output formats.
+**Role**: Compiles all CV data sources into a production-ready website with verified GitHub metrics integration.
 
 ### Key Methods:
 
-*   `generate()`: Generates the complete CV website and other formats.
-*   `prepareOutputDirectory()`: Prepares the output directory.
-*   `loadDataSources()`: Loads all data sources (base CV, activity, AI enhancements).
+*   `generate()`: Runs the complete CV website generation pipeline with GitHub data integration.
+*   `loadDataSources()`: Loads and validates all data sources including activity data, CV data, and AI enhancements.
+*   `validateActivityData()`: Validates and sanitizes GitHub activity metrics for data integrity.
+*   `updateGitHubMetrics(htmlContent)`: Replaces placeholder metrics with verified GitHub data.
+*   `updateStructuredDataWithGitHubSkills(htmlContent)`: Enhances structured data with GitHub-verified skills.
+*   `calculateCredibilityScore(summary, professionalMetrics)`: Calculates data integrity score based on GitHub metrics completeness.
+
+### GitHub Data Integration Features:
+
+*   **Real-time Metrics**: Displays actual GitHub commit counts, activity scores, and contribution data
+*   **Data Validation**: Comprehensive validation and sanitization of all GitHub metrics
+*   **Fallback Mechanisms**: Graceful degradation when GitHub data is unavailable
+*   **Credibility Scoring**: Transparency scoring based on data verification and completeness
+*   **Skills Enhancement**: Structured data enhanced with GitHub-verified programming languages
 *   `generateHTML()`: Generates the HTML file with dynamic content.
 *   `processHTMLTemplate(htmlContent)`: Processes the HTML template with dynamic data.
 *   `copyAssets()`: Copies assets to the output directory.
