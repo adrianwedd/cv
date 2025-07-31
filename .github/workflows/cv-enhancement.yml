@@ -402,13 +402,18 @@ jobs:
           
           cd ../..
         env:
+          # Browser-based authentication (free alternative)
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
+          CLAUDE_COOKIES_JSON: ${{ secrets.CLAUDE_COOKIES_JSON }}
           # OAuth-first authentication (preferred)
           CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
           CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
           # API key fallback (for 24-hour fallback scenarios)
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Authentication strategy
-          AUTH_STRATEGY: oauth_first
+          # Authentication strategy (browser_first for free usage)
+          AUTH_STRATEGY: browser_first
           # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -496,16 +501,18 @@ jobs:
           
           cd ../..
         env:
+          # Browser-based authentication (free alternative)
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
+          CLAUDE_COOKIES_JSON: ${{ secrets.CLAUDE_COOKIES_JSON }}
           # OAuth-first authentication (preferred)
           CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
           CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
-          
           # API key fallback (for 24-hour fallback scenarios)
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          
-          # Authentication strategy
-          AUTH_STRATEGY: oauth_first
-          
+          # Authentication strategy (browser_first for free usage)
+          AUTH_STRATEGY: browser_first
           # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AI_BUDGET: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}
