@@ -39,7 +39,7 @@ class RcloneClient:
             print("Error: rclone command not found. Make sure rclone is installed and in your PATH.")
             raise
 
-    def lsf(self, remote_path: str, include_filters: list = None, exclude_filters: list = None, recursive: bool = False) -> list:
+    def lsf(self, remote_path: str, include_filters: list = None, exclude_filters: list = None, recursive: bool = False, extra_args: list = None) -> list:
         """Lists files and directories on a remote.
 
         Args:
@@ -59,10 +59,10 @@ class RcloneClient:
         for f in exclude_filters or []:
             command_args.append(f"--exclude={f}")
 
-        output = self._run_command(command_args)
+        output = self._run_command(command_args + (extra_args or []))
         return [line.strip() for line in output.splitlines() if line.strip()]
 
-    def copy(self, source_path: str, destination_path: str, include_filters: list = None, exclude_filters: list = None) -> str:
+    def copy(self, source_path: str, destination_path: str, include_filters: list = None, exclude_filters: list = None, extra_args: list = None) -> str:
         """Copies files from a source path to a destination path.
 
         Args:
@@ -80,4 +80,4 @@ class RcloneClient:
         for f in exclude_filters or []:
             command_args.append(f"--exclude={f}")
 
-        return self._run_command(command_args)
+        return self._run_command(command_args + (extra_args or []))
