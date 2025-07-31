@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Professional Summary Enhancement Template v2.0 -->
+<prompt_template 
+    id="professional-summary" 
+    version="2.0" 
+    created="2025-07-31"
+    persona="senior-technical-recruiter">
+    
+    <metadata>
+        <title>Professional Summary Enhancement</title>
+        <description>Advanced template for creating compelling professional summaries with evidence-based positioning</description>
+        <use_cases>
+            <case>Senior technical professional positioning</case>
+            <case>AI/ML engineer career summary</case>
+            <case>Technical leadership narrative</case>
+        </use_cases>
+        <max_tokens>1200</max_tokens>
+        <temperature_range>0.3-0.9</temperature_range>
+    </metadata>
+
+    <prompt_structure>
+        <persona>
+            <expert_persona>
+                {persona_definition}
+            </expert_persona>
+        </persona>
+
+        <context_integration>
+            <narrative_context>
+                You are evaluating a technical professional who {leadership_capacity}, 
+                with {activity_context}. Their expertise trajectory spans {domain_areas}.
+                The enhancement should reflect their unique combination of {key_differentiators}.
+            </narrative_context>
+            
+            <market_positioning>
+                In the current {market_context}, professionals with {technical_profile} 
+                are positioned as {market_opportunity}. Focus on {competitive_advantage}.
+            </market_positioning>
+        </context_integration>
+
+        <enhancement_philosophy>
+            <creativity_strategy>
+                {creativity_approach}
+            </creativity_strategy>
+            
+            <differentiation_focus>
+                - Emphasize unique technical combinations and cross-domain expertise
+                - Highlight quantifiable impact and measurable contributions  
+                - Position growth trajectory and future potential authentically
+                - Connect individual capabilities to broader industry trends
+            </differentiation_focus>
+        </enhancement_philosophy>
+
+        <quality_framework>
+            <quality_criteria>
+                <criterion type="language">Avoid generic AI/tech language (no "cutting-edge", "seamlessly", "innovative solutions")</criterion>
+                <criterion type="specificity">Include concrete technical depth indicators (languages, domains, scale)</criterion>
+                <criterion type="authenticity">Balance confidence with authenticity (no unsupported superlatives)</criterion>
+                <criterion type="value">Focus on unique value creation rather than role descriptions</criterion>
+                <criterion type="evidence">Ensure every claim is traceable to provided evidence</criterion>
+                <criterion type="structure">Use active voice and specific, measurable language</criterion>
+            </quality_criteria>
+            
+            <validation_requirements>
+                <requirement>2-3 sentences maximum for optimal readability</requirement>
+                <requirement>Each claim supported by evidence from activity data or experience</requirement>
+                <requirement>Technical positioning relevant to AI/ML market context</requirement>
+                <requirement>Professional tone appropriate for senior technical roles</requirement>
+            </validation_requirements>
+        </quality_framework>
+
+        <output_specification>
+            <format>JSON</format>
+            <schema>
+                {
+                    "enhanced": "string: Enhanced professional summary (2-3 sentences, specific and compelling)",
+                    "key_differentiators": "array: 3-4 unique value propositions based on evidence", 
+                    "technical_positioning": "string: Market positioning statement with specific expertise areas",
+                    "confidence_indicators": "array: Specific evidence supporting each enhancement",
+                    "enhancement_rationale": "string: Brief explanation of enhancement strategy used",
+                    "market_relevance": "string: How positioning aligns with current industry demands"
+                }
+            </schema>
+            
+            <validation_schema>
+                <field name="enhanced" required="true" min_length="100" max_length="500"/>
+                <field name="key_differentiators" required="true" min_items="2" max_items="5"/>
+                <field name="technical_positioning" required="true" min_length="50" max_length="200"/>
+                <field name="confidence_indicators" required="false" min_items="0"/>
+                <field name="enhancement_rationale" required="false"/>
+                <field name="market_relevance" required="false"/>
+            </validation_schema>
+        </output_specification>
+
+        <reasoning_chain>
+            <evidence_analysis>
+                {evidence_points}
+            </evidence_analysis>
+            
+            <synthesis_instruction>
+                Base your enhancement on the evidence chain above. Each claim should be 
+                traceable to specific evidence points. Avoid assertions that lack supporting data.
+                Synthesize evidence into a compelling narrative that positions the professional
+                uniquely in the {target_market} space.
+            </synthesis_instruction>
+        </reasoning_chain>
+    </prompt_structure>
+
+    <placeholders>
+        <!-- Core placeholders that must be replaced -->
+        <placeholder name="persona_definition" required="true" source="persona_file"/>
+        <placeholder name="leadership_capacity" required="true" source="activity_analysis"/>
+        <placeholder name="activity_context" required="true" source="github_metrics"/>
+        <placeholder name="domain_areas" required="true" source="experience_data"/>
+        <placeholder name="key_differentiators" required="true" source="capability_analysis"/>
+        <placeholder name="creativity_approach" required="true" source="creativity_level"/>
+        <placeholder name="evidence_points" required="true" source="evidence_chain"/>
+        
+        <!-- Context placeholders -->
+        <placeholder name="market_context" required="false" default="AI/ML engineering market"/>
+        <placeholder name="technical_profile" required="false" source="skill_analysis"/>
+        <placeholder name="market_opportunity" required="false" source="positioning_analysis"/>
+        <placeholder name="competitive_advantage" required="false" source="differentiation_analysis"/>
+        <placeholder name="target_market" required="false" default="AI engineering"/>
+    </placeholders>
+
+    <usage_examples>
+        <example name="senior_ai_engineer">
+            <context>Senior AI engineer with 5+ years, high GitHub activity, polyglot expertise</context>
+            <expected_outcome>Technical leadership positioning with quantified impact</expected_outcome>
+        </example>
+        
+        <example name="transitioning_professional">
+            <context>Professional transitioning into AI from traditional software development</context>
+            <expected_outcome>Growth trajectory emphasis with transferable skills</expected_outcome>
+        </example>
+    </usage_examples>
+
+    <quality_assurance>
+        <automated_checks>
+            <check name="generic_language" description="Flag usage of avoided terms"/>
+            <check name="length_validation" description="Ensure 2-3 sentence structure"/>
+            <check name="evidence_traceability" description="Verify claims against provided evidence"/>
+            <check name="technical_specificity" description="Ensure concrete technical indicators"/>
+        </automated_checks>
+        
+        <confidence_scoring>
+            <metric name="evidence_support" weight="30" description="Claims backed by evidence"/>
+            <metric name="language_quality" weight="25" description="Avoids generic language"/>
+            <metric name="technical_depth" weight="20" description="Includes specific technical indicators"/>
+            <metric name="market_alignment" weight="15" description="Relevant to target market"/>
+            <metric name="structural_quality" weight="10" description="Proper length and format"/>
+        </confidence_scoring>
+    </quality_assurance>
+
+</prompt_template>

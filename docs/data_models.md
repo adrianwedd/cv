@@ -214,6 +214,8 @@ This file stores the AI-generated and optimized content for the CV, produced by 
 }
 ```
 
+**Note on `professional_summary.enhanced`:** This field may contain meta-commentary or explanations from the LLM, in addition to the enhanced summary itself. Refer to [Issue #100](https://github.com/adrianwedd/cv/issues/100) for details and proposed remediation.
+
 ### 4. `cv-usage-tracking.json`
 
 This file records the usage analytics for the CV enhancement workflows, providing insights into performance and cost over time.
@@ -251,6 +253,8 @@ This file records the usage analytics for the CV enhancement workflows, providin
 }
 ```
 
+**Note on `estimated_tokens` and `performance_metrics`:** The `estimated_tokens` field currently stores an estimate rather than precise token counts. The `performance_metrics` array is present in the schema but is not yet populated with actual job duration data. Refer to [Issue #15](https://github.com/adrianwedd/cv/issues/15) for details on enhancing CI performance and cost monitoring.
+
 ## Relationships
 
 *   `base-cv.json` provides the static foundation.
@@ -258,3 +262,70 @@ This file records the usage analytics for the CV enhancement workflows, providin
 *   `ai-enhancements.json` is the output of the AI processing, containing optimized content.
 *   All three (`base-cv.json`, `activity-summary.json`, `ai-enhancements.json`) are consumed by the `cv-generator.js` to produce the final CV outputs.
 *   `cv-usage-tracking.json` records metadata about workflow executions, including estimated token usage and activity scores, providing a historical log of the system's operation.
+
+## Python Data Models
+
+This section outlines the data structures used by the Python utilities within the `src/python/` directory. These models facilitate data exchange and persistence for various functionalities.
+
+### 1. Logging Utilities (`src/python/utils/logging_utils.py`)
+
+While `logging_utils.py` primarily handles logging to files and console, the log entries themselves follow a structured format:
+
+```
+YYYY-MM-DD HH:MM:SS,ms - LOGGER_NAME - LEVEL - MESSAGE
+```
+
+### 2. External API Wrappers (`src/python/api_wrappers/external_apis.py`)
+
+The data models for the external API wrappers are determined by the respective third-party APIs (Abstract API for firmographics, Intellizence for funding data). The wrappers return JSON objects directly from the API responses.
+
+**Example (Abstract API - Company Info):**
+```json
+{
+  "name": "string",
+  "domain": "string",
+  "legal_name": "string",
+  "description": "string",
+  "founded": "number" (year),
+  "employees": "number",
+  "industry": "string",
+  "type": "string",
+  "country": "string",
+  "website_url": "url",
+  "logo_url": "url"
+}
+```
+
+**Example (Intellizence API - Funding Data):**
+```json
+[
+  {
+    "company_name": "string",
+    "funding_round": "string",
+    "amount": "number",
+    "currency": "string",
+    "date": "date" (YYYY-MM-DD),
+    "investors": ["string"],
+    "valuation": "number"
+  }
+]
+```
+
+### 3. Configuration Management (`src/python/config_manager/config_manager.py`)
+
+The `ConfigManager` class handles configurations typically stored in `.ini` files. The structure is section-based, with key-value pairs.
+
+**Example (`config.ini`):**
+```ini
+[API_SETTINGS]
+api_key = your_api_key
+base_url = https://api.example.com
+
+[APP_SETTINGS]
+debug_mode = True
+max_retries = 5
+```
+
+### 4. Data Validation Utilities (`src/python/data_validation/data_validator.py`)
+
+`data_validator.py` does not define a specific data model for persistence. Instead, its methods operate on various data types (strings, numbers, lists, dictionaries) and return boolean values indicating validation success or failure. It logs warnings for validation failures.
