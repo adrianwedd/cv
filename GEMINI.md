@@ -88,3 +88,10 @@ When tasked with grooming issues, I will follow this systematic procedure:
 -   **API Key vs. OAuth**: For CLI prototypes, using an API key is generally more practical than implementing a full OAuth flow due to the interactive nature of OAuth.
 -   **Error Handling in Tests**: Expected API errors (e.g., `Bad Request`) and malformed responses should be explicitly tested in unit tests by mocking the API client. The test should assert that the code handles these scenarios gracefully (e.g., raises the correct exception). Print statements from within these error-handling test cases are normal and indicate the test is working as expected.
 
+### Documentation & Codebase Insights
+
+-   **Documentation Best Practice: Avoid Specific Issue References**: Direct references to GitHub issue numbers in documentation can quickly become stale. It's better to describe the feature or problem generally.
+-   **Documentation Best Practice: Clarify Research vs. Practical Guides**: Clearly distinguishing between in-depth research papers and practical implementation guides improves documentation navigability and user understanding.
+-   **Tool Usage Insight: `replace` Tool Precision**: When using the `replace` tool for multi-line or repeated content, the `old_string` must be extremely precise, including all whitespace and context, to avoid unintended replacements or failures. For large, complex changes, overwriting the file with `write_file` might be more robust.
+-   **Codebase Insight: Importance of Naming Consistency**: Minor naming inconsistencies across files and documentation can lead to confusion. Emphasizing strict adherence to naming conventions is crucial for maintainability.
+
