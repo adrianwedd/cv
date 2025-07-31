@@ -400,7 +400,17 @@ jobs:
             echo "⚠️ Claude AI enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
           fi
           
-          cd ../...
+          cd ../..
+        env:
+          # OAuth-first authentication (preferred)
+          CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
+          CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
+          # API key fallback (for 24-hour fallback scenarios)
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Authentication strategy
+          AUTH_STRATEGY: oauth_first
+          # Standard configuration
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: 🛡️ AI Hallucination Detection & Validation
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
@@ -486,7 +496,17 @@ jobs:
           
           cd ../..
         env:
+          # OAuth-first authentication (preferred)
+          CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
+          CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
+          
+          # API key fallback (for 24-hour fallback scenarios)
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          
+          # Authentication strategy
+          AUTH_STRATEGY: oauth_first
+          
+          # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           AI_BUDGET: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}
           CREATIVITY_LEVEL: ${{ github.event.inputs.ai_creativity || 'balanced' }}

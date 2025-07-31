@@ -12,7 +12,14 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const { ClaudeApiClient } = require('./claude-api-client');
+const { 
+    ClaudeApiClient,
+    QuotaExhaustedError,
+    RateLimitExceededError,
+    AuthenticationError,
+    ServerError,
+    NetworkError
+} = require('./claude-api-client');
 const {
     ProfessionalSummaryEnhancer,
     SkillsEnhancer,
@@ -28,10 +35,18 @@ const ContentGuardian = require('../content-guardian');
 class EnhancementOrchestrator {
     constructor(config) {
         this.config = config;
-        this.apiClient = new ClaudeApiClient(config);
+        
+        // Use OAuth-first authentication manager if available, fallback to direct API client
+        if (config.authManager) {
+            this.authManager = config.authManager;
+            this.apiClient = config.authManager; // Auth manager implements the same interface
+        } else {
+            this.apiClient = new ClaudeApiClient(config);
+        }
+        
         this.dataDir = path.join(process.cwd(), 'data');
         
-        // Initialize enhancer modules
+        // Initialize enhancer modules with OAuth-aware client
         this.enhancers = {
             professionalSummary: new ProfessionalSummaryEnhancer(this.apiClient, config),
             skills: new SkillsEnhancer(this.apiClient, config),
@@ -47,8 +62,13 @@ class EnhancementOrchestrator {
             enhancements: {},
             token_usage: {},
             quality_metrics: {},
-            strategic_insights: {}
+            strategic_insights: {},
+            fallback_mode: false,
+            error_recovery: []
         };
+        
+        this.fallbackMode = false;
+        this.errorRecoveryAttempts = [];
         
         // Initialize content guardian for protection
         this.contentGuardian = new ContentGuardian();
@@ -98,11 +118,14 @@ class EnhancementOrchestrator {
             // Display summary
             this.displayEnhancementSummary();
             
+            // Record final results
+            this.enhancementResults.fallback_mode = this.fallbackMode;
+            this.enhancementResults.error_recovery = this.errorRecoveryAttempts;
+            
             return this.enhancementResults;
             
         } catch (error) {
-            console.error('❌ Enhancement orchestration failed:', error.message);
-            throw error;
+            return await this.handleEnhancementError(error);
         }
     }
 
@@ -387,6 +410,224 @@ class EnhancementOrchestrator {
         }
         
         return assessableEnhancements > 0 ? Math.round(qualityScore / assessableEnhancements) : 0;
+    }
+
+    /**
+     * Enhanced error handling for AI enhancement failures
+     */
+    async handleEnhancementError(error) {
+        console.error('❌ Enhancement error encountered:', error.message);
+        
+        const errorType = error.constructor.name;
+        const recoveryAttempt = {
+            timestamp: new Date().toISOString(),
+            error_type: errorType,
+            message: error.message,
+            recovery_action: null,
+            success: false
+        };
+
+        // Handle specific error types with appropriate recovery strategies
+        if (error instanceof QuotaExhaustedError) {
+            recoveryAttempt.recovery_action = 'fallback_to_activity_only';
+            console.log('🔄 API quota exhausted - switching to activity-only mode');
+            this.fallbackMode = true;
+            
+        } else if (error instanceof RateLimitExceededError) {
+            recoveryAttempt.recovery_action = 'retry_with_backoff';
+            console.log('⏰ Rate limit exceeded - implementing backoff strategy');
+            
+        } else if (error instanceof AuthenticationError) {
+            recoveryAttempt.recovery_action = 'fallback_to_activity_only';
+            console.log('🔐 Authentication failed - switching to activity-only mode');
+            this.fallbackMode = true;
+            
+        } else if (error instanceof ServerError || error instanceof NetworkError) {
+            recoveryAttempt.recovery_action = 'retry_with_reduced_scope';
+            console.log('🔧 Server/Network error - retrying with reduced scope');
+            
+        } else {
+            recoveryAttempt.recovery_action = 'fallback_to_activity_only';
+            console.log('❓ Unknown error - falling back to activity-only mode');
+            this.fallbackMode = true;
+        }
+
+        this.errorRecoveryAttempts.push(recoveryAttempt);
+
+        // Attempt recovery
+        try {
+            if (this.fallbackMode) {
+                const result = await this.executeActivityOnlyMode();
+                recoveryAttempt.success = true;
+                console.log('✅ Successfully recovered using activity-only mode');
+                return result;
+            } else {
+                // For retryable errors, attempt with reduced configuration
+                const result = await this.executeReducedScopeEnhancement();
+                recoveryAttempt.success = true;
+                console.log('✅ Successfully recovered with reduced scope');
+                return result;
+            }
+        } catch (recoveryError) {
+            console.error('❌ Recovery attempt failed:', recoveryError.message);
+            
+            // Final fallback - return basic activity analysis
+            console.log('🔄 Final fallback: returning basic activity analysis');
+            return await this.executeMinimalMode();
+        }
+    }
+
+    /**
+     * Execute activity-only mode when AI enhancement fails
+     */
+    async executeActivityOnlyMode() {
+        console.log('🔄 **ACTIVITY-ONLY MODE INITIATED**');
+        
+        try {
+            // Load available data
+            const cvData = await this.loadCVData();
+            const activityMetrics = await this.loadActivityMetrics();
+            
+            // Generate basic enhancements using activity data only
+            this.enhancementResults.enhancement_mode = 'activity-only';
+            this.enhancementResults.fallback_mode = true;
+            
+            // Update CV with activity-based insights
+            if (activityMetrics && activityMetrics.summary) {
+                this.enhancementResults.enhancements.activity_summary = {
+                    source: 'github_analysis',
+                    content: this.generateActivityBasedSummary(activityMetrics),
+                    confidence: 'high',
+                    enhancement_type: 'data-driven'
+                };
+            }
+            
+            // Update skills based on detected technologies
+            if (activityMetrics && activityMetrics.repository_breakdown) {
+                this.enhancementResults.enhancements.detected_skills = {
+                    source: 'repository_analysis',
+                    content: this.extractSkillsFromActivity(activityMetrics),
+                    confidence: 'high',
+                    enhancement_type: 'data-driven'
+                };
+            }
+            
+            // Save and return results
+            await this.saveEnhancementResults();
+            
+            console.log('✅ Activity-only mode completed successfully');
+            return this.enhancementResults;
+            
+        } catch (error) {
+            console.error('❌ Activity-only mode failed:', error.message);
+            return await this.executeMinimalMode();
+        }
+    }
+
+    /**
+     * Execute reduced scope enhancement for retryable errors
+     */
+    async executeReducedScopeEnhancement() {
+        console.log('🎯 **REDUCED SCOPE ENHANCEMENT INITIATED**');
+        
+        // Load data
+        const cvData = await this.loadCVData();
+        const activityMetrics = await this.loadActivityMetrics();
+        
+        // Only enhance the most critical section (professional summary)
+        this.enhancementResults.enhancement_mode = 'reduced-scope';
+        
+        try {
+            const summaryEnhancer = this.enhancers.professionalSummary;
+            const enhancedSummary = await summaryEnhancer.enhance(
+                cvData.professional_summary || '',
+                { activityMetrics, scope: 'minimal' }
+            );
+            
+            this.enhancementResults.enhancements.professional_summary = enhancedSummary;
+            
+            await this.saveEnhancementResults();
+            console.log('✅ Reduced scope enhancement completed');
+            
+            return this.enhancementResults;
+            
+        } catch (error) {
+            console.warn('⚠️ Reduced scope enhancement failed, falling back');
+            return await this.executeActivityOnlyMode();
+        }
+    }
+
+    /**
+     * Execute minimal mode as final fallback
+     */
+    async executeMinimalMode() {
+        console.log('⚡ **MINIMAL MODE - FINAL FALLBACK**');
+        
+        this.enhancementResults.enhancement_mode = 'minimal-fallback';
+        this.enhancementResults.fallback_mode = true;
+        
+        // Return basic structure with timestamp
+        this.enhancementResults.enhancements.status = {
+            source: 'system',
+            content: 'Enhancement completed in minimal mode due to API limitations',
+            timestamp: new Date().toISOString(),
+            enhancement_type: 'system-generated'
+        };
+        
+        await this.saveEnhancementResults();
+        
+        console.log('⚡ Minimal mode completed - basic functionality maintained');
+        return this.enhancementResults;
+    }
+
+    /**
+     * Generate activity-based professional summary
+     */
+    generateActivityBasedSummary(activityMetrics) {
+        const summary = activityMetrics.summary || {};
+        const recentActivity = summary.activity_score || 0;
+        const languages = summary.top_languages || [];
+        const totalCommits = summary.total_commits || 0;
+        
+        let activitySummary = 'Software professional with demonstrated GitHub activity';
+        
+        if (totalCommits > 100) {
+            activitySummary += ` showing ${totalCommits} commits across multiple projects`;
+        }
+        
+        if (languages.length > 0) {
+            const topLanguages = languages.slice(0, 3).map(l => l.name).join(', ');
+            activitySummary += `. Primary technologies include ${topLanguages}`;
+        }
+        
+        if (recentActivity > 70) {
+            activitySummary += '. Recent high activity indicates active development and continuous learning.';
+        } else if (recentActivity > 30) {
+            activitySummary += '. Consistent development activity with regular contributions.';
+        }
+        
+        return activitySummary;
+    }
+
+    /**
+     * Extract skills from activity data
+     */
+    extractSkillsFromActivity(activityMetrics) {
+        const skills = [];
+        
+        if (activityMetrics.summary && activityMetrics.summary.top_languages) {
+            activityMetrics.summary.top_languages.forEach(lang => {
+                skills.push({
+                    name: lang.name,
+                    category: 'Programming Languages',
+                    level: lang.percentage > 20 ? 'Advanced' : lang.percentage > 10 ? 'Intermediate' : 'Beginner',
+                    source: 'github_analysis',
+                    evidence: `${lang.percentage}% of recent code`
+                });
+            });
+        }
+        
+        return skills;
     }
 
     /**

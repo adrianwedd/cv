@@ -1,0 +1,10 @@
+{
+  "monthly_budget": 100,
+  "daily_budget": 5,
+  "token_limits": {
+    "daily": 50000,
+    "monthly": 1000000
+  },
+  "auth_method": "oauth_max",
+  "subscription_tier": "max_5x"
+}
