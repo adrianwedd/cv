@@ -334,3 +334,87 @@ This system maintains a living CV that evolves with professional development thr
 - **Automated Recovery**: Self-healing systems with minimal manual intervention
 
 These insights represent a significant evolution in AI-powered CV enhancement systems, demonstrating enterprise-grade reliability, cost optimization, and operational excellence through intelligent architecture and comprehensive monitoring.
+
+## Session Insights - August 1, 2025
+
+### Critical Bug Fixes & API Evolution
+**Fixed Claude API System Role Error**: The Claude API no longer accepts "system" as a message role. System messages must be passed as a top-level parameter:
+```javascript
+// Extract system message and pass at top level
+if (messages[0]?.role === 'system') {
+    requestOptions.system = messages[0].content;
+    requestOptions.messages = messages.slice(1);
+}
+```
+
+### Workflow Enhancement & Visualization
+**GITHUB_STEP_SUMMARY Implementation**: Enhanced workflows to bubble up valuable metrics directly to GitHub Actions UI:
+- Each job now includes markdown-formatted summaries
+- Pipeline metrics displayed in tables with costs, tokens, and deployment info
+- Job-specific summaries provide granular visibility
+- Rich visual feedback without external tools
+
+### Repository Excellence Features
+**Comprehensive Repository Enhancement**:
+- **Security Policy**: SECURITY.md with vulnerability reporting process
+- **Contributing Guide**: CONTRIBUTING.md with development workflow
+- **Issue Templates**: Bug reports and feature requests
+- **First Release**: v1.0.0 with comprehensive release notes
+- **Enhanced Badges**: Professional status indicators
+- **Repository Topics**: AI-powered, automation, claude-ai, cv-generator
+- **Discussions**: Enabled for community engagement
+
+### GitHub CLI Power Features
+**Advanced `gh` Commands**:
+```bash
+# Repository management
+gh repo edit --add-topic "topic-name"
+gh api repos/owner/repo/topics
+
+# Release management
+gh release create v1.0.0 --title "Title" --notes "Notes"
+
+# Issue templates
+.github/ISSUE_TEMPLATE/bug_report.md
+
+# Enable features via API
+gh api repos/owner/repo --method PATCH --field has_discussions=true
+```
+
+### Authentication Insights
+**OAuth Reality Check**:
+- Claude Max OAuth endpoints are not publicly documented
+- Current best practice: Use ANTHROPIC_API_KEY
+- OAuth token setup would require official Anthropic OAuth client
+- System designed to support OAuth when/if it becomes available
+
+### Debugging Discoveries
+**Workflow Debugging**: 
+- Many "successful" workflow runs had silent failures
+- Enhancement was failing but workflows continued
+- Proper error handling and logging essential for visibility
+- Check enhancement output files for actual success
+
+### Multi-Repository Management
+**Cross-Repository Updates**:
+- Enhanced main profile README to showcase CV project
+- Categorized project display (AI/Tools/Personal Intelligence)
+- Activity section management (note: auto-updated by GitHub Actions)
+- Handling merge conflicts with automated updates
+
+### Best Practices Reinforced
+1. **Always verify API changes** - APIs evolve, check error messages carefully
+2. **Log everything in CI/CD** - Silent failures are worse than loud ones
+3. **Use job summaries** - GitHub's UI features are powerful when utilized
+4. **Document security early** - SECURITY.md builds trust
+5. **Enable discussions** - Community engagement drives growth
+6. **Cross-link repositories** - Your projects should reference each other
+
+### Session Achievements
+- ✅ Fixed critical API error blocking all enhancements
+- ✅ Implemented rich workflow visualization
+- ✅ Created comprehensive repository documentation
+- ✅ Published first release
+- ✅ Enhanced both CV and main profile repositories
+- ✅ Established repository best practices
+- ✅ Explored full GitHub CLI capabilities

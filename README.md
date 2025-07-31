@@ -2,10 +2,19 @@
 
 **Intelligent, GitHub-Integrated Professional Portfolio with AI-Powered Content Enhancement**
 
-[![CV Build Status](https://github.com/adrianwedd/cv/workflows/CV%20Auto-Enhancement/badge.svg)](https://github.com/adrianwedd/cv/actions)
-[![GitHub Activity](https://img.shields.io/badge/GitHub-Activity%20Tracked-brightgreen)](https://github.com/adrianwedd/cv)
-[![Claude AI](https://img.shields.io/badge/AI-Enhanced-blue)](https://claude.ai)
-[![Live CV](https://img.shields.io/badge/Live-CV-success)](https://adrianwedd.github.io/cv)
+<div align="center">
+
+[![CV Build Status](https://github.com/adrianwedd/cv/workflows/🚀%20CV%20Auto-Enhancement%20Pipeline/badge.svg)](https://github.com/adrianwedd/cv/actions)
+[![GitHub release](https://img.shields.io/github/release/adrianwedd/cv.svg)](https://github.com/adrianwedd/cv/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Live CV](https://img.shields.io/badge/🌐_Live_CV-adrianwedd.github.io-success)](https://adrianwedd.github.io/cv)
+
+[![Claude AI](https://img.shields.io/badge/🤖_AI-Claude_Enhanced-blue)](https://claude.ai)
+[![GitHub Activity](https://img.shields.io/badge/📊_Activity-Tracked_Daily-brightgreen)](https://github.com/adrianwedd/cv)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Security Policy](https://img.shields.io/badge/Security-Policy-red.svg)](SECURITY.md)
+
+</div>
 
 ## 🎯 **Project Overview**
 

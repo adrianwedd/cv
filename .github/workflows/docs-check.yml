@@ -1,0 +1,24 @@
+name: 📝 Documentation Link Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/linters/markdown-link-check-config.json'
+          # Optional: Add a base URL if your links are relative to a deployed site
+          # base-url: 'https://adrianwedd.github.io/cv/'
