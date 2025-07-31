@@ -18,7 +18,9 @@
     "formats:validate": "node multi-format-validator.js ../../dist",
     "formats:full": "npm run generate && npm run formats:validate",
     
-    "hallucination:detect": "node ai-hallucination-detector.js"
+    "hallucination:detect": "node ai-hallucination-detector.js",
+    "readability:optimize": "node paragraph-splitter.js",
+    "readability:test": "node paragraph-splitter.js --test"
   },
   "keywords": [
     "cv",
