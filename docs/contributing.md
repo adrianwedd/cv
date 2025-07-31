@@ -75,16 +75,21 @@ We use ESLint (for JavaScript) and Ruff (for Python) to maintain consistent code
     cd .github/scripts
     npm run lint
     ```
+    *Configuration*: ESLint configuration is defined in `.eslintrc.js` within the `.github/scripts` directory.
+
 *   **Python Linting**: Check for code quality issues (from project root):
 
     ```bash
     ruff check src/python/
     ```
+    *Configuration*: Ruff configuration is typically managed via `pyproject.toml` or `.ruff.toml` in the project root.
+
 *   **Formatting**: Automatically format your code (for JavaScript, from `.github/scripts`):
 
     ```bash
     npm run format
     ```
+    *Configuration*: Code formatting is handled by Prettier. Its configuration is typically found in `.prettierrc` or `package.json`.
 
 ## Running Tests
 
@@ -120,7 +125,7 @@ Unit tests are implemented using Node.js's native test runner (for JavaScript) a
 
 ## Issue Management
 
-This project uses a systematic approach to issue management, guided by the `10x-dev-architect` agent's issue grooming procedure. Please refer to the agent's documentation (`.claude/agents/10x-dev-architect.md`) for details on issue categorization, prioritization, and lifecycle.
+This project uses a systematic approach to issue management. Please refer to the [Gemini Added Memories in GEMINI.md](../GEMINI.md#gemini-added-memories) for details on issue categorization, prioritization, and lifecycle.
 
 *   **Bug Reports**: Use the `bug` label.
 *   **Feature Requests**: Use the `enhancement` label.

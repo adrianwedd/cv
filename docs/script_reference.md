@@ -55,14 +55,6 @@ This section provides an overview of the main JavaScript and Python classes and 
 *   `updateGitHubMetrics(htmlContent)`: Replaces placeholder metrics with verified GitHub data.
 *   `updateStructuredDataWithGitHubSkills(htmlContent)`: Enhances structured data with GitHub-verified skills.
 *   `calculateCredibilityScore(summary, professionalMetrics)`: Calculates data integrity score based on GitHub metrics completeness.
-
-### GitHub Data Integration Features:
-
-*   **Real-time Metrics**: Displays actual GitHub commit counts, activity scores, and contribution data
-*   **Data Validation**: Comprehensive validation and sanitization of all GitHub metrics
-*   **Fallback Mechanisms**: Graceful degradation when GitHub data is unavailable
-*   **Credibility Scoring**: Transparency scoring based on data verification and completeness
-*   **Skills Enhancement**: Structured data enhanced with GitHub-verified programming languages
 *   `generateHTML()`: Generates the HTML file with dynamic content.
 *   `processHTMLTemplate(htmlContent)`: Processes the HTML template with dynamic data.
 *   `copyAssets()`: Copies assets to the output directory.
@@ -71,6 +63,14 @@ This section provides an overview of the main JavaScript and Python classes and 
 *   `generateManifest()`: Generates web manifest.
 *   `generateGitHubPagesFiles()`: Generates GitHub Pages specific files.
 *   `generatePDF()`: Generates a high-quality PDF from the generated HTML.
+
+### GitHub Data Integration Capabilities (within `CVGenerator`):
+
+*   **Real-time Metrics**: Displays actual GitHub commit counts, activity scores, and contribution data
+*   **Data Validation**: Comprehensive validation and sanitization of all GitHub metrics
+*   **Fallback Mechanisms**: Graceful degradation when GitHub data is unavailable
+*   **Credibility Scoring**: Transparency scoring based on data verification and completeness
+*   **Skills Enhancement**: Structured data enhanced with GitHub-verified programming languages
 
 ### `CVApplication` (`assets/script.js`)
 

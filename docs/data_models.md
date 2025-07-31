@@ -224,7 +224,7 @@ This file stores the AI-generated and optimized content for the CV, produced by 
 }
 ```
 
-**Note on `professional_summary.enhanced`:** This field may contain meta-commentary or explanations from the LLM, in addition to the enhanced summary itself. Refer to [Issue #100](https://github.com/adrianwedd/cv/issues/100) for details and proposed remediation.
+**Note on `professional_summary.enhanced`:** This field may contain meta-commentary or explanations from the LLM, in addition to the enhanced summary itself. Content cleaning mechanisms are in place to remove such artifacts.
 
 ### 4. `cv-usage-tracking.json`
 
@@ -263,7 +263,7 @@ This file records the usage analytics for the CV enhancement workflows, providin
 }
 ```
 
-**Note on `estimated_tokens` and `performance_metrics`:** The `estimated_tokens` field currently stores an estimate rather than precise token counts. The `performance_metrics` array is present in the schema but is not yet populated with actual job duration data. Refer to [Issue #15](https://github.com/adrianwedd/cv/issues/15) for details on enhancing CI performance and cost monitoring.
+**Note on `estimated_tokens` and `performance_metrics`:** The `estimated_tokens` field currently stores an estimate rather than precise token counts. Performance metrics are being continuously refined for more accurate tracking.
 
 ## Relationships
 

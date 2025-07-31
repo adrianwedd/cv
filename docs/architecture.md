@@ -113,12 +113,12 @@ Data flows through the system in a well-defined pipeline, ensuring that each sta
 
 ### 6. Python Utilities (`src/python/`)
 
-This new set of Python modules provides foundational utilities for various aspects of the system, promoting modularity, reusability, and maintainability.
+This new set of Python modules provides foundational utilities for various aspects of the system, promoting modularity, reusability, and maintainability. These utilities are integrated into GitHub Actions workflows to enhance data processing, validation, and external API interactions.
 
-*   **`logging_utils.py`**: Provides advanced logging and metrics collection capabilities, allowing for structured logging and performance monitoring.
-*   **`api_wrappers/external_apis.py`**: Contains wrappers for external APIs (e.g., firmographics, funding data), abstracting API interactions and handling authentication and error management.
-*   **`config_manager/config_manager.py`**: Implements a flexible configuration management system that can load settings from `.ini` files and environment variables, with environment variables taking precedence.
-*   **`data_validation/data_validator.py`**: Offers a suite of data validation functions for common tasks such as type checking, range validation, and format validation (e.g., email, URL).
+*   **`logging_utils.py`**: Provides advanced logging and metrics collection capabilities, allowing for structured logging and performance monitoring within workflow steps. For example, it can be used to log detailed progress or errors during data processing stages.
+*   **`api_wrappers/external_apis.py`**: Contains wrappers for external APIs (e.g., firmographics, funding data). These are used by Python scripts within workflows to enrich CV data with external company information, such as gathering details about companies where the user has worked or projects they've contributed to.
+*   **`config_manager/config_manager.py`**: Implements a flexible configuration management system that can load settings from `.ini` files and environment variables. This allows for externalizing workflow configurations, making them easier to manage and update without directly modifying workflow YAML files.
+*   **`data_validation/data_validator.py`**: Offers a suite of data validation functions for common tasks. This module is crucial for ensuring the integrity and format of collected or generated data within workflows, preventing malformed data from propagating through the pipeline.
 
 ## Technology Stack
 
