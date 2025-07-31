@@ -23,7 +23,11 @@
 
 const fs = require('fs').promises;
 const path = require('path');
+const { exec } = require('child_process');
+const { promisify } = require('util');
 const { httpRequest, sleep } = require('./utils/apiClient');
+
+const execAsync = promisify(exec);
 
 // Configuration
 const CONFIG = {
@@ -174,8 +178,11 @@ class ActivityAnalyzer {
             console.log('⚡ Phase 4: Language & Skill Proficiency');
             analysisResults.skill_analysis = await this.analyzeSkillProficiency();
 
+            console.log('📈 Phase 5: Local Repository Analysis');
+            analysisResults.local_repository_metrics = await this.analyzeLocalRepository();
+
             if (CONFIG.ANALYSIS_DEPTH === 'comprehensive' || CONFIG.ANALYSIS_DEPTH === 'deep-dive') {
-                console.log('🔬 Phase 5: Advanced Analytics');
+                console.log('🔬 Phase 6: Advanced Analytics');
                 analysisResults.advanced_analytics = await this.performAdvancedAnalytics();
             }
 
@@ -525,6 +532,318 @@ class ActivityAnalyzer {
     }
 
     /**
+     * Analyze local repository metrics including git diff analysis for net lines contributed
+     */
+    async analyzeLocalRepository() {
+        console.log('📁 Analyzing local repository metrics...');
+        
+        try {
+            const sinceDate = new Date(Date.now() - CONFIG.LOOKBACK_DAYS * 24 * 60 * 60 * 1000);
+            const sinceDateStr = sinceDate.toISOString().split('T')[0];
+            
+            // Get author email for filtering commits
+            const authorEmail = await this.getGitAuthorEmail();
+            
+            // Get commits in lookback period
+            const commits = await this.getRecentCommits(sinceDateStr, authorEmail);
+            
+            // Analyze line contributions with binary file filtering
+            const lineMetrics = await this.analyzeLineContributions(commits);
+            
+            // Get file type distribution
+            const fileTypeAnalysis = await this.analyzeFileTypes();
+            
+            // Calculate repository health metrics
+            const repoHealth = await this.calculateRepositoryHealth();
+            
+            const metrics = {
+                analysis_period: {
+                    lookback_days: CONFIG.LOOKBACK_DAYS,
+                    since_date: sinceDateStr,
+                    analysis_date: new Date().toISOString().split('T')[0]
+                },
+                commit_activity: {
+                    total_commits: commits.length,
+                    commits_by_author: commits.filter(c => c.author === authorEmail).length,
+                    avg_commits_per_day: Math.round((commits.length / CONFIG.LOOKBACK_DAYS) * 10) / 10
+                },
+                line_contributions: lineMetrics,
+                file_analysis: fileTypeAnalysis,
+                repository_health: repoHealth
+            };
+
+            // Validate the metrics before returning
+            const validatedMetrics = this.validateActivityMetrics(metrics.line_contributions);
+            metrics.line_contributions = validatedMetrics;
+
+            console.log(`📊 Analysis complete: ${validatedMetrics.lines_contributed} net lines contributed over ${CONFIG.LOOKBACK_DAYS} days`);
+            
+            return metrics;
+            
+        } catch (error) {
+            console.warn('⚠️ Local repository analysis failed:', error.message);
+            return {
+                analysis_period: {
+                    lookback_days: CONFIG.LOOKBACK_DAYS,
+                    error: error.message
+                },
+                commit_activity: { total_commits: 0 },
+                line_contributions: { 
+                    lines_contributed: 0,
+                    lines_added: 0,
+                    lines_deleted: 0,
+                    files_modified: 0,
+                    error: 'Analysis failed - using fallback values'
+                },
+                file_analysis: { total_files: 0 },
+                repository_health: { score: 0 }
+            };
+        }
+    }
+
+    /**
+     * Get git author email for filtering commits
+     */
+    async getGitAuthorEmail() {
+        try {
+            const { stdout } = await execAsync('git config user.email');
+            return stdout.trim();
+        } catch (error) {
+            console.warn('⚠️ Could not get git author email, using GitHub username');
+            return CONFIG.GITHUB_USERNAME + '@users.noreply.github.com';
+        }
+    }
+
+    /**
+     * Get recent commits in the lookback period
+     */
+    async getRecentCommits(sinceDate, authorEmail) {
+        try {
+            const { stdout } = await execAsync(`git log --since="${sinceDate}" --pretty=format:"%H|%an|%ae|%ad|%s" --date=iso`);
+            
+            if (!stdout.trim()) {
+                return [];
+            }
+            
+            return stdout.trim().split('\n').map(line => {
+                const [hash, authorName, email, date, subject] = line.split('|');
+                return {
+                    hash: hash,
+                    author: email,
+                    author_name: authorName,
+                    date: date,
+                    subject: subject
+                };
+            });
+        } catch (error) {
+            console.warn('⚠️ Could not get recent commits:', error.message);
+            return [];
+        }
+    }
+
+    /**
+     * Analyze line contributions using git diff with binary file filtering
+     */
+    async analyzeLineContributions(commits) {
+        if (commits.length === 0) {
+            return {
+                lines_contributed: 0,
+                lines_added: 0,
+                lines_deleted: 0,
+                files_modified: 0,
+                binary_files_filtered: 0
+            };
+        }
+
+        try {
+            let totalLinesAdded = 0;
+            let totalLinesDeleted = 0;
+            let totalFilesModified = 0;
+            let binaryFilesFiltered = 0;
+
+            // Process each commit individually to get accurate line counts
+            // Limit commits analyzed to avoid performance issues in CI
+            const maxCommits = process.env.CI ? 50 : Math.min(commits.length, 100);
+            const commitsToAnalyze = commits.slice(0, maxCommits);
+            
+            console.log(`   📈 Analyzing ${commitsToAnalyze.length} commits for line contributions...`);
+            
+            for (let i = 0; i < commitsToAnalyze.length; i++) {
+                const commit = commitsToAnalyze[i];
+                
+                try {
+                    // Get diff stats for this individual commit
+                    const { stdout } = await execAsync(`git show --numstat --format="" ${commit.hash}`);
+                    
+                    if (stdout.trim()) {
+                        const diffLines = stdout.trim().split('\n').filter(line => line.trim());
+                        
+                        for (const line of diffLines) {
+                            const parts = line.split('\t');
+                            
+                            if (parts.length >= 3) {
+                                const added = parts[0];
+                                const deleted = parts[1];
+                                const filename = parts[2];
+                                
+                                // Skip binary files (marked with '-' in git diff --numstat)
+                                if (added === '-' || deleted === '-') {
+                                    binaryFilesFiltered++;
+                                    continue;
+                                }
+                                
+                                // Skip very large files that might be generated/minified
+                                const addedNum = parseInt(added) || 0;
+                                const deletedNum = parseInt(deleted) || 0;
+                                
+                                if (addedNum > 10000 || deletedNum > 10000) {
+                                    console.log(`      ⚠️ Filtered large file (${addedNum}+/${deletedNum}-): ${filename}`);
+                                    binaryFilesFiltered++;
+                                    continue;
+                                }
+                                
+                                totalLinesAdded += addedNum;
+                                totalLinesDeleted += deletedNum;
+                                totalFilesModified++;
+                            }
+                        }
+                    }
+                } catch (commitError) {
+                    console.warn(`      ⚠️ Could not analyze commit ${commit.hash.substring(0,8)}: ${commitError.message}`);
+                }
+            }
+
+            const netLinesContributed = totalLinesAdded - totalLinesDeleted;
+            
+            console.log(`   📊 Line contribution summary: +${totalLinesAdded}/-${totalLinesDeleted} = ${netLinesContributed} net lines`);
+            
+            return {
+                lines_contributed: Math.max(0, netLinesContributed), // Ensure non-negative
+                lines_added: totalLinesAdded,
+                lines_deleted: totalLinesDeleted,
+                files_modified: totalFilesModified,
+                binary_files_filtered: binaryFilesFiltered
+            };
+
+        } catch (error) {
+            console.warn('⚠️ Git diff analysis failed:', error.message);
+            return {
+                lines_contributed: 0,
+                lines_added: 0,
+                lines_deleted: 0,
+                files_modified: 0,
+                binary_files_filtered: 0,
+                error: error.message
+            };
+        }
+    }
+
+    /**
+     * Analyze file types in the repository
+     */
+    async analyzeFileTypes() {
+        try {
+            const { stdout } = await execAsync('find . -type f -name "*.*" | grep -v node_modules | grep -v .git | head -1000');
+            
+            if (!stdout.trim()) {
+                return { total_files: 0, file_types: {} };
+            }
+            
+            const files = stdout.trim().split('\n');
+            const fileTypes = {};
+            
+            for (const file of files) {
+                const ext = path.extname(file).toLowerCase();
+                if (ext) {
+                    fileTypes[ext] = (fileTypes[ext] || 0) + 1;
+                }
+            }
+            
+            return {
+                total_files: files.length,
+                file_types: Object.entries(fileTypes)
+                    .sort(([,a], [,b]) => b - a)
+                    .slice(0, 10)
+                    .reduce((obj, [ext, count]) => {
+                        obj[ext] = count;
+                        return obj;
+                    }, {})
+            };
+        } catch (error) {
+            console.warn('⚠️ File type analysis failed:', error.message);
+            return { total_files: 0, file_types: {}, error: error.message };
+        }
+    }
+
+    /**
+     * Calculate repository health metrics
+     */
+    async calculateRepositoryHealth() {
+        try {
+            let score = 0;
+            const checks = {
+                has_readme: false,
+                has_gitignore: false,
+                has_package_json: false,
+                has_tests: false,
+                recent_commits: false
+            };
+            
+            // Check for README
+            try {
+                await fs.access('README.md');
+                checks.has_readme = true;
+                score += 20;
+            } catch {}
+            
+            // Check for .gitignore
+            try {
+                await fs.access('.gitignore');
+                checks.has_gitignore = true;
+                score += 15;
+            } catch {}
+            
+            // Check for package.json
+            try {
+                await fs.access('package.json');
+                checks.has_package_json = true;
+                score += 15;
+            } catch {}
+            
+            // Check for test files
+            try {
+                const { stdout } = await execAsync('find . -name "*test*" -o -name "*spec*" | grep -v node_modules | head -1');
+                if (stdout.trim()) {
+                    checks.has_tests = true;
+                    score += 25;
+                }
+            } catch {}
+            
+            // Check for recent commits (last 7 days)
+            try {
+                const { stdout } = await execAsync('git log --since="7 days ago" --oneline');
+                if (stdout.trim()) {
+                    checks.recent_commits = true;
+                    score += 25;
+                }
+            } catch {}
+            
+            return {
+                score: score,
+                max_score: 100,
+                checks: checks
+            };
+        } catch (error) {
+            return {
+                score: 0,
+                max_score: 100,
+                checks: {},
+                error: error.message
+            };
+        }
+    }
+
+    /**
      * Perform advanced analytics (comprehensive and deep-dive modes only)
      */
     async performAdvancedAnalytics() {
@@ -599,7 +918,7 @@ class ActivityAnalyzer {
             summary: {
                 total_commits: results.cross_repo_activity?.summary?.total_commits || 0,
                 active_days: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
-                net_lines_contributed: Math.min(60000, results.local_repository_metrics?.lines_contributed || 2758),
+                net_lines_contributed: results.local_repository_metrics?.line_contributions?.lines_contributed || 0,
                 tracking_status: 'active',
                 last_commit_date: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
                 repositories_active: results.cross_repo_activity?.summary?.repositories_active || 0,
@@ -643,23 +962,31 @@ class ActivityAnalyzer {
     /**
      * Validate and sanitize activity metrics to prevent implausible values
      */
-    validateActivityMetrics(metrics) {
-        const validated = { ...metrics };
+    validateActivityMetrics(lineMetrics) {
+        const validated = { ...lineMetrics };
         
         // Reasonable limits for lines contributed per day
         const MAX_LINES_PER_DAY = 2000;
         const lookbackDays = CONFIG.LOOKBACK_DAYS || 30;
         const maxReasonableLines = MAX_LINES_PER_DAY * lookbackDays;
         
-        if (validated.net_lines_contributed > maxReasonableLines) {
-            console.warn(`⚠️ Implausible lines contributed: ${validated.net_lines_contributed}, capping at ${maxReasonableLines}`);
-            validated.net_lines_contributed = Math.min(validated.net_lines_contributed, maxReasonableLines);
+        // Validate lines contributed
+        if (validated.lines_contributed > maxReasonableLines) {
+            console.warn(`⚠️ Implausible lines contributed: ${validated.lines_contributed}, capping at ${maxReasonableLines}`);
+            validated.lines_contributed = Math.min(validated.lines_contributed, maxReasonableLines);
         }
         
-        // Ensure positive values
-        validated.total_commits = Math.max(0, validated.total_commits || 0);
-        validated.active_days = Math.max(0, Math.min(lookbackDays, validated.active_days || 0));
-        validated.net_lines_contributed = Math.max(0, validated.net_lines_contributed || 0);
+        // Ensure positive values and reasonable bounds
+        validated.lines_contributed = Math.max(0, Math.min(maxReasonableLines, validated.lines_contributed || 0));
+        validated.lines_added = Math.max(0, Math.min(maxReasonableLines * 2, validated.lines_added || 0));
+        validated.lines_deleted = Math.max(0, Math.min(maxReasonableLines * 2, validated.lines_deleted || 0));
+        validated.files_modified = Math.max(0, Math.min(1000, validated.files_modified || 0)); // Max 1000 files
+        validated.binary_files_filtered = Math.max(0, validated.binary_files_filtered || 0);
+        
+        // Log validation results
+        if (validated.lines_contributed !== lineMetrics.lines_contributed) {
+            console.log(`📏 Line count validation: ${lineMetrics.lines_contributed} → ${validated.lines_contributed}`);
+        }
         
         return validated;
     }
