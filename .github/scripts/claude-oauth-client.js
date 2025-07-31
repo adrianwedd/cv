@@ -23,7 +23,7 @@ class ClaudeMaxOAuthClient {
     constructor(config = {}) {
         this.clientId = config.CLIENT_ID || '9d1c250a-e61b-44d9-88ed-5944d1962f5e'; // OpenCode client ID
         this.redirectUri = config.REDIRECT_URI || 'http://localhost:8080/callback';
-        this.scope = config.SCOPE || 'read write';
+        this.scope = config.SCOPE || 'openid profile';
         this.tokenStorage = config.TOKEN_STORAGE || path.join(process.cwd(), 'data', 'oauth-tokens.json');
         
         // OAuth endpoints
