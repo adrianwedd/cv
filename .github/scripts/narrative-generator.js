@@ -567,34 +567,55 @@ class NarrativeGenerator {
      * Save generated narratives to files
      */
     async saveNarratives() {
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        
-        // Save comprehensive narratives
-        const narrativesPath = path.join(this.outputDir, `professional-narratives-${timestamp}.json`);
-        await fs.writeFile(narrativesPath, JSON.stringify(this.narratives, null, 2), 'utf8');
-        
-        // Save summary for integration
-        const integration = {
-            generated_at: new Date().toISOString(),
-            narratives_available: {
-                professional_summary: !!this.narratives.professional_summary,
-                technical_achievements: this.narratives.technical_achievements.length,
-                leadership_examples: this.narratives.leadership_examples.length,
-                collaboration_stories: this.narratives.collaboration_stories.length,
-                skill_validations: this.narratives.skill_validations.length,
-                growth_narrative: !!this.narratives.growth_narrative
-            },
-            integration_ready: true,
-            enhanced_summary: this.narratives.professional_summary?.enhanced_summary || null,
-            top_achievements: this.narratives.technical_achievements.slice(0, 3),
-            validated_skills: this.narratives.skill_validations.slice(0, 5).map(v => v.skill)
-        };
-        
-        const integrationPath = path.join(this.outputDir, 'narrative-integration.json');
-        await fs.writeFile(integrationPath, JSON.stringify(integration, null, 2), 'utf8');
-        
-        console.log(`📄 Narratives saved: ${narrativesPath}`);
-        console.log(`🔗 Integration data saved: ${integrationPath}`);
+        try {
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            
+            console.log(`💾 Saving narratives to ${this.outputDir}...`);
+            
+            // Ensure output directory exists
+            await fs.mkdir(this.outputDir, { recursive: true });
+            console.log(`📁 Narratives directory ensured: ${this.outputDir}`);
+            
+            // Save comprehensive narratives
+            const narrativesPath = path.join(this.outputDir, `professional-narratives-${timestamp}.json`);
+            await fs.writeFile(narrativesPath, JSON.stringify(this.narratives, null, 2), 'utf8');
+            
+            // Verify file was written
+            const narrativeStats = await fs.stat(narrativesPath);
+            console.log(`📄 Narratives saved: ${narrativesPath} (${narrativeStats.size} bytes)`);
+            
+            // Save summary for integration
+            const integration = {
+                generated_at: new Date().toISOString(),
+                narratives_available: {
+                    professional_summary: !!this.narratives.professional_summary,
+                    technical_achievements: this.narratives.technical_achievements.length,
+                    leadership_examples: this.narratives.leadership_examples.length,
+                    collaboration_stories: this.narratives.collaboration_stories.length,
+                    skill_validations: this.narratives.skill_validations.length,
+                    growth_narrative: !!this.narratives.growth_narrative
+                },
+                integration_ready: true,
+                enhanced_summary: this.narratives.professional_summary?.enhanced_summary || null,
+                top_achievements: this.narratives.technical_achievements.slice(0, 3),
+                validated_skills: this.narratives.skill_validations.slice(0, 5).map(v => v.skill)
+            };
+            
+            const integrationPath = path.join(this.outputDir, 'narrative-integration.json');
+            await fs.writeFile(integrationPath, JSON.stringify(integration, null, 2), 'utf8');
+            
+            // Verify integration file was written
+            const integrationStats = await fs.stat(integrationPath);
+            console.log(`🔗 Integration data saved: ${integrationPath} (${integrationStats.size} bytes)`);
+            
+            // List all files in output directory for verification
+            const outputFiles = await fs.readdir(this.outputDir);
+            console.log(`📋 Files in narratives directory: ${outputFiles.join(', ')}`);
+            
+        } catch (error) {
+            console.error('❌ Failed to save narrative data:', error);
+            throw error;
+        }
     }
 }
 

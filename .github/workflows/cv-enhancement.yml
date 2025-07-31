@@ -614,6 +614,17 @@ jobs:
           git config --local user.email "cv-enhancement@github.com"
           git config --local user.name "CV Enhancement Bot"
           
+          # Ensure intelligence and narrative data is included
+          if [ -d "data/intelligence" ]; then
+            echo "📊 Including intelligence data in commit"
+            ls -la data/intelligence/
+          fi
+          
+          if [ -d "data/narratives" ]; then
+            echo "📖 Including narrative data in commit"
+            ls -la data/narratives/
+          fi
+          
           git add .
           
           if ! git diff --cached --quiet; then

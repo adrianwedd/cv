@@ -697,39 +697,60 @@ class GitHubDataMiner {
      * Save comprehensive intelligence data to files
      */
     async saveIntelligenceData() {
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        
-        // Save comprehensive intelligence report
-        const reportPath = path.join(CONFIG.OUTPUT_DIR, `github-intelligence-${timestamp}.json`);
-        await fs.writeFile(reportPath, JSON.stringify(this.miningResults, null, 2), 'utf8');
-        
-        // Save summary for quick access
-        const summary = {
-            generated_at: new Date().toISOString(),
-            mining_depth: CONFIG.MINING_DEPTH,
-            lookback_days: CONFIG.LOOKBACK_DAYS,
-            summary_metrics: {
-                issues_analyzed: this.miningResults.issues_intelligence?.summary_metrics?.total_issues_analyzed || 0,
-                commits_analyzed: this.miningResults.commits_intelligence?.summary_metrics?.total_commits_analyzed || 0,
-                prs_analyzed: this.miningResults.prs_intelligence?.summary_metrics?.total_prs_analyzed || 0,
-                technical_depth_score: this.miningResults.issues_intelligence?.summary_metrics?.technical_depth_score || 0,
-                collaboration_score: this.miningResults.issues_intelligence?.summary_metrics?.collaboration_score || 0
-            },
-            data_sources: {
-                issues_intelligence: !!this.miningResults.issues_intelligence,
-                commits_intelligence: !!this.miningResults.commits_intelligence,
-                prs_intelligence: !!this.miningResults.prs_intelligence,
-                collaboration_patterns: !!this.miningResults.collaboration_patterns,
-                technical_expertise: !!this.miningResults.technical_expertise,
-                professional_narratives: !!this.miningResults.professional_narratives
-            }
-        };
-        
-        const summaryPath = path.join(CONFIG.OUTPUT_DIR, 'intelligence-summary.json');
-        await fs.writeFile(summaryPath, JSON.stringify(summary, null, 2), 'utf8');
-        
-        console.log(`📄 Intelligence report saved: ${reportPath}`);
-        console.log(`📊 Summary saved: ${summaryPath}`);
+        try {
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            
+            console.log(`💾 Saving intelligence data to ${CONFIG.OUTPUT_DIR}...`);
+            
+            // Ensure output directory exists
+            await fs.mkdir(CONFIG.OUTPUT_DIR, { recursive: true });
+            console.log(`📁 Output directory ensured: ${CONFIG.OUTPUT_DIR}`);
+            
+            // Save comprehensive intelligence report
+            const reportPath = path.join(CONFIG.OUTPUT_DIR, `github-intelligence-${timestamp}.json`);
+            await fs.writeFile(reportPath, JSON.stringify(this.miningResults, null, 2), 'utf8');
+            
+            // Verify file was written
+            const stats = await fs.stat(reportPath);
+            console.log(`📄 Intelligence report saved: ${reportPath} (${stats.size} bytes)`);
+            
+            // Save summary for quick access
+            const summary = {
+                generated_at: new Date().toISOString(),
+                mining_depth: CONFIG.MINING_DEPTH,
+                lookback_days: CONFIG.LOOKBACK_DAYS,
+                summary_metrics: {
+                    issues_analyzed: this.miningResults.issues_intelligence?.summary_metrics?.total_issues_analyzed || 0,
+                    commits_analyzed: this.miningResults.commits_intelligence?.summary_metrics?.total_commits_analyzed || 0,
+                    prs_analyzed: this.miningResults.prs_intelligence?.summary_metrics?.total_prs_analyzed || 0,
+                    technical_depth_score: this.miningResults.issues_intelligence?.summary_metrics?.technical_depth_score || 0,
+                    collaboration_score: this.miningResults.issues_intelligence?.summary_metrics?.collaboration_score || 0
+                },
+                data_sources: {
+                    issues_intelligence: !!this.miningResults.issues_intelligence,
+                    commits_intelligence: !!this.miningResults.commits_intelligence,
+                    prs_intelligence: !!this.miningResults.prs_intelligence,
+                    collaboration_patterns: !!this.miningResults.collaboration_patterns,
+                    technical_expertise: !!this.miningResults.technical_expertise,
+                    professional_narratives: !!this.miningResults.professional_narratives
+                }
+            };
+            
+            const summaryPath = path.join(CONFIG.OUTPUT_DIR, 'intelligence-summary.json');
+            await fs.writeFile(summaryPath, JSON.stringify(summary, null, 2), 'utf8');
+            
+            // Verify summary file was written
+            const summaryStats = await fs.stat(summaryPath);
+            console.log(`📊 Summary saved: ${summaryPath} (${summaryStats.size} bytes)`);
+            
+            // List all files in output directory for verification
+            const outputFiles = await fs.readdir(CONFIG.OUTPUT_DIR);
+            console.log(`📋 Files in output directory: ${outputFiles.join(', ')}`);
+            
+        } catch (error) {
+            console.error('❌ Failed to save intelligence data:', error);
+            throw error;
+        }
     }
 }
 
