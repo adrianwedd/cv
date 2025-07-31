@@ -801,6 +801,182 @@ body {
 }
 
 /* ==========================================================================
+   Timeline & Experience Styles
+   ========================================================================== */
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--space-8);
+  padding-left: var(--space-8);
+}
+
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: var(--space-2);
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  border: 3px solid var(--color-background);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.timeline-content {
+  background: var(--color-card-background);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+}
+
+.timeline-header {
+  margin-bottom: var(--space-4);
+}
+
+.position-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.company-name {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+}
+
+.timeline-period {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.timeline-description {
+  margin-bottom: var(--space-4);
+}
+
+.timeline-description p {
+  margin: 0 0 var(--space-4) 0;
+  line-height: 1.6;
+}
+
+/* Achievement List Styles */
+.achievement-list {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-6);
+  list-style: none;
+}
+
+.achievement-list li {
+  position: relative;
+  margin-bottom: var(--space-2);
+  padding-left: var(--space-4);
+  line-height: 1.5;
+}
+
+.achievement-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* Technology Tags Styles */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.tech-tag {
+  display: inline-block;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--color-primary);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-primary-light);
+  transition: all 0.2s ease;
+}
+
+.tech-tag:hover {
+  background: var(--color-primary);
+  color: var(--color-background);
+  transform: translateY(-1px);
+}
+
+/* Project Technology Badges */
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.tech-badge {
+  display: inline-block;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-secondary);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-secondary);
+}
+
+.tech-badge:hover {
+  background: var(--color-secondary);
+  color: var(--color-background);
+}
+
+/* Credibility Score Indicators */
+.credibility-excellent {
+  color: #22c55e !important; /* Green */
+}
+
+.credibility-good {
+  color: #3b82f6 !important; /* Blue */
+}
+
+.credibility-fair {
+  color: #f59e0b !important; /* Yellow */
+}
+
+.credibility-poor {
+  color: #ef4444 !important; /* Red */
+}
+
+/* Contact Links Styles (for PDF/Print buttons) */
+.contact-link.pdf,
+.contact-link.print-btn {
+  background: var(--color-secondary-bg);
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary-light);
+}
+
+.contact-link.pdf:hover,
+.contact-link.print-btn:hover {
+  background: var(--color-secondary);
+  color: var(--color-background);
+}
+
+.contact-link.print-btn {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ==========================================================================
    Animations
    ========================================================================== */
 
