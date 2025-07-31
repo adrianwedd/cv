@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+\begin{document}
+
+\section*{${personalInfo.name}}
+\subsection*{${personalInfo.title}}
+${personalInfo.email} | ${personalInfo.linkedin} | ${personalInfo.github}
+
+{{#if professionalSummary}}
+\section*{Summary}
+{{{professionalSummary}}}
+
+{{/if}}
+
+{{#if experience}}
+\section*{Experience}
+{{#each experience}}
+\subsection*{${position}, ${company} (${period})}
+{{{description}}}
+{{#if achievements}}
+\begin{itemize}
+{{#each achievements}}
+    \item {{{this}}}
+{{/each}}
+\end{itemize}
+{{/if}}
+
+{{/each}}
+{{/if}}
+
+{{#if skills}}
+\section*{Skills}
+${skills}
+
+{{/if}}
+
+{{#if projects}}
+\section*{Projects}
+{{#each projects}}
+\subsection*{${name}}
+{{{description}}}
+{{#if technologies}}
+Technologies: ${technologies}
+{{/if}}
+
+{{/each}}
+{{/if}}
+
+\end{document}

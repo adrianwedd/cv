@@ -674,6 +674,12 @@ class CVApplication {
             } else {
                 section.classList.remove('active');
             }
+            // Special handling for visualizations section to be active with skills
+            if (sectionId === 'skills') {
+                document.getElementById('visualizations')?.classList.add('active');
+            } else {
+                document.getElementById('visualizations')?.classList.remove('active');
+            }
         });
     }
 

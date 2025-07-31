@@ -25,6 +25,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const { exec } = require('child_process');
 const { promisify } = require('util');
+require('dotenv').config();
 const { httpRequest, sleep } = require('./utils/apiClient');
 
 const execAsync = promisify(exec);
@@ -41,26 +42,22 @@ const CONFIG = {
 };
 
 // Language mapping for skill proficiency calculation
-const LANGUAGE_SKILLS = {
-    'JavaScript': { category: 'Frontend/Backend', weight: 1.0, aliases: ['js', 'jsx'] },
-    'TypeScript': { category: 'Frontend/Backend', weight: 1.1, aliases: ['ts', 'tsx'] },
-    'Python': { category: 'Backend/AI/ML', weight: 1.2, aliases: ['py'] },
-    'Go': { category: 'Backend/Systems', weight: 1.0, aliases: ['golang'] },
-    'Rust': { category: 'Systems/Performance', weight: 1.1, aliases: ['rs'] },
-    'Java': { category: 'Backend/Enterprise', weight: 0.9, aliases: [] },
-    'C++': { category: 'Systems/Performance', weight: 1.1, aliases: ['cpp', 'cc'] },
-    'C': { category: 'Systems/Embedded', weight: 1.0, aliases: [] },
-    'PHP': { category: 'Backend/Web', weight: 0.8, aliases: [] },
-    'Ruby': { category: 'Backend/Web', weight: 0.8, aliases: ['rb'] },
-    'Swift': { category: 'Mobile/iOS', weight: 0.9, aliases: [] },
-    'Kotlin': { category: 'Mobile/Android', weight: 0.9, aliases: ['kt'] },
-    'HTML': { category: 'Frontend', weight: 0.6, aliases: ['htm'] },
-    'CSS': { category: 'Frontend', weight: 0.6, aliases: ['scss', 'sass', 'less'] },
-    'Shell': { category: 'DevOps/Automation', weight: 0.7, aliases: ['bash', 'sh'] },
-    'YAML': { category: 'DevOps/Config', weight: 0.5, aliases: ['yml'] },
-    'JSON': { category: 'Data/Config', weight: 0.4, aliases: [] },
-    'Markdown': { category: 'Documentation', weight: 0.3, aliases: ['md'] },
-};
+// Language mapping for skill proficiency calculation
+let LANGUAGE_SKILLS = {};
+
+// Load skill configuration dynamically
+async function loadSkillConfig() {
+    try {
+        const configPath = path.join(__dirname, '..' , '..' , 'data', 'skill-config.json');
+        const data = await fs.readFile(configPath, 'utf8');
+        LANGUAGE_SKILLS = JSON.parse(data).LANGUAGE_SKILLS;
+        console.log('✅ Skill configuration loaded successfully.');
+    } catch (error) {
+        console.error('❌ Failed to load skill configuration:', error.message);
+        // Fallback to a default or empty configuration if loading fails
+        LANGUAGE_SKILLS = {}; 
+    }
+}
 
 /**
  * Enhanced HTTP client with retry logic and rate limiting
@@ -1170,6 +1167,8 @@ async function main() {
         console.error('❌ GITHUB_TOKEN environment variable is required');
         process.exit(1);
     }
+
+    await loadSkillConfig(); // Load skill configuration before analysis
 
     try {
         const analyzer = new ActivityAnalyzer();

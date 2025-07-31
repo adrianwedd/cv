@@ -51,19 +51,52 @@ By participating in this project, you agree to be respectful, inclusive, and pro
 - Fix failing tests
 - Improve test quality
 
-## 🔄 Development Workflow
+## 🔄 Git Flow Development Workflow
 
-### 1. **Before You Start**
-- Check existing issues and PRs
-- Discuss major changes in Discussions
-- Claim an issue by commenting
+### Branch Strategy
 
-### 2. **Development**
+We use Git Flow for production safety:
+
+| Branch | Purpose | Deploys To | Merge Rules |
+|---------|---------|------------|-------------|
+| `main` | Production-ready code | [Live CV Site](https://adrianwedd.github.io/cv) | PR required, 1 reviewer |
+| `develop` | Integration & testing | [Staging Site](https://adrianwedd.github.io/cv-staging) | Direct commits OK |
+| `feature/*` | New features | Preview environments | Merge to develop |
+| `hotfix/*` | Emergency production fixes | Direct to main | Expedited review |
+
+### 1. **Feature Development Workflow**
+
 ```bash
-# Make your changes
-npm test              # Run tests
-npm run lint          # Check code style
-npm run lint:fix      # Auto-fix issues
+# Start from develop branch (default)
+git checkout develop
+git pull origin develop
+
+# Create feature branch
+git checkout -b feature/your-feature-name
+
+# Develop and test
+npm run generate              # Test CV generation
+npm run template:validate     # Validate output
+npm run lint                  # Check code style
+
+# Push and create PR to develop
+git push origin feature/your-feature-name
+gh pr create --base develop --title "feat: your feature description"
+```
+
+### 2. **Production Release Workflow**
+
+```bash
+# When develop is ready for production
+git checkout develop
+git checkout -b release/v1.2.0
+
+# Final testing
+npm run formats:full          # Generate all formats
+npm run template:suite        # Full validation
+
+# Create production PR
+gh pr create --base main --title "release: v1.2.0"
 ```
 
 ### 3. **Commit Messages**
