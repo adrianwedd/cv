@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Skills Assessment Enhancement Template v2.0 -->
+<prompt_template 
+    id="skills-assessment" 
+    version="2.0" 
+    created="2025-08-01"
+    persona="technical-assessment-specialist">
+    
+    <metadata>
+        <title>Skills Assessment Enhancement</title>
+        <description>Evidence-based skills evaluation and market positioning template</description>
+        <use_cases>
+            <case>Technical skills audit and enhancement</case>
+            <case>Market-relevant skills positioning</case>
+            <case>Emerging skills identification</case>
+            <case>Skills gap analysis for career planning</case>
+        </use_cases>
+        <max_tokens>2000</max_tokens>
+        <temperature_range>0.2-0.7</temperature_range>
+    </metadata>
+
+    <prompt_structure>
+        <persona>
+            <expert_persona>
+                {persona_definition}
+            </expert_persona>
+        </persona>
+
+        <context_integration>
+            <technical_profile>
+                You are evaluating a technical professional with {activity_level} GitHub activity,
+                demonstrating {language_diversity} across {primary_domains}. Their development
+                patterns show {expertise_indicators} with particular strength in {core_competencies}.
+            </technical_profile>
+            
+            <market_context>
+                In the current {market_year} technology landscape, professionals with {skill_profile}
+                are positioned for {market_opportunities}. Key trending areas include {emerging_trends}
+                with growing demand for {high_demand_skills}.
+            </market_context>
+
+            <evidence_foundation>
+                Base assessment on the following evidence sources:
+                - GitHub activity: {github_metrics}
+                - Project portfolio: {project_analysis}
+                - Professional experience: {experience_data}
+                - Technology usage patterns: {technology_patterns}
+            </evidence_foundation>
+        </context_integration>
+
+        <enhancement_philosophy>
+            <assessment_approach>
+                {creativity_strategy}
+            </assessment_approach>
+            
+            <evaluation_framework>
+                - Evidence-based proficiency assessment using concrete indicators
+                - Market-aware positioning considering current industry demands
+                - Future-focused recommendations for emerging technology adoption
+                - Balanced portfolio assessment covering technical depth and breadth
+                - Quantified experience mapping with years and project complexity
+            </evaluation_framework>
+        </enhancement_philosophy>
+
+        <quality_framework>
+            <assessment_criteria>
+                <criterion type="evidence">Every skill level must be justified by specific evidence</criterion>
+                <criterion type="specificity">Use specific technologies, not generic categories</criterion>
+                <criterion type="market_relevance">Include current market demand and trend analysis</criterion>
+                <criterion type="quantification">Specify experience years and proficiency indicators</criterion>
+                <criterion type="balance">Balance technical depth with skill portfolio breadth</criterion>
+                <criterion type="authenticity">Avoid inflated assessments without supporting evidence</criterion>
+            </assessment_criteria>
+            
+            <validation_requirements>
+                <requirement>Minimum 8 core technical skills with evidence</requirement>
+                <requirement>Include 2-3 emerging/trending technologies</requirement>
+                <requirement>Identify specific skill gaps for career advancement</requirement>
+                <requirement>Provide market demand context for each skill category</requirement>
+                <requirement>Evidence sources clearly mapped to proficiency claims</requirement>
+            </validation_requirements>
+        </quality_framework>
+
+        <output_specification>
+            <format>JSON</format>
+            <schema>
+                {
+                    "enhanced_skills": "array: Skills with evidence-based assessment",
+                    "skill_categories": "object: Skills organized by category with summaries",
+                    "emerging_skills": "array: Trending skills based on activity patterns",
+                    "skill_gaps": "array: Identified gaps for career advancement",
+                    "assessment_summary": "object: Portfolio diversity and market alignment scores"
+                }
+            </schema>
+            
+            <validation_schema>
+                <field name="enhanced_skills" required="true" min_items="8" max_items="25"/>
+                <field name="skill_categories" required="true"/>
+                <field name="emerging_skills" required="false" min_items="0" max_items="8"/>
+                <field name="skill_gaps" required="false" min_items="0" max_items="5"/>
+                <field name="assessment_summary" required="true"/>
+            </validation_schema>
+        </output_specification>
+
+        <reasoning_chain>
+            <evidence_analysis>
+                GitHub Activity Evidence:
+                {github_evidence}
+                
+                Project Portfolio Evidence:
+                {project_evidence}
+                
+                Professional Experience Evidence:
+                {experience_evidence}
+                
+                Technology Usage Patterns:
+                {usage_patterns}
+            </evidence_analysis>
+            
+            <assessment_methodology>
+                For each skill, determine proficiency level using:
+                1. Frequency of use in recent projects (commit patterns)
+                2. Complexity of implementations (project analysis)
+                3. Years of documented experience (professional history)
+                4. Depth indicators (advanced features, architectural decisions)
+                5. Teaching/mentoring evidence (documentation, contributions)
+                
+                Validate each assessment against concrete evidence. Do not inflate
+                proficiency levels beyond what evidence supports.
+            </assessment_methodology>
+
+            <market_integration>
+                Cross-reference identified skills with current market trends:
+                - High-demand skills: {trending_skills}
+                - Emerging opportunities: {emerging_opportunities}
+                - Declining technologies: {declining_tech}
+                - Skill gap opportunities: {gap_opportunities}
+            </market_integration>
+        </reasoning_chain>
+    </prompt_structure>
+
+    <placeholders>
+        <!-- Core placeholders that must be replaced -->
+        <placeholder name="persona_definition" required="true" source="persona_file"/>
+        <placeholder name="activity_level" required="true" source="github_analysis"/>
+        <placeholder name="language_diversity" required="true" source="language_stats"/>
+        <placeholder name="primary_domains" required="true" source="project_domains"/>
+        <placeholder name="expertise_indicators" required="true" source="skill_analysis"/>
+        <placeholder name="core_competencies" required="true" source="competency_analysis"/>
+        <placeholder name="creativity_strategy" required="true" source="creativity_level"/>
+        <placeholder name="github_evidence" required="true" source="github_metrics"/>
+        <placeholder name="project_evidence" required="true" source="project_analysis"/>
+        <placeholder name="experience_evidence" required="true" source="experience_data"/>
+        <placeholder name="usage_patterns" required="true" source="technology_patterns"/>
+        
+        <!-- Context placeholders -->
+        <placeholder name="market_year" required="false" default="2025"/>
+        <placeholder name="skill_profile" required="false" source="profile_summary"/>
+        <placeholder name="market_opportunities" required="false" source="opportunity_analysis"/>
+        <placeholder name="emerging_trends" required="false" source="trend_analysis"/>
+        <placeholder name="high_demand_skills" required="false" source="demand_analysis"/>
+        <placeholder name="trending_skills" required="false" source="trend_data"/>
+        <placeholder name="emerging_opportunities" required="false" source="opportunity_data"/>
+        <placeholder name="declining_tech" required="false" source="decline_data"/>
+        <placeholder name="gap_opportunities" required="false" source="gap_analysis"/>
+    </placeholders>
+
+    <usage_examples>
+        <example name="polyglot_developer">
+            <context>Developer with 5+ languages, diverse project portfolio, high activity</context>
+            <expected_outcome>Balanced skill assessment emphasizing versatility and depth</expected_outcome>
+        </example>
+        
+        <example name="ai_specialist">
+            <context>Professional focused on AI/ML with specialized framework experience</context>
+            <expected_outcome>Deep technical assessment with emerging AI trends integration</expected_outcome>
+        </example>
+
+        <example name="full_stack_developer">
+            <context>Full-stack developer with frontend/backend/devops experience</context>
+            <expected_outcome>Comprehensive assessment across multiple technology stacks</expected_outcome>
+        </example>
+    </usage_examples>
+
+    <quality_assurance>
+        <automated_checks>
+            <check name="evidence_validation" description="Verify each skill has supporting evidence"/>
+            <check name="proficiency_consistency" description="Ensure proficiency levels align with evidence"/>
+            <check name="market_relevance" description="Validate skills against current market demands"/>
+            <check name="skill_specificity" description="Ensure specific technologies, not generic categories"/>
+            <check name="emerging_skills" description="Include trending technologies based on activity"/>
+        </automated_checks>
+        
+        <confidence_scoring>
+            <metric name="evidence_coverage" weight="35" description="Skills supported by concrete evidence"/>
+            <metric name="market_alignment" weight="25" description="Alignment with current market trends"/>
+            <metric name="assessment_accuracy" weight="20" description="Realistic proficiency assessments"/>
+            <metric name="portfolio_balance" weight="15" description="Balanced depth and breadth assessment"/>
+            <metric name="future_readiness" weight="5" description="Identification of growth opportunities"/>
+        </confidence_scoring>
+    </quality_assurance>
+
+</prompt_template>

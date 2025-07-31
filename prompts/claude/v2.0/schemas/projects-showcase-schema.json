@@ -1,0 +1,278 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "projects-showcase-schema.json",
+  "title": "Projects Showcase Enhancement Schema",
+  "description": "Validation schema for AI-enhanced project portfolio responses",
+  "version": "2.0",
+  "type": "object",
+  "properties": {
+    "enhanced_projects": {
+      "type": "array",
+      "description": "Enhanced project portfolio with strategic positioning",
+      "minItems": 3,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Project name with compelling positioning",
+            "minLength": 5,
+            "maxLength": 80
+          },
+          "enhanced_description": {
+            "type": "string",
+            "description": "Compelling project description with technical depth",
+            "minLength": 100,
+            "maxLength": 400
+          },
+          "problem_statement": {
+            "type": "string",
+            "description": "Clear problem this project addresses",
+            "minLength": 30,
+            "maxLength": 200
+          },
+          "solution_approach": {
+            "type": "string",
+            "description": "Technical approach and innovation",
+            "minLength": 50,
+            "maxLength": 300
+          },
+          "technical_stack": {
+            "type": "array",
+            "description": "Technologies used with context",
+            "minItems": 2,
+            "maxItems": 15,
+            "items": {
+              "type": "object",
+              "properties": {
+                "technology": {"type": "string"},
+                "purpose": {
+                  "type": "string",
+                  "description": "Why this technology was chosen"
+                },
+                "complexity_level": {
+                  "type": "string",
+                  "enum": ["basic", "intermediate", "advanced", "expert"]
+                }
+              },
+              "required": ["technology", "purpose"]
+            }
+          },
+          "key_achievements": {
+            "type": "array",
+            "description": "Quantified project achievements",
+            "minItems": 2,
+            "maxItems": 6,
+            "items": {
+              "type": "object",
+              "properties": {
+                "achievement": {
+                  "type": "string",
+                  "description": "Specific achievement with metrics"
+                },
+                "impact_metrics": {
+                  "type": "object",
+                  "properties": {
+                    "quantified_result": {"type": "string"},
+                    "measurement_method": {"type": "string"},
+                    "business_value": {"type": "string"}
+                  }
+                },
+                "technical_challenge": {
+                  "type": "string",
+                  "description": "Technical challenge overcome"
+                }
+              },
+              "required": ["achievement"]
+            }
+          },
+          "innovation_aspects": {
+            "type": "array",
+            "description": "Novel or innovative aspects of the project",
+            "items": {
+              "type": "object",
+              "properties": {
+                "innovation": {
+                  "type": "string",
+                  "description": "Specific innovation or novel approach"
+                },
+                "innovation_type": {
+                  "type": "string",
+                  "enum": ["algorithmic", "architectural", "process", "integration", "user_experience", "performance"]
+                },
+                "market_relevance": {
+                  "type": "string",
+                  "description": "How this innovation addresses market needs"
+                }
+              },
+              "required": ["innovation", "innovation_type"]
+            }
+          },
+          "project_metadata": {
+            "type": "object",
+            "properties": {
+              "duration": {"type": "string"},
+              "team_size": {"type": "number", "minimum": 1},
+              "role": {
+                "type": "string",
+                "enum": ["lead_developer", "architect", "contributor", "solo_developer", "technical_lead"]
+              },
+              "project_status": {
+                "type": "string",
+                "enum": ["completed", "ongoing", "maintenance", "archived"]
+              },
+              "visibility": {
+                "type": "string",
+                "enum": ["public", "private", "enterprise", "open_source"]
+              }
+            }
+          },
+          "github_integration": {
+            "type": "object",
+            "description": "GitHub repository information and metrics",
+            "properties": {
+              "repository_url": {"type": "string", "format": "uri"},
+              "commit_count": {"type": "number"},
+              "contributors": {"type": "number"},
+              "stars": {"type": "number"},
+              "forks": {"type": "number"},
+              "languages": {
+                "type": "array",
+                "items": {"type": "string"}
+              },
+              "activity_indicators": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "metric": {"type": "string"},
+                    "value": {"type": "string"},
+                    "significance": {"type": "string"}
+                  }
+                }
+              }
+            }
+          },
+          "market_positioning": {
+            "type": "object",
+            "properties": {
+              "target_audience": {"type": "string"},
+              "competitive_advantage": {"type": "string"},
+              "market_opportunity": {"type": "string"},
+              "scalability_potential": {
+                "type": "string",
+                "enum": ["limited", "moderate", "high", "enterprise"]
+              }
+            }
+          }
+        },
+        "required": ["name", "enhanced_description", "problem_statement", "solution_approach", "technical_stack", "key_achievements"]
+      }
+    },
+    "portfolio_analysis": {
+      "type": "object",
+      "properties": {
+        "technology_diversity": {
+          "type": "object",
+          "properties": {
+            "languages_count": {"type": "number"},
+            "frameworks_count": {"type": "number"},
+            "domains_covered": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "diversity_score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "complexity_distribution": {
+          "type": "object",
+          "properties": {
+            "beginner_projects": {"type": "number"},
+            "intermediate_projects": {"type": "number"},
+            "advanced_projects": {"type": "number"},
+            "expert_projects": {"type": "number"}
+          }
+        },
+        "innovation_indicators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "category": {"type": "string"},
+              "count": {"type": "number"},
+              "examples": {
+                "type": "array",
+                "items": {"type": "string"}
+              }
+            }
+          }
+        },
+        "market_alignment": {
+          "type": "object",
+          "properties": {
+            "trending_technologies": {"type": "number"},
+            "industry_relevance": {
+              "type": "string",
+              "enum": ["low", "medium", "high", "exceptional"]
+            },
+            "future_potential": {
+              "type": "string",
+              "enum": ["limited", "moderate", "strong", "transformative"]
+            }
+          }
+        }
+      }
+    },
+    "strategic_recommendations": {
+      "type": "array",
+      "description": "Strategic recommendations for portfolio enhancement",
+      "items": {
+        "type": "object",
+        "properties": {
+          "recommendation": {"type": "string"},
+          "rationale": {"type": "string"},
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "implementation_effort": {
+            "type": "string",
+            "enum": ["minimal", "moderate", "significant", "major"]
+          },
+          "expected_impact": {"type": "string"}
+        },
+        "required": ["recommendation", "rationale", "priority"]
+      }
+    }
+  },
+  "required": ["enhanced_projects", "portfolio_analysis"],
+  "additionalProperties": false,
+  "quality_checks": {
+    "project_validation": {
+      "minimum_quantified_achievements": 1,
+      "required_problem_context": "Each project must clearly state the problem it solves",
+      "technical_depth_required": "Must include specific technical implementation details"
+    },
+    "innovation_requirements": {
+      "innovation_aspects_per_project": 1,
+      "novel_approach_indicators": "Each project should demonstrate some novel aspect or approach"
+    },
+    "github_integration": {
+      "activity_validation": "GitHub metrics should reflect actual repository activity",
+      "contribution_patterns": "Must show meaningful contribution patterns, not just repo creation"
+    },
+    "market_relevance": {
+      "trending_technology_bonus": "Projects using trending technologies receive higher scoring",
+      "business_application": "Clear business application or market opportunity preferred"
+    },
+    "portfolio_balance": {
+      "complexity_distribution": "Portfolio should span multiple complexity levels",
+      "domain_diversity": "Prefer projects across different domains and use cases"
+    }
+  }
+}

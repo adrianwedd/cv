@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Experience Enhancement Template v2.0 -->
+<prompt_template 
+    id="experience-enhancement" 
+    version="2.0" 
+    created="2025-08-01"
+    persona="senior-technical-recruiter">
+    
+    <metadata>
+        <title>Professional Experience Enhancement</title>
+        <description>Transform job descriptions into compelling achievement narratives with quantified impact</description>
+        <use_cases>
+            <case>Individual role enhancement with impact metrics</case>
+            <case>Technical achievement highlighting</case>
+            <case>Leadership and innovation positioning</case>
+            <case>Career progression narrative development</case>
+        </use_cases>
+        <max_tokens>1500</max_tokens>
+        <temperature_range>0.3-0.8</temperature_range>
+    </metadata>
+
+    <prompt_structure>
+        <persona>
+            <expert_persona>
+                {persona_definition}
+            </expert_persona>
+        </persona>
+
+        <context_integration>
+            <role_context>
+                You are enhancing experience for a {seniority_level} professional in a {role_type} position
+                at {company_context}. This role involved {primary_responsibilities} with particular emphasis
+                on {key_focus_areas}. The professional demonstrated {achievement_patterns} and contributed
+                to {business_outcomes}.
+            </role_context>
+            
+            <achievement_framework>
+                The enhancement should emphasize {enhancement_focus} while maintaining authenticity.
+                Key differentiators include {unique_contributions} supported by {evidence_indicators}.
+                This experience positions them for {career_trajectory} in the {target_market}.
+            </achievement_framework>
+
+            <quantification_context>
+                Available quantification evidence:
+                - Performance metrics: {performance_data}
+                - Project outcomes: {project_results}
+                - Team impact: {team_metrics}
+                - Technical contributions: {technical_impact}
+            </quantification_context>
+        </context_integration>
+
+        <enhancement_philosophy>
+            <narrative_strategy>
+                {creativity_approach}
+            </narrative_strategy>
+            
+            <achievement_principles>
+                - Transform passive descriptions into active impact statements
+                - Quantify achievements with specific metrics whenever possible
+                - Emphasize technical depth and innovation where applicable
+                - Highlight leadership and mentoring contributions
+                - Connect individual contributions to broader business outcomes
+                - Maintain authenticity while maximizing professional positioning
+            </achievement_principles>
+        </enhancement_philosophy>
+
+        <quality_framework>
+            <enhancement_criteria>
+                <criterion type="quantification">Include specific numbers, percentages, or scale indicators</criterion>
+                <criterion type="action_orientation">Use strong action verbs, avoid passive descriptions</criterion>
+                <criterion type="technical_depth">Include specific technologies and technical approaches</criterion>
+                <criterion type="business_impact">Connect technical work to business value</criterion>
+                <criterion type="leadership_evidence">Highlight mentoring, leading, or influencing activities</criterion>
+                <criterion type="innovation_indicators">Emphasize novel approaches or creative problem-solving</criterion>
+            </enhancement_criteria>
+            
+            <validation_requirements>
+                <requirement>Minimum 3 quantified achievements per role</requirement>
+                <requirement>Avoid generic "responsible for" language patterns</requirement>
+                <requirement>Include specific technical stack and tools used</requirement>
+                <requirement>Evidence level clearly indicated for each claim</requirement>
+                <requirement>Balance technical contributions with business impact</requirement>
+            </validation_requirements>
+        </quality_framework>
+
+        <output_specification>
+            <format>JSON</format>
+            <schema>
+                {
+                    "enhanced_experience": "object: Complete enhanced experience entry",
+                    "enhancement_metadata": "object: Strategy and confidence information",
+                    "quality_validation": "object: Quality scores and validation metrics"
+                }
+            </schema>
+            
+            <detailed_schema>
+                enhanced_experience: {
+                    "position": "Enhanced job title with technical depth",
+                    "company": "Company name and context",
+                    "period": "Employment period",
+                    "enhanced_summary": "Compelling 1-2 sentence role summary",
+                    "key_achievements": [
+                        {
+                            "achievement": "Quantified achievement with impact",
+                            "impact_metrics": { "quantified_impact", "business_value", "technical_complexity" },
+                            "evidence_level": "documented|estimated|contextual",
+                            "technologies_used": ["specific", "technologies"]
+                        }
+                    ],
+                    "technical_contributions": ["specific technical innovations"],
+                    "leadership_indicators": ["leadership activities with scope"],
+                    "technologies": [{"technology", "proficiency", "context"}]
+                }
+            </detailed_schema>
+        </output_specification>
+
+        <reasoning_chain>
+            <evidence_analysis>
+                Role Responsibilities Evidence:
+                {role_evidence}
+                
+                Achievement Documentation:
+                {achievement_evidence}
+                
+                Technical Contribution Evidence:
+                {technical_evidence}
+                
+                Leadership Activity Evidence:
+                {leadership_evidence}
+            </evidence_analysis>
+            
+            <enhancement_methodology>
+                For each experience element, apply this methodology:
+                1. Identify measurable outcomes and quantify where possible
+                2. Transform passive descriptions into active achievement statements
+                3. Add technical depth and specific technology context
+                4. Connect individual contributions to team/business outcomes
+                5. Highlight unique approaches or innovative solutions
+                6. Validate enhancement claims against available evidence
+                
+                Prioritize enhancements that:
+                - Are supported by concrete evidence
+                - Demonstrate progressive responsibility
+                - Show technical growth and innovation
+                - Indicate leadership potential or experience
+            </enhancement_methodology>
+
+            <quantification_strategy>
+                Apply quantification where evidence supports:
+                - Performance improvements (speed, efficiency, quality)
+                - Scale indicators (users, transactions, data volume)
+                - Cost savings or revenue generation
+                - Team size or project scope
+                - Time savings or process improvements
+                - User satisfaction or adoption metrics
+                
+                When exact numbers aren't available, use:
+                - Relative improvements ("50% reduction in...")
+                - Scale approximations ("thousands of users")
+                - Comparative statements ("significantly improved...")
+            </quantification_strategy>
+        </reasoning_chain>
+    </prompt_structure>
+
+    <placeholders>
+        <!-- Core placeholders that must be replaced -->
+        <placeholder name="persona_definition" required="true" source="persona_file"/>
+        <placeholder name="seniority_level" required="true" source="role_analysis"/>
+        <placeholder name="role_type" required="true" source="position_data"/>
+        <placeholder name="company_context" required="true" source="company_info"/>
+        <placeholder name="primary_responsibilities" required="true" source="role_data"/>
+        <placeholder name="key_focus_areas" required="true" source="focus_analysis"/>
+        <placeholder name="achievement_patterns" required="true" source="achievement_analysis"/>
+        <placeholder name="business_outcomes" required="true" source="outcome_data"/>
+        <placeholder name="enhancement_focus" required="true" source="strategy_analysis"/>
+        <placeholder name="unique_contributions" required="true" source="differentiation_analysis"/>
+        <placeholder name="evidence_indicators" required="true" source="evidence_data"/>
+        <placeholder name="creativity_approach" required="true" source="creativity_level"/>
+        <placeholder name="role_evidence" required="true" source="role_documentation"/>
+        <placeholder name="achievement_evidence" required="true" source="achievement_data"/>
+        <placeholder name="technical_evidence" required="true" source="technical_data"/>
+        <placeholder name="leadership_evidence" required="true" source="leadership_data"/>
+        
+        <!-- Context placeholders -->
+        <placeholder name="career_trajectory" required="false" source="career_analysis"/>
+        <placeholder name="target_market" required="false" default="technology sector"/>
+        <placeholder name="performance_data" required="false" source="performance_metrics"/>
+        <placeholder name="project_results" required="false" source="project_outcomes"/>
+        <placeholder name="team_metrics" required="false" source="team_data"/>
+        <placeholder name="technical_impact" required="false" source="technical_metrics"/>
+    </placeholders>
+
+    <usage_examples>
+        <example name="senior_engineer_promotion">
+            <context>Senior engineer with team leadership and architectural contributions</context>
+            <expected_outcome>Technical depth with leadership progression indicators</expected_outcome>
+        </example>
+        
+        <example name="startup_to_enterprise">
+            <context>Professional who scaled from startup environment to enterprise role</context>
+            <expected_outcome>Scaling experience with adaptability and growth emphasis</expected_outcome>
+        </example>
+
+        <example name="technical_specialist">
+            <context>Deep technical specialist with innovation and problem-solving focus</context>
+            <expected_outcome>Technical expertise with innovation and impact quantification</expected_outcome>
+        </example>
+    </usage_examples>
+
+    <quality_assurance>
+        <automated_checks>
+            <check name="quantification_validation" description="Verify quantified achievements have supporting evidence"/>
+            <check name="action_verb_usage" description="Ensure active voice and strong action verbs"/>
+            <check name="technical_specificity" description="Include specific technologies and approaches"/>
+            <check name="business_connection" description="Connect technical work to business value"/>
+            <check name="forbidden_phrases" description="Flag generic 'responsible for' language"/>
+        </automated_checks>
+        
+        <confidence_scoring>
+            <metric name="achievement_quantification" weight="30" description="Percentage of achievements with metrics"/>
+            <metric name="technical_specificity" weight="25" description="Level of technical detail and context"/>
+            <metric name="language_quality" weight="20" description="Active voice and compelling language"/>
+            <metric name="evidence_support" weight="15" description="Claims supported by evidence"/>
+            <metric name="innovation_indicators" weight="10" description="Novel approaches and creative solutions"/>
+        </confidence_scoring>
+    </quality_assurance>
+
+</prompt_template>
