@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "professional-summary-schema.json",
+  "title": "Professional Summary Enhancement Schema",
+  "description": "Validation schema for AI-enhanced professional summary responses",
+  "version": "2.0",
+  "type": "object",
+  "properties": {
+    "enhanced": {
+      "type": "string",
+      "description": "Enhanced professional summary (2-3 sentences, specific and compelling)",
+      "minLength": 100,
+      "maxLength": 500,
+      "pattern": "^(?!.*\\b(cutting-edge|seamlessly|innovative solutions|synergistic|paradigm|disruptive)\\b).*$"
+    },
+    "key_differentiators": {
+      "type": "array",
+      "description": "3-4 unique value propositions based on evidence",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 20,
+        "maxLength": 150
+      }
+    },
+    "technical_positioning": {
+      "type": "string",
+      "description": "Market positioning statement with specific expertise areas",
+      "minLength": 50,
+      "maxLength": 200
+    },
+    "confidence_indicators": {
+      "type": "array",
+      "description": "Specific evidence supporting each enhancement",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim": {
+            "type": "string",
+            "description": "The specific claim made in the enhancement"
+          },
+          "evidence": {
+            "type": "string",
+            "description": "The supporting evidence from activity data"
+          },
+          "confidence_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Confidence level in this claim (0-100)"
+          }
+        },
+        "required": ["claim", "evidence", "confidence_score"]
+      }
+    },
+    "enhancement_rationale": {
+      "type": "string",
+      "description": "Brief explanation of enhancement strategy used",
+      "maxLength": 300
+    },
+    "market_relevance": {
+      "type": "string",
+      "description": "How positioning aligns with current industry demands",
+      "maxLength": 200
+    },
+    "quality_metrics": {
+      "type": "object",
+      "description": "Quality assessment metrics for the enhancement",
+      "properties": {
+        "evidence_support": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of claims backed by evidence"
+        },
+        "language_quality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Avoidance of generic language patterns"
+        },
+        "technical_depth": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Inclusion of specific technical indicators"
+        },
+        "market_alignment": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Relevance to target market context"
+        },
+        "structural_quality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Adherence to length and format requirements"
+        },
+        "overall_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Weighted average of all quality metrics"
+        }
+      }
+    }
+  },
+  "required": ["enhanced", "key_differentiators", "technical_positioning"],
+  "additionalProperties": false,
+  "quality_checks": {
+    "forbidden_phrases": [
+      "cutting-edge",
+      "seamlessly",
+      "innovative solutions",
+      "synergistic",
+      "paradigm",
+      "disruptive",
+      "next-generation",
+      "state-of-the-art",
+      "best-in-class",
+      "world-class",
+      "revolutionary"
+    ],
+    "required_indicators": [
+      "specific technical skills",
+      "quantified experience",
+      "domain expertise",
+      "measurable impact"
+    ],
+    "length_constraints": {
+      "enhanced_sentences": {
+        "min": 2,
+        "max": 3,
+        "rationale": "Concise, impactful professional summary"
+      }
+    }
+  }
+}

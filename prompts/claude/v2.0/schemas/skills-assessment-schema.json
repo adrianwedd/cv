@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "skills-assessment-schema.json",
+  "title": "Skills Assessment Enhancement Schema",
+  "description": "Validation schema for AI-enhanced skills assessment responses",
+  "version": "2.0",
+  "type": "object",
+  "properties": {
+    "enhanced_skills": {
+      "type": "array",
+      "description": "Enhanced skills with evidence-based assessment",
+      "minItems": 5,
+      "maxItems": 25,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Skill or technology name",
+            "minLength": 2,
+            "maxLength": 50
+          },
+          "category": {
+            "type": "string",
+            "enum": ["programming_languages", "frameworks", "databases", "cloud_platforms", "ai_ml", "devops", "methodologies", "soft_skills"]
+          },
+          "proficiency_level": {
+            "type": "string",
+            "enum": ["beginner", "intermediate", "advanced", "expert"]
+          },
+          "experience_years": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 30
+          },
+          "evidence_sources": {
+            "type": "array",
+            "description": "Sources of evidence for this skill level",
+            "items": {
+              "type": "string",
+              "enum": ["github_commits", "project_experience", "professional_work", "certifications", "education", "contributions"]
+            }
+          },
+          "proficiency_indicators": {
+            "type": "array",
+            "description": "Specific indicators of skill proficiency",
+            "items": {
+              "type": "string",
+              "minLength": 10,
+              "maxLength": 100
+            }
+          },
+          "market_demand": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "very_high"],
+            "description": "Current market demand for this skill"
+          },
+          "trend_direction": {
+            "type": "string",
+            "enum": ["declining", "stable", "growing", "emerging"],
+            "description": "Industry trend for this technology"
+          }
+        },
+        "required": ["name", "category", "proficiency_level", "experience_years", "evidence_sources"]
+      }
+    },
+    "skill_categories": {
+      "type": "object",
+      "description": "Skills organized by category with summary",
+      "properties": {
+        "programming_languages": {
+          "type": "object",
+          "properties": {
+            "primary": {"type": "array", "items": {"type": "string"}},
+            "secondary": {"type": "array", "items": {"type": "string"}},
+            "summary": {"type": "string", "maxLength": 200}
+          }
+        },
+        "ai_ml": {
+          "type": "object",
+          "properties": {
+            "frameworks": {"type": "array", "items": {"type": "string"}},
+            "specializations": {"type": "array", "items": {"type": "string"}},
+            "summary": {"type": "string", "maxLength": 200}
+          }
+        },
+        "cloud_devops": {
+          "type": "object",
+          "properties": {
+            "platforms": {"type": "array", "items": {"type": "string"}},
+            "tools": {"type": "array", "items": {"type": "string"}},
+            "summary": {"type": "string", "maxLength": 200}
+          }
+        }
+      }
+    },
+    "emerging_skills": {
+      "type": "array",
+      "description": "Skills identified as emerging trends based on activity",
+      "items": {
+        "type": "object",
+        "properties": {
+          "skill": {"type": "string"},
+          "trend_evidence": {"type": "string", "description": "Why this is considered emerging"},
+          "market_opportunity": {"type": "string", "description": "Market opportunity this skill presents"},
+          "learning_priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          }
+        },
+        "required": ["skill", "trend_evidence", "learning_priority"]
+      }
+    },
+    "skill_gaps": {
+      "type": "array",
+      "description": "Identified skill gaps for career advancement",
+      "items": {
+        "type": "object",
+        "properties": {
+          "area": {"type": "string"},
+          "gap_description": {"type": "string"},
+          "market_importance": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "acquisition_difficulty": {
+            "type": "string",
+            "enum": ["easy", "moderate", "challenging", "very_challenging"]
+          },
+          "recommended_timeline": {"type": "string"}
+        },
+        "required": ["area", "gap_description", "market_importance"]
+      }
+    },
+    "assessment_summary": {
+      "type": "object",
+      "properties": {
+        "total_skills": {"type": "number"},
+        "advanced_skills": {"type": "number"},
+        "emerging_skills": {"type": "number"},
+        "skill_diversity_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Measure of skill portfolio diversity"
+        },
+        "market_alignment_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Alignment with current market demands"
+        },
+        "innovation_potential": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "exceptional"],
+          "description": "Potential for innovative applications"
+        }
+      }
+    }
+  },
+  "required": ["enhanced_skills", "skill_categories", "assessment_summary"],
+  "additionalProperties": false,
+  "quality_checks": {
+    "evidence_requirements": {
+      "minimum_evidence_sources": 2,
+      "proficiency_validation": "Each advanced/expert skill must have specific evidence"
+    },
+    "skill_validation": {
+      "avoid_generic_skills": ["programming", "software development", "IT"],
+      "require_specific": "Specific technologies, frameworks, or methodologies"
+    },
+    "market_relevance": {
+      "emerging_skills_required": 2,
+      "trending_technologies": "Include at least 2 currently trending technologies"
+    }
+  }
+}
