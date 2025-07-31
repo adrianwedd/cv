@@ -19,6 +19,7 @@ const {
     ExperienceEnhancer,
     ProjectsEnhancer
 } = require('./content-enhancers');
+const ContentGuardian = require('../content-guardian');
 
 /**
  * Main Enhancement Orchestrator
@@ -48,6 +49,9 @@ class EnhancementOrchestrator {
             quality_metrics: {},
             strategic_insights: {}
         };
+        
+        // Initialize content guardian for protection
+        this.contentGuardian = new ContentGuardian();
     }
 
     /**
@@ -61,6 +65,14 @@ class EnhancementOrchestrator {
         console.log('');
 
         try {
+            // Pre-enhancement content validation
+            console.log('🛡️ Validating content integrity...');
+            const preValidation = await this.contentGuardian.validateContent();
+            if (!preValidation.valid) {
+                console.warn('⚠️ Content integrity issues detected - proceeding with caution');
+                console.warn(`Violations: ${preValidation.violations.length}`);
+            }
+            
             // Load data sources
             console.log('📂 Loading data sources...');
             const cvData = await this.loadCVData();
@@ -437,6 +449,34 @@ class EnhancementOrchestrator {
             await fs.writeFile(currentPath, JSON.stringify(this.enhancementResults, null, 2), 'utf8');
             
             console.log(`💾 Enhancement results saved: ${resultsPath}`);
+            
+            // Post-enhancement content validation
+            console.log('🛡️ Validating enhanced content...');
+            const postValidation = await this.contentGuardian.validateContent();
+            if (!postValidation.valid) {
+                console.error('🚨 CONTENT INTEGRITY VIOLATIONS DETECTED AFTER ENHANCEMENT!');
+                console.error(`Found ${postValidation.violations.length} violations:`);
+                postValidation.violations.forEach((v, i) => {
+                    console.error(`  ${i + 1}. ${v.type}: ${v.claim || v.match}`);
+                });
+                
+                // Add validation results to enhancement results
+                this.enhancementResults.content_validation = {
+                    valid: false,
+                    violations: postValidation.violations,
+                    validation_timestamp: new Date().toISOString()
+                };
+                
+                console.error('⚠️ Manual review required - potential AI hallucinations detected');
+            } else {
+                console.log('✅ Content validation passed - no hallucinations detected');
+                this.enhancementResults.content_validation = {
+                    valid: true,
+                    violations: [],
+                    validation_timestamp: new Date().toISOString()
+                };
+            }
+            
         } catch (error) {
             console.error('❌ Failed to save enhancement results:', error.message);
         }

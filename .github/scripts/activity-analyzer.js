@@ -318,8 +318,16 @@ class ActivityAnalyzer {
         console.log('🔍 Analyzing cross-repository activity...');
         
         try {
-            const repos = await this.client.request(`/users/${CONFIG.GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
+            // Get all repos with pagination
+            const allRepos = await this.client.paginate(`/users/${CONFIG.GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
             const since = new Date(Date.now() - CONFIG.LOOKBACK_DAYS * 24 * 60 * 60 * 1000).toISOString();
+            
+            // Filter to only recently active, non-fork repos to avoid API limits and noise
+            const recentlyActiveRepos = allRepos.filter(repo => 
+                !repo.fork && new Date(repo.pushed_at) > new Date(since)
+            );
+            
+            console.log(`  📊 Found ${allRepos.length} total repos, ${recentlyActiveRepos.length} recently active`);
             
             const crossRepoAnalysis = {
                 summary: {
@@ -329,11 +337,16 @@ class ActivityAnalyzer {
                     total_prs_opened: 0,
                     languages_used: new Set()
                 },
-                repository_breakdown: []
+                repository_breakdown: [],
+                metadata: {
+                    total_repos_checked: recentlyActiveRepos.length,
+                    total_repos_available: allRepos.length,
+                    analysis_scope: 'recently_active_only'
+                }
             };
 
-            // Analyze activity in each repository
-            for (const repo of repos.slice(0, 20)) { // Limit to top 20 repos to avoid rate limits
+            // Analyze activity in each recently active repository
+            for (const repo of recentlyActiveRepos) {
                 try {
                     console.log(`  📊 Analyzing ${repo.name}...`);
                     
