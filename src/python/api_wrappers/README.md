@@ -32,7 +32,7 @@ else:
 
 ### `IntellizenceApiWrapper`
 
-Wrapper for the [Intellizence Startup Funding Dataset API](https://www.intellizence.com/startup-funding-dataset-api/).
+Wrapper for the Intellizence Startup Funding Dataset API.
 
 **Initialization:**
 
