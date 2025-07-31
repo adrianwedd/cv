@@ -1,0 +1,110 @@
+{
+  "last_run": "2025-07-31T14:41:47.417Z",
+  "session_id": "cv-test-20250131",
+  "current_status": "success",
+  "jobs": {
+    "intelligence_analysis": {
+      "status": "success",
+      "strategy": "comprehensive",
+      "activity_score": 85,
+      "outputs": {
+        "strategy": "comprehensive",
+        "score": 85
+      }
+    },
+    "data_collection": {
+      "status": "success",
+      "outputs": {}
+    },
+    "ai_enhancement": {
+      "status": "success",
+      "auth_method": "oauth_max",
+      "tokens_used": 8450,
+      "cost": 0.0823,
+      "outputs": {
+        "status": "success",
+        "tokens": 8450,
+        "cost": 0.0823
+      }
+    },
+    "website_build": {
+      "status": "success",
+      "assets": 0,
+      "size": "0",
+      "outputs": {
+        "status": "success"
+      }
+    },
+    "deployment": {
+      "status": "success",
+      "url": "https://adrianwedd.com",
+      "environment": "production",
+      "outputs": {
+        "url": "https://adrianwedd.com",
+        "environment": "production"
+      }
+    }
+  },
+  "metrics": {
+    "activity_score": 85,
+    "tokens_used": 8450,
+    "estimated_cost": 0,
+    "actual_cost": 0.0823,
+    "build_assets": 0,
+    "success_rate": 100
+  },
+  "deployment": {
+    "url": "https://adrianwedd.com",
+    "environment": "production",
+    "status": "deployed",
+    "last_deploy": "2025-07-31T14:41:47.418Z"
+  },
+  "costs": {
+    "estimated": 0,
+    "actual": 0.0823,
+    "auth_method": "oauth_max",
+    "savings_vs_api": 0
+  },
+  "badges": {
+    "status": {
+      "schemaVersion": 1,
+      "label": "CV Pipeline",
+      "message": "Success",
+      "color": "brightgreen",
+      "namedLogo": "github-actions",
+      "logoColor": "white"
+    },
+    "deployment": {
+      "schemaVersion": 1,
+      "label": "Deployment",
+      "message": "Live (production)",
+      "color": "brightgreen",
+      "namedLogo": "github-pages",
+      "logoColor": "white"
+    },
+    "activity": {
+      "schemaVersion": 1,
+      "label": "Activity Score",
+      "message": "85/100",
+      "color": "brightgreen",
+      "namedLogo": "github",
+      "logoColor": "white"
+    },
+    "cost": {
+      "schemaVersion": 1,
+      "label": "Cost",
+      "message": "Fixed Cost",
+      "color": "brightgreen",
+      "namedLogo": "anthropic",
+      "logoColor": "white"
+    },
+    "auth": {
+      "schemaVersion": 1,
+      "label": "Auth Method",
+      "message": "Claude Max",
+      "color": "brightgreen",
+      "namedLogo": "anthropic",
+      "logoColor": "white"
+    }
+  }
+}

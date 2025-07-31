@@ -17,6 +17,59 @@ const https = require('https');
 const { sleep } = require('../utils/apiClient');
 
 /**
+ * Custom error classes for better error handling
+ */
+class QuotaExhaustedError extends Error {
+    constructor(message, originalError = null) {
+        super(message);
+        this.name = 'QuotaExhaustedError';
+        this.originalError = originalError;
+        this.recoverable = false;
+        this.fallbackAvailable = true;
+    }
+}
+
+class RateLimitExceededError extends Error {
+    constructor(message, originalError = null) {
+        super(message);
+        this.name = 'RateLimitExceededError';
+        this.originalError = originalError;
+        this.recoverable = true;
+        this.fallbackAvailable = true;
+    }
+}
+
+class AuthenticationError extends Error {
+    constructor(message, originalError = null) {
+        super(message);
+        this.name = 'AuthenticationError';
+        this.originalError = originalError;
+        this.recoverable = false;
+        this.fallbackAvailable = true;
+    }
+}
+
+class ServerError extends Error {
+    constructor(message, originalError = null) {
+        super(message);
+        this.name = 'ServerError';
+        this.originalError = originalError;
+        this.recoverable = true;
+        this.fallbackAvailable = true;
+    }
+}
+
+class NetworkError extends Error {
+    constructor(message, originalError = null) {
+        super(message);
+        this.name = 'NetworkError';
+        this.originalError = originalError;
+        this.recoverable = true;
+        this.fallbackAvailable = true;
+    }
+}
+
+/**
  * Claude API Client with advanced caching and error handling
  */
 class ClaudeApiClient {
@@ -95,8 +148,7 @@ class ClaudeApiClient {
             return result;
 
         } catch (error) {
-            console.error('❌ Claude API request failed:', error.message);
-            throw error;
+            return this.handleApiError(error, messages, options, sourceContent);
         }
     }
 
@@ -203,6 +255,72 @@ class ClaudeApiClient {
     }
 
     /**
+     * Comprehensive API error handling with fallback strategies
+     */
+    async handleApiError(error, messages, options, sourceContent) {
+        const errorMessage = error.message.toLowerCase();
+        
+        // Parse structured API errors
+        let apiError = null;
+        try {
+            if (error.message.includes('Claude API error:')) {
+                const jsonMatch = error.message.match(/Claude API error: (.+)/);
+                if (jsonMatch) {
+                    // Try to parse as structured error
+                    apiError = { message: jsonMatch[1] };
+                }
+            }
+        } catch (parseError) {
+            // Ignore parsing errors
+        }
+        
+        // Rate limit handling (429)
+        if (error.message.includes('429') || 
+            errorMessage.includes('rate limit') ||
+            (apiError && apiError.message.includes('rate limit'))) {
+            console.warn('⏰ Rate limit hit - implementing exponential backoff');
+            throw new RateLimitExceededError('API rate limit exceeded', error);
+        }
+        
+        // Quota/Credit exhaustion
+        if (errorMessage.includes('credit balance') || 
+            errorMessage.includes('quota') || 
+            errorMessage.includes('insufficient funds') ||
+            (apiError && (apiError.message.includes('credit balance') || 
+                         apiError.message.includes('quota')))) {
+            console.error('💳 API credits exhausted');
+            throw new QuotaExhaustedError('API quota exhausted', error);
+        }
+        
+        // Authentication errors
+        if (error.message.includes('401') || 
+            errorMessage.includes('authentication') ||
+            errorMessage.includes('invalid api key') ||
+            (apiError && apiError.message.includes('invalid api key'))) {
+            console.error('🔐 Authentication failed - check API key');
+            throw new AuthenticationError('Invalid API key', error);
+        }
+        
+        // Server errors (5xx) - retry with backoff
+        if (error.message.includes('500') || error.message.includes('502') || 
+            error.message.includes('503') || error.message.includes('504') ||
+            (apiError && apiError.message.includes('internal server error'))) {
+            console.warn('🔧 Server error - retrying with backoff');
+            throw new ServerError('Server error encountered', error);
+        }
+        
+        // Network timeouts
+        if (errorMessage.includes('timeout') || errorMessage.includes('etimedout')) {
+            console.warn('📡 Network timeout - retrying');
+            throw new NetworkError('Network timeout encountered', error);
+        }
+        
+        // Unknown error - log and rethrow
+        console.error('❌ Unknown API error:', error.message);
+        throw error;
+    }
+
+    /**
      * Get current token usage statistics
      */
     getTokenUsage() {
@@ -222,4 +340,11 @@ class ClaudeApiClient {
     }
 }
 
-module.exports = { ClaudeApiClient };
+module.exports = { 
+    ClaudeApiClient, 
+    QuotaExhaustedError,
+    RateLimitExceededError,
+    AuthenticationError,
+    ServerError,
+    NetworkError
+};

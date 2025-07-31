@@ -116,18 +116,44 @@ async function main() {
         // Validate configuration
         validateConfiguration();
         
-        // Initialize and run orchestrator
+        // Initialize OAuth-first authentication manager
+        console.log('🔐 **INITIALIZING OAUTH-FIRST AUTHENTICATION**');
+        const authManager = new ClaudeAuthManager(CONFIG);
+        await authManager.initialize();
+        
+        // Create enhanced config with auth manager
+        const enhancedConfig = {
+            ...CONFIG,
+            authManager: authManager
+        };
+        
+        // Initialize and run orchestrator with OAuth-first auth
         console.log('🎭 **INITIALIZING ENHANCEMENT ORCHESTRATOR**');
-        const orchestrator = new EnhancementOrchestrator(CONFIG);
+        const orchestrator = new EnhancementOrchestrator(enhancedConfig);
         
         console.log('🚀 **STARTING CV ENHANCEMENT PROCESS**');
         const results = await orchestrator.orchestrateEnhancement();
         
-        // Display final results
+        // Display final results with authentication info
         console.log('✅ **ENHANCEMENT PROCESS COMPLETED SUCCESSFULLY**');
         console.log(`📊 Final Quality Score: ${results.quality_metrics?.content_quality_score || 0}/100`);
         console.log(`🎯 Enhancement Success Rate: ${results.quality_metrics?.enhancement_success_rate || 0}%`);
         console.log(`💰 Total Tokens Used: ${results.token_usage?.total || 0}`);
+        
+        // Show authentication and cost optimization info
+        const authStatus = authManager.getAuthStatus();
+        console.log(`🔐 Authentication Method: ${authStatus.current_method.toUpperCase()}${authStatus.fallback_active ? ' (fallback)' : ''}`);
+        
+        if (authStatus.oauth_usage) {
+            console.log(`📊 Claude Max Usage: ${authStatus.oauth_usage.used}${authStatus.oauth_usage.limit ? `/${authStatus.oauth_usage.limit}` : ''} (resets in ${authStatus.oauth_usage.timeUntilReset || 0}m)`);
+        }
+        
+        if (authStatus.usage_stats.oauth_requests > 0) {
+            const totalRequests = authStatus.usage_stats.oauth_requests + authStatus.usage_stats.api_key_requests;
+            const oauthPercent = Math.round((authStatus.usage_stats.oauth_requests / totalRequests) * 100);
+            console.log(`💸 Cost Optimization: ${oauthPercent}% requests via Claude Max subscription`);
+        }
+        
         console.log('');
         console.log('🎉 **CV CONTENT ENHANCED AND READY FOR DEPLOYMENT**');
         

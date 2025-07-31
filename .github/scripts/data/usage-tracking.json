@@ -1,0 +1,81 @@
+{
+  "daily": {
+    "2025-07-31": {
+      "requests": 3,
+      "input_tokens": 25300,
+      "output_tokens": 10600,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "estimated_cost": 0.22995000000000002,
+      "sessions": 3,
+      "token_alerts_sent": [
+        50
+      ]
+    }
+  },
+  "monthly": {
+    "2025-08": {
+      "requests": 3,
+      "input_tokens": 25300,
+      "output_tokens": 10600,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "estimated_cost": 0.22995000000000002,
+      "sessions": 3
+    }
+  },
+  "sessions": [
+    {
+      "timestamp": "2025-07-31T14:28:24.610Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 150,
+      "output_tokens": 300,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "oauth_max",
+      "session_type": "test",
+      "enhancement_mode": "activity-only",
+      "success": true,
+      "estimated_cost": 0
+    },
+    {
+      "timestamp": "2025-07-31T14:28:40.289Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 150,
+      "output_tokens": 300,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "activity-only",
+      "success": true,
+      "estimated_cost": 0.0049499999999999995
+    },
+    {
+      "timestamp": "2025-07-31T14:28:40.291Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 25000,
+      "output_tokens": 10000,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "comprehensive",
+      "success": true,
+      "estimated_cost": 0.225
+    }
+  ],
+  "totals": {
+    "requests": 3,
+    "input_tokens": 25300,
+    "output_tokens": 10600,
+    "cache_tokens": 0,
+    "estimated_cost": 0.22995000000000002,
+    "cache_creation_tokens": null,
+    "cache_read_tokens": null,
+    "sessions": 3
+  }
+}
