@@ -202,3 +202,50 @@ This system maintains a living CV that evolves with professional development thr
 3. Test CSS changes across multiple browsers and themes
 4. Validate JSON structure after AI enhancement processes
 5. Monitor workflow failures for race conditions and timeouts
+
+## Recent System Improvements (July 2025)
+
+### Content Guardian & AI Hallucination Protection
+**Critical System**: Implemented comprehensive protection against AI-generated fabricated content
+- **Files**: `.github/scripts/content-guardian.js`, `data/protected-content.json`
+- **Integration**: Built into enhancement orchestrator with pre/post validation
+- **Protection**: All achievements marked as `protected: true, verified: true`
+- **Audit Trail**: Content changes logged with violation detection
+- **Usage**: `node content-guardian.js --validate` to check content integrity
+
+### Activity Analyzer Fixes
+**Issue Resolved**: Repository counting limited to 20 repos instead of full portfolio (191 total)
+- **Problem**: `repos.slice(0, 20)` artificial limitation caused inaccurate metrics
+- **Solution**: Implemented pagination with fork filtering for recently active repos only
+- **Impact**: Now shows accurate commit counts across entire portfolio
+- **Filter Logic**: Excludes forks unless recent commits detected (30-day window)
+
+### Watch Me Work Dashboard Overhaul
+**Major UX Improvements**: Fixed data accuracy and presentation issues
+- **Dynamic Discovery**: Removes hardcoded repo list, auto-discovers active repositories
+- **Fork Filtering**: Only shows forks with recent commit activity to reduce noise
+- **Rich Context**: Replaced raw JSON displays with human-readable activity descriptions
+- **Rate Limiting**: Added API call delays to prevent GitHub throttling
+- **Activity Details**: Enhanced modals with commit lists, issue context, release notes
+
+### Position Description Ingester (New Component)
+**Job Targeting System**: Analyze job descriptions for CV customization
+- **File**: `.github/scripts/position-description-ingester.js`
+- **Capabilities**: Extract skills, requirements, company culture from job postings
+- **Analysis**: Generate skill match percentages and enhancement recommendations
+- **Usage**: `node position-description-ingester.js --text "job description"`
+- **Output**: Targeting insights saved to `data/targeting/` for CV customization
+
+### CI Pipeline Dependencies
+**Critical Configuration**: ANTHROPIC_API_KEY required for automation
+- **Issue**: CV Enhancement Pipeline fails without API key secret
+- **Location**: GitHub repository secrets must include `ANTHROPIC_API_KEY`
+- **Workflow**: `.github/workflows/cv-enhancement.yml` expects this secret
+- **Fallback**: System gracefully handles missing API key with activity-only mode
+
+### Enhanced Authentication & Career Narrative
+**Content Authenticity**: Replaced fabricated achievements with verified career history
+- **Real Experience**: Systems Analyst at Homes Tasmania, environmental advocacy background
+- **Neurodivergent Path**: Authentic career narrative celebrates diverse journey as strength
+- **Technical Depth**: API integration, cybersecurity leadership, AI implementation pioneer
+- **Social Impact**: Technology work combined with environmental and social causes
