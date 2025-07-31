@@ -28,7 +28,7 @@ class ClaudeAuthManager {
     constructor(config = {}) {
         this.config = {
             // Authentication strategy
-            auth_strategy: config.auth_strategy || 'oauth_first',
+            auth_strategy: config.auth_strategy || process.env.AUTH_STRATEGY || 'api_key_first',
             fallback_delay_hours: config.fallback_delay_hours || 24,
             oauth_retry_interval_hours: config.oauth_retry_interval_hours || 4,
             max_oauth_failures: config.max_oauth_failures || 3,

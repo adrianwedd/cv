@@ -20,7 +20,7 @@ class ClaudeOAuthSetup {
     constructor() {
         this.clientId = '9d1c250a-e61b-44d9-88ed-5944d1962f5e'; // OpenCode client ID
         this.redirectUri = 'http://localhost:8080/callback';
-        this.scope = 'read write';
+        this.scope = 'openid profile';
         
         // OAuth endpoints
         this.authUrl = 'https://claude.ai/oauth/authorize';

@@ -25,12 +25,15 @@
   "dependencies": {
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
+    "chrome-remote-interface": "^0.33.3",
     "date-fns": "^4.1.0",
     "jsdoc": "^4.0.4",
     "lodash": "^4.17.21",
     "marked": "^16.1.1",
     "node-cache": "^5.1.2",
-    "puppeteer": "^24.15.0"
+    "puppeteer": "^24.15.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   },
   "devDependencies": {
     "eslint": "^9.32.0",
