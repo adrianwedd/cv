@@ -92,12 +92,26 @@ class ClaudeApiClient {
             throw new Error('Anthropic API key not configured');
         }
 
+        // Extract system message if present
+        let systemMessage = null;
+        let userMessages = messages;
+        
+        if (messages[0]?.role === 'system') {
+            systemMessage = messages[0].content;
+            userMessages = messages.slice(1);
+        }
+
         const requestOptions = {
             model: options.model || this.model,
             max_tokens: options.max_tokens || this.maxTokens,
             temperature: options.temperature || this.temperature,
-            messages: messages
+            messages: userMessages
         };
+        
+        // Add system message at top level if present
+        if (systemMessage) {
+            requestOptions.system = systemMessage;
+        }
 
         // Generate cache key
         const cacheKey = this.generateCacheKey(requestOptions, sourceContent);
@@ -180,9 +194,15 @@ class ClaudeApiClient {
                     req.end();
                 });
             } catch (error) {
-                if (i === maxRetries - 1) throw error;
+                const errorMsg = error.message || 'Unknown error';
+                console.error(`❌ Request attempt ${i + 1}/${maxRetries} failed: ${errorMsg}`);
                 
-                console.log(`⚠️ Request failed, retrying in ${retryDelay}ms... (${i + 1}/${maxRetries})`);
+                if (i === maxRetries - 1) {
+                    console.error('🚨 All retry attempts exhausted');
+                    throw error;
+                }
+                
+                console.log(`⚠️ Retrying in ${retryDelay}ms due to error: ${errorMsg}`);
                 await sleep(retryDelay);
                 retryDelay *= 2; // Exponential backoff
             }

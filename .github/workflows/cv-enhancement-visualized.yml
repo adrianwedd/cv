@@ -367,7 +367,7 @@ jobs:
           # Execute enhancement with timeout and error handling
           START_TIME=$(date +%s)
           
-          if timeout 600 node claude-enhancer-v2.js; then
+          if timeout 600 node claude-enhancer.js 2>&1 | tee enhancement.log; then
             STATUS="success"
             echo "✅ AI enhancement completed successfully"
           else
