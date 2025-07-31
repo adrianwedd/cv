@@ -428,8 +428,8 @@ jobs:
         run: |
           echo "🚀 **COMMITTING ACTIVITY TRACKING DATA**"
           
-          git config --local user.email "activity-tracker@github.com"
-          git config --local user.name "GitHub Activity Tracker"
+          git config --local user.email "activity-tracker@adrianwedd.com"
+          git config --local user.name "adrianwedd(activity-tracker)"
           
           git add data/
           

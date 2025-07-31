@@ -84,7 +84,7 @@ class ClaimVerifier {
             const enhancementsPath = path.join(this.dataDir, 'ai-enhancements.json');
             const content = await fs.readFile(enhancementsPath, 'utf8');
             return JSON.parse(content);
-        } catch (error) {
+        } catch {
             console.warn('⚠️ AI enhancements data not found');
             return {};
         }
@@ -107,14 +107,14 @@ class ClaimVerifier {
                     const detailedContent = await fs.readFile(detailedPath, 'utf8');
                     const detailed = JSON.parse(detailedContent);
                     return { summary, detailed };
-                } catch (error) {
+                } catch {
                     console.warn('⚠️ Detailed activity data not found, using summary only');
                     return { summary };
                 }
             }
 
             return { summary };
-        } catch (error) {
+        } catch {
             console.warn('⚠️ Activity data not found');
             return {};
         }

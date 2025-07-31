@@ -387,16 +387,57 @@ jobs:
           fi
           cd ../..
           
-      - name: 🔍 AI Claim Verification
+      - name: 🛡️ AI Hallucination Detection & Validation
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
         run: |
-          echo "🔍 **VERIFYING AI-GENERATED CLAIMS AGAINST GITHUB DATA**"
-          echo "📊 Cross-referencing quantifiable claims with actual metrics..."
+          echo "🛡️ **AI HALLUCINATION DETECTION & VALIDATION INITIATED**"
+          echo "🔍 Multi-layer validation of AI-generated content..."
+          echo "📊 Cross-referencing claims with actual GitHub metrics..."
           echo ""
           
           cd .github/scripts
-          if node claim-verifier.js; then
-            echo "✅ Claim verification completed successfully"
+          
+          # Run advanced hallucination detection
+          if node ai-hallucination-detector.js; then
+            echo "✅ Advanced hallucination detection completed successfully"
+            
+            # Display validation summary
+            if [ -f "../../data/latest-validation-report.json" ]; then
+              echo ""
+              echo "🛡️ **VALIDATION REPORT:**"
+              cat ../../data/latest-validation-report.json | jq -r '
+                "🎯 Overall Confidence: " + (.overall_confidence | tostring) + "/100",
+                "🚨 Flagged Content: " + (.flagged_content | length | tostring) + " items",
+                "⚠️ Recommendations: " + (.recommendations | length | tostring),
+                "🔥 Urgent Reviews: " + (.urgent_reviews | length | tostring)'
+              
+              # Check confidence threshold
+              CONFIDENCE=$(cat ../../data/latest-validation-report.json | jq '.overall_confidence')
+              if [ "$CONFIDENCE" -lt 70 ]; then
+                echo ""
+                echo "🚨 **CRITICAL: Low confidence score detected!**"
+                echo "📋 Urgent recommendations:"
+                cat ../../data/latest-validation-report.json | jq -r '.urgent_reviews[]?.message // "Manual review required"'
+                # Continue but flag for attention
+              fi
+            fi
+            
+            # Also run legacy claim verifier for compatibility
+            echo ""
+            echo "🔍 Running legacy claim verification..."
+            if node claim-verifier.js; then
+              echo "✅ Legacy claim verification completed"
+            else
+              echo "⚠️ Legacy claim verification had warnings"
+            fi
+            
+          else
+            echo "⚠️ Advanced hallucination detection encountered issues"
+            echo "🔄 Falling back to basic claim verification..."
+            
+            # Fallback to existing claim verifier
+            if node claim-verifier.js; then
+              echo "✅ Basic claim verification completed successfully"
             
             # Display verification summary
             if [ -f "../../data/verification-summary.json" ]; then
@@ -611,8 +652,8 @@ jobs:
         run: |
           echo "🚀 **COMMITTING CV ENHANCEMENT UPDATES**"
           
-          git config --local user.email "cv-enhancement@github.com"
-          git config --local user.name "CV Enhancement Bot"
+          git config --local user.email "cv-enhancement@adrianwedd.com"
+          git config --local user.name "adrianwedd(cv-enhancer)"
           
           # Ensure intelligence and narrative data is included
           if [ -d "data/intelligence" ]; then
