@@ -13,18 +13,28 @@ To set up your local development environment, follow these steps:
     git clone https://github.com/YOUR_USERNAME/cv.git
     cd cv
     ```
-3.  **Install Dependencies**: Navigate to the `scripts` directory and install the Node.js dependencies:
+3.  **Install Dependencies**:
+    *   **Node.js Dependencies**: Navigate to the `scripts` directory and install the Node.js dependencies:
 
-    ```bash
-    cd .github/scripts
-    npm install
-    cd ../..
-    ```
+        ```bash
+        cd .github/scripts
+        npm install
+        cd ../..
+        ```
+    *   **Python Dependencies**: Install Python dependencies. If a `requirements.txt` file exists in `src/python/`, use:
+
+        ```bash
+        pip install -r src/python/requirements.txt
+        ```
+        Otherwise, install individual packages as needed (e.g., `pip install requests python-dotenv`).
+
 4.  **Set up Environment Variables**: The scripts require certain environment variables to function correctly. Create a `.env` file in the project root (or set them in your shell environment):
 
     ```
     GITHUB_TOKEN=your_github_personal_access_token
     ANTHROPIC_API_KEY=your_claude_api_key
+    ABSTRACT_API_KEY=your_abstract_api_key # For Python API wrappers
+    INTELLIZENCE_API_KEY=your_intellizence_api_key # For Python API wrappers
     # Optional: CUSTOM_DOMAIN=your.custom.domain
     ```
     *   **GitHub Token**: Generate a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `repo` scope.
@@ -34,48 +44,62 @@ To set up your local development environment, follow these steps:
 
 You can run the core scripts locally for development and testing:
 
-*   **Analyze GitHub Activity**:
+*   **Analyze GitHub Activity** (Node.js):
 
     ```bash
     node .github/scripts/activity-analyzer.js
     ```
-*   **Enhance CV Content with AI**:
+*   **Enhance CV Content with AI** (Node.js):
 
     ```bash
     node .github/scripts/claude-enhancer.js
     ```
-*   **Generate CV Website**:
+*   **Generate CV Website** (Node.js):
 
     ```bash
     node .github/scripts/cv-generator.js
     ```
+*   **Run Python Utilities** (Example):
+
+    ```bash
+    python src/python/utils/logging_utils.py
+    ```
 
 ## Code Style and Linting
 
-We use ESLint and Prettier to maintain consistent code style and quality. Please ensure your code adheres to these standards.
+We use ESLint (for JavaScript) and Ruff (for Python) to maintain consistent code style and quality. Please ensure your code adheres to these standards.
 
-*   **Linting**: Check for code quality issues:
+*   **JavaScript Linting**: Check for code quality issues:
 
     ```bash
     cd .github/scripts
     npm run lint
     ```
-*   **Formatting**: Automatically format your code:
+*   **Python Linting**: Check for code quality issues (from project root):
 
     ```bash
-    cd .github/scripts
+    ruff check src/python/
+    ```
+*   **Formatting**: Automatically format your code (for JavaScript, from `.github/scripts`):
+
+    ```bash
     npm run format
     ```
 
 ## Running Tests
 
-Unit tests are implemented using Node.js's native test runner. Please run tests before submitting a pull request.
+Unit tests are implemented using Node.js's native test runner (for JavaScript) and Python's `unittest` module (for Python). Please run tests before submitting a pull request.
 
-*   **Execute Tests**:
+*   **Execute JavaScript Tests**:
 
     ```bash
     cd .github/scripts
     npm test
+    ```
+*   **Execute Python Tests** (from project root):
+
+    ```bash
+    python -m unittest discover -s src/python/ -p "test_*.py"
     ```
 
 ## Submitting Pull Requests
@@ -96,7 +120,7 @@ Unit tests are implemented using Node.js's native test runner. Please run tests 
 
 ## Issue Management
 
-This project uses a structured approach to issue management. Please refer to the `GROOMER` prompt (documented in `@GROOMER.md`) for details on issue categorization, prioritization, and lifecycle.
+This project uses a systematic approach to issue management, guided by the `10x-dev-architect` agent's issue grooming procedure. Please refer to the agent's documentation (`.claude/agents/10x-dev-architect.md`) for details on issue categorization, prioritization, and lifecycle.
 
 *   **Bug Reports**: Use the `bug` label.
 *   **Feature Requests**: Use the `enhancement` label.
