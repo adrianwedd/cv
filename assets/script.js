@@ -218,6 +218,33 @@ class CVApplication {
     }
 
     /**
+     * Load AI credibility score from validation report
+     */
+    async loadCredibilityScore() {
+        try {
+            const response = await fetch('data/latest-validation-report.json');
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+            const validationData = await response.json();
+            return validationData.overall_confidence || 0;
+        } catch (error) {
+            console.warn('⚠️ Credibility score not available');
+            return 0;
+        }
+    }
+
+    /**
+     * Get CSS class for credibility score display
+     */
+    getCredibilityClass(score) {
+        if (score >= 90) return 'credibility-excellent';
+        if (score >= 70) return 'credibility-good';
+        if (score >= 50) return 'credibility-fair';
+        return 'credibility-poor';
+    }
+
+    /**
      * Load language count from detailed activity data
      */
     async loadLanguageCount() {
@@ -297,7 +324,8 @@ class CVApplication {
             commitsCount: document.getElementById('commits-count'),
             activityScore: document.getElementById('activity-score'),
             languagesCount: document.getElementById('languages-count'),
-            lastUpdated: document.getElementById('last-updated')
+            lastUpdated: document.getElementById('last-updated'),
+            credibilityScore: document.getElementById('credibility-score')
         };
 
         // Update commits count
@@ -330,6 +358,17 @@ class CVApplication {
         if (elements.lastUpdated) {
             const lastUpdate = this.activityData?.last_updated || new Date().toISOString();
             elements.lastUpdated.textContent = this.formatTimeAgo(lastUpdate);
+        }
+
+        // Update AI credibility score
+        if (elements.credibilityScore) {
+            this.loadCredibilityScore().then(score => {
+                elements.credibilityScore.textContent = `${score}/100`;
+                elements.credibilityScore.className = `stat-value ${this.getCredibilityClass(score)}`;
+            }).catch(() => {
+                elements.credibilityScore.textContent = "N/A";
+                elements.credibilityScore.className = "stat-value";
+            });
         }
 
         // Update footer timestamp

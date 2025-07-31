@@ -29,12 +29,12 @@
     "jsdoc": "^4.0.4",
     "lodash": "^4.17.21",
     "marked": "^16.1.1",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "puppeteer": "^24.15.0"
   },
   "devDependencies": {
     "eslint": "^9.32.0",
-    "prettier": "^3.3.0",
-    "puppeteer": "^24.15.0"
+    "prettier": "^3.3.0"
   },
   "engines": {
     "node": ">=18.0.0"

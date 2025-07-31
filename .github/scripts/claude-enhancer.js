@@ -25,7 +25,8 @@
 const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
-const { httpRequest, sleep } = require('./utils/apiClient');
+const https = require('https');
+const { sleep } = require('./utils/apiClient');
 
 // Configuration
 const CONFIG = {

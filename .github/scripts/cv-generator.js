@@ -100,9 +100,9 @@ class CVGenerator {
             console.log(`🌐 Website ready at: ${CONFIG.OUTPUT_DIR}/`);
             console.log(`🚀 Deploy to: ${CONFIG.SITE_URL}`);
 
-        } catch (error) {
-            console.error('❌ Website generation failed:', error.message);
-            throw error;
+        } catch (genError) {
+            console.error('❌ Website generation failed:', genError.message);
+            throw genError;
         }
     }
 
@@ -139,7 +139,7 @@ class CVGenerator {
                 const cvDataContent = await fs.readFile(cvDataPath, 'utf8');
                 this.cvData = JSON.parse(cvDataContent);
                 console.log('✅ Base CV data loaded');
-            } catch (error) {
+            } catch {
                 console.warn('⚠️ Base CV data not found, using defaults');
                 this.cvData = this.getDefaultCVData();
             }

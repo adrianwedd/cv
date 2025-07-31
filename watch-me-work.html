@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Me Work - Adrian Wedd</title>
+    <meta name="description" content="Live development activity dashboard showing real-time coding, commits, issues, and pull requests across all repositories">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/watch-me-work.css">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="assets/watch-manifest.json">
+    
+    <!-- Favicons -->
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Watch Me Work - Adrian Wedd">
+    <meta property="og:description" content="Live development activity dashboard">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adrianwedd.github.io/cv/watch-me-work">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Watch Me Work Dashboard",
+        "url": "https://adrianwedd.github.io/cv/watch-me-work",
+        "description": "Live development activity dashboard",
+        "author": {
+            "@type": "Person",
+            "name": "Adrian Wedd"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="brand">
+                <h1>🎬 Watch Me Work</h1>
+                <p class="tagline">Live Development Activity Dashboard</p>
+            </div>
+            
+            <div class="live-status">
+                <div class="status-indicator" id="live-indicator">
+                    <div class="pulse"></div>
+                    <span id="status-text">Connecting...</span>
+                </div>
+                <div class="last-activity">
+                    Last activity: <span id="last-activity-time">---</span>
+                </div>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <a href="index.html" class="nav-link">← Back to CV</a>
+                <button class="filter-toggle" id="filter-toggle">🔧 Filters</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filters Panel -->
+    <div class="filters-panel" id="filters-panel">
+        <div class="filters-content">
+            <h3>Activity Filters</h3>
+            <div class="filter-groups">
+                <div class="filter-group">
+                    <label>Activity Types:</label>
+                    <div class="filter-options">
+                        <label><input type="checkbox" id="filter-commits" checked> 📝 Commits</label>
+                        <label><input type="checkbox" id="filter-issues" checked> 🐛 Issues</label>
+                        <label><input type="checkbox" id="filter-prs" checked> 🔄 Pull Requests</label>
+                        <label><input type="checkbox" id="filter-comments" checked> 💬 Comments</label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Time Range:</label>
+                    <select id="time-range">
+                        <option value="1h">Last Hour</option>
+                        <option value="6h">Last 6 Hours</option>
+                        <option value="24h" selected>Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                        <option value="30d">Last 30 Days</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Repositories:</label>
+                    <div class="repo-filters" id="repo-filters">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-main">
+        <!-- Metrics Overview -->
+        <section class="metrics-overview">
+            <div class="metric-card">
+                <div class="metric-icon">📝</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="commits-today">0</div>
+                    <div class="metric-label">Commits Today</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">🔥</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="streak-days">0</div>
+                    <div class="metric-label">Day Streak</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">⚡</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="velocity-score">0</div>
+                    <div class="metric-label">Velocity Score</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">🎯</div>
+                <div class="metric-content">
+                    <div class="metric-value" id="focus-time">0h</div>
+                    <div class="metric-label">Focus Time</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Timeline -->
+        <section class="activity-timeline">
+            <div class="section-header">
+                <h2>🕐 Live Activity Stream</h2>
+                <div class="timeline-controls">
+                    <button class="btn-secondary" id="pause-btn">⏸️ Pause</button>
+                    <button class="btn-primary" id="refresh-btn">🔄 Refresh</button>
+                </div>
+            </div>
+            
+            <div class="timeline-container" id="timeline-container">
+                <div class="timeline-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading live activity...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Repository Activity Grid -->
+        <section class="repo-activity-grid">
+            <div class="section-header">
+                <h2>📊 Repository Activity</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">📊 Grid</button>
+                    <button class="view-btn" data-view="list">📋 List</button>
+                </div>
+            </div>
+            
+            <div class="repo-grid" id="repo-grid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Live Code Preview (when available) -->
+        <section class="code-preview" id="code-preview" style="display: none;">
+            <div class="section-header">
+                <h2>👀 Live Code Preview</h2>
+                <button class="close-preview" id="close-preview">✕</button>
+            </div>
+            
+            <div class="code-container">
+                <div class="code-header" id="code-header">
+                    <!-- File info -->
+                </div>
+                <pre class="code-content" id="code-content">
+                    <!-- Code diff -->
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- Activity Detail Modal -->
+    <div class="modal" id="activity-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Activity Details</h3>
+                <button class="modal-close" id="modal-close">✕</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Activity details -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <p>🎬 Watch Me Work Dashboard • Real-time development activity</p>
+                <p>Last updated: <span id="footer-timestamp">---</span></p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/adrianwedd" target="_blank">GitHub</a>
+                <a href="index.html">Full CV</a>
+                <a href="mailto:adrian@adrianwedd.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/watch-me-work.js"></script>
+</body>
+</html>
