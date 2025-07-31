@@ -795,26 +795,17 @@ Disallow: /data/
 
         // Remove Markdown formatting
         cleaned = cleaned.replace(/\*\*/g, ''); // Bold
-        cleaned = cleaned.replace(/###?\s*/g, '');    // Headers
-        cleaned = cleaned.replace(/\n\n+/g, '\n\n'); // Normalize paragraph spacing
+        cleaned = cleaned.replace(/#/g, '');    // Headers
+        cleaned = cleaned.replace(/-/g, '');    // List items (simple dash)
+        cleaned = cleaned.replace(/\n\n+/g, '\n'); // Collapse multiple newlines
 
-        // Remove specific AI meta-commentary patterns (comprehensive)
-        cleaned = cleaned.replace(/^Here's an enhanced.*?:\s*/i, '');
-        cleaned = cleaned.replace(/^\*\*Enhanced.*?\*\*\s*/i, '');
+        // Remove specific AI meta-commentary patterns
+        cleaned = cleaned.replace(/^Here's an enhanced professional summary:\s*/i, '');
+        cleaned = cleaned.replace(/^\*\*Enhanced Summary:\*\*\s*/i, '');
         cleaned = cleaned.replace(/\n\nThis enhancement:[\s\S]*$/i, '');
         cleaned = cleaned.replace(/The numbers provided are placeholders[\s\S]*$/i, '');
-        cleaned = cleaned.replace(/This enhancement:\s*[\s\S]*?(?=\n\n[A-Z]|$)/g, '');
-        cleaned = cleaned.replace(/but the structure effectively[\s\S]*$/i, '');
-        
-        // Remove bullet point explanations (AI meta-commentary)
-        cleaned = cleaned.replace(/\n\n[-•*]\s+(?:Opens with|Incorporates|Includes|Maintains|Uses|Focuses|Emphasizes|Concludes)[\s\S]*?(?=\n\n[A-Z]|$)/g, '');
-
-        // Fix any double periods from splitting
-        cleaned = cleaned.replace(/\.\./g, '.');
-        
-        // Clean up spacing
-        cleaned = cleaned.replace(/\s+/g, ' '); // Normalize whitespace
-        cleaned = cleaned.replace(/\n /g, '\n'); // Remove spaces after newlines
+        cleaned = cleaned.replace(/\n\nThis enhancement:\n[\s\S]*?(?=\n\n[A-Z]|$)/, ''); // More robust removal of "This enhancement" block
+        cleaned = cleaned.replace(/\n\n[A-Z][a-z]+:/g, ''); // Remove lines like "Concludes with:"
 
         return cleaned.trim();
     }
@@ -954,39 +945,40 @@ Disallow: /data/
         const projects = this.cvData.projects || [];
 
         let latexContent = `
-\\documentclass{article}
-\\usepackage[utf8]{inputenc}
-\\usepackage{geometry}
-\\geometry{a4paper, margin=1in}
-\\usepackage{enumitem}
-\\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
 
-\\begin{document}
+\begin{document}
 
-\\section*{${personalInfo.name || ''}}
-\\subsection*{${personalInfo.title || ''}}
+\section*{${personalInfo.name || ''}}
+\subsection*{${personalInfo.title || ''}}
 ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.github || ''}
 
 `;
 
         // Summary
         if (professionalSummary) {
-            latexContent += `\\section*{Summary}\n`;
+            latexContent += `\section*{Summary}\n`;
             latexContent += `${this.stripHtml(professionalSummary)}\n\n`;
         }
 
         // Experience
         if (experience.length > 0) {
-            latexContent += `\\section*{Experience}\n`;
+            latexContent += `\section*{Experience}\n`;
             experience.forEach(job => {
-                latexContent += `\\subsection*{${job.position}, ${job.company} (${job.period})}\n`;
+                latexContent += `\subsection*{${job.position}, ${job.company} (${job.period})}\n`;
                 latexContent += `${this.stripHtml(job.description)}\n`;
                 if (job.achievements && job.achievements.length > 0) {
-                    latexContent += `\\begin{itemize}\n`;
+                    latexContent += `\begin{itemize}\n`;
                     job.achievements.forEach(achievement => {
-                        latexContent += `    \\item ${this.stripHtml(achievement)}\n`;
+                        latexContent += `    \item ${this.stripHtml(achievement)}\n`;
                     });
-                    latexContent += `\\end{itemize}\n`;
+                }
+                latexContent += `\end{itemize}\n`;
                 }
                 latexContent += `\n`;
             });
@@ -994,15 +986,15 @@ ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.gi
 
         // Skills
         if (skills.length > 0) {
-            latexContent += `\\section*{Skills}\n`;
+            latexContent += `\section*{Skills}\n`;
             latexContent += `${skills.map(skill => skill.name).join(', ')}\n\n`;
         }
 
         // Projects
         if (projects.length > 0) {
-            latexContent += `\\section*{Projects}\n`;
+            latexContent += `\section*{Projects}\n`;
             projects.forEach(project => {
-                latexContent += `\\subsection*{${project.name}}\n`;
+                latexContent += `\subsection*{${project.name}}\n`;
                 latexContent += `${this.stripHtml(project.description)}\n`;
                 if (project.technologies && project.technologies.length > 0) {
                     latexContent += `Technologies: ${project.technologies.join(', ')}\n`;
@@ -1011,7 +1003,7 @@ ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.gi
             });
         }
 
-        latexContent += `\\end{document}\n`;
+        latexContent += `\end{document}\n`;
 
         const latexPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.tex');
         await fs.writeFile(latexPath, latexContent, 'utf8');

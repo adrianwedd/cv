@@ -932,50 +932,50 @@ class ActivityAnalyzer {
         // Save individual data files that are referenced
         const activityPath = path.join(CONFIG.OUTPUT_DIR, 'activity', activityFileName);
         const activityData = {
-            collection_timestamp: new Date().toISOString(),
-            analysis_period_days: CONFIG.LOOKBACK_DAYS,
-            user_profile: results.user_profile || { message: "Resource not accessible by integration", status: "403" },
+            collectionTimestamp: new Date().toISOString(),
+            analysisPeriodDays: CONFIG.LOOKBACK_DAYS,
+            userProfile: results.user_profile || { message: "Resource not accessible by integration", status: "403" },
             repositories: results.repositories || { data: [], summary: {} },
-            cross_repo_activity: results.cross_repo_activity || {},
-            local_repository_metrics: results.local_repository_metrics || {},
-            language_analysis: results.language_analysis || {}
+            crossRepoActivity: results.cross_repo_activity || {},
+            localRepositoryMetrics: results.local_repository_metrics || {},
+            languageAnalysis: results.language_analysis || {}
         };
         await fs.writeFile(activityPath, JSON.stringify(activityData, null, 2), 'utf8');
         
         const metricsPath = path.join(CONFIG.OUTPUT_DIR, 'metrics', metricsFileName);
         const metricsData = {
-            calculation_timestamp: new Date().toISOString(),
-            analysis_period_days: CONFIG.LOOKBACK_DAYS,
+            calculationTimestamp: new Date().toISOString(),
+            analysisPeriodDays: CONFIG.LOOKBACK_DAYS,
             scores: results.professional_metrics?.scores || {},
-            raw_data: {
+            rawData: {
                 commits: results.cross_repo_activity?.summary?.total_commits || 0,
-                active_days: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
+                activeDays: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
                 repositories: results.repositories?.summary?.total_count || 0,
-                stars_received: results.repositories?.summary?.total_stars || 0
+                starsReceived: results.repositories?.summary?.total_stars || 0
             },
-            skill_analysis: results.skill_analysis || {},
-            professional_metrics: results.professional_metrics || {}
+            skillAnalysis: results.skill_analysis || {},
+            professionalMetrics: results.professional_metrics || {}
         };
         await fs.writeFile(metricsPath, JSON.stringify(metricsData, null, 2), 'utf8');
         
         const trendsPath = path.join(CONFIG.OUTPUT_DIR, 'trends', trendsFileName);
         const trendsData = {
-            analysis_timestamp: new Date().toISOString(),
-            commit_trends: results.activity_trends?.commit_patterns || {
+            analysisTimestamp: new Date().toISOString(),
+            commitTrends: results.activity_trends?.commit_patterns || {
                 "1_day": results.cross_repo_activity?.summary?.total_commits || 0,
                 "7_days": results.cross_repo_activity?.summary?.total_commits || 0,
                 "30_days": results.cross_repo_activity?.summary?.total_commits || 0,
                 "90_days": results.cross_repo_activity?.summary?.total_commits || 0
             },
             averages: results.activity_trends?.averages || {
-                daily_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / CONFIG.LOOKBACK_DAYS,
-                weekly_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 7),
-                monthly_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 30)
+                dailyAvg: (results.cross_repo_activity?.summary?.total_commits || 0) / CONFIG.LOOKBACK_DAYS,
+                weeklyAvg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 7),
+                monthlyAvg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 30)
             },
-            trend_analysis: results.activity_trends?.analysis || {
+            trendAnalysis: results.activity_trends?.analysis || {
                 direction: "stable",
-                velocity_change: 0,
-                consistency_score: 50
+                velocityChange: 0,
+                consistencyScore: 50
             }
         };
         await fs.writeFile(trendsPath, JSON.stringify(trendsData, null, 2), 'utf8');
@@ -983,32 +983,32 @@ class ActivityAnalyzer {
         // Save summary for quick access including cross-repo activity
         const summaryPath = path.join(CONFIG.OUTPUT_DIR, 'activity-summary.json');
         await fs.writeFile(summaryPath, JSON.stringify({
-            last_updated: new Date().toISOString(),
-            tracker_version: 'v1.6',
-            analysis_depth: CONFIG.ANALYSIS_DEPTH,
-            lookback_period_days: CONFIG.LOOKBACK_DAYS,
+            lastUpdated: new Date().toISOString(),
+            trackerVersion: 'v1.6',
+            analysisDepth: CONFIG.ANALYSIS_DEPTH,
+            lookbackPeriodDays: CONFIG.LOOKBACK_DAYS,
             summary: {
-                total_commits: results.cross_repo_activity?.summary?.total_commits || 0,
-                active_days: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
-                net_lines_contributed: results.local_repository_metrics?.line_contributions?.lines_contributed || 0,
-                tracking_status: 'active',
-                last_commit_date: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
-                repositories_active: results.cross_repo_activity?.summary?.repositories_active || 0,
-                issues_opened: results.cross_repo_activity?.summary?.total_issues_opened || 0,
-                prs_opened: results.cross_repo_activity?.summary?.total_prs_opened || 0
+                totalCommits: results.cross_repo_activity?.summary?.total_commits || 0,
+                activeDays: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
+                netLinesContributed: results.local_repository_metrics?.line_contributions?.lines_contributed || 0,
+                trackingStatus: 'active',
+                lastCommitDate: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
+                repositoriesActive: results.cross_repo_activity?.summary?.repositories_active || 0,
+                issuesOpened: results.cross_repo_activity?.summary?.total_issues_opened || 0,
+                prsOpened: results.cross_repo_activity?.summary?.total_prs_opened || 0
             },
-            data_files: {
-                latest_activity: activityFileName,
-                latest_metrics: metricsFileName,
-                latest_trends: trendsFileName
+            dataFiles: {
+                latestActivity: activityFileName,
+                latestMetrics: metricsFileName,
+                latestTrends: trendsFileName
             },
-            cv_integration: {
-                ready_for_enhancement: true,
-                data_freshness: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC',
-                next_cv_update: 'Automatic via CV Enhancement Pipeline'
+            cvIntegration: {
+                readyForEnhancement: true,
+                dataFreshness: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC',
+                nextCvUpdate: 'Automatic via CV Enhancement Pipeline'
             },
-            professional_metrics: results.professional_metrics,
-            skill_analysis: results.skill_analysis?.summary
+            professionalMetrics: results.professional_metrics,
+            skillAnalysis: results.skill_analysis?.summary
         }, null, 2), 'utf8');
 
         console.log(`💾 Results saved:`);
