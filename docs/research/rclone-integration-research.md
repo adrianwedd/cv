@@ -1,6 +1,6 @@
 # Research: Historical CV/Resume Foundation Analysis via rclone
 
-This document outlines the research into using `rclone` for integrating with cloud storage services to retrieve historical CV/resume documents. This capability is foundational for enhancing AI-driven CV generation with authentic career history.
+This foundational research document outlines the investigation into using `rclone` for integrating with diverse cloud storage services to securely retrieve historical CV/resume documents. This capability is crucial for enriching the AI-driven CV generation process with authentic, verifiable career history.
 
 ## 1. rclone Overview
 

@@ -1,6 +1,6 @@
 # Research & Insights
 
-This directory contains research papers, frameworks, and strategic documents that inform the design, development, and continuous improvement of the AI-enhanced CV system.
+This directory serves as a repository for foundational research papers, strategic frameworks, and in-depth analyses that underpin the design, development, and continuous improvement of the AI-enhanced CV system.
 
 These documents delve into advanced topics such as:
 
@@ -14,3 +14,4 @@ These documents delve into advanced topics such as:
 *   [Architecting Intelligence: A Framework for Advanced Prompt and Pipeline Engineering with Anthropic's Claude for the Autonomous Career Agent](claude-prompt-engineering-framework.md)
 *   [Autonomous Career Agent Plan](autonomous-career-agent-plan.md)
 *   [Web Scraping Playbook](web-scraping-playbook.md)
+*   [Historical CV/Resume Foundation Analysis via rclone](rclone-integration-research.md)

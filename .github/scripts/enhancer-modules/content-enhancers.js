@@ -1,16 +1,24 @@
 #!/usr/bin/env node
 
 /**
- * Content Enhancement Modules
+ * Content Enhancement Modules v2.0
  * 
- * Specialized enhancers for different CV sections.
- * Each enhancer contains domain-specific prompting and logic.
+ * Advanced specialized enhancers using sophisticated prompt engineering techniques.
+ * Implements the research framework from docs/research/claude-prompt-engineering-framework.md
+ * 
+ * Features:
+ * - Advanced prompt construction with XML structuring
+ * - Context-aware persona generation
+ * - Evidence-based reasoning chains
+ * - Dynamic creativity integration
+ * - Structured output validation
  * 
  * @author Adrian Wedd
  * @version 2.0.0
  */
 
 const { ClaudeApiClient } = require('./claude-api-client');
+const { AdvancedPromptConstructor } = require('./advanced-prompt-constructor');
 
 /**
  * Professional Summary Enhancer
@@ -19,98 +27,143 @@ class ProfessionalSummaryEnhancer {
     constructor(apiClient, config) {
         this.apiClient = apiClient;
         this.config = config;
+        this.promptConstructor = new AdvancedPromptConstructor(config);
     }
 
     async enhance(cvData, activityMetrics) {
-        console.log('📝 Enhancing professional summary...');
-        
-        const prompt = this.buildSummaryPrompt(cvData, activityMetrics);
-        const messages = [{ role: 'user', content: prompt }];
+        console.log('📝 Enhancing professional summary with advanced prompt engineering...');
         
         try {
-            const response = await this.apiClient.makeRequest(messages, {
-                max_tokens: 1000,
-                temperature: 0.8
-            });
+            const prompt = this.promptConstructor.constructProfessionalSummaryPrompt(cvData, activityMetrics);
+            const messages = [{ role: 'user', content: prompt }];
             
-            return this.parseResponse(response);
+            const response = await this.apiClient.makeRequest(messages, {
+                max_tokens: 1200,
+                temperature: this.getTemperatureForCreativity(),
+                model: 'claude-3-5-sonnet-20241022'
+            }, 'professional_summary_enhancement');
+            
+            const result = this.parseAndValidateResponse(response, cvData);
+            console.log('✅ Professional summary enhanced using advanced prompting techniques');
+            return result;
+            
         } catch (error) {
             console.warn('⚠️ Professional summary enhancement failed:', error.message);
-            return { enhanced: cvData.professional_summary };
+            return { 
+                enhanced: cvData.professional_summary,
+                enhancement_notes: 'Enhancement failed, using original content',
+                confidence_score: 0
+            };
         }
     }
 
-    buildSummaryPrompt(cvData, activityMetrics) {
-        const activityContext = this.buildActivityContext(activityMetrics);
-        const leadershipCapacity = this.assessLeadershipCapacity(activityMetrics);
-        
-        return `<instructions>
-            <persona expertise="senior_technical_recruiter" style="${this.config.CREATIVITY_LEVEL}" context="ai_engineering">
-            </persona>
-            
-            <task type="professional_summary_enhancement">
-                <context_integration method="narrative_weaving">
-                    You're evaluating a technical professional who ${leadershipCapacity}, 
-                    with ${activityContext}. Their expertise spans AI engineering, 
-                    autonomous systems, and scalable architecture development.
-                </context_integration>
-                
-                <output_structure format="structured_json">
-                    {
-                        "enhanced": "Enhanced professional summary (2-3 sentences max)",
-                        "key_differentiators": ["3-4 unique value propositions"],
-                        "technical_positioning": "Market positioning statement",
-                        "enhancement_notes": "Brief notes on changes made"
-                    }
-                </output_structure>
-                
-                <quality_criteria>
-                    - Avoid generic AI language (no "cutting-edge", "seamlessly")
-                    - Include specific technical depth indicators
-                    - Balance confidence with authenticity
-                    - Focus on unique value creation
-                </quality_criteria>
-            </task>
-        </instructions>
-
-        Current Summary: "${cvData.professional_summary}"
-        
-        Base Experience: ${JSON.stringify(cvData.experience?.slice(0, 2) || [])}`;
+    getTemperatureForCreativity() {
+        const temperatures = {
+            conservative: 0.3,
+            balanced: 0.5,
+            creative: 0.7,
+            innovative: 0.9
+        };
+        return temperatures[this.config.CREATIVITY_LEVEL] || 0.5;
     }
 
-    buildActivityContext(activityMetrics) {
-        const commits = activityMetrics?.summary?.total_commits || 0;
-        const languages = activityMetrics?.top_languages?.length || 0;
-        const repos = activityMetrics?.total_repos || 0;
-        
-        if (commits > 100) return `high development velocity (${commits} commits, ${languages} languages, ${repos} repositories)`;
-        if (commits > 50) return `consistent development activity (${commits} commits across ${languages} languages)`;
-        return `active development presence (${commits} commits, ${languages} technical domains)`;
-    }
-
-    assessLeadershipCapacity(activityMetrics) {
-        const activity = activityMetrics?.summary?.activity_score || 0;
-        const repos = activityMetrics?.total_repos || 0;
-        
-        if (activity > 80 && repos > 20) return 'demonstrates technical leadership at scale';
-        if (activity > 60 && repos > 10) return 'shows emerging technical leadership';
-        return 'exhibits strong individual contributor capabilities';
-    }
-
-    parseResponse(response) {
+    parseAndValidateResponse(response, originalData) {
         try {
             const content = response.content?.[0]?.text || '';
             const jsonMatch = content.match(/\{[\s\S]*\}/);
             
             if (jsonMatch) {
-                return JSON.parse(jsonMatch[0]);
+                const parsed = JSON.parse(jsonMatch[0]);
+                
+                // Validation checks
+                const validated = this.validateEnhancement(parsed, originalData);
+                
+                return {
+                    ...validated,
+                    confidence_score: this.calculateConfidenceScore(validated),
+                    enhancement_method: 'advanced_prompt_engineering',
+                    creativity_level: this.config.CREATIVITY_LEVEL
+                };
             }
             
-            return { enhanced: content };
-        } catch {
-            return { enhanced: response.content?.[0]?.text || '' };
+            // Fallback parsing
+            return this.extractFallbackContent(content, originalData);
+            
+        } catch (error) {
+            console.warn('⚠️ Response parsing failed:', error.message);
+            return { 
+                enhanced: originalData.professional_summary,
+                enhancement_notes: 'Parsing failed, using original content'
+            };
         }
     }
+
+    validateEnhancement(parsed, originalData) {
+        // Ensure required fields exist
+        const validated = {
+            enhanced: parsed.enhanced || originalData.professional_summary,
+            key_differentiators: Array.isArray(parsed.key_differentiators) ? parsed.key_differentiators : [],
+            technical_positioning: parsed.technical_positioning || '',
+            confidence_indicators: parsed.confidence_indicators || [],
+            enhancement_rationale: parsed.enhancement_rationale || 'Standard enhancement applied'
+        };
+
+        // Quality checks
+        if (validated.enhanced) {
+            // Check for generic language
+            const genericTerms = ['cutting-edge', 'seamlessly', 'innovative solutions', 'synergistic', 'paradigm'];
+            const hasGenericTerms = genericTerms.some(term => 
+                validated.enhanced.toLowerCase().includes(term.toLowerCase())
+            );
+            
+            if (hasGenericTerms) {
+                validated.quality_warnings = validated.quality_warnings || [];
+                validated.quality_warnings.push('Contains generic language terms');
+            }
+
+            // Check length (should be 2-3 sentences)
+            const sentenceCount = (validated.enhanced.match(/[.!?]+/g) || []).length;
+            if (sentenceCount < 2 || sentenceCount > 4) {
+                validated.quality_warnings = validated.quality_warnings || [];
+                validated.quality_warnings.push(`Sentence count (${sentenceCount}) outside optimal range (2-3)`);
+            }
+        }
+
+        return validated;
+    }
+
+    calculateConfidenceScore(validated) {
+        let score = 100;
+        
+        // Deduct for quality issues
+        if (validated.quality_warnings?.length > 0) {
+            score -= validated.quality_warnings.length * 15;
+        }
+
+        // Deduct if missing key components
+        if (!validated.key_differentiators || validated.key_differentiators.length < 2) {
+            score -= 20;
+        }
+
+        if (!validated.technical_positioning) {
+            score -= 15;
+        }
+
+        return Math.max(0, Math.min(100, score));
+    }
+
+    extractFallbackContent(content, originalData) {
+        // Try to extract meaningful content even if JSON parsing fails
+        const lines = content.split('\n').filter(line => line.trim());
+        const enhanced = lines.find(line => line.length > 50) || originalData.professional_summary;
+        
+        return {
+            enhanced,
+            enhancement_notes: 'Fallback extraction used due to parsing issues',
+            confidence_score: 30
+        };
+    }
+
 }
 
 /**
@@ -120,102 +173,167 @@ class SkillsEnhancer {
     constructor(apiClient, config) {
         this.apiClient = apiClient;
         this.config = config;
+        this.promptConstructor = new AdvancedPromptConstructor(config);
     }
 
     async enhance(cvData, activityMetrics) {
-        console.log('⚡ Enhancing skills section...');
-        
-        const prompt = this.buildSkillsPrompt(cvData, activityMetrics);
-        const messages = [{ role: 'user', content: prompt }];
+        console.log('⚡ Enhancing skills section with advanced assessment framework...');
         
         try {
-            const response = await this.apiClient.makeRequest(messages, {
-                max_tokens: 1500,
-                temperature: 0.6
-            });
+            const prompt = this.promptConstructor.constructSkillsAssessmentPrompt(cvData, activityMetrics);
+            const messages = [{ role: 'user', content: prompt }];
             
-            return this.parseSkillsResponse(response);
+            const response = await this.apiClient.makeRequest(messages, {
+                max_tokens: 1800,
+                temperature: this.getTemperatureForCreativity(),
+                model: 'claude-3-5-sonnet-20241022'
+            }, 'skills_assessment');
+            
+            const result = this.parseAndValidateSkillsResponse(response, cvData, activityMetrics);
+            console.log('✅ Skills enhanced using advanced assessment framework');
+            return result;
+            
         } catch (error) {
             console.warn('⚠️ Skills enhancement failed:', error.message);
-            return { enhanced_skills: cvData.skills };
+            return { 
+                enhanced_skills: cvData.skills,
+                enhancement_notes: 'Enhancement failed, using original skills',
+                confidence_score: 0
+            };
         }
     }
 
-    buildSkillsPrompt(cvData, activityMetrics) {
-        const skillDepth = this.assessSkillDepth(activityMetrics);
-        const expertise = this.determineExpertiseEvolution(activityMetrics);
-        
-        return `<instructions>
-            <persona expertise="technical_assessment_specialist" style="${this.config.CREATIVITY_LEVEL}">
-            </persona>
-            
-            <task type="skills_enhancement">
-                <context>
-                    Evaluating a developer who ${skillDepth}, functioning as ${expertise}.
-                    Activity: ${this.config.ACTIVITY_SCORE}/100, Languages: ${activityMetrics?.top_languages?.join(', ') || 'Python, JavaScript, TypeScript'}
-                </context>
-                
-                <enhancement_strategy>
-                    - Organize skills by proficiency and market relevance
-                    - Add specific frameworks and tools based on activity
-                    - Include emerging technologies aligned with AI engineering
-                    - Quantify experience levels where possible
-                </enhancement_strategy>
-                
-                <output_format>
-                    {
-                        "enhanced_skills": [
-                            {
-                                "name": "skill_name",
-                                "category": "Programming|Frameworks|Tools|Cloud|AI/ML",
-                                "level": "Expert|Advanced|Intermediate|Familiar",
-                                "proficiency": 85,
-                                "experience_years": 3,
-                                "recent_activity": true
-                            }
-                        ],
-                        "skill_summary": "Brief overview of technical capabilities",
-                        "emerging_skills": ["skills being developed"]
-                    }
-                </output_format>
-            </task>
-        </instructions>
-
-        Current Skills: ${JSON.stringify(cvData.skills || [])}
-        Activity Languages: ${JSON.stringify(activityMetrics?.top_languages || [])}`;
+    getTemperatureForCreativity() {
+        const temperatures = {
+            conservative: 0.2,
+            balanced: 0.4,
+            creative: 0.6,
+            innovative: 0.8
+        };
+        return temperatures[this.config.CREATIVITY_LEVEL] || 0.4;
     }
 
-    assessSkillDepth(activityMetrics) {
-        const languages = activityMetrics?.top_languages?.length || 0;
-        const repos = activityMetrics?.total_repos || 0;
-        
-        if (languages > 7 && repos > 15) return 'demonstrates polyglot expertise across multiple paradigms';
-        if (languages > 5 && repos > 10) return 'shows strong multi-language proficiency';
-        return 'exhibits focused technical expertise';
-    }
-
-    determineExpertiseEvolution(activityMetrics) {
-        const activity = activityMetrics?.summary?.activity_score || 0;
-        
-        if (activity > 80) return 'a seasoned technologist with evolving AI specialization';
-        if (activity > 60) return 'an advanced practitioner transitioning to AI leadership';
-        return 'a skilled developer expanding into AI engineering';
-    }
-
-    parseSkillsResponse(response) {
+    parseAndValidateSkillsResponse(response, originalData, activityMetrics) {
         try {
             const content = response.content?.[0]?.text || '';
             const jsonMatch = content.match(/\{[\s\S]*\}/);
             
             if (jsonMatch) {
-                return JSON.parse(jsonMatch[0]);
+                const parsed = JSON.parse(jsonMatch[0]);
+                const validated = this.validateSkillsEnhancement(parsed, originalData, activityMetrics);
+                
+                return {
+                    ...validated,
+                    confidence_score: this.calculateSkillsConfidenceScore(validated, activityMetrics),
+                    enhancement_method: 'advanced_assessment_framework',
+                    creativity_level: this.config.CREATIVITY_LEVEL
+                };
             }
             
-            return { enhanced_skills: [] };
-        } catch {
-            return { enhanced_skills: [] };
+            return this.extractFallbackSkills(content, originalData);
+            
+        } catch (error) {
+            console.warn('⚠️ Skills response parsing failed:', error.message);
+            return { 
+                enhanced_skills: originalData.skills,
+                enhancement_notes: 'Parsing failed, using original skills'
+            };
         }
     }
+
+    validateSkillsEnhancement(parsed, originalData, activityMetrics) {
+        const validated = {
+            enhanced_skills: Array.isArray(parsed.enhanced_skills) ? parsed.enhanced_skills : [],
+            skill_categories: parsed.skill_categories || {},
+            emerging_capabilities: Array.isArray(parsed.emerging_capabilities) ? parsed.emerging_capabilities : [],
+            market_alignment: parsed.market_alignment || '',
+            development_recommendations: Array.isArray(parsed.development_recommendations) ? parsed.development_recommendations : []
+        };
+
+        // Cross-validate skills with activity data
+        const activityLanguages = activityMetrics?.top_languages || [];
+        validated.validation_results = this.crossValidateWithActivity(validated.enhanced_skills, activityLanguages);
+
+        // Ensure skills have required structure
+        validated.enhanced_skills = validated.enhanced_skills.map(skill => ({
+            name: skill.name || 'Unknown Skill',
+            category: skill.category || 'Other',
+            level: skill.level || 'Intermediate',
+            proficiency: Math.min(100, Math.max(0, skill.proficiency || 70)),
+            experience_years: Math.max(0, skill.experience_years || 1),
+            recent_activity: Boolean(skill.recent_activity),
+            evidence: skill.evidence || []
+        }));
+
+        return validated;
+    }
+
+    crossValidateWithActivity(skills, activityLanguages) {
+        const results = {
+            validated_skills: [],
+            unsupported_skills: [],
+            missing_active_skills: []
+        };
+
+        // Check which skills are supported by activity
+        skills.forEach(skill => {
+            const isSupported = activityLanguages.some(lang => 
+                lang.toLowerCase().includes(skill.name.toLowerCase()) ||
+                skill.name.toLowerCase().includes(lang.toLowerCase())
+            );
+
+            if (isSupported) {
+                results.validated_skills.push(skill.name);
+            } else if (skill.recent_activity) {
+                results.unsupported_skills.push(skill.name);
+            }
+        });
+
+        // Check for active languages not in skills
+        activityLanguages.forEach(lang => {
+            const isInSkills = skills.some(skill => 
+                skill.name.toLowerCase().includes(lang.toLowerCase()) ||
+                lang.toLowerCase().includes(skill.name.toLowerCase())
+            );
+
+            if (!isInSkills) {
+                results.missing_active_skills.push(lang);
+            }
+        });
+
+        return results;
+    }
+
+    calculateSkillsConfidenceScore(validated, activityMetrics) {
+        let score = 100;
+
+        // Deduct for validation issues
+        if (validated.validation_results) {
+            const { unsupported_skills, missing_active_skills } = validated.validation_results;
+            score -= (unsupported_skills.length * 10);
+            score -= (missing_active_skills.length * 5);
+        }
+
+        // Deduct if missing key components
+        if (!validated.enhanced_skills || validated.enhanced_skills.length === 0) {
+            score -= 50;
+        }
+
+        if (!validated.market_alignment) {
+            score -= 10;
+        }
+
+        return Math.max(0, Math.min(100, score));
+    }
+
+    extractFallbackSkills(content, originalData) {
+        return {
+            enhanced_skills: originalData.skills || [],
+            enhancement_notes: 'Fallback extraction used due to parsing issues',
+            confidence_score: 20
+        };
+    }
+
 }
 
 /**
