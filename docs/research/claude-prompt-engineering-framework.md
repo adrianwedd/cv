@@ -412,13 +412,13 @@ This table outlines the high-level architecture for the agent's primary workflow
 15. Enforcing JSON Outputs in Commercial LLMs \- DataChain, accessed on July 30, 2025, [https://datachain.ai/blog/enforcing-json-outputs-in-commercial-llms](https://datachain.ai/blog/enforcing-json-outputs-in-commercial-llms)  
 16. How to implement tool use \- Anthropic, accessed on July 30, 2025, [https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/implement-tool-use](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/implement-tool-use)  
 17. Prefill Claude's response for greater output control \- Anthropic API, accessed on July 30, 2025, [https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prefill-claudes-response](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prefill-claudes-response)  
-18. Does Claude support JSON\_mode? : r/ClaudeAI \- Reddit, accessed on July 30, 2025, [https://www.reddit.com/r/ClaudeAI/comments/1chs32c/does\_claude\_support\_json\_mode/](https://www.reddit.com/r/ClaudeAI/comments/1chs32c/does_claude_support_json_mode/)  
+18. Does Claude support JSON\_mode? : r/ClaudeAI \- Reddit, accessed on July 30, 2025  
 19. Company Data API: Fresh and Accurate Business Data | Coresignal, accessed on July 30, 2025, [https://coresignal.com/solutions/company-data-api/](https://coresignal.com/solutions/company-data-api/)  
 20. API Documentation \- Firmographics.org, accessed on July 30, 2025, [https://www.firmographics.org/api.html](https://www.firmographics.org/api.html)  
 21. Buy Firmographic Data | Global Company Datasets and APIs \- Coresignal, accessed on July 30, 2025, [https://coresignal.com/alternative-data/firmographic-data/](https://coresignal.com/alternative-data/firmographic-data/)  
-22. datarade.ai, accessed on July 30, 2025, [https://datarade.ai/data-categories/firmographic-data/apis\#:\~:text=Firmographic%20Data%20APIs%20give%20detailed,for%20the%20best%20company%20information.](https://datarade.ai/data-categories/firmographic-data/apis#:~:text=Firmographic%20Data%20APIs%20give%20detailed,for%20the%20best%20company%20information.)  
-23. Developer API Firmographics \- SalesIntel, accessed on July 30, 2025, [https://salesintel.io/developer-api-firmographics/](https://salesintel.io/developer-api-firmographics/)  
-24. Best Firmographic Data APIs 2025 \- Datarade, accessed on July 30, 2025, [https://datarade.ai/data-categories/firmographic-data/apis](https://datarade.ai/data-categories/firmographic-data/apis)  
+22. datarade.ai, accessed on July 30, 2025  
+23. Developer API Firmographics \- SalesIntel, accessed on July 30, 2025  
+24. Best Firmographic Data APIs 2025 \- Datarade, accessed on July 30, 2025  
 25. Firmographic Append API \- Developer Portal \- Versium, accessed on July 30, 2025, [https://api-documentation.versium.com/reference/firmographic-api](https://api-documentation.versium.com/reference/firmographic-api)  
 26. Company Search API \- People Data Labs Documentation, accessed on July 30, 2025, [https://docs.peopledatalabs.com/docs/company-search-api](https://docs.peopledatalabs.com/docs/company-search-api)  
 27. Company Dataset \- the Similarweb API Documentation, accessed on July 30, 2025, [https://developers.similarweb.com/docs/company-firmographics](https://developers.similarweb.com/docs/company-firmographics)  
@@ -427,7 +427,7 @@ This table outlines the high-level architecture for the agent's primary workflow
 30. Startup Funding Dataset for Investors & Analysts | Intellizence, accessed on July 30, 2025, [https://intellizence.com/product/startup-funding-dataset/](https://intellizence.com/product/startup-funding-dataset/)  
 31. Funding Dataset API \- Intellizence API Docs, accessed on July 30, 2025, [https://docs.intellizence.com/dataset-api/startup-funding](https://docs.intellizence.com/dataset-api/startup-funding)  
 32. Company Funding Details Scraper · Apify, accessed on July 30, 2025, [https://apify.com/tech\_gear/company-funding-details](https://apify.com/tech_gear/company-funding-details)  
-33. Best 105 Company Funding APIs \- Datarade, accessed on July 30, 2025, [https://datarade.ai/search/products/company-funding-apis](https://datarade.ai/search/products/company-funding-apis)  
+33. Best 105 Company Funding APIs \- Datarade, accessed on July 30, 2025  
 34. Free Stock Market API and Financial Statements API... | FMP, accessed on July 30, 2025, [https://site.financialmodelingprep.com/developer/docs](https://site.financialmodelingprep.com/developer/docs)  
 35. Get a company's tech stack \- TheirStack API \- Databar.ai, accessed on July 30, 2025, [https://databar.ai/explore/theirstack-api/technographics-by-company](https://databar.ai/explore/theirstack-api/technographics-by-company)  
 36. The Companies API \- Enrichment API for Companies, accessed on July 30, 2025, [https://www.thecompaniesapi.com/](https://www.thecompaniesapi.com/)  
@@ -435,7 +435,7 @@ This table outlines the high-level architecture for the agent's primary workflow
 38. What is a Tech Stack: Examples, Components, and Diagrams \- Heap.io, accessed on July 30, 2025, [https://www.heap.io/topics/what-is-a-tech-stack](https://www.heap.io/topics/what-is-a-tech-stack)  
 39. Top 8 Tech Stacks: Choosing the Right Tech Stack \- Full Scale, accessed on July 30, 2025, [https://fullscale.io/blog/top-5-tech-stacks/](https://fullscale.io/blog/top-5-tech-stacks/)  
 40. How to pick the right technology stack to provision your API | MuleSoft, accessed on July 30, 2025, [https://www.mulesoft.com/api-university/how-to-pick-right-technology-stack-to-provision-your-api](https://www.mulesoft.com/api-university/how-to-pick-right-technology-stack-to-provision-your-api)  
-41. STACK API \+ BUILD Build Bundles | Subscription Options, accessed on July 30, 2025, [https://www.stackct.com/api-build-pricing/](https://www.stackct.com/api-build-pricing/)  
+41. STACK API \+ BUILD Build Bundles | Subscription Options, accessed on July 30, 2025  
 42. Pricing FAQs | TheirStack Docs, accessed on July 30, 2025, [https://theirstack.com/en/docs/pricing-and-billing/faqs](https://theirstack.com/en/docs/pricing-and-billing/faqs)  
 43. Job Postings API \- TheirStack.com, accessed on July 30, 2025, [https://theirstack.com/en/job-posting-api](https://theirstack.com/en/job-posting-api)  
 44. Ancastal/Cover-Letter.AI: The Cover Letter Generator is a ... \- GitHub, accessed on July 30, 2025, [https://github.com/Ancastal/Cover-Letter.AI](https://github.com/Ancastal/Cover-Letter.AI)  

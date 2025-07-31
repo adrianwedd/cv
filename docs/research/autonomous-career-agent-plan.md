@@ -297,8 +297,8 @@ While ambitious, this plan is grounded in existing technologies and research-bac
 3. The Companies API \- Enrichment API for Companies, accessed on July 30, 2025, [https://www.thecompaniesapi.com/](https://www.thecompaniesapi.com/)  
 4. API Documentation \- Firmographics.org, accessed on July 30, 2025, [https://www.firmographics.org/api.html](https://www.firmographics.org/api.html)  
 5. Buy Firmographic Data | Global Company Datasets and APIs \- Coresignal, accessed on July 30, 2025, [https://coresignal.com/alternative-data/firmographic-data/](https://coresignal.com/alternative-data/firmographic-data/)  
-6. datarade.ai, accessed on July 30, 2025, [https://datarade.ai/data-categories/firmographic-data/apis\#:\~:text=Firmographic%20Data%20APIs%20give%20detailed,for%20the%20best%20company%20information.](https://datarade.ai/data-categories/firmographic-data/apis#:~:text=Firmographic%20Data%20APIs%20give%20detailed,for%20the%20best%20company%20information.)  
-7. Developer API Firmographics \- SalesIntel, accessed on July 30, 2025, [https://salesintel.io/developer-api-firmographics/](https://salesintel.io/developer-api-firmographics/)  
+6. datarade.ai, accessed on July 30, 2025  
+7. Developer API Firmographics \- SalesIntel, accessed on July 30, 2025  
 8. Funding Dataset API \- Intellizence API Docs, accessed on July 30, 2025, [https://docs.intellizence.com/dataset-api/startup-funding](https://docs.intellizence.com/dataset-api/startup-funding)  
 9. Startup Funding Dataset for Investors & Analysts | Intellizence, accessed on July 30, 2025, [https://intellizence.com/product/startup-funding-dataset/](https://intellizence.com/product/startup-funding-dataset/)  
 10. Company Funding Details Scraper · Apify, accessed on July 30, 2025, [https://apify.com/tech\_gear/company-funding-details](https://apify.com/tech_gear/company-funding-details)  
