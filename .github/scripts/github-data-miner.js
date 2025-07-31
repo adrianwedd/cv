@@ -34,7 +34,7 @@ const CONFIG = {
     MINING_DEPTH: process.env.MINING_DEPTH || 'comprehensive',
     LOOKBACK_DAYS: parseInt(process.env.LOOKBACK_DAYS) || 90,
     API_BASE_URL: 'https://api.github.com',
-    OUTPUT_DIR: 'data/intelligence',
+    OUTPUT_DIR: '../../data/intelligence',
     CACHE_DURATION: 3600000, // 1 hour in milliseconds
     MAX_ITEMS_PER_REPO: 100, // Limit to avoid rate limits
 };

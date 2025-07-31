@@ -28,8 +28,8 @@ const path = require('path');
  */
 class NarrativeGenerator {
     constructor() {
-        this.intelligenceDir = 'data/intelligence';
-        this.outputDir = 'data/narratives';
+        this.intelligenceDir = '../../data/intelligence';
+        this.outputDir = '../../data/narratives';
         this.narratives = {
             professional_summary: null,
             technical_achievements: [],
