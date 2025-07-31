@@ -396,9 +396,18 @@ class CVApplication {
     initializeAboutSection() {
         const summaryElement = document.getElementById('professional-summary');
         if (summaryElement) {
-            const enhancedSummary = this.aiEnhancements?.professional_summary?.enhanced ||
-                                   this.cvData?.professional_summary ||
-                                   summaryElement.textContent;
+            let enhancedSummary = this.aiEnhancements?.professional_summary?.enhanced ||
+                                 this.cvData?.professional_summary ||
+                                 summaryElement.textContent;
+            
+            // Clean up AI-generated content that contains explanation text
+            if (enhancedSummary && enhancedSummary.includes('**Enhanced Summary:**')) {
+                // Extract only the actual enhanced summary content, not the explanation
+                const summaryMatch = enhancedSummary.match(/\*\*Enhanced Summary:\*\*\s*([\s\S]*?)(?:\n\nThis enhancement:|$)/);
+                if (summaryMatch) {
+                    enhancedSummary = summaryMatch[1].trim();
+                }
+            }
             
             summaryElement.textContent = enhancedSummary;
         }

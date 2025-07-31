@@ -903,10 +903,72 @@ class ActivityAnalyzer {
      */
     async saveAnalysisResults(results) {
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const shortTimestamp = `${timestamp.replace(/T.*/, '').replace(/-/g, '')}-${timestamp.split('T')[1].slice(0, 4)}`;
+        
+        // Define file names consistently
+        const activityFileName = `github-activity-${shortTimestamp}.json`;
+        const metricsFileName = `professional-development-${shortTimestamp}.json`;
+        const trendsFileName = `activity-trends-${shortTimestamp}.json`;
+        
+        // Create directory structure if it doesn't exist
+        await fs.mkdir(path.join(CONFIG.OUTPUT_DIR, 'activity'), { recursive: true });
+        await fs.mkdir(path.join(CONFIG.OUTPUT_DIR, 'metrics'), { recursive: true });
+        await fs.mkdir(path.join(CONFIG.OUTPUT_DIR, 'trends'), { recursive: true });
         
         // Save comprehensive results
         const mainResultsPath = path.join(CONFIG.OUTPUT_DIR, `activity-analysis-${timestamp}.json`);
         await fs.writeFile(mainResultsPath, JSON.stringify(results, null, 2), 'utf8');
+        
+        // Save individual data files that are referenced
+        const activityPath = path.join(CONFIG.OUTPUT_DIR, 'activity', activityFileName);
+        const activityData = {
+            collection_timestamp: new Date().toISOString(),
+            analysis_period_days: CONFIG.LOOKBACK_DAYS,
+            user_profile: results.user_profile || { message: "Resource not accessible by integration", status: "403" },
+            repositories: results.repositories || { data: [], summary: {} },
+            cross_repo_activity: results.cross_repo_activity || {},
+            local_repository_metrics: results.local_repository_metrics || {},
+            language_analysis: results.language_analysis || {}
+        };
+        await fs.writeFile(activityPath, JSON.stringify(activityData, null, 2), 'utf8');
+        
+        const metricsPath = path.join(CONFIG.OUTPUT_DIR, 'metrics', metricsFileName);
+        const metricsData = {
+            calculation_timestamp: new Date().toISOString(),
+            analysis_period_days: CONFIG.LOOKBACK_DAYS,
+            scores: results.professional_metrics?.scores || {},
+            raw_data: {
+                commits: results.cross_repo_activity?.summary?.total_commits || 0,
+                active_days: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
+                repositories: results.repositories?.summary?.total_count || 0,
+                stars_received: results.repositories?.summary?.total_stars || 0
+            },
+            skill_analysis: results.skill_analysis || {},
+            professional_metrics: results.professional_metrics || {}
+        };
+        await fs.writeFile(metricsPath, JSON.stringify(metricsData, null, 2), 'utf8');
+        
+        const trendsPath = path.join(CONFIG.OUTPUT_DIR, 'trends', trendsFileName);
+        const trendsData = {
+            analysis_timestamp: new Date().toISOString(),
+            commit_trends: results.activity_trends?.commit_patterns || {
+                "1_day": results.cross_repo_activity?.summary?.total_commits || 0,
+                "7_days": results.cross_repo_activity?.summary?.total_commits || 0,
+                "30_days": results.cross_repo_activity?.summary?.total_commits || 0,
+                "90_days": results.cross_repo_activity?.summary?.total_commits || 0
+            },
+            averages: results.activity_trends?.averages || {
+                daily_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / CONFIG.LOOKBACK_DAYS,
+                weekly_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 7),
+                monthly_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 30)
+            },
+            trend_analysis: results.activity_trends?.analysis || {
+                direction: "stable",
+                velocity_change: 0,
+                consistency_score: 50
+            }
+        };
+        await fs.writeFile(trendsPath, JSON.stringify(trendsData, null, 2), 'utf8');
         
         // Save summary for quick access including cross-repo activity
         const summaryPath = path.join(CONFIG.OUTPUT_DIR, 'activity-summary.json');
@@ -926,9 +988,9 @@ class ActivityAnalyzer {
                 prs_opened: results.cross_repo_activity?.summary?.total_prs_opened || 0
             },
             data_files: {
-                latest_activity: `github-activity-${timestamp.replace(/T.*/, '').replace(/-/g, '')}-${timestamp.split('T')[1].slice(0, 4)}.json`,
-                latest_metrics: `professional-development-${timestamp.replace(/T.*/, '').replace(/-/g, '')}-${timestamp.split('T')[1].slice(0, 4)}.json`,
-                latest_trends: `activity-trends-${timestamp.replace(/T.*/, '').replace(/-/g, '')}-${timestamp.split('T')[1].slice(0, 4)}.json`
+                latest_activity: activityFileName,
+                latest_metrics: metricsFileName,
+                latest_trends: trendsFileName
             },
             cv_integration: {
                 ready_for_enhancement: true,
@@ -942,6 +1004,9 @@ class ActivityAnalyzer {
         console.log(`💾 Results saved:`);
         console.log(`  📊 Comprehensive: ${mainResultsPath}`);
         console.log(`  📋 Summary: ${summaryPath}`);
+        console.log(`  🎯 Activity Data: ${activityPath}`);
+        console.log(`  📈 Metrics Data: ${metricsPath}`);
+        console.log(`  📊 Trends Data: ${trendsPath}`);
     }
 
     // Additional helper methods would continue here...
