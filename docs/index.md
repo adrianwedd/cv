@@ -25,6 +25,12 @@ The system is built on three pillars, ensuring a comprehensive and dynamic CV:
     *   Automated high-quality PDF generation for easy sharing.
     *   (Future) Support for ATS-optimized plain text, DOCX, and LaTeX formats.
 
+## Research & Insights
+
+This section contains detailed research papers and insights that underpin the design and functionality of the AI-enhanced CV system.
+
+*   [Architecting Intelligence: A Framework for Advanced Prompt and Pipeline Engineering with Anthropic's Claude for the Autonomous Career Agent](research/claude-prompt-engineering-framework.md)
+
 ## Getting Started
 
 To explore the project or set up your development environment, please refer to the [Contribution Guidelines](contributing.md) for detailed instructions.
