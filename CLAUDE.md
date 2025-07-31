@@ -41,6 +41,21 @@ npm test                     # Run all tests
 npm run lint                 # ESLint validation
 ```
 
+### Debugging & Troubleshooting
+```bash
+# Check data file consistency (after activity analysis)
+find data/ -name "github-activity-*" | head -3
+find data/ -name "professional-development-*" | head -3
+find data/ -name "activity-trends-*" | head -3
+
+# Verify PDF generation
+ls -la dist/assets/adrian-wedd-cv.pdf
+file dist/assets/adrian-wedd-cv.pdf
+
+# Test data file references
+node -e "const s=require('./data/activity-summary.json'); console.log('Files:', s.data_files);"
+```
+
 ### Local Development
 ```bash
 # Serve locally (use any static server)
@@ -153,3 +168,37 @@ node cv-generator.js
 - PDF generation requires headless browser capabilities in CI
 
 This system maintains a living CV that evolves with professional development through intelligent automation while preserving full developer control over content and presentation.
+
+## Critical System Insights
+
+### Race Conditions & File Dependencies
+- **Issue**: `activity-summary.json` can reference files before they're created, causing intermittent failures
+- **Solution**: Always create referenced files atomically before updating summary files
+- **Prevention**: Use `fs.mkdir()` with `{ recursive: true }` and verify file existence in workflows
+
+### AI Content Processing
+- **Issue**: AI-enhanced content often contains meta-commentary that shouldn't be displayed
+- **Solution**: Implement content cleaning logic to extract only relevant enhanced content
+- **Pattern**: Use regex to extract content between markers like `**Enhanced Summary:**` and `This enhancement:`
+
+### CSS Variable Dependencies  
+- **Issue**: Missing CSS variables cause styling failures that may go unnoticed
+- **Solution**: Audit all CSS variables used and ensure they're defined in `:root`
+- **Common**: `--color-primary-bg`, `--border-radius-sm` should be `--radius-sm`
+
+### PDF Generation & Deployment
+- **Issue**: PDF generated in `dist/` but not accessible in deployed `assets/`
+- **Solution**: Ensure PDF is copied to correct location for public access
+- **Workflow**: PDF generation happens in cv-generator.js automatically, don't add redundant steps
+
+### Development Workflow Recommendations
+- **Current Risk**: Direct commits to main branch affect production
+- **Proposed**: Git Flow with `develop` branch, feature branches, and staging environment
+- **Benefits**: Production safety, testing isolation, rollback capabilities
+
+### Debugging Best Practices
+1. Always verify file existence before referencing in workflows
+2. Use comprehensive logging in critical workflow steps
+3. Test CSS changes across multiple browsers and themes
+4. Validate JSON structure after AI enhancement processes
+5. Monitor workflow failures for race conditions and timeouts
