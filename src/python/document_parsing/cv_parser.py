@@ -1,21 +1,28 @@
+
 import re
 import json
+import os
+import requests
 
 class CVParser:
     """A parser for extracting structured information from unstructured CV text using an LLM."""
 
+    CLAUDE_API_URL = "https://api.anthropic.com/v1/messages"
+
+    def __init__(self):
+        self.claude_api_key = os.environ.get("CLAUDE_API_KEY")
+        if not self.claude_api_key:
+            raise ValueError("CLAUDE_API_KEY environment variable not set.")
+
     def parse_cv(self, text: str) -> dict:
         """Parses the entire CV text using an LLM and extracts structured data."""
-        # In a real scenario, this would involve an API call to Claude
-        # For this prototype, we simulate the LLM's response based on the prompt structure.
-        
         llm_response_json = self._call_llm_for_parsing(text)
         return llm_response_json
 
     def _call_llm_for_parsing(self, cv_text: str) -> dict:
         """
-        Simulates an LLM call to parse CV text into structured JSON.
-        This method would construct an XML prompt and send it to an LLM API.
+        Makes an API call to Claude to parse CV text into structured JSON.
+        This method constructs an XML prompt and sends it to the Claude API.
         """
         # Conceptual XML Prompt Structure for Claude
         xml_prompt = f"""<request>
@@ -23,6 +30,7 @@ class CVParser:
         You are an expert CV parser. Your task is to extract all relevant information
         from the provided CV text and return it as a structured JSON object.
         Ensure all fields are accurately extracted and formatted.
+        The JSON object should be enclosed in <json> and </json> tags.
     </meta-instructions>
     <output-format>
         Return a JSON object with the following keys:
@@ -43,67 +51,45 @@ class CVParser:
         {cv_text}
     </cv-text>
 </request>"""
-        
-        # Simulate LLM response based on the provided sample CV text
-        # In a real implementation, you would send xml_prompt to Claude and parse its JSON output.
-        # For this prototype, we'll return a hardcoded structure that matches the sample CV.
-        
-        # This is a simplified mock response. A real LLM would parse the text dynamically.
-        mock_parsed_data = {
-            "name": "Adrian Wedd",
-            "contact": "adrian@wedd.au | 0407081084 | adrianwedd.com",
-            "summary": "A seasoned IT professional with extensive experience in driving digital transformation across various roles within IT support, systems analysis, and digital strategy. Known for a profound ability to adapt and innovate in a rapidly changing technological landscape, I specialise in systems integration, cybersecurity, and applications optimization, leveraging my deep technical expertise to translate complex concepts into actionable business strategies.",
-            "technical_expertise": [
-                "Systems Integration: Advanced proficiency in integrating diverse systems and platforms to ensure seamless communication and data exchange.",
-                "API Development and Management: Skilled in developing, testing and managing APIs to enhance system functionality and interoperability.",
-                "Programming Languages: Proficient in Python and JavaScript, focusing on creating bespoke, reusable solutions for repeatable tasks and testing automation.",
-                "Generative AI and Large Language Models: Experienced in leveraging cutting-edge generative AI technologies to create innovative applications and insights.",
-                "Applications Optimization & Troubleshooting: Demonstrated ability to proactively identify and resolve critical performance bottlenecks, enhancing system performance and user experience."
-            ],
-            "experience": [
-                {
-                    "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
-                    "title": "Systems Analyst / Acting Senior Change Analyst / Acting Senior Applications Specialist",
-                    "dates": "May 2018 - Present",
-                    "details": [
-                        "Enhanced the integration of the Housing Management System (HMS) with external services, employing RESTful APIs and SFTP, enhancing data exchange and operational efficiency.",
-                        "Led cybersecurity initiatives, significantly improving system security and reducing vulnerabilities.",
-                        "Employed Python, PowerShell and JavaScript to develop and implement automation scripts, streamlining operations and improving service delivery."
-                    ]
-                },
-                {
-                    "company": "University of Tasmania",
-                    "title": "ITS Client Services Officer",
-                    "dates": "July 2015 - May 2018",
-                    "details": [
-                        "Provided first-line IT support, resolving complex technical problems and developing procedural documentation."
-                    ]
-                },
-                {
-                    "company": "Digital Agency PTY LTD",
-                    "title": "Director",
-                    "dates": "February 2015 - May 2018",
-                    "details": [
-                        "Delivered digital marketing strategies, leveraging Google Analytics and Google AdWords to drive audience growth."
-                    ]
-                },
-                {
-                    "company": "The Wilderness Society Inc.",
-                    "title": "Second Level IT Support Engineer",
-                    "dates": "2012 - 2015",
-                    "details": [
-                        "Managed IT infrastructure, ensuring optimal system performance and security."
-                    ]
-                },
-                {
-                    "company": "Greenpeace Australia Pacific",
-                    "title": "Communications and Logistics Coordinator",
-                    "dates": "2010 - 2011",
-                    "details": [
-                        "Planned and coordinated high-profile environmental campaign activities, ensuring logistical success and legal compliance."
-                    ]
-                }
-            ],
-            "referees": "Available on request."
+
+        headers = {
+            "x-api-key": self.claude_api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json"
         }
-        return mock_parsed_data
+
+        data = {
+            "model": "claude-3-opus-20240229", # Or another suitable Claude model
+            "max_tokens": 4000, # Adjust as needed
+            "messages": [
+                {"role": "user", "content": xml_prompt}
+            ]
+        }
+
+        try:
+            response = requests.post(self.CLAUDE_API_URL, headers=headers, json=data)
+            response.raise_for_status() # Raise an exception for HTTP errors
+            
+            claude_response = response.json()
+            # Extract JSON from Claude's response (assuming it's wrapped in <json> tags)
+            content_blocks = claude_response.get("content", [])
+            for block in content_blocks:
+                if block.get("type") == "text":
+                    text_content = block.get("text", "")
+                    json_match = re.search(r"<json>(.*?)</json>", text_content, re.DOTALL)
+                    if json_match:
+                        return json.loads(json_match.group(1))
+            raise ValueError("No JSON object found in Claude's response.")
+
+        except requests.exceptions.RequestException as e:
+            print(f"Claude API Request Error: {e}")
+            if e.response is not None:
+                print(f"Response Status Code: {e.response.status_code}")
+                print(f"Response Body: {e.response.text}")
+            raise
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON from Claude's response: {e}")
+            raise
+        except Exception as e:
+            print(f"An unexpected error occurred during Claude API call: {e}")
+            raise
