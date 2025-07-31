@@ -337,6 +337,35 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🔍 Comprehensive GitHub Data Mining
+        if: needs.cv-intelligence-analysis.outputs.enhancement-strategy == 'comprehensive' || needs.cv-intelligence-analysis.outputs.enhancement-strategy == 'full-rebuild'
+        run: |
+          echo "🔍 **INITIATING COMPREHENSIVE GITHUB DATA MINING**"
+          echo "📊 Mining issues, commits, and PR data for professional intelligence..."
+          echo "🎯 Mining depth: comprehensive"
+          echo ""
+          
+          cd .github/scripts
+          if node github-data-miner.js; then
+            echo "✅ Comprehensive data mining completed successfully"
+            
+            # Generate professional narratives from mined data
+            echo ""
+            echo "📖 **GENERATING PROFESSIONAL NARRATIVES**"
+            if node narrative-generator.js; then
+              echo "✅ Professional narratives generated successfully"
+            else
+              echo "⚠️ Narrative generation failed, continuing with basic data"
+            fi
+          else
+            echo "⚠️ Data mining failed, falling back to basic activity data"
+          fi
+          cd ../..
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MINING_DEPTH: comprehensive
+          LOOKBACK_DAYS: 90
+
       - name: 🤖 Claude AI Content Enhancement
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
         run: |

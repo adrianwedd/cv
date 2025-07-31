@@ -332,11 +332,32 @@ class CVContentEnhancer {
     }
 
     /**
+     * Load narrative intelligence data if available
+     */
+    async loadNarrativeIntelligence() {
+        try {
+            const narrativePath = path.join('data', 'narratives', 'narrative-integration.json');
+            const content = await fs.readFile(narrativePath, 'utf8');
+            const narrativeData = JSON.parse(content);
+            
+            console.log('📖 Loaded professional narrative intelligence data');
+            return narrativeData;
+        } catch (error) {
+            console.log('📝 No narrative intelligence data available, using standard enhancement');
+            return null;
+        }
+    }
+
+    /**
      * Enhance professional summary with AI optimization
      */
     async enhanceProfessionalSummary(cvData, activityMetrics) {
-        const currentSummary = cvData?.professional_summary || 
-            "AI Engineer and Software Architect with expertise in autonomous systems and machine learning.";
+        // Load narrative intelligence if available
+        const narrativeData = await this.loadNarrativeIntelligence();
+        
+        const currentSummary = narrativeData?.enhanced_summary || 
+                              cvData?.professional_summary || 
+                              "AI Engineer and Software Architect with expertise in autonomous systems and machine learning.";
 
         // Dynamic persona and strategy based on creativity level
         const creativityStrategies = {
@@ -390,11 +411,22 @@ class CVContentEnhancer {
 CANDIDATE ANALYSIS:
 You're reviewing a ${professionalArchetype} with ${CONFIG.ACTIVITY_SCORE}/100 GitHub activity score, demonstrating ${activityInsight}. Their technical portfolio (${activityMetrics?.top_languages?.join(', ') || 'Python, JavaScript, TypeScript'}) across ${activityMetrics?.total_repos || 'multiple'} repositories reveals ${technicalBreadth}.
 
+${narrativeData ? `
+PROFESSIONAL INTELLIGENCE CONTEXT:
+Based on comprehensive GitHub data mining, this candidate has:
+- Technical achievements: ${narrativeData.narratives_available?.technical_achievements || 0} evidence-backed accomplishments
+- Leadership examples: ${narrativeData.narratives_available?.leadership_examples || 0} demonstrated instances
+- Validated skills: ${narrativeData.validated_skills?.join(', ') || 'Multiple technical competencies'} with concrete evidence
+- Top achievements: ${narrativeData.top_achievements?.map(a => a.achievement).join('; ') || 'Consistent technical contributions'}
+
+This intelligence provides concrete evidence for professional claims and should inform your enhancement strategy.
+` : ''}
+
 MARKET CONTEXT (2025):
 The AI engineering landscape demands professionals who bridge autonomous systems research with production-grade implementation. The market rewards those who can lead human-AI collaboration initiatives and drive sustainable AI development practices.
 
 ENHANCEMENT MISSION (${CONFIG.CREATIVITY_LEVEL} approach):
-Transform their current summary using ${strategy.approach}, creating a ${strategy.tone} narrative focused on ${strategy.focus}. Position them as someone ready for senior AI engineering roles that shape the future of autonomous systems.
+Transform their current summary using ${strategy.approach}, creating a ${strategy.tone} narrative focused on ${strategy.focus}. ${narrativeData ? 'Leverage the professional intelligence context to create evidence-backed claims rather than generic statements.' : ''} Position them as someone ready for senior AI engineering roles that shape the future of autonomous systems.
 
 CURRENT SUMMARY:
 "${currentSummary}"
