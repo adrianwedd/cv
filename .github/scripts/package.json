@@ -9,7 +9,16 @@
     "generate": "node cv-generator.js",
     "test": "node --test",
     "lint": "eslint *.js",
-    "format": "prettier --write *.js"
+    "format": "prettier --write *.js",
+    
+    "template:validate": "node template-validator.js ../../dist/index.html",
+    "template:baseline": "node template-regression-tester.js baseline ../../dist/index.html",
+    "template:test": "node template-regression-tester.js test ../../dist/index.html", 
+    "template:suite": "node template-test-suite.js ../../dist/index.html",
+    "template:full": "npm run generate && npm run template:suite",
+    
+    "formats:validate": "node multi-format-validator.js ../../dist",
+    "formats:full": "npm run generate && npm run formats:validate"
   },
   "keywords": [
     "cv",
@@ -27,6 +36,8 @@
     "cheerio": "^1.0.0",
     "chrome-remote-interface": "^0.33.3",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.1",
+    "handlebars": "^4.7.8",
     "jsdoc": "^4.0.4",
     "lodash": "^4.17.21",
     "marked": "^16.1.1",
@@ -37,6 +48,7 @@
   },
   "devDependencies": {
     "eslint": "^9.32.0",
+    "jsdom": "^26.1.0",
     "prettier": "^3.3.0"
   },
   "engines": {

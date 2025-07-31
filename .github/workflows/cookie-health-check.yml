@@ -1,0 +1,164 @@
+name: 🍪 Cookie Health Monitoring
+
+# Proactive monitoring of Claude.ai session cookies
+# Runs twice daily to catch expiration issues early
+
+on:
+  schedule:
+    # Run twice daily at 6 AM and 6 PM AEST
+    - cron: '0 20,8 * * *'
+  workflow_dispatch:
+    inputs:
+      force_refresh_check:
+        description: 'Force immediate cookie refresh check'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  cookie-health-check:
+    name: 🍪 Monitor Cookie Health
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: 📂 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🔧 Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+          
+      - name: 📦 Install Dependencies
+        run: |
+          cd .github/scripts
+          npm ci --only=production --silent
+          
+      - name: 🍪 Cookie Health Assessment
+        id: health-check
+        run: |
+          cd .github/scripts
+          
+          echo "🍪 **CLAUDE COOKIE HEALTH ASSESSMENT**"
+          echo "🕐 $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo ""
+          
+          # Quick status check
+          COOKIE_STATUS=$(node cookie-health-monitor.js status)
+          echo "status=$COOKIE_STATUS" >> $GITHUB_OUTPUT
+          echo "📊 Current Status: $COOKIE_STATUS"
+          
+          # Detailed health check
+          case "$COOKIE_STATUS" in
+            "expired"|"error")
+              echo "🚨 **CRITICAL ALERT**: Cookies are expired or failing!"
+              echo "needs_action=critical" >> $GITHUB_OUTPUT
+              echo "message=Claude.ai session cookies are expired and need immediate refresh" >> $GITHUB_OUTPUT
+              
+              # Full monitoring report
+              node cookie-health-monitor.js monitor || true
+              ;;
+              
+            "warning"|"caution") 
+              echo "⚠️ **WARNING**: Cookies should be refreshed soon"
+              echo "needs_action=warning" >> $GITHUB_OUTPUT
+              echo "message=Claude.ai session cookies should be refreshed within the next few days" >> $GITHUB_OUTPUT
+              ;;
+              
+            "healthy")
+              echo "✅ **HEALTHY**: Cookies are working properly"
+              echo "needs_action=none" >> $GITHUB_OUTPUT
+              echo "message=Claude.ai session cookies are healthy and working properly" >> $GITHUB_OUTPUT
+              ;;
+              
+            *)
+              echo "❓ **UNKNOWN**: Unable to determine cookie status"
+              echo "needs_action=unknown" >> $GITHUB_OUTPUT
+              echo "message=Cookie status could not be determined - may need manual check" >> $GITHUB_OUTPUT
+              ;;
+          esac
+          
+          # Add to job summary
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          ## 🍪 Cookie Health Report
+          
+          **Status**: $COOKIE_STATUS  
+          **Timestamp**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          
+          ### Health Details
+          - **Authentication Method**: Browser-based (session cookies)
+          - **Monitoring Frequency**: Every 6-12 hours
+          - **Auto-refresh**: Manual process required
+          
+          ### Action Required
+          $(case "$COOKIE_STATUS" in
+            "expired"|"error") echo "🚨 **IMMEDIATE**: Refresh cookies now using \`node setup-claude-cookies.js\`" ;;
+            "warning"|"caution") echo "⚠️ **SOON**: Plan cookie refresh within next few days" ;;
+            "healthy") echo "✅ **NONE**: Cookies are working properly" ;;
+            *) echo "❓ **CHECK**: Manual verification recommended" ;;
+          esac)
+          EOF
+          
+        env:
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
+          CLAUDE_COOKIES_JSON: ${{ secrets.CLAUDE_COOKIES_JSON }}
+          
+      - name: 🚨 Critical Alert Notification
+        if: steps.health-check.outputs.needs_action == 'critical'
+        run: |
+          echo "::error::🚨 CRITICAL: Claude.ai session cookies have expired!"
+          echo "::error::CV enhancement pipeline will fail until cookies are refreshed"
+          echo "::error::Action required: Run 'node setup-claude-cookies.js' to refresh cookies"
+          
+          # This will make the workflow fail to get attention
+          exit 1
+          
+      - name: ⚠️ Warning Notification  
+        if: steps.health-check.outputs.needs_action == 'warning'
+        run: |
+          echo "::warning::⚠️ Claude.ai session cookies should be refreshed soon"
+          echo "::notice::Recommended action: Plan cookie refresh within next few days"
+          
+      - name: 📊 Generate Health Report
+        if: always()
+        run: |
+          cd .github/scripts
+          
+          echo "## 🍪 Cookie Health Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | ${{ steps.health-check.outputs.status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Action Needed | ${{ steps.health-check.outputs.needs_action }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Message | ${{ steps.health-check.outputs.message }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Check Time | $(date -u '+%Y-%m-%d %H:%M UTC') |" >> $GITHUB_STEP_SUMMARY
+          echo "| Next Check | ~12 hours |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          case "${{ steps.health-check.outputs.needs_action }}" in
+            "critical")
+              echo "### 🚨 Immediate Action Required" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "Cookie refresh is **critical**. Run these commands:" >> $GITHUB_STEP_SUMMARY
+              echo '```bash' >> $GITHUB_STEP_SUMMARY
+              echo "cd .github/scripts" >> $GITHUB_STEP_SUMMARY
+              echo "node extract-claude-cookies.js  # Follow instructions" >> $GITHUB_STEP_SUMMARY
+              echo "node setup-claude-cookies.js    # Update GitHub secrets" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              ;;
+            "warning")
+              echo "### ⚠️ Action Recommended" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "Plan cookie refresh within the next few days to avoid interruption." >> $GITHUB_STEP_SUMMARY
+              ;;
+            "none")
+              echo "### ✅ All Systems Healthy" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "No action required. Cookies are working properly." >> $GITHUB_STEP_SUMMARY
+              ;;
+          esac
