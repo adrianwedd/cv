@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-07-31T15:26:17.974Z",
+  "enhancement_mode": "activity-only",
+  "creativity_level": "balanced",
+  "activity_score": 50,
+  "enhancements": {
+    "professionalSummary": {
+      "enhanced": "AI Engineer and Software Architect",
+      "enhancement_notes": "Enhancement failed, using original content",
+      "confidence_score": 0,
+      "enhancement_applied": true,
+      "tokens_used": 0,
+      "timestamp": "2025-07-31T15:26:17.980Z"
+    },
+    "skills": {
+      "enhanced_skills": [],
+      "enhancement_notes": "Enhancement failed, using original skills",
+      "confidence_score": 0,
+      "enhancement_applied": true,
+      "tokens_used": 0,
+      "timestamp": "2025-07-31T15:26:17.980Z"
+    },
+    "experience": {
+      "enhanced_experience": [],
+      "enhancement_applied": true,
+      "tokens_used": 0,
+      "timestamp": "2025-07-31T15:26:17.980Z"
+    },
+    "projects": {
+      "enhanced_projects": [],
+      "enhancement_applied": true,
+      "tokens_used": 0,
+      "timestamp": "2025-07-31T15:26:17.980Z"
+    }
+  },
+  "token_usage": {
+    "input": 0,
+    "output": 0,
+    "total": 0,
+    "requests": 0
+  },
+  "quality_metrics": {
+    "enhancement_success_rate": 100,
+    "total_sections_enhanced": 4,
+    "total_tokens_used": 0,
+    "cost_efficiency": 0,
+    "content_quality_score": 6,
+    "processing_time": 7
+  },
+  "strategic_insights": {
+    "market_positioning": "AI Engineering Specialist",
+    "career_trajectory": "Advancing toward technical leadership",
+    "competitive_advantages": [
+      "Technical depth",
+      "AI expertise",
+      "System architecture"
+    ]
+  },
+  "fallback_mode": false,
+  "error_recovery": []
+}
