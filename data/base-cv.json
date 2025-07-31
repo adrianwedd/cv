@@ -3,7 +3,13 @@
     "version": "2.0.0",
     "last_updated": "2024-01-15T00:00:00Z",
     "data_source": "AI-Enhanced CV System",
-    "enhancement_ready": true
+    "enhancement_ready": true,
+    "content_protection": {
+      "enabled": true,
+      "guardian_version": "1.0.0",
+      "last_validation": "2025-07-31T13:48:36.232Z",
+      "protection_level": "high"
+    }
   },
   "personal_info": {
     "name": "Adrian Wedd",
@@ -16,21 +22,21 @@
     "tagline": "Pioneering autonomous systems and intelligent technology solutions",
     "availability": "Open to opportunities"
   },
-  "professional_summary": "Innovative AI Engineer and Software Architect with extensive expertise in developing autonomous systems that push the boundaries of artificial intelligence. Based in Tasmania, I specialize in creating intelligent solutions that seamlessly integrate cutting-edge machine learning with robust, scalable software architecture. My work focuses on autonomous agents, real-time processing systems, and innovative human-AI collaboration interfaces that deliver measurable impact across diverse industries.",
+  "professional_summary": "Seasoned Systems Analyst and Technology Professional with over 6 years transforming critical government housing systems in Tasmania. I bridge the gap between technical innovation and social impact, specializing in systems integration, cybersecurity, and pioneering AI adoption in the public sector. My diverse career path spans environmental advocacy, digital marketing, and government service - bringing a unique perspective that combines technical depth with values-driven problem-solving. I excel at translating complex technical concepts into actionable solutions that improve service delivery for vulnerable communities.",
   "experience": [
     {
-      "position": "AI Engineer & Software Architect",
-      "company": "Independent Consultant",
+      "position": "Systems Analyst / Acting Senior Change Analyst",
+      "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
       "location": "Tasmania, Australia",
-      "period": "2020 - Present",
+      "period": "2018 - Present",
       "type": "Full-time",
-      "description": "Leading development of next-generation AI systems and autonomous solutions for clients across technology, research, and enterprise sectors. Specializing in the complete lifecycle from research and prototyping to production deployment of intelligent systems.",
+      "description": "Leading systems integration and digital transformation initiatives for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.",
       "achievements": [
-        "Architected and deployed 15+ AI-powered autonomous systems with 95%+ reliability rates",
-        "Reduced client operational costs by average of 40% through intelligent automation solutions",
-        "Led cross-functional teams of 3-8 engineers in developing complex distributed AI systems",
-        "Published research on autonomous agent coordination and human-AI collaboration patterns",
-        "Established best practices for AI system monitoring, observability, and continuous improvement"
+        "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP",
+        "Led cybersecurity initiatives significantly improving system security and reducing vulnerabilities",
+        "Developed automation scripts in Python, PowerShell and JavaScript streamlining operations",
+        "Pioneered use of generative AI for data analysis and decision-making processes",
+        "Improved operational efficiency through strategic systems integration and process optimization"
       ],
       "technologies": [
         "Python",
@@ -58,17 +64,17 @@
       ]
     },
     {
-      "position": "Senior Software Engineer",
-      "company": "Technology Consulting",
-      "location": "Australia",
-      "period": "2018 - 2020",
+      "position": "ITS Client Services Officer",
+      "company": "University of Tasmania",
+      "location": "Tasmania, Australia",
+      "period": "2015 - 2018",
       "type": "Full-time",
-      "description": "Specialized in designing and implementing scalable software architectures for high-growth technology companies. Focused on microservices, cloud-native solutions, and performance optimization.",
+      "description": "Provided comprehensive IT support and technical solutions for university staff and students. Specialized in Microsoft technologies, troubleshooting complex technical problems, and developing procedural documentation.",
       "achievements": [
-        "Designed microservices architecture serving 1M+ daily active users",
-        "Improved system performance by 300% through optimization and caching strategies",
-        "Mentored 5+ junior developers in software architecture and best practices",
-        "Implemented CI/CD pipelines reducing deployment time from hours to minutes"
+        "Delivered first-line IT support resolving complex technical problems across diverse user base",
+        "Developed comprehensive procedural documentation improving support team efficiency",
+        "Supported Microsoft technology stack ensuring optimal performance for academic environment",
+        "Maintained high user satisfaction through prompt problem resolution and clear communication"
       ],
       "technologies": [
         "JavaScript",
@@ -83,27 +89,68 @@
       ]
     },
     {
-      "position": "Full-Stack Developer",
-      "company": "Digital Innovation Agency",
+      "position": "Director",
+      "company": "Digital Agency PTY LTD",
       "location": "Australia",
-      "period": "2016 - 2018",
+      "period": "2015 - 2018",
       "type": "Full-time",
-      "description": "Developed comprehensive web applications and digital solutions for diverse clients. Gained expertise in full-stack development, user experience optimization, and agile development methodologies.",
+      "description": "Founded and operated digital marketing agency specializing in helping nonprofits and small businesses maximize their digital impact. Expert-level certified across Google and Bing advertising platforms.",
       "achievements": [
-        "Delivered 20+ client projects with 98% on-time completion rate",
-        "Increased client application performance by average of 150%",
-        "Developed reusable component library used across 10+ projects",
-        "Led adoption of modern development practices and tools"
+        "Enabled nonprofits and small businesses to measure digital effectiveness with Google Analytics",
+        "Attracted new audiences through strategic Google AdWords and Google Ad Grants implementation",
+        "Achieved expert-level certification across Google and Bing advertising platforms",
+        "Delivered measurable digital marketing results for diverse client portfolio"
       ],
       "technologies": [
-        "JavaScript",
-        "React",
-        "Vue.js",
-        "Node.js",
-        "PHP",
-        "MySQL",
-        "AWS",
-        "Git"
+        "Google Analytics",
+        "Google AdWords",
+        "Bing Ads",
+        "Digital Marketing",
+        "Campaign Management",
+        "Performance Tracking"
+      ]
+    },
+    {
+      "position": "Second Level IT Support Engineer",
+      "company": "The Wilderness Society Inc.",
+      "location": "Australia",
+      "period": "2012 - 2015",
+      "type": "Full-time",
+      "description": "Managed comprehensive IT infrastructure for national environmental organization. Specialized in lifecycle management of diverse server environments, network infrastructure, and communication systems.",
+      "achievements": [
+        "Managed lifecycle of 60+ Windows/Debian/Ubuntu servers ensuring optimal performance",
+        "Maintained heterogeneous network infrastructure supporting distributed organization",
+        "Administered Google Apps infrastructure and VOIP PBX systems",
+        "Executed complex upgrades, implementations, migrations and decommissioning projects"
+      ],
+      "technologies": [
+        "Windows Server",
+        "Debian/Ubuntu",
+        "Network Infrastructure",
+        "Google Apps",
+        "VOIP PBX",
+        "Server Management"
+      ]
+    },
+    {
+      "position": "Communications and Logistics Coordinator",
+      "company": "Greenpeace Australia Pacific",
+      "location": "Australia",
+      "period": "2010 - 2012",
+      "type": "Full-time",
+      "description": "Coordinated high-profile environmental campaigns combining technology, logistics, and strategic planning. Specialized in risk assessment, security planning, and ICT support for direct action initiatives.",
+      "achievements": [
+        "Planned and coordinated logistical implementation of direct actions and protests",
+        "Developed comprehensive risk assessments and security plans for campaign activities",
+        "Provided ICT support for actions ensuring reliable communication systems",
+        "Delivered activist training programs building organizational capacity"
+      ],
+      "technologies": [
+        "ICT Systems",
+        "Communications",
+        "Risk Assessment",
+        "Security Planning",
+        "Logistics Management"
       ]
     }
   ],
@@ -570,72 +617,80 @@
   ],
   "achievements": [
     {
-      "icon": "🏆",
-      "title": "AI Innovation Excellence Award",
-      "description": "Recognition for groundbreaking contributions to autonomous AI systems and human-machine collaboration interfaces, demonstrating exceptional technical leadership in emerging AI technologies.",
-      "date": "2024",
-      "category": "Professional Recognition",
-      "issuer": "AI Innovation Council"
-    },
-    {
-      "icon": "🚀",
-      "title": "Open Source Impact Leader",
-      "description": "Significant contributions to critical open-source projects in AI automation, developer tooling, and autonomous systems. Projects have collectively received 500+ stars and are used by enterprises worldwide.",
-      "date": "2020-2024",
-      "category": "Community Impact",
-      "metrics": {
-        "projects_contributed": 25,
-        "total_stars": 500,
-        "enterprises_using": 15
-      }
-    },
-    {
-      "icon": "🎯",
-      "title": "Technical Leadership Excellence",
-      "description": "Successfully architected and led delivery of 15+ high-impact AI systems from conception to production deployment, with 99.5% average system reliability and 40% average cost reduction for clients.",
-      "date": "2021-2024",
+      "icon": "🏛️",
+      "title": "Systems Integration Excellence",
+      "description": "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP, significantly improving data exchange and operational efficiency for Tasmania's public housing sector.",
+      "date": "2018-2024",
       "category": "Technical Achievement",
-      "metrics": {
-        "projects_led": 15,
-        "average_reliability": "99.5%",
-        "cost_reduction": "40%"
-      }
+      "impact": "Improved service delivery for vulnerable communities",
+      "protected": true,
+      "verified": true,
+      "source": "manual_verification",
+      "last_verified": "2025-07-31T13:48:36.226Z"
     },
     {
-      "icon": "🔬",
-      "title": "Research Publication & Patents",
-      "description": "Published research on autonomous agent coordination and filed 3 patents for innovative AI system architectures. Work has been cited in academic literature and industry whitepapers.",
+      "icon": "🛡️",
+      "title": "Cybersecurity Leadership",
+      "description": "Led comprehensive cybersecurity initiatives at Homes Tasmania, significantly improving system security posture and reducing vulnerabilities across critical housing management systems.",
+      "date": "2020-2024",
+      "category": "Security Achievement",
+      "impact": "Enhanced protection of sensitive housing data",
+      "protected": true,
+      "verified": true,
+      "source": "manual_verification",
+      "last_verified": "2025-07-31T13:48:36.232Z"
+    },
+    {
+      "icon": "🤖",
+      "title": "AI Innovation Pioneer",
+      "description": "First to showcase and implement generative AI applications for data analysis and decision-making processes within Tasmania's public housing sector, pioneering practical AI adoption.",
       "date": "2023-2024",
-      "category": "Research & Innovation",
-      "metrics": {
-        "publications": 3,
-        "patents_pending": 3,
-        "citations": 25
-      }
+      "category": "Innovation",
+      "impact": "Advanced AI adoption in public sector",
+      "protected": true,
+      "verified": true,
+      "source": "manual_verification",
+      "last_verified": "2025-07-31T13:48:36.232Z"
     },
     {
-      "icon": "🌟",
-      "title": "Industry Speaking & Thought Leadership",
-      "description": "Keynote speaker at major AI and technology conferences, sharing insights on autonomous systems, ethical AI development, and the future of human-AI collaboration.",
-      "date": "2022-2024",
-      "category": "Thought Leadership",
-      "metrics": {
-        "conferences_spoken": 8,
-        "audience_reached": 5000,
-        "articles_published": 12
-      }
+      "icon": "🌿",
+      "title": "Environmental Campaign Technology Leadership",
+      "description": "Managed comprehensive IT infrastructure for The Wilderness Society and coordinated high-profile Greenpeace campaigns, combining technology expertise with environmental advocacy.",
+      "date": "2010-2015",
+      "category": "Social Impact",
+      "impact": "Supported critical environmental protection campaigns",
+      "protected": true,
+      "verified": true,
+      "source": "manual_verification",
+      "last_verified": "2025-07-31T13:48:36.232Z"
     },
     {
       "icon": "🎓",
-      "title": "Mentorship & Developer Education",
-      "description": "Mentored 20+ junior developers and AI engineers, with 95% of mentees achieving career advancement within 18 months. Created educational content reaching 10,000+ developers.",
-      "date": "2020-2024",
-      "category": "Education & Mentorship",
-      "metrics": {
-        "developers_mentored": 20,
-        "career_advancement_rate": "95%",
-        "educational_content_reach": 10000
-      }
+      "title": "Professional Certification Excellence",
+      "description": "Achieved expert-level certifications across Google Analytics, AdWords, and Bing Ads platforms, demonstrating commitment to continuous learning and professional development.",
+      "date": "2015",
+      "category": "Professional Development",
+      "certifications": [
+        "Google Analytics Individual Qualification",
+        "Google AdWords Certification",
+        "Bing Ads Accredited Professional"
+      ],
+      "protected": true,
+      "verified": true,
+      "source": "manual_verification",
+      "last_verified": "2025-07-31T13:48:36.232Z"
+    },
+    {
+      "icon": "⚡",
+      "title": "Automation & Process Improvement",
+      "description": "Developed automation scripts in Python, PowerShell, and JavaScript that streamlined operations and improved service delivery across multiple organizations.",
+      "date": "2018-2024",
+      "category": "Process Innovation",
+      "impact": "Reduced manual workload and improved efficiency",
+      "protected": true,
+      "verified": true,
+      "source": "manual_verification",
+      "last_verified": "2025-07-31T13:48:36.232Z"
     }
   ],
   "education": [
