@@ -2,6 +2,7 @@ name: 📊 High-Frequency Data Refresh Pipeline
 
 # Optimized data collection pipeline for real-time CV intelligence
 # Separates data collection from enhancement for better performance
+# Fixed workflow_dispatch trigger recognition
 
 on:
   schedule:
@@ -488,25 +489,18 @@ jobs:
           if ! git diff --cached --quiet; then
             TIMESTAMP=$(TZ='${{ env.TIMEZONE }}' date +'%Y%m%d-%H%M')
             
-            git commit -m "📊 Data Refresh: $COMPONENTS_STR ($TIMESTAMP)
+            git commit -m "$(cat <<'EOF'
+📊 Data Refresh: $COMPONENTS_STR ($TIMESTAMP)
 
 🔄 High-frequency data pipeline refresh
-⏰ Timestamp: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
+⏰ Components: $COMPONENTS_STR
 🎯 Trigger: ${{ github.event_name }}
-📈 Duration: ${{ needs.data-intelligence.outputs.estimated-duration }}min estimated
-
-Refreshed Components:
-$COMPONENTS_STR
-
-Status Summary:
-$([ '$ACTIVITY_STATUS' != 'skipped' ] && echo '  - 📊 Activity Data: $ACTIVITY_STATUS' || echo '  - 📊 Activity Data: skipped')
-$([ '$MARKET_STATUS' != 'skipped' ] && echo '  - 📈 Market Intelligence: $MARKET_STATUS' || echo '  - 📈 Market Intelligence: skipped')
-$([ '$DASHBOARD_STATUS' != 'skipped' ] && echo '  - 🎬 Dashboard Data: $DASHBOARD_STATUS' || echo '  - 🎬 Dashboard Data: skipped')
-$([ '$INTELLIGENCE_STATUS' != 'skipped' ] && echo '  - 🔍 GitHub Intelligence: $INTELLIGENCE_STATUS' || echo '  - 🔍 GitHub Intelligence: skipped')
 
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
-Co-Authored-By: Claude <noreply@anthropic.com>"
+Co-Authored-By: Claude <noreply@anthropic.com>
+EOF
+)"
             
             git push
             echo "✅ Data refresh committed and synchronized"
