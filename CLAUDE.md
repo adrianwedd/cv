@@ -1536,3 +1536,146 @@ This session demonstrates the critical importance of infrastructure maintenance 
 - **Integration**: Seamless connection with existing CV infrastructure
 
 This platform completes the strategic foundation for AI-powered career development, providing users with unprecedented insights into their professional trajectory and market positioning.
+
+## Session Insights - August 1, 2025 (Part 10) - CI/CD Pipeline Investigation & Critical Infrastructure Fixes
+
+### Critical CI/CD Pipeline Issues Investigation
+**Production System Health Assessment**: Conducted comprehensive investigation of CI/CD pipeline health after user reported 15+ hour stale Watch Me Work data, demonstrating systematic debugging of production infrastructure issues.
+
+#### **Watch Me Work Data Timestamp Issue - CRITICAL ROOT CAUSE IDENTIFIED**
+**Problem**: Watch Me Work dashboard showing stale data from `2025-07-31T18:25:11.711Z` (15+ hours old) despite successful workflow runs
+**Root Cause**: Data processor saving to wrong path (`.github/scripts/data/` instead of `data/`)
+**Investigation Process**:
+- Analyzed workflow logs to confirm data processing success (100 activities, 17 repositories generated)
+- Identified path discrepancy through systematic log analysis
+- Found data being generated correctly but saved to wrong location
+
+**Fix Implemented**:
+```javascript
+// Before: dataDir: path.join(process.cwd(), 'data')
+// After:  dataDir: path.join(process.cwd(), '../../data')
+```
+
+**Current Status**: Fix deployed (`567ecc6`) but workflow still failing at commit stage due to exit code handling issues
+
+#### **data-refresh-pipeline.yml workflow_dispatch Trigger Failure**
+**Problem**: Manual pipeline triggering fails with HTTP 422 "Workflow does not have 'workflow_dispatch' trigger"
+**Root Cause**: Complex multiline commit message with embedded shell command substitutions causing YAML parsing errors
+**Investigation Evidence**:
+- Workflow fails immediately (0s duration) indicating YAML syntax errors
+- Multiple fix attempts with comment additions and message simplification
+- Trigger syntax appears correct but GitHub API doesn't recognize it
+
+**Attempted Fixes**:
+1. Added comment to force GitHub workflow re-parsing
+2. Simplified complex multiline commit message structure
+3. Removed problematic shell command substitutions
+
+**Current Status**: Issue persists despite fixes, requiring deeper YAML validation or workflow recreation
+
+#### **Advanced Production Debugging Techniques**
+**Systematic Investigation Methodology**:
+1. **User Report Analysis**: 15+ hour stale data timestamp identification
+2. **Workflow Log Analysis**: Deep dive into GitHub Actions execution logs
+3. **Data Flow Tracing**: Following data from generation through deployment
+4. **Root Cause Isolation**: Distinguishing between generation vs. deployment issues
+5. **Fix Verification**: Testing deployed fixes through additional workflow runs
+
+**Log Analysis Excellence**:
+```bash
+# Effective log analysis commands used
+gh run view 16671619124 --log | grep -A 20 -B 5 "watch-me-work"
+gh run list --workflow=continuous-enhancement.yml --limit=5
+curl -s https://adrianwedd.github.io/cv/data/watch-me-work-data.json | jq -r '.metadata.generated_at'
+```
+
+### GitHub Issues Created for Tracking
+**Issue #125**: Watch Me Work data processor workflow commit failure
+- Comprehensive problem analysis with workflow logs
+- Technical details and next steps documentation
+- High priority user-facing data freshness issue
+
+**Issue #126**: data-refresh-pipeline.yml workflow_dispatch trigger not recognized  
+- YAML parsing error investigation
+- Multiple fix attempts documented
+- Medium priority operational convenience issue
+
+### Production Infrastructure Insights
+
+#### **CI/CD Pipeline Health Monitoring**
+**Critical Learning**: Silent failures are worse than loud ones
+- Workflows reported "success" while critical components failed
+- Data processing succeeded but commit stage failed silently
+- Comprehensive logging essential for production debugging
+
+#### **Data Path Configuration in Multi-Environment Workflows**
+**Key Insight**: Working directory context changes between local and CI environments
+- Local development: `process.cwd()` = project root
+- CI environment: `process.cwd()` = `.github/scripts/` directory  
+- Path calculations must account for execution context differences
+
+#### **YAML Workflow Complexity Management**
+**Lesson Learned**: Complex YAML structures can break GitHub Actions parsing
+- Multiline strings with embedded shell substitutions are fragile
+- GitHub API workflow_dispatch recognition can fail silently
+- Simpler, more explicit YAML structures are more reliable
+
+### Session Development Methodology
+
+#### **Problem-Solving Approach Excellence**
+1. **Systematic Investigation**: User report → workflow logs → data flow analysis
+2. **Root Cause Isolation**: Distinguish symptoms from underlying causes  
+3. **Fix Implementation**: Target specific root cause rather than symptoms
+4. **Verification Testing**: Deploy fixes and validate through production testing
+5. **Issue Documentation**: Create comprehensive GitHub issues for tracking
+
+#### **Production Debugging Best Practices**
+- **Log Analysis First**: Always examine actual execution logs before theorizing
+- **Data Flow Tracing**: Follow data from source through all transformation steps
+- **Environment Context**: Account for differences between local and CI environments
+- **Silent Failure Detection**: Look for "successful" workflows with failed components
+- **Comprehensive Documentation**: Capture investigation process for future reference
+
+### Critical Infrastructure Lessons
+
+#### **Watch Me Work Data Pipeline Architecture**
+**Current Architecture**: 
+- Data processor runs in `.github/scripts/` directory
+- Saves data to relative path calculations  
+- Continuous enhancement workflow commits data changes
+- GitHub Pages deployment serves static data files
+
+**Identified Weaknesses**:
+- Path calculations dependent on execution context
+- Exit code handling preventing successful workflow completion
+- Complex dependency chain between data generation and deployment
+
+#### **Workflow_Dispatch Trigger Reliability**
+**GitHub Actions Limitations**: 
+- Complex YAML can break workflow_dispatch recognition
+- API errors don't always reflect true YAML issues
+- Manual trigger capability critical for debugging and urgent fixes
+
+**Recommended Patterns**:
+- Simple, explicit YAML structures over complex multiline strings
+- Avoid embedded shell command substitutions in commit messages
+- Test workflow_dispatch triggers immediately after YAML changes
+
+### Session Impact & Next Steps
+
+#### **Immediate Production Impact**
+- **Data Freshness**: Root cause identified and fix deployed for stale timestamp issue
+- **Operational Visibility**: Comprehensive investigation documented in GitHub issues
+- **Debugging Capability**: Enhanced understanding of CI/CD pipeline failure modes
+
+#### **Technical Debt Reduction**
+- **Path Configuration**: Explicit data path handling reduces environment dependencies
+- **Error Handling**: Improved workflow exit code handling needed
+- **YAML Complexity**: Simpler workflow structures for better reliability
+
+#### **Knowledge Transfer**
+- **Investigation Process**: Systematic debugging methodology documented
+- **Tool Usage**: Effective GitHub CLI commands for log analysis established
+- **Issue Management**: Comprehensive problem documentation for team collaboration
+
+This session demonstrates advanced production debugging skills, systematic problem-solving methodology, and the ability to diagnose complex CI/CD pipeline issues in live production environments while maintaining development velocity and comprehensive documentation standards.

@@ -24,7 +24,7 @@ class WatchMeWorkDataProcessor {
     constructor(config = {}) {
         this.config = {
             username: config.username || 'adrianwedd',
-            dataDir: config.dataDir || path.join(process.cwd(), 'data'),
+            dataDir: config.dataDir || path.join(process.cwd(), '../../data'),
             outputFile: 'watch-me-work-data.json',
             lookbackDays: config.lookbackDays || 90, // Extend to 90 days for better streak calculation
             maxActivities: config.maxActivities || 100,
