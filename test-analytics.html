@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics & Insights Platform Test</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/advanced-analytics-styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: var(--color-bg, #ffffff);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border, #e1e5e9);
+        }
+        
+        .test-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text, #1f2937);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .test-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted, #6b7280);
+            margin: 0;
+        }
+        
+        .test-section {
+            background: var(--color-card-bg, #ffffff);
+            border: 1px solid var(--color-border, #e1e5e9);
+            border-radius: var(--radius-lg, 12px);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            padding: 1.5rem;
+            background: var(--color-bg-subtle, #f9fafb);
+            border-radius: var(--radius-md, 8px);
+            border: 1px solid var(--color-border, #e1e5e9);
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text, #1f2937);
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-description {
+            font-size: 0.9rem;
+            color: var(--color-text-muted, #6b7280);
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .shortcut-info {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: var(--radius-md, 8px);
+            margin-top: 1rem;
+        }
+        
+        .shortcut-keys {
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm, 4px);
+            margin: 0 0.25rem;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted, #6b7280);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--color-border, #e1e5e9);
+            border-top: 3px solid var(--color-primary, #10b981);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .demo-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .demo-metric {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-radius: var(--radius-md, 8px);
+        }
+
+        .demo-metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .demo-metric-label {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1 class="test-title">📊 Advanced Analytics & Insights Platform</h1>
+        <p class="test-subtitle">Comprehensive career intelligence with predictive modeling and market analysis</p>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">Core Analytics Features</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3 class="feature-title">📈 Career Trajectory Analysis</h3>
+                <p class="feature-description">Advanced modeling of career progression with growth projections, salary forecasting, and role advancement predictions</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🌍 Market Intelligence</h3>
+                <p class="feature-description">Real-time industry analysis, competitive positioning, demand forecasting, and opportunity identification</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">⚡ Skills Evolution Forecasting</h3>
+                <p class="feature-description">Predictive analysis of skill relevance, learning priorities, and technology trend alignment</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">💰 Compensation Modeling</h3>
+                <p class="feature-description">Advanced salary prediction, negotiation insights, and total compensation optimization</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🎯 Strategic Recommendations</h3>
+                <p class="feature-description">AI-powered career guidance with prioritized action items and impact assessments</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">📊 Executive Dashboard</h3>
+                <p class="feature-description">Professional-grade visualization with exportable reports and interactive analytics</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">How to Use</h2>
+        <p style="margin: 0 0 1rem 0; font-size: 1rem; line-height: 1.6;">The Advanced Analytics Platform provides comprehensive career intelligence through sophisticated data analysis and predictive modeling.</p>
+        
+        <div class="shortcut-info">
+            <strong>📊 Click the green analytics button</strong> in the bottom-right corner, or use the keyboard shortcut:
+            <span class="shortcut-keys">Ctrl + Shift + A</span> (Windows/Linux) or 
+            <span class="shortcut-keys">Cmd + Shift + A</span> (Mac)
+        </div>
+        
+        <h3 style="margin: 1.5rem 0 1rem 0; color: var(--color-text, #1f2937);">Dashboard Views</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary, #10b981);">Overview Dashboard</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Executive summary with key metrics, market position, and strategic insights</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary, #10b981);">Career Trajectory</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Detailed progression analysis with scenario modeling and timeline projections</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary, #10b981);">Market Analysis</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Industry trends, competitive landscape, and opportunity identification</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary, #10b981);">Predictions</h4>
+                <p style="margin: 0; font-size: 0.9rem;">AI-powered forecasting with confidence intervals and scenario planning</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary, #10b981);">Recommendations</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Strategic guidance with prioritized actions and implementation roadmaps</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">Expected Analytics Insights</h2>
+        <p style="margin: 0 0 1rem 0; color: var(--color-text-muted, #6b7280);">Sample insights based on current profile analysis:</p>
+        
+        <div class="demo-metrics">
+            <div class="demo-metric">
+                <div class="demo-metric-value">88th</div>
+                <div class="demo-metric-label">Market Percentile</div>
+            </div>
+            <div class="demo-metric">
+                <div class="demo-metric-value">28.5%</div>
+                <div class="demo-metric-label">Career Growth Rate</div>
+            </div>
+            <div class="demo-metric">
+                <div class="demo-metric-value">$185K</div>
+                <div class="demo-metric-label">Market Value</div>
+            </div>
+            <div class="demo-metric">
+                <div class="demo-metric-value">91</div>
+                <div class="demo-metric-label">Opportunity Score</div>
+            </div>
+        </div>
+
+        <h3 style="margin: 1.5rem 0 1rem 0; color: var(--color-text, #1f2937);">Key Strategic Insights</h3>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-success, #10b981);">📈 Growth Trajectory</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Strong technical foundation with excellent growth potential in AI/ML leadership roles</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-primary, #3b82f6);">🎯 Next Role</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Principal AI Engineer within 12-18 months with 35% salary growth potential</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-warning, #f59e0b);">⚡ Skill Focus</h4>
+                <p style="margin: 0; font-size: 0.9rem;">Prioritize MLOps, Edge AI, and technical leadership for maximum market impact</p>
+            </div>
+            <div class="feature-item">
+                <h4 style="margin: 0 0 0.5rem 0; color: var(--color-secondary, #8b5cf6);">🌍 Market Position</h4>
+                <p style="margin: 0; font-size: 0.9rem;">High-demand skill set with competitive advantages in autonomous systems</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">System Status</h2>
+        
+        <div id="system-status">
+            <div class="loading-message">
+                <div class="loading-spinner"></div>
+                <p>Loading Advanced Analytics & Insights Platform...</p>
+                <p style="font-size: 0.9rem; opacity: 0.7;">Initializing predictive models and market intelligence data</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="assets/advanced-analytics-platform.js"></script>
+    
+    <!-- Debug Information -->
+    <script>
+        // Debug logging for testing
+        console.log('🧪 Advanced Analytics Test Page Loaded');
+        
+        // Check if analytics platform initializes
+        setTimeout(() => {
+            const statusDiv = document.getElementById('system-status');
+            
+            if (window.advancedAnalytics && window.advancedAnalytics.isInitialized) {
+                console.log('✅ Advanced Analytics Platform initialized successfully');
+                statusDiv.innerHTML = `
+                    <div style="text-align: center; color: var(--color-success, #10b981); padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">✅</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--color-success, #10b981);">System Ready</h3>
+                        <p style="margin: 0; color: var(--color-text-muted, #6b7280);">
+                            Advanced Analytics & Insights Platform initialized successfully.<br>
+                            Click the green 📊 button to open the comprehensive analytics dashboard!
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <button onclick="window.advancedAnalytics.openAnalyticsDashboard()" 
+                                    style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; 
+                                           background: linear-gradient(135deg, #10b981 0%, #059669 100%); 
+                                           color: white; font-weight: 600; cursor: pointer;">
+                                Open Analytics Dashboard
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                console.warn('⚠️ Advanced Analytics Platform may not have initialized properly');
+                statusDiv.innerHTML = `
+                    <div style="text-align: center; color: var(--color-warning, #f59e0b); padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">⚠️</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--color-warning, #f59e0b);">System Warning</h3>
+                        <p style="margin: 0; color: var(--color-text-muted, #6b7280);">
+                            Analytics platform may not have initialized properly.<br>
+                            Check browser console for details.
+                        </p>
+                        <div style="margin-top: 1rem;">
+                            <button onclick="location.reload()" 
+                                    style="padding: 0.75rem 1.5rem; border: none; border-radius: 8px; 
+                                           background: var(--color-warning, #f59e0b); color: white; 
+                                           font-weight: 600; cursor: pointer;">
+                                Retry Initialization
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }, 4000);
+        
+        // Log any JavaScript errors
+        window.addEventListener('error', (e) => {
+            console.error('❌ JavaScript Error:', e.error);
+        });
+        
+        // Monitor analytics platform initialization
+        const checkInterval = setInterval(() => {
+            if (window.advancedAnalytics) {
+                console.log('📊 Analytics platform found:', {
+                    initialized: window.advancedAnalytics.isInitialized,
+                    analyticsData: window.advancedAnalytics.analyticsData.size,
+                    careerModels: window.advancedAnalytics.careerModels.size,
+                    marketIntelligence: window.advancedAnalytics.marketIntelligence.size
+                });
+                
+                if (window.advancedAnalytics.isInitialized) {
+                    clearInterval(checkInterval);
+                }
+            }
+        }, 1000);
+        
+        // Clear interval after 10 seconds
+        setTimeout(() => clearInterval(checkInterval), 10000);
+
+        // Add sample data visualization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add some interactive elements for demonstration
+            console.log('🎯 Advanced Analytics test environment ready');
+        });
+    </script>
+</body>
+</html>
