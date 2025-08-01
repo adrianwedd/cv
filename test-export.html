@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Export System Test</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/cv-export-styles.css">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Inter, Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .test-button:hover {
+            background: var(--color-primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚀 CV Export System Test</h1>
+        <p>Test the comprehensive multi-format CV export system with ATS optimization.</p>
+        
+        <div class="test-controls">
+            <button class="test-button" onclick="testExportSystem()">
+                Initialize Export System
+            </button>
+            <button class="test-button" onclick="showExportModal()">
+                Show Export Modal
+            </button>
+            <button class="test-button" onclick="testATSAnalyzer()">
+                Test ATS Analyzer
+            </button>
+            <button class="test-button" onclick="testTemplateEngine()">
+                Test Template Engine
+            </button>
+        </div>
+        
+        <div id="test-results" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <h3>Test Results:</h3>
+            <div id="results-content">Ready to test...</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/ats-analyzer.js"></script>
+    <script src="assets/cv-template-engine.js"></script>
+    <script src="assets/cv-export-system.js"></script>
+    
+    <script>
+        // Test data
+        const testCVData = {
+            metadata: {
+                version: "2.0.0",
+                last_updated: new Date().toISOString(),
+                data_source: "Test Data"
+            },
+            personal_info: {
+                name: "Test User",
+                title: "Software Engineer",
+                location: "Test City, Country",
+                email: "test@example.com",
+                website: "https://test.example.com",
+                github: "https://github.com/testuser",
+                linkedin: "https://linkedin.com/in/testuser"
+            },
+            professional_summary: "Experienced software engineer with expertise in Python, JavaScript, and machine learning. Strong background in building scalable applications and leading development teams.",
+            experience: [
+                {
+                    position: "Senior Software Engineer",
+                    company: "Tech Company",
+                    period: "2020 - Present",
+                    description: "Lead development of machine learning applications using Python and TensorFlow.",
+                    achievements: [
+                        "Improved system performance by 40% through optimization",
+                        "Led team of 5 developers on critical project delivery"
+                    ],
+                    technologies: ["Python", "TensorFlow", "JavaScript", "React", "AWS"]
+                }
+            ],
+            skills: [
+                { name: "Python", category: "Programming Languages", level: 95, proficiency: "Expert", experience_years: 8 },
+                { name: "JavaScript", category: "Programming Languages", level: 90, proficiency: "Expert", experience_years: 6 },
+                { name: "Machine Learning", category: "AI & Data Science", level: 85, proficiency: "Advanced", experience_years: 5 },
+                { name: "React", category: "Frontend", level: 80, proficiency: "Advanced", experience_years: 4 }
+            ],
+            projects: [
+                {
+                    name: "AI Classification System",
+                    description: "Built machine learning system for document classification using deep learning techniques.",
+                    technologies: ["Python", "TensorFlow", "Docker", "AWS"],
+                    metrics: [
+                        { label: "Accuracy", value: "95%" },
+                        { label: "Processing Speed", value: "1000 docs/min" }
+                    ]
+                }
+            ],
+            education: [
+                {
+                    degree: "Bachelor of Computer Science",
+                    institution: "Test University",
+                    period: "2016 - 2020",
+                    key_areas: ["Software Engineering", "Machine Learning", "Database Systems"]
+                }
+            ],
+            achievements: [
+                {
+                    icon: "🏆",
+                    title: "Technical Innovation Award",
+                    description: "Recognized for developing innovative AI solution that increased efficiency by 50%",
+                    date: "2023"
+                }
+            ]
+        };
+
+        let exportSystem = null;
+
+        function log(message) {
+            const resultsContent = document.getElementById('results-content');
+            const timestamp = new Date().toLocaleTimeString();
+            resultsContent.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            console.log(message);
+        }
+
+        function testExportSystem() {
+            try {
+                log('🚀 Initializing CV Export System...');
+                
+                // Create export system with test data
+                exportSystem = new CVExportSystem();
+                exportSystem.cvData = testCVData;
+                
+                log('✅ Export System initialized successfully');
+                log(`📊 Loaded CV data for: ${testCVData.personal_info.name}`);
+                
+            } catch (error) {
+                log(`❌ Export System initialization failed: ${error.message}`);
+            }
+        }
+
+        function showExportModal() {
+            if (!exportSystem) {
+                log('⚠️ Please initialize Export System first');
+                return;
+            }
+            
+            try {
+                log('📋 Opening export modal...');
+                exportSystem.showExportModal();
+                log('✅ Export modal opened successfully');
+            } catch (error) {
+                log(`❌ Failed to open export modal: ${error.message}`);
+            }
+        }
+
+        function testATSAnalyzer() {
+            try {
+                log('🤖 Testing ATS Analyzer...');
+                
+                const analyzer = new ATSAnalyzer();
+                const analysis = analyzer.analyzeCV(testCVData, 'ats-text');
+                
+                log(`✅ ATS Analysis completed`);
+                log(`📊 Overall Score: ${analysis.overall_score}/100`);
+                log(`🎯 Keywords Found: ${analysis.keyword_analysis.by_category ? Object.values(analysis.keyword_analysis.by_category).reduce((sum, cat) => sum + cat.found.length, 0) : 'N/A'}`);
+                log(`📋 Sections Score: ${analysis.category_scores.section_structure?.score || 'N/A'}/100`);
+                
+            } catch (error) {
+                log(`❌ ATS Analyzer test failed: ${error.message}`);
+            }
+        }
+
+        function testTemplateEngine() {
+            try {
+                log('🛠️ Testing Template Engine...');
+                
+                const engine = new CVTemplateEngine(testCVData);
+                
+                // Test different formats
+                const atsText = engine.generateCV('ats-text');
+                log(`✅ ATS Text generated (${atsText.length} characters)`);
+                
+                const htmlContent = engine.generateCV('html');
+                log(`✅ HTML generated (${htmlContent.length} characters)`);
+                
+                const jsonContent = engine.generateCV('json');
+                log(`✅ JSON generated (${jsonContent.length} characters)`);
+                
+                const latexContent = engine.generateCV('latex');
+                log(`✅ LaTeX generated (${latexContent.length} characters)`);
+                
+            } catch (error) {
+                log(`❌ Template Engine test failed: ${error.message}`);
+            }
+        }
+
+        // Auto-initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            log('📄 Test page loaded successfully');
+            log('🎯 Click buttons above to test different components');
+            
+            // Auto-initialize export system
+            setTimeout(() => {
+                testExportSystem();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
