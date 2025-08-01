@@ -1,33 +1,36 @@
-name: 🚀 CV Auto-Enhancement Pipeline
+name: 🚀 Production CV Enhancement Pipeline
 
-# 🎯 **COMPREHENSIVE CV ENHANCEMENT SYSTEM**
-# This workflow provides intelligent CV enhancement using GitHub activity analysis
-# and Claude AI optimization, with sophisticated analytics and caching.
+# 🎯 **PRODUCTION CV ENHANCEMENT SYSTEM**
+# This workflow provides production deployment with intelligent CV enhancement
+# using GitHub activity analysis and Claude AI optimization.
 #
-# 🔄 **EXECUTION SCHEDULE**: Every 6 hours for continuous professional development tracking
-# 📊 **AI OPTIMIZATION**: Claude AI content enhancement with intelligent prompting
+# 🔄 **EXECUTION**: Runs on main branch only (production)
+# 📊 **AI OPTIMIZATION**: Claude AI content enhancement with validation
 # 📈 **ACTIVITY INTEGRATION**: Real-time GitHub metrics and contribution analysis
-# 🎨 **CONTENT GENERATION**: Dynamic CV website with responsive design
+# 🎨 **CONTENT GENERATION**: Production-ready CV website with all formats
 #
-# 🔧 **FEATURES**:
-# - GitHub activity analytics with contribution scoring
-# - Claude AI professional content optimization
-# - Dynamic skill proficiency calculation
-# - Responsive CV website generation
-# - Comprehensive usage tracking and analytics
+# 🔧 **PRODUCTION FEATURES**:
+# - Complete quality gates and validation
+# - Multi-format export (HTML, PDF, DOCX, LaTeX, ATS)
+# - AI hallucination detection
+# - Performance monitoring and optimization
+# - Comprehensive deployment to GitHub Pages
 #
-# 📋 **WORKFLOW STAGES**:
-# 1. GitHub activity data collection and analysis
-# 2. AI-powered content enhancement and optimization
-# 3. Professional metrics calculation and integration
-# 4. Dynamic CV website generation and deployment
-# 5. Analytics tracking and performance monitoring
+# 📋 **PRODUCTION PIPELINE**:
+# 1. Quality gates and pre-deployment validation
+# 2. GitHub activity data collection and analysis
+# 3. AI-powered content enhancement with validation
+# 4. Multi-format CV generation and testing  
+# 5. Production deployment to GitHub Pages
+# 6. Post-deployment verification and monitoring
 
 on:
+  push:
+    branches: [ main ]
   schedule:
-    # 🕐 Run every 6 hours for optimal professional development tracking
-    # Schedule: 00:00, 06:00, 12:00, 18:00 AEST daily
-    - cron: '0 14,20,2,8 * * *'
+    # 🕐 Run every 3 hours for production updates (more frequent)
+    # Schedule: 00:00, 03:00, 06:00, 09:00, 12:00, 15:00, 18:00, 21:00 AEST daily
+    - cron: '0 14,17,20,23,2,5,8,11 * * *'
   workflow_dispatch:
     inputs:
       enhancement_mode:

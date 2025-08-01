@@ -42,6 +42,8 @@ const crypto = require('crypto');
 const https = require('https');
 const { sleep } = require('./utils/apiClient');
 const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
+const { PromptLibraryManager } = require('./enhancer-modules/prompt-library-manager');
+const { MarketContextIntegrator } = require('./enhancer-modules/market-context-integrator');
 
 // Configuration
 const CONFIG = {
@@ -277,9 +279,13 @@ class CVContentEnhancer {
     constructor() {
         this.client = new ClaudeApiClient(CONFIG.ANTHROPIC_API_KEY);
         this.xmlIntegrator = new XMLFewShotIntegrator();
+        this.promptLibrary = new PromptLibraryManager('v2.0');
+        this.marketContext = new MarketContextIntegrator();
         this.enhancementStartTime = Date.now();
         this.enhancementResults = {};
         this.useXMLPrompts = process.env.USE_XML_PROMPTS !== 'false'; // Default to true
+        this.usePromptLibrary = process.env.USE_PROMPT_LIBRARY !== 'false'; // Default to true
+        this.useMarketContext = process.env.USE_MARKET_CONTEXT !== 'false'; // Default to true
     }
 
     /**
@@ -295,6 +301,20 @@ class CVContentEnhancer {
         try {
             // Ensure output directory exists
             await this.ensureOutputDir();
+
+            // Initialize prompt library if enabled
+            if (this.usePromptLibrary) {
+                console.log('📚 Initializing Prompt Library v2.0...');
+                await this.promptLibrary.initialize();
+                console.log('✅ Prompt Library ready with', this.promptLibrary.templates.size, 'templates');
+            }
+
+            // Initialize market context integrator if enabled
+            if (this.useMarketContext) {
+                console.log('📊 Initializing Market Context Integrator...');
+                await this.marketContext.initialize();
+                console.log('✅ Market intelligence loaded and ready');
+            }
 
             // Load existing CV data and activity metrics
             const currentCVData = await this.loadCurrentCVData();
@@ -371,6 +391,11 @@ class CVContentEnhancer {
      * Enhanced with XML structuring and few-shot learning (Issues #96, #97)
      */
     async enhanceProfessionalSummary(cvData, activityMetrics) {
+        // Use new prompt library system if enabled
+        if (this.usePromptLibrary && this.promptLibrary.initialized) {
+            return await this.enhanceProfessionalSummaryLibrary(cvData, activityMetrics);
+        }
+        
         // Use XML-structured prompts with few-shot examples for enhanced quality
         if (this.useXMLPrompts) {
             return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
@@ -378,6 +403,102 @@ class CVContentEnhancer {
         
         // Legacy method for backward compatibility
         return await this.enhanceProfessionalSummaryLegacy(cvData, activityMetrics);
+    }
+
+    /**
+     * Enhanced professional summary using Prompt Library v2.0
+     * Features: Version-controlled prompts, persona-driven enhancement, evidence-based validation
+     */
+    async enhanceProfessionalSummaryLibrary(cvData, activityMetrics) {
+        console.log('📚 Using Prompt Library v2.0 for professional summary enhancement...');
+        
+        try {
+            // Get template and persona from library
+            const template = await this.promptLibrary.getTemplate('professional-summary');
+            const persona = await this.promptLibrary.getPersona('senior-technical-recruiter');
+            
+            if (!template || !persona) {
+                console.warn('⚠️ Required template or persona not found, falling back to XML method');
+                return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
+            }
+
+            // Prepare context data for template with market intelligence
+            const contextData = await this.prepareContextData(cvData, activityMetrics, 'professional_summary');
+            
+            // Construct prompt using library
+            const promptResult = await this.promptLibrary.constructPrompt(
+                'professional-summary', 
+                'senior-technical-recruiter', 
+                contextData
+            );
+
+            console.log(`📊 Prompt Library Enhancement (v${template.version})`);
+            console.log(`🎭 Persona: ${persona.identity.name} (${persona.identity.title})`);
+            
+            // Create messages for Claude API
+            const messages = [
+                {
+                    role: 'system',
+                    content: `You are ${persona.identity.name}, ${persona.identity.title} at ${persona.identity.company}. ${persona.perspective.evaluation_approach}. RESPOND ONLY with valid JSON following the exact schema provided. No explanations or meta-commentary.`
+                },
+                {
+                    role: 'user',
+                    content: promptResult.finalPrompt
+                }
+            ];
+
+            // Make API request
+            const response = await this.client.makeRequest(messages, { maxTokens: 1200 }, cvData.professional_summary);
+            const responseText = response.content[0]?.text?.trim();
+            
+            // Clean and parse response
+            const cleanedResponse = this.cleanResponseText(responseText);
+            let enhancementData;
+            
+            try {
+                enhancementData = JSON.parse(cleanedResponse);
+            } catch (parseError) {
+                console.warn('⚠️ JSON parsing failed, attempting content extraction');
+                enhancementData = this.extractContentFromText(cleanedResponse);
+            }
+
+            // Validate against schema if available
+            const schema = await this.promptLibrary.getSchema('professional-summary-schema');
+            let validationScore = 0.85; // Default score
+            
+            if (schema) {
+                const validation = this.validateAgainstSchema(enhancementData, schema);
+                validationScore = validation.score;
+                console.log(`✅ Schema validation: ${validation.valid ? 'PASSED' : 'FAILED'} (Score: ${(validationScore * 100).toFixed(1)}%)`);
+            }
+
+            return {
+                original: cvData.professional_summary,
+                enhanced: enhancementData.enhanced || enhancementData.enhanced_summary,
+                key_differentiators: enhancementData.key_differentiators || [],
+                technical_positioning: enhancementData.technical_positioning || "",
+                confidence_score: validationScore,
+                enhancement_applied: true,
+                prompt_strategy: 'prompt-library-v2',
+                library_metadata: {
+                    template_id: 'professional-summary',
+                    template_version: template.version,
+                    persona_id: 'senior-technical-recruiter',
+                    persona_name: persona.identity.name,
+                    creativity_level: CONFIG.CREATIVITY_LEVEL
+                },
+                quality_indicators: {
+                    prompt_library_v2: true,
+                    persona_driven: true,
+                    schema_validated: !!schema,
+                    validation_score: validationScore
+                }
+            };
+
+        } catch (error) {
+            console.warn('⚠️ Prompt Library enhancement failed, falling back to XML method:', error.message);
+            return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
+        }
     }
 
     /**
@@ -622,6 +743,11 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
      * Enhanced with XML structuring and few-shot learning (Issues #96, #97)
      */
     async enhanceSkillsSection(cvData, activityMetrics) {
+        // Use new prompt library system if enabled
+        if (this.usePromptLibrary && this.promptLibrary.initialized) {
+            return await this.enhanceSkillsSectionLibrary(cvData, activityMetrics);
+        }
+        
         // Use XML-structured prompts with few-shot examples for enhanced quality
         if (this.useXMLPrompts) {
             return await this.enhanceSkillsSectionXML(cvData, activityMetrics);
@@ -711,6 +837,91 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
         } catch (error) {
             console.warn('⚠️ XML skills enhancement failed, falling back to legacy method');
             return await this.enhanceSkillsSectionLegacy(cvData, activityMetrics);
+        }
+    }
+
+    /**
+     * Enhanced skills section using Prompt Library v2.0
+     * Features: Version-controlled prompts, technical assessment specialist persona
+     */
+    async enhanceSkillsSectionLibrary(cvData, activityMetrics) {
+        console.log('📚 Using Prompt Library v2.0 for skills section enhancement...');
+        
+        try {
+            // Get template and persona from library
+            const template = await this.promptLibrary.getTemplate('skills-assessment');
+            const persona = await this.promptLibrary.getPersona('technical-assessment-specialist');
+            
+            if (!template || !persona) {
+                console.warn('⚠️ Required template or persona not found, falling back to XML method');
+                return await this.enhanceSkillsSectionXML(cvData, activityMetrics);
+            }
+
+            // Prepare context data for template with market intelligence
+            const contextData = await this.prepareContextData(cvData, activityMetrics, 'skills_assessment');
+            
+            // Construct prompt using library
+            const promptResult = await this.promptLibrary.constructPrompt(
+                'skills-assessment', 
+                'technical-assessment-specialist', 
+                contextData
+            );
+
+            console.log(`📊 Skills Assessment Enhancement (v${template.version})`);
+            console.log(`🎭 Persona: ${persona.identity.name} (${persona.identity.title})`);
+            
+            // Create messages for Claude API
+            const messages = [
+                {
+                    role: 'system',
+                    content: `You are ${persona.identity.name}, ${persona.identity.title} at ${persona.identity.company}. ${persona.perspective.evaluation_approach}. RESPOND ONLY with valid JSON following the exact schema provided. No explanations or meta-commentary.`
+                },
+                {
+                    role: 'user',
+                    content: promptResult.finalPrompt
+                }
+            ];
+
+            // Make API request
+            const response = await this.client.makeRequest(messages, { maxTokens: 2000 }, JSON.stringify(cvData.skills || []));
+            const responseText = response.content[0]?.text?.trim();
+            
+            // Clean and parse response
+            const cleanedResponse = this.cleanResponseText(responseText);
+            let enhancementData;
+            
+            try {
+                enhancementData = JSON.parse(cleanedResponse);
+            } catch (parseError) {
+                console.warn('⚠️ JSON parsing failed, attempting content extraction');
+                enhancementData = this.extractContentFromText(cleanedResponse);
+            }
+
+            // Validate against schema if available
+            const schema = await this.promptLibrary.getSchema('skills-assessment-schema');
+            let validationScore = 0.85; // Default score
+            
+            if (schema) {
+                const validation = this.validateContentAgainstSchema(enhancementData, schema);
+                validationScore = validation.score;
+                console.log(`📋 Schema validation: ${validation.valid ? '✅' : '⚠️'} Score: ${validation.score.toFixed(2)}`);
+            }
+
+            return {
+                enhanced_skills: enhancementData.enhanced_skills || enhancementData,
+                enhancement_metadata: {
+                    template_version: template.version,
+                    persona_used: persona.identity.name,
+                    enhancement_type: 'prompt_library_v2',
+                    schema_validated: schema ? true : false,
+                    validation_score: validationScore,
+                    quality_expected: promptResult.quality_expected || 0.90
+                }
+            };
+
+        } catch (error) {
+            console.warn('⚠️ Prompt Library skills enhancement failed, falling back to XML method:', error.message);
+            return await this.enhanceSkillsSectionXML(cvData, activityMetrics);
         }
     }
 
@@ -862,6 +1073,11 @@ Respond with ONLY this JSON structure:
      * Enhanced with XML structuring and few-shot learning (Issues #96, #97)
      */
     async enhanceExperience(cvData, activityMetrics) {
+        // Use new prompt library system if enabled
+        if (this.usePromptLibrary && this.promptLibrary.initialized) {
+            return await this.enhanceExperienceLibrary(cvData, activityMetrics);
+        }
+        
         // Use XML-structured prompts with few-shot examples for enhanced quality
         if (this.useXMLPrompts) {
             return await this.enhanceExperienceXML(cvData, activityMetrics);
@@ -954,6 +1170,91 @@ Respond with ONLY this JSON structure:
         } catch (error) {
             console.warn('⚠️ XML experience enhancement failed, falling back to legacy method');
             return await this.enhanceExperienceLegacy(cvData, activityMetrics);
+        }
+    }
+
+    /**
+     * Enhanced experience using Prompt Library v2.0
+     * Features: Version-controlled prompts, executive recruiter persona
+     */
+    async enhanceExperienceLibrary(cvData, activityMetrics) {
+        console.log('📚 Using Prompt Library v2.0 for experience enhancement...');
+        
+        try {
+            // Get template and persona from library
+            const template = await this.promptLibrary.getTemplate('experience-enhancement');
+            const persona = await this.promptLibrary.getPersona('executive-recruiter');
+            
+            if (!template || !persona) {
+                console.warn('⚠️ Required template or persona not found, falling back to XML method');
+                return await this.enhanceExperienceXML(cvData, activityMetrics);
+            }
+
+            // Prepare context data for template with market intelligence
+            const contextData = await this.prepareContextData(cvData, activityMetrics, 'experience_enhancement');
+            
+            // Construct prompt using library
+            const promptResult = await this.promptLibrary.constructPrompt(
+                'experience-enhancement', 
+                'executive-recruiter', 
+                contextData
+            );
+
+            console.log(`📊 Experience Enhancement (v${template.version})`);
+            console.log(`🎭 Persona: ${persona.identity.name} (${persona.identity.title})`);
+            
+            // Create messages for Claude API
+            const messages = [
+                {
+                    role: 'system',
+                    content: `You are ${persona.identity.name}, ${persona.identity.title} at ${persona.identity.company}. ${persona.perspective.evaluation_approach}. RESPOND ONLY with valid JSON following the exact schema provided. No explanations or meta-commentary.`
+                },
+                {
+                    role: 'user',
+                    content: promptResult.finalPrompt
+                }
+            ];
+
+            // Make API request
+            const response = await this.client.makeRequest(messages, { maxTokens: 2500 }, JSON.stringify(cvData.experience || []));
+            const responseText = response.content[0]?.text?.trim();
+            
+            // Clean and parse response
+            const cleanedResponse = this.cleanResponseText(responseText);
+            let enhancementData;
+            
+            try {
+                enhancementData = JSON.parse(cleanedResponse);
+            } catch (parseError) {
+                console.warn('⚠️ JSON parsing failed, attempting content extraction');
+                enhancementData = this.extractContentFromText(cleanedResponse);
+            }
+
+            // Validate against schema if available
+            const schema = await this.promptLibrary.getSchema('experience-enhancement-schema');
+            let validationScore = 0.85; // Default score
+            
+            if (schema) {
+                const validation = this.validateContentAgainstSchema(enhancementData, schema);
+                validationScore = validation.score;
+                console.log(`📋 Schema validation: ${validation.valid ? '✅' : '⚠️'} Score: ${validation.score.toFixed(2)}`);
+            }
+
+            return {
+                enhanced_experience: enhancementData.enhanced_experience || enhancementData,
+                enhancement_metadata: {
+                    template_version: template.version,
+                    persona_used: persona.identity.name,
+                    enhancement_type: 'prompt_library_v2',
+                    schema_validated: schema ? true : false,
+                    validation_score: validationScore,
+                    quality_expected: promptResult.quality_expected || 0.90
+                }
+            };
+
+        } catch (error) {
+            console.warn('⚠️ Prompt Library experience enhancement failed, falling back to XML method:', error.message);
+            return await this.enhanceExperienceXML(cvData, activityMetrics);
         }
     }
 
@@ -1110,8 +1411,107 @@ Respond with ONLY this JSON structure:
 
     /**
      * Enhance project descriptions with impact analysis
+     * Enhanced with Prompt Library v2.0 integration
      */
     async enhanceProjects(cvData, activityMetrics) {
+        // Use new prompt library system if enabled
+        if (this.usePromptLibrary && this.promptLibrary.initialized) {
+            return await this.enhanceProjectsLibrary(cvData, activityMetrics);
+        }
+        
+        // Legacy method for backward compatibility
+        return await this.enhanceProjectsLegacy(cvData, activityMetrics);
+    }
+
+    /**
+     * Enhanced projects using Prompt Library v2.0
+     * Features: Version-controlled prompts, technical product manager persona
+     */
+    async enhanceProjectsLibrary(cvData, activityMetrics) {
+        console.log('📚 Using Prompt Library v2.0 for projects enhancement...');
+        
+        try {
+            // Get template and persona from library
+            const template = await this.promptLibrary.getTemplate('projects-showcase');
+            const persona = await this.promptLibrary.getPersona('technical-product-manager');
+            
+            if (!template || !persona) {
+                console.warn('⚠️ Required template or persona not found, falling back to legacy method');
+                return await this.enhanceProjectsLegacy(cvData, activityMetrics);
+            }
+
+            // Prepare context data for template with market intelligence
+            const contextData = await this.prepareContextData(cvData, activityMetrics, 'projects_showcase');
+            
+            // Construct prompt using library
+            const promptResult = await this.promptLibrary.constructPrompt(
+                'projects-showcase', 
+                'technical-product-manager', 
+                contextData
+            );
+
+            console.log(`📊 Projects Enhancement (v${template.version})`);
+            console.log(`🎭 Persona: ${persona.identity.name} (${persona.identity.title})`);
+            
+            // Create messages for Claude API
+            const messages = [
+                {
+                    role: 'system',
+                    content: `You are ${persona.identity.name}, ${persona.identity.title} at ${persona.identity.company}. ${persona.perspective.evaluation_approach}. RESPOND ONLY with valid JSON following the exact schema provided. No explanations or meta-commentary.`
+                },
+                {
+                    role: 'user',
+                    content: promptResult.finalPrompt
+                }
+            ];
+
+            // Make API request
+            const response = await this.client.makeRequest(messages, { maxTokens: 2000 }, JSON.stringify(cvData.projects || []));
+            const responseText = response.content[0]?.text?.trim();
+            
+            // Clean and parse response
+            const cleanedResponse = this.cleanResponseText(responseText);
+            let enhancementData;
+            
+            try {
+                enhancementData = JSON.parse(cleanedResponse);
+            } catch (parseError) {
+                console.warn('⚠️ JSON parsing failed, attempting content extraction');
+                enhancementData = this.extractContentFromText(cleanedResponse);
+            }
+
+            // Validate against schema if available
+            const schema = await this.promptLibrary.getSchema('projects-showcase-schema');
+            let validationScore = 0.85; // Default score
+            
+            if (schema) {
+                const validation = this.validateContentAgainstSchema(enhancementData, schema);
+                validationScore = validation.score;
+                console.log(`📋 Schema validation: ${validation.valid ? '✅' : '⚠️'} Score: ${validation.score.toFixed(2)}`);
+            }
+
+            return {
+                enhanced_projects: enhancementData.enhanced_projects || enhancementData,
+                enhancement_metadata: {
+                    template_version: template.version,
+                    persona_used: persona.identity.name,
+                    enhancement_type: 'prompt_library_v2',
+                    schema_validated: schema ? true : false,
+                    validation_score: validationScore,
+                    quality_expected: promptResult.quality_expected || 0.90
+                }
+            };
+
+        } catch (error) {
+            console.warn('⚠️ Prompt Library projects enhancement failed, falling back to legacy method:', error.message);
+            return await this.enhanceProjectsLegacy(cvData, activityMetrics);
+        }
+    }
+
+    /**
+     * Legacy project enhancement method
+     */
+    async enhanceProjectsLegacy(cvData, activityMetrics) {
         const messages = [
             {
                 role: 'system',
@@ -1597,6 +1997,295 @@ Respond with ONLY this JSON structure:
         return cleaned;
     }
     
+    /**
+     * Prepare context data for prompt template substitution
+     */
+    async prepareContextData(cvData, activityMetrics, contextType = 'general') {
+        // Get dynamic market context if available
+        let marketContext = "Current technology market trends";
+        let skillAlignment = null;
+        
+        if (this.useMarketContext && this.marketContext) {
+            try {
+                // Generate market-specific context for this enhancement type
+                marketContext = this.marketContext.generateMarketContext(contextType, cvData.skills);
+                
+                // Get skill alignment analysis
+                skillAlignment = this.marketContext.getSkillMarketAlignment(cvData.skills || []);
+                
+                console.log(`📊 Market context integrated: ${skillAlignment.overall_score}/100 alignment score`);
+            } catch (error) {
+                console.warn('⚠️ Failed to load market context, using fallback');
+            }
+        }
+        
+        return {
+            // Personal info
+            name: cvData.personal_info?.name || "Professional",
+            title: cvData.personal_info?.title || "Technical Professional",
+            
+            // Activity metrics
+            leadership_capacity: this.assessLeadershipCapacity(activityMetrics),
+            activity_context: this.buildActivityContext(activityMetrics),
+            domain_areas: this.extractDomainAreas(cvData),
+            key_differentiators: this.identifyKeyDifferentiators(cvData, activityMetrics),
+            
+            // Technical profile
+            technical_profile: this.buildTechnicalProfile(activityMetrics),
+            competitive_advantage: this.identifyCompetitiveAdvantage(cvData, activityMetrics),
+            
+            // Evidence chain
+            evidence_points: this.buildEvidenceChain(cvData, activityMetrics),
+            
+            // Enhanced market context with real intelligence
+            market_context: marketContext,
+            market_alignment: skillAlignment,
+            target_market: this.determineTargetMarket(cvData, skillAlignment),
+            positioning_strategy: this.buildPositioningStrategy(cvData, skillAlignment),
+            creativity_approach: this.getCreativityApproach(),
+            
+            // Current content
+            current_content: cvData.professional_summary || ""
+        };
+    }
+
+    /**
+     * Determine target market based on CV data and market alignment
+     */
+    determineTargetMarket(cvData, skillAlignment) {
+        if (!skillAlignment) return "AI/ML engineering market";
+        
+        const score = skillAlignment.overall_score;
+        if (score >= 80) return "Senior AI/ML engineering roles";
+        if (score >= 65) return "Mid-senior technical roles with AI focus";
+        if (score >= 50) return "Technical roles with AI integration opportunities";
+        return "Technical roles with AI upskilling potential";
+    }
+
+    /**
+     * Build positioning strategy based on market alignment
+     */
+    buildPositioningStrategy(cvData, skillAlignment) {
+        if (!skillAlignment) return "Focus on technical excellence and continuous learning";
+        
+        const strategies = [];
+        
+        if (skillAlignment.insights.length > 0) {
+            strategies.push(`Leverage market-aligned skills: ${skillAlignment.insights.slice(0, 2).map(i => i.skill).join(', ')}`);
+        }
+        
+        if (skillAlignment.recommendations.length > 0) {
+            strategies.push(`Address critical gaps: ${skillAlignment.recommendations.slice(0, 2).map(r => r.skill).join(', ')}`);
+        }
+        
+        strategies.push("Position as forward-thinking technologist ready for AI-driven future");
+        
+        return strategies.join('; ');
+    }
+
+    /**
+     * Assess leadership capacity from activity metrics
+     */
+    assessLeadershipCapacity(activityMetrics) {
+        const commitCount = activityMetrics?.total_commits || 0;
+        const repoCount = activityMetrics?.total_repos || 0;
+        
+        if (commitCount > 2000 && repoCount > 15) {
+            return "demonstrates exceptional development velocity and technical leadership";
+        } else if (commitCount > 1000 && repoCount > 8) {
+            return "shows strong technical capabilities with leadership potential";
+        } else if (commitCount > 500 && repoCount > 4) {
+            return "exhibits solid technical foundation with growing influence";
+        } else {
+            return "displays focused technical expertise";
+        }
+    }
+
+    /**
+     * Build activity context description
+     */
+    buildActivityContext(activityMetrics) {
+        const parts = [];
+        
+        if (activityMetrics?.total_commits) {
+            parts.push(`${activityMetrics.total_commits}+ commits`);
+        }
+        if (activityMetrics?.total_repos) {
+            parts.push(`${activityMetrics.total_repos} active repositories`);
+        }
+        if (activityMetrics?.top_languages?.length) {
+            parts.push(`polyglot expertise in ${activityMetrics.top_languages.slice(0, 3).join(', ')}`);
+        }
+        
+        return parts.join(' across ') || 'focused technical development';
+    }
+
+    /**
+     * Extract domain areas from CV data
+     */
+    extractDomainAreas(cvData) {
+        const domains = [];
+        
+        // From experience
+        if (cvData.experience) {
+            domains.push("systems analysis", "AI/ML engineering");
+        }
+        
+        // From skills
+        if (cvData.skills) {
+            const skillAreas = cvData.skills.map(s => s.category).filter((v, i, a) => a.indexOf(v) === i);
+            domains.push(...skillAreas.slice(0, 3));
+        }
+        
+        return domains.slice(0, 4).join(', ') || "software engineering, technical analysis";
+    }
+
+    /**
+     * Identify key differentiators
+     */
+    identifyKeyDifferentiators(cvData, activityMetrics) {
+        const differentiators = [];
+        
+        // High activity
+        if (activityMetrics?.total_commits > 1500) {
+            differentiators.push("exceptional development velocity");
+        }
+        
+        // AI focus
+        if (cvData.personal_info?.title?.includes('AI') || cvData.professional_summary?.includes('AI')) {
+            differentiators.push("AI/ML specialization");
+        }
+        
+        // System analysis
+        if (cvData.personal_info?.title?.includes('Systems') || cvData.personal_info?.title?.includes('Analyst')) {
+            differentiators.push("systems thinking and analysis");
+        }
+        
+        // Polyglot
+        if (activityMetrics?.top_languages?.length > 3) {
+            differentiators.push("polyglot technical expertise");
+        }
+        
+        return differentiators.join(', ') || "technical depth and analytical thinking";
+    }
+
+    /**
+     * Build technical profile description
+     */
+    buildTechnicalProfile(activityMetrics) {
+        const languages = activityMetrics?.top_languages || [];
+        if (languages.length > 0) {
+            return `${languages.slice(0, 3).join('/')} expertise with ${languages.length}+ language proficiency`;
+        }
+        return "multi-language technical capabilities";
+    }
+
+    /**
+     * Identify competitive advantage
+     */
+    identifyCompetitiveAdvantage(cvData, activityMetrics) {
+        const advantages = [];
+        
+        if (activityMetrics?.total_commits > 2000) {
+            advantages.push("exceptional development productivity");
+        }
+        
+        if (cvData.personal_info?.title?.includes('AI')) {
+            advantages.push("AI engineering specialization in high-demand market");
+        }
+        
+        if (activityMetrics?.total_repos > 10) {
+            advantages.push("diverse project portfolio demonstrating adaptability");
+        }
+        
+        return advantages.join(' combined with ') || "technical versatility and problem-solving capability";
+    }
+
+    /**
+     * Build evidence chain for validation
+     */
+    buildEvidenceChain(cvData, activityMetrics) {
+        const evidence = [];
+        
+        if (activityMetrics?.total_commits) {
+            evidence.push(`${activityMetrics.total_commits} commits demonstrating consistent technical contribution`);
+        }
+        
+        if (activityMetrics?.total_repos) {
+            evidence.push(`${activityMetrics.total_repos} repositories showing project diversity`);
+        }
+        
+        if (cvData.experience?.length) {
+            evidence.push(`${cvData.experience.length} professional roles indicating career progression`);
+        }
+        
+        if (activityMetrics?.top_languages?.length) {
+            evidence.push(`${activityMetrics.top_languages.length} programming languages showing technical versatility`);
+        }
+        
+        return evidence.join('; ') || 'Professional experience and technical contributions';
+    }
+
+    /**
+     * Get creativity approach based on level
+     */
+    getCreativityApproach() {
+        switch (CONFIG.CREATIVITY_LEVEL) {
+            case 'conservative':
+                return 'Focus on proven achievements and established capabilities with measured professional language';
+            case 'creative':
+                return 'Emphasize unique value propositions and innovative technical approaches with compelling language';
+            case 'innovative':
+                return 'Highlight transformative potential and paradigm-shifting technical leadership with visionary positioning';
+            default:
+                return 'Balance proven track record with growth potential using confident professional language';
+        }
+    }
+
+    /**
+     * Validate enhancement data against JSON schema
+     */
+    validateAgainstSchema(data, schema) {
+        // Simple validation - in production, use a proper JSON schema validator
+        let score = 0.5; // Base score
+        let valid = true;
+        
+        try {
+            // Check required fields from schema
+            const required = schema.required || [];
+            for (const field of required) {
+                if (data[field] !== undefined) {
+                    score += 0.3 / required.length;
+                } else {
+                    valid = false;
+                }
+            }
+            
+            // Check enhanced field length if present
+            if (data.enhanced) {
+                const minLength = schema.properties?.enhanced?.minLength || 100;
+                const maxLength = schema.properties?.enhanced?.maxLength || 500;
+                if (data.enhanced.length >= minLength && data.enhanced.length <= maxLength) {
+                    score += 0.2;
+                }
+            }
+            
+            // Bonus for quality elements
+            if (data.key_differentiators?.length) score += 0.1;
+            if (data.technical_positioning) score += 0.1;
+            if (data.confidence_indicators?.length) score += 0.1;
+            
+        } catch (error) {
+            valid = false;
+            score = 0.3;
+        }
+        
+        return {
+            valid: valid && score >= 0.7,
+            score: Math.min(score, 1.0)
+        };
+    }
+
     /**
      * Extract content from text when JSON parsing fails
      */

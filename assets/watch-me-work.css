@@ -911,6 +911,40 @@ select:focus {
   50% { opacity: 0.5; transform: scale(1.2); }
 }
 
+/* New activity animations */
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes newActivityGlow {
+  0% { box-shadow: 0 0 0 rgba(34, 197, 94, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); }
+  100% { box-shadow: 0 0 0 rgba(34, 197, 94, 0.4); }
+}
+
+/* New activity indicator */
+.activity-new {
+  animation: slideInFromTop 0.5s ease-out, newActivityGlow 2s ease-in-out;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.activity-live-badge {
+  background: var(--secondary-color);
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: var(--space-2);
+  animation: pulse 2s infinite;
+}
+
 .status-indicator.disconnected .pulse {
   background: var(--danger-color);
   animation: none;

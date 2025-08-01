@@ -495,6 +495,25 @@ body {
   color: var(--color-text-inverse);
 }
 
+.nav-item.nav-external {
+  background: var(--color-success);
+  color: var(--color-background);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-item.nav-external:hover {
+  background: var(--color-success-darker, #059669);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
+}
+
+.external-indicator {
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+  margin-left: var(--space-1);
+}
+
 .nav-icon {
   font-size: var(--font-size-lg);
 }
@@ -1177,4 +1196,249 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* External Link Feedback Styles */
+.external-link {
+  position: relative;
+}
+
+.external-link .external-indicator {
+  opacity: 0.6;
+  font-size: 0.8em;
+  color: var(--color-text-secondary);
+}
+
+.external-link.link-checking {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.external-link.link-checking::after {
+  content: "🔍";
+  font-size: 0.8em;
+  margin-left: 4px;
+  animation: pulse 1s infinite;
+}
+
+.external-link.link-available .external-indicator {
+  color: var(--color-success, #10b981);
+}
+
+.external-link.link-unavailable {
+  color: var(--color-warning, #f59e0b);
+  text-decoration-style: wavy;
+}
+
+.external-link.link-unavailable .warning-icon {
+  font-size: 0.8em;
+  margin-left: 2px;
+}
+
+/* Hover effects for external links */
+.external-link:hover {
+  background-color: var(--color-bg-secondary);
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Interactive Metrics Styles */
+.metrics-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 80px;
+  z-index: 1000;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.metrics-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.interactive-metrics {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.interactive-metrics.hidden {
+  display: none;
+}
+
+.interactive-metrics.visible {
+  display: flex;
+}
+
+.interactive-metrics > div {
+  background: var(--color-bg);
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border);
+}
+
+.metrics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.metrics-header h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.3em;
+}
+
+.metrics-close {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.metrics-close:hover {
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.metric-card {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card:hover,
+.metric-card.highlighted {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-primary);
+}
+
+.metric-card.expanded {
+  background: var(--color-primary);
+  color: white;
+}
+
+.metric-card.expanded .metric-value,
+.metric-card.expanded .metric-label {
+  color: white;
+}
+
+.metric-value {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.metric-label {
+  font-size: 0.9em;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.metric-detail {
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  transition: all 0.3s ease;
+}
+
+.metric-card.expanded .metric-detail {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.metric-card.animate-in {
+  animation: slideInUp 0.6s ease forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.metrics-footer {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.85em;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Mobile responsiveness for metrics */
+@media (max-width: 768px) {
+  .metrics-toggle {
+    bottom: 100px;
+    right: 20px;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .metric-card {
+    padding: 12px;
+  }
+  
+  .metric-value {
+    font-size: 1.6em;
+  }
 }
