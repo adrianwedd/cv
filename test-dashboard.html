@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Intelligence Dashboard Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: linear-gradient(135deg, #6f42c1, #e83e8c);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(111, 66, 193, 0.3);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🚀 Development Intelligence Dashboard Test</h1>
+        <p>This page tests the Development Intelligence Dashboard implementation.</p>
+        
+        <div id="test-results"></div>
+        
+        <button class="test-button" onclick="testDashboard()">
+            📊 Test Dashboard Initialization
+        </button>
+        
+        <button class="test-button" onclick="testGitHubAPI()">
+            🔗 Test GitHub API Connection
+        </button>
+        
+        <button class="test-button" onclick="showDashboard()">
+            🎯 Show Development Intelligence Dashboard
+        </button>
+        
+        <div id="status-messages"></div>
+    </div>
+
+    <!-- Load the dashboard scripts -->
+    <script src="assets/github-actions-visualizer.js"></script>
+    <script src="assets/github-actions-analytics.js"></script>
+    <script src="assets/github-actions-drill-down.js"></script>
+    <script src="assets/development-intelligence-dashboard.js"></script>
+
+    <script>
+        let dashboard = null;
+        
+        function addStatus(message, type = 'success') {
+            const statusDiv = document.getElementById('status-messages');
+            const statusElement = document.createElement('div');
+            statusElement.className = `status ${type}`;
+            statusElement.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${message}`;
+            statusDiv.appendChild(statusElement);
+            statusDiv.scrollTop = statusDiv.scrollHeight;
+        }
+        
+        function testDashboard() {
+            try {
+                if (typeof DevelopmentIntelligenceDashboard === 'undefined') {
+                    addStatus('❌ DevelopmentIntelligenceDashboard class not found', 'error');
+                    return;
+                }
+                
+                if (dashboard) {
+                    dashboard.destroy();
+                }
+                
+                dashboard = new DevelopmentIntelligenceDashboard({
+                    owner: 'adrianwedd',
+                    repo: 'cv',
+                    refreshInterval: 30000
+                });
+                
+                addStatus('✅ Development Intelligence Dashboard initialized successfully');
+                addStatus('📊 Dashboard instance created and ready to use');
+                
+            } catch (error) {
+                addStatus(`❌ Dashboard initialization failed: ${error.message}`, 'error');
+                console.error('Dashboard test error:', error);
+            }
+        }
+        
+        async function testGitHubAPI() {
+            try {
+                addStatus('🔄 Testing GitHub API connection...');
+                
+                const response = await fetch(
+                    'https://api.github.com/repos/adrianwedd/cv/actions/runs?per_page=5'
+                );
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addStatus(`✅ GitHub API connected successfully`);
+                    addStatus(`📊 Found ${data.workflow_runs?.length || 0} recent workflow runs`);
+                } else {
+                    addStatus(`⚠️ GitHub API returned status: ${response.status}`, 'error');
+                }
+                
+            } catch (error) {
+                addStatus(`❌ GitHub API test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        function showDashboard() {
+            if (!dashboard) {
+                addStatus('⚠️ Dashboard not initialized. Please test initialization first.', 'error');
+                return;
+            }
+            
+            try {
+                dashboard.showDashboard();
+                addStatus('✅ Dashboard opened successfully');
+            } catch (error) {
+                addStatus(`❌ Failed to show dashboard: ${error.message}`, 'error');
+            }
+        }
+        
+        // Auto-test on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            addStatus('🚀 Test page loaded successfully');
+            addStatus('📋 Ready to test Development Intelligence Dashboard');
+            
+            // Check if required classes are available
+            const requiredClasses = [
+                'DevelopmentIntelligenceDashboard',
+                'GitHubActionsVisualizer',
+                'GitHubActionsAnalytics',
+                'GitHubActionsDrillDown'
+            ];
+            
+            requiredClasses.forEach(className => {
+                if (typeof window[className] !== 'undefined') {
+                    addStatus(`✅ ${className} class loaded`);
+                } else {
+                    addStatus(`⚠️ ${className} class not found`, 'error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

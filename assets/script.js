@@ -631,6 +631,9 @@ class CVApplication {
         
         // Initialize GitHub Actions Visualizer
         this.initializeGitHubActionsVisualizer();
+        
+        // Initialize Development Intelligence Dashboard
+        this.initializeDevelopmentIntelligenceDashboard();
     }
     
     /**
@@ -652,6 +655,28 @@ class CVApplication {
             }
         } catch (error) {
             console.error('❌ Failed to initialize GitHub Actions Visualizer:', error);
+        }
+    }
+    
+    /**
+     * Initialize Development Intelligence Dashboard
+     */
+    initializeDevelopmentIntelligenceDashboard() {
+        try {
+            if (typeof DevelopmentIntelligenceDashboard !== 'undefined') {
+                this.intelligenceDashboard = new DevelopmentIntelligenceDashboard({
+                    owner: CONFIG.USERNAME,
+                    repo: 'cv',
+                    refreshInterval: 30000, // 30 seconds
+                    dataRetentionDays: 90
+                });
+                
+                console.log('✅ Development Intelligence Dashboard initialized');
+            } else {
+                console.warn('⚠️ DevelopmentIntelligenceDashboard not available');
+            }
+        } catch (error) {
+            console.error('❌ Failed to initialize Development Intelligence Dashboard:', error);
         }
     }
 

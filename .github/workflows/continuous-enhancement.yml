@@ -441,10 +441,86 @@ jobs:
           *Continuous Enhancement Pipeline ${{ env.PIPELINE_VERSION }}*
           EOF
 
+  watch-me-work-refresh:
+    name: 🎬 Watch Me Work Data Refresh
+    runs-on: ubuntu-latest
+    needs: continuous-intelligence
+    if: always()  # Run regardless of other job status
+    timeout-minutes: 5
+    
+    steps:
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Install Dependencies
+        run: |
+          cd .github/scripts
+          npm ci --prefer-offline --no-audit
+          
+      - name: 🎬 Refresh Watch Me Work Data
+        run: |
+          cd .github/scripts
+          echo "🎬 **REFRESHING WATCH ME WORK DATA**"
+          echo "⏰ Refresh time: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
+          
+          # Run with timeout to prevent hanging
+          timeout 240 node watch-me-work-data-processor.js
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Watch Me Work data refreshed successfully"
+            
+            # Verify data quality
+            if [ -f "../../data/watch-me-work-data.json" ]; then
+              ACTIVITIES=$(jq '.activities | length' ../../data/watch-me-work-data.json)
+              REPOS=$(jq '.repositories | length' ../../data/watch-me-work-data.json)
+              TIMESTAMP=$(jq -r '.metadata.generated_at' ../../data/watch-me-work-data.json)
+              echo "📊 Dashboard stats: $ACTIVITIES activities, $REPOS repositories"
+              echo "⏰ Data timestamp: $TIMESTAMP"
+            fi
+            
+            # Commit updated data
+            cd ../..
+            git config --local user.email "watch-me-work@adrianwedd.com"
+            git config --local user.name "adrianwedd(watch-me-work)"
+            
+            git add data/watch-me-work-data.json
+            
+            if ! git diff --cached --quiet; then
+              git commit -m "🎬 Update Watch Me Work dashboard data
+
+              📊 Fresh activity data generated at $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
+              🔄 Activities: $ACTIVITIES | Repositories: $REPOS
+              
+              🤖 Generated with [Claude Code](https://claude.ai/code)
+              
+              Co-Authored-By: Claude <noreply@anthropic.com>"
+              
+              git push
+              echo "✅ Watch Me Work data committed and pushed"
+            else
+              echo "📝 No changes to Watch Me Work data"
+            fi
+          else
+            echo "⚠️ Watch Me Work data refresh failed or timed out"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   continuous-monitoring:
     name: 📊 Continuous Monitoring
     runs-on: ubuntu-latest
-    needs: [continuous-intelligence, continuous-enhancement]
+    needs: [continuous-intelligence, continuous-enhancement, watch-me-work-refresh]
     if: always()
     
     steps:

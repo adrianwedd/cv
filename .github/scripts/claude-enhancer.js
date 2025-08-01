@@ -44,6 +44,7 @@ const { sleep } = require('./utils/apiClient');
 const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
 const { PromptLibraryManager } = require('./enhancer-modules/prompt-library-manager');
 const { MarketContextIntegrator } = require('./enhancer-modules/market-context-integrator');
+const { PersonaDrivenEnhancer } = require('./enhancer-modules/persona-driven-enhancer');
 
 // Configuration
 const CONFIG = {
@@ -281,11 +282,13 @@ class CVContentEnhancer {
         this.xmlIntegrator = new XMLFewShotIntegrator();
         this.promptLibrary = new PromptLibraryManager('v2.0');
         this.marketContext = new MarketContextIntegrator();
+        this.personaDrivenEnhancer = null; // Will be initialized after prompt library
         this.enhancementStartTime = Date.now();
         this.enhancementResults = {};
         this.useXMLPrompts = process.env.USE_XML_PROMPTS !== 'false'; // Default to true
         this.usePromptLibrary = process.env.USE_PROMPT_LIBRARY !== 'false'; // Default to true
         this.useMarketContext = process.env.USE_MARKET_CONTEXT !== 'false'; // Default to true
+        this.usePersonaDriven = process.env.USE_PERSONA_DRIVEN !== 'false'; // Default to true - Issue #92
     }
 
     /**
@@ -307,6 +310,19 @@ class CVContentEnhancer {
                 console.log('📚 Initializing Prompt Library v2.0...');
                 await this.promptLibrary.initialize();
                 console.log('✅ Prompt Library ready with', this.promptLibrary.templates.size, 'templates');
+                
+                // Initialize persona-driven enhancer after prompt library is ready
+                if (this.usePersonaDriven) {
+                    console.log('🎭 Initializing Persona-Driven Enhancement System...');
+                    const activityMetrics = await this.loadActivityMetrics();
+                    const cvData = await this.loadCurrentCVData();
+                    this.personaDrivenEnhancer = new PersonaDrivenEnhancer(
+                        this.promptLibrary,
+                        cvData,
+                        activityMetrics
+                    );
+                    console.log('✅ Persona-Driven Enhancement ready for dynamic persona selection');
+                }
             }
 
             // Initialize market context integrator if enabled
@@ -350,6 +366,14 @@ class CVContentEnhancer {
 
             // Generate enhancement summary
             enhancementPlan.enhancement_summary = this.generateEnhancementSummary(enhancementPlan);
+
+            // Generate persona effectiveness report if using persona-driven enhancement
+            if (this.usePersonaDriven && this.personaDrivenEnhancer) {
+                console.log('🎭 Generating persona effectiveness report...');
+                const personaReport = await this.personaDrivenEnhancer.generateEnhancementReport();
+                enhancementPlan.persona_effectiveness_report = personaReport;
+                console.log(`📊 Persona usage summary: ${Object.keys(personaReport.persona_usage).length} persona-section combinations`);
+            }
 
             // Save enhancement results
             await this.saveEnhancementResults(enhancementPlan);
@@ -413,22 +437,43 @@ class CVContentEnhancer {
         console.log('📚 Using Prompt Library v2.0 for professional summary enhancement...');
         
         try {
-            // Get template and persona from library
+            // Get template from library
             const template = await this.promptLibrary.getTemplate('professional-summary');
-            const persona = await this.promptLibrary.getPersona('senior-technical-recruiter');
+            if (!template) {
+                console.warn('⚠️ Template not found, falling back to XML method');
+                return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
+            }
             
-            if (!template || !persona) {
-                console.warn('⚠️ Required template or persona not found, falling back to XML method');
+            // Use persona-driven selection if enabled
+            let persona, personaId;
+            if (this.usePersonaDriven && this.personaDrivenEnhancer) {
+                const currentSummary = cvData?.professional_summary || '';
+                const personaSelection = await this.personaDrivenEnhancer.enhanceWithPersona(
+                    'professional_summary',
+                    currentSummary,
+                    'enhancement'
+                );
+                personaId = personaSelection.persona;
+                persona = await this.promptLibrary.getPersona(personaId);
+                console.log(`🎭 Dynamic persona selected: ${personaId} (${personaSelection.confidence * 100}% confidence)`);
+            } else {
+                // Fallback to default persona
+                personaId = 'senior-technical-recruiter';
+                persona = await this.promptLibrary.getPersona(personaId);
+            }
+            
+            if (!persona) {
+                console.warn('⚠️ Persona not found, falling back to XML method');
                 return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
             }
 
             // Prepare context data for template with market intelligence
             const contextData = await this.prepareContextData(cvData, activityMetrics, 'professional_summary');
             
-            // Construct prompt using library
+            // Construct prompt using library with dynamically selected persona
             const promptResult = await this.promptLibrary.constructPrompt(
                 'professional-summary', 
-                'senior-technical-recruiter', 
+                personaId, 
                 contextData
             );
 
@@ -842,28 +887,49 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
 
     /**
      * Enhanced skills section using Prompt Library v2.0
-     * Features: Version-controlled prompts, technical assessment specialist persona
+     * Features: Version-controlled prompts, dynamic persona selection
      */
     async enhanceSkillsSectionLibrary(cvData, activityMetrics) {
         console.log('📚 Using Prompt Library v2.0 for skills section enhancement...');
         
         try {
-            // Get template and persona from library
+            // Get template from library
             const template = await this.promptLibrary.getTemplate('skills-assessment');
-            const persona = await this.promptLibrary.getPersona('technical-assessment-specialist');
+            if (!template) {
+                console.warn('⚠️ Template not found, falling back to XML method');
+                return await this.enhanceSkillsSectionXML(cvData, activityMetrics);
+            }
             
-            if (!template || !persona) {
-                console.warn('⚠️ Required template or persona not found, falling back to XML method');
+            // Use persona-driven selection if enabled
+            let persona, personaId;
+            if (this.usePersonaDriven && this.personaDrivenEnhancer) {
+                const currentSkills = JSON.stringify(cvData?.skills || []);
+                const personaSelection = await this.personaDrivenEnhancer.enhanceWithPersona(
+                    'skills',
+                    currentSkills,
+                    'assessment'
+                );
+                personaId = personaSelection.persona;
+                persona = await this.promptLibrary.getPersona(personaId);
+                console.log(`🎭 Dynamic persona selected: ${personaId} (${personaSelection.confidence * 100}% confidence)`);
+            } else {
+                // Fallback to default persona
+                personaId = 'technical-assessment-specialist';
+                persona = await this.promptLibrary.getPersona(personaId);
+            }
+            
+            if (!persona) {
+                console.warn('⚠️ Persona not found, falling back to XML method');
                 return await this.enhanceSkillsSectionXML(cvData, activityMetrics);
             }
 
             // Prepare context data for template with market intelligence
             const contextData = await this.prepareContextData(cvData, activityMetrics, 'skills_assessment');
             
-            // Construct prompt using library
+            // Construct prompt using library with dynamically selected persona
             const promptResult = await this.promptLibrary.constructPrompt(
                 'skills-assessment', 
-                'technical-assessment-specialist', 
+                personaId, 
                 contextData
             );
 
@@ -1175,28 +1241,49 @@ Respond with ONLY this JSON structure:
 
     /**
      * Enhanced experience using Prompt Library v2.0
-     * Features: Version-controlled prompts, executive recruiter persona
+     * Features: Version-controlled prompts, dynamic persona selection
      */
     async enhanceExperienceLibrary(cvData, activityMetrics) {
         console.log('📚 Using Prompt Library v2.0 for experience enhancement...');
         
         try {
-            // Get template and persona from library
+            // Get template from library
             const template = await this.promptLibrary.getTemplate('experience-enhancement');
-            const persona = await this.promptLibrary.getPersona('executive-recruiter');
+            if (!template) {
+                console.warn('⚠️ Template not found, falling back to XML method');
+                return await this.enhanceExperienceXML(cvData, activityMetrics);
+            }
             
-            if (!template || !persona) {
-                console.warn('⚠️ Required template or persona not found, falling back to XML method');
+            // Use persona-driven selection if enabled
+            let persona, personaId;
+            if (this.usePersonaDriven && this.personaDrivenEnhancer) {
+                const currentExperience = JSON.stringify(cvData?.experience || []);
+                const personaSelection = await this.personaDrivenEnhancer.enhanceWithPersona(
+                    'experience',
+                    currentExperience,
+                    'optimization'
+                );
+                personaId = personaSelection.persona;
+                persona = await this.promptLibrary.getPersona(personaId);
+                console.log(`🎭 Dynamic persona selected: ${personaId} (${personaSelection.confidence * 100}% confidence)`);
+            } else {
+                // Fallback to default persona
+                personaId = 'executive-recruiter';
+                persona = await this.promptLibrary.getPersona(personaId);
+            }
+            
+            if (!persona) {
+                console.warn('⚠️ Persona not found, falling back to XML method');
                 return await this.enhanceExperienceXML(cvData, activityMetrics);
             }
 
             // Prepare context data for template with market intelligence
             const contextData = await this.prepareContextData(cvData, activityMetrics, 'experience_enhancement');
             
-            // Construct prompt using library
+            // Construct prompt using library with dynamically selected persona
             const promptResult = await this.promptLibrary.constructPrompt(
                 'experience-enhancement', 
-                'executive-recruiter', 
+                personaId, 
                 contextData
             );
 
@@ -1425,28 +1512,49 @@ Respond with ONLY this JSON structure:
 
     /**
      * Enhanced projects using Prompt Library v2.0
-     * Features: Version-controlled prompts, technical product manager persona
+     * Features: Version-controlled prompts, dynamic persona selection
      */
     async enhanceProjectsLibrary(cvData, activityMetrics) {
         console.log('📚 Using Prompt Library v2.0 for projects enhancement...');
         
         try {
-            // Get template and persona from library
+            // Get template from library
             const template = await this.promptLibrary.getTemplate('projects-showcase');
-            const persona = await this.promptLibrary.getPersona('technical-product-manager');
+            if (!template) {
+                console.warn('⚠️ Template not found, falling back to legacy method');
+                return await this.enhanceProjectsLegacy(cvData, activityMetrics);
+            }
             
-            if (!template || !persona) {
-                console.warn('⚠️ Required template or persona not found, falling back to legacy method');
+            // Use persona-driven selection if enabled
+            let persona, personaId;
+            if (this.usePersonaDriven && this.personaDrivenEnhancer) {
+                const currentProjects = JSON.stringify(cvData?.projects || []);
+                const personaSelection = await this.personaDrivenEnhancer.enhanceWithPersona(
+                    'projects',
+                    currentProjects,
+                    'showcase'
+                );
+                personaId = personaSelection.persona;
+                persona = await this.promptLibrary.getPersona(personaId);
+                console.log(`🎭 Dynamic persona selected: ${personaId} (${personaSelection.confidence * 100}% confidence)`);
+            } else {
+                // Fallback to default persona
+                personaId = 'technical-product-manager';
+                persona = await this.promptLibrary.getPersona(personaId);
+            }
+            
+            if (!persona) {
+                console.warn('⚠️ Persona not found, falling back to legacy method');
                 return await this.enhanceProjectsLegacy(cvData, activityMetrics);
             }
 
             // Prepare context data for template with market intelligence
             const contextData = await this.prepareContextData(cvData, activityMetrics, 'projects_showcase');
             
-            // Construct prompt using library
+            // Construct prompt using library with dynamically selected persona
             const promptResult = await this.promptLibrary.constructPrompt(
                 'projects-showcase', 
-                'technical-product-manager', 
+                personaId, 
                 contextData
             );
 
