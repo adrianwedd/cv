@@ -234,6 +234,11 @@ jobs:
     if: needs.continuous-intelligence.outputs.should-enhance == 'true'
     timeout-minutes: 25
     
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
     environment:
       name: continuous-deployment
       url: https://adrianwedd.github.io/cv
@@ -373,6 +378,16 @@ jobs:
           fi
 
       - name: 🚀 Intelligent Deployment
+        run: |
+          # Generate timestamp for commit message
+          TIMESTAMP=$(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
+          
+          # Deploy with dynamic commit message
+          echo "🚀 Deploying with Intelligent GitHub Pages Action..."
+          echo "📊 Scope: ${{ needs.continuous-intelligence.outputs.enhancement-scope }}"
+          echo "⏰ Timestamp: $TIMESTAMP"
+        
+      - name: 📤 GitHub Pages Deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -384,7 +399,7 @@ jobs:
             📊 Scope: ${{ needs.continuous-intelligence.outputs.enhancement-scope }}
             🗂️ Data: ${{ needs.continuous-intelligence.outputs.data-freshness }}
             📈 Market: ${{ needs.continuous-intelligence.outputs.market-update-needed && 'updated' || 'cached' }}
-            ⏰ Time: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
+            ⏰ Deployment: $(date +'%Y-%m-%d %H:%M UTC')
             
             🤖 Generated with [Claude Code](https://claude.ai/code)
 
