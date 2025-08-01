@@ -43,6 +43,7 @@ const https = require('https');
 const { sleep } = require('./utils/apiClient');
 const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
 const { PromptLibraryManager } = require('./enhancer-modules/prompt-library-manager');
+const { MarketContextIntegrator } = require('./enhancer-modules/market-context-integrator');
 
 // Configuration
 const CONFIG = {
@@ -279,10 +280,12 @@ class CVContentEnhancer {
         this.client = new ClaudeApiClient(CONFIG.ANTHROPIC_API_KEY);
         this.xmlIntegrator = new XMLFewShotIntegrator();
         this.promptLibrary = new PromptLibraryManager('v2.0');
+        this.marketContext = new MarketContextIntegrator();
         this.enhancementStartTime = Date.now();
         this.enhancementResults = {};
         this.useXMLPrompts = process.env.USE_XML_PROMPTS !== 'false'; // Default to true
         this.usePromptLibrary = process.env.USE_PROMPT_LIBRARY !== 'false'; // Default to true
+        this.useMarketContext = process.env.USE_MARKET_CONTEXT !== 'false'; // Default to true
     }
 
     /**
@@ -304,6 +307,13 @@ class CVContentEnhancer {
                 console.log('📚 Initializing Prompt Library v2.0...');
                 await this.promptLibrary.initialize();
                 console.log('✅ Prompt Library ready with', this.promptLibrary.templates.size, 'templates');
+            }
+
+            // Initialize market context integrator if enabled
+            if (this.useMarketContext) {
+                console.log('📊 Initializing Market Context Integrator...');
+                await this.marketContext.initialize();
+                console.log('✅ Market intelligence loaded and ready');
             }
 
             // Load existing CV data and activity metrics
@@ -412,8 +422,8 @@ class CVContentEnhancer {
                 return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
             }
 
-            // Prepare context data for template
-            const contextData = this.prepareContextData(cvData, activityMetrics);
+            // Prepare context data for template with market intelligence
+            const contextData = await this.prepareContextData(cvData, activityMetrics, 'professional_summary');
             
             // Construct prompt using library
             const promptResult = await this.promptLibrary.constructPrompt(
@@ -1711,7 +1721,25 @@ Respond with ONLY this JSON structure:
     /**
      * Prepare context data for prompt template substitution
      */
-    prepareContextData(cvData, activityMetrics) {
+    async prepareContextData(cvData, activityMetrics, contextType = 'general') {
+        // Get dynamic market context if available
+        let marketContext = "Current technology market trends";
+        let skillAlignment = null;
+        
+        if (this.useMarketContext && this.marketContext) {
+            try {
+                // Generate market-specific context for this enhancement type
+                marketContext = this.marketContext.generateMarketContext(contextType, cvData.skills);
+                
+                // Get skill alignment analysis
+                skillAlignment = this.marketContext.getSkillMarketAlignment(cvData.skills || []);
+                
+                console.log(`📊 Market context integrated: ${skillAlignment.overall_score}/100 alignment score`);
+            } catch (error) {
+                console.warn('⚠️ Failed to load market context, using fallback');
+            }
+        }
+        
         return {
             // Personal info
             name: cvData.personal_info?.name || "Professional",
@@ -1730,14 +1758,50 @@ Respond with ONLY this JSON structure:
             // Evidence chain
             evidence_points: this.buildEvidenceChain(cvData, activityMetrics),
             
-            // Market context
-            market_context: "AI/ML engineering market",
-            target_market: "AI engineering",
+            // Enhanced market context with real intelligence
+            market_context: marketContext,
+            market_alignment: skillAlignment,
+            target_market: this.determineTargetMarket(cvData, skillAlignment),
+            positioning_strategy: this.buildPositioningStrategy(cvData, skillAlignment),
             creativity_approach: this.getCreativityApproach(),
             
             // Current content
             current_content: cvData.professional_summary || ""
         };
+    }
+
+    /**
+     * Determine target market based on CV data and market alignment
+     */
+    determineTargetMarket(cvData, skillAlignment) {
+        if (!skillAlignment) return "AI/ML engineering market";
+        
+        const score = skillAlignment.overall_score;
+        if (score >= 80) return "Senior AI/ML engineering roles";
+        if (score >= 65) return "Mid-senior technical roles with AI focus";
+        if (score >= 50) return "Technical roles with AI integration opportunities";
+        return "Technical roles with AI upskilling potential";
+    }
+
+    /**
+     * Build positioning strategy based on market alignment
+     */
+    buildPositioningStrategy(cvData, skillAlignment) {
+        if (!skillAlignment) return "Focus on technical excellence and continuous learning";
+        
+        const strategies = [];
+        
+        if (skillAlignment.insights.length > 0) {
+            strategies.push(`Leverage market-aligned skills: ${skillAlignment.insights.slice(0, 2).map(i => i.skill).join(', ')}`);
+        }
+        
+        if (skillAlignment.recommendations.length > 0) {
+            strategies.push(`Address critical gaps: ${skillAlignment.recommendations.slice(0, 2).map(r => r.skill).join(', ')}`);
+        }
+        
+        strategies.push("Position as forward-thinking technologist ready for AI-driven future");
+        
+        return strategies.join('; ');
     }
 
     /**
