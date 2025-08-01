@@ -1,0 +1,861 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-01T00:32:07.652Z",
+    "analysis_depth": "standard",
+    "data_sources": [
+      "github_trending",
+      "stackoverflow_survey",
+      "job_trends",
+      "tech_surveys",
+      "industry_reports"
+    ],
+    "cache_status": {
+      "cached_items": 1,
+      "last_update": null,
+      "cache_duration_hours": 24
+    }
+  },
+  "emerging_skills": [
+    {
+      "skill": "LLM Integration",
+      "growth_rate": 125,
+      "category": "AI & Data Science",
+      "demand_score": 98,
+      "market_score": 100,
+      "trend_score": 95,
+      "overall_score": 98,
+      "ranking_tier": "Critical - High Priority"
+    },
+    {
+      "skill": "Prompt Engineering",
+      "growth_rate": 156,
+      "category": "AI & Data Science",
+      "demand_score": 92,
+      "market_score": 100,
+      "trend_score": 95,
+      "overall_score": 96,
+      "ranking_tier": "Critical - High Priority"
+    },
+    {
+      "skill": "RAG Systems",
+      "growth_rate": 94,
+      "category": "AI & Data Science",
+      "demand_score": 85,
+      "market_score": 90.4,
+      "trend_score": 95,
+      "overall_score": 90,
+      "ranking_tier": "Critical - High Priority"
+    },
+    {
+      "skill": "AI/ML Engineering",
+      "growth_rate": 78,
+      "category": "AI & Data Science",
+      "demand_score": 95,
+      "market_score": 84.8,
+      "trend_score": 85,
+      "overall_score": 88,
+      "ranking_tier": "Important - Medium-High Priority"
+    },
+    {
+      "skill": "Multi-Agent Systems",
+      "growth_rate": 89,
+      "category": "AI & Data Science",
+      "demand_score": 78,
+      "market_score": 84.6,
+      "trend_score": 95,
+      "overall_score": 86,
+      "ranking_tier": "Important - Medium-High Priority"
+    },
+    {
+      "skill": "Cloud-Native Development",
+      "growth_rate": 65,
+      "category": "Cloud Platforms",
+      "demand_score": 88,
+      "market_score": 74.2,
+      "trend_score": 85,
+      "overall_score": 82,
+      "ranking_tier": "Important - Medium-High Priority"
+    },
+    {
+      "skill": "Vector Databases",
+      "growth_rate": 72,
+      "category": "Database Technologies",
+      "demand_score": 81,
+      "market_score": 75.6,
+      "trend_score": 85,
+      "overall_score": 80,
+      "ranking_tier": "Important - Medium-High Priority"
+    },
+    {
+      "skill": "Zig",
+      "growth_rate": 95,
+      "category": "Programming Languages",
+      "demand_score": 60,
+      "market_score": 81,
+      "trend_score": 95,
+      "overall_score": 79,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "AI Safety & Alignment",
+      "growth_rate": 67,
+      "category": "AI & Data Science",
+      "demand_score": 74,
+      "market_score": 69.8,
+      "trend_score": 85,
+      "overall_score": 76,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "DevSecOps",
+      "growth_rate": 54,
+      "category": "DevOps",
+      "demand_score": 82,
+      "market_score": 65.2,
+      "trend_score": 75,
+      "overall_score": 73,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Rust",
+      "growth_rate": 45,
+      "category": "Programming Languages",
+      "demand_score": 85,
+      "market_score": 61,
+      "trend_score": 75,
+      "overall_score": 72,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Serverless Computing",
+      "growth_rate": 47,
+      "category": "Cloud Platforms",
+      "demand_score": 83,
+      "market_score": 61.400000000000006,
+      "trend_score": 75,
+      "overall_score": 72,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Quantum Computing",
+      "growth_rate": 67,
+      "category": "Emerging Tech",
+      "demand_score": 65,
+      "market_score": 66.19999999999999,
+      "trend_score": 85,
+      "overall_score": 71,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Microservices Architecture",
+      "growth_rate": 41,
+      "category": "Architecture & Design",
+      "demand_score": 85,
+      "market_score": 58.599999999999994,
+      "trend_score": 75,
+      "overall_score": 71,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Container Orchestration",
+      "growth_rate": 49,
+      "category": "DevOps",
+      "demand_score": 80,
+      "market_score": 61.4,
+      "trend_score": 75,
+      "overall_score": 71,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Edge AI",
+      "growth_rate": 58,
+      "category": "AI & Data Science",
+      "demand_score": 76,
+      "market_score": 65.2,
+      "trend_score": 75,
+      "overall_score": 71,
+      "ranking_tier": "Valuable - Medium Priority"
+    },
+    {
+      "skill": "Edge Computing",
+      "growth_rate": 48,
+      "category": "Infrastructure",
+      "demand_score": 78,
+      "market_score": 60,
+      "trend_score": 75,
+      "overall_score": 70,
+      "ranking_tier": "Emerging - Low-Medium Priority"
+    },
+    {
+      "skill": "WebAssembly",
+      "growth_rate": 52,
+      "category": "Web Technologies",
+      "demand_score": 75,
+      "market_score": 61.2,
+      "trend_score": 75,
+      "overall_score": 69,
+      "ranking_tier": "Emerging - Low-Medium Priority"
+    },
+    {
+      "skill": "Go",
+      "growth_rate": 38,
+      "category": "Programming Languages",
+      "demand_score": 80,
+      "market_score": 54.8,
+      "trend_score": 65,
+      "overall_score": 65,
+      "ranking_tier": "Emerging - Low-Medium Priority"
+    },
+    {
+      "skill": "Jamstack",
+      "growth_rate": 43,
+      "category": "Frontend",
+      "demand_score": 70,
+      "market_score": 53.8,
+      "trend_score": 75,
+      "overall_score": 65,
+      "ranking_tier": "Emerging - Low-Medium Priority"
+    }
+  ],
+  "trending_technologies": {
+    "by_category": {
+      "AI & Data Science": [
+        {
+          "skill": "LLM Integration",
+          "growth_rate": 125,
+          "category": "AI & Data Science",
+          "demand_score": 98,
+          "market_score": 100,
+          "trend_score": 95,
+          "overall_score": 98,
+          "ranking_tier": "Critical - High Priority"
+        },
+        {
+          "skill": "Prompt Engineering",
+          "growth_rate": 156,
+          "category": "AI & Data Science",
+          "demand_score": 92,
+          "market_score": 100,
+          "trend_score": 95,
+          "overall_score": 96,
+          "ranking_tier": "Critical - High Priority"
+        },
+        {
+          "skill": "RAG Systems",
+          "growth_rate": 94,
+          "category": "AI & Data Science",
+          "demand_score": 85,
+          "market_score": 90.4,
+          "trend_score": 95,
+          "overall_score": 90,
+          "ranking_tier": "Critical - High Priority"
+        },
+        {
+          "skill": "AI/ML Engineering",
+          "growth_rate": 78,
+          "category": "AI & Data Science",
+          "demand_score": 95,
+          "market_score": 84.8,
+          "trend_score": 85,
+          "overall_score": 88,
+          "ranking_tier": "Important - Medium-High Priority"
+        },
+        {
+          "skill": "Multi-Agent Systems",
+          "growth_rate": 89,
+          "category": "AI & Data Science",
+          "demand_score": 78,
+          "market_score": 84.6,
+          "trend_score": 95,
+          "overall_score": 86,
+          "ranking_tier": "Important - Medium-High Priority"
+        },
+        {
+          "skill": "AI Safety & Alignment",
+          "growth_rate": 67,
+          "category": "AI & Data Science",
+          "demand_score": 74,
+          "market_score": 69.8,
+          "trend_score": 85,
+          "overall_score": 76,
+          "ranking_tier": "Valuable - Medium Priority"
+        },
+        {
+          "skill": "Edge AI",
+          "growth_rate": 58,
+          "category": "AI & Data Science",
+          "demand_score": 76,
+          "market_score": 65.2,
+          "trend_score": 75,
+          "overall_score": 71,
+          "ranking_tier": "Valuable - Medium Priority"
+        }
+      ],
+      "Cloud Platforms": [
+        {
+          "skill": "Cloud-Native Development",
+          "growth_rate": 65,
+          "category": "Cloud Platforms",
+          "demand_score": 88,
+          "market_score": 74.2,
+          "trend_score": 85,
+          "overall_score": 82,
+          "ranking_tier": "Important - Medium-High Priority"
+        },
+        {
+          "skill": "Serverless Computing",
+          "growth_rate": 47,
+          "category": "Cloud Platforms",
+          "demand_score": 83,
+          "market_score": 61.400000000000006,
+          "trend_score": 75,
+          "overall_score": 72,
+          "ranking_tier": "Valuable - Medium Priority"
+        }
+      ],
+      "Database Technologies": [
+        {
+          "skill": "Vector Databases",
+          "growth_rate": 72,
+          "category": "Database Technologies",
+          "demand_score": 81,
+          "market_score": 75.6,
+          "trend_score": 85,
+          "overall_score": 80,
+          "ranking_tier": "Important - Medium-High Priority"
+        }
+      ],
+      "Programming Languages": [
+        {
+          "skill": "Zig",
+          "growth_rate": 95,
+          "category": "Programming Languages",
+          "demand_score": 60,
+          "market_score": 81,
+          "trend_score": 95,
+          "overall_score": 79,
+          "ranking_tier": "Valuable - Medium Priority"
+        },
+        {
+          "skill": "Rust",
+          "growth_rate": 45,
+          "category": "Programming Languages",
+          "demand_score": 85,
+          "market_score": 61,
+          "trend_score": 75,
+          "overall_score": 72,
+          "ranking_tier": "Valuable - Medium Priority"
+        },
+        {
+          "skill": "Go",
+          "growth_rate": 38,
+          "category": "Programming Languages",
+          "demand_score": 80,
+          "market_score": 54.8,
+          "trend_score": 65,
+          "overall_score": 65,
+          "ranking_tier": "Emerging - Low-Medium Priority"
+        }
+      ],
+      "DevOps": [
+        {
+          "skill": "DevSecOps",
+          "growth_rate": 54,
+          "category": "DevOps",
+          "demand_score": 82,
+          "market_score": 65.2,
+          "trend_score": 75,
+          "overall_score": 73,
+          "ranking_tier": "Valuable - Medium Priority"
+        },
+        {
+          "skill": "Container Orchestration",
+          "growth_rate": 49,
+          "category": "DevOps",
+          "demand_score": 80,
+          "market_score": 61.4,
+          "trend_score": 75,
+          "overall_score": 71,
+          "ranking_tier": "Valuable - Medium Priority"
+        }
+      ],
+      "Emerging Tech": [
+        {
+          "skill": "Quantum Computing",
+          "growth_rate": 67,
+          "category": "Emerging Tech",
+          "demand_score": 65,
+          "market_score": 66.19999999999999,
+          "trend_score": 85,
+          "overall_score": 71,
+          "ranking_tier": "Valuable - Medium Priority"
+        }
+      ],
+      "Architecture & Design": [
+        {
+          "skill": "Microservices Architecture",
+          "growth_rate": 41,
+          "category": "Architecture & Design",
+          "demand_score": 85,
+          "market_score": 58.599999999999994,
+          "trend_score": 75,
+          "overall_score": 71,
+          "ranking_tier": "Valuable - Medium Priority"
+        }
+      ],
+      "Infrastructure": [
+        {
+          "skill": "Edge Computing",
+          "growth_rate": 48,
+          "category": "Infrastructure",
+          "demand_score": 78,
+          "market_score": 60,
+          "trend_score": 75,
+          "overall_score": 70,
+          "ranking_tier": "Emerging - Low-Medium Priority"
+        }
+      ],
+      "Web Technologies": [
+        {
+          "skill": "WebAssembly",
+          "growth_rate": 52,
+          "category": "Web Technologies",
+          "demand_score": 75,
+          "market_score": 61.2,
+          "trend_score": 75,
+          "overall_score": 69,
+          "ranking_tier": "Emerging - Low-Medium Priority"
+        }
+      ],
+      "Frontend": [
+        {
+          "skill": "Jamstack",
+          "growth_rate": 43,
+          "category": "Frontend",
+          "demand_score": 70,
+          "market_score": 53.8,
+          "trend_score": 75,
+          "overall_score": 65,
+          "ranking_tier": "Emerging - Low-Medium Priority"
+        }
+      ]
+    },
+    "top_10_overall": [
+      {
+        "skill": "LLM Integration",
+        "growth_rate": 125,
+        "category": "AI & Data Science",
+        "demand_score": 98,
+        "market_score": 100,
+        "trend_score": 95,
+        "overall_score": 98,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "Prompt Engineering",
+        "growth_rate": 156,
+        "category": "AI & Data Science",
+        "demand_score": 92,
+        "market_score": 100,
+        "trend_score": 95,
+        "overall_score": 96,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "RAG Systems",
+        "growth_rate": 94,
+        "category": "AI & Data Science",
+        "demand_score": 85,
+        "market_score": 90.4,
+        "trend_score": 95,
+        "overall_score": 90,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "AI/ML Engineering",
+        "growth_rate": 78,
+        "category": "AI & Data Science",
+        "demand_score": 95,
+        "market_score": 84.8,
+        "trend_score": 85,
+        "overall_score": 88,
+        "ranking_tier": "Important - Medium-High Priority"
+      },
+      {
+        "skill": "Multi-Agent Systems",
+        "growth_rate": 89,
+        "category": "AI & Data Science",
+        "demand_score": 78,
+        "market_score": 84.6,
+        "trend_score": 95,
+        "overall_score": 86,
+        "ranking_tier": "Important - Medium-High Priority"
+      },
+      {
+        "skill": "Cloud-Native Development",
+        "growth_rate": 65,
+        "category": "Cloud Platforms",
+        "demand_score": 88,
+        "market_score": 74.2,
+        "trend_score": 85,
+        "overall_score": 82,
+        "ranking_tier": "Important - Medium-High Priority"
+      },
+      {
+        "skill": "Vector Databases",
+        "growth_rate": 72,
+        "category": "Database Technologies",
+        "demand_score": 81,
+        "market_score": 75.6,
+        "trend_score": 85,
+        "overall_score": 80,
+        "ranking_tier": "Important - Medium-High Priority"
+      },
+      {
+        "skill": "Zig",
+        "growth_rate": 95,
+        "category": "Programming Languages",
+        "demand_score": 60,
+        "market_score": 81,
+        "trend_score": 95,
+        "overall_score": 79,
+        "ranking_tier": "Valuable - Medium Priority"
+      },
+      {
+        "skill": "AI Safety & Alignment",
+        "growth_rate": 67,
+        "category": "AI & Data Science",
+        "demand_score": 74,
+        "market_score": 69.8,
+        "trend_score": 85,
+        "overall_score": 76,
+        "ranking_tier": "Valuable - Medium Priority"
+      },
+      {
+        "skill": "DevSecOps",
+        "growth_rate": 54,
+        "category": "DevOps",
+        "demand_score": 82,
+        "market_score": 65.2,
+        "trend_score": 75,
+        "overall_score": 73,
+        "ranking_tier": "Valuable - Medium Priority"
+      }
+    ],
+    "fastest_growing": [
+      {
+        "skill": "Prompt Engineering",
+        "growth_rate": 156,
+        "category": "AI & Data Science",
+        "demand_score": 92,
+        "market_score": 100,
+        "trend_score": 95,
+        "overall_score": 96,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "LLM Integration",
+        "growth_rate": 125,
+        "category": "AI & Data Science",
+        "demand_score": 98,
+        "market_score": 100,
+        "trend_score": 95,
+        "overall_score": 98,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "Zig",
+        "growth_rate": 95,
+        "category": "Programming Languages",
+        "demand_score": 60,
+        "market_score": 81,
+        "trend_score": 95,
+        "overall_score": 79,
+        "ranking_tier": "Valuable - Medium Priority"
+      },
+      {
+        "skill": "RAG Systems",
+        "growth_rate": 94,
+        "category": "AI & Data Science",
+        "demand_score": 85,
+        "market_score": 90.4,
+        "trend_score": 95,
+        "overall_score": 90,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "Multi-Agent Systems",
+        "growth_rate": 89,
+        "category": "AI & Data Science",
+        "demand_score": 78,
+        "market_score": 84.6,
+        "trend_score": 95,
+        "overall_score": 86,
+        "ranking_tier": "Important - Medium-High Priority"
+      }
+    ],
+    "highest_demand": [
+      {
+        "skill": "LLM Integration",
+        "growth_rate": 125,
+        "category": "AI & Data Science",
+        "demand_score": 98,
+        "market_score": 100,
+        "trend_score": 95,
+        "overall_score": 98,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "AI/ML Engineering",
+        "growth_rate": 78,
+        "category": "AI & Data Science",
+        "demand_score": 95,
+        "market_score": 84.8,
+        "trend_score": 85,
+        "overall_score": 88,
+        "ranking_tier": "Important - Medium-High Priority"
+      },
+      {
+        "skill": "Prompt Engineering",
+        "growth_rate": 156,
+        "category": "AI & Data Science",
+        "demand_score": 92,
+        "market_score": 100,
+        "trend_score": 95,
+        "overall_score": 96,
+        "ranking_tier": "Critical - High Priority"
+      },
+      {
+        "skill": "Cloud-Native Development",
+        "growth_rate": 65,
+        "category": "Cloud Platforms",
+        "demand_score": 88,
+        "market_score": 74.2,
+        "trend_score": 85,
+        "overall_score": 82,
+        "ranking_tier": "Important - Medium-High Priority"
+      },
+      {
+        "skill": "RAG Systems",
+        "growth_rate": 94,
+        "category": "AI & Data Science",
+        "demand_score": 85,
+        "market_score": 90.4,
+        "trend_score": 95,
+        "overall_score": 90,
+        "ranking_tier": "Critical - High Priority"
+      }
+    ]
+  },
+  "market_demand": {
+    "high_demand_categories": [
+      {
+        "category": "AI & Data Science",
+        "demand_index": 98,
+        "growth_trajectory": "Exponential"
+      },
+      {
+        "category": "Cloud Platforms",
+        "demand_index": 92,
+        "growth_trajectory": "Strong Growth"
+      },
+      {
+        "category": "DevOps",
+        "demand_index": 88,
+        "growth_trajectory": "Steady Growth"
+      },
+      {
+        "category": "Security",
+        "demand_index": 85,
+        "growth_trajectory": "Strong Growth"
+      },
+      {
+        "category": "Mobile Development",
+        "demand_index": 78,
+        "growth_trajectory": "Moderate Growth"
+      }
+    ],
+    "regional_variations": {
+      "australia": {
+        "top_skills": [
+          "Cloud Architecture",
+          "AI/ML",
+          "DevOps",
+          "Python",
+          "React"
+        ],
+        "growth_areas": [
+          "AI Safety",
+          "Edge Computing",
+          "Sustainable Tech"
+        ]
+      },
+      "global": {
+        "top_skills": [
+          "LLM Integration",
+          "Kubernetes",
+          "TypeScript",
+          "AWS",
+          "Security"
+        ],
+        "growth_areas": [
+          "Quantum Computing",
+          "Web3",
+          "AR/VR"
+        ]
+      }
+    },
+    "salary_impact": {
+      "ai_ml_premium": "25-40%",
+      "cloud_architecture_premium": "20-35%",
+      "devsecops_premium": "15-30%",
+      "prompt_engineering_premium": "30-50%"
+    }
+  },
+  "skill_evolution": {
+    "emerging": [
+      "Prompt Engineering",
+      "Vector Databases",
+      "Edge AI",
+      "Quantum ML"
+    ],
+    "growing": [
+      "LLM Integration",
+      "RAG Systems",
+      "Multi-Agent Systems",
+      "Cloud-Native"
+    ],
+    "mature": [
+      "React",
+      "Node.js",
+      "Docker",
+      "Kubernetes",
+      "Python"
+    ],
+    "declining": [
+      "jQuery",
+      "AngularJS",
+      "Flash",
+      "Perl"
+    ],
+    "transformation_patterns": {
+      "Traditional Backend → Cloud-Native": "Microservices, Serverless, Container Orchestration",
+      "Frontend → Full-Stack": "JAMstack, SSR/SSG, Edge Functions",
+      "Manual Ops → DevOps → DevSecOps": "Automation, Security Integration, AI-Assisted",
+      "Traditional AI → GenAI": "LLMs, RAG, Agent Systems, Prompt Engineering"
+    }
+  },
+  "industry_shifts": {
+    "major_shifts": [
+      {
+        "shift": "AI-First Development",
+        "impact": "High",
+        "timeline": "2024-2026",
+        "skills_required": [
+          "LLM Integration",
+          "Prompt Engineering",
+          "AI Safety"
+        ],
+        "implications": "Every software role will require AI integration skills"
+      },
+      {
+        "shift": "Edge Computing Mainstream",
+        "impact": "Medium-High",
+        "timeline": "2025-2027",
+        "skills_required": [
+          "Edge Computing",
+          "IoT",
+          "Real-time Processing"
+        ],
+        "implications": "Distributed architecture becomes default"
+      },
+      {
+        "shift": "Sustainability-Driven Tech",
+        "impact": "Medium",
+        "timeline": "2024-2028",
+        "skills_required": [
+          "Green Computing",
+          "Efficient Algorithms",
+          "Carbon Tracking"
+        ],
+        "implications": "Environmental impact becomes key metric"
+      }
+    ],
+    "technology_convergence": [
+      "AI + Cloud + Edge = Intelligent Infrastructure",
+      "Security + DevOps + AI = Autonomous Security",
+      "Web + AI + IoT = Ambient Computing"
+    ]
+  },
+  "growth_opportunities": {
+    "immediate_opportunities": [
+      {
+        "area": "LLM Integration Specialist",
+        "market_size": "$2.1B by 2025",
+        "growth_rate": "156%",
+        "entry_skills": [
+          "Python",
+          "APIs",
+          "Prompt Engineering"
+        ],
+        "advancement_path": "AI Architect → AI Strategy Consultant"
+      },
+      {
+        "area": "DevSecOps Engineer",
+        "market_size": "$1.8B by 2025",
+        "growth_rate": "54%",
+        "entry_skills": [
+          "Docker",
+          "Kubernetes",
+          "Security Tools"
+        ],
+        "advancement_path": "Senior DevSecOps → Security Architect"
+      }
+    ],
+    "emerging_roles": [
+      "AI Safety Engineer",
+      "Prompt Engineering Specialist",
+      "Multi-Agent Systems Architect",
+      "Edge AI Developer",
+      "Quantum-Classical Integration Specialist"
+    ],
+    "skill_combination_opportunities": [
+      "AI + Domain Expertise = AI Domain Specialist",
+      "Security + AI = AI Security Specialist",
+      "UX + AI = AI Experience Designer"
+    ]
+  },
+  "market_alignment_framework": {
+    "scoring_criteria": {
+      "emerging_skills_coverage": {
+        "weight": 0.3,
+        "max_score": 100
+      },
+      "trending_technologies": {
+        "weight": 0.25,
+        "max_score": 100
+      },
+      "market_demand_alignment": {
+        "weight": 0.25,
+        "max_score": 100
+      },
+      "future_readiness": {
+        "weight": 0.2,
+        "max_score": 100
+      }
+    },
+    "alignment_tiers": {
+      "Future-Ready (90-100)": "Positioned for emerging opportunities",
+      "Market-Aligned (75-89)": "Strong current market position",
+      "Competitive (60-74)": "Solid foundation, growth needed",
+      "Developing (45-59)": "Skill development required",
+      "Foundational (0-44)": "Significant upskilling needed"
+    },
+    "recommendation_engine": {
+      "high_priority_skills": "Skills with 80+ demand score and 60+ growth rate",
+      "quick_wins": "Skills buildable in 3-6 months with high ROI",
+      "strategic_investments": "Complex skills with long-term high value",
+      "market_differentiators": "Rare skills with strong demand"
+    }
+  }
+}
