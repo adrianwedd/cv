@@ -495,6 +495,25 @@ body {
   color: var(--color-text-inverse);
 }
 
+.nav-item.nav-external {
+  background: var(--color-success);
+  color: var(--color-background);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-item.nav-external:hover {
+  background: var(--color-success-darker, #059669);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(34, 197, 94, 0.2);
+}
+
+.external-indicator {
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+  margin-left: var(--space-1);
+}
+
 .nav-icon {
   font-size: var(--font-size-lg);
 }
