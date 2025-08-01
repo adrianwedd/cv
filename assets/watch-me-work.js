@@ -687,7 +687,7 @@ class WatchMeWorkDashboard {
     }
 
     /**
-     * Refresh all data by reloading static data
+     * Refresh all data by reloading static data and fetching live GitHub activity
      */
     async refreshData() {
         if (this.isPaused) return;
@@ -696,13 +696,99 @@ class WatchMeWorkDashboard {
         
         try {
             console.log('🔄 Refreshing dashboard data...');
-            await this.loadInitialData();
+            
+            // Load both static data and live GitHub activity
+            await Promise.all([
+                this.loadInitialData(),
+                this.fetchLiveGitHubActivity()
+            ]);
+            
             this.updateLiveStatus('live');
+            this.lastRefresh = new Date();
             console.log('✅ Dashboard data refreshed successfully');
         } catch (error) {
             console.error('❌ Refresh failed:', error);
             this.updateLiveStatus('error');
         }
+    }
+
+    /**
+     * Fetch live GitHub activity directly from GitHub API
+     */
+    async fetchLiveGitHubActivity() {
+        try {
+            const response = await fetch(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=30`);
+            
+            if (!response.ok) {
+                console.warn('GitHub API request failed, using cached data');
+                return;
+            }
+            
+            const events = await response.json();
+            const liveActivities = this.processGitHubEvents(events);
+            
+            // Merge live activities with existing data, removing duplicates
+            const existingIds = new Set(this.activities.map(a => a.id));
+            const newActivities = liveActivities.filter(a => !existingIds.has(a.id));
+            
+            if (newActivities.length > 0) {
+                this.activities = [...newActivities, ...this.activities]
+                    .slice(0, CONFIG.MAX_ACTIVITIES);
+                
+                // Update displays with new activities
+                this.renderActivityStream();
+                this.updateMetrics();
+                
+                console.log(`📡 Added ${newActivities.length} new live activities`);
+            }
+            
+        } catch (error) {
+            console.warn('Live GitHub activity fetch failed:', error.message);
+        }
+    }
+
+    /**
+     * Process GitHub API events into our activity format
+     */
+    processGitHubEvents(events) {
+        return events.map(event => {
+            const activity = {
+                id: event.id,
+                type: event.type,
+                created_at: event.created_at,
+                repo: event.repo ? {
+                    name: event.repo.name,
+                    url: `https://github.com/${event.repo.name}`
+                } : null,
+                actor: event.actor,
+                payload: event.payload
+            };
+
+            // Add type-specific details
+            switch (event.type) {
+                case 'PushEvent':
+                    activity.description = `Pushed ${event.payload.commits?.length || 1} commit(s) to ${event.repo.name}`;
+                    activity.details = event.payload.commits?.map(c => c.message).join(', ') || 'Commits pushed';
+                    break;
+                case 'IssuesEvent':
+                    activity.description = `${event.payload.action} issue #${event.payload.issue?.number} in ${event.repo.name}`;
+                    activity.details = event.payload.issue?.title || 'Issue activity';
+                    break;
+                case 'IssueCommentEvent':
+                    activity.description = `Commented on issue #${event.payload.issue?.number} in ${event.repo.name}`;
+                    activity.details = event.payload.comment?.body?.substring(0, 100) + '...' || 'Comment added';
+                    break;
+                case 'PullRequestEvent':
+                    activity.description = `${event.payload.action} pull request #${event.payload.pull_request?.number} in ${event.repo.name}`;
+                    activity.details = event.payload.pull_request?.title || 'Pull request activity';
+                    break;
+                default:
+                    activity.description = `${event.type.replace('Event', '')} in ${event.repo?.name || 'repository'}`;
+                    activity.details = 'GitHub activity';
+            }
+
+            return activity;
+        });
     }
 
     /**
