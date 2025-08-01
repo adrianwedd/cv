@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Project Showcase Test</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/project-showcase-styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: var(--color-bg, #ffffff);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border, #e1e5e9);
+        }
+        
+        .test-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text, #1f2937);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .test-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted, #6b7280);
+            margin: 0;
+        }
+        
+        .test-section {
+            background: var(--color-card-bg, #ffffff);
+            border: 1px solid var(--color-border, #e1e5e9);
+            border-radius: var(--radius-lg, 12px);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-text-muted, #6b7280);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--color-border, #e1e5e9);
+            border-top: 3px solid var(--color-primary, #3b82f6);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            padding: 1.5rem;
+            background: var(--color-bg-subtle, #f9fafb);
+            border-radius: var(--radius-md, 8px);
+            border: 1px solid var(--color-border, #e1e5e9);
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text, #1f2937);
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-description {
+            font-size: 0.9rem;
+            color: var(--color-text-muted, #6b7280);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1 class="test-title">🚀 Interactive Project Showcase</h1>
+        <p class="test-subtitle">Advanced portfolio showcase with interactive features and GitHub integration</p>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">Features Overview</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3 class="feature-title">🎯 Interactive Cards</h3>
+                <p class="feature-description">Expandable project cards with hover effects and detailed modal views</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🔍 Advanced Search</h3>
+                <p class="feature-description">Real-time search across projects, technologies, and descriptions</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">📊 GitHub Integration</h3>
+                <p class="feature-description">Live repository statistics including stars, forks, and activity</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🏷️ Smart Filtering</h3>
+                <p class="feature-description">Filter by project status, sort by activity, or search technologies</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">📱 Responsive Design</h3>
+                <p class="feature-description">Mobile-optimized interface with accessibility support</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">⚡ Performance</h3>
+                <p class="feature-description">Lazy loading, animations, and optimized rendering</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section" style="margin-top: 2rem;">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">Live Project Showcase</h2>
+        
+        <!-- This will be populated by the Interactive Project Showcase -->
+        <div id="projects-grid">
+            <div class="loading-message">
+                <div class="loading-spinner"></div>
+                <p>Loading Interactive Project Showcase...</p>
+                <p style="font-size: 0.9rem; opacity: 0.7;">The showcase will automatically initialize and load project data from base-cv.json</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="assets/interactive-project-showcase.js"></script>
+    
+    <!-- Debug Information -->
+    <script>
+        // Debug logging for testing
+        console.log('🧪 Project Showcase Test Page Loaded');
+        
+        // Check if showcase initializes
+        setTimeout(() => {
+            if (window.projectShowcase && window.projectShowcase.isInitialized) {
+                console.log('✅ Interactive Project Showcase initialized successfully');
+            } else {
+                console.warn('⚠️ Interactive Project Showcase may not have initialized properly');
+                console.log('Available on window:', !!window.projectShowcase);
+            }
+        }, 2000);
+        
+        // Log any JavaScript errors
+        window.addEventListener('error', (e) => {
+            console.error('❌ JavaScript Error:', e.error);
+        });
+        
+        // Monitor fetch requests
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            console.log('🌐 Fetch request:', args[0]);
+            return originalFetch.apply(this, args)
+                .then(response => {
+                    console.log('✅ Fetch response:', response.status, args[0]);
+                    return response;
+                })
+                .catch(error => {
+                    console.error('❌ Fetch error:', error, args[0]);
+                    throw error;
+                });
+        };
+    </script>
+</body>
+</html>
