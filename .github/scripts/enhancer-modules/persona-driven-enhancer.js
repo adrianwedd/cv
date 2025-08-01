@@ -73,12 +73,13 @@ const CONTEXT_WEIGHTS = {
  * Persona-Driven Enhancement Orchestrator
  */
 class PersonaDrivenEnhancer {
-    constructor(promptLibrary, cvData, activityMetrics) {
+    constructor(promptLibrary = null, cvData = null, activityMetrics = null) {
         this.promptLibrary = promptLibrary;
         this.cvData = cvData;
         this.activityMetrics = activityMetrics;
         this.personaHistory = new Map();
         this.enhancementCache = new Map();
+        this.initialized = false;
         
         // Track persona effectiveness over time
         this.personaMetrics = {
@@ -89,17 +90,83 @@ class PersonaDrivenEnhancer {
     }
 
     /**
-     * Select optimal persona for given enhancement context
+     * Initialize the persona-driven enhancer with required dependencies
      */
-    async selectOptimalPersona(section, content, enhancementType) {
+    async initialize() {
+        if (this.initialized) return;
+
+        console.log('🎭 Initializing Persona-Driven Enhancement System...');
+        
+        try {
+            // Initialize prompt library if not provided
+            if (!this.promptLibrary) {
+                const { PromptLibraryManager } = require('./prompt-library-manager');
+                this.promptLibrary = new PromptLibraryManager('v2.0');
+                await this.promptLibrary.initialize();
+            }
+
+            // Load CV data if not provided
+            if (!this.cvData) {
+                const fs = require('fs').promises;
+                const path = require('path');
+                const cvPath = path.join(__dirname, '../../../data/base-cv.json');
+                try {
+                    const cvContent = await fs.readFile(cvPath, 'utf-8');
+                    this.cvData = JSON.parse(cvContent);
+                } catch (error) {
+                    console.warn('⚠️ Could not load CV data, using minimal fallback');
+                    this.cvData = { experience: [], skills: [], projects: [] };
+                }
+            }
+
+            // Load activity metrics if not provided
+            if (!this.activityMetrics) {
+                try {
+                    const activityPath = path.join(__dirname, '../../../data/activity-summary.json');
+                    const activityContent = await fs.readFile(activityPath, 'utf-8');
+                    this.activityMetrics = JSON.parse(activityContent);
+                } catch (error) {
+                    console.warn('⚠️ Could not load activity metrics, using minimal fallback');
+                    this.activityMetrics = { score: 50, recent_activity: {} };
+                }
+            }
+
+            this.initialized = true;
+            console.log('✅ Persona-Driven Enhancement System initialized successfully');
+            
+        } catch (error) {
+            console.error('❌ Failed to initialize PersonaDrivenEnhancer:', error);
+            throw error;
+        }
+    }
+
+    /**
+     * Select optimal persona for given enhancement context (overloaded method)
+     */
+    async selectOptimalPersona(sectionOrContext, content = null, enhancementType = null) {
+        // Handle both call formats: (contextObject) or (section, content, enhancementType)
+        let section, actualContent, actualEnhancementType;
+        
+        if (typeof sectionOrContext === 'object' && sectionOrContext !== null) {
+            // Context object format
+            const context = sectionOrContext;
+            section = context.section;
+            actualContent = context.content;
+            actualEnhancementType = context.enhancementType || 'standard';
+        } else {
+            // Individual parameters format
+            section = sectionOrContext;
+            actualContent = content;
+            actualEnhancementType = enhancementType || 'standard';
+        }
         console.log(`🎭 Selecting optimal persona for ${section} enhancement...`);
         
-        const context = await this.analyzeContext(section, content, enhancementType);
+        const analysisContext = await this.analyzeContext(section, actualContent, actualEnhancementType);
         const personaScores = new Map();
         
         // Score each persona based on context
         for (const [personaId, expertise] of Object.entries(PERSONA_EXPERTISE)) {
-            const score = this.calculatePersonaScore(personaId, expertise, context);
+            const score = this.calculatePersonaScore(personaId, expertise, analysisContext);
             personaScores.set(personaId, score);
         }
         
@@ -121,9 +188,10 @@ class PersonaDrivenEnhancer {
         }
         
         return {
+            name: selectedPersona,
             personaId: selectedPersona,
-            confidence,
-            rationale: this.generateSelectionRationale(selectedPersona, context)
+            confidence: Math.round(confidence * 100),
+            rationale: this.generateSelectionRationale(selectedPersona, analysisContext)
         };
     }
 

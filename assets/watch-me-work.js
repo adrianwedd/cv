@@ -49,6 +49,9 @@ class WatchMeWorkDashboard {
         };
         this.lastRefresh = null;
         this.refreshTimer = null;
+        this.notificationQueue = [];
+        this.soundEnabled = localStorage.getItem('wmw-sound') !== 'false';
+        this.lastActivityCount = 0;
         
         this.init();
     }
@@ -92,6 +95,12 @@ class WatchMeWorkDashboard {
         const filtersPanel = document.getElementById('filters-panel');
         filterToggle?.addEventListener('click', () => {
             filtersPanel.classList.toggle('open');
+        });
+
+        // Sound toggle
+        const soundToggle = document.getElementById('sound-toggle');
+        soundToggle?.addEventListener('click', () => {
+            this.toggleSound();
         });
 
         // Timeline controls
@@ -735,6 +744,11 @@ class WatchMeWorkDashboard {
                 this.activities = [...newActivities, ...this.activities]
                     .slice(0, CONFIG.MAX_ACTIVITIES);
                 
+                // Show notifications for new activities
+                newActivities.slice(0, 3).forEach(activity => {
+                    this.showActivityNotification(activity);
+                });
+                
                 // Update displays with new activities
                 this.renderActivityStream();
                 this.updateMetrics();
@@ -1056,6 +1070,135 @@ class WatchMeWorkDashboard {
 
     sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    /**
+     * Show real-time notification for new activities
+     */
+    showActivityNotification(activity) {
+        if (!this.isLive || this.isPaused) return;
+
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'activity-notification';
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-icon">${this.getActivityIcon(activity.type)}</span>
+                <div class="notification-text">
+                    <div class="notification-title">New ${this.getActivityTypeLabel(activity.type)}</div>
+                    <div class="notification-description">${activity._formatted || activity.description || 'New activity'}</div>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+            </div>
+        `;
+
+        // Add to page
+        let container = document.getElementById('notifications-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'notifications-container';
+            container.className = 'notifications-container';
+            document.body.appendChild(container);
+        }
+
+        container.appendChild(notification);
+
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.classList.add('fade-out');
+                setTimeout(() => notification.remove(), 300);
+            }
+        }, 5000);
+
+        // Play notification sound if enabled
+        if (this.soundEnabled) {
+            this.playNotificationSound();
+        }
+    }
+
+    /**
+     * Play subtle notification sound
+     */
+    playNotificationSound() {
+        try {
+            // Create audio context for subtle notification sound
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+
+            gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        } catch (error) {
+            // Silently fail if audio not supported
+        }
+    }
+
+    /**
+     * Get activity type label for display
+     */
+    getActivityTypeLabel(type) {
+        const labels = {
+            'PushEvent': 'Commit',
+            'IssuesEvent': 'Issue Update',
+            'PullRequestEvent': 'Pull Request',
+            'IssueCommentEvent': 'Comment',
+            'CreateEvent': 'Repository Creation',
+            'ForkEvent': 'Fork',
+            'WatchEvent': 'Star',
+            'ReleaseEvent': 'Release'
+        };
+        return labels[type] || 'Activity';
+    }
+
+    /**
+     * Get activity icon
+     */
+    getActivityIcon(type) {
+        const icons = {
+            'PushEvent': '📝',
+            'IssuesEvent': '🐛',
+            'PullRequestEvent': '🔄',
+            'IssueCommentEvent': '💬',
+            'CreateEvent': '🎯',
+            'DeleteEvent': '🗑️',
+            'ForkEvent': '🍴',
+            'WatchEvent': '⭐',
+            'ReleaseEvent': '🚀'
+        };
+        return icons[type] || '📋';
+    }
+
+    /**
+     * Toggle sound notifications
+     */
+    toggleSound() {
+        this.soundEnabled = !this.soundEnabled;
+        localStorage.setItem('wmw-sound', this.soundEnabled.toString());
+        
+        // Update UI if button exists
+        const soundBtn = document.getElementById('sound-toggle');
+        if (soundBtn) {
+            soundBtn.textContent = this.soundEnabled ? '🔊' : '🔇';
+            soundBtn.title = this.soundEnabled ? 'Disable sound notifications' : 'Enable sound notifications';
+        }
+
+        // Show feedback
+        this.showActivityNotification({
+            type: 'system',
+            _formatted: `Sound notifications ${this.soundEnabled ? 'enabled' : 'disabled'}`,
+            description: this.soundEnabled ? 'You will hear sounds for new activities' : 'Sound notifications are now muted'
+        });
     }
 }
 
