@@ -945,40 +945,39 @@ Disallow: /data/
         const projects = this.cvData.projects || [];
 
         let latexContent = `
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-\usepackage{enumitem}
-\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
+\\documentclass{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage{geometry}
+\\geometry{a4paper, margin=1in}
+\\usepackage{enumitem}
+\\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
 
-\begin{document}
+\\begin{document}
 
-\section*{${personalInfo.name || ''}}
-\subsection*{${personalInfo.title || ''}}
+\\section*{${personalInfo.name || ''}}
+\\subsection*{${personalInfo.title || ''}}
 ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.github || ''}
 
 `;
 
         // Summary
         if (professionalSummary) {
-            latexContent += `\section*{Summary}\n`;
+            latexContent += `\\section*{Summary}\n`;
             latexContent += `${this.stripHtml(professionalSummary)}\n\n`;
         }
 
         // Experience
         if (experience.length > 0) {
-            latexContent += `\section*{Experience}\n`;
+            latexContent += `\\section*{Experience}\n`;
             experience.forEach(job => {
-                latexContent += `\subsection*{${job.position}, ${job.company} (${job.period})}\n`;
+                latexContent += `\\subsection*{${job.position}, ${job.company} (${job.period})}\n`;
                 latexContent += `${this.stripHtml(job.description)}\n`;
                 if (job.achievements && job.achievements.length > 0) {
-                    latexContent += `\begin{itemize}\n`;
+                    latexContent += `\\begin{itemize}\n`;
                     job.achievements.forEach(achievement => {
-                        latexContent += `    \item ${this.stripHtml(achievement)}\n`;
+                        latexContent += `    \\item ${this.stripHtml(achievement)}\n`;
                     });
-                }
-                latexContent += `\end{itemize}\n`;
+                    latexContent += `\\end{itemize}\n`;
                 }
                 latexContent += `\n`;
             });
@@ -986,15 +985,15 @@ ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.gi
 
         // Skills
         if (skills.length > 0) {
-            latexContent += `\section*{Skills}\n`;
+            latexContent += `\\section*{Skills}\n`;
             latexContent += `${skills.map(skill => skill.name).join(', ')}\n\n`;
         }
 
         // Projects
         if (projects.length > 0) {
-            latexContent += `\section*{Projects}\n`;
+            latexContent += `\\section*{Projects}\n`;
             projects.forEach(project => {
-                latexContent += `\subsection*{${project.name}}\n`;
+                latexContent += `\\subsection*{${project.name}}\n`;
                 latexContent += `${this.stripHtml(project.description)}\n`;
                 if (project.technologies && project.technologies.length > 0) {
                     latexContent += `Technologies: ${project.technologies.join(', ')}\n`;
@@ -1003,7 +1002,7 @@ ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.gi
             });
         }
 
-        latexContent += `\end{document}\n`;
+        latexContent += `\\end{document}\n`;
 
         const latexPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.tex');
         await fs.writeFile(latexPath, latexContent, 'utf8');
