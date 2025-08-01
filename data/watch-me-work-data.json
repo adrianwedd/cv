@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-01T09:55:39.978Z",
+    "generated_at": "2025-08-01T09:59:05.602Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 912,
-    "rate_limit_remaining": 4088
+    "api_calls_made": 1071,
+    "rate_limit_remaining": 3929
   },
   "user": {
     "login": "adrianwedd",
@@ -31,7 +31,7 @@
       "CreateEvent": 2,
       "ReleaseEvent": 1
     },
-    "last_commit_date": "2025-08-01T09:54:45Z",
+    "last_commit_date": "2025-08-01T09:58:09Z",
     "last_issue_date": "2025-08-01T09:43:47Z"
   },
   "activities": [
@@ -12242,7 +12242,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-01T09:54:58Z",
+      "updated_at": "2025-08-01T09:58:30Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -12252,7 +12252,7 @@
         "commits": 10,
         "issues": 20,
         "total": 30,
-        "last_commit": "2025-08-01T09:54:45Z",
+        "last_commit": "2025-08-01T09:58:09Z",
         "last_issue": "2025-08-01T09:43:47Z"
       }
     },
@@ -12594,6 +12594,92 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+      "node_id": "C_kwDOPUy_0toAKDljNjM2MzViZTJkYTZmMTdiZmQxZTFmMmZlMGRiNjA5MGZmMzliYjk",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-01T09:58:09Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-01T09:58:20Z"
+        },
+        "message": "🔧 Fix workflow_dispatch triggers and create simple data refresh workflow\n\n- Fix YAML syntax errors in data-refresh-pipeline.yml multiline strings\n- Create data-refresh-simple.yml with reliable workflow_dispatch support\n- Add proper permissions and error handling for data commits\n- Simplified workflow for reliable manual data refresh\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "9f15eb1f8cebe0baff0f998d7726a0cd688374cb",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/9f15eb1f8cebe0baff0f998d7726a0cd688374cb"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+      "html_url": "https://github.com/adrianwedd/cv/commit/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "df730704476c3544f8a06f7876d20eecad6f40b5",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/df730704476c3544f8a06f7876d20eecad6f40b5",
+          "html_url": "https://github.com/adrianwedd/cv/commit/df730704476c3544f8a06f7876d20eecad6f40b5"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "51ed0c5ae408d037f9afbc88dfe466517a2f7a44",
       "node_id": "C_kwDOPUy_0toAKDUxZWQwYzVhZTQwOGQwMzdmOWFmYmM4OGRmZTQ2NjUxN2EyZjdhNDQ",
@@ -13366,92 +13452,6 @@
           "sha": "025b602d2db7018adc3cef62e57160cea8a3718f",
           "url": "https://api.github.com/repos/adrianwedd/cv/commits/025b602d2db7018adc3cef62e57160cea8a3718f",
           "html_url": "https://github.com/adrianwedd/cv/commit/025b602d2db7018adc3cef62e57160cea8a3718f"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "4701ace93b67898113d14aa857ede1032d1fcae9",
-      "node_id": "C_kwDOPUy_0toAKDQ3MDFhY2U5M2I2Nzg5ODExM2QxNGFhODU3ZWRlMTAzMmQxZmNhZTk",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-01T08:02:40Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-01T08:02:40Z"
-        },
-        "message": "feat: Intelligent CV Personalization Engine - Revolutionary AI-Powered Job Matching\n\n🎯 **Major Strategic Feature: AI-Driven CV Personalization System**\n\n## **Core Innovation Delivered**\n- **2,500+ lines** of advanced JavaScript implementing intelligent CV adaptation\n- **AI-powered job description analysis** with NLP-based requirement extraction\n- **Dynamic content optimization** based on role-specific requirements\n- **Real-time compatibility scoring** with detailed improvement recommendations\n\n## **Advanced Features Implemented**\n\n### **🧠 Intelligent Analysis Engine**\n- **Job Description NLP**: Advanced text analysis extracting skills, industry, seniority\n- **Skills Gap Analysis**: Market-aware skill matching with learning pathway recommendations\n- **Industry Intelligence**: Cultural values, format preferences, and content emphasis\n- **Compatibility Scoring**: Real-time matching with actionable improvement insights\n\n### **🎨 Professional User Interface**\n- **Modal-based interaction** with intuitive job description input\n- **Real-time analysis results** with visual compatibility metrics\n- **Personalization recommendations** with priority-based impact scoring\n- **Mobile-responsive design** maintaining full functionality across devices\n\n### **📊 Market Intelligence Integration**\n- **Skills Database**: 100+ skills with market demand, salary impact, and learning paths\n- **Industry Profiles**: Technology, finance, healthcare with cultural intelligence\n- **Compensation Analysis**: Salary range detection and market comparison\n- **Career Progression**: Strategic recommendations based on role requirements\n\n### **🚀 Position Analysis Engine**\n- **Comprehensive job analysis** with 15+ data extraction categories\n- **Company context assessment** including size, stage, and culture\n- **Negotiation insights** with leverage points and strategy recommendations\n- **Competitive analysis** with market positioning and differentiation advice\n\n## **Technical Excellence**\n\n### **Advanced AI Integration**\n- **Natural Language Processing** for accurate requirement extraction\n- **Machine Learning Scoring** algorithms for compatibility assessment\n- **Intelligent Caching** with personalization history and performance optimization\n- **Multi-dimensional Analysis** combining skills, culture, and market factors\n\n### **Enterprise-Grade Architecture**\n- **Modular Class Design** with clean separation of concerns\n- **Event-driven Interface** with comprehensive keyboard and accessibility support\n- **Error Handling** with graceful degradation and user-friendly feedback\n- **Performance Optimized** with intelligent data loading and caching strategies\n\n## **Business Impact & Professional Value**\n\n### **Job Search Optimization**\n- **Higher Match Rates**: AI-optimized content alignment with job requirements\n- **Competitive Intelligence**: Market positioning and salary negotiation insights\n- **Skills Development**: Data-driven learning pathway recommendations\n- **Time Efficiency**: Automated analysis replacing hours of manual optimization\n\n### **Technical Leadership Demonstration**\n- **Advanced AI Engineering**: Sophisticated NLP and scoring algorithms\n- **User Experience Excellence**: Professional interface with intuitive workflows\n- **System Integration**: Seamless connection with existing CV infrastructure\n- **Market Intelligence**: Real-world data integration with actionable insights\n\n## **Innovation Highlights**\n\n### **🎯 Dynamic Content Adaptation**\n- CV content automatically reordered based on job relevance\n- Professional summary adapted to industry and role requirements\n- Skills emphasis adjusted for maximum impact and visibility\n- Project showcase optimized for role-specific technical requirements\n\n### **🏢 Cultural Intelligence**\n- Industry-specific format and tone recommendations\n- Company culture alignment with values and communication style\n- Work style compatibility assessment and optimization suggestions\n- Professional presentation adapted to organizational expectations\n\n### **📈 Market-Driven Insights**\n- Real-time salary and compensation analysis with negotiation guidance\n- Skills market demand with trend analysis and future projections\n- Career progression pathways with strategic development recommendations\n- Competitive landscape assessment with differentiation strategies\n\n## **Files Delivered**\n- **`assets/intelligent-cv-personalization.js`** - Core personalization engine (1,400+ lines)\n- **`assets/personalization-styles.css`** - Professional UI styling (800+ lines)\n- **`assets/position-analysis-engine.js`** - Job analysis system (300+ lines)\n- **`test-personalization.html`** - Comprehensive testing interface\n- **`index.html`** - Updated with personalization system integration\n\n## **Usage & Accessibility**\n- **Toggle Button**: Purple 🎯 button (bottom-right) for easy access\n- **Keyboard Shortcut**: Ctrl/Cmd + Shift + P for power users\n- **Mobile Support**: Full functionality on all device types\n- **Accessibility**: WCAG 2.1 compliant with screen reader support\n\n---\n\n**Revolutionary Impact**: This system transforms static CVs into intelligent, adaptive documents that automatically optimize for any job opportunity, providing unprecedented competitive advantage in the modern job market.\n\n🧪 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "b34f0ad1b68f857ab703668dbcf4adf707535ae8",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/b34f0ad1b68f857ab703668dbcf4adf707535ae8"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/4701ace93b67898113d14aa857ede1032d1fcae9",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/4701ace93b67898113d14aa857ede1032d1fcae9",
-      "html_url": "https://github.com/adrianwedd/cv/commit/4701ace93b67898113d14aa857ede1032d1fcae9",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/4701ace93b67898113d14aa857ede1032d1fcae9/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "bfc9a37dc069cad648f1dde957bb83c483dd19c9",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/bfc9a37dc069cad648f1dde957bb83c483dd19c9",
-          "html_url": "https://github.com/adrianwedd/cv/commit/bfc9a37dc069cad648f1dde957bb83c483dd19c9"
         }
       ],
       "repository": "cv",
@@ -30733,6 +30733,102 @@
   ],
   "timeline": [
     {
+      "id": "commit-9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-01T09:58:09Z",
+      "repo": "cv",
+      "data": {
+        "sha": "9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+        "node_id": "C_kwDOPUy_0toAKDljNjM2MzViZTJkYTZmMTdiZmQxZTFmMmZlMGRiNjA5MGZmMzliYjk",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-01T09:58:09Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-01T09:58:20Z"
+          },
+          "message": "🔧 Fix workflow_dispatch triggers and create simple data refresh workflow\n\n- Fix YAML syntax errors in data-refresh-pipeline.yml multiline strings\n- Create data-refresh-simple.yml with reliable workflow_dispatch support\n- Add proper permissions and error handling for data commits\n- Simplified workflow for reliable manual data refresh\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "9f15eb1f8cebe0baff0f998d7726a0cd688374cb",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/9f15eb1f8cebe0baff0f998d7726a0cd688374cb"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+        "html_url": "https://github.com/adrianwedd/cv/commit/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/9c63635be2da6f17bfd1e1f2fe0db6090ff39bb9/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "df730704476c3544f8a06f7876d20eecad6f40b5",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/df730704476c3544f8a06f7876d20eecad6f40b5",
+            "html_url": "https://github.com/adrianwedd/cv/commit/df730704476c3544f8a06f7876d20eecad6f40b5"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: 🔧 Fix workflow_dispatch triggers and create simple data refresh workflow",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
       "id": "commit-51ed0c5ae408d037f9afbc88dfe466517a2f7a44",
       "type": "commit",
       "subtype": "push",
@@ -32086,102 +32182,6 @@
       "_formatted": "Issue #122: 🎯 Advanced Analytics & Insights Platform - Career Intelligence Dashboard",
       "_icon": "🐛",
       "_color": "#f59e0b"
-    },
-    {
-      "id": "commit-4701ace93b67898113d14aa857ede1032d1fcae9",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-01T08:02:40Z",
-      "repo": "cv",
-      "data": {
-        "sha": "4701ace93b67898113d14aa857ede1032d1fcae9",
-        "node_id": "C_kwDOPUy_0toAKDQ3MDFhY2U5M2I2Nzg5ODExM2QxNGFhODU3ZWRlMTAzMmQxZmNhZTk",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-01T08:02:40Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-01T08:02:40Z"
-          },
-          "message": "feat: Intelligent CV Personalization Engine - Revolutionary AI-Powered Job Matching\n\n🎯 **Major Strategic Feature: AI-Driven CV Personalization System**\n\n## **Core Innovation Delivered**\n- **2,500+ lines** of advanced JavaScript implementing intelligent CV adaptation\n- **AI-powered job description analysis** with NLP-based requirement extraction\n- **Dynamic content optimization** based on role-specific requirements\n- **Real-time compatibility scoring** with detailed improvement recommendations\n\n## **Advanced Features Implemented**\n\n### **🧠 Intelligent Analysis Engine**\n- **Job Description NLP**: Advanced text analysis extracting skills, industry, seniority\n- **Skills Gap Analysis**: Market-aware skill matching with learning pathway recommendations\n- **Industry Intelligence**: Cultural values, format preferences, and content emphasis\n- **Compatibility Scoring**: Real-time matching with actionable improvement insights\n\n### **🎨 Professional User Interface**\n- **Modal-based interaction** with intuitive job description input\n- **Real-time analysis results** with visual compatibility metrics\n- **Personalization recommendations** with priority-based impact scoring\n- **Mobile-responsive design** maintaining full functionality across devices\n\n### **📊 Market Intelligence Integration**\n- **Skills Database**: 100+ skills with market demand, salary impact, and learning paths\n- **Industry Profiles**: Technology, finance, healthcare with cultural intelligence\n- **Compensation Analysis**: Salary range detection and market comparison\n- **Career Progression**: Strategic recommendations based on role requirements\n\n### **🚀 Position Analysis Engine**\n- **Comprehensive job analysis** with 15+ data extraction categories\n- **Company context assessment** including size, stage, and culture\n- **Negotiation insights** with leverage points and strategy recommendations\n- **Competitive analysis** with market positioning and differentiation advice\n\n## **Technical Excellence**\n\n### **Advanced AI Integration**\n- **Natural Language Processing** for accurate requirement extraction\n- **Machine Learning Scoring** algorithms for compatibility assessment\n- **Intelligent Caching** with personalization history and performance optimization\n- **Multi-dimensional Analysis** combining skills, culture, and market factors\n\n### **Enterprise-Grade Architecture**\n- **Modular Class Design** with clean separation of concerns\n- **Event-driven Interface** with comprehensive keyboard and accessibility support\n- **Error Handling** with graceful degradation and user-friendly feedback\n- **Performance Optimized** with intelligent data loading and caching strategies\n\n## **Business Impact & Professional Value**\n\n### **Job Search Optimization**\n- **Higher Match Rates**: AI-optimized content alignment with job requirements\n- **Competitive Intelligence**: Market positioning and salary negotiation insights\n- **Skills Development**: Data-driven learning pathway recommendations\n- **Time Efficiency**: Automated analysis replacing hours of manual optimization\n\n### **Technical Leadership Demonstration**\n- **Advanced AI Engineering**: Sophisticated NLP and scoring algorithms\n- **User Experience Excellence**: Professional interface with intuitive workflows\n- **System Integration**: Seamless connection with existing CV infrastructure\n- **Market Intelligence**: Real-world data integration with actionable insights\n\n## **Innovation Highlights**\n\n### **🎯 Dynamic Content Adaptation**\n- CV content automatically reordered based on job relevance\n- Professional summary adapted to industry and role requirements\n- Skills emphasis adjusted for maximum impact and visibility\n- Project showcase optimized for role-specific technical requirements\n\n### **🏢 Cultural Intelligence**\n- Industry-specific format and tone recommendations\n- Company culture alignment with values and communication style\n- Work style compatibility assessment and optimization suggestions\n- Professional presentation adapted to organizational expectations\n\n### **📈 Market-Driven Insights**\n- Real-time salary and compensation analysis with negotiation guidance\n- Skills market demand with trend analysis and future projections\n- Career progression pathways with strategic development recommendations\n- Competitive landscape assessment with differentiation strategies\n\n## **Files Delivered**\n- **`assets/intelligent-cv-personalization.js`** - Core personalization engine (1,400+ lines)\n- **`assets/personalization-styles.css`** - Professional UI styling (800+ lines)\n- **`assets/position-analysis-engine.js`** - Job analysis system (300+ lines)\n- **`test-personalization.html`** - Comprehensive testing interface\n- **`index.html`** - Updated with personalization system integration\n\n## **Usage & Accessibility**\n- **Toggle Button**: Purple 🎯 button (bottom-right) for easy access\n- **Keyboard Shortcut**: Ctrl/Cmd + Shift + P for power users\n- **Mobile Support**: Full functionality on all device types\n- **Accessibility**: WCAG 2.1 compliant with screen reader support\n\n---\n\n**Revolutionary Impact**: This system transforms static CVs into intelligent, adaptive documents that automatically optimize for any job opportunity, providing unprecedented competitive advantage in the modern job market.\n\n🧪 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "b34f0ad1b68f857ab703668dbcf4adf707535ae8",
-            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/b34f0ad1b68f857ab703668dbcf4adf707535ae8"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/4701ace93b67898113d14aa857ede1032d1fcae9",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/commits/4701ace93b67898113d14aa857ede1032d1fcae9",
-        "html_url": "https://github.com/adrianwedd/cv/commit/4701ace93b67898113d14aa857ede1032d1fcae9",
-        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/4701ace93b67898113d14aa857ede1032d1fcae9/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "bfc9a37dc069cad648f1dde957bb83c483dd19c9",
-            "url": "https://api.github.com/repos/adrianwedd/cv/commits/bfc9a37dc069cad648f1dde957bb83c483dd19c9",
-            "html_url": "https://github.com/adrianwedd/cv/commit/bfc9a37dc069cad648f1dde957bb83c483dd19c9"
-          }
-        ],
-        "repository": "cv",
-        "repository_full_name": "adrianwedd/cv",
-        "repository_url": "https://github.com/adrianwedd/cv",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: feat: Intelligent CV Personalization Engine - Revolutionary AI-Powered Job Matching",
-      "_icon": "📝",
-      "_color": "#22c55e"
     },
     {
       "id": "issue-3282947966",
