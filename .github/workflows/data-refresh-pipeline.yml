@@ -1,0 +1,582 @@
+name: 📊 High-Frequency Data Refresh Pipeline
+
+# Optimized data collection pipeline for real-time CV intelligence
+# Separates data collection from enhancement for better performance
+
+on:
+  schedule:
+    # Every 30 minutes during business hours (9 AM - 6 PM AEST)
+    - cron: '*/30 23,0,1,2,3,4,5,6,7 * * 1-5'  # Mon-Fri business hours
+    # Every 2 hours on evenings and weekends  
+    - cron: '0 */2 * * *'  # Always, but business hours override
+  push:
+    branches: [ develop, main ]
+    paths: 
+      - '.github/scripts/activity-analyzer.js'
+      - '.github/scripts/market-trends-analyzer.js'
+      - '.github/scripts/watch-me-work-data-processor.js'
+  workflow_dispatch:
+    inputs:
+      data_sources:
+        description: '📊 Data Sources to Refresh'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all           # All data sources
+          - activity      # GitHub activity only
+          - market        # Market trends only  
+          - dashboard     # Watch Me Work data only
+          - intelligence  # GitHub intelligence mining
+      priority_level:
+        description: '⚡ Priority Level'
+        required: false
+        default: 'normal'
+        type: choice
+        options:
+          - low      # Background refresh
+          - normal   # Standard refresh
+          - high     # Priority refresh with extended timeouts
+
+env:
+  NODE_VERSION: '20'
+  TIMEZONE: 'Australia/Tasmania'
+  CACHE_STRATEGY: 'smart'  # intelligent caching based on data age
+
+jobs:
+  data-intelligence:
+    name: 🧠 Data Refresh Intelligence
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    outputs:
+      refresh-activity: ${{ steps.analysis.outputs.refresh_activity }}
+      refresh-market: ${{ steps.analysis.outputs.refresh_market }}
+      refresh-dashboard: ${{ steps.analysis.outputs.refresh_dashboard }}
+      refresh-intelligence: ${{ steps.analysis.outputs.refresh_intelligence }}
+      priority-level: ${{ steps.analysis.outputs.priority_level }}
+      estimated-duration: ${{ steps.analysis.outputs.estimated_duration }}
+      
+    steps:
+      - name: 📊 Data Refresh Analysis
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          
+      - name: 🧮 Intelligent Refresh Decision
+        id: analysis
+        run: |
+          echo "🧮 **DATA REFRESH INTELLIGENCE ENGINE**"
+          echo "⏰ Analysis time: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
+          echo "🎯 Trigger: ${{ github.event_name }}"
+          
+          # Initialize decision variables
+          REFRESH_ACTIVITY="false"
+          REFRESH_MARKET="false" 
+          REFRESH_DASHBOARD="false"
+          REFRESH_INTELLIGENCE="false"
+          PRIORITY="${{ github.event.inputs.priority_level || 'normal' }}"
+          ESTIMATED_DURATION=10
+          
+          # Manual trigger handling
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            SOURCES="${{ github.event.inputs.data_sources || 'all' }}"
+            echo "🎛️ Manual refresh requested: $SOURCES"
+            
+            case "$SOURCES" in
+              "all")
+                REFRESH_ACTIVITY="true"
+                REFRESH_MARKET="true"
+                REFRESH_DASHBOARD="true"
+                REFRESH_INTELLIGENCE="true"
+                ESTIMATED_DURATION=20
+                ;;
+              "activity")
+                REFRESH_ACTIVITY="true"
+                ESTIMATED_DURATION=5
+                ;;
+              "market")
+                REFRESH_MARKET="true"
+                ESTIMATED_DURATION=8
+                ;;
+              "dashboard")
+                REFRESH_DASHBOARD="true"
+                ESTIMATED_DURATION=3
+                ;;
+              "intelligence")
+                REFRESH_INTELLIGENCE="true"
+                ESTIMATED_DURATION=12
+                ;;
+            esac
+          else
+            # Automated scheduling logic
+            echo "📅 **AUTOMATED REFRESH ANALYSIS**"
+            
+            # Check data ages
+            ACTIVITY_AGE=24
+            MARKET_AGE=24
+            DASHBOARD_AGE=24
+            INTELLIGENCE_AGE=24
+            
+            if [ -f "data/activity-summary.json" ]; then
+              ACTIVITY_TIMESTAMP=$(jq -r '.metadata.last_updated // empty' data/activity-summary.json 2>/dev/null || echo "")
+              if [ -n "$ACTIVITY_TIMESTAMP" ]; then
+                ACTIVITY_AGE=$(( ($(date +%s) - $(date -d "$ACTIVITY_TIMESTAMP" +%s)) / 3600 ))
+              fi
+            fi
+            
+            if [ -f ".github/scripts/data/market-intelligence/market-summary.json" ]; then
+              MARKET_TIMESTAMP=$(jq -r '.last_updated // empty' .github/scripts/data/market-intelligence/market-summary.json 2>/dev/null || echo "")
+              if [ -n "$MARKET_TIMESTAMP" ]; then
+                MARKET_AGE=$(( ($(date +%s) - $(date -d "$MARKET_TIMESTAMP" +%s)) / 3600 ))
+              fi
+            fi
+            
+            if [ -f "data/watch-me-work-data.json" ]; then
+              DASHBOARD_TIMESTAMP=$(jq -r '.metadata.generated_at // empty' data/watch-me-work-data.json 2>/dev/null || echo "")
+              if [ -n "$DASHBOARD_TIMESTAMP" ]; then
+                DASHBOARD_AGE=$(( ($(date +%s) - $(date -d "$DASHBOARD_TIMESTAMP" +%s)) / 3600 ))
+              fi
+            fi
+            
+            if [ -d "data/intelligence" ]; then
+              LATEST_INTEL=$(find data/intelligence -name "*.json" -type f -exec stat -c '%Y %n' {} \; 2>/dev/null | sort -nr | head -1 | cut -d' ' -f1)
+              if [ -n "$LATEST_INTEL" ]; then
+                INTELLIGENCE_AGE=$(( ($(date +%s) - $LATEST_INTEL) / 3600 ))
+              fi
+            fi
+            
+            echo "⏰ **Data Ages:**"
+            echo "  - Activity: ${ACTIVITY_AGE}h"
+            echo "  - Market: ${MARKET_AGE}h"  
+            echo "  - Dashboard: ${DASHBOARD_AGE}h"
+            echo "  - Intelligence: ${INTELLIGENCE_AGE}h"
+            
+            # Business hours vs off-hours logic
+            HOUR=$(TZ='${{ env.TIMEZONE }}' date +'%H')
+            DAY=$(date +'%u')  # 1=Monday, 7=Sunday
+            
+            IS_BUSINESS_HOURS="false"
+            if [ $DAY -le 5 ] && [ $HOUR -ge 9 ] && [ $HOUR -le 17 ]; then
+              IS_BUSINESS_HOURS="true"
+            fi
+            
+            echo "🕐 Business hours: $IS_BUSINESS_HOURS (Hour: $HOUR, Day: $DAY)"
+            
+            # Refresh decision logic
+            if [ "$IS_BUSINESS_HOURS" = "true" ]; then
+              # Business hours: more frequent updates
+              [ $ACTIVITY_AGE -gt 1 ] && REFRESH_ACTIVITY="true"
+              [ $DASHBOARD_AGE -gt 0.5 ] && REFRESH_DASHBOARD="true"  # 30min for dashboard
+              [ $MARKET_AGE -gt 6 ] && REFRESH_MARKET="true"
+              [ $INTELLIGENCE_AGE -gt 12 ] && REFRESH_INTELLIGENCE="true"
+            else
+              # Off hours: less frequent updates
+              [ $ACTIVITY_AGE -gt 3 ] && REFRESH_ACTIVITY="true"
+              [ $DASHBOARD_AGE -gt 2 ] && REFRESH_DASHBOARD="true"
+              [ $MARKET_AGE -gt 12 ] && REFRESH_MARKET="true"
+              [ $INTELLIGENCE_AGE -gt 24 ] && REFRESH_INTELLIGENCE="true"
+            fi
+            
+            # Calculate estimated duration
+            DURATION=0
+            [ "$REFRESH_ACTIVITY" = "true" ] && DURATION=$((DURATION + 5))
+            [ "$REFRESH_MARKET" = "true" ] && DURATION=$((DURATION + 8))
+            [ "$REFRESH_DASHBOARD" = "true" ] && DURATION=$((DURATION + 3))
+            [ "$REFRESH_INTELLIGENCE" = "true" ] && DURATION=$((DURATION + 12))
+            
+            ESTIMATED_DURATION=$DURATION
+          fi
+          
+          echo ""
+          echo "📋 **REFRESH DECISIONS:**"
+          echo "  - Activity Data: $REFRESH_ACTIVITY"
+          echo "  - Market Intelligence: $REFRESH_MARKET" 
+          echo "  - Dashboard Data: $REFRESH_DASHBOARD"
+          echo "  - GitHub Intelligence: $REFRESH_INTELLIGENCE"
+          echo "  - Priority Level: $PRIORITY"
+          echo "  - Estimated Duration: ${ESTIMATED_DURATION}min"
+          
+          # Set outputs
+          echo "refresh_activity=$REFRESH_ACTIVITY" >> $GITHUB_OUTPUT
+          echo "refresh_market=$REFRESH_MARKET" >> $GITHUB_OUTPUT
+          echo "refresh_dashboard=$REFRESH_DASHBOARD" >> $GITHUB_OUTPUT
+          echo "refresh_intelligence=$REFRESH_INTELLIGENCE" >> $GITHUB_OUTPUT
+          echo "priority_level=$PRIORITY" >> $GITHUB_OUTPUT
+          echo "estimated_duration=$ESTIMATED_DURATION" >> $GITHUB_OUTPUT
+
+  activity-data-refresh:
+    name: 📊 Activity Data Refresh
+    runs-on: ubuntu-latest
+    needs: data-intelligence
+    if: needs.data-intelligence.outputs.refresh-activity == 'true'
+    timeout-minutes: 8
+    
+    steps:
+      - name: 📂 Quick Repository Setup
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚡ Optimized Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Fast Dependencies
+        run: |
+          cd .github/scripts
+          npm ci --silent --prefer-offline --no-audit --no-fund
+
+      - name: 📊 High-Speed Activity Analysis
+        run: |
+          cd .github/scripts
+          echo "📊 **HIGH-SPEED ACTIVITY ANALYSIS**"
+          
+          # Optimize for speed based on priority
+          PRIORITY="${{ needs.data-intelligence.outputs.priority-level }}"
+          case "$PRIORITY" in
+            "low")
+              export ANALYSIS_DEPTH=light
+              export LOOKBACK_DAYS=7
+              TIMEOUT=180
+              ;;
+            "high") 
+              export ANALYSIS_DEPTH=comprehensive
+              export LOOKBACK_DAYS=60
+              TIMEOUT=480
+              ;;
+            *)
+              export ANALYSIS_DEPTH=standard
+              export LOOKBACK_DAYS=30
+              TIMEOUT=300
+              ;;
+          esac
+          
+          echo "⚡ Speed optimization: $ANALYSIS_DEPTH depth, ${LOOKBACK_DAYS}d lookback, ${TIMEOUT}s timeout"
+          
+          timeout $TIMEOUT node activity-analyzer.js
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Activity analysis completed successfully"
+          else
+            echo "⚠️ Activity analysis timed out or failed, check logs"
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  market-data-refresh:
+    name: 📈 Market Data Refresh
+    runs-on: ubuntu-latest
+    needs: data-intelligence
+    if: needs.data-intelligence.outputs.refresh-market == 'true'
+    timeout-minutes: 12
+    
+    steps:
+      - name: 📂 Quick Repository Setup
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: ⚡ Optimized Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Fast Dependencies
+        run: |
+          cd .github/scripts
+          npm ci --silent --prefer-offline --no-audit --no-fund
+
+      - name: 📈 Intelligent Market Analysis
+        run: |
+          cd .github/scripts
+          echo "📈 **INTELLIGENT MARKET ANALYSIS**"
+          
+          # Priority-based market analysis
+          PRIORITY="${{ needs.data-intelligence.outputs.priority-level }}"
+          case "$PRIORITY" in
+            "low")
+              echo "🔄 Quick market refresh..."
+              timeout 300 node market-trends-analyzer.js --skills-only
+              ;;
+            "high")
+              echo "🔍 Comprehensive market analysis..."
+              timeout 600 node market-trends-analyzer.js
+              ;;
+            *)
+              echo "📊 Standard market analysis..."
+              timeout 450 node market-trends-analyzer.js
+              ;;
+          esac
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Market analysis completed successfully"
+          else
+            echo "⚠️ Market analysis timed out, using cached data"
+          fi
+
+  dashboard-data-refresh:
+    name: 🎬 Dashboard Data Refresh
+    runs-on: ubuntu-latest
+    needs: data-intelligence
+    if: needs.data-intelligence.outputs.refresh-dashboard == 'true'
+    timeout-minutes: 5
+    
+    steps:
+      - name: 📂 Quick Repository Setup
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚡ Optimized Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'  
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Fast Dependencies
+        run: |
+          cd .github/scripts
+          npm ci --silent --prefer-offline --no-audit --no-fund
+
+      - name: 🎬 Lightning Dashboard Processing
+        run: |
+          cd .github/scripts
+          echo "🎬 **LIGHTNING DASHBOARD PROCESSING**"
+          
+          # Optimized dashboard data processing
+          export PROCESSING_MODE=optimized
+          export RATE_LIMIT_DELAY=100  # Minimal delays for speed
+          
+          timeout 240 node watch-me-work-data-processor.js
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Dashboard data processed successfully"
+            
+            # Verify data quality
+            if [ -f "../../data/watch-me-work-data.json" ]; then
+              ACTIVITIES=$(jq '.activities | length' ../../data/watch-me-work-data.json)
+              REPOS=$(jq '.repositories | length' ../../data/watch-me-work-data.json)
+              echo "📊 Dashboard stats: $ACTIVITIES activities, $REPOS repositories"
+            fi
+          else
+            echo "⚠️ Dashboard processing failed or timed out"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  intelligence-data-refresh:
+    name: 🔍 Intelligence Data Refresh
+    runs-on: ubuntu-latest
+    needs: data-intelligence
+    if: needs.data-intelligence.outputs.refresh-intelligence == 'true'
+    timeout-minutes: 15
+    
+    steps:
+      - name: 📂 Quick Repository Setup
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚡ Optimized Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Fast Dependencies
+        run: |
+          cd .github/scripts
+          npm ci --silent --prefer-offline --no-audit --no-fund
+
+      - name: 🔍 Advanced Intelligence Mining
+        run: |
+          cd .github/scripts
+          echo "🔍 **ADVANCED INTELLIGENCE MINING**"
+          
+          # Priority-based intelligence mining
+          PRIORITY="${{ needs.data-intelligence.outputs.priority-level }}"
+          case "$PRIORITY" in
+            "low")
+              export MINING_DEPTH=basic
+              export LOOKBACK_DAYS=30
+              TIMEOUT=480
+              ;;
+            "high")
+              export MINING_DEPTH=comprehensive
+              export LOOKBACK_DAYS=120
+              TIMEOUT=900
+              ;;
+            *)
+              export MINING_DEPTH=standard  
+              export LOOKBACK_DAYS=90
+              TIMEOUT=600
+              ;;
+          esac
+          
+          echo "🎯 Intelligence mining: $MINING_DEPTH depth, ${LOOKBACK_DAYS}d lookback"
+          
+          # Run GitHub data mining
+          timeout $TIMEOUT node github-data-miner.js
+          MINING_RESULT=$?
+          
+          if [ $MINING_RESULT -eq 0 ]; then
+            echo "✅ Intelligence mining completed successfully"
+            
+            # Generate professional narratives if mining successful
+            echo "📖 Generating professional narratives..."
+            timeout 300 node narrative-generator.js || echo "⚠️ Narrative generation failed"
+          else
+            echo "⚠️ Intelligence mining failed or timed out"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  data-commit:
+    name: 💾 Data Commit & Synchronization
+    runs-on: ubuntu-latest
+    needs: [data-intelligence, activity-data-refresh, market-data-refresh, dashboard-data-refresh, intelligence-data-refresh]
+    if: always() && (needs.activity-data-refresh.result == 'success' || needs.market-data-refresh.result == 'success' || needs.dashboard-data-refresh.result == 'success' || needs.intelligence-data-refresh.result == 'success')
+    timeout-minutes: 5
+    
+    steps:
+      - name: 📂 Repository Checkout for Commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 💾 Intelligent Data Commit
+        run: |
+          echo "💾 **INTELLIGENT DATA COMMIT**"
+          
+          git config --local user.email "data-refresh@adrianwedd.com"
+          git config --local user.name "adrianwedd(data-refresh)"
+          
+          # Check what data was refreshed
+          ACTIVITY_STATUS="${{ needs.activity-data-refresh.result }}"
+          MARKET_STATUS="${{ needs.market-data-refresh.result }}"  
+          DASHBOARD_STATUS="${{ needs.dashboard-data-refresh.result }}"
+          INTELLIGENCE_STATUS="${{ needs.intelligence-data-refresh.result }}"
+          
+          # Build commit message components
+          REFRESHED_COMPONENTS=()
+          [ "$ACTIVITY_STATUS" = "success" ] && REFRESHED_COMPONENTS+=("📊 Activity")
+          [ "$MARKET_STATUS" = "success" ] && REFRESHED_COMPONENTS+=("📈 Market") 
+          [ "$DASHBOARD_STATUS" = "success" ] && REFRESHED_COMPONENTS+=("🎬 Dashboard")
+          [ "$INTELLIGENCE_STATUS" = "success" ] && REFRESHED_COMPONENTS+=("🔍 Intelligence")
+          
+          COMPONENTS_STR=$(IFS=', '; echo "${REFRESHED_COMPONENTS[*]}")
+          
+          # Stage all data changes
+          git add data/ .github/scripts/data/ || true
+          
+          if ! git diff --cached --quiet; then
+            TIMESTAMP=$(TZ='${{ env.TIMEZONE }}' date +'%Y%m%d-%H%M')
+            
+            git commit -m "📊 Data Refresh: $COMPONENTS_STR ($TIMESTAMP)
+
+🔄 High-frequency data pipeline refresh
+⏰ Timestamp: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
+🎯 Trigger: ${{ github.event_name }}
+📈 Duration: ${{ needs.data-intelligence.outputs.estimated-duration }}min estimated
+
+Refreshed Components:
+$COMPONENTS_STR
+
+Status Summary:
+$([ '$ACTIVITY_STATUS' != 'skipped' ] && echo '  - 📊 Activity Data: $ACTIVITY_STATUS' || echo '  - 📊 Activity Data: skipped')
+$([ '$MARKET_STATUS' != 'skipped' ] && echo '  - 📈 Market Intelligence: $MARKET_STATUS' || echo '  - 📈 Market Intelligence: skipped')
+$([ '$DASHBOARD_STATUS' != 'skipped' ] && echo '  - 🎬 Dashboard Data: $DASHBOARD_STATUS' || echo '  - 🎬 Dashboard Data: skipped')
+$([ '$INTELLIGENCE_STATUS' != 'skipped' ] && echo '  - 🔍 GitHub Intelligence: $INTELLIGENCE_STATUS' || echo '  - 🔍 GitHub Intelligence: skipped')
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+            
+            git push
+            echo "✅ Data refresh committed and synchronized"
+          else
+            echo "📝 No data changes to commit"
+          fi
+
+  refresh-summary:
+    name: 📋 Data Refresh Summary
+    runs-on: ubuntu-latest
+    needs: [data-intelligence, activity-data-refresh, market-data-refresh, dashboard-data-refresh, intelligence-data-refresh, data-commit]
+    if: always()
+    
+    steps:
+      - name: 📋 Generate Refresh Summary
+        run: |
+          echo "📋 **DATA REFRESH PIPELINE SUMMARY**"
+          echo "=================================="
+          
+          # Collect results
+          ACTIVITY_STATUS="${{ needs.activity-data-refresh.result }}"
+          MARKET_STATUS="${{ needs.market-data-refresh.result }}"
+          DASHBOARD_STATUS="${{ needs.dashboard-data-refresh.result }}"
+          INTELLIGENCE_STATUS="${{ needs.intelligence-data-refresh.result }}"
+          COMMIT_STATUS="${{ needs.data-commit.result }}"
+          
+          echo "📊 **Refresh Results:**"
+          echo "  - Activity Data: ${ACTIVITY_STATUS:-skipped}"
+          echo "  - Market Intelligence: ${MARKET_STATUS:-skipped}"
+          echo "  - Dashboard Data: ${DASHBOARD_STATUS:-skipped}"
+          echo "  - GitHub Intelligence: ${INTELLIGENCE_STATUS:-skipped}"
+          echo "  - Data Commit: ${COMMIT_STATUS:-skipped}"
+          
+          # Count successes
+          SUCCESS_COUNT=0
+          [ "$ACTIVITY_STATUS" = "success" ] && SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+          [ "$MARKET_STATUS" = "success" ] && SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+          [ "$DASHBOARD_STATUS" = "success" ] && SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+          [ "$INTELLIGENCE_STATUS" = "success" ] && SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+          
+          echo "🎯 **Pipeline Efficiency:** $SUCCESS_COUNT/4 components refreshed"
+          echo "⏰ **Next Refresh:** $(TZ='${{ env.TIMEZONE }}' date -d '+30 minutes' +'%Y-%m-%d %H:%M %Z')"
+          
+          # Generate step summary
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          # 📊 High-Frequency Data Refresh Results
+          
+          ## 🎯 Refresh Summary
+          - **Trigger**: ${{ github.event_name }}
+          - **Priority**: ${{ needs.data-intelligence.outputs.priority-level }}
+          - **Duration**: ${{ needs.data-intelligence.outputs.estimated-duration }} minutes estimated
+          - **Components Refreshed**: $SUCCESS_COUNT/4
+          
+          ## 📈 Component Status  
+          | Component | Status | Details |
+          |-----------|--------|---------|
+          | 📊 Activity Data | ${ACTIVITY_STATUS:-❌ skipped} | GitHub activity and contribution analysis |
+          | 📈 Market Intelligence | ${MARKET_STATUS:-❌ skipped} | Emerging skills and market trends |
+          | 🎬 Dashboard Data | ${DASHBOARD_STATUS:-❌ skipped} | Watch Me Work dashboard content |
+          | 🔍 GitHub Intelligence | ${INTELLIGENCE_STATUS:-❌ skipped} | Advanced repository intelligence mining |
+          
+          ## ⚡ Performance Benefits
+          - **30-minute refresh cycle** during business hours
+          - **Smart caching** reduces redundant processing  
+          - **Parallel processing** for maximum efficiency
+          - **Priority-based timeouts** optimize resource usage
+          
+          ## 🔗 Integration
+          Fresh data automatically feeds into:
+          - [Continuous Enhancement Pipeline](../../actions/workflows/continuous-enhancement.yml)
+          - [Live CV Website](https://adrianwedd.github.io/cv)
+          - Watch Me Work Dashboard
+          
+          ---
+          *Data Refresh Pipeline - Next refresh: $(TZ='${{ env.TIMEZONE }}' date -d '+30 minutes' +'%H:%M %Z')*
+          EOF
