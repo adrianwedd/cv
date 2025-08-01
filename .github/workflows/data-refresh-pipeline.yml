@@ -2,6 +2,7 @@ name: 📊 High-Frequency Data Refresh Pipeline
 
 # Optimized data collection pipeline for real-time CV intelligence
 # Separates data collection from enhancement for better performance
+# Fixed workflow_dispatch trigger recognition
 
 on:
   schedule:
