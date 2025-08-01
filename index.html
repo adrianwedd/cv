@@ -21,20 +21,35 @@
     
     <title>Adrian Wedd - AI Engineer & Software Architect</title>
     
-    <!-- Fonts -->
+    <!-- Performance Optimization -->
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Critical Resource Preloading -->
+    <link rel="preload" href="assets/script.js" as="script">
     
     <!-- Icons -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     
-    <!-- Styles -->
+    <!-- Styles - Optimized Loading -->
+    <!-- Critical: Main styles load immediately -->
     <link rel="stylesheet" href="assets/styles.css">
-    <link rel="stylesheet" href="assets/cv-export-styles.css">
-    <link rel="stylesheet" href="assets/project-showcase-styles.css">
-    <link rel="stylesheet" href="assets/personalization-styles.css">
-    <link rel="stylesheet" href="assets/advanced-analytics-styles.css">
+    
+    <!-- Non-critical: Feature-specific styles load after main content -->
+    <link rel="preload" href="assets/cv-export-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/project-showcase-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/personalization-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/advanced-analytics-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="assets/cv-export-styles.css">
+        <link rel="stylesheet" href="assets/project-showcase-styles.css">
+        <link rel="stylesheet" href="assets/personalization-styles.css">
+        <link rel="stylesheet" href="assets/advanced-analytics-styles.css">
+    </noscript>
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -436,23 +451,44 @@
         </footer>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="assets/github-actions-visualizer.js"></script>
-    <script src="assets/github-actions-analytics.js"></script>
-    <script src="assets/github-actions-drill-down.js"></script>
-    <script src="assets/development-intelligence-dashboard.js"></script>
-    <script src="assets/ats-analyzer.js"></script>
-    <script src="assets/cv-template-engine.js"></script>
-    <script src="assets/cv-export-system.js"></script>
-    <script src="assets/interactive-project-showcase.js"></script>
-    <script src="assets/intelligent-cv-personalization.js"></script>
-    <script src="assets/advanced-analytics-platform.js"></script>
-    <script src="assets/script.js"></script>
+    <!-- Scripts - Optimized Loading -->
+    <!-- Critical: Main functionality loads first -->
+    <script src="assets/script.js" defer></script>
     
-    <!-- Analytics (Optional) -->
+    <!-- Non-critical: Advanced features load after main content -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <script src="assets/github-actions-visualizer.js" defer></script>
+    <script src="assets/github-actions-analytics.js" defer></script>
+    <script src="assets/github-actions-drill-down.js" defer></script>
+    <script src="assets/development-intelligence-dashboard.js" defer></script>
+    <script src="assets/ats-analyzer.js" defer></script>
+    <script src="assets/cv-template-engine.js" defer></script>
+    <script src="assets/cv-export-system.js" defer></script>
+    <script src="assets/interactive-project-showcase.js" defer></script>
+    <script src="assets/intelligent-cv-personalization.js" defer></script>
+    <script src="assets/advanced-analytics-platform.js" defer></script>
+    
+    <!-- Performance Monitoring & Analytics -->
     <script>
-        // Basic analytics tracking (privacy-focused)
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData) {
+                    const loadTime = perfData.loadEventEnd - perfData.fetchStart;
+                    console.log(`🚀 Page load time: ${loadTime}ms`);
+                    
+                    // Track if load time is under target
+                    if (loadTime < 2000) {
+                        console.log('✅ Performance target met: < 2s');
+                    } else {
+                        console.warn('⚠️ Performance target missed: > 2s');
+                    }
+                }
+            }
+        });
+        
+        // Service Worker for caching (non-blocking)
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/cv/sw.js').catch(() => {});
         }
