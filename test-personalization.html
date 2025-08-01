@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent CV Personalization Test</title>
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/personalization-styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 2rem;
+            background: var(--color-bg, #ffffff);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--color-border, #e1e5e9);
+        }
+        
+        .test-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text, #1f2937);
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .test-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted, #6b7280);
+            margin: 0;
+        }
+        
+        .test-section {
+            background: var(--color-card-bg, #ffffff);
+            border: 1px solid var(--color-border, #e1e5e9);
+            border-radius: var(--radius-lg, 12px);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            padding: 1.5rem;
+            background: var(--color-bg-subtle, #f9fafb);
+            border-radius: var(--radius-md, 8px);
+            border: 1px solid var(--color-border, #e1e5e9);
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text, #1f2937);
+            margin: 0 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-description {
+            font-size: 0.9rem;
+            color: var(--color-text-muted, #6b7280);
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .test-sample {
+            background: var(--color-bg-subtle, #f8fafc);
+            border: 1px solid var(--color-border, #e1e5e9);
+            border-radius: var(--radius-md, 8px);
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .shortcut-info {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: var(--radius-md, 8px);
+            margin-top: 1rem;
+        }
+        
+        .shortcut-keys {
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm, 4px);
+            margin: 0 0.25rem;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--color-text-muted, #6b7280);
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--color-border, #e1e5e9);
+            border-top: 3px solid var(--color-primary, #6366f1);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1 class="test-title">🎯 Intelligent CV Personalization</h1>
+        <p class="test-subtitle">AI-powered job matching with dynamic content adaptation</p>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">Core Features</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3 class="feature-title">🧠 Job Description Analysis</h3>
+                <p class="feature-description">Advanced NLP analysis extracts skills, industry classification, seniority level, and cultural indicators from job descriptions</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🎯 Skills Gap Analysis</h3>
+                <p class="feature-description">Identifies missing skills with market demand data and provides learning pathway recommendations</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🏢 Industry Intelligence</h3>
+                <p class="feature-description">Industry-specific customization with cultural values, preferred formats, and content emphasis</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">📊 Compatibility Scoring</h3>
+                <p class="feature-description">Real-time compatibility scoring with detailed improvement suggestions and impact analysis</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">✨ Dynamic Adaptation</h3>
+                <p class="feature-description">Intelligent CV reordering and content adaptation based on role requirements and industry standards</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🚀 Personalized Export</h3>
+                <p class="feature-description">Generates role-specific CV versions with optimized content and format recommendations</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">How to Use</h2>
+        <p style="margin: 0 0 1rem 0; font-size: 1rem; line-height: 1.6;">The Intelligent CV Personalization system provides AI-powered job matching and dynamic content adaptation.</p>
+        
+        <div class="shortcut-info">
+            <strong>🎯 Click the purple personalization button</strong> in the bottom-right corner, or use the keyboard shortcut:
+            <span class="shortcut-keys">Ctrl + Shift + P</span> (Windows/Linux) or 
+            <span class="shortcut-keys">Cmd + Shift + P</span> (Mac)
+        </div>
+        
+        <h3 style="margin: 1.5rem 0 1rem 0; color: var(--color-text, #1f2937);">Sample Job Description</h3>
+        <p style="margin: 0 0 0.5rem 0; color: var(--color-text-muted, #6b7280);">Try the system with this sample job description:</p>
+        
+        <div class="test-sample">
+            <strong>Senior AI Engineer - Tech Startup</strong><br><br>
+            
+            We are seeking a Senior AI Engineer to join our innovative team developing next-generation machine learning solutions. The successful candidate will have 5+ years of experience in AI/ML development and a proven track record of deploying production systems.
+            
+            <br><br><strong>Requirements:</strong><br>
+            • Expert-level Python programming with TensorFlow or PyTorch<br>
+            • Experience with cloud platforms (AWS, Azure, or GCP)<br>
+            • Strong background in machine learning algorithms and deep learning<br>
+            • Experience with containerization (Docker, Kubernetes)<br>
+            • Knowledge of MLOps practices and CI/CD for ML<br>
+            • Bachelor's degree in Computer Science, Engineering, or related field<br>
+            
+            <br><strong>Preferred:</strong><br>
+            • Experience with natural language processing<br>
+            • Knowledge of computer vision techniques<br>
+            • Startup experience with rapid prototyping<br>
+            • Open source contributions to ML frameworks<br>
+            
+            <br><strong>What we offer:</strong><br>
+            • Competitive salary and equity package<br>
+            • Flexible remote work options<br>
+            • Cutting-edge AI projects with real-world impact<br>
+            • Collaborative, innovation-driven culture
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">Expected Analysis Results</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3 class="feature-title">🎯 Compatibility Score</h3>
+                <p class="feature-description">High compatibility expected (80-90%) due to strong Python, ML, and cloud experience alignment</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🏢 Industry Classification</h3>
+                <p class="feature-description">Technology sector with high confidence based on AI/ML keywords and startup indicators</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">📊 Seniority Level</h3>
+                <p class="feature-description">Senior level position with 5+ years requirement matching professional experience</p>
+            </div>
+            <div class="feature-item">
+                <h3 class="feature-title">🛠️ Skills Analysis</h3>
+                <p class="feature-description">Strong matches: Python, TensorFlow, PyTorch, AWS, Docker. Gaps: MLOps, Computer Vision</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2 style="margin: 0 0 1rem 0; color: var(--color-text, #1f2937);">System Status</h2>
+        
+        <div id="system-status">
+            <div class="loading-message">
+                <div class="loading-spinner"></div>
+                <p>Loading Intelligent CV Personalization System...</p>
+                <p style="font-size: 0.9rem; opacity: 0.7;">The personalization engine will automatically initialize and load industry data</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="assets/intelligent-cv-personalization.js"></script>
+    
+    <!-- Debug Information -->
+    <script>
+        // Debug logging for testing
+        console.log('🧪 Personalization Test Page Loaded');
+        
+        // Check if personalization system initializes
+        setTimeout(() => {
+            const statusDiv = document.getElementById('system-status');
+            
+            if (window.intelligentPersonalization && window.intelligentPersonalization.isInitialized) {
+                console.log('✅ Intelligent CV Personalization initialized successfully');
+                statusDiv.innerHTML = `
+                    <div style="text-align: center; color: var(--color-success, #10b981); padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">✅</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--color-success, #10b981);">System Ready</h3>
+                        <p style="margin: 0; color: var(--color-text-muted, #6b7280);">
+                            Intelligent CV Personalization system initialized successfully.<br>
+                            Click the purple 🎯 button to start personalizing your CV!
+                        </p>
+                    </div>
+                `;
+            } else {
+                console.warn('⚠️ Intelligent CV Personalization may not have initialized properly');
+                statusDiv.innerHTML = `
+                    <div style="text-align: center; color: var(--color-warning, #f59e0b); padding: 2rem;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">⚠️</div>
+                        <h3 style="margin: 0 0 0.5rem 0; color: var(--color-warning, #f59e0b);">System Warning</h3>
+                        <p style="margin: 0; color: var(--color-text-muted, #6b7280);">
+                            Personalization system may not have initialized properly.<br>
+                            Check browser console for details.
+                        </p>
+                    </div>
+                `;
+            }
+        }, 3000);
+        
+        // Log any JavaScript errors
+        window.addEventListener('error', (e) => {
+            console.error('❌ JavaScript Error:', e.error);
+        });
+        
+        // Monitor personalization system initialization
+        const checkInterval = setInterval(() => {
+            if (window.intelligentPersonalization) {
+                console.log('📊 Personalization system found:', {
+                    initialized: window.intelligentPersonalization.isInitialized,
+                    cvData: !!window.intelligentPersonalization.cvData,
+                    skillsDatabase: window.intelligentPersonalization.skillsDatabase.size,
+                    industryProfiles: window.intelligentPersonalization.industryProfiles.size
+                });
+                
+                if (window.intelligentPersonalization.isInitialized) {
+                    clearInterval(checkInterval);
+                }
+            }
+        }, 1000);
+        
+        // Clear interval after 10 seconds
+        setTimeout(() => clearInterval(checkInterval), 10000);
+    </script>
+</body>
+</html>
