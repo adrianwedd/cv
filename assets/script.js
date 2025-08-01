@@ -594,38 +594,64 @@ class CVApplication {
      * Initialize data visualizations
      */
     initializeVisualizations() {
+        // Initialize language proficiency chart
         const languageChartCanvas = document.getElementById('languageChart');
-        if (!languageChartCanvas) return;
+        if (languageChartCanvas) {
+            const skillProficiency = this.activityData?.skill_analysis?.skill_proficiency;
 
-        const skillProficiency = this.activityData?.skill_analysis?.skill_proficiency;
+            if (skillProficiency) {
+                const labels = Object.keys(skillProficiency);
+                const data = Object.values(skillProficiency).map(skill => skill.proficiency_score);
 
-        if (skillProficiency) {
-            const labels = Object.keys(skillProficiency);
-            const data = Object.values(skillProficiency).map(skill => skill.proficiency_score);
-
-            new Chart(languageChartCanvas, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Proficiency Score',
-                        data: data,
-                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
+                new Chart(languageChartCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Proficiency Score',
+                            data: data,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+        }
+        
+        // Initialize GitHub Actions Visualizer
+        this.initializeGitHubActionsVisualizer();
+    }
+    
+    /**
+     * Initialize GitHub Actions Visualizer
+     */
+    initializeGitHubActionsVisualizer() {
+        try {
+            if (typeof GitHubActionsVisualizer !== 'undefined') {
+                this.actionsVisualizer = new GitHubActionsVisualizer({
+                    owner: CONFIG.USERNAME,
+                    repo: 'cv',
+                    refreshInterval: 30000, // 30 seconds
+                    maxRuns: 20
+                });
+                
+                console.log('✅ GitHub Actions Visualizer initialized');
+            } else {
+                console.warn('⚠️ GitHubActionsVisualizer not available');
+            }
+        } catch (error) {
+            console.error('❌ Failed to initialize GitHub Actions Visualizer:', error);
         }
     }
 
