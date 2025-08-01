@@ -448,6 +448,9 @@ jobs:
     if: always()  # Run regardless of other job status
     timeout-minutes: 5
     
+    permissions:
+      contents: write
+    
     steps:
       - name: 📥 Repository Checkout
         uses: actions/checkout@v4
