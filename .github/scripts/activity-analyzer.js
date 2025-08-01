@@ -25,6 +25,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const { exec } = require('child_process');
 const { promisify } = require('util');
+require('dotenv').config();
 const { httpRequest, sleep } = require('./utils/apiClient');
 
 const execAsync = promisify(exec);
@@ -41,26 +42,22 @@ const CONFIG = {
 };
 
 // Language mapping for skill proficiency calculation
-const LANGUAGE_SKILLS = {
-    'JavaScript': { category: 'Frontend/Backend', weight: 1.0, aliases: ['js', 'jsx'] },
-    'TypeScript': { category: 'Frontend/Backend', weight: 1.1, aliases: ['ts', 'tsx'] },
-    'Python': { category: 'Backend/AI/ML', weight: 1.2, aliases: ['py'] },
-    'Go': { category: 'Backend/Systems', weight: 1.0, aliases: ['golang'] },
-    'Rust': { category: 'Systems/Performance', weight: 1.1, aliases: ['rs'] },
-    'Java': { category: 'Backend/Enterprise', weight: 0.9, aliases: [] },
-    'C++': { category: 'Systems/Performance', weight: 1.1, aliases: ['cpp', 'cc'] },
-    'C': { category: 'Systems/Embedded', weight: 1.0, aliases: [] },
-    'PHP': { category: 'Backend/Web', weight: 0.8, aliases: [] },
-    'Ruby': { category: 'Backend/Web', weight: 0.8, aliases: ['rb'] },
-    'Swift': { category: 'Mobile/iOS', weight: 0.9, aliases: [] },
-    'Kotlin': { category: 'Mobile/Android', weight: 0.9, aliases: ['kt'] },
-    'HTML': { category: 'Frontend', weight: 0.6, aliases: ['htm'] },
-    'CSS': { category: 'Frontend', weight: 0.6, aliases: ['scss', 'sass', 'less'] },
-    'Shell': { category: 'DevOps/Automation', weight: 0.7, aliases: ['bash', 'sh'] },
-    'YAML': { category: 'DevOps/Config', weight: 0.5, aliases: ['yml'] },
-    'JSON': { category: 'Data/Config', weight: 0.4, aliases: [] },
-    'Markdown': { category: 'Documentation', weight: 0.3, aliases: ['md'] },
-};
+// Language mapping for skill proficiency calculation
+let LANGUAGE_SKILLS = {};
+
+// Load skill configuration dynamically
+async function loadSkillConfig() {
+    try {
+        const configPath = path.join(__dirname, '..' , '..' , 'data', 'skill-config.json');
+        const data = await fs.readFile(configPath, 'utf8');
+        LANGUAGE_SKILLS = JSON.parse(data).LANGUAGE_SKILLS;
+        console.log('✅ Skill configuration loaded successfully.');
+    } catch (error) {
+        console.error('❌ Failed to load skill configuration:', error.message);
+        // Fallback to a default or empty configuration if loading fails
+        LANGUAGE_SKILLS = {}; 
+    }
+}
 
 /**
  * Enhanced HTTP client with retry logic and rate limiting
@@ -868,7 +865,7 @@ class ActivityAnalyzer {
             project_complexity_analysis: this.analyzeProjectComplexity(repos),
             collaboration_network: await this.analyzeCollaborationNetwork(),
             innovation_indicators: this.identifyInnovationIndicators(repos),
-            market_alignment: this.assessMarketAlignment(repos)
+            market_alignment: await this.assessMarketAlignment(repos)
         };
     }
 
@@ -935,50 +932,50 @@ class ActivityAnalyzer {
         // Save individual data files that are referenced
         const activityPath = path.join(CONFIG.OUTPUT_DIR, 'activity', activityFileName);
         const activityData = {
-            collection_timestamp: new Date().toISOString(),
-            analysis_period_days: CONFIG.LOOKBACK_DAYS,
-            user_profile: results.user_profile || { message: "Resource not accessible by integration", status: "403" },
+            collectionTimestamp: new Date().toISOString(),
+            analysisPeriodDays: CONFIG.LOOKBACK_DAYS,
+            userProfile: results.user_profile || { message: "Resource not accessible by integration", status: "403" },
             repositories: results.repositories || { data: [], summary: {} },
-            cross_repo_activity: results.cross_repo_activity || {},
-            local_repository_metrics: results.local_repository_metrics || {},
-            language_analysis: results.language_analysis || {}
+            crossRepoActivity: results.cross_repo_activity || {},
+            localRepositoryMetrics: results.local_repository_metrics || {},
+            languageAnalysis: results.language_analysis || {}
         };
         await fs.writeFile(activityPath, JSON.stringify(activityData, null, 2), 'utf8');
         
         const metricsPath = path.join(CONFIG.OUTPUT_DIR, 'metrics', metricsFileName);
         const metricsData = {
-            calculation_timestamp: new Date().toISOString(),
-            analysis_period_days: CONFIG.LOOKBACK_DAYS,
+            calculationTimestamp: new Date().toISOString(),
+            analysisPeriodDays: CONFIG.LOOKBACK_DAYS,
             scores: results.professional_metrics?.scores || {},
-            raw_data: {
+            rawData: {
                 commits: results.cross_repo_activity?.summary?.total_commits || 0,
-                active_days: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
+                activeDays: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
                 repositories: results.repositories?.summary?.total_count || 0,
-                stars_received: results.repositories?.summary?.total_stars || 0
+                starsReceived: results.repositories?.summary?.total_stars || 0
             },
-            skill_analysis: results.skill_analysis || {},
-            professional_metrics: results.professional_metrics || {}
+            skillAnalysis: results.skill_analysis || {},
+            professionalMetrics: results.professional_metrics || {}
         };
         await fs.writeFile(metricsPath, JSON.stringify(metricsData, null, 2), 'utf8');
         
         const trendsPath = path.join(CONFIG.OUTPUT_DIR, 'trends', trendsFileName);
         const trendsData = {
-            analysis_timestamp: new Date().toISOString(),
-            commit_trends: results.activity_trends?.commit_patterns || {
+            analysisTimestamp: new Date().toISOString(),
+            commitTrends: results.activity_trends?.commit_patterns || {
                 "1_day": results.cross_repo_activity?.summary?.total_commits || 0,
                 "7_days": results.cross_repo_activity?.summary?.total_commits || 0,
                 "30_days": results.cross_repo_activity?.summary?.total_commits || 0,
                 "90_days": results.cross_repo_activity?.summary?.total_commits || 0
             },
             averages: results.activity_trends?.averages || {
-                daily_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / CONFIG.LOOKBACK_DAYS,
-                weekly_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 7),
-                monthly_avg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 30)
+                dailyAvg: (results.cross_repo_activity?.summary?.total_commits || 0) / CONFIG.LOOKBACK_DAYS,
+                weeklyAvg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 7),
+                monthlyAvg: (results.cross_repo_activity?.summary?.total_commits || 0) / Math.ceil(CONFIG.LOOKBACK_DAYS / 30)
             },
-            trend_analysis: results.activity_trends?.analysis || {
+            trendAnalysis: results.activity_trends?.analysis || {
                 direction: "stable",
-                velocity_change: 0,
-                consistency_score: 50
+                velocityChange: 0,
+                consistencyScore: 50
             }
         };
         await fs.writeFile(trendsPath, JSON.stringify(trendsData, null, 2), 'utf8');
@@ -986,32 +983,32 @@ class ActivityAnalyzer {
         // Save summary for quick access including cross-repo activity
         const summaryPath = path.join(CONFIG.OUTPUT_DIR, 'activity-summary.json');
         await fs.writeFile(summaryPath, JSON.stringify({
-            last_updated: new Date().toISOString(),
-            tracker_version: 'v1.6',
-            analysis_depth: CONFIG.ANALYSIS_DEPTH,
-            lookback_period_days: CONFIG.LOOKBACK_DAYS,
+            lastUpdated: new Date().toISOString(),
+            trackerVersion: 'v1.6',
+            analysisDepth: CONFIG.ANALYSIS_DEPTH,
+            lookbackPeriodDays: CONFIG.LOOKBACK_DAYS,
             summary: {
-                total_commits: results.cross_repo_activity?.summary?.total_commits || 0,
-                active_days: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
-                net_lines_contributed: results.local_repository_metrics?.line_contributions?.lines_contributed || 0,
-                tracking_status: 'active',
-                last_commit_date: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
-                repositories_active: results.cross_repo_activity?.summary?.repositories_active || 0,
-                issues_opened: results.cross_repo_activity?.summary?.total_issues_opened || 0,
-                prs_opened: results.cross_repo_activity?.summary?.total_prs_opened || 0
+                totalCommits: results.cross_repo_activity?.summary?.total_commits || 0,
+                activeDays: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
+                netLinesContributed: results.local_repository_metrics?.line_contributions?.lines_contributed || 0,
+                trackingStatus: 'active',
+                lastCommitDate: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
+                repositoriesActive: results.cross_repo_activity?.summary?.repositories_active || 0,
+                issuesOpened: results.cross_repo_activity?.summary?.total_issues_opened || 0,
+                prsOpened: results.cross_repo_activity?.summary?.total_prs_opened || 0
             },
-            data_files: {
-                latest_activity: activityFileName,
-                latest_metrics: metricsFileName,
-                latest_trends: trendsFileName
+            dataFiles: {
+                latestActivity: activityFileName,
+                latestMetrics: metricsFileName,
+                latestTrends: trendsFileName
             },
-            cv_integration: {
-                ready_for_enhancement: true,
-                data_freshness: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC',
-                next_cv_update: 'Automatic via CV Enhancement Pipeline'
+            cvIntegration: {
+                readyForEnhancement: true,
+                dataFreshness: new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC',
+                nextCvUpdate: 'Automatic via CV Enhancement Pipeline'
             },
-            professional_metrics: results.professional_metrics,
-            skill_analysis: results.skill_analysis?.summary
+            professionalMetrics: results.professional_metrics,
+            skillAnalysis: results.skill_analysis?.summary
         }, null, 2), 'utf8');
 
         console.log(`💾 Results saved:`);
@@ -1154,7 +1151,194 @@ class ActivityAnalyzer {
     analyzeProjectComplexity() { return {}; }
     async analyzeCollaborationNetwork() { return {}; }
     identifyInnovationIndicators() { return {}; }
-    assessMarketAlignment() { return {}; }
+    /**
+     * Assess market alignment using comprehensive market intelligence
+     */
+    async assessMarketAlignment(repos) {
+        try {
+            const { MarketTrendsAnalyzer } = require('./market-trends-analyzer');
+            const marketAnalyzer = new MarketTrendsAnalyzer();
+            await marketAnalyzer.initialize();
+            
+            // Create a simplified CV data structure from GitHub activity
+            const cvData = {
+                skills: this.extractSkillsFromRepos(repos),
+                experience: this.extractExperienceFromActivity(),
+                projects: this.extractProjectsFromRepos(repos)
+            };
+            
+            // Get comprehensive market alignment assessment
+            const alignment = await marketAnalyzer.assessCVMarketAlignment(cvData);
+            
+            return {
+                overall_score: alignment.overall_score,
+                market_position: alignment.market_position,
+                category_scores: alignment.category_scores,
+                top_strengths: alignment.strengths.slice(0, 5),
+                critical_gaps: alignment.skill_gaps.slice(0, 5),
+                quick_wins: alignment.recommendations
+                    .filter(r => r.timeline && r.timeline.includes('1-2 months'))
+                    .slice(0, 3),
+                strategic_investments: alignment.recommendations
+                    .filter(r => r.timeline && r.timeline.includes('6-12 months'))
+                    .slice(0, 3),
+                market_insights: {
+                    trending_in_portfolio: this.identifyTrendingTechnologies(repos),
+                    emerging_opportunities: alignment.skill_gaps
+                        .filter(g => g.priority.includes('Critical'))
+                        .map(g => g.skill),
+                    competitive_positioning: this.assessCompetitivePositioning(alignment)
+                }
+            };
+            
+        } catch (error) {
+            console.warn('⚠️ Market alignment analysis failed, using fallback:', error.message);
+            return this.fallbackMarketAlignment(repos);
+        }
+    }
+    
+    /**
+     * Extract skills from repository languages and technologies
+     */
+    extractSkillsFromRepos(repos) {
+        const skills = [];
+        const languageCounts = {};
+        
+        repos.forEach(repo => {
+            if (repo.language) {
+                languageCounts[repo.language] = (languageCounts[repo.language] || 0) + 1;
+            }
+        });
+        
+        // Convert language counts to skill objects
+        Object.entries(languageCounts).forEach(([language, count]) => {
+            const experienceYears = Math.min(count / 5, 10); // Rough estimate
+            const level = Math.min(40 + (count * 10), 95); // Scale based on usage
+            
+            skills.push({
+                name: language,
+                category: this.categorizeProgrammingLanguage(language),
+                level: level,
+                experience_years: experienceYears
+            });
+        });
+        
+        return skills;
+    }
+    
+    /**
+     * Categorize programming languages into skill categories
+     */
+    categorizeProgrammingLanguage(language) {
+        const categories = {
+            'JavaScript': 'Programming Languages',
+            'TypeScript': 'Programming Languages', 
+            'Python': 'Programming Languages',
+            'Java': 'Programming Languages',
+            'Go': 'Programming Languages',
+            'Rust': 'Programming Languages', 
+            'C++': 'Programming Languages',
+            'C#': 'Programming Languages',
+            'HTML': 'Frontend',
+            'CSS': 'Frontend',
+            'Shell': 'DevOps',
+            'Dockerfile': 'DevOps',
+            'YAML': 'DevOps',
+            'SQL': 'Databases'
+        };
+        
+        return categories[language] || 'Programming Languages';
+    }
+    
+    /**
+     * Extract experience insights from GitHub activity
+     */
+    extractExperienceFromActivity() {
+        return [{
+            position: 'Software Developer',
+            technologies: ['JavaScript', 'Python', 'Docker', 'Git'],
+            period: '2018-Present'
+        }];
+    }
+    
+    /**
+     * Extract project information from repositories
+     */
+    extractProjectsFromRepos(repos) {
+        return repos.slice(0, 5).map(repo => ({
+            name: repo.name,
+            description: repo.description || 'GitHub repository',
+            technologies: [repo.language].filter(Boolean),
+            github: repo.html_url
+        }));
+    }
+    
+    /**
+     * Identify trending technologies in the portfolio
+     */
+    identifyTrendingTechnologies(repos) {
+        const recentRepos = repos.filter(repo => {
+            const updatedDate = new Date(repo.updated_at);
+            const sixMonthsAgo = new Date();
+            sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+            return updatedDate > sixMonthsAgo;
+        });
+        
+        const trendingTech = {};
+        recentRepos.forEach(repo => {
+            if (repo.language) {
+                trendingTech[repo.language] = (trendingTech[repo.language] || 0) + 1;
+            }
+        });
+        
+        return Object.entries(trendingTech)
+            .sort(([,a], [,b]) => b - a)
+            .slice(0, 5)
+            .map(([tech, count]) => ({ technology: tech, activity_score: count }));
+    }
+    
+    /**
+     * Assess competitive positioning based on market alignment
+     */
+    assessCompetitivePositioning(alignment) {
+        const score = alignment.overall_score;
+        
+        if (score >= 85) return 'Top 10% - Market Leader';
+        if (score >= 75) return 'Top 25% - Strong Competitor';
+        if (score >= 65) return 'Top 50% - Competitive Position';
+        if (score >= 55) return 'Above Average - Growing';
+        return 'Below Average - Development Needed';
+    }
+    
+    /**
+     * Fallback market alignment when main analysis fails
+     */
+    fallbackMarketAlignment(repos) {
+        const languages = repos.map(r => r.language).filter(Boolean);
+        const uniqueLanguages = [...new Set(languages)];
+        
+        return {
+            overall_score: Math.min(uniqueLanguages.length * 15, 85),
+            market_position: 'Standard Developer Position',
+            category_scores: {
+                'Programming Languages': uniqueLanguages.length * 10,
+                'Technologies': Math.min(repos.length * 5, 80)
+            },
+            top_strengths: uniqueLanguages.slice(0, 3).map(lang => ({
+                skill: lang,
+                competitive_advantage: 'Active Usage'
+            })),
+            critical_gaps: [
+                { skill: 'AI/ML Integration', priority: 'High Market Demand' },
+                { skill: 'Cloud Architecture', priority: 'Industry Standard' }
+            ],
+            market_insights: {
+                trending_in_portfolio: this.identifyTrendingTechnologies(repos),
+                emerging_opportunities: ['LLM Integration', 'DevOps Automation'],
+                competitive_positioning: 'Developing Position'
+            }
+        };
+    }
     identifyCollaborationStyle() { return 'Independent Contributor'; }
     assessInnovationLevel() { return 'Moderate'; }
     generateSkillRecommendations() { return []; }
@@ -1170,6 +1354,8 @@ async function main() {
         console.error('❌ GITHUB_TOKEN environment variable is required');
         process.exit(1);
     }
+
+    await loadSkillConfig(); // Load skill configuration before analysis
 
     try {
         const analyzer = new ActivityAnalyzer();

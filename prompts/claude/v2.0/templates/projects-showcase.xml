@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Projects Showcase Enhancement Template v2.0 -->
+<prompt_template 
+    id="projects-showcase" 
+    version="2.0" 
+    created="2025-08-01"
+    persona="technical-product-manager">
+    
+    <metadata>
+        <title>Projects Portfolio Showcase Enhancement</title>
+        <description>Transform project portfolios into compelling technical narratives with market positioning</description>
+        <use_cases>
+            <case>GitHub portfolio optimization for job applications</case>
+            <case>Technical project narrative development</case>
+            <case>Innovation and problem-solving showcase</case>
+            <case>Portfolio diversity and market alignment analysis</case>
+        </use_cases>
+        <max_tokens>2500</max_tokens>
+        <temperature_range>0.4-0.9</temperature_range>
+    </metadata>
+
+    <prompt_structure>
+        <persona>
+            <expert_persona>
+                {persona_definition}
+            </expert_persona>
+        </persona>
+
+        <context_integration>
+            <portfolio_context>
+                You are evaluating a technical portfolio containing {project_count} projects spanning
+                {technology_diversity} with focus areas in {primary_domains}. The portfolio demonstrates
+                {complexity_distribution} and shows {innovation_patterns}. GitHub activity indicates
+                {activity_level} with {contribution_patterns}.
+            </portfolio_context>
+            
+            <market_positioning>
+                In the current market, this portfolio positions the candidate for {target_roles}
+                with particular strength in {competitive_advantages}. Market opportunities exist in
+                {emerging_areas} where the portfolio shows {alignment_indicators}.
+            </market_positioning>
+
+            <strategic_context>
+                Portfolio enhancement should emphasize {enhancement_strategy} while showcasing
+                {unique_differentiators}. Key evidence sources include {evidence_types} with
+                quantifiable outcomes from {measurable_projects}.
+            </strategic_context>
+        </context_integration>
+
+        <enhancement_philosophy>
+            <showcase_strategy>
+                {creativity_approach}
+            </showcase_strategy>
+            
+            <narrative_principles>
+                - Transform code repositories into compelling business solution narratives
+                - Emphasize problem-solving approach and innovative technical solutions
+                - Quantify impact and demonstrate measurable outcomes where possible
+                - Highlight technical complexity and architectural decision-making
+                - Connect individual projects to broader market trends and opportunities
+                - Balance technical depth with business value and user impact
+                - Showcase learning progression and technology adoption patterns
+            </narrative_principles>
+        </enhancement_philosophy>
+
+        <quality_framework>
+            <project_criteria>
+                <criterion type="problem_clarity">Each project must clearly articulate the problem it solves</criterion>
+                <criterion type="solution_innovation">Highlight novel approaches or creative technical solutions</criterion>
+                <criterion type="technical_depth">Include specific implementation details and architectural decisions</criterion>
+                <criterion type="impact_quantification">Provide measurable outcomes and performance metrics</criterion>
+                <criterion type="technology_justification">Explain technology choices and their strategic benefits</criterion>
+                <criterion type="market_relevance">Connect projects to current industry needs and trends</criterion>
+            </project_criteria>
+            
+            <portfolio_requirements>
+                <requirement>Minimum 3 projects with comprehensive enhancement</requirement>
+                <requirement>Technology diversity across multiple domains and complexity levels</requirement>
+                <requirement>Clear progression of technical sophistication over time</requirement>
+                <requirement>Innovation indicators in at least 50% of featured projects</requirement>
+                <requirement>Quantified achievements or impact metrics where available</requirement>
+                <requirement>Market positioning and competitive advantage analysis</requirement>
+            </portfolio_requirements>
+        </quality_framework>
+
+        <output_specification>
+            <format>JSON</format>
+            <schema>
+                {
+                    "enhanced_projects": "array: Enhanced project portfolio with strategic positioning",
+                    "portfolio_analysis": "object: Technology diversity and complexity analysis",
+                    "strategic_recommendations": "array: Recommendations for portfolio enhancement"
+                }
+            </schema>
+            
+            <detailed_schema>
+                enhanced_projects: [{
+                    "name": "Project name with compelling positioning",
+                    "enhanced_description": "Compelling project description with technical depth",
+                    "problem_statement": "Clear problem this project addresses",
+                    "solution_approach": "Technical approach and innovation",
+                    "technical_stack": [{"technology", "purpose", "complexity_level"}],
+                    "key_achievements": [{"achievement", "impact_metrics", "technical_challenge"}],
+                    "innovation_aspects": [{"innovation", "innovation_type", "market_relevance"}],
+                    "project_metadata": {"duration", "team_size", "role", "status"},
+                    "github_integration": {"repository_url", "metrics", "activity_indicators"},
+                    "market_positioning": {"target_audience", "competitive_advantage", "scalability_potential"}
+                }]
+            </detailed_schema>
+        </output_specification>
+
+        <reasoning_chain>
+            <portfolio_analysis>
+                GitHub Repository Analysis:
+                {github_portfolio}
+                
+                Project Complexity Assessment:
+                {complexity_analysis}
+                
+                Technology Stack Evaluation:
+                {technology_evaluation}
+                
+                Innovation Pattern Recognition:
+                {innovation_patterns}
+                
+                Market Alignment Assessment:
+                {market_alignment}
+            </portfolio_analysis>
+            
+            <enhancement_methodology>
+                For each project, apply this enhancement framework:
+                1. Problem Identification: Clearly articulate the real-world problem addressed
+                2. Solution Architecture: Describe the technical approach and key innovations
+                3. Technology Justification: Explain why specific technologies were chosen
+                4. Implementation Highlights: Showcase complex technical challenges overcome
+                5. Impact Quantification: Provide metrics on performance, usage, or outcomes
+                6. Market Context: Position the project within current industry trends
+                7. Learning Indicators: Show technical growth and skill development
+                
+                Prioritize projects that:
+                - Demonstrate technical complexity and architectural thinking
+                - Show innovation or novel approaches to common problems
+                - Have measurable impact or adoption indicators
+                - Represent current or emerging technology trends
+                - Display progression in technical sophistication
+            </enhancement_methodology>
+
+            <strategic_positioning>
+                Portfolio positioning strategy:
+                - Highlight unique combinations of technologies and domains
+                - Emphasize projects that solve real business problems
+                - Showcase ability to work across different complexity levels
+                - Demonstrate continuous learning and technology adoption
+                - Connect individual projects to broader career narrative
+                - Position for specific target roles or market opportunities
+                
+                Market differentiation focus:
+                - Innovation in problem-solving approaches
+                - Technical depth in implementation and architecture
+                - Business acumen in solution design and impact measurement
+                - Adaptability across different technologies and domains
+                - Contribution patterns that indicate collaboration and leadership potential
+            </strategic_positioning>
+        </reasoning_chain>
+    </prompt_structure>
+
+    <placeholders>
+        <!-- Core placeholders that must be replaced -->
+        <placeholder name="persona_definition" required="true" source="persona_file"/>
+        <placeholder name="project_count" required="true" source="portfolio_metrics"/>
+        <placeholder name="technology_diversity" required="true" source="tech_analysis"/>
+        <placeholder name="primary_domains" required="true" source="domain_analysis"/>
+        <placeholder name="complexity_distribution" required="true" source="complexity_data"/>
+        <placeholder name="innovation_patterns" required="true" source="innovation_analysis"/>
+        <placeholder name="activity_level" required="true" source="github_metrics"/>
+        <placeholder name="contribution_patterns" required="true" source="contribution_analysis"/>
+        <placeholder name="enhancement_strategy" required="true" source="strategy_analysis"/>
+        <placeholder name="unique_differentiators" required="true" source="differentiation_data"/>
+        <placeholder name="evidence_types" required="true" source="evidence_analysis"/>
+        <placeholder name="measurable_projects" required="true" source="metrics_data"/>
+        <placeholder name="creativity_approach" required="true" source="creativity_level"/>
+        <placeholder name="github_portfolio" required="true" source="github_data"/>
+        <placeholder name="complexity_analysis" required="true" source="complexity_metrics"/>
+        <placeholder name="technology_evaluation" required="true" source="tech_data"/>
+        <placeholder name="innovation_patterns" required="true" source="innovation_data"/>
+        <placeholder name="market_alignment" required="true" source="market_data"/>
+        
+        <!-- Context placeholders -->
+        <placeholder name="target_roles" required="false" source="role_targets"/>
+        <placeholder name="competitive_advantages" required="false" source="advantage_analysis"/>
+        <placeholder name="emerging_areas" required="false" source="trend_data"/>
+        <placeholder name="alignment_indicators" required="false" source="alignment_data"/>
+    </placeholders>
+
+    <usage_examples>
+        <example name="full_stack_portfolio">
+            <context>Developer with frontend, backend, and mobile projects showing technology progression</context>
+            <expected_outcome>Comprehensive portfolio showing full-stack capabilities with complexity progression</expected_outcome>
+        </example>
+        
+        <example name="ai_ml_specialist">
+            <context>Portfolio focused on machine learning projects with research and practical applications</context>
+            <expected_outcome>Technical depth in AI/ML with innovation emphasis and research application</expected_outcome>
+        </example>
+
+        <example name="open_source_contributor">
+            <context>Active open source contributor with multiple language contributions and community involvement</context>
+            <expected_outcome>Community leadership and collaboration emphasis with technical versatility</expected_outcome>
+        </example>
+
+        <example name="startup_entrepreneur">
+            <context>Portfolio showing progression from personal projects to startup-level applications</context>
+            <expected_outcome>Entrepreneurial technical skills with business acumen and scaling experience</expected_outcome>
+        </example>
+    </usage_examples>
+
+    <quality_assurance>
+        <automated_checks>
+            <check name="problem_statement_clarity" description="Each project clearly states problem solved"/>
+            <check name="technical_depth_validation" description="Sufficient technical implementation detail"/>
+            <check name="innovation_identification" description="Novel approaches or creative solutions highlighted"/>
+            <check name="impact_quantification" description="Measurable outcomes where possible"/>
+            <check name="market_relevance" description="Connection to current industry trends"/>
+            <check name="portfolio_balance" description="Diversity across complexity levels and domains"/>
+        </automated_checks>
+        
+        <confidence_scoring>
+            <metric name="technical_complexity" weight="25" description="Level of technical sophistication demonstrated"/>
+            <metric name="innovation_indicators" weight="25" description="Novel approaches and creative problem-solving"/>
+            <metric name="market_alignment" weight="20" description="Relevance to current industry needs"/>
+            <metric name="impact_demonstration" weight="15" description="Measurable outcomes and business value"/>
+            <metric name="portfolio_coherence" weight="10" description="Logical progression and strategic positioning"/>
+            <metric name="presentation_quality" weight="5" description="Compelling narrative and professional presentation"/>
+        </confidence_scoring>
+    </quality_assurance>
+
+</prompt_template>

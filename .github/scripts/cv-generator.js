@@ -20,6 +20,8 @@
 const fs = require('fs').promises;
 const puppeteer = require('puppeteer');
 const path = require('path');
+const Handlebars = require('handlebars');
+const { Document, Packer, Paragraph, TextRun, HeadingLevel } = require('docx');
 
 // Determine root directory by checking for project-specific files
 // We look for index.html as the definitive indicator of project root
@@ -51,7 +53,7 @@ const CONFIG = {
     OUTPUT_DIR: path.join(rootPrefix, 'dist'),
     DATA_DIR: path.join(rootPrefix, 'data'),
     ASSETS_DIR: path.join(rootPrefix, 'assets'),
-    TEMPLATE_FILE: 'index.html',
+    TEMPLATE_FILE: 'template.html',
     SITE_URL: 'https://adrianwedd.github.io/cv',
     GITHUB_USERNAME: 'adrianwedd'
 };
@@ -87,7 +89,10 @@ class CVGenerator {
             // Generate website components
             await this.generateHTML();
             await this.copyAssets();
-            await this.generatePDF(); // New call
+            await this.generatePDF();
+            await this.generateATSCV();
+            await this.generateDOCXCV(); // New call for DOCX CV
+            await this.generateLaTeXCV(); // New call for LaTeX CV
             await this.generateSitemap();
             await this.generateRobotsTxt();
             await this.generateManifest();
@@ -314,265 +319,119 @@ class CVGenerator {
     }
 
     /**
-     * Process HTML template with dynamic data
+     * Process HTML template with dynamic data using Handlebars.
      */
     async processHTMLTemplate(htmlContent) {
-        // Update meta tags
-        htmlContent = this.updateMetaTags(htmlContent);
-        
-        // Update structured data with GitHub-enhanced skills
-        htmlContent = this.updateStructuredDataWithGitHubSkills(htmlContent);
-        
-        // Update dynamic content placeholders
-        htmlContent = this.updateDynamicContent(htmlContent);
-
-        return htmlContent;
-    }
-
-    /**
-     * Update meta tags with dynamic content
-     */
-    updateMetaTags(htmlContent) {
-        const personalInfo = this.cvData.personal_info || {};
-        const name = personalInfo.name || 'Adrian Wedd';
-        const title = personalInfo.title || 'AI Engineer & Software Architect';
-        const description = this.aiEnhancements?.professional_summary?.enhanced || 
-                           this.cvData.professional_summary || 
-                           'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions';
-
-        // Update title
-        htmlContent = htmlContent.replace(
-            /<title>.*?<\/title>/,
-            `<title>${name} - ${title}</title>`
-        );
-
-        // Update meta description
-        htmlContent = htmlContent.replace(
-            /<meta name="description" content=".*?">/,
-            `<meta name="description" content="${description.substring(0, 160)}...">`
-        );
-
-        // Update Open Graph tags
-        htmlContent = htmlContent.replace(
-            /<meta property="og:title" content=".*?">/,
-            `<meta property="og:title" content="${name} - ${title}">`
-        );
-
-        htmlContent = htmlContent.replace(
-            /<meta property="og:description" content=".*?">/,
-            `<meta property="og:description" content="${description.substring(0, 160)}...">`
-        );
-
-        return htmlContent;
-    }
-
-
-    /**
-     * Update dynamic content placeholders with verified GitHub data
-     */
-    updateDynamicContent(htmlContent) {
-        // Update professional summary if enhanced version available
-        if (this.aiEnhancements?.professional_summary?.enhanced) {
-            const enhancedSummary = this.aiEnhancements.professional_summary.enhanced;
-            htmlContent = htmlContent.replace(
-                /(<p class="summary-text" id="professional-summary">)[\s\S]*?(<\/p>)/,
-                `$1${enhancedSummary}$2`
-            );
-        }
-
-        // Update GitHub activity metrics with verified data
-        htmlContent = this.updateGitHubMetrics(htmlContent);
-
-        // Add generation timestamp
-        const now = new Date();
-        htmlContent = htmlContent.replace(
-            /(<span id="footer-last-updated">).*?(<\/span>)/,
-            `$1${now.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            })}$2`
-        );
-
-        return htmlContent;
-    }
-
-    /**
-     * Update GitHub metrics with verified activity data
-     */
-    updateGitHubMetrics(htmlContent) {
-        const summary = this.activityData?.summary || {};
-        const cvIntegration = this.activityData?.cv_integration || {};
-        
-        // Load latest professional development metrics if available
-        let professionalMetrics = {};
-        try {
-            const metricsFile = this.activityData?.data_files?.latest_metrics;
-            if (metricsFile) {
-                const metricsPath = path.join(CONFIG.DATA_DIR, 'metrics', metricsFile);
-                const fs = require('fs');
-                if (fs.existsSync(metricsPath)) {
-                    professionalMetrics = JSON.parse(fs.readFileSync(metricsPath, 'utf8'));
+        // Register Handlebars helpers
+        Handlebars.registerHelper('json', function(context) {
+            return JSON.stringify(context, null, 2);
+        });
+        Handlebars.registerHelper('groupSkillsByCategory', (skills) => {
+            const categories = {};
+            skills.forEach(skill => {
+                const category = skill.category || 'Other';
+                if (!categories[category]) {
+                    categories[category] = [];
                 }
-            }
-        } catch (error) {
-            console.warn('⚠️ Could not load professional metrics:', error.message);
-        }
+                categories[category].push(skill);
+            });
+            return categories;
+        });
 
-        // Update commits count (30 days)
-        const commitsCount = summary.total_commits || 0;
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="commits-count">)[^<]*(<\/div>)/,
-            `$1${commitsCount}$2`
-        );
+        const template = Handlebars.compile(htmlContent);
 
-        // Update activity score
-        const activityScore = professionalMetrics?.scores?.activity_score || 
-                             Math.round((summary.active_days || 0) * 10);
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="activity-score">)[^<]*(<\/div>)/,
-            `$1${activityScore}$2`
-        );
+        const personalInfo = this.cvData.personal_info || {};
+        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary;
+        const summary = this.activityData?.summary || {};
+        const professionalMetrics = this.activityData?.professional_metrics || {};
+        const cvIntegration = this.activityData?.cv_integration || {};
 
-        // Update languages count (estimated from activity data)
-        const languagesCount = this.estimateLanguageCount();
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="languages-count">)[^<]*(<\/div>)/,
-            `$1${languagesCount}$2`
-        );
+        const data = {
+            // Meta tags
+            metaDescription: (professionalSummary || 'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions').substring(0, 160) + '...', 
+            ogTitle: `${personalInfo.name || 'Adrian Wedd'} - ${personalInfo.title || 'AI Engineer & Software Architect'}`, 
+            ogDescription: (professionalSummary || 'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions').substring(0, 160) + '...', 
+            twitterTitle: `${personalInfo.name || 'Adrian Wedd'} - ${personalInfo.title || 'AI Engineer & Software Architect'}`, 
+            twitterDescription: (professionalSummary || 'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions').substring(0, 160) + '...', 
+            pageTitle: `${personalInfo.name || 'Adrian Wedd'} - ${personalInfo.title || 'AI Engineer & Software Architect'}`, 
+            siteUrl: CONFIG.SITE_URL,
 
-        // Update last updated with actual GitHub activity timestamp
-        if (cvIntegration.data_freshness) {
-            const lastUpdated = new Date(cvIntegration.data_freshness).toLocaleDateString('en-US', {
+            // Personal Info
+            personalInfo: {
+                name: personalInfo.name || 'Adrian Wedd',
+                title: personalInfo.title || 'AI Engineer & Software Architect',
+                location: personalInfo.location || 'Tasmania, Australia',
+                github: personalInfo.github || 'https://github.com/adrianwedd',
+                linkedin: personalInfo.linkedin || 'https://linkedin.com/in/adrianwedd',
+                email: personalInfo.email || 'adrian@adrianwedd.com'
+            },
+
+            // Professional Summary
+            professionalSummary: professionalSummary,
+
+            // Live Stats
+            activityData: {
+                summary: {
+                    total_commits: summary.total_commits || 0,
+                },
+                professional_metrics: {
+                    scores: {
+                        activity_score: professionalMetrics?.scores?.activity_score || Math.round((summary.active_days || 0) * 10),
+                    }
+                },
+                cv_integration: {
+                    data_freshness: cvIntegration.data_freshness || new Date().toISOString()
+                }
+            },
+            languageCount: (() => {
+                const programmingSkills = (this.cvData.skills || [])
+                    .filter(skill => skill.category === 'Programming Languages')
+                    .length;
+                return programmingSkills > 0 ? programmingSkills : 8;
+            })(),
+            lastUpdated: new Date(cvIntegration.data_freshness || new Date()).toLocaleDateString('en-US', {
                 month: 'short',
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit'
-            });
-            htmlContent = htmlContent.replace(
-                /(<div class="stat-value" id="last-updated">)[^<]*(<\/div>)/,
-                `$1${lastUpdated}$2`
-            );
-        }
-
-        // Update AI credibility score (based on data verification)
-        const credibilityScore = this.calculateCredibilityScore(summary, professionalMetrics);
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="credibility-score">)[^<]*(<\/div>)/,
-            `$1${credibilityScore}%$2`
-        );
-
-        console.log(`✅ GitHub metrics updated: ${commitsCount} commits, ${activityScore} activity score, ${languagesCount} languages`);
-        
-        return htmlContent;
-    }
-
-    /**
-     * Estimate language count from available data
-     */
-    estimateLanguageCount() {
-        // Try to get from base CV skills
-        const programmingSkills = (this.cvData.skills || [])
-            .filter(skill => skill.category === 'Programming Languages')
-            .length;
-        
-        // Use reasonable default if no data available
-        return programmingSkills > 0 ? programmingSkills : 8;
-    }
-
-    /**
-     * Calculate credibility score based on data verification
-     */
-    calculateCredibilityScore(summary, professionalMetrics) {
-        let credibilityScore = 100;
-        
-        // Deduct points for missing or suspicious data
-        if (!summary.total_commits || summary.total_commits === 0) {
-            credibilityScore -= 20;
-        }
-        
-        if (!summary.net_lines_contributed || summary.net_lines_contributed === 0) {
-            credibilityScore -= 15;
-        }
-        
-        if (!professionalMetrics?.scores?.overall_professional_score) {
-            credibilityScore -= 10;
-        }
-        
-        // Add points for comprehensive data
-        if (summary.total_commits > 50) {
-            credibilityScore += 5;
-        }
-        
-        if (summary.net_lines_contributed > 10000) {
-            credibilityScore += 5;
-        }
-        
-        return Math.min(100, Math.max(60, credibilityScore));
-    }
-
-    /**
-     * Update structured data with GitHub-sourced skills
-     */
-    updateStructuredDataWithGitHubSkills(htmlContent) {
-        const personalInfo = this.cvData.personal_info || {};
-        let skills = (this.cvData.skills || []).slice(0, 10).map(skill => skill.name);
-        
-        // Try to enhance with GitHub language data if available
-        try {
-            const skillAnalysisFile = this.activityData?.data_files?.latest_activity;
-            if (skillAnalysisFile) {
-                const activityPath = path.join(CONFIG.DATA_DIR, 'activity', skillAnalysisFile);
-                const fs = require('fs');
-                if (fs.existsSync(activityPath)) {
-                    const activityData = JSON.parse(fs.readFileSync(activityPath, 'utf8'));
-                    const skillAnalysis = activityData.skill_analysis;
-                    
-                    if (skillAnalysis && skillAnalysis.skill_proficiency) {
-                        // Get top GitHub-verified skills
-                        const githubSkills = Object.keys(skillAnalysis.skill_proficiency)
-                            .filter(skill => skillAnalysis.skill_proficiency[skill].proficiency_level !== 'Beginner')
-                            .slice(0, 10);
-                        
-                        // Merge with existing skills, prioritizing GitHub-verified ones
-                        if (githubSkills.length > 0) {
-                            skills = [...new Set([...githubSkills, ...skills])].slice(0, 10);
-                            console.log(`✅ Enhanced skills with GitHub data: ${githubSkills.length} verified skills`);
-                        }
-                    }
+            }),
+            credibilityScore: (() => {
+                let credibilityScore = 100;
+                if (!summary.total_commits || summary.total_commits === 0) {
+                    credibilityScore -= 20;
                 }
-            }
-        } catch (error) {
-            console.warn('⚠️ Could not enhance skills with GitHub data:', error.message);
-        }
-        
-        const structuredData = {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": personalInfo.name || "Adrian Wedd",
-            "jobTitle": personalInfo.title || "AI Engineer & Software Architect",
-            "description": this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary,
-            "url": CONFIG.SITE_URL,
-            "sameAs": [
-                personalInfo.github || "https://github.com/adrianwedd",
-                personalInfo.linkedin || "https://linkedin.com/in/adrianwedd"
-            ],
-            "knowsAbout": skills,
-            "address": {
-                "@type": "PostalAddress",
-                "addressRegion": "Tasmania",
-                "addressCountry": "Australia"
-            }
+                if (!summary.net_lines_contributed || summary.net_lines_contributed === 0) {
+                    credibilityScore -= 15;
+                }
+                if (!professionalMetrics?.scores?.overall_professional_score) {
+                    credibilityScore -= 10;
+                }
+                if (summary.total_commits > 50) {
+                    credibilityScore += 5;
+                }
+                if (summary.net_lines_contributed > 10000) {
+                    credibilityScore += 5;
+                }
+                return Math.min(100, Math.max(60, credibilityScore));
+            })(),
+
+            // Sections
+            experience: this.cvData.experience || [],
+            projects: this.cvData.projects || [],
+            skills: this.cvData.skills || [],
+            achievements: this.cvData.achievements || [],
+
+            // Footer
+            footerLastUpdated: new Date(this.aiEnhancements?.last_updated || new Date()).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }),
         };
 
-        const structuredDataJson = JSON.stringify(structuredData, null, 2);
-        
-        return htmlContent.replace(
-            /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
-            `<script type="application/ld+json">\n${structuredDataJson}\n</script>`
-        );
+        return template(data);
     }
 
     /**
@@ -859,6 +718,296 @@ Disallow: /data/
 
         await browser.close();
         console.log(`✅ PDF generated successfully at: ${pdfPath}`);
+    }
+
+    /**
+     * Generates an ATS-optimized plain text version of the CV.
+     */
+    async generateATSCV() {
+        console.log('📝 Generating ATS-optimized plain text CV...');
+
+        const personalInfo = this.cvData.personal_info || {};
+        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const skills = this.cvData.skills || [];
+        const experience = this.cvData.experience || [];
+        const projects = this.cvData.projects || [];
+
+        let atsContent = '';
+
+        // 1. Contact Information
+        atsContent += `${personalInfo.name || ''}\n`;
+        atsContent += `${personalInfo.title || ''}\n`;
+        atsContent += `${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.github || ''}\n\n`;
+
+        // 2. Summary
+        if (professionalSummary) {
+            atsContent += `SUMMARY\n`;
+            atsContent += `${this.stripHtml(professionalSummary)}\n\n`;
+        }
+
+        // 3. Skills
+        if (skills.length > 0) {
+            atsContent += `SKILLS\n`;
+            atsContent += skills.map(skill => skill.name).join(', ') + '\n\n';
+        }
+
+        // 4. Experience
+        if (experience.length > 0) {
+            atsContent += `EXPERIENCE\n`;
+            experience.forEach(job => {
+                atsContent += `${job.position}, ${job.company} (${job.period})\n`;
+                atsContent += `${this.stripHtml(job.description)}\n`;
+                if (job.achievements && job.achievements.length > 0) {
+                    job.achievements.forEach(achievement => {
+                        atsContent += `- ${this.stripHtml(achievement)}\n`;
+                    });
+                }
+                atsContent += `\n`;
+            });
+        }
+
+        // 5. Projects
+        if (projects.length > 0) {
+            atsContent += `PROJECTS\n`;
+            projects.forEach(project => {
+                atsContent += `${project.name}\n`;
+                atsContent += `${this.stripHtml(project.description)}\n`;
+                if (project.technologies && project.technologies.length > 0) {
+                    atsContent += `Technologies: ${project.technologies.join(', ')}\n`;
+                }
+                atsContent += `\n`;
+            });
+        }
+
+        const atsPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv-ats.txt');
+        await fs.writeFile(atsPath, atsContent, 'utf8');
+
+        console.log(`✅ ATS-optimized CV generated successfully at: ${atsPath}`);
+    }
+
+    // Helper to strip HTML/Markdown and specific AI meta-commentary
+    stripHtml(text) {
+        if (!text) return '';
+        let cleaned = text;
+
+        // Remove common HTML tags
+        cleaned = cleaned.replace(/<[^>]*>?/gm, '');
+
+        // Remove Markdown formatting
+        cleaned = cleaned.replace(/\*\*/g, ''); // Bold
+        cleaned = cleaned.replace(/#/g, '');    // Headers
+        cleaned = cleaned.replace(/-/g, '');    // List items (simple dash)
+        cleaned = cleaned.replace(/\n\n+/g, '\n'); // Collapse multiple newlines
+
+        // Remove specific AI meta-commentary patterns
+        cleaned = cleaned.replace(/^Here's an enhanced professional summary:\s*/i, '');
+        cleaned = cleaned.replace(/^\*\*Enhanced Summary:\*\*\s*/i, '');
+        cleaned = cleaned.replace(/\n\nThis enhancement:[\s\S]*$/i, '');
+        cleaned = cleaned.replace(/The numbers provided are placeholders[\s\S]*$/i, '');
+        cleaned = cleaned.replace(/\n\nThis enhancement:\n[\s\S]*?(?=\n\n[A-Z]|$)/, ''); // More robust removal of "This enhancement" block
+        cleaned = cleaned.replace(/\n\n[A-Z][a-z]+:/g, ''); // Remove lines like "Concludes with:"
+
+        return cleaned.trim();
+    }
+
+    /**
+     * Generates a DOCX version of the CV.
+     */
+    async generateDOCXCV() {
+        console.log('📄 Generating DOCX version of the CV...');
+
+        const personalInfo = this.cvData.personal_info || {};
+        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const skills = this.cvData.skills || [];
+        const experience = this.cvData.experience || [];
+        const projects = this.cvData.projects || [];
+
+        const doc = new Document({
+            sections: [{
+                children: [
+                    new Paragraph({
+                        text: personalInfo.name || '',
+                        heading: HeadingLevel.TITLE,
+                    }),
+                    new Paragraph({
+                        text: personalInfo.title || '',
+                        heading: HeadingLevel.HEADING_1,
+                    }),
+                    new Paragraph({
+                        children: [
+                            new TextRun(`${personalInfo.email || ''} | `),
+                            new TextRun(`${personalInfo.linkedin || ''} | `),
+                            new TextRun(`${personalInfo.github || ''}`),
+                        ],
+                    }),
+                    new Paragraph({
+                        text: '',
+                    }),
+
+                    // Summary
+                    ...(professionalSummary ? [
+                        new Paragraph({
+                            text: 'SUMMARY',
+                            heading: HeadingLevel.HEADING_2,
+                        }),
+                        new Paragraph({
+                            text: this.stripHtml(professionalSummary),
+                        }),
+                        new Paragraph({
+                            text: '',
+                        }),
+                    ] : []),
+
+                    // Experience
+                    ...(experience.length > 0 ? [
+                        new Paragraph({
+                            text: 'EXPERIENCE',
+                            heading: HeadingLevel.HEADING_2,
+                        }),
+                        ...experience.flatMap(job => [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({ text: `${job.position}, ${job.company} (${job.period})`, bold: true }),
+                                ],
+                            }),
+                            new Paragraph({
+                                text: this.stripHtml(job.description),
+                            }),
+                            ...(job.achievements && job.achievements.length > 0 ? job.achievements.map(achievement => new Paragraph({
+                                children: [new TextRun({ text: `- ${this.stripHtml(achievement)}` })],
+                            })) : []),
+                            new Paragraph({
+                                text: '',
+                            }),
+                        ]),
+                    ] : []),
+
+                    // Skills
+                    ...(skills.length > 0 ? [
+                        new Paragraph({
+                            text: 'SKILLS',
+                            heading: HeadingLevel.HEADING_2,
+                        }),
+                        new Paragraph({
+                            text: skills.map(skill => skill.name).join(', '),
+                        }),
+                        new Paragraph({
+                            text: '',
+                        }),
+                    ] : []),
+
+                    // Projects
+                    ...(projects.length > 0 ? [
+                        new Paragraph({
+                            text: 'PROJECTS',
+                            heading: HeadingLevel.HEADING_2,
+                        }),
+                        ...projects.flatMap(project => [
+                            new Paragraph({
+                                children: [
+                                    new TextRun({ text: project.name, bold: true }),
+                                ],
+                            }),
+                            new Paragraph({
+                                text: this.stripHtml(project.description),
+                            }),
+                            ...(project.technologies && project.technologies.length > 0 ? [
+                                new Paragraph({
+                                    children: [new TextRun({ text: `Technologies: ${project.technologies.join(', ')}` })],
+                                }),
+                            ] : []),
+                            new Paragraph({
+                                text: '',
+                            }),
+                        ]),
+                    ] : []),
+                ],
+            }],
+        });
+
+        const docxPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.docx');
+        await Packer.toBuffer(doc).then(buffer => {
+            fs.writeFile(docxPath, buffer);
+            console.log(`✅ DOCX generated successfully at: ${docxPath}`);
+        });
+    }
+
+    /**
+     * Generates a LaTeX version of the CV.
+     */
+    async generateLaTeXCV() {
+        console.log('📝 Generating LaTeX version of the CV...');
+
+        const personalInfo = this.cvData.personal_info || {};
+        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const skills = this.cvData.skills || [];
+        const experience = this.cvData.experience || [];
+        const projects = this.cvData.projects || [];
+
+        let latexContent = `
+\\documentclass{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage{geometry}
+\\geometry{a4paper, margin=1in}
+\\usepackage{enumitem}
+\\setlist[itemize]{noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt}
+
+\\begin{document}
+
+\\section*{${personalInfo.name || ''}}
+\\subsection*{${personalInfo.title || ''}}
+${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.github || ''}
+
+`;
+
+        // Summary
+        if (professionalSummary) {
+            latexContent += `\\section*{Summary}\n`;
+            latexContent += `${this.stripHtml(professionalSummary)}\n\n`;
+        }
+
+        // Experience
+        if (experience.length > 0) {
+            latexContent += `\\section*{Experience}\n`;
+            experience.forEach(job => {
+                latexContent += `\\subsection*{${job.position}, ${job.company} (${job.period})}\n`;
+                latexContent += `${this.stripHtml(job.description)}\n`;
+                if (job.achievements && job.achievements.length > 0) {
+                    latexContent += `\\begin{itemize}\n`;
+                    job.achievements.forEach(achievement => {
+                        latexContent += `    \\item ${this.stripHtml(achievement)}\n`;
+                    });
+                    latexContent += `\\end{itemize}\n`;
+                }
+                latexContent += `\n`;
+            });
+        }
+
+        // Skills
+        if (skills.length > 0) {
+            latexContent += `\\section*{Skills}\n`;
+            latexContent += `${skills.map(skill => skill.name).join(', ')}\n\n`;
+        }
+
+        // Projects
+        if (projects.length > 0) {
+            latexContent += `\\section*{Projects}\n`;
+            projects.forEach(project => {
+                latexContent += `\\subsection*{${project.name}}\n`;
+                latexContent += `${this.stripHtml(project.description)}\n`;
+                if (project.technologies && project.technologies.length > 0) {
+                    latexContent += `Technologies: ${project.technologies.join(', ')}\n`;
+                }
+                latexContent += `\n`;
+            });
+        }
+
+        latexContent += `\\end{document}\n`;
+
+        const latexPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.tex');
+        await fs.writeFile(latexPath, latexContent, 'utf8');
+
+        console.log(`✅ LaTeX generated successfully at: ${latexPath}`);
     }
 
     /**

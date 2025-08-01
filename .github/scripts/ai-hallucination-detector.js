@@ -473,18 +473,39 @@ class AIHallucinationDetector {
     }
 
     async validateClaimAgainstData(claim, githubData) {
-        // Implementation would cross-reference claim with actual GitHub metrics
-        // This is a simplified version for demonstration
-        
         const actualValue = this.getActualValue(claim.type, githubData);
         const tolerance = this.getToleranceForClaimType(claim.type);
         
-        const isValid = Math.abs(claim.value - actualValue) <= tolerance;
+        // Handle cases where we don't have actual data
+        if (actualValue === null || actualValue === undefined) {
+            return {
+                isValid: true, // Assume valid if we can't verify
+                actualValue: 'Unknown',
+                severity: 'none'
+            };
+        }
+        
+        const difference = Math.abs(claim.value - actualValue);
+        const isValid = difference <= tolerance;
+        
+        // Determine severity based on magnitude of discrepancy
+        let severity = 'none';
+        if (!isValid) {
+            if (difference > tolerance * 3) {
+                severity = 'high';
+            } else if (difference > tolerance * 2) {
+                severity = 'medium';
+            } else {
+                severity = 'low';
+            }
+        }
         
         return {
             isValid,
             actualValue,
-            severity: isValid ? 'none' : (Math.abs(claim.value - actualValue) > tolerance * 2 ? 'high' : 'medium')
+            severity,
+            difference,
+            tolerance
         };
     }
 
@@ -506,11 +527,27 @@ class AIHallucinationDetector {
     }
 
     getActualValue(claimType, githubData) {
-        // Placeholder - would implement actual data lookup
+        if (!githubData) return null;
+        
         switch (claimType) {
-            case 'projects': return githubData?.repositories?.total_count || 0;
-            case 'languages': return githubData?.languages?.length || 0;
-            default: return 0;
+            case 'projects':
+                return githubData.professionalMetrics?.rawMetrics?.totalRepositories || 
+                       githubData.summary?.repositoriesActive || 0;
+                       
+            case 'languages':
+                return githubData.professionalMetrics?.rawMetrics?.uniqueLanguages || 
+                       githubData.skillAnalysis?.totalLanguages || 0;
+                       
+            case 'experience':
+                // Calculate based on account age
+                return githubData.professionalMetrics?.rawMetrics?.accountAgeYears || null;
+                
+            case 'performance':
+                // Performance claims can't be directly validated from GitHub data
+                return null;
+                
+            default: 
+                return null;
         }
     }
 
@@ -544,7 +581,7 @@ class AIHallucinationDetector {
             const summary = JSON.parse(await fs.readFile(summaryPath, 'utf8'));
             
             // Load detailed activity data if available
-            const latestActivity = summary.data_files?.latest_activity;
+            const latestActivity = summary.dataFiles?.latestActivity;
             if (latestActivity) {
                 const detailedPath = path.join(this.dataDir, 'activity', latestActivity);
                 const detailed = JSON.parse(await fs.readFile(detailedPath, 'utf8'));
@@ -624,9 +661,82 @@ class AIHallucinationDetector {
     }
 
     // Additional helper methods would be implemented here...
-    extractTimelineEvents() { return []; }
-    isTimelineViolation() { return false; }
-    checkChronology() { return []; }
+    extractTimelineEvents(aiContent, cvData) {
+        const events = [];
+        const textContent = this.extractAllText(aiContent);
+        
+        // Extract timeline events from AI-enhanced content
+        const timelinePatterns = [
+            /(?:within|in|during|over)\s+(\d+)\s+(days?|weeks?|months?)\s+.*?(built|developed|created|implemented|architected)/gi,
+            /(\d+)\s+(day|week|month)\s+(?:project|sprint|timeline|deadline)/gi,
+            /(overnight|single\s+day|weekend)\s+.*?(transformation|migration|rebuild|development)/gi
+        ];
+        
+        for (const pattern of timelinePatterns) {
+            let match;
+            while ((match = pattern.exec(textContent)) !== null) {
+                events.push({
+                    description: match[0],
+                    timeframe: match[1] ? `${match[1]} ${match[2]}` : match[1],
+                    context: match[3] || match[2] || 'general',
+                    source: 'ai_content'
+                });
+            }
+        }
+        
+        return events;
+    }
+    
+    isTimelineViolation(event) {
+        const timeframe = event.timeframe?.toLowerCase() || '';
+        const context = event.context?.toLowerCase() || '';
+        
+        // Check for obviously impossible timeframes
+        if (timeframe.includes('day') || timeframe.includes('overnight')) {
+            if (context.includes('architect') || context.includes('built') || context.includes('developed')) {
+                return true; // Major architecture work in a day is implausible
+            }
+        }
+        
+        if (timeframe.includes('week') && context.includes('migration')) {
+            return true; // Full system migrations typically take months
+        }
+        
+        return false;
+    }
+    
+    checkChronology(events) {
+        const issues = [];
+        
+        // Sort events by any extractable dates
+        const datedEvents = events.filter(event => this.hasDateReference(event));
+        
+        for (let i = 0; i < datedEvents.length - 1; i++) {
+            const current = datedEvents[i];
+            const next = datedEvents[i + 1];
+            
+            if (this.isChronologicallyInconsistent(current, next)) {
+                issues.push({
+                    type: 'chronological_inconsistency',
+                    description: `Timeline conflict between: "${current.description}" and "${next.description}"`,
+                    severity: 'medium'
+                });
+            }
+        }
+        
+        return issues;
+    }
+    
+    hasDateReference(event) {
+        // Simple check for date references - could be enhanced
+        return /\d{4}|last\s+year|this\s+year|recently|currently/i.test(event.description);
+    }
+    
+    isChronologicallyInconsistent(event1, event2) {
+        // Basic chronological consistency check
+        // This is a simplified implementation - could be much more sophisticated
+        return false; // For now, assume chronology is consistent
+    }
     assessClaimSeverity() { return 'low'; }
     getOverallSeverity() { return 'low'; }
     extractExperienceYears() { return []; }

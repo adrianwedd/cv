@@ -1,0 +1,235 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "experience-enhancement-schema.json",
+  "title": "Experience Enhancement Schema",
+  "description": "Validation schema for AI-enhanced professional experience responses",
+  "version": "2.0",
+  "type": "object",
+  "properties": {
+    "enhanced_experience": {
+      "type": "object",
+      "description": "Enhanced professional experience entry",
+      "properties": {
+        "position": {
+          "type": "string",
+          "description": "Enhanced job title with technical depth",
+          "minLength": 10,
+          "maxLength": 80
+        },
+        "company": {
+          "type": "string",
+          "description": "Company name and context",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "period": {
+          "type": "string",
+          "description": "Employment period (e.g., 'Jan 2020 - Present')",
+          "pattern": "^[A-Za-z]{3} \\d{4} - ([A-Za-z]{3} \\d{4}|Present)$"
+        },
+        "enhanced_summary": {
+          "type": "string",
+          "description": "Compelling 1-2 sentence role summary",
+          "minLength": 50,
+          "maxLength": 300
+        },
+        "key_achievements": {
+          "type": "array",
+          "description": "Quantified achievements with impact metrics",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "properties": {
+              "achievement": {
+                "type": "string",
+                "description": "Specific achievement with quantified impact",
+                "minLength": 30,
+                "maxLength": 200
+              },
+              "impact_metrics": {
+                "type": "object",
+                "properties": {
+                  "quantified_impact": {
+                    "type": "string",
+                    "description": "Specific numbers, percentages, or scale indicators"
+                  },
+                  "business_value": {
+                    "type": "string",
+                    "description": "Business value created or problem solved"
+                  },
+                  "technical_complexity": {
+                    "type": "string",
+                    "enum": ["low", "medium", "high", "very_high"]
+                  }
+                }
+              },
+              "evidence_level": {
+                "type": "string",
+                "enum": ["documented", "estimated", "contextual"],
+                "description": "Level of evidence supporting this achievement"
+              },
+              "technologies_used": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Specific technologies involved in this achievement"
+              }
+            },
+            "required": ["achievement", "evidence_level"]
+          }
+        },
+        "technical_contributions": {
+          "type": "array",
+          "description": "Technical contributions and innovations",
+          "items": {
+            "type": "object",
+            "properties": {
+              "contribution": {
+                "type": "string",
+                "description": "Specific technical contribution"
+              },
+              "technical_depth": {
+                "type": "string",
+                "description": "Technical depth and complexity indicators"
+              },
+              "innovation_level": {
+                "type": "string",
+                "enum": ["incremental", "significant", "breakthrough", "paradigm_shift"]
+              }
+            },
+            "required": ["contribution", "technical_depth"]
+          }
+        },
+        "leadership_indicators": {
+          "type": "array",
+          "description": "Leadership and mentoring activities",
+          "items": {
+            "type": "object",
+            "properties": {
+              "activity": {
+                "type": "string",
+                "description": "Leadership activity or responsibility"
+              },
+              "scope": {
+                "type": "string",
+                "description": "Team size, project scope, or organizational impact"
+              },
+              "outcome": {
+                "type": "string",
+                "description": "Measurable outcome or impact"
+              }
+            },
+            "required": ["activity", "scope"]
+          }
+        },
+        "technologies": {
+          "type": "array",
+          "description": "Technologies and tools used in this role",
+          "items": {
+            "type": "object",
+            "properties": {
+              "technology": {"type": "string"},
+              "proficiency": {
+                "type": "string",
+                "enum": ["basic", "intermediate", "advanced", "expert"]
+              },
+              "context": {
+                "type": "string",
+                "description": "How this technology was used"
+              }
+            },
+            "required": ["technology", "proficiency", "context"]
+          }
+        }
+      },
+      "required": ["position", "company", "period", "enhanced_summary", "key_achievements"]
+    },
+    "enhancement_metadata": {
+      "type": "object",
+      "properties": {
+        "enhancement_strategy": {
+          "type": "string",
+          "description": "Strategy used for this enhancement",
+          "enum": ["quantification_focus", "leadership_emphasis", "technical_depth", "innovation_highlight", "balanced_approach"]
+        },
+        "evidence_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Confidence level in evidence supporting enhancements"
+        },
+        "market_positioning": {
+          "type": "string",
+          "description": "How this experience positions candidate in market",
+          "maxLength": 200
+        },
+        "differentiation_factors": {
+          "type": "array",
+          "description": "Unique factors that differentiate this experience",
+          "items": {"type": "string"},
+          "maxItems": 5
+        }
+      }
+    },
+    "quality_validation": {
+      "type": "object",
+      "properties": {
+        "achievement_quantification": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of achievements with quantified metrics"
+        },
+        "technical_specificity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Level of technical depth and specificity"
+        },
+        "language_quality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Avoidance of generic language and clichés"
+        },
+        "evidence_support": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Level of evidence supporting claims"
+        },
+        "overall_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Overall quality score for the enhancement"
+        }
+      }
+    }
+  },
+  "required": ["enhanced_experience", "enhancement_metadata"],
+  "additionalProperties": false,
+  "quality_checks": {
+    "quantification_requirements": {
+      "minimum_quantified_achievements": 2,
+      "acceptable_metrics": ["percentages", "dollar_amounts", "time_savings", "user_counts", "performance_improvements"]
+    },
+    "forbidden_phrases": [
+      "responsible for",
+      "in charge of",
+      "worked on",
+      "involved in",
+      "participated in",
+      "contributed to",
+      "helped with"
+    ],
+    "required_elements": {
+      "action_verbs": ["developed", "implemented", "designed", "optimized", "created", "delivered", "led", "architected"],
+      "impact_indicators": ["improved", "reduced", "increased", "delivered", "achieved", "generated"]
+    },
+    "evidence_validation": {
+      "documented_preferred": "Prefer achievements with documented evidence",
+      "context_required": "All technical contributions need specific context"
+    }
+  }
+}
