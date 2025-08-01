@@ -1018,6 +1018,10 @@ body {
   :root {
     --container-padding: var(--space-4);
     --section-spacing: var(--space-12);
+    /* Mobile typography optimization */
+    --font-size-base: 1rem;     /* Ensure 16px minimum for mobile */
+    --font-size-sm: 0.9rem;     /* Slightly larger for mobile readability */
+    --line-height-relaxed: 1.7; /* Better mobile reading */
   }
 
   .header {
@@ -1088,13 +1092,34 @@ body {
     flex-direction: column;
     align-items: center;
   }
+  
+  .contact-link {
+    min-height: 44px; /* Touch target minimum */
+    width: 100%;      /* Full width on mobile */
+    max-width: 280px; /* Reasonable max width */
+    justify-content: center;
+  }
 
   .nav-items {
     padding: var(--space-1);
   }
 
   .nav-item {
-    padding: var(--space-2);
+    padding: var(--space-4) var(--space-3);
+    min-height: 44px; /* Touch target minimum */
+    min-width: 44px;  /* Touch target minimum */
+  }
+  
+  /* Prevent horizontal scrolling on mobile */
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Better mobile container */
+  .container {
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    max-width: 100%;
   }
 }
 
