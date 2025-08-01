@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-01T10:23:11.287Z",
+    "generated_at": "2025-08-01T10:25:14.990Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 77,
-    "rate_limit_remaining": 4923
+    "api_calls_made": 184,
+    "rate_limit_remaining": 4816
   },
   "user": {
     "login": "adrianwedd",
@@ -31,8 +31,8 @@
       "CreateEvent": 2,
       "ReleaseEvent": 1
     },
-    "last_commit_date": "2025-08-01T10:22:10Z",
-    "last_issue_date": "2025-08-01T10:20:47Z"
+    "last_commit_date": "2025-08-01T10:24:17Z",
+    "last_issue_date": "2025-08-01T10:23:05Z"
   },
   "activities": [
     {
@@ -12242,7 +12242,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-01T10:22:30Z",
+      "updated_at": "2025-08-01T10:24:37Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -12252,8 +12252,8 @@
         "commits": 10,
         "issues": 20,
         "total": 30,
-        "last_commit": "2025-08-01T10:22:10Z",
-        "last_issue": "2025-08-01T10:20:47Z"
+        "last_commit": "2025-08-01T10:24:17Z",
+        "last_issue": "2025-08-01T10:23:05Z"
       }
     },
     {
@@ -12594,6 +12594,92 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "30831941e665068e7d33b3a8634caf23f590768e",
+      "node_id": "C_kwDOPUy_0toAKDMwODMxOTQxZTY2NTA2OGU3ZDMzYjNhODYzNGNhZjIzZjU5MDc2OGU",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-01T10:24:17Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-01T10:24:27Z"
+        },
+        "message": "⚡ Critical performance optimizations - Sub-2-second load times\n\nPerformance improvements for professional stakeholder impressions:\n\n🚀 JavaScript Loading Optimization:\n- Add defer attribute to all scripts for non-blocking rendering\n- Prioritize critical script.js loading first\n- Defer non-critical feature scripts (11 files optimized)\n\n🎨 CSS Loading Strategy:\n- Implement preload + async loading for non-critical CSS\n- Maintain critical styles.css for immediate rendering\n- Add noscript fallbacks for accessibility\n\n📡 Resource Optimization:\n- Add dns-prefetch for CDN resources\n- Preload critical script.js resource\n- Optimize font loading with existing display:swap\n\n📊 Performance Monitoring:\n- Add real-time load time tracking\n- Console performance feedback (< 2s target)\n- Service worker preparation for caching\n\nExpected Impact: 50-70% reduction in render-blocking time\nTarget: Sub-2-second load times on 3G networks\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "9edaccb1552cc7e4b6d90b23f4ba5bfe2ed3801c",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/9edaccb1552cc7e4b6d90b23f4ba5bfe2ed3801c"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/30831941e665068e7d33b3a8634caf23f590768e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/30831941e665068e7d33b3a8634caf23f590768e",
+      "html_url": "https://github.com/adrianwedd/cv/commit/30831941e665068e7d33b3a8634caf23f590768e",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/30831941e665068e7d33b3a8634caf23f590768e/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "7d95cebbb22d3ec6201c8d6323b199d6b8cc0b65",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/7d95cebbb22d3ec6201c8d6323b199d6b8cc0b65",
+          "html_url": "https://github.com/adrianwedd/cv/commit/7d95cebbb22d3ec6201c8d6323b199d6b8cc0b65"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "12bd6308c3ff80ead7aad5fd2c6a51d8ee14fe0f",
       "node_id": "C_kwDOPUy_0toAKDEyYmQ2MzA4YzNmZjgwZWFkN2FhZDVmZDJjNmE1MWQ4ZWUxNGZlMGY",
@@ -13366,92 +13452,6 @@
           "sha": "79dc34043670a7db2e4e18e3f135475fd835f15c",
           "url": "https://api.github.com/repos/adrianwedd/cv/commits/79dc34043670a7db2e4e18e3f135475fd835f15c",
           "html_url": "https://github.com/adrianwedd/cv/commit/79dc34043670a7db2e4e18e3f135475fd835f15c"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "3af7addd9ea457c834da2fe132ae524444629f8b",
-      "node_id": "C_kwDOPUy_0toAKDNhZjdhZGRkOWVhNDU3YzgzNGRhMmZlMTMyYWU1MjQ0NDQ2MjlmOGI",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-01T09:07:33Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-01T09:07:39Z"
-        },
-        "message": "docs: Update CLAUDE.md and add session log\n\n- Document Advanced Analytics Platform implementation\n- Add session export for AI personalization work",
-        "tree": {
-          "sha": "5df80aa94c9e1282ddaf00e26b15a66821166885",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/5df80aa94c9e1282ddaf00e26b15a66821166885"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/3af7addd9ea457c834da2fe132ae524444629f8b",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/3af7addd9ea457c834da2fe132ae524444629f8b",
-      "html_url": "https://github.com/adrianwedd/cv/commit/3af7addd9ea457c834da2fe132ae524444629f8b",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/3af7addd9ea457c834da2fe132ae524444629f8b/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "a44835ed3d736613d7b76f54cd3d3f551b832ae8",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/a44835ed3d736613d7b76f54cd3d3f551b832ae8",
-          "html_url": "https://github.com/adrianwedd/cv/commit/a44835ed3d736613d7b76f54cd3d3f551b832ae8"
         }
       ],
       "repository": "cv",
@@ -26149,6 +26149,87 @@
   ],
   "recent_issues": [
     {
+      "url": "https://api.github.com/repos/adrianwedd/cv/issues/134",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/labels{/name}",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/comments",
+      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/events",
+      "html_url": "https://github.com/adrianwedd/cv/issues/134",
+      "id": 3283398335,
+      "node_id": "I_kwDOPUy_0s7DtK6_",
+      "number": 134,
+      "title": "⚡ Performance Optimization - Sub-2-second Load Times for Stakeholder Impressions",
+      "user": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 9022917081,
+          "node_id": "LA_kwDOPUy_0s8AAAACGc7J2Q",
+          "url": "https://api.github.com/repos/adrianwedd/cv/labels/enhancement",
+          "name": "enhancement",
+          "color": "a2eeef",
+          "default": true,
+          "description": "New feature or request"
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2025-08-01T10:23:05Z",
+      "updated_at": "2025-08-01T10:23:05Z",
+      "closed_at": null,
+      "author_association": "OWNER",
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "body": "# 🚀 Quick Win: Performance Optimization\n\n## 🎯 **Performance Goals**\n- **Load Time**: < 2 seconds for stakeholder impressions  \n- **Lighthouse Score**: 90+ across all categories\n- **First Contentful Paint**: < 1.5 seconds\n- **Cumulative Layout Shift**: < 0.1\n\n## 📊 **Current Performance Analysis**\n\n### **Critical Performance Factors**\n1. **Font Loading**: Google Fonts (Inter + JetBrains Mono)\n2. **CSS Bundle Size**: Large stylesheet needs optimization\n3. **JavaScript Execution**: Interactive features and animations\n4. **Image Optimization**: Profile images and assets\n5. **Resource Loading**: Preloading and critical resource prioritization\n\n### **Professional Impact**\n- **Executive Attention Span**: 3-second rule for professional websites\n- **First Impressions**: Performance directly affects perceived competence\n- **Mobile Networks**: 3G/4G performance critical for mobile professionals\n- **International Access**: CDN and global performance considerations\n\n## 🔧 **Immediate Optimizations Required**\n\n### **Phase 1: Critical Resource Optimization**\n1. **Font Loading Strategy**\n   - Implement font-display: swap for faster rendering\n   - Preload critical fonts\n   - Consider font subsetting for faster downloads\n\n2. **CSS Optimization**\n   - Critical CSS inlining for above-the-fold content\n   - Defer non-critical CSS\n   - Remove unused CSS rules\n   - Minify CSS in production\n\n3. **JavaScript Performance**\n   - Defer non-critical JavaScript\n   - Optimize animation performance\n   - Implement efficient event handling\n   - Bundle optimization and tree shaking\n\n### **Phase 2: Advanced Performance**\n1. **Resource Preloading**\n   - Preload critical resources\n   - Implement resource hints (dns-prefetch, preconnect)\n   - Optimize loading sequence\n\n2. **Caching Strategy**\n   - Browser caching optimization\n   - Service worker for offline performance\n   - CDN integration for global performance\n\n3. **Image Optimization**\n   - WebP format support with fallbacks\n   - Responsive images for different screen sizes\n   - Lazy loading for non-critical images\n\n## 📈 **Performance Metrics Tracking**\n\n### **Core Web Vitals**\n- **Largest Contentful Paint (LCP)**: < 2.5s\n- **First Input Delay (FID)**: < 100ms  \n- **Cumulative Layout Shift (CLS)**: < 0.1\n\n### **Additional Performance KPIs**\n- **Time to First Byte (TTFB)**: < 200ms\n- **First Contentful Paint (FCP)**: < 1.5s\n- **Speed Index**: < 2.0s\n- **Total Blocking Time (TBT)**: < 300ms\n\n## 🛠️ **Implementation Plan**\n\n### **Immediate Fixes (Today)**\n1. Add font-display: swap to font loading\n2. Implement preconnect for external resources\n3. Optimize CSS delivery strategy\n4. Add resource hints for performance\n\n### **Advanced Optimizations (This Week)**\n1. Implement critical CSS inlining\n2. Add service worker for caching\n3. Optimize JavaScript execution\n4. Implement progressive loading\n\n## 💼 **Business Justification**\n\n**Executive Impact**: Website performance directly correlates with:\n- Professional credibility and attention to detail\n- User engagement and time spent reviewing CV\n- Mobile accessibility for busy professionals\n- Global accessibility for international opportunities\n\n**Competitive Advantage**: Fast-loading CV demonstrates:\n- Technical competence and modern development practices\n- User experience prioritization\n- Performance engineering skills\n- Professional polish and completeness\n\n---\n\n**Priority**: 🚀 **High - Direct Impact on Professional Impressions**  \n**Timeline**: Critical fixes today, advanced optimizations this week  \n**Success Metric**: < 2 second load time on 3G networks",
+      "closed_by": null,
+      "reactions": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/134/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/timeline",
+      "performed_via_github_app": null,
+      "state_reason": null,
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "type": "issue",
+      "_activity_type": "issue"
+    },
+    {
       "url": "https://api.github.com/repos/adrianwedd/cv/issues/133",
       "repository_url": "https://github.com/adrianwedd/cv",
       "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/133/labels{/name}",
@@ -29459,125 +29540,6 @@
       "_activity_type": "issue"
     },
     {
-      "url": "https://api.github.com/repos/adrianwedd/cv/issues/114",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/114/labels{/name}",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/114/comments",
-      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/114/events",
-      "html_url": "https://github.com/adrianwedd/cv/issues/114",
-      "id": 3280938336,
-      "node_id": "I_kwDOPUy_0s7DjyVg",
-      "number": 114,
-      "title": "🛠️ Feat: Implement Automated Documentation Linter/Checker",
-      "user": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "labels": [
-        {
-          "id": 9022917066,
-          "node_id": "LA_kwDOPUy_0s8AAAACGc7Jyg",
-          "url": "https://api.github.com/repos/adrianwedd/cv/labels/documentation",
-          "name": "documentation",
-          "color": "0075ca",
-          "default": true,
-          "description": "Improvements or additions to documentation"
-        },
-        {
-          "id": 9022917081,
-          "node_id": "LA_kwDOPUy_0s8AAAACGc7J2Q",
-          "url": "https://api.github.com/repos/adrianwedd/cv/labels/enhancement",
-          "name": "enhancement",
-          "color": "a2eeef",
-          "default": true,
-          "description": "New feature or request"
-        },
-        {
-          "id": 9023360223,
-          "node_id": "LA_kwDOPUy_0s8AAAACGdWM3w",
-          "url": "https://api.github.com/repos/adrianwedd/cv/labels/P1:%20High",
-          "name": "P1: High",
-          "color": "D93F0B",
-          "default": false,
-          "description": "High priority; should be addressed soon"
-        }
-      ],
-      "state": "closed",
-      "locked": false,
-      "assignee": null,
-      "assignees": [],
-      "milestone": null,
-      "comments": 1,
-      "created_at": "2025-07-31T15:44:32Z",
-      "updated_at": "2025-07-31T18:07:24Z",
-      "closed_at": "2025-07-31T18:07:22Z",
-      "author_association": "OWNER",
-      "active_lock_reason": null,
-      "sub_issues_summary": {
-        "total": 0,
-        "completed": 0,
-        "percent_completed": 0
-      },
-      "body": "### Purpose\nTo implement an automated documentation linter and checker to ensure the quality, consistency, and accuracy of all project documentation. This will help prevent issues such as broken links, outdated references, formatting inconsistencies, and adherence to style guides.\n\n### Scope\n- All Markdown files (`.md`) in the `docs/` directory, `README.md`, `GEMINI.md`, and `CLAUDE.md`.\n- Potentially JSDoc comments in JavaScript files and docstrings in Python files.\n\n### Objectives\n- Research and identify suitable open-source tools for documentation linting (e.g., `markdownlint`, `proselint`, `link-checker`).\n- Configure the chosen tools to enforce project-specific documentation standards.\n- Integrate the documentation linter into the CI/CD pipeline to run on pull requests.\n- Provide clear error messages and suggestions for fixing documentation issues.\n\n### Deliverables\n- A working documentation linting setup.\n- Integration into the CI/CD pipeline.\n- Updated `CONTRIBUTING.md` with documentation style guidelines.\n\n### Acceptance Criteria\n- Issue created with clear objectives and scope.\n- Documentation linting runs automatically in CI.\n- Identified documentation issues are flagged and actionable.",
-      "closed_by": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "reactions": {
-        "url": "https://api.github.com/repos/adrianwedd/cv/issues/114/reactions",
-        "total_count": 0,
-        "+1": 0,
-        "-1": 0,
-        "laugh": 0,
-        "hooray": 0,
-        "confused": 0,
-        "heart": 0,
-        "rocket": 0,
-        "eyes": 0
-      },
-      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/114/timeline",
-      "performed_via_github_app": null,
-      "state_reason": "completed",
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "type": "issue",
-      "_activity_type": "issue"
-    },
-    {
       "url": "https://api.github.com/repos/adrianwedd/adrianwedd/issues/113",
       "repository_url": "https://github.com/adrianwedd/adrianwedd",
       "labels_url": "https://api.github.com/repos/adrianwedd/adrianwedd/issues/113/labels{/name}",
@@ -30545,6 +30507,193 @@
     }
   ],
   "timeline": [
+    {
+      "id": "commit-30831941e665068e7d33b3a8634caf23f590768e",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-01T10:24:17Z",
+      "repo": "cv",
+      "data": {
+        "sha": "30831941e665068e7d33b3a8634caf23f590768e",
+        "node_id": "C_kwDOPUy_0toAKDMwODMxOTQxZTY2NTA2OGU3ZDMzYjNhODYzNGNhZjIzZjU5MDc2OGU",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-01T10:24:17Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-01T10:24:27Z"
+          },
+          "message": "⚡ Critical performance optimizations - Sub-2-second load times\n\nPerformance improvements for professional stakeholder impressions:\n\n🚀 JavaScript Loading Optimization:\n- Add defer attribute to all scripts for non-blocking rendering\n- Prioritize critical script.js loading first\n- Defer non-critical feature scripts (11 files optimized)\n\n🎨 CSS Loading Strategy:\n- Implement preload + async loading for non-critical CSS\n- Maintain critical styles.css for immediate rendering\n- Add noscript fallbacks for accessibility\n\n📡 Resource Optimization:\n- Add dns-prefetch for CDN resources\n- Preload critical script.js resource\n- Optimize font loading with existing display:swap\n\n📊 Performance Monitoring:\n- Add real-time load time tracking\n- Console performance feedback (< 2s target)\n- Service worker preparation for caching\n\nExpected Impact: 50-70% reduction in render-blocking time\nTarget: Sub-2-second load times on 3G networks\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "9edaccb1552cc7e4b6d90b23f4ba5bfe2ed3801c",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/9edaccb1552cc7e4b6d90b23f4ba5bfe2ed3801c"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/30831941e665068e7d33b3a8634caf23f590768e",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/30831941e665068e7d33b3a8634caf23f590768e",
+        "html_url": "https://github.com/adrianwedd/cv/commit/30831941e665068e7d33b3a8634caf23f590768e",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/30831941e665068e7d33b3a8634caf23f590768e/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "7d95cebbb22d3ec6201c8d6323b199d6b8cc0b65",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/7d95cebbb22d3ec6201c8d6323b199d6b8cc0b65",
+            "html_url": "https://github.com/adrianwedd/cv/commit/7d95cebbb22d3ec6201c8d6323b199d6b8cc0b65"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: ⚡ Critical performance optimizations - Sub-2-second load times",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "issue-3283398335",
+      "type": "issue",
+      "subtype": "issue",
+      "timestamp": "2025-08-01T10:23:05Z",
+      "repo": "cv",
+      "data": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/134",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/labels{/name}",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/comments",
+        "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/events",
+        "html_url": "https://github.com/adrianwedd/cv/issues/134",
+        "id": 3283398335,
+        "node_id": "I_kwDOPUy_0s7DtK6_",
+        "number": 134,
+        "title": "⚡ Performance Optimization - Sub-2-second Load Times for Stakeholder Impressions",
+        "user": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 9022917081,
+            "node_id": "LA_kwDOPUy_0s8AAAACGc7J2Q",
+            "url": "https://api.github.com/repos/adrianwedd/cv/labels/enhancement",
+            "name": "enhancement",
+            "color": "a2eeef",
+            "default": true,
+            "description": "New feature or request"
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignee": null,
+        "assignees": [],
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2025-08-01T10:23:05Z",
+        "updated_at": "2025-08-01T10:23:05Z",
+        "closed_at": null,
+        "author_association": "OWNER",
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "body": "# 🚀 Quick Win: Performance Optimization\n\n## 🎯 **Performance Goals**\n- **Load Time**: < 2 seconds for stakeholder impressions  \n- **Lighthouse Score**: 90+ across all categories\n- **First Contentful Paint**: < 1.5 seconds\n- **Cumulative Layout Shift**: < 0.1\n\n## 📊 **Current Performance Analysis**\n\n### **Critical Performance Factors**\n1. **Font Loading**: Google Fonts (Inter + JetBrains Mono)\n2. **CSS Bundle Size**: Large stylesheet needs optimization\n3. **JavaScript Execution**: Interactive features and animations\n4. **Image Optimization**: Profile images and assets\n5. **Resource Loading**: Preloading and critical resource prioritization\n\n### **Professional Impact**\n- **Executive Attention Span**: 3-second rule for professional websites\n- **First Impressions**: Performance directly affects perceived competence\n- **Mobile Networks**: 3G/4G performance critical for mobile professionals\n- **International Access**: CDN and global performance considerations\n\n## 🔧 **Immediate Optimizations Required**\n\n### **Phase 1: Critical Resource Optimization**\n1. **Font Loading Strategy**\n   - Implement font-display: swap for faster rendering\n   - Preload critical fonts\n   - Consider font subsetting for faster downloads\n\n2. **CSS Optimization**\n   - Critical CSS inlining for above-the-fold content\n   - Defer non-critical CSS\n   - Remove unused CSS rules\n   - Minify CSS in production\n\n3. **JavaScript Performance**\n   - Defer non-critical JavaScript\n   - Optimize animation performance\n   - Implement efficient event handling\n   - Bundle optimization and tree shaking\n\n### **Phase 2: Advanced Performance**\n1. **Resource Preloading**\n   - Preload critical resources\n   - Implement resource hints (dns-prefetch, preconnect)\n   - Optimize loading sequence\n\n2. **Caching Strategy**\n   - Browser caching optimization\n   - Service worker for offline performance\n   - CDN integration for global performance\n\n3. **Image Optimization**\n   - WebP format support with fallbacks\n   - Responsive images for different screen sizes\n   - Lazy loading for non-critical images\n\n## 📈 **Performance Metrics Tracking**\n\n### **Core Web Vitals**\n- **Largest Contentful Paint (LCP)**: < 2.5s\n- **First Input Delay (FID)**: < 100ms  \n- **Cumulative Layout Shift (CLS)**: < 0.1\n\n### **Additional Performance KPIs**\n- **Time to First Byte (TTFB)**: < 200ms\n- **First Contentful Paint (FCP)**: < 1.5s\n- **Speed Index**: < 2.0s\n- **Total Blocking Time (TBT)**: < 300ms\n\n## 🛠️ **Implementation Plan**\n\n### **Immediate Fixes (Today)**\n1. Add font-display: swap to font loading\n2. Implement preconnect for external resources\n3. Optimize CSS delivery strategy\n4. Add resource hints for performance\n\n### **Advanced Optimizations (This Week)**\n1. Implement critical CSS inlining\n2. Add service worker for caching\n3. Optimize JavaScript execution\n4. Implement progressive loading\n\n## 💼 **Business Justification**\n\n**Executive Impact**: Website performance directly correlates with:\n- Professional credibility and attention to detail\n- User engagement and time spent reviewing CV\n- Mobile accessibility for busy professionals\n- Global accessibility for international opportunities\n\n**Competitive Advantage**: Fast-loading CV demonstrates:\n- Technical competence and modern development practices\n- User experience prioritization\n- Performance engineering skills\n- Professional polish and completeness\n\n---\n\n**Priority**: 🚀 **High - Direct Impact on Professional Impressions**  \n**Timeline**: Critical fixes today, advanced optimizations this week  \n**Success Metric**: < 2 second load time on 3G networks",
+        "closed_by": null,
+        "reactions": {
+          "url": "https://api.github.com/repos/adrianwedd/cv/issues/134/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/134/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "type": "issue",
+        "_activity_type": "issue"
+      },
+      "_formatted": "Issue #134: ⚡ Performance Optimization - Sub-2-second Load Times for Stakeholder Impressions",
+      "_icon": "🐛",
+      "_color": "#f59e0b"
+    },
     {
       "id": "commit-12bd6308c3ff80ead7aad5fd2c6a51d8ee14fe0f",
       "type": "commit",
@@ -32365,102 +32514,6 @@
         "_activity_type": "commit"
       },
       "_formatted": "Committed: chore: Resolve merge conflicts from main branch",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "commit-3af7addd9ea457c834da2fe132ae524444629f8b",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-01T09:07:33Z",
-      "repo": "cv",
-      "data": {
-        "sha": "3af7addd9ea457c834da2fe132ae524444629f8b",
-        "node_id": "C_kwDOPUy_0toAKDNhZjdhZGRkOWVhNDU3YzgzNGRhMmZlMTMyYWU1MjQ0NDQ2MjlmOGI",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-01T09:07:33Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-01T09:07:39Z"
-          },
-          "message": "docs: Update CLAUDE.md and add session log\n\n- Document Advanced Analytics Platform implementation\n- Add session export for AI personalization work",
-          "tree": {
-            "sha": "5df80aa94c9e1282ddaf00e26b15a66821166885",
-            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/5df80aa94c9e1282ddaf00e26b15a66821166885"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/3af7addd9ea457c834da2fe132ae524444629f8b",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/commits/3af7addd9ea457c834da2fe132ae524444629f8b",
-        "html_url": "https://github.com/adrianwedd/cv/commit/3af7addd9ea457c834da2fe132ae524444629f8b",
-        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/3af7addd9ea457c834da2fe132ae524444629f8b/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "a44835ed3d736613d7b76f54cd3d3f551b832ae8",
-            "url": "https://api.github.com/repos/adrianwedd/cv/commits/a44835ed3d736613d7b76f54cd3d3f551b832ae8",
-            "html_url": "https://github.com/adrianwedd/cv/commit/a44835ed3d736613d7b76f54cd3d3f551b832ae8"
-          }
-        ],
-        "repository": "cv",
-        "repository_full_name": "adrianwedd/cv",
-        "repository_url": "https://github.com/adrianwedd/cv",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: docs: Update CLAUDE.md and add session log",
       "_icon": "📝",
       "_color": "#22c55e"
     },
@@ -41748,141 +41801,6 @@
       "_formatted": "Commented on issue #2: feat: Implement advanced data visualizations for s",
       "_icon": "💬",
       "_color": "#8b5cf6"
-    },
-    {
-      "id": "activity-52799489189",
-      "type": "github_activity",
-      "subtype": "IssuesEvent",
-      "timestamp": "2025-07-31T18:34:04Z",
-      "repo": "adrianwedd/cv",
-      "data": {
-        "id": "52799489189",
-        "type": "IssuesEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1028440018,
-          "name": "adrianwedd/cv",
-          "url": "https://api.github.com/repos/adrianwedd/cv"
-        },
-        "payload": {
-          "action": "closed",
-          "issue": {
-            "url": "https://api.github.com/repos/adrianwedd/cv/issues/2",
-            "repository_url": "https://api.github.com/repos/adrianwedd/cv",
-            "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/2/labels{/name}",
-            "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/2/comments",
-            "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/2/events",
-            "html_url": "https://github.com/adrianwedd/cv/issues/2",
-            "id": 3274091951,
-            "node_id": "I_kwDOPUy_0s7DJq2v",
-            "number": 2,
-            "title": "feat: Implement advanced data visualizations for skills and activity",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 9022917081,
-                "node_id": "LA_kwDOPUy_0s8AAAACGc7J2Q",
-                "url": "https://api.github.com/repos/adrianwedd/cv/labels/enhancement",
-                "name": "enhancement",
-                "color": "a2eeef",
-                "default": true,
-                "description": "New feature or request"
-              },
-              {
-                "id": 9023295592,
-                "node_id": "LA_kwDOPUy_0s8AAAACGdSQaA",
-                "url": "https://api.github.com/repos/adrianwedd/cv/labels/frontend",
-                "name": "frontend",
-                "color": "D4C5F9",
-                "default": false,
-                "description": "Related to frontend UI and UX"
-              },
-              {
-                "id": 9023296197,
-                "node_id": "LA_kwDOPUy_0s8AAAACGdSSxQ",
-                "url": "https://api.github.com/repos/adrianwedd/cv/labels/visualization",
-                "name": "visualization",
-                "color": "BFDADC",
-                "default": false,
-                "description": "Related to data visualization"
-              },
-              {
-                "id": 9023360539,
-                "node_id": "LA_kwDOPUy_0s8AAAACGdWOGw",
-                "url": "https://api.github.com/repos/adrianwedd/cv/labels/P2:%20Medium",
-                "name": "P2: Medium",
-                "color": "FEF2C0",
-                "default": false,
-                "description": "Medium priority; address in due course"
-              }
-            ],
-            "state": "closed",
-            "locked": false,
-            "assignee": null,
-            "assignees": [],
-            "milestone": null,
-            "comments": 2,
-            "created_at": "2025-07-29T15:34:44Z",
-            "updated_at": "2025-07-31T18:34:04Z",
-            "closed_at": "2025-07-31T18:34:04Z",
-            "author_association": "OWNER",
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "body": "Implement advanced data visualizations for skills and activity metrics on the generated CV. This enhancement aims to provide a more dynamic, insightful, and visually appealing representation of a user's professional development and contributions.\n\n**Key Considerations:**\n*   **Data Sources:** Utilize existing activity data (e.g., `data/activity-summary.json`, `data/metrics/`) and skill data (from `base-cv.json` and AI enhancements).\n*   **Visualization Types:** Explore and implement various interactive charts and graphs, suchs as:\n    *   **Skill Proficiency Radar Charts:** To visualize strengths across different skill categories.\n    *   **Contribution Heatmaps:** To show activity patterns over time (e.g., daily commits).\n    *   **Language Distribution Pie/Bar Charts:** To represent programming language usage.\n    *   **Project Impact Bubble Charts:** To visualize project size vs. impact.\n*   **Frontend Integration:** Select a suitable JavaScript visualization library (e.g., D3.js, Chart.js, Plotly.js) and integrate it into the frontend (`assets/script.js`).\n*   **Interactivity:** Allow users to filter, sort, and drill down into the data.\n*   **Performance:** Optimize visualizations for fast loading and smooth interactions.\n\n**Priority:** This is a significant enhancement for the user experience and data insight. It is currently P2: Medium, which is appropriate.",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/cv/issues/2/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/2/timeline",
-            "performed_via_github_app": null,
-            "state_reason": "completed"
-          }
-        },
-        "public": true,
-        "created_at": "2025-07-31T18:34:04Z"
-      },
-      "_formatted": "Closed issue #2: feat: Implement advanced data visualizations for skills and ",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
     }
   ]
 }
