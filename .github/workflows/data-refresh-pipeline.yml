@@ -489,18 +489,14 @@ jobs:
           if ! git diff --cached --quiet; then
             TIMESTAMP=$(TZ='${{ env.TIMEZONE }}' date +'%Y%m%d-%H%M')
             
-            git commit -m "$(cat <<'EOF'
-📊 Data Refresh: $COMPONENTS_STR ($TIMESTAMP)
-
-🔄 High-frequency data pipeline refresh
-⏰ Components: $COMPONENTS_STR
-🎯 Trigger: ${{ github.event_name }}
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-EOF
-)"
+            git commit -m "📊 Data Refresh: ${COMPONENTS_STR} (${TIMESTAMP})" \
+                       -m "🔄 High-frequency data pipeline refresh" \
+                       -m "⏰ Components: ${COMPONENTS_STR}" \  
+                       -m "🎯 Trigger: ${{ github.event_name }}" \
+                       -m "" \
+                       -m "🤖 Generated with [Claude Code](https://claude.ai/code)" \
+                       -m "" \
+                       -m "Co-Authored-By: Claude <noreply@anthropic.com>"
             
             git push
             echo "✅ Data refresh committed and synchronized"

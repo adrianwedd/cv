@@ -21,20 +21,35 @@
     
     <title>Adrian Wedd - AI Engineer & Software Architect</title>
     
-    <!-- Fonts -->
+    <!-- Performance Optimization -->
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Critical Resource Preloading -->
+    <link rel="preload" href="assets/script.js" as="script">
     
     <!-- Icons -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     
-    <!-- Styles -->
+    <!-- Styles - Optimized Loading -->
+    <!-- Critical: Main styles load immediately -->
     <link rel="stylesheet" href="assets/styles.css">
-    <link rel="stylesheet" href="assets/cv-export-styles.css">
-    <link rel="stylesheet" href="assets/project-showcase-styles.css">
-    <link rel="stylesheet" href="assets/personalization-styles.css">
-    <link rel="stylesheet" href="assets/advanced-analytics-styles.css">
+    
+    <!-- Non-critical: Feature-specific styles load after main content -->
+    <link rel="preload" href="assets/cv-export-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/project-showcase-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/personalization-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="assets/advanced-analytics-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="assets/cv-export-styles.css">
+        <link rel="stylesheet" href="assets/project-showcase-styles.css">
+        <link rel="stylesheet" href="assets/personalization-styles.css">
+        <link rel="stylesheet" href="assets/advanced-analytics-styles.css">
+    </noscript>
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -436,23 +451,164 @@
         </footer>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="assets/github-actions-visualizer.js"></script>
-    <script src="assets/github-actions-analytics.js"></script>
-    <script src="assets/github-actions-drill-down.js"></script>
-    <script src="assets/development-intelligence-dashboard.js"></script>
-    <script src="assets/ats-analyzer.js"></script>
-    <script src="assets/cv-template-engine.js"></script>
-    <script src="assets/cv-export-system.js"></script>
-    <script src="assets/interactive-project-showcase.js"></script>
-    <script src="assets/intelligent-cv-personalization.js"></script>
-    <script src="assets/advanced-analytics-platform.js"></script>
-    <script src="assets/script.js"></script>
+    <!-- Scripts - Optimized Loading -->
+    <!-- Critical: Main functionality loads first -->
+    <script src="assets/script.js" defer></script>
     
-    <!-- Analytics (Optional) -->
+    <!-- Non-critical: Advanced features load after main content -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <script src="assets/github-actions-visualizer.js" defer></script>
+    <script src="assets/github-actions-analytics.js" defer></script>
+    <script src="assets/github-actions-drill-down.js" defer></script>
+    <script src="assets/development-intelligence-dashboard.js" defer></script>
+    <script src="assets/ats-analyzer.js" defer></script>
+    <script src="assets/cv-template-engine.js" defer></script>
+    <script src="assets/cv-export-system.js" defer></script>
+    <script src="assets/interactive-project-showcase.js" defer></script>
+    <script src="assets/intelligent-cv-personalization.js" defer></script>
+    <script src="assets/advanced-analytics-platform.js" defer></script>
+    
+    <!-- Advanced Error Handling & Performance Monitoring -->
     <script>
-        // Basic analytics tracking (privacy-focused)
+        // Global Error Handling System
+        class ErrorManager {
+            constructor() {
+                this.errorCount = 0;
+                this.maxErrors = 10;
+                this.setupGlobalHandlers();
+            }
+            
+            setupGlobalHandlers() {
+                // JavaScript execution errors
+                window.addEventListener('error', (event) => {
+                    this.handleError('JavaScript Error', event.error, {
+                        filename: event.filename,
+                        lineno: event.lineno,
+                        colno: event.colno
+                    });
+                });
+                
+                // Unhandled Promise rejections
+                window.addEventListener('unhandledrejection', (event) => {
+                    this.handleError('Promise Rejection', event.reason);
+                    event.preventDefault(); // Prevent console spam
+                });
+                
+                // Resource loading errors
+                window.addEventListener('error', (event) => {
+                    if (event.target && event.target !== window) {
+                        this.handleResourceError(event.target);
+                    }
+                }, true);
+            }
+            
+            handleError(type, error, context = {}) {
+                this.errorCount++;
+                
+                console.group(`🚨 ${type} (${this.errorCount}/${this.maxErrors})`);
+                console.error('Error:', error);
+                console.log('Context:', context);
+                console.log('User Agent:', navigator.userAgent);
+                console.log('Timestamp:', new Date().toISOString());
+                console.groupEnd();
+                
+                // Prevent error cascade
+                if (this.errorCount >= this.maxErrors) {
+                    console.warn('🛡️ Maximum errors reached. Enabling safe mode.');
+                    this.enableSafeMode();
+                }
+                
+                // Professional error notification (non-intrusive)
+                this.showProfessionalNotification('minor');
+            }
+            
+            handleResourceError(element) {
+                const resourceType = element.tagName.toLowerCase();
+                const resourceSrc = element.src || element.href;
+                
+                console.warn(`📦 Resource loading failed: ${resourceType} - ${resourceSrc}`);
+                
+                // Implement fallbacks based on resource type
+                switch (resourceType) {
+                    case 'img':
+                        this.handleImageError(element);
+                        break;
+                    case 'script':
+                        this.handleScriptError(element);
+                        break;
+                    case 'link':
+                        this.handleStylesheetError(element);
+                        break;
+                }
+            }
+            
+            handleImageError(img) {
+                // Provide fallback for profile images
+                img.style.display = 'none';
+                const fallback = document.createElement('div');
+                fallback.innerHTML = '👤';
+                fallback.style.cssText = 'font-size: 80px; text-align: center; color: #6b7280;';
+                img.parentNode.insertBefore(fallback, img);
+            }
+            
+            handleScriptError(script) {
+                console.warn(`⚠️ Script failed to load: ${script.src}`);
+                // Feature-specific fallbacks handled in individual components
+            }
+            
+            handleStylesheetError(link) {
+                console.warn(`🎨 Stylesheet failed to load: ${link.href}`);
+                // CSS graceful degradation - styles continue to work with fallbacks
+            }
+            
+            enableSafeMode() {
+                document.body.classList.add('safe-mode');
+                console.log('🛡️ Safe mode enabled - core functionality only');
+            }
+            
+            showProfessionalNotification(severity = 'minor') {
+                // Non-intrusive, professional error indication
+                if (severity === 'minor') {
+                    console.log('ℹ️ Minor issue detected - functionality maintained');
+                } else {
+                    const notification = document.createElement('div');
+                    notification.style.cssText = `
+                        position: fixed; top: 20px; right: 20px; 
+                        background: #fef3c7; border: 1px solid #f59e0b; 
+                        padding: 12px 16px; border-radius: 8px; 
+                        font-size: 14px; color: #92400e; z-index: 10000;
+                        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                    `;
+                    notification.innerHTML = '⚠️ Some features may be limited. Core functionality remains available.';
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => notification.remove(), 5000);
+                }
+            }
+        }
+        
+        // Initialize error handling
+        const errorManager = new ErrorManager();
+        
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            if ('performance' in window) {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData) {
+                    const loadTime = perfData.loadEventEnd - perfData.fetchStart;
+                    console.log(`🚀 Page load time: ${loadTime}ms`);
+                    
+                    // Track if load time is under target
+                    if (loadTime < 2000) {
+                        console.log('✅ Performance target met: < 2s');
+                    } else {
+                        console.warn('⚠️ Performance target missed: > 2s');
+                    }
+                }
+            }
+        });
+        
+        // Service Worker for caching (non-blocking)
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/cv/sw.js').catch(() => {});
         }
