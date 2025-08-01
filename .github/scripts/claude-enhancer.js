@@ -315,7 +315,7 @@ class CVContentEnhancer {
                 if (this.usePersonaDriven) {
                     console.log('🎭 Initializing Persona-Driven Enhancement System...');
                     const activityMetrics = await this.loadActivityMetrics();
-                    const cvData = await this.loadCurrentCV();
+                    const cvData = await this.loadCurrentCVData();
                     this.personaDrivenEnhancer = new PersonaDrivenEnhancer(
                         this.promptLibrary,
                         cvData,
