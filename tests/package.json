@@ -1,0 +1,66 @@
+{
+  "name": "cv-system-tests",
+  "version": "1.0.0",
+  "description": "Enterprise testing framework for CV system",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
+    "test:accessibility": "jest --testPathPattern=accessibility",
+    "test:performance": "jest --testPathPattern=performance",
+    "test:dashboard": "jest --testPathPattern=dashboard",
+    "test:mobile": "jest --testPathPattern=mobile",
+    "lighthouse": "lhci autorun",
+    "lint": "eslint **/*.js",
+    "format": "prettier --write **/*.js"
+  },
+  "dependencies": {
+    "@axe-core/puppeteer": "^4.10.1",
+    "@lhci/cli": "^0.14.0",
+    "@playwright/test": "^1.47.2",
+    "axe-core": "^4.10.1",
+    "cypress": "^13.15.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-extended": "^4.0.2",
+    "jest-puppeteer": "^10.1.1",
+    "playwright": "^1.47.2",
+    "puppeteer": "^24.15.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.32.0",
+    "prettier": "^3.3.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "preset": "jest-puppeteer",
+    "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"],
+    "collectCoverageFrom": [
+      "../assets/**/*.js",
+      "../*.html",
+      "!**/node_modules/**",
+      "!**/dist/**"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "coverageReporters": [
+      "html",
+      "text",
+      "lcov"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  }
+}
