@@ -22,3 +22,6 @@ Thumbs.db
 # Python generated files
 *.log
 __pycache__/
+
+# Claude session logs (stored in ~/.claude/logs instead)
+.claude/

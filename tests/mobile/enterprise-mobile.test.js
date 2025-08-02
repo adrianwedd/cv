@@ -3,88 +3,51 @@
  * Zero external dependencies, maximum reliability for responsive design testing
  */
 
-const http = require('http');
-const fs = require('fs');
+const TestServer = require('../test-server');
 const path = require('path');
 
 describe('Enterprise Mobile Testing - Bulletproof', () => {
   const port = 8004;
   let server;
-  const rootDir = path.resolve(__dirname, '../..');
   const testDevice = process.env.TEST_DEVICE || 'mobile';
 
   beforeAll(async () => {
-    // Create bulletproof HTTP server
-    server = http.createServer((req, res) => {
-      let filePath = path.join(rootDir, req.url === '/' ? 'index.html' : req.url);
-      
-      if (!filePath.startsWith(rootDir)) {
-        filePath = path.join(rootDir, 'index.html');
-      }
-
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.end('Not Found');
-          return;
-        }
-
-        const ext = path.extname(filePath).toLowerCase();
-        const contentType = {
-          '.html': 'text/html',
-          '.css': 'text/css',
-          '.js': 'application/javascript'
-        }[ext] || 'text/plain';
-
-        res.writeHead(200, { 'Content-Type': contentType });
-        res.end(data);
-      });
-    });
-
-    await new Promise((resolve, reject) => {
-      server.listen(port, (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Use bulletproof TestServer with security hardening
+    server = new TestServer(port, path.resolve(__dirname, '../..'));
+    await server.start();
   });
 
   afterAll(async () => {
     if (server) {
-      await new Promise(resolve => server.close(resolve));
+      await server.stop();
     }
   });
 
   test(`should validate ${testDevice} device compatibility infrastructure`, async () => {
-    const response = await new Promise((resolve) => {
-      const req = http.get(`http://localhost:${port}/`, (res) => {
-        let data = '';
-        res.on('data', chunk => data += chunk);
-        res.on('end', () => resolve({ statusCode: res.statusCode, data }));
-      });
-      req.on('error', () => resolve({ statusCode: 500, data: '' }));
-    });
+    const response = await server.makeRequest('/');
+    expect(response.status).toBe(200);
+    const data = await response.text();
+    expect(data).toContain('html');
+  });
 
-    expect(response.statusCode).toBe(200);
-    expect(response.data.length).toBeGreaterThan(0);
+  test('should demonstrate mobile testing infrastructure readiness', async () => {
+    const response = await server.makeRequest('/');
+    expect(response.status).toBe(200);
+    
+    const data = await response.text();
+    expect(data.length).toBeGreaterThan(0);
     
     console.log(`✅ ${testDevice} server infrastructure: Operational`);
   });
 
   test('should check for mobile-responsive HTML structure', async () => {
-    const response = await new Promise((resolve) => {
-      const req = http.get(`http://localhost:${port}/`, (res) => {
-        let data = '';
-        res.on('data', chunk => data += chunk);
-        res.on('end', () => resolve({ statusCode: res.statusCode, data }));
-      });
-      req.on('error', () => resolve({ statusCode: 500, data: '' }));
-    });
+    const response = await server.makeRequest('/');
+    expect(response.status).toBe(200);
+    
+    const data = await response.text();
 
-    if (response.statusCode === 200) {
-      const html = response.data.toLowerCase();
+    if (response.status === 200) {
+      const html = data.toLowerCase();
       
       // Check for mobile-essential meta tags
       const mobileFeatures = {

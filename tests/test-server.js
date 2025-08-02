@@ -120,14 +120,28 @@ class TestServer {
 
   // Get appropriate file path
   getFilePath(url) {
-    let filePath = path.join(this.rootDir, url === '/' ? 'index.html' : url);
+    // Security: Sanitize URL input to prevent path traversal attacks
+    if (!url || typeof url !== 'string') {
+      return path.join(this.rootDir, 'index.html');
+    }
     
-    // Security check - prevent directory traversal
-    if (!filePath.startsWith(this.rootDir)) {
-      filePath = path.join(this.rootDir, 'index.html');
+    // Remove query parameters and decode URI components safely
+    const cleanUrl = url.split('?')[0];
+    
+    // Default to index.html for root path
+    const requestedPath = cleanUrl === '/' ? 'index.html' : cleanUrl;
+    
+    // Security: Normalize and resolve the path to prevent directory traversal
+    const resolvedPath = path.resolve(this.rootDir, requestedPath);
+    
+    // Security: Ensure the resolved path is within the root directory
+    const normalizedRoot = path.resolve(this.rootDir);
+    if (!resolvedPath.startsWith(normalizedRoot + path.sep) && resolvedPath !== normalizedRoot) {
+      console.warn(`⚠️ Path traversal attempt blocked: ${url}`);
+      return path.join(this.rootDir, 'index.html');
     }
 
-    return filePath;
+    return resolvedPath;
   }
 
   // Get content type for file

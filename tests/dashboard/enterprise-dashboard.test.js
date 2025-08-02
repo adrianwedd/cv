@@ -3,103 +3,40 @@
  * Zero external dependencies, maximum reliability
  */
 
-const http = require('http');
-const fs = require('fs');
+const TestServer = require('../test-server');
 const path = require('path');
 
 describe('Enterprise Dashboard Testing - Bulletproof', () => {
   const port = 8003;
   let server;
-  const rootDir = path.resolve(__dirname, '../..');
 
   beforeAll(async () => {
-    // Create simple HTTP server without external dependencies
-    server = http.createServer((req, res) => {
-      let filePath = path.join(rootDir, req.url === '/' ? 'index.html' : req.url);
-      
-      // Security check
-      if (!filePath.startsWith(rootDir)) {
-        filePath = path.join(rootDir, 'index.html');
-      }
-
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.end('Not Found');
-          return;
-        }
-
-        const ext = path.extname(filePath).toLowerCase();
-        const contentType = {
-          '.html': 'text/html',
-          '.css': 'text/css',
-          '.js': 'application/javascript',
-          '.json': 'application/json'
-        }[ext] || 'text/plain';
-
-        res.writeHead(200, { 'Content-Type': contentType });
-        res.end(data);
-      });
-    });
-
-    // Start server with promise
-    await new Promise((resolve, reject) => {
-      server.listen(port, (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-
-    // Wait for server to be ready
-    await new Promise(resolve => setTimeout(resolve, 500));
+    // Use bulletproof TestServer with security hardening
+    server = new TestServer(port, path.resolve(__dirname, '../..'));
+    await server.start();
   });
 
   afterAll(async () => {
     if (server) {
-      await new Promise(resolve => server.close(resolve));
+      await server.stop();
     }
   });
 
   test('should have bulletproof server infrastructure', async () => {
-    // Test server using native Node.js http module
-    const response = await new Promise((resolve) => {
-      const req = http.get(`http://localhost:${port}/`, (res) => {
-        let data = '';
-        res.on('data', chunk => data += chunk);
-        res.on('end', () => {
-          resolve({
-            statusCode: res.statusCode,
-            data: data,
-            headers: res.headers
-          });
-        });
-      });
-
-      req.on('error', (err) => {
-        resolve({
-          statusCode: 500,
-          error: err.message,
-          data: ''
-        });
-      });
-    });
-
-    expect(response.statusCode).toBe(200);
-    expect(response.data.length).toBeGreaterThan(0);
+    // Test server using secure TestServer implementation
+    const response = await server.makeRequest('/');
+    
+    expect(response.status).toBe(200);
+    const data = await response.text();
+    expect(data.length).toBeGreaterThan(0);
   });
 
   test('should validate HTML structure for dashboard compatibility', async () => {
-    const response = await new Promise((resolve) => {
-      const req = http.get(`http://localhost:${port}/`, (res) => {
-        let data = '';
-        res.on('data', chunk => data += chunk);
-        res.on('end', () => resolve({ statusCode: res.statusCode, data }));
-      });
-      req.on('error', () => resolve({ statusCode: 500, data: '' }));
-    });
-
-    if (response.statusCode === 200) {
-      const html = response.data.toLowerCase();
+    const response = await server.makeRequest('/');
+    
+    if (response.status === 200) {
+      const data = await response.text();
+      const html = data.toLowerCase();
       
       // Check for essential HTML structure
       expect(html).toContain('<!doctype html>');
@@ -121,7 +58,7 @@ describe('Enterprise Dashboard Testing - Bulletproof', () => {
       console.log('✅ HTML structure validation: Dashboard compatible');
     } else {
       console.warn('⚠️ HTML file not found - dashboard not implemented yet');
-      expect(response.statusCode).toBe(404);
+      expect(response.status).toBe(404);
     }
   });
 
