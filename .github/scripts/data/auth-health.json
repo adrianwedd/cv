@@ -1,0 +1,57 @@
+{
+  "sessionId": "6c452f27-d512-4c37-a49a-c2dde2a6425c",
+  "timestamp": "2025-08-02T16:26:07.019Z",
+  "environment": "local",
+  "authMethods": {
+    "browser": {
+      "method": "browser",
+      "status": "healthy",
+      "available": true,
+      "responseTime": 89730,
+      "credentials": {
+        "hasSessionKey": true,
+        "hasOrgId": true,
+        "hasUserId": true,
+        "sessionKeyLength": 108
+      },
+      "error": null,
+      "lastSuccess": "2025-08-02T16:27:36.749Z",
+      "costSavings": "2.25"
+    },
+    "apiKey": {
+      "method": "api_key",
+      "status": "healthy",
+      "available": true,
+      "credentials": {
+        "hasAPIKey": true,
+        "keyLength": 17
+      },
+      "error": null,
+      "estimatedCost": 2.25
+    }
+  },
+  "costAnalysis": {
+    "currentMethod": "browser",
+    "browserSavings": 2.25,
+    "apiKeyCost": 0,
+    "efficiency": 100,
+    "monthlyProjection": {
+      "browserCost": 0,
+      "apiKeyCost": 0,
+      "totalSavings": 2.25,
+      "currency": "USD"
+    },
+    "recommendations": []
+  },
+  "recommendations": [
+    "Browser authentication response time is slow - check network connectivity"
+  ],
+  "overallHealth": "healthy",
+  "alerts": [
+    {
+      "severity": "warning",
+      "message": "Browser authentication slow (89730ms)",
+      "action": "Check network connectivity and cookie validity"
+    }
+  ]
+}
