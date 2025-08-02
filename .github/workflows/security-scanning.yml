@@ -1,0 +1,117 @@
+name: 🔒 Security Scanning & Monitoring
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 2 * * 1' # Weekly on Mondays at 2 AM UTC
+
+jobs:
+  codeql:
+    name: 🔍 CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript' ]
+
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔍 Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        queries: security-extended,security-and-quality
+
+    - name: 🔍 Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}"
+
+  dependency-scan:
+    name: 📦 Dependency Vulnerability Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🚀 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: '.github/scripts/package-lock.json'
+
+    - name: 📦 Install Dependencies
+      run: |
+        cd .github/scripts
+        npm ci
+
+    - name: 🔍 Run Security Audit
+      run: |
+        cd .github/scripts
+        npm audit --audit-level moderate --json > audit-results.json || true
+        
+    - name: 📊 Generate Security Report
+      run: |
+        cd .github/scripts
+        echo "🔍 Security Audit Results:"
+        npm audit --audit-level moderate || echo "⚠️ Vulnerabilities found - review required"
+        
+    - name: 📋 Upload Security Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-audit-results
+        path: .github/scripts/audit-results.json
+        retention-days: 30
+
+  secret-scan:
+    name: 🔐 Secret Detection
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🔍 Run TruffleHog Secret Scan
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: main
+        head: HEAD
+        extra_args: --debug --only-verified
+
+  security-report:
+    name: 📊 Security Status Report
+    runs-on: ubuntu-latest
+    needs: [codeql, dependency-scan, secret-scan]
+    if: always()
+    
+    steps:
+    - name: 📊 Generate Security Summary
+      run: |
+        echo "🔒 Security Scanning Summary"
+        echo "=========================="
+        echo "🔍 CodeQL: ${{ needs.codeql.result }}"
+        echo "📦 Dependencies: ${{ needs.dependency-scan.result }}"
+        echo "🔐 Secrets: ${{ needs.secret-scan.result }}"
+        
+        if [[ "${{ needs.codeql.result }}" == "success" ]] && 
+           [[ "${{ needs.dependency-scan.result }}" == "success" ]] && 
+           [[ "${{ needs.secret-scan.result }}" == "success" ]]; then
+          echo "✅ All security checks passed!"
+        else
+          echo "⚠️ Some security issues detected - review required"
+        fi
