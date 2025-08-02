@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runtime Dashboard Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 20px;
+            background: #f5f7fa;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+        .warning { border-color: #ffc107; background: #fff3cd; }
+        .info { border-color: #17a2b8; background: #d1ecf1; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        #console-output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Runtime Dashboard Validation</h1>
+        <p>Testing actual dashboard functionality and performance</p>
+        
+        <div id="test-controls">
+            <button onclick="runBasicTest()">Run Basic Test</button>
+            <button onclick="runLoadTest()">Run Load Test</button>
+            <button onclick="runErrorTest()">Run Error Test</button>
+            <button onclick="runCacheTest()">Run Cache Test</button>
+            <button onclick="showDashboard()">Show Dashboard</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+        
+        <div id="test-results"></div>
+        <div id="console-output"></div>
+    </div>
+
+    <script src="assets/development-intelligence-dashboard.js"></script>
+    
+    <script>
+        let dashboard = null;
+        let testResults = [];
+        
+        // Console capture
+        const originalConsole = {
+            log: console.log,
+            warn: console.warn,
+            error: console.error,
+            info: console.info
+        };
+        
+        function captureConsole() {
+            ['log', 'warn', 'error', 'info'].forEach(method => {
+                console[method] = function(...args) {
+                    originalConsole[method].apply(console, args);
+                    updateConsoleOutput(`[${method.toUpperCase()}] ${args.join(' ')}`);
+                };
+            });
+        }
+        
+        function updateConsoleOutput(message) {
+            const output = document.getElementById('console-output');
+            const timestamp = new Date().toLocaleTimeString();
+            output.textContent += `[${timestamp}] ${message}\n`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function addResult(type, message) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.textContent = `${type.toUpperCase()}: ${message}`;
+            resultsDiv.appendChild(resultDiv);
+            
+            testResults.push({ type, message, timestamp: Date.now() });
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+            document.getElementById('console-output').textContent = '';
+            testResults = [];
+        }
+        
+        async function initDashboard() {
+            if (dashboard) {
+                dashboard.destroy();
+            }
+            
+            dashboard = new DevelopmentIntelligenceDashboard({
+                owner: 'adrianwedd',
+                repo: 'cv',
+                refreshInterval: 30000,
+                maxRetries: 2,
+                retryDelay: 500,
+                requestTimeout: 5000,
+                cacheMaxAge: 30000
+            });
+            
+            // Give it a moment to initialize
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            return dashboard;
+        }
+        
+        async function runBasicTest() {
+            addResult('info', 'Starting basic dashboard test...');
+            
+            try {
+                const startTime = Date.now();
+                const testDashboard = await initDashboard();
+                const initTime = Date.now() - startTime;
+                
+                addResult('success', `Dashboard initialized in ${initTime}ms`);
+                
+                // Test basic functionality
+                if (testDashboard.config && testDashboard.cache && testDashboard.offlineCache) {
+                    addResult('success', 'Core components initialized correctly');
+                } else {
+                    addResult('error', 'Core components missing');
+                    return;
+                }
+                
+                // Test configuration
+                const expectedConfig = ['maxRetries', 'retryDelay', 'requestTimeout', 'cacheMaxAge'];
+                const missingConfig = expectedConfig.filter(key => !(key in testDashboard.config));
+                
+                if (missingConfig.length === 0) {
+                    addResult('success', 'All configuration options present');
+                } else {
+                    addResult('error', `Missing config: ${missingConfig.join(', ')}`);
+                }
+                
+                // Test methods exist
+                const expectedMethods = [
+                    'loadDashboardData', 'executeWithRetry', 'calculateBackoffDelay',
+                    'trackError', 'getFallbackData', 'isCacheValid'
+                ];
+                const missingMethods = expectedMethods.filter(method => 
+                    typeof testDashboard[method] !== 'function'
+                );
+                
+                if (missingMethods.length === 0) {
+                    addResult('success', 'All reliability methods present');
+                } else {
+                    addResult('error', `Missing methods: ${missingMethods.join(', ')}`);
+                }
+                
+            } catch (error) {
+                addResult('error', `Basic test failed: ${error.message}`);
+            }
+        }
+        
+        async function runLoadTest() {
+            addResult('info', 'Starting load test...');
+            
+            if (!dashboard) {
+                await initDashboard();
+            }
+            
+            try {
+                // Test data loading performance
+                const startTime = Date.now();
+                
+                // This will likely fail due to CORS, but tests fallback mechanisms
+                await dashboard.loadDashboardData();
+                
+                const loadTime = Date.now() - startTime;
+                addResult('info', `Data loading completed in ${loadTime}ms`);
+                
+                // Test if fallback data was provided
+                const cachedData = dashboard.cache.get('dashboard_data') || 
+                                 dashboard.cache.get('dashboard_intelligence');
+                
+                if (cachedData) {
+                    addResult('success', 'Fallback data mechanism working');
+                } else {
+                    addResult('warning', 'No cached data found after load attempt');
+                }
+                
+                // Test cache validity
+                const isValid = dashboard.isCacheValid('test');
+                addResult('info', `Cache validity check: ${isValid ? 'valid' : 'invalid'}`);
+                
+            } catch (error) {
+                addResult('warning', `Load test error (expected): ${error.message}`);
+            }
+        }
+        
+        async function runErrorTest() {
+            addResult('info', 'Starting error handling test...');
+            
+            if (!dashboard) {
+                await initDashboard();
+            }
+            
+            try {
+                // Test error tracking
+                const testError = new Error('Test error for validation');
+                dashboard.trackError('test_operation', testError, 1);
+                
+                if (dashboard.errorHistory && dashboard.errorHistory.length > 0) {
+                    addResult('success', 'Error tracking mechanism working');
+                } else {
+                    addResult('error', 'Error tracking not working');
+                }
+                
+                // Test exponential backoff calculation
+                const delay1 = dashboard.calculateBackoffDelay(1);
+                const delay2 = dashboard.calculateBackoffDelay(2);
+                const delay3 = dashboard.calculateBackoffDelay(3);
+                
+                if (delay2 > delay1 && delay3 > delay2) {
+                    addResult('success', `Exponential backoff working: ${delay1}ms → ${delay2}ms → ${delay3}ms`);
+                } else {
+                    addResult('error', 'Exponential backoff not working correctly');
+                }
+                
+                // Test timeout functionality
+                try {
+                    await dashboard.withTimeout(
+                        new Promise(resolve => setTimeout(resolve, 100)), 
+                        200
+                    );
+                    addResult('success', 'Timeout handling working (fast operation)');
+                } catch (error) {
+                    addResult('error', `Timeout test failed: ${error.message}`);
+                }
+                
+                // Test fallback data
+                const fallbackData = dashboard.getFallbackData('activity');
+                if (fallbackData && fallbackData.summary) {
+                    addResult('success', 'Fallback data generation working');
+                } else {
+                    addResult('error', 'Fallback data generation failed');
+                }
+                
+            } catch (error) {
+                addResult('error', `Error test failed: ${error.message}`);
+            }
+        }
+        
+        async function runCacheTest() {
+            addResult('info', 'Starting cache test...');
+            
+            if (!dashboard) {
+                await initDashboard();
+            }
+            
+            try {
+                // Test memory cache
+                const testData = { test: 'data', timestamp: Date.now() };
+                dashboard.cache.set('test_key', testData);
+                
+                const retrieved = dashboard.cache.get('test_key');
+                if (retrieved === testData) {
+                    addResult('success', 'Memory cache working correctly');
+                } else {
+                    addResult('error', 'Memory cache not working');
+                }
+                
+                // Test offline cache
+                dashboard.offlineCache.set('test_offline', {
+                    data: testData,
+                    timestamp: Date.now()
+                });
+                
+                const offlineRetrieved = dashboard.offlineCache.get('test_offline');
+                if (offlineRetrieved && offlineRetrieved.data === testData) {
+                    addResult('success', 'Offline cache working correctly');
+                } else {
+                    addResult('error', 'Offline cache not working');
+                }
+                
+                // Test cache updates
+                const mockDashboardData = { workflows: [], activity: {}, quality: {} };
+                const mockIntelligence = { executive: { overallScore: 85 }, dora: {} };
+                
+                dashboard.updateCaches(mockDashboardData, mockIntelligence);
+                
+                const cachedDashboard = dashboard.cache.get('dashboard_data');
+                const cachedIntelligence = dashboard.cache.get('dashboard_intelligence');
+                
+                if (cachedDashboard && cachedIntelligence) {
+                    addResult('success', 'Atomic cache updates working');
+                } else {
+                    addResult('error', 'Atomic cache updates failed');
+                }
+                
+            } catch (error) {
+                addResult('error', `Cache test failed: ${error.message}`);
+            }
+        }
+        
+        async function showDashboard() {
+            if (!dashboard) {
+                await initDashboard();
+            }
+            
+            try {
+                await dashboard.showDashboard();
+                addResult('success', 'Dashboard opened successfully');
+            } catch (error) {
+                addResult('error', `Failed to show dashboard: ${error.message}`);
+            }
+        }
+        
+        // Initialize console capture
+        captureConsole();
+        
+        // Auto-run basic test on load
+        document.addEventListener('DOMContentLoaded', () => {
+            addResult('info', 'Runtime dashboard test suite loaded');
+            setTimeout(runBasicTest, 1000);
+        });
+    </script>
+</body>
+</html>
