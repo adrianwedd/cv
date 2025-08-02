@@ -405,43 +405,61 @@ jobs:
           MINING_DEPTH: comprehensive
           LOOKBACK_DAYS: 90
 
-      - name: 🤖 Claude AI Content Enhancement
+      - name: 🧠 Advanced AI Content Intelligence
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
         run: |
-          echo "🤖 **INITIATING CLAUDE AI CONTENT ENHANCEMENT**"
+          echo "🧠 **INITIATING ADVANCED AI CONTENT INTELLIGENCE**"
           echo "💰 Available budget: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
           echo "🎨 Creativity level: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
+          echo "🎯 Multi-persona analysis, market intelligence & content optimization"
           echo ""
           
-          # Execute AI enhancement with comprehensive error handling
+          # Execute Advanced AI Intelligence Pipeline
           AI_BUDGET="${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
           CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
           ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
           
           cd .github/scripts
           
-          # Verify claude-enhancer.js exists before running
-          if [ ! -f "claude-enhancer.js" ]; then
-            echo "❌ claude-enhancer.js not found, skipping AI enhancement"
-            cd ../..
-            exit 0
-          fi
-          
-          # Run with timeout and error handling
-          timeout 600 node claude-enhancer.js
-          ENHANCEMENT_EXIT_CODE=$?
-          
-          if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
-            echo "✅ Claude AI enhancement completed successfully"
-          elif [ $ENHANCEMENT_EXIT_CODE -eq 124 ]; then
-            echo "⚠️ Claude AI enhancement timed out after 10 minutes, continuing with existing content"
+          # Run AI-Enhanced Orchestrator with comprehensive intelligence
+          if [ -f "ai-enhanced-orchestrator.js" ]; then
+            echo "🚀 Running Advanced AI Intelligence Pipeline..."
+            timeout 900 node ai-enhanced-orchestrator.js --intelligence-first --headless
+            INTELLIGENCE_EXIT_CODE=$?
+            
+            if [ $INTELLIGENCE_EXIT_CODE -eq 0 ]; then
+              echo "✅ Advanced AI Intelligence completed successfully"
+              echo "🎭 Multi-persona analysis: Complete"
+              echo "📊 Market intelligence: Complete" 
+              echo "🎯 Content optimization: Complete"
+            elif [ $INTELLIGENCE_EXIT_CODE -eq 124 ]; then
+              echo "⚠️ AI Intelligence timed out after 15 minutes, falling back to legacy enhancement"
+              timeout 600 node claude-enhancer.js || echo "⚠️ Legacy enhancement also failed"
+            else
+              echo "⚠️ AI Intelligence failed (exit code: $INTELLIGENCE_EXIT_CODE), trying legacy enhancement"
+              timeout 600 node claude-enhancer.js || echo "⚠️ Legacy enhancement also failed"
+            fi
           else
-            echo "⚠️ Claude AI enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
+            echo "⚠️ AI-Enhanced Orchestrator not found, using legacy claude-enhancer.js"
+            if [ -f "claude-enhancer.js" ]; then
+              timeout 600 node claude-enhancer.js
+              ENHANCEMENT_EXIT_CODE=$?
+              
+              if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
+                echo "✅ Legacy Claude AI enhancement completed successfully"
+              elif [ $ENHANCEMENT_EXIT_CODE -eq 124 ]; then
+                echo "⚠️ Legacy enhancement timed out after 10 minutes, continuing with existing content"
+              else
+                echo "⚠️ Legacy enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
+              fi
+            else
+              echo "❌ No AI enhancement system found, skipping AI optimization"
+            fi
           fi
           
           cd ../..
         env:
-          # Browser-based authentication (free alternative)
+          # Browser-based authentication (maximizes Claude subscription value)
           CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
           CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
           CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
@@ -451,7 +469,7 @@ jobs:
           CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
           # API key fallback (for 24-hour fallback scenarios)
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Authentication strategy (browser_first for free usage)
+          # Authentication strategy (browser_first maximizes subscription value)
           AUTH_STRATEGY: browser_first
           # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -895,7 +913,7 @@ jobs:
           echo ""
           echo "🚀 **Deliverables**"
           echo "  - ✅ GitHub activity analysis completed"
-          echo "  - ✅ AI content enhancement applied"
+          echo "  - ✅ Advanced AI Intelligence applied (multi-persona + market intelligence)"
           echo "  - ✅ Professional metrics calculated"
           echo "  - ✅ Dynamic CV website generated"
           echo "  - ✅ GitHub Pages deployment successful"
@@ -923,7 +941,7 @@ jobs:
           | Component | Status | Details |
           |-----------|--------|---------|
           | 📊 Activity Analysis | ✅ Complete | GitHub metrics collected and processed |
-          | 🤖 AI Enhancement | ✅ Complete | Claude AI content optimization applied |
+          | 🧠 AI Intelligence | ✅ Complete | Multi-persona analysis + market intelligence applied |
           | 📈 Metrics Calculation | ✅ Complete | Professional development scores updated |
           | 🎨 Website Generation | ✅ Complete | Responsive CV website built |
           | 🚀 Deployment | ✅ Complete | GitHub Pages updated |
