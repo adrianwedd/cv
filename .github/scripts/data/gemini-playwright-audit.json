@@ -1,0 +1,112 @@
+{
+  "totalOperations": 12,
+  "requestCount": 3,
+  "userConsent": true,
+  "operations": [
+    {
+      "timestamp": "2025-08-02T19:18:10.899Z",
+      "operation": "User consent verified for profile analysis",
+      "data": null,
+      "requestCount": 0
+    },
+    {
+      "timestamp": "2025-08-02T19:18:21.888Z",
+      "operation": "Navigating to profile page",
+      "data": {
+        "url": "https://linkedin.com/in/test-profile-1"
+      },
+      "requestCount": 0
+    },
+    {
+      "timestamp": "2025-08-02T19:18:22.452Z",
+      "operation": "Profile data extracted",
+      "data": {
+        "headline": "Mock LinkedIn Profile",
+        "experience": "Software Engineer at Tech Company",
+        "skills": [
+          "JavaScript",
+          "Python"
+        ]
+      },
+      "requestCount": 0
+    },
+    {
+      "timestamp": "2025-08-02T19:18:23.463Z",
+      "operation": "AI analysis completed",
+      "data": {
+        "analysisLength": 78
+      },
+      "requestCount": 1
+    },
+    {
+      "timestamp": "2025-08-02T19:18:30.329Z",
+      "operation": "Navigating to profile page",
+      "data": {
+        "url": "https://linkedin.com/in/test-profile-2"
+      },
+      "requestCount": 1
+    },
+    {
+      "timestamp": "2025-08-02T19:18:30.633Z",
+      "operation": "Profile data extracted",
+      "data": {
+        "headline": "Mock LinkedIn Profile",
+        "experience": "Software Engineer at Tech Company",
+        "skills": [
+          "JavaScript",
+          "Python"
+        ]
+      },
+      "requestCount": 1
+    },
+    {
+      "timestamp": "2025-08-02T19:18:31.635Z",
+      "operation": "AI analysis completed",
+      "data": {
+        "analysisLength": 78
+      },
+      "requestCount": 2
+    },
+    {
+      "timestamp": "2025-08-02T19:18:33.853Z",
+      "operation": "User consent verified for profile analysis",
+      "data": null,
+      "requestCount": 2
+    },
+    {
+      "timestamp": "2025-08-02T19:18:36.171Z",
+      "operation": "Navigating to profile page",
+      "data": {
+        "url": "https://linkedin.com/in/user-own-profile"
+      },
+      "requestCount": 2
+    },
+    {
+      "timestamp": "2025-08-02T19:18:36.774Z",
+      "operation": "Profile data extracted",
+      "data": {
+        "headline": "Mock LinkedIn Profile",
+        "experience": "Software Engineer at Tech Company",
+        "skills": [
+          "JavaScript",
+          "Python"
+        ]
+      },
+      "requestCount": 2
+    },
+    {
+      "timestamp": "2025-08-02T19:18:37.779Z",
+      "operation": "AI analysis completed",
+      "data": {
+        "analysisLength": 78
+      },
+      "requestCount": 3
+    },
+    {
+      "timestamp": "2025-08-02T19:18:37.916Z",
+      "operation": "User consent verified for profile analysis",
+      "data": null,
+      "requestCount": 3
+    }
+  ]
+}
