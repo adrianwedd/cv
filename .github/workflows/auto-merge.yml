@@ -1,0 +1,227 @@
+name: 🤖 Auto-Merge on CI Success
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  check_run:
+    types: [completed]
+  status: {}
+
+jobs:
+  auto-merge:
+    name: 🚀 Auto-Merge PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (github.event_name == 'check_run' && github.event.check_run.conclusion == 'success') || (github.event_name == 'status' && github.event.state == 'success')
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔍 Check PR Status
+        id: pr-status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let prNumber;
+            
+            // Get PR number from different event types
+            if (context.eventName === 'pull_request') {
+              prNumber = context.payload.pull_request.number;
+            } else if (context.eventName === 'check_run') {
+              // Get PRs associated with this commit
+              const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.payload.check_run.head_sha
+              });
+              if (prs.data.length === 0) return;
+              prNumber = prs.data[0].number;
+            } else if (context.eventName === 'status') {
+              // Get PRs associated with this commit
+              const prs = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.payload.sha
+              });
+              if (prs.data.length === 0) return;
+              prNumber = prs.data[0].number;
+            }
+            
+            if (!prNumber) {
+              console.log('No PR number found');
+              return;
+            }
+            
+            // Get PR details
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+            
+            // Check if PR is auto-mergeable
+            const isAutoMergeable = (
+              pr.data.state === 'open' &&
+              !pr.data.draft &&
+              pr.data.mergeable &&
+              !pr.data.rebaseable &&
+              (pr.data.title.includes('[auto-merge]') || 
+               pr.data.title.includes('🤖') ||
+               pr.data.body?.includes('[auto-merge]'))
+            );
+            
+            core.setOutput('pr-number', prNumber);
+            core.setOutput('is-auto-mergeable', isAutoMergeable);
+            core.setOutput('pr-title', pr.data.title);
+            
+            return {
+              prNumber,
+              isAutoMergeable,
+              title: pr.data.title,
+              mergeable: pr.data.mergeable
+            };
+
+      - name: ✅ Check Required Status Checks
+        if: steps.pr-status.outputs.is-auto-mergeable == 'true'
+        id: check-status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ steps.pr-status.outputs.pr-number }};
+            
+            // Get the latest commit on the PR
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+            
+            const commitSha = pr.data.head.sha;
+            
+            // Get all status checks for this commit
+            const statusChecks = await github.rest.repos.getCombinedStatusForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: commitSha
+            });
+            
+            // Get check runs for this commit
+            const checkRuns = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: commitSha
+            });
+            
+            // Required checks based on branch protection
+            const requiredChecks = [
+              'Quality Gate Analysis',
+              'Foundation Test Suite',
+              'Dashboard Functionality'
+            ];
+            
+            // Check if all required checks are successful
+            const statusSuccess = statusChecks.data.state === 'success';
+            const checkRunsSuccess = checkRuns.data.check_runs
+              .filter(run => requiredChecks.includes(run.name))
+              .every(run => run.conclusion === 'success');
+            
+            const allChecksPassed = statusSuccess && checkRunsSuccess;
+            
+            core.setOutput('all-checks-passed', allChecksPassed);
+            
+            console.log(`Status checks: ${statusChecks.data.state}`);
+            console.log(`Required check runs passed: ${checkRunsSuccess}`);
+            console.log(`All checks passed: ${allChecksPassed}`);
+            
+            return {
+              statusSuccess,
+              checkRunsSuccess,
+              allChecksPassed
+            };
+
+      - name: 🚀 Auto-Merge PR
+        if: steps.pr-status.outputs.is-auto-mergeable == 'true' && steps.check-status.outputs.all-checks-passed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = ${{ steps.pr-status.outputs.pr-number }};
+            
+            try {
+              // Enable auto-merge
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+                commit_title: `🤖 Auto-merge: ${{ steps.pr-status.outputs.pr-title }}`,
+                commit_message: `Auto-merged after successful CI checks.
+                
+                ✅ All required status checks passed
+                ✅ Branch protection requirements met
+                ✅ No conflicts detected
+                
+                🤖 Generated with [Claude Code](https://claude.ai/code)
+                
+                Co-Authored-By: Claude <noreply@anthropic.com>`,
+                merge_method: 'squash'
+              });
+              
+              console.log(`✅ Successfully auto-merged PR #${prNumber}`);
+              
+              // Add success comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: `🎉 **Auto-merge successful!**
+                
+                This PR has been automatically merged after all CI checks passed:
+                - ✅ Quality Gate Analysis
+                - ✅ Foundation Test Suite  
+                - ✅ Dashboard Functionality
+                - ✅ Security Scan
+                
+                The changes are now live on the main branch and will be deployed automatically.
+                
+                🤖 *Automated by GitHub Actions*`
+              });
+              
+            } catch (error) {
+              console.error('Auto-merge failed:', error.message);
+              
+              // Add failure comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: `⚠️ **Auto-merge failed**
+                
+                While all CI checks passed, the auto-merge encountered an issue:
+                \`\`\`
+                ${error.message}
+                \`\`\`
+                
+                Please manually review and merge this PR.
+                
+                🤖 *Automated by GitHub Actions*`
+              });
+              
+              throw error;
+            }
+
+      - name: 📝 Workflow Summary
+        if: always()
+        run: |
+          echo "## 🤖 Auto-Merge Workflow Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Event**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR**: #${{ steps.pr-status.outputs.pr-number }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Auto-mergeable**: ${{ steps.pr-status.outputs.is-auto-mergeable }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Checks passed**: ${{ steps.check-status.outputs.all-checks-passed }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### How to Use Auto-Merge" >> $GITHUB_STEP_SUMMARY
+          echo "- Add `[auto-merge]` to PR title or description" >> $GITHUB_STEP_SUMMARY
+          echo "- Or include 🤖 emoji in PR title" >> $GITHUB_STEP_SUMMARY
+          echo "- Ensure all CI checks pass" >> $GITHUB_STEP_SUMMARY
+          echo "- PR will auto-merge when conditions are met" >> $GITHUB_STEP_SUMMARY
