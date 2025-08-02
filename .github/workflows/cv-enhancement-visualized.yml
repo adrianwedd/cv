@@ -727,15 +727,15 @@ jobs:
             git add data/
             git commit -m "📊 Analytics update: Session ${{ needs.intelligence-analysis.outputs.session-id }}
 
-🎯 Enhancement: ${{ needs.intelligence-analysis.outputs.enhancement-strategy }}
-📈 Activity Score: ${{ needs.intelligence-analysis.outputs.activity-score }}/100
-🤖 AI Tokens: ${{ needs.ai-enhancement.outputs.tokens-used || 0 }}
-💰 Cost: \$${{ needs.ai-enhancement.outputs.cost-actual || '0.0000' }}
-🌐 Environment: ${{ needs.deployment.outputs.environment }}
+            🎯 Enhancement: ${{ needs.intelligence-analysis.outputs.enhancement-strategy }}
+            📈 Activity Score: ${{ needs.intelligence-analysis.outputs.activity-score }}/100
+            🤖 AI Tokens: ${{ needs.ai-enhancement.outputs.tokens-used || 0 }}
+            💰 Cost: \$${{ needs.ai-enhancement.outputs.cost-actual || '0.0000' }}
+            🌐 Environment: ${{ needs.deployment.outputs.environment }}
 
-🤖 Generated with [Claude Code](https://claude.ai/code)
+            🤖 Generated with [Claude Code](https://claude.ai/code)
 
-Co-Authored-By: Claude <noreply@anthropic.com>" || {
+            Co-Authored-By: Claude <noreply@anthropic.com>" || {
               echo "⚠️ Commit failed, possibly no changes or conflict"
             }
             
