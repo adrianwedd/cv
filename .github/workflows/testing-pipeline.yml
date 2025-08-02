@@ -5,6 +5,18 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: 'Test scope to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - foundation-only
+          - accessibility-only
+          - cross-browser-only
   schedule:
     - cron: '0 6 * * *' # Daily at 6 AM UTC
 
