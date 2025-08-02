@@ -23,6 +23,10 @@ class DevelopmentIntelligenceDashboard {
             refreshInterval: 30000, // 30 seconds
             dataRetentionDays: 90,
             apiBase: 'https://api.github.com',
+            maxRetries: 3,
+            retryDelay: 1000, // Base delay for exponential backoff
+            requestTimeout: 10000, // 10 seconds
+            cacheMaxAge: 300000, // 5 minutes
             ...options
         };
         
@@ -31,6 +35,18 @@ class DevelopmentIntelligenceDashboard {
         this.refreshTimer = null;
         this.lastUpdateTime = null;
         this.metricsHistory = [];
+        
+        // Reliability enhancements
+        this.loadingState = {
+            isLoading: false,
+            requestId: null,
+            activeRequests: new Set(),
+            lastSuccessfulLoad: null
+        };
+        this.requestQueue = new Map();
+        this.errorHistory = [];
+        this.offlineCache = new Map();
+        this.retryTimers = new Map();
         
         // Initialize components
         this.activityMonitor = null;
@@ -955,63 +971,76 @@ class DevelopmentIntelligenceDashboard {
     }
     
     /**
-     * Load dashboard data from various sources
+     * Load dashboard data from various sources with enterprise reliability
      */
-    async loadDashboardData() {
+    async loadDashboardData(forceRefresh = false) {
+        // Prevent concurrent loading requests
+        if (this.loadingState.isLoading && !forceRefresh) {
+            console.log('📊 Dashboard data loading already in progress, skipping...');
+            return;
+        }
+        
+        // Generate unique request ID for tracking
+        const requestId = `load_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        this.loadingState.requestId = requestId;
+        this.loadingState.isLoading = true;
+        
         try {
+            console.log(`🔄 Starting dashboard data load (ID: ${requestId})`);
             this.showLoading();
             
-            // Load data from multiple sources
-            const [workflowData, activityData, qualityData] = await Promise.allSettled([
-                this.loadWorkflowData(),
-                this.loadActivityData(),
-                this.loadQualityMetrics()
-            ]);
+            // Check cache first (unless force refresh)
+            if (!forceRefresh && this.isCacheValid('dashboard_intelligence')) {
+                console.log('📦 Using cached dashboard data');
+                const cachedIntelligence = this.cache.get('dashboard_intelligence');
+                this.renderDashboard(cachedIntelligence);
+                this.hideLoading();
+                this.updateLastRefreshTime();
+                this.loadingState.isLoading = false;
+                return;
+            }
             
-            // Process data
-            const dashboardData = {
-                workflows: workflowData.status === 'fulfilled' ? workflowData.value : null,
-                activity: activityData.status === 'fulfilled' ? activityData.value : null,
-                quality: qualityData.status === 'fulfilled' ? qualityData.value : null
-            };
+            // Load data from multiple sources with sequential dependency management
+            const loadResults = await this.loadDataWithRetry(requestId);
+            
+            // Verify we're still processing the current request (prevent race conditions)
+            if (this.loadingState.requestId !== requestId) {
+                console.log(`⚠️ Request ${requestId} superseded, aborting...`);
+                return;
+            }
+            
+            // Process successful results with graceful degradation
+            const dashboardData = this.processLoadResults(loadResults);
             
             // Calculate comprehensive metrics
             const intelligence = this.calculateIntelligenceMetrics(dashboardData);
             
-            // Cache the results
-            this.cache.set('dashboard_data', dashboardData);
-            this.cache.set('intelligence_metrics', intelligence);
-            this.lastUpdateTime = Date.now();
+            // Update caches atomically
+            this.updateCaches(dashboardData, intelligence);
             
             // Render the dashboard
             this.renderDashboard(intelligence);
             this.hideLoading();
+            this.updateLastRefreshTime();
             
-            // Update last updated time
-            document.getElementById('intelligence-last-updated').textContent = 
-                new Date().toLocaleTimeString();
-                
+            // Track successful load
+            this.loadingState.lastSuccessfulLoad = Date.now();
+            this.clearErrorHistory();
+            
+            console.log(`✅ Dashboard data loaded successfully (ID: ${requestId})`);
+            
         } catch (error) {
-            console.error('Failed to load dashboard data:', error);
-            this.showError(error.message);
+            console.error(`❌ Failed to load dashboard data (ID: ${requestId}):`, error);
+            this.handleLoadError(error, requestId);
+        } finally {
+            this.loadingState.isLoading = false;
         }
     }
     
     /**
-     * Load workflow data
+     * Load data with enterprise retry logic and deduplication
      */
-    async loadWorkflowData() {
-        const response = await fetch(
-            `${this.config.apiBase}/repos/${this.config.owner}/${this.config.repo}/actions/runs?per_page=50`
-        );
-        
-        if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        return data.workflow_runs || [];
-    }
+    async loadDataWithRetry(requestId) {\n        const loadOperations = [\n            { name: 'workflows', loader: () => this.loadWorkflowData() },\n            { name: 'activity', loader: () => this.loadActivityData() },\n            { name: 'quality', loader: () => this.loadQualityMetrics() }\n        ];\n        \n        const results = {};\n        const errors = {};\n        \n        // Sequential loading with dependency awareness\n        for (const operation of loadOperations) {\n            try {\n                console.log(`📊 Loading ${operation.name} data...`);\n                results[operation.name] = await this.executeWithRetry(\n                    operation.loader,\n                    `load_${operation.name}`,\n                    requestId\n                );\n                console.log(`✅ ${operation.name} data loaded successfully`);\n            } catch (error) {\n                console.warn(`⚠️ Failed to load ${operation.name} data:`, error);\n                errors[operation.name] = error;\n                results[operation.name] = this.getFallbackData(operation.name);\n            }\n        }\n        \n        return { results, errors };\n    }\n    \n    /**\n     * Execute operation with exponential backoff retry\n     */\n    async executeWithRetry(operation, operationId, requestId, attempt = 1) {\n        const cacheKey = `request_${operationId}`;\n        \n        // Request deduplication\n        if (this.requestQueue.has(cacheKey)) {\n            console.log(`🔄 Deduplicating request for ${operationId}`);\n            return await this.requestQueue.get(cacheKey);\n        }\n        \n        // Create promise for deduplication\n        const promise = this._executeWithRetryInternal(operation, operationId, requestId, attempt);\n        this.requestQueue.set(cacheKey, promise);\n        \n        try {\n            const result = await promise;\n            this.requestQueue.delete(cacheKey);\n            return result;\n        } catch (error) {\n            this.requestQueue.delete(cacheKey);\n            throw error;\n        }\n    }\n    \n    /**\n     * Internal retry logic with exponential backoff\n     */\n    async _executeWithRetryInternal(operation, operationId, requestId, attempt) {\n        this.loadingState.activeRequests.add(operationId);\n        \n        try {\n            // Check if request was cancelled\n            if (this.loadingState.requestId !== requestId) {\n                throw new Error('Request cancelled - newer request initiated');\n            }\n            \n            // Execute with timeout\n            const result = await this.withTimeout(operation(), this.config.requestTimeout);\n            \n            this.loadingState.activeRequests.delete(operationId);\n            return result;\n            \n        } catch (error) {\n            this.loadingState.activeRequests.delete(operationId);\n            this.trackError(operationId, error, attempt);\n            \n            // Don't retry if request was cancelled\n            if (error.message.includes('cancelled')) {\n                throw error;\n            }\n            \n            // Retry logic with exponential backoff\n            if (attempt < this.config.maxRetries) {\n                const delay = this.calculateBackoffDelay(attempt);\n                console.log(`🔄 Retrying ${operationId} (attempt ${attempt + 1}/${this.config.maxRetries}) in ${delay}ms`);\n                \n                await this.sleep(delay);\n                return await this._executeWithRetryInternal(operation, operationId, requestId, attempt + 1);\n            }\n            \n            throw new Error(`Operation ${operationId} failed after ${this.config.maxRetries} attempts: ${error.message}`);\n        }\n    }\n    \n    /**\n     * Load workflow data with enhanced error handling\n     */\n    async loadWorkflowData() {\n        const response = await fetch(\n            `${this.config.apiBase}/repos/${this.config.owner}/${this.config.repo}/actions/runs?per_page=50`\n        );\n        \n        if (!response.ok) {\n            throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);\n        }\n        \n        const data = await response.json();\n        return data.workflow_runs || [];\n    }
     
     /**
      * Load activity data
@@ -1020,17 +1049,37 @@ class DevelopmentIntelligenceDashboard {
         try {
             const response = await fetch('/data/activity-summary.json');
             if (!response.ok) {
-                throw new Error(`Activity data error: ${response.status}`);
+                throw new Error(`Activity data error: ${response.status} ${response.statusText}`);
             }
-            return await response.json();
+            const data = await response.json();
+            
+            // Store in offline cache for fallback
+            this.offlineCache.set('activity_data', {
+                data,
+                timestamp: Date.now()
+            });
+            
+            return data;
         } catch (error) {
-            // Return default structure if data not available
+            console.warn('⚠️ Activity data fetch failed, checking fallbacks...', error);
+            
+            // Try offline cache first
+            const cached = this.offlineCache.get('activity_data');
+            if (cached && (Date.now() - cached.timestamp) < 24 * 60 * 60 * 1000) { // 24 hours
+                console.log('📦 Using offline cached activity data');
+                return cached.data;
+            }
+            
+            // Return default structure as last resort
+            console.log('🔄 Using default activity data structure');
             return {
                 summary: {
                     total_commits: 0,
                     active_days: 0,
                     net_lines_contributed: 0
-                }
+                },
+                _fallback: true,
+                _error: error.message
             };
         }
     }
@@ -1785,10 +1834,241 @@ class DevelopmentIntelligenceDashboard {
     }
     
     /**
+     * Process load results with graceful degradation
+     */
+    processLoadResults(loadResults) {
+        const { results, errors } = loadResults;
+        
+        // Log any errors for monitoring
+        Object.entries(errors).forEach(([source, error]) => {
+            console.warn(`⚠️ ${source} data source had errors:`, error);
+        });
+        
+        return {
+            workflows: results.workflows || [],
+            activity: results.activity || { summary: {} },
+            quality: results.quality || {}
+        };
+    }
+    
+    /**
+     * Update caches atomically
+     */
+    updateCaches(dashboardData, intelligence) {
+        // Update memory cache
+        this.cache.set('dashboard_data', dashboardData);
+        this.cache.set('dashboard_intelligence', intelligence);
+        this.cache.set('dashboard_timestamp', Date.now());
+        this.lastUpdateTime = Date.now();
+        
+        // Update offline cache for critical data
+        this.offlineCache.set('dashboard_intelligence', {
+            data: intelligence,
+            timestamp: Date.now()
+        });
+    }
+    
+    /**
+     * Check if cache is valid
+     */
+    isCacheValid(cacheKey) {
+        const timestamp = this.cache.get('dashboard_timestamp');
+        if (!timestamp) return false;
+        
+        const age = Date.now() - timestamp;
+        return age < this.config.cacheMaxAge;
+    }
+    
+    /**
+     * Get fallback data for failed operations
+     */
+    getFallbackData(operationType) {
+        switch (operationType) {
+            case 'workflows':
+                // Try offline cache first
+                const cachedWorkflows = this.offlineCache.get('workflow_data');
+                if (cachedWorkflows) {
+                    console.log('📦 Using offline cached workflow data');
+                    return cachedWorkflows.data;
+                }
+                return [];
+                
+            case 'activity':
+                // Try offline cache first
+                const cachedActivity = this.offlineCache.get('activity_data');
+                if (cachedActivity) {
+                    console.log('📦 Using offline cached activity data');
+                    return cachedActivity.data;
+                }
+                return {
+                    summary: {
+                        total_commits: 0,
+                        active_days: 0,
+                        net_lines_contributed: 0
+                    },
+                    _fallback: true
+                };
+                
+            case 'quality':
+                return {
+                    codeQualityScore: 75,
+                    technicalDebtRatio: 15,
+                    testCoverage: 70,
+                    securityScore: 85,
+                    performanceScore: 80,
+                    maintainabilityIndex: 75,
+                    _fallback: true
+                };
+                
+            default:
+                return null;
+        }
+    }
+    
+    /**
+     * Handle load errors with intelligent recovery
+     */
+    handleLoadError(error, requestId) {
+        this.trackError('load_dashboard', error, 1);
+        
+        // Try to use cached data if available
+        const cachedIntelligence = this.cache.get('dashboard_intelligence') || 
+                                 this.offlineCache.get('dashboard_intelligence')?.data;
+        
+        if (cachedIntelligence) {
+            console.log('📦 Using cached data due to load error');
+            this.renderDashboard(cachedIntelligence);
+            this.hideLoading();
+            this.updateLastRefreshTime();
+            
+            // Show warning about stale data
+            this.showStaleDataWarning();
+        } else {
+            // No fallback available
+            this.showError(`Failed to load dashboard data: ${error.message}`);
+        }
+    }
+    
+    /**
+     * Track errors for monitoring and analysis
+     */
+    trackError(operationId, error, attempt) {
+        const errorRecord = {
+            operationId,
+            error: error.message,
+            attempt,
+            timestamp: Date.now(),
+            stack: error.stack
+        };
+        
+        this.errorHistory.push(errorRecord);
+        
+        // Keep only last 50 errors
+        if (this.errorHistory.length > 50) {
+            this.errorHistory.shift();
+        }
+        
+        console.error(`❌ Error tracked for ${operationId} (attempt ${attempt}):`, errorRecord);
+    }
+    
+    /**
+     * Clear error history after successful operation
+     */
+    clearErrorHistory() {
+        this.errorHistory = [];
+    }
+    
+    /**
+     * Calculate exponential backoff delay
+     */
+    calculateBackoffDelay(attempt) {
+        const baseDelay = this.config.retryDelay;
+        const maxDelay = 10000; // 10 seconds maximum
+        const delay = Math.min(baseDelay * Math.pow(2, attempt - 1), maxDelay);
+        
+        // Add jitter to prevent thundering herd
+        const jitter = Math.random() * 0.3 * delay;
+        return Math.floor(delay + jitter);
+    }
+    
+    /**
+     * Sleep utility for delays
+     */
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    /**
+     * Execute operation with timeout
+     */
+    withTimeout(promise, timeoutMs) {
+        return Promise.race([
+            promise,
+            new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Operation timeout')), timeoutMs)
+            )
+        ]);
+    }
+    
+    /**
+     * Update last refresh time display
+     */
+    updateLastRefreshTime() {
+        const element = document.getElementById('intelligence-last-updated');
+        if (element) {
+            element.textContent = new Date().toLocaleTimeString();
+        }
+    }
+    
+    /**
+     * Show stale data warning
+     */
+    showStaleDataWarning() {
+        // Could implement a subtle warning indicator
+        console.warn('⚠️ Dashboard showing cached data due to load error');
+        
+        // Update footer to show cache status
+        const element = document.getElementById('intelligence-last-updated');
+        if (element) {
+            element.textContent = new Date().toLocaleTimeString() + ' (cached)';
+            element.style.color = '#ffc107';
+        }
+    }
+    
+    /**
+     * Enhanced refresh data with force option
+     */
+    async refreshData() {
+        const refreshButton = document.querySelector('.dev-intelligence-refresh .refresh-icon');
+        if (refreshButton) {
+            refreshButton.style.animation = 'spin 1s linear infinite';
+        }
+        
+        try {
+            await this.loadDashboardData(true); // Force refresh
+        } finally {
+            setTimeout(() => {
+                if (refreshButton) {
+                    refreshButton.style.animation = '';
+                }
+            }, 1000);
+        }
+    }
+    
+    /**
      * Destroy the dashboard
      */
     destroy() {
         this.stopAutoRefresh();
+        
+        // Clear all timers
+        this.retryTimers.forEach(timer => clearTimeout(timer));
+        this.retryTimers.clear();
+        
+        // Clear caches
+        this.cache.clear();
+        this.offlineCache.clear();
+        this.requestQueue.clear();
         
         // Remove elements
         const button = document.getElementById('dev-intelligence-toggle');
