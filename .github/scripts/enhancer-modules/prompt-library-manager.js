@@ -365,14 +365,14 @@ class PromptLibraryManager {
             </identity>
             
             <expertise>
-                Your primary domains include: ${persona.expertise.primary_domains?.join(', ')}.
-                You utilize ${persona.expertise.assessment_frameworks?.join(', ')} for evaluation.
+                Your primary domains include: ${Array.isArray(persona.expertise.primary_domains) ? persona.expertise.primary_domains.join(', ') : 'technical expertise'}.
+                You utilize ${Array.isArray(persona.expertise.assessment_frameworks) ? persona.expertise.assessment_frameworks.join(', ') : 'standard assessment frameworks'} for evaluation.
             </expertise>
             
             <perspective>
                 Your evaluation approach is ${persona.perspective.evaluation_approach}.
-                You prioritize ${persona.perspective.decision_criteria?.join(', ')} in your assessments.
-                You actively avoid ${persona.perspective.red_flags?.join(', ')}.
+                You prioritize ${Array.isArray(persona.perspective.decision_criteria) ? persona.perspective.decision_criteria.join(', ') : 'quality and accuracy'} in your assessments.
+                You actively avoid ${Array.isArray(persona.perspective.red_flags) ? persona.perspective.red_flags.join(', ') : 'common issues'}.
             </perspective>
             
             <creativity_adaptation>
