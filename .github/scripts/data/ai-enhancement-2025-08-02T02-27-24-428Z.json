@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-08-02T02:27:20.576Z",
+  "enhancement_mode": "reduced-scope",
+  "creativity_level": "balanced",
+  "activity_score": 50,
+  "enhancements": {
+    "professional_summary": {
+      "enhancement_notes": "Enhancement failed, using original content",
+      "confidence_score": 0
+    }
+  },
+  "token_usage": {},
+  "quality_metrics": {},
+  "strategic_insights": {},
+  "fallback_mode": false,
+  "error_recovery": []
+}

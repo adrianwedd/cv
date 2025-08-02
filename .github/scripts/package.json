@@ -8,6 +8,9 @@
     "enhance": "node claude-enhancer.js",
     "generate": "node cv-generator.js",
     "test": "node --test",
+    "test:accessibility": "node --test tests/accessibility.test.js",
+    "test:cross-browser": "node --test tests/cross-browser.test.js",
+    "test:integration": "node --test tests/",
     "lint": "eslint *.js",
     "format": "prettier --write *.js",
     "template:validate": "node template-validator.js ../../dist/index.html",
@@ -17,7 +20,6 @@
     "template:full": "npm run generate && npm run template:suite",
     "formats:validate": "node multi-format-validator.js ../../dist",
     "formats:full": "npm run generate && npm run formats:validate",
-    
     "hallucination:detect": "node ai-hallucination-detector.js",
     "readability:optimize": "node paragraph-splitter.js",
     "readability:test": "node paragraph-splitter.js --test"
@@ -52,6 +54,7 @@
   "devDependencies": {
     "eslint": "^9.32.0",
     "jsdom": "^26.1.0",
+    "playwright": "^1.54.2",
     "prettier": "^3.3.0"
   },
   "engines": {
