@@ -7,7 +7,7 @@
 require('jest-extended');
 
 // Set up global test configuration
-global.APP_BASE_URL = process.env.APP_BASE_URL || 'http://localhost:8000';
+global.APP_BASE_URL = process.env.APP_BASE_URL || 'http://localhost:8002';
 global.TEST_TIMEOUT = 60000; // Increased for CI stability
 global.RETRY_COUNT = process.env.CI ? 3 : 1; // Retry failed tests in CI
 

@@ -9,7 +9,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 class TestServer {
-  constructor(port = 8000, rootDir = null) {
+  constructor(port = 8002, rootDir = null) {
     this.port = port;
     this.rootDir = rootDir || path.resolve(__dirname, '..');
     this.server = null;
@@ -225,6 +225,25 @@ class TestServer {
     } catch (error) {
       console.warn(`⚠️ Error stopping server: ${error.message}`);
     }
+  }
+
+  // Make HTTP request to test server
+  async makeRequest(path) {
+    const http = require('http');
+    return new Promise((resolve, reject) => {
+      const url = `http://localhost:${this.port}${path}`;
+      http.get(url, (res) => {
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          resolve({
+            ok: res.statusCode >= 200 && res.statusCode < 300,
+            status: res.statusCode,
+            text: async () => data
+          });
+        });
+      }).on('error', reject);
+    });
   }
 
   // Get server URL

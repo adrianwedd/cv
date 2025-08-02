@@ -16,13 +16,13 @@
       ]
     },
     "2025-08-02": {
-      "requests": 12,
-      "input_tokens": 101200,
-      "output_tokens": 42400,
+      "requests": 15,
+      "input_tokens": 126500,
+      "output_tokens": 53000,
       "cache_creation_tokens": 0,
       "cache_read_tokens": 0,
-      "estimated_cost": 0.9198000000000001,
-      "sessions": 12,
+      "estimated_cost": 1.14975,
+      "sessions": 15,
       "token_alerts_sent": [
         50,
         75,
@@ -33,13 +33,13 @@
   },
   "monthly": {
     "2025-08": {
-      "requests": 18,
-      "input_tokens": 151800,
-      "output_tokens": 63600,
+      "requests": 21,
+      "input_tokens": 177100,
+      "output_tokens": 74200,
       "cache_creation_tokens": 0,
       "cache_read_tokens": 0,
-      "estimated_cost": 1.3797000000000001,
-      "sessions": 18
+      "estimated_cost": 1.6096500000000002,
+      "sessions": 21
     },
     "2025-07": {
       "requests": 3,
@@ -345,16 +345,58 @@
       "enhancement_mode": "comprehensive",
       "success": true,
       "estimated_cost": 0.225
+    },
+    {
+      "timestamp": "2025-08-02T12:45:36.832Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 150,
+      "output_tokens": 300,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "oauth_max",
+      "session_type": "test",
+      "enhancement_mode": "activity-only",
+      "success": true,
+      "estimated_cost": 0
+    },
+    {
+      "timestamp": "2025-08-02T12:45:53.543Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 150,
+      "output_tokens": 300,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "activity-only",
+      "success": true,
+      "estimated_cost": 0.0049499999999999995
+    },
+    {
+      "timestamp": "2025-08-02T12:45:53.544Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 25000,
+      "output_tokens": 10000,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "comprehensive",
+      "success": true,
+      "estimated_cost": 0.225
     }
   ],
   "totals": {
-    "requests": 21,
-    "input_tokens": 177100,
-    "output_tokens": 74200,
+    "requests": 24,
+    "input_tokens": 202400,
+    "output_tokens": 84800,
     "cache_tokens": 0,
-    "estimated_cost": 1.6096500000000002,
+    "estimated_cost": 1.8396000000000003,
     "cache_creation_tokens": 0,
     "cache_read_tokens": 0,
-    "sessions": 21
+    "sessions": 24
   }
 }

@@ -3,13 +3,16 @@
  * Comprehensive testing for dashboard functionality, charts, and interactions
  */
 
+const TestServer = require('../test-server');
+
 describe('Career Intelligence Dashboard', () => {
   let page;
   let testServer;
   
   beforeAll(async () => {
-    // Use CI-provided server (already running on port 8000)
-    await global.testUtils.waitForServer(global.APP_BASE_URL, 30000);
+    // Start dedicated test server for reliable testing
+    testServer = new TestServer(8004); // Use unique port
+    await testServer.start();
     
     // Create page with dashboard-optimized configuration
     page = await global.testUtils.retryOperation(async () => {
