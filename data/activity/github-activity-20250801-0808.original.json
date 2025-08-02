@@ -1,5 +1,5 @@
 {
-  "collection_timestamp": "2025-08-01T10:06:57Z",
+  "collection_timestamp": "2025-08-01T08:08:37Z",
   "analysis_period_days": 30,
   "user_profile": {
     "message": "Resource not accessible by integration",
@@ -16,9 +16,9 @@
         "language": "JavaScript",
         "stargazers_count": 0,
         "forks_count": 0,
-        "updated_at": "2025-08-01T09:59:10Z",
-        "pushed_at": "2025-08-01T10:06:33Z",
-        "size": 5521,
+        "updated_at": "2025-08-01T08:02:54Z",
+        "pushed_at": "2025-08-01T08:03:27Z",
+        "size": 5402,
         "topics": [
           "ai-automation",
           "ai-powered",
@@ -5201,5 +5201,6 @@
   },
   "commit_stats": {},
   "language_stats": {},
-  "productivity_metrics": {}
+  "productivity_metrics": {},
+  "original_size_kb": 334.4501953125
 }
