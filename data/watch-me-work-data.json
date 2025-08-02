@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-02T01:34:48.509Z",
+    "generated_at": "2025-08-02T01:42:05.614Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 253,
-    "rate_limit_remaining": 4747
+    "api_calls_made": 339,
+    "rate_limit_remaining": 4661
   },
   "user": {
     "login": "adrianwedd",
@@ -33,7 +33,7 @@
       "CreateEvent": 1
     },
     "last_commit_date": "2025-08-01T15:15:46Z",
-    "last_issue_date": "2025-08-02T01:19:46Z"
+    "last_issue_date": "2025-08-02T01:39:38Z"
   },
   "activities": [
     {
@@ -11649,7 +11649,7 @@
         "issues": 20,
         "total": 30,
         "last_commit": "2025-08-01T15:15:40Z",
-        "last_issue": "2025-08-02T01:19:46Z"
+        "last_issue": "2025-08-02T01:39:38Z"
       }
     },
     {
@@ -25761,9 +25761,9 @@
         "due_on": "2025-08-31T07:00:00Z",
         "closed_at": null
       },
-      "comments": 2,
+      "comments": 3,
       "created_at": "2025-08-02T00:29:59Z",
-      "updated_at": "2025-08-02T01:19:46Z",
+      "updated_at": "2025-08-02T01:39:38Z",
       "closed_at": "2025-08-02T00:58:06Z",
       "author_association": "OWNER",
       "active_lock_reason": null,
@@ -25898,9 +25898,9 @@
       "assignee": null,
       "assignees": [],
       "milestone": null,
-      "comments": 2,
+      "comments": 3,
       "created_at": "2025-08-01T23:40:23Z",
-      "updated_at": "2025-08-02T01:19:26Z",
+      "updated_at": "2025-08-02T01:39:16Z",
       "closed_at": "2025-08-02T00:57:14Z",
       "author_association": "OWNER",
       "active_lock_reason": null,
@@ -30659,7 +30659,7 @@
       "id": "issue-3285407854",
       "type": "issue",
       "subtype": "issue",
-      "timestamp": "2025-08-02T01:19:46Z",
+      "timestamp": "2025-08-02T01:39:38Z",
       "repo": "cv",
       "data": {
         "url": "https://api.github.com/repos/adrianwedd/cv/issues/146",
@@ -30782,9 +30782,9 @@
           "due_on": "2025-08-31T07:00:00Z",
           "closed_at": null
         },
-        "comments": 2,
+        "comments": 3,
         "created_at": "2025-08-02T00:29:59Z",
-        "updated_at": "2025-08-02T01:19:46Z",
+        "updated_at": "2025-08-02T01:39:38Z",
         "closed_at": "2025-08-02T00:58:06Z",
         "author_association": "OWNER",
         "active_lock_reason": null,
@@ -30843,7 +30843,7 @@
       "id": "issue-3285365487",
       "type": "issue",
       "subtype": "issue",
-      "timestamp": "2025-08-02T01:19:26Z",
+      "timestamp": "2025-08-02T01:39:16Z",
       "repo": "cv",
       "data": {
         "url": "https://api.github.com/repos/adrianwedd/cv/issues/141",
@@ -30929,9 +30929,9 @@
         "assignee": null,
         "assignees": [],
         "milestone": null,
-        "comments": 2,
+        "comments": 3,
         "created_at": "2025-08-01T23:40:23Z",
-        "updated_at": "2025-08-02T01:19:26Z",
+        "updated_at": "2025-08-02T01:39:16Z",
         "closed_at": "2025-08-02T00:57:14Z",
         "author_association": "OWNER",
         "active_lock_reason": null,
