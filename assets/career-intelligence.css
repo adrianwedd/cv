@@ -268,16 +268,44 @@ body {
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
+  grid-template-columns: 1fr; /* Mobile: single column */
+  gap: 1.5rem;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .charts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
 }
 
 .chart-container {
   background: var(--color-background-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem;
+  padding: 1rem; /* Reduced padding for mobile */
   box-shadow: var(--metric-card-shadow);
+  
+  /* Mobile touch optimizations */
+  touch-action: pan-x pinch-zoom;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Enhanced padding for larger screens */
+@media (min-width: 768px) {
+  .chart-container {
+    padding: 1.5rem;
+  }
 }
 
 .chart-container.wide {
@@ -366,12 +394,41 @@ body {
 
 .chart-canvas-container {
   position: relative;
-  height: 300px;
+  height: 250px; /* Smaller height for mobile */
   width: 100%;
+  
+  /* Performance optimizations */
+  contain: layout style paint;
+  will-change: transform;
 }
 
-.chart-container.wide .chart-canvas-container {
-  height: 400px;
+/* Larger heights for bigger screens */
+@media (min-width: 768px) {
+  .chart-canvas-container {
+    height: 300px;
+  }
+  
+  .chart-container.wide .chart-canvas-container {
+    height: 350px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chart-canvas-container {
+    height: 320px;
+  }
+  
+  .chart-container.wide .chart-canvas-container {
+    height: 400px;
+  }
+}
+
+/* High DPI display optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .chart-canvas-container canvas {
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+  }
 }
 
 /* ==========================================================================
@@ -568,9 +625,7 @@ body {
     grid-template-columns: 1fr;
   }
   
-  .charts-grid {
-    grid-template-columns: 1fr;
-  }
+  /* Charts grid handled in main responsive section */
   
   .market-grid {
     grid-template-columns: 1fr;
@@ -597,13 +652,7 @@ body {
     padding: 1.5rem;
   }
   
-  .chart-canvas-container {
-    height: 250px;
-  }
-  
-  .chart-container.wide .chart-canvas-container {
-    height: 300px;
-  }
+  /* Mobile styles already handled in main responsive section */
 }
 
 /* ==========================================================================
