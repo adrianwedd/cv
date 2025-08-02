@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-02T04:05:55.930Z",
+    "generated_at": "2025-08-02T04:07:56.293Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 248,
-    "rate_limit_remaining": 4752
+    "api_calls_made": 371,
+    "rate_limit_remaining": 4629
   },
   "user": {
     "login": "adrianwedd",
@@ -32,7 +32,7 @@
       "WatchEvent": 1,
       "CreateEvent": 1
     },
-    "last_commit_date": "2025-08-02T04:05:06Z",
+    "last_commit_date": "2025-08-02T04:06:58Z",
     "last_issue_date": "2025-08-02T03:44:47Z"
   },
   "activities": [
@@ -11638,7 +11638,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-02T04:05:20Z",
+      "updated_at": "2025-08-02T04:07:08Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -11648,7 +11648,7 @@
         "commits": 10,
         "issues": 20,
         "total": 30,
-        "last_commit": "2025-08-02T04:05:06Z",
+        "last_commit": "2025-08-02T04:06:58Z",
         "last_issue": "2025-08-02T03:44:47Z"
       }
     },
@@ -12011,6 +12011,92 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "f8ec986a2e4c4919d4f4c3c696782959b840184d",
+      "node_id": "C_kwDOPUy_0toAKGY4ZWM5ODZhMmU0YzQ5MTlkNGY0YzNjNjk2NzgyOTU5Yjg0MDE4NGQ",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-02T04:06:58Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-02T04:07:04Z"
+        },
+        "message": "🔧 Fix Node.js test runner syntax in CI workflow\n\n- Corrected --test-reporter flag position for proper Node.js execution\n- Foundation tests should now execute correctly in GitHub Actions",
+        "tree": {
+          "sha": "b0d0a17e391fc9fa359e60e6efdb086fb2a3a205",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/b0d0a17e391fc9fa359e60e6efdb086fb2a3a205"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/f8ec986a2e4c4919d4f4c3c696782959b840184d",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/f8ec986a2e4c4919d4f4c3c696782959b840184d",
+      "html_url": "https://github.com/adrianwedd/cv/commit/f8ec986a2e4c4919d4f4c3c696782959b840184d",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/f8ec986a2e4c4919d4f4c3c696782959b840184d/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "6ec606445a3b9fdfea843785167f06a2b0c673a4",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/6ec606445a3b9fdfea843785167f06a2b0c673a4",
+          "html_url": "https://github.com/adrianwedd/cv/commit/6ec606445a3b9fdfea843785167f06a2b0c673a4"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "2e48b9dcc779fbd7fe3a695dc345c2f5cddc4ad5",
       "node_id": "C_kwDOPUy_0toAKDJlNDhiOWRjYzc3OWZiZDdmZTNhNjk1ZGMzNDVjMmY1Y2RkYzRhZDU",
@@ -12778,92 +12864,6 @@
           "sha": "a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50",
           "url": "https://api.github.com/repos/adrianwedd/cv/commits/a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50",
           "html_url": "https://github.com/adrianwedd/cv/commit/a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "640748004296df0d613f46717026a9ba3faa84fb",
-      "node_id": "C_kwDOPUy_0toAKDY0MDc0ODAwNDI5NmRmMGQ2MTNmNDY3MTcwMjZhOWJhM2ZhYTg0ZmI",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-02T01:12:55Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-02T01:13:05Z"
-        },
-        "message": "🔧 Fix Enterprise Testing Framework CI/CD Issues\n\n## Critical Fixes Applied\n\n### ✅ Jest Configuration Resolved\n- Fixed conflicting jest-puppeteer preset and jsdom environment\n- Removed DOM-specific mocks that don't work with Puppeteer\n- Lowered coverage thresholds to realistic 50% during setup phase\n- Added proper test file matching patterns\n\n### ✅ Puppeteer Configuration Optimized\n- Removed problematic server startup from jest-puppeteer config\n- Added --disable-web-security flag for CI environment\n- Streamlined browser launch args for CI compatibility\n- Disabled problematic devtools option\n\n### ✅ Basic Test Suite Created\n- Added basic-setup.test.js for fundamental framework validation\n- Tests Jest environment, global utilities, and basic Puppeteer functionality\n- Provides foundation for incremental testing framework expansion\n- ✅ Verified working locally with 5/5 tests passing\n\n### ⚡ CI Pipeline Optimization\n- Temporarily disabled complex test suites (accessibility, performance, cross-browser, mobile, dashboard)\n- Focused unit tests on basic-setup.test.js only during stabilization\n- Reduced pipeline complexity to identify and fix core issues first\n- Maintains quality gate analysis and security scanning\n\n## 🧪 Testing Status\n\n**Local Validation**: ✅ **5/5 tests passing**\n\n## 🎯 Strategy: Incremental Stabilization\n\nThis follows a **build-first, expand-later** approach:\n1. **Phase 1**: Establish stable basic testing framework ✅\n2. **Phase 2**: Re-enable test suites incrementally (next)\n3. **Phase 3**: Add comprehensive test coverage (future)\n4. **Phase 4**: Full enterprise testing framework (goal)\n\n**Next Steps**: Verify CI pipeline with basic tests, then systematically re-enable advanced test suites.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "42bde4558b7e73edbfcae66645e281dc5bf29544",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/42bde4558b7e73edbfcae66645e281dc5bf29544"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/640748004296df0d613f46717026a9ba3faa84fb",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/640748004296df0d613f46717026a9ba3faa84fb",
-      "html_url": "https://github.com/adrianwedd/cv/commit/640748004296df0d613f46717026a9ba3faa84fb",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/640748004296df0d613f46717026a9ba3faa84fb/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "a62e2fd55805fb76dfc6b45b4a538508c6fb0a2e",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/a62e2fd55805fb76dfc6b45b4a538508c6fb0a2e",
-          "html_url": "https://github.com/adrianwedd/cv/commit/a62e2fd55805fb76dfc6b45b4a538508c6fb0a2e"
         }
       ],
       "repository": "cv",
@@ -30638,6 +30638,102 @@
   ],
   "timeline": [
     {
+      "id": "commit-f8ec986a2e4c4919d4f4c3c696782959b840184d",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-02T04:06:58Z",
+      "repo": "cv",
+      "data": {
+        "sha": "f8ec986a2e4c4919d4f4c3c696782959b840184d",
+        "node_id": "C_kwDOPUy_0toAKGY4ZWM5ODZhMmU0YzQ5MTlkNGY0YzNjNjk2NzgyOTU5Yjg0MDE4NGQ",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-02T04:06:58Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-02T04:07:04Z"
+          },
+          "message": "🔧 Fix Node.js test runner syntax in CI workflow\n\n- Corrected --test-reporter flag position for proper Node.js execution\n- Foundation tests should now execute correctly in GitHub Actions",
+          "tree": {
+            "sha": "b0d0a17e391fc9fa359e60e6efdb086fb2a3a205",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/b0d0a17e391fc9fa359e60e6efdb086fb2a3a205"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/f8ec986a2e4c4919d4f4c3c696782959b840184d",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/f8ec986a2e4c4919d4f4c3c696782959b840184d",
+        "html_url": "https://github.com/adrianwedd/cv/commit/f8ec986a2e4c4919d4f4c3c696782959b840184d",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/f8ec986a2e4c4919d4f4c3c696782959b840184d/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "6ec606445a3b9fdfea843785167f06a2b0c673a4",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/6ec606445a3b9fdfea843785167f06a2b0c673a4",
+            "html_url": "https://github.com/adrianwedd/cv/commit/6ec606445a3b9fdfea843785167f06a2b0c673a4"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: 🔧 Fix Node.js test runner syntax in CI workflow",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
       "id": "commit-2e48b9dcc779fbd7fe3a695dc345c2f5cddc4ad5",
       "type": "commit",
       "subtype": "push",
@@ -32991,102 +33087,6 @@
         "_activity_type": "commit"
       },
       "_formatted": "Committed: 📝 Document Enterprise Testing Framework Session & Strategic Planning",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "commit-640748004296df0d613f46717026a9ba3faa84fb",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-02T01:12:55Z",
-      "repo": "cv",
-      "data": {
-        "sha": "640748004296df0d613f46717026a9ba3faa84fb",
-        "node_id": "C_kwDOPUy_0toAKDY0MDc0ODAwNDI5NmRmMGQ2MTNmNDY3MTcwMjZhOWJhM2ZhYTg0ZmI",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-02T01:12:55Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-02T01:13:05Z"
-          },
-          "message": "🔧 Fix Enterprise Testing Framework CI/CD Issues\n\n## Critical Fixes Applied\n\n### ✅ Jest Configuration Resolved\n- Fixed conflicting jest-puppeteer preset and jsdom environment\n- Removed DOM-specific mocks that don't work with Puppeteer\n- Lowered coverage thresholds to realistic 50% during setup phase\n- Added proper test file matching patterns\n\n### ✅ Puppeteer Configuration Optimized\n- Removed problematic server startup from jest-puppeteer config\n- Added --disable-web-security flag for CI environment\n- Streamlined browser launch args for CI compatibility\n- Disabled problematic devtools option\n\n### ✅ Basic Test Suite Created\n- Added basic-setup.test.js for fundamental framework validation\n- Tests Jest environment, global utilities, and basic Puppeteer functionality\n- Provides foundation for incremental testing framework expansion\n- ✅ Verified working locally with 5/5 tests passing\n\n### ⚡ CI Pipeline Optimization\n- Temporarily disabled complex test suites (accessibility, performance, cross-browser, mobile, dashboard)\n- Focused unit tests on basic-setup.test.js only during stabilization\n- Reduced pipeline complexity to identify and fix core issues first\n- Maintains quality gate analysis and security scanning\n\n## 🧪 Testing Status\n\n**Local Validation**: ✅ **5/5 tests passing**\n\n## 🎯 Strategy: Incremental Stabilization\n\nThis follows a **build-first, expand-later** approach:\n1. **Phase 1**: Establish stable basic testing framework ✅\n2. **Phase 2**: Re-enable test suites incrementally (next)\n3. **Phase 3**: Add comprehensive test coverage (future)\n4. **Phase 4**: Full enterprise testing framework (goal)\n\n**Next Steps**: Verify CI pipeline with basic tests, then systematically re-enable advanced test suites.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "42bde4558b7e73edbfcae66645e281dc5bf29544",
-            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/42bde4558b7e73edbfcae66645e281dc5bf29544"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/640748004296df0d613f46717026a9ba3faa84fb",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/commits/640748004296df0d613f46717026a9ba3faa84fb",
-        "html_url": "https://github.com/adrianwedd/cv/commit/640748004296df0d613f46717026a9ba3faa84fb",
-        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/640748004296df0d613f46717026a9ba3faa84fb/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "a62e2fd55805fb76dfc6b45b4a538508c6fb0a2e",
-            "url": "https://api.github.com/repos/adrianwedd/cv/commits/a62e2fd55805fb76dfc6b45b4a538508c6fb0a2e",
-            "html_url": "https://github.com/adrianwedd/cv/commit/a62e2fd55805fb76dfc6b45b4a538508c6fb0a2e"
-          }
-        ],
-        "repository": "cv",
-        "repository_full_name": "adrianwedd/cv",
-        "repository_url": "https://github.com/adrianwedd/cv",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: 🔧 Fix Enterprise Testing Framework CI/CD Issues",
       "_icon": "📝",
       "_color": "#22c55e"
     },
