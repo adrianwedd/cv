@@ -1,0 +1,172 @@
+{
+  "daily_usage": [
+    {
+      "timestamp": "2025-07-30 03:53 AEST",
+      "utc_timestamp": "2025-07-29T17:53:33Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 15.00,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-30 13:37 AEST",
+      "utc_timestamp": "2025-07-30T03:37:25Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 34.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-30 13:50 AEST",
+      "utc_timestamp": "2025-07-30T03:50:35Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 37.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-30 14:01 AEST",
+      "utc_timestamp": "2025-07-30T04:01:37Z",
+      "enhancement_mode": "emergency-update",
+      "strategy": "full-rebuild",
+      "estimated_tokens": 3000,
+      "activity_score": 39.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-30 14:04 AEST",
+      "utc_timestamp": "2025-07-30T04:04:00Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 41.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-30 18:05 AEST",
+      "utc_timestamp": "2025-07-30T08:05:55Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 45.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-31 00:06 AEST",
+      "utc_timestamp": "2025-07-30T14:06:11Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 49.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-31 06:04 AEST",
+      "utc_timestamp": "2025-07-30T20:04:45Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 53.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-31 10:12 AEST",
+      "utc_timestamp": "2025-07-31T00:12:00Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "full-rebuild",
+      "estimated_tokens": 8000,
+      "activity_score": 61.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-07-31 10:17 AEST",
+      "utc_timestamp": "2025-07-31T00:17:08Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "full-rebuild",
+      "estimated_tokens": 8000,
+      "activity_score": 63.50,
+      "outcome": "success"
+    },
+    {
+      "timestamp": "2025-08-01 01:28 AEST",
+      "utc_timestamp": "2025-07-31T15:28:46Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 100,
+      "outcome": "success"
+    }
+  ],
+  "enhancement_history": [
+    {
+      "date": "2025-07-29",
+      "mode": "comprehensive",
+      "activity_score": 15.00,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 34.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 37.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "emergency-update",
+      "activity_score": 39.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 41.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 45.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 49.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-30",
+      "mode": "comprehensive",
+      "activity_score": 53.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-31",
+      "mode": "comprehensive",
+      "activity_score": 61.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-31",
+      "mode": "comprehensive",
+      "activity_score": 63.50,
+      "success": true
+    },
+    {
+      "date": "2025-07-31",
+      "mode": "comprehensive",
+      "activity_score": 100,
+      "success": true
+    }
+  ],
+  "performance_metrics": []
+}
