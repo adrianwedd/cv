@@ -79,7 +79,7 @@ const CONTEXT_WEIGHTS = {
 **Result**: Smooth development flow with no lost changes or conflicts
 
 #### Production Deployment Success
-**Staging Environment**: Successfully deployed to https://adrianwedd.github.io/cv-staging
+**Staging Environment**: Successfully deployed to GitHub Pages
 **Production Environment**: Auto-deployed via PR #120 merge to main branch
 **Validation**: Both features confirmed operational in live environment
 

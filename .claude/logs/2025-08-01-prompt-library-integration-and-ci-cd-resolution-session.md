@@ -54,7 +54,7 @@ async enhanceProjectsLibrary(cvData, activityMetrics)
 - **Live Confirmation**: 
   - ✅ Continuous Enhancement Pipeline: SUCCESS (23s execution)
   - ✅ Staging Environment Deployment: SUCCESS (29s execution)
-  - ✅ Live Staging Site: https://adrianwedd.github.io/cv-staging
+  - ✅ Live Production Site: https://adrianwedd.github.io/cv
 
 #### **Files Modified**
 - `.github/workflows/continuous-enhancement.yml` - Added permissions and fixed timestamp generation
