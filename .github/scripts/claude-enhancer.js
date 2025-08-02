@@ -45,6 +45,7 @@ const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integr
 const { PromptLibraryManager } = require('./enhancer-modules/prompt-library-manager');
 const { MarketContextIntegrator } = require('./enhancer-modules/market-context-integrator');
 const { PersonaDrivenEnhancer } = require('./enhancer-modules/persona-driven-enhancer');
+const { BrowserFirstClient } = require('./enhancer-modules/browser-first-client');
 
 // Configuration
 const CONFIG = {
@@ -278,7 +279,11 @@ class ClaudeApiClient {
  */
 class CVContentEnhancer {
     constructor() {
-        this.client = new ClaudeApiClient(CONFIG.ANTHROPIC_API_KEY);
+        // Initialize authentication strategy based on AUTH_STRATEGY environment variable
+        this.authStrategy = process.env.AUTH_STRATEGY || 'api_key_first';
+        this.client = null; // Will be initialized in initializeAuthentication()
+        this.browserClient = null; // Browser client if using browser authentication
+        
         this.xmlIntegrator = new XMLFewShotIntegrator();
         this.promptLibrary = new PromptLibraryManager('v2.0');
         this.marketContext = new MarketContextIntegrator();
@@ -289,6 +294,100 @@ class CVContentEnhancer {
         this.usePromptLibrary = process.env.USE_PROMPT_LIBRARY !== 'false'; // Default to true
         this.useMarketContext = process.env.USE_MARKET_CONTEXT !== 'false'; // Default to true
         this.usePersonaDriven = process.env.USE_PERSONA_DRIVEN !== 'false'; // Default to true - Issue #92
+        
+        // Authentication and cost tracking
+        this.authMethod = 'unknown';
+        this.costSavings = 0;
+        this.sessionMetrics = {
+            authAttempts: [],
+            totalRequests: 0,
+            totalTokens: 0,
+            errors: []
+        };
+    }
+
+    /**
+     * Initialize authentication client based on strategy
+     */
+    async initializeAuthentication() {
+        console.log(`🔐 Initializing authentication strategy: ${this.authStrategy}`);
+        
+        const authAttempt = {
+            strategy: this.authStrategy,
+            timestamp: new Date().toISOString(),
+            success: false,
+            method: 'unknown',
+            error: null
+        };
+        
+        // Try browser authentication first if strategy is browser_first
+        if (this.authStrategy === 'browser_first') {
+            try {
+                console.log('🍪 Attempting browser-first authentication...');
+                this.browserClient = new BrowserFirstClient();
+                await this.browserClient.initialize();
+                
+                if (this.browserClient.authMethod === 'browser_authenticated') {
+                    console.log('✅ Browser authentication successful - Using FREE Claude AI!');
+                    this.client = this.browserClient;
+                    this.authMethod = 'browser_authenticated';
+                    authAttempt.success = true;
+                    authAttempt.method = 'browser_authenticated';
+                    this.sessionMetrics.authAttempts.push(authAttempt);
+                    return;
+                }
+                
+                console.log('⚠️ Browser authentication failed, falling back to API key...');
+                await this.browserClient.close();
+                this.browserClient = null;
+                
+            } catch (error) {
+                console.log('❌ Browser authentication error:', error.message);
+                authAttempt.error = error.message;
+                if (this.browserClient) {
+                    await this.browserClient.close();
+                    this.browserClient = null;
+                }
+            }
+        }
+        
+        // Fall back to API key authentication
+        if (!this.client) {
+            console.log('🔑 Initializing API key authentication...');
+            if (CONFIG.ANTHROPIC_API_KEY) {
+                this.client = new ClaudeApiClient(CONFIG.ANTHROPIC_API_KEY);
+                this.authMethod = 'api_key';
+                authAttempt.success = true;
+                authAttempt.method = 'api_key';
+                console.log('✅ API key authentication configured');
+            } else {
+                const error = 'No authentication method available - missing API key';
+                console.error('❌', error);
+                authAttempt.error = error;
+                throw new Error(error);
+            }
+        }
+        
+        this.sessionMetrics.authAttempts.push(authAttempt);
+        console.log(`🎯 Authentication method: ${this.authMethod}`);
+    }
+
+    /**
+     * Get authentication status and cost savings information
+     */
+    getAuthenticationStatus() {
+        const browserStatus = this.browserClient ? this.browserClient.getAuthStatus() : null;
+        
+        return {
+            authMethod: this.authMethod,
+            authStrategy: this.authStrategy,
+            browserAuthentication: {
+                available: this.authMethod === 'browser_authenticated',
+                status: browserStatus
+            },
+            sessionMetrics: this.sessionMetrics,
+            costSavings: this.costSavings
+        };
     }
 
     /**
@@ -299,6 +398,9 @@ class CVContentEnhancer {
         console.log(`🎨 Creativity level: ${CONFIG.CREATIVITY_LEVEL}`);
         console.log(`💰 AI budget: ${CONFIG.AI_BUDGET}`);
         console.log(`📊 Activity score: ${CONFIG.ACTIVITY_SCORE}/100`);
+        
+        // Initialize authentication first
+        await this.initializeAuthentication();
         console.log('');
 
         try {
@@ -379,16 +481,54 @@ class CVContentEnhancer {
             await this.saveEnhancementResults(enhancementPlan);
 
             const enhancementTime = ((Date.now() - this.enhancementStartTime) / 1000).toFixed(2);
-            const usageStats = this.client.getUsageStats();
             
-            console.log(`✅ Enhancement completed in ${enhancementTime}s`);
-            console.log(`📊 Token usage: ${usageStats.total_tokens} total (${usageStats.cache_efficiency_percent}% cache efficiency)`);
+            // Get usage stats and cost information
+            let usageStats = {};
+            let authStatus = {};
+            
+            if (this.authMethod === 'browser_authenticated' && this.browserClient) {
+                // Browser authentication stats
+                authStatus = this.browserClient.getAuthStatus();
+                usageStats = {
+                    total_tokens: authStatus.tokenUsage.total,
+                    request_count: authStatus.requestCount,
+                    cache_efficiency_percent: 0, // Browser method doesn't use cache
+                    cost_savings: authStatus.costSavings
+                };
+                console.log(`✅ Enhancement completed in ${enhancementTime}s`);
+                console.log(`🎯 Authentication: Browser-based (FREE)`);
+                console.log(`📊 Token usage: ${usageStats.total_tokens} total`);
+                console.log(`💰 Cost savings: $${usageStats.cost_savings.toFixed(4)}`);
+                console.log(`💡 Estimated monthly savings: $${authStatus.estimatedMonthlySavings}`);
+            } else if (this.client && this.client.getUsageStats) {
+                // API key authentication stats
+                usageStats = this.client.getUsageStats();
+                console.log(`✅ Enhancement completed in ${enhancementTime}s`);
+                console.log(`🎯 Authentication: API Key (paid)`);
+                console.log(`📊 Token usage: ${usageStats.total_tokens} total (${usageStats.cache_efficiency_percent}% cache efficiency)`);
+            }
+            
             console.log(`📁 Results saved to ${CONFIG.OUTPUT_DIR}/`);
+
+            // Clean up browser client if used
+            if (this.browserClient) {
+                await this.browserClient.close();
+            }
 
             return enhancementPlan;
 
         } catch (error) {
             console.error('❌ Enhancement failed:', error.message);
+            
+            // Clean up browser client if used
+            if (this.browserClient) {
+                try {
+                    await this.browserClient.close();
+                } catch (closeError) {
+                    console.warn('⚠️ Error closing browser client:', closeError.message);
+                }
+            }
+            
             throw error;
         }
     }
