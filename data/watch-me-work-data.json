@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-02T04:07:56.293Z",
+    "generated_at": "2025-08-02T04:13:37.205Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 371,
-    "rate_limit_remaining": 4629
+    "api_calls_made": 493,
+    "rate_limit_remaining": 4507
   },
   "user": {
     "login": "adrianwedd",
@@ -32,7 +32,7 @@
       "WatchEvent": 1,
       "CreateEvent": 1
     },
-    "last_commit_date": "2025-08-02T04:06:58Z",
+    "last_commit_date": "2025-08-02T04:12:30Z",
     "last_issue_date": "2025-08-02T03:44:47Z"
   },
   "activities": [
@@ -11638,7 +11638,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-02T04:07:08Z",
+      "updated_at": "2025-08-02T04:12:40Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -11648,7 +11648,7 @@
         "commits": 10,
         "issues": 20,
         "total": 30,
-        "last_commit": "2025-08-02T04:06:58Z",
+        "last_commit": "2025-08-02T04:12:30Z",
         "last_issue": "2025-08-02T03:44:47Z"
       }
     },
@@ -12011,6 +12011,92 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+      "node_id": "C_kwDOPUy_0toAKGFlODY5OThkMjQxYjIwYzdjZTlkZmVkNjgxYTM2NmU1ZmU2MGZlMjE",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-02T04:12:30Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-02T04:12:36Z"
+        },
+        "message": "⚡ Optimize Foundation Test Suite for rapid CI execution\n\n- Reduced execution time from 90s to <1s\n- Streamlined core file validation without heavy I/O\n- Removed redundant module loading tests\n- Maintained comprehensive coverage while improving speed\n- CI-optimized for sub-second foundation validation",
+        "tree": {
+          "sha": "98f0b439f418ec8f0af871d91194069387a6acc5",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/98f0b439f418ec8f0af871d91194069387a6acc5"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+      "html_url": "https://github.com/adrianwedd/cv/commit/ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/ae86998d241b20c7ce9dfed681a366e5fe60fe21/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "4e293cf4d7494839f0f7ffaee2ec046beaaffb16",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/4e293cf4d7494839f0f7ffaee2ec046beaaffb16",
+          "html_url": "https://github.com/adrianwedd/cv/commit/4e293cf4d7494839f0f7ffaee2ec046beaaffb16"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "f8ec986a2e4c4919d4f4c3c696782959b840184d",
       "node_id": "C_kwDOPUy_0toAKGY4ZWM5ODZhMmU0YzQ5MTlkNGY0YzNjNjk2NzgyOTU5Yjg0MDE4NGQ",
@@ -12778,92 +12864,6 @@
           "sha": "45056dbba0e6c9cdd46ad5ce9beb4ed70650b7ff",
           "url": "https://api.github.com/repos/adrianwedd/cv/commits/45056dbba0e6c9cdd46ad5ce9beb4ed70650b7ff",
           "html_url": "https://github.com/adrianwedd/cv/commit/45056dbba0e6c9cdd46ad5ce9beb4ed70650b7ff"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "1ab744fe25de874c37506191d9ff6e0f14998b42",
-      "node_id": "C_kwDOPUy_0toAKDFhYjc0NGZlMjVkZTg3NGMzNzUwNjE5MWQ5ZmY2ZTBmMTQ5OThiNDI",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-02T01:22:24Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-02T01:22:35Z"
-        },
-        "message": "📝 Document Enterprise Testing Framework Session & Strategic Planning\n\n## Session Documentation Added\n\n### ✅ CLAUDE.md Updates\n- Added Session Insights for August 2, 2025 testing framework implementation\n- Documented foundation-first development approach and CI/CD debugging patterns\n- Recorded key technical insights for future testing framework expansion\n\n### ✅ Session Log Export\n- Complete session log: 2025-08-02-enterprise-testing-framework-foundation-implementation.md\n- Detailed implementation journey with technical decisions and problem-solving approach\n- Professional documentation of testing framework architecture and strategic impact\n\n### ✅ Next Session Strategic Plan\n- NEXT_SESSION_PLAN.md: Comprehensive Phase 2A (Accessibility Testing) implementation plan\n- Systematic approach for WCAG 2.1 AA compliance testing activation\n- Risk assessment, success criteria, and fallback strategies documented\n\n## 🎯 Strategic Value\n\n**Session Impact**: Successfully established enterprise testing framework foundation with working CI/CD pipeline\n**Documentation Excellence**: Complete technical and strategic documentation supporting future development\n**Next Phase Ready**: Clear roadmap for systematic testing framework expansion\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "f8ee1a42bbb74e717ef7205eb0bca7cf73197c16",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/f8ee1a42bbb74e717ef7205eb0bca7cf73197c16"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/1ab744fe25de874c37506191d9ff6e0f14998b42",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/1ab744fe25de874c37506191d9ff6e0f14998b42",
-      "html_url": "https://github.com/adrianwedd/cv/commit/1ab744fe25de874c37506191d9ff6e0f14998b42",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/1ab744fe25de874c37506191d9ff6e0f14998b42/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50",
-          "html_url": "https://github.com/adrianwedd/cv/commit/a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50"
         }
       ],
       "repository": "cv",
@@ -30638,6 +30638,102 @@
   ],
   "timeline": [
     {
+      "id": "commit-ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-02T04:12:30Z",
+      "repo": "cv",
+      "data": {
+        "sha": "ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+        "node_id": "C_kwDOPUy_0toAKGFlODY5OThkMjQxYjIwYzdjZTlkZmVkNjgxYTM2NmU1ZmU2MGZlMjE",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-02T04:12:30Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-02T04:12:36Z"
+          },
+          "message": "⚡ Optimize Foundation Test Suite for rapid CI execution\n\n- Reduced execution time from 90s to <1s\n- Streamlined core file validation without heavy I/O\n- Removed redundant module loading tests\n- Maintained comprehensive coverage while improving speed\n- CI-optimized for sub-second foundation validation",
+          "tree": {
+            "sha": "98f0b439f418ec8f0af871d91194069387a6acc5",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/98f0b439f418ec8f0af871d91194069387a6acc5"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+        "html_url": "https://github.com/adrianwedd/cv/commit/ae86998d241b20c7ce9dfed681a366e5fe60fe21",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/ae86998d241b20c7ce9dfed681a366e5fe60fe21/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "4e293cf4d7494839f0f7ffaee2ec046beaaffb16",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/4e293cf4d7494839f0f7ffaee2ec046beaaffb16",
+            "html_url": "https://github.com/adrianwedd/cv/commit/4e293cf4d7494839f0f7ffaee2ec046beaaffb16"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: ⚡ Optimize Foundation Test Suite for rapid CI execution",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
       "id": "commit-f8ec986a2e4c4919d4f4c3c696782959b840184d",
       "type": "commit",
       "subtype": "push",
@@ -32991,102 +33087,6 @@
         "_activity_type": "commit"
       },
       "_formatted": "Committed: 🔧 COMPREHENSIVE CI/CD ROBUSTNESS BLITZ - Strategic Plan",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "commit-1ab744fe25de874c37506191d9ff6e0f14998b42",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-02T01:22:24Z",
-      "repo": "cv",
-      "data": {
-        "sha": "1ab744fe25de874c37506191d9ff6e0f14998b42",
-        "node_id": "C_kwDOPUy_0toAKDFhYjc0NGZlMjVkZTg3NGMzNzUwNjE5MWQ5ZmY2ZTBmMTQ5OThiNDI",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-02T01:22:24Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-02T01:22:35Z"
-          },
-          "message": "📝 Document Enterprise Testing Framework Session & Strategic Planning\n\n## Session Documentation Added\n\n### ✅ CLAUDE.md Updates\n- Added Session Insights for August 2, 2025 testing framework implementation\n- Documented foundation-first development approach and CI/CD debugging patterns\n- Recorded key technical insights for future testing framework expansion\n\n### ✅ Session Log Export\n- Complete session log: 2025-08-02-enterprise-testing-framework-foundation-implementation.md\n- Detailed implementation journey with technical decisions and problem-solving approach\n- Professional documentation of testing framework architecture and strategic impact\n\n### ✅ Next Session Strategic Plan\n- NEXT_SESSION_PLAN.md: Comprehensive Phase 2A (Accessibility Testing) implementation plan\n- Systematic approach for WCAG 2.1 AA compliance testing activation\n- Risk assessment, success criteria, and fallback strategies documented\n\n## 🎯 Strategic Value\n\n**Session Impact**: Successfully established enterprise testing framework foundation with working CI/CD pipeline\n**Documentation Excellence**: Complete technical and strategic documentation supporting future development\n**Next Phase Ready**: Clear roadmap for systematic testing framework expansion\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "f8ee1a42bbb74e717ef7205eb0bca7cf73197c16",
-            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/f8ee1a42bbb74e717ef7205eb0bca7cf73197c16"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/1ab744fe25de874c37506191d9ff6e0f14998b42",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/commits/1ab744fe25de874c37506191d9ff6e0f14998b42",
-        "html_url": "https://github.com/adrianwedd/cv/commit/1ab744fe25de874c37506191d9ff6e0f14998b42",
-        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/1ab744fe25de874c37506191d9ff6e0f14998b42/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50",
-            "url": "https://api.github.com/repos/adrianwedd/cv/commits/a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50",
-            "html_url": "https://github.com/adrianwedd/cv/commit/a934f6cb20ff2f0ffd40ba8a4ac09c07282b4c50"
-          }
-        ],
-        "repository": "cv",
-        "repository_full_name": "adrianwedd/cv",
-        "repository_url": "https://github.com/adrianwedd/cv",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: 📝 Document Enterprise Testing Framework Session & Strategic Planning",
       "_icon": "📝",
       "_color": "#22c55e"
     },
