@@ -65,6 +65,12 @@ env:
 # - Performance metrics and cost analysis
 # - Real-time progress indicators
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
+
 jobs:
   # 🧠 INTELLIGENCE & STRATEGY ANALYSIS
   intelligence-analysis:

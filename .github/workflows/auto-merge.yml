@@ -7,6 +7,12 @@ on:
     types: [completed]
   status: {}
 
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+  statuses: read
+
 jobs:
   auto-merge:
     name: 🚀 Auto-Merge PR
