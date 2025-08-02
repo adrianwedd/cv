@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Intelligence Dashboard - Adrian Wedd</title>
+    <meta name="description" content="Advanced career analytics and market intelligence dashboard showing professional growth, skill development, and strategic positioning">
+    
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/career-intelligence.css">
+    
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js" defer></script>
+    
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Career Intelligence Dashboard - Adrian Wedd">
+    <meta property="og:description" content="Advanced career analytics and market intelligence">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://adrianwedd.github.io/cv/career-intelligence">
+    
+    <!-- Accessibility -->
+    <meta name="color-scheme" content="light dark">
+</head>
+<body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation Bar -->
+    <nav class="career-nav" role="navigation" aria-label="Career Intelligence Navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="brand-link" aria-label="Return to main CV">
+                    <span class="icon" aria-hidden="true">🎯</span>
+                    <span class="brand-text">Career Intelligence</span>
+                </a>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <span class="link-icon" aria-hidden="true">👤</span>
+                    <span>CV Home</span>
+                </a>
+                <a href="watch-me-work.html" class="nav-link">
+                    <span class="link-icon" aria-hidden="true">🎬</span>
+                    <span>Live Activity</span>
+                </a>
+                <button id="theme-toggle" class="nav-link theme-toggle" aria-label="Toggle theme">
+                    <span class="link-icon theme-icon" aria-hidden="true">🌙</span>
+                    <span>Theme</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main id="main-content" class="dashboard-main" role="main">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1 class="dashboard-title">
+                    <span class="title-icon" aria-hidden="true">📊</span>
+                    Career Intelligence Dashboard
+                </h1>
+                <p class="dashboard-subtitle">Advanced analytics and strategic career positioning</p>
+                
+                <!-- Live Status -->
+                <div class="status-indicator">
+                    <span class="status-dot" id="data-status" aria-hidden="true"></span>
+                    <span class="status-text" id="data-status-text">Loading data...</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Key Metrics Overview -->
+        <section class="metrics-overview" aria-labelledby="metrics-title">
+            <h2 id="metrics-title" class="section-title">Professional Growth Metrics</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card" role="article" aria-labelledby="activity-metric">
+                    <div class="metric-header">
+                        <h3 id="activity-metric">Activity Score</h3>
+                        <span class="metric-icon" aria-hidden="true">⚡</span>
+                    </div>
+                    <div class="metric-value" id="activity-score">--</div>
+                    <div class="metric-trend" id="activity-trend">
+                        <span class="trend-indicator" aria-hidden="true">↗</span>
+                        <span class="trend-text">Analyzing...</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card" role="article" aria-labelledby="technical-metric">
+                    <div class="metric-header">
+                        <h3 id="technical-metric">Technical Diversity</h3>
+                        <span class="metric-icon" aria-hidden="true">🔧</span>
+                    </div>
+                    <div class="metric-value" id="technical-score">--</div>
+                    <div class="metric-trend" id="technical-trend">
+                        <span class="trend-indicator" aria-hidden="true">↗</span>
+                        <span class="trend-text">Analyzing...</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card" role="article" aria-labelledby="community-metric">
+                    <div class="metric-header">
+                        <h3 id="community-metric">Community Impact</h3>
+                        <span class="metric-icon" aria-hidden="true">🌟</span>
+                    </div>
+                    <div class="metric-value" id="community-score">--</div>
+                    <div class="metric-trend" id="community-trend">
+                        <span class="trend-indicator" aria-hidden="true">↗</span>
+                        <span class="trend-text">Analyzing...</span>
+                    </div>
+                </div>
+                
+                <div class="metric-card primary" role="article" aria-labelledby="overall-metric">
+                    <div class="metric-header">
+                        <h3 id="overall-metric">Overall Score</h3>
+                        <span class="metric-icon" aria-hidden="true">🎯</span>
+                    </div>
+                    <div class="metric-value" id="overall-score">--</div>
+                    <div class="metric-trend" id="overall-trend">
+                        <span class="trend-indicator" aria-hidden="true">↗</span>
+                        <span class="trend-text">Analyzing...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Charts Section -->
+        <section class="charts-section" aria-labelledby="charts-title">
+            <h2 id="charts-title" class="section-title">Career Analytics</h2>
+            
+            <div class="charts-grid">
+                <!-- Activity Trends Chart -->
+                <div class="chart-container" role="img" aria-labelledby="activity-chart-title">
+                    <div class="chart-header">
+                        <h3 id="activity-chart-title">Activity Trends</h3>
+                        <div class="chart-controls">
+                            <button class="chart-btn active" data-period="30d" aria-label="Show 30 day trend">30D</button>
+                            <button class="chart-btn" data-period="90d" aria-label="Show 90 day trend">90D</button>
+                            <button class="chart-btn" data-period="1y" aria-label="Show 1 year trend">1Y</button>
+                        </div>
+                    </div>
+                    <div class="chart-canvas-container">
+                        <canvas id="activity-chart" aria-label="Activity trends over time"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Skills Distribution -->
+                <div class="chart-container" role="img" aria-labelledby="skills-chart-title">
+                    <div class="chart-header">
+                        <h3 id="skills-chart-title">Skills Distribution</h3>
+                        <div class="chart-info">
+                            <span class="info-icon" aria-hidden="true">ℹ️</span>
+                            <span class="info-text">Based on recent project activity</span>
+                        </div>
+                    </div>
+                    <div class="chart-canvas-container">
+                        <canvas id="skills-chart" aria-label="Distribution of technical skills"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Professional Growth -->
+                <div class="chart-container wide" role="img" aria-labelledby="growth-chart-title">
+                    <div class="chart-header">
+                        <h3 id="growth-chart-title">Professional Growth Trajectory</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item">
+                                <span class="legend-color activity" aria-hidden="true"></span>
+                                <span>Activity</span>
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color technical" aria-hidden="true"></span>
+                                <span>Technical</span>
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-color community" aria-hidden="true"></span>
+                                <span>Community</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chart-canvas-container">
+                        <canvas id="growth-chart" aria-label="Professional growth over time across different metrics"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Market Intelligence -->
+        <section class="market-section" aria-labelledby="market-title">
+            <h2 id="market-title" class="section-title">Market Intelligence</h2>
+            
+            <div class="market-grid">
+                <div class="market-card" role="article" aria-labelledby="positioning-title">
+                    <h3 id="positioning-title">Market Positioning</h3>
+                    <div class="positioning-content">
+                        <div class="position-indicator">
+                            <div class="position-level" id="market-position">Analyzing...</div>
+                            <div class="position-description" id="position-desc">Evaluating current market position</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="market-card" role="article" aria-labelledby="trends-title">
+                    <h3 id="trends-title">Industry Trends</h3>
+                    <div class="trends-list" id="industry-trends">
+                        <div class="trend-item loading">
+                            <span class="trend-indicator" aria-hidden="true">📈</span>
+                            <span>Loading trend analysis...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="market-card" role="article" aria-labelledby="recommendations-title">
+                    <h3 id="recommendations-title">Strategic Recommendations</h3>
+                    <div class="recommendations-list" id="career-recommendations">
+                        <div class="recommendation-item loading">
+                            <span class="rec-icon" aria-hidden="true">💡</span>
+                            <span>Generating recommendations...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <p class="footer-text">
+                    Data updated: <span id="last-updated">Loading...</span> | 
+                    <a href="index.html" class="footer-link">Return to CV</a>
+                </p>
+            </div>
+        </footer>
+    </main>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" aria-live="polite">
+        <div class="loading-content">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <div class="loading-text">Analyzing career data...</div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="assets/career-intelligence.js" defer></script>
+</body>
+</html>

@@ -491,7 +491,7 @@ jobs:
             
             git commit -m "📊 Data Refresh: ${COMPONENTS_STR} (${TIMESTAMP})" \
                        -m "🔄 High-frequency data pipeline refresh" \
-                       -m "⏰ Components: ${COMPONENTS_STR}" \  
+                       -m "⏰ Components: ${COMPONENTS_STR}" \
                        -m "🎯 Trigger: ${{ github.event_name }}" \
                        -m "" \
                        -m "🤖 Generated with [Claude Code](https://claude.ai/code)" \

@@ -24,7 +24,12 @@ const CONFIG = {
     CACHE_DURATION: 300000, // 5 minutes
     ANIMATION_DURATION: 300,
     THEME_KEY: 'cv-theme',
-    USERNAME: 'adrianwedd'
+    USERNAME: 'adrianwedd',
+    PERFORMANCE_BUDGET: {
+        MAX_LOAD_TIME: 2000, // 2 seconds
+        CRITICAL_RENDER_TIME: 1000, // 1 second
+        IMAGE_LAZY_THRESHOLD: 50 // pixels
+    }
 };
 
 /**
