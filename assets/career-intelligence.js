@@ -32,7 +32,67 @@ const CONFIG = {
     },
     ANIMATION_DURATION: 1000,
     UPDATE_INTERVAL: 300000, // 5 minutes
-    PERFORMANCE_BUDGET: 2000 // 2 seconds max load
+    PERFORMANCE_BUDGET: 2000, // 2 seconds max load
+    
+    // Mobile-first responsive configuration
+    MOBILE: {
+        BREAKPOINT: 768,
+        TOUCH_TARGET: 44, // Minimum touch target size (px)
+        ANIMATION_DURATION: 300, // Faster animations on mobile
+        CHART_PADDING: 10,
+        FONT_SIZE: {
+            SMALL: 10,
+            NORMAL: 12,
+            LARGE: 14
+        }
+    },
+    
+    // Chart.js mobile optimization
+    CHART_DEFAULTS: {
+        MOBILE: {
+            responsive: true,
+            maintainAspectRatio: false,
+            devicePixelRatio: window.devicePixelRatio || 1,
+            interaction: {
+                mode: 'nearest',
+                intersect: false,
+                includeInvisible: false
+            },
+            animation: {
+                duration: 300
+            },
+            elements: {
+                point: {
+                    hoverRadius: 8,
+                    radius: 4
+                },
+                line: {
+                    borderWidth: 2
+                }
+            }
+        },
+        DESKTOP: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            animation: {
+                duration: 1000,
+                easing: 'easeOutQuart'
+            },
+            elements: {
+                point: {
+                    hoverRadius: 6,
+                    radius: 3
+                },
+                line: {
+                    borderWidth: 3
+                }
+            }
+        }
+    }
 };
 
 /**
@@ -45,18 +105,151 @@ class CareerIntelligenceDashboard {
         this.isLoading = true;
         this.lastUpdated = null;
         
+        // Device detection
+        this.isMobile = window.innerWidth <= CONFIG.MOBILE.BREAKPOINT;
+        this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
         // Performance tracking
         this.performanceStart = performance.now();
+        
+        // Responsive handling
+        this.setupResponsiveHandling();
         
         this.init();
     }
     
     /**
+     * Set up responsive handling for mobile optimization
+     */
+    setupResponsiveHandling() {
+        // Debounced resize handler
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const wasMobile = this.isMobile;
+                this.isMobile = window.innerWidth <= CONFIG.MOBILE.BREAKPOINT;
+                
+                // Recreate charts if mobile state changed
+                if (wasMobile !== this.isMobile && Object.keys(this.charts).length > 0) {
+                    console.log('📱 Device orientation changed, recreating charts...');
+                    this.recreateCharts();
+                }
+            }, 250);
+        });
+
+        // Touch event optimization
+        if (this.isTouchDevice) {
+            document.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+            document.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+        }
+    }
+
+    /**
+     * Handle touch start for gesture optimization
+     */
+    handleTouchStart(event) {
+        this.touchStartX = event.touches[0].clientX;
+        this.touchStartY = event.touches[0].clientY;
+    }
+
+    /**
+     * Handle touch move with swipe detection
+     */
+    handleTouchMove(event) {
+        if (!this.touchStartX || !this.touchStartY) return;
+
+        const touchEndX = event.touches[0].clientX;
+        const touchEndY = event.touches[0].clientY;
+        const deltaX = touchEndX - this.touchStartX;
+        const deltaY = touchEndY - this.touchStartY;
+
+        // Prevent vertical scroll when swiping horizontally on charts
+        if (Math.abs(deltaX) > Math.abs(deltaY) && event.target.closest('.chart-canvas-container')) {
+            event.preventDefault();
+        }
+    }
+
+    /**
+     * Get responsive chart configuration
+     */
+    getChartConfig() {
+        const baseConfig = this.isMobile ? CONFIG.CHART_DEFAULTS.MOBILE : CONFIG.CHART_DEFAULTS.DESKTOP;
+        
+        return {
+            ...baseConfig,
+            plugins: {
+                ...baseConfig.plugins,
+                legend: {
+                    display: !this.isMobile, // Hide legends on mobile for space
+                    position: this.isMobile ? 'bottom' : 'top',
+                    labels: {
+                        usePointStyle: true,
+                        padding: this.isMobile ? 10 : 20,
+                        font: {
+                            size: this.isMobile ? CONFIG.MOBILE.FONT_SIZE.SMALL : CONFIG.MOBILE.FONT_SIZE.NORMAL
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    mode: this.isMobile ? 'nearest' : 'index',
+                    intersect: false,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    cornerRadius: 8,
+                    displayColors: !this.isMobile,
+                    titleFont: {
+                        size: this.isMobile ? CONFIG.MOBILE.FONT_SIZE.NORMAL : CONFIG.MOBILE.FONT_SIZE.LARGE
+                    },
+                    bodyFont: {
+                        size: this.isMobile ? CONFIG.MOBILE.FONT_SIZE.SMALL : CONFIG.MOBILE.FONT_SIZE.NORMAL
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    display: true,
+                    grid: {
+                        color: CONFIG.CHART_COLORS.grid,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        font: {
+                            size: this.isMobile ? CONFIG.MOBILE.FONT_SIZE.SMALL : CONFIG.MOBILE.FONT_SIZE.NORMAL
+                        },
+                        maxRotation: this.isMobile ? 45 : 0,
+                        color: CONFIG.CHART_COLORS.text
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    display: true,
+                    grid: {
+                        color: CONFIG.CHART_COLORS.grid,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        font: {
+                            size: this.isMobile ? CONFIG.MOBILE.FONT_SIZE.SMALL : CONFIG.MOBILE.FONT_SIZE.NORMAL
+                        },
+                        color: CONFIG.CHART_COLORS.text,
+                        maxTicksLimit: this.isMobile ? 5 : 8
+                    }
+                }
+            }
+        };
+    }
+
+    /**
      * Initialize dashboard
      */
     async init() {
         try {
-            console.log('🎯 Initializing Career Intelligence Dashboard...');
+            console.log(`🎯 Initializing Career Intelligence Dashboard... (${this.isMobile ? 'Mobile' : 'Desktop'} mode)`);
             
             // Set up theme handling
             this.initializeTheme();
@@ -90,31 +283,77 @@ class CareerIntelligenceDashboard {
     }
     
     /**
-     * Load all required data
+     * Load data with mobile-first performance optimization
      */
     async loadData() {
-        console.log('📡 Loading career data...');
+        console.log(`📡 Loading career data... (${this.isMobile ? 'Mobile' : 'Desktop'} mode)`);
         
         try {
-            // Load latest metrics data
-            const latestMetrics = await this.getLatestFile('metrics');
-            if (latestMetrics) {
-                this.data.metrics = await this.fetchJSON(`data/metrics/${latestMetrics}`);
+            if (this.isMobile) {
+                // Mobile: Sequential loading for performance
+                console.log('📱 Mobile optimization: Loading critical data first');
+                
+                // 1. Load essential trends data (most important for charts)
+                const latestTrends = await this.getLatestFile('trends');
+                if (latestTrends) {
+                    this.data.trends = await this.fetchJSON(`data/trends/${latestTrends}`);
+                }
+                
+                // 2. Load base CV (needed for skills)
+                this.data.cv = await this.fetchJSON('data/base-cv.json');
+                
+                // 3. Load metrics and activity in background after charts render
+                setTimeout(async () => {
+                    try {
+                        const [metrics, activitySummary] = await Promise.allSettled([
+                            this.getLatestFile('metrics').then(file => 
+                                file ? this.fetchJSON(`data/metrics/${file}`) : null
+                            ),
+                            this.fetchJSON('data/activity-summary.json')
+                        ]);
+                        
+                        if (metrics.status === 'fulfilled' && metrics.value) {
+                            this.data.metrics = metrics.value;
+                        }
+                        if (activitySummary.status === 'fulfilled' && activitySummary.value) {
+                            this.data.activitySummary = activitySummary.value;
+                        }
+                        
+                        // Update any components that need secondary data
+                        this.updateSecondaryComponents();
+                    } catch (error) {
+                        console.warn('⚠️ Secondary data loading failed:', error);
+                    }
+                }, 50); // Load after initial render
+                
+            } else {
+                // Desktop: Parallel loading for full experience
+                console.log('🖥️ Desktop: Loading full dataset in parallel');
+                
+                const [metricsFile, trendsFile] = await Promise.allSettled([
+                    this.getLatestFile('metrics'),
+                    this.getLatestFile('trends')
+                ]);
+                
+                const [metrics, trends, cv, activitySummary] = await Promise.allSettled([
+                    metricsFile.status === 'fulfilled' && metricsFile.value 
+                        ? this.fetchJSON(`data/metrics/${metricsFile.value}`) 
+                        : null,
+                    trendsFile.status === 'fulfilled' && trendsFile.value 
+                        ? this.fetchJSON(`data/trends/${trendsFile.value}`) 
+                        : null,
+                    this.fetchJSON('data/base-cv.json'),
+                    this.fetchJSON('data/activity-summary.json')
+                ]);
+                
+                // Process results
+                if (metrics.status === 'fulfilled' && metrics.value) this.data.metrics = metrics.value;
+                if (trends.status === 'fulfilled' && trends.value) this.data.trends = trends.value;
+                if (cv.status === 'fulfilled' && cv.value) this.data.cv = cv.value;
+                if (activitySummary.status === 'fulfilled' && activitySummary.value) this.data.activitySummary = activitySummary.value;
             }
             
-            // Load latest trends data
-            const latestTrends = await this.getLatestFile('trends');
-            if (latestTrends) {
-                this.data.trends = await this.fetchJSON(`data/trends/${latestTrends}`);
-            }
-            
-            // Load base CV data for skills
-            this.data.cv = await this.fetchJSON('data/base-cv.json');
-            
-            // Load activity summary
-            this.data.activitySummary = await this.fetchJSON('data/activity-summary.json');
-            
-            console.log('✅ Data loaded successfully');
+            console.log('✅ Critical data loaded successfully');
             
         } catch (error) {
             console.error('❌ Data loading failed:', error);
@@ -327,18 +566,24 @@ class CareerIntelligenceDashboard {
     }
     
     /**
-     * Create activity trends chart
+     * Create activity trends chart with mobile optimization
      */
     createActivityChart() {
         const ctx = document.getElementById('activity-chart');
         if (!ctx || !this.data.trends) return;
         
         const trends = this.data.trends.commit_trends || {};
+        const chartConfig = this.getChartConfig();
+        
+        // Mobile-optimized labels
+        const labels = this.isMobile 
+            ? ['90d', '30d', '7d', '1d', 'Today']
+            : ['90 days', '30 days', '7 days', '1 day', 'Today'];
         
         this.charts.activity = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['90 days', '30 days', '7 days', '1 day', 'Today'],
+                labels: labels,
                 datasets: [{
                     label: 'Commits',
                     data: [
@@ -350,38 +595,154 @@ class CareerIntelligenceDashboard {
                     ],
                     borderColor: CONFIG.CHART_COLORS.activity,
                     backgroundColor: CONFIG.CHART_COLORS.activity + '20',
-                    borderWidth: 3,
+                    borderWidth: chartConfig.elements.line.borderWidth,
+                    pointRadius: chartConfig.elements.point.radius,
+                    pointHoverRadius: chartConfig.elements.point.hoverRadius,
                     fill: true,
                     tension: 0.4
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
+                ...chartConfig,
                 plugins: {
+                    ...chartConfig.plugins,
                     legend: {
-                        display: false
+                        display: false // Always hide for activity chart
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: CONFIG.CHART_COLORS.grid
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: CONFIG.CHART_COLORS.grid
-                        }
-                    }
+                // Mobile-specific touch optimization
+                onHover: this.isTouchDevice ? undefined : (event, activeElements) => {
+                    event.native.target.style.cursor = activeElements.length > 0 ? 'pointer' : 'default';
                 },
-                animation: {
-                    duration: CONFIG.ANIMATION_DURATION,
-                    easing: 'easeOutQuart'
+                // Add touch-friendly interactions
+                interaction: {
+                    ...chartConfig.interaction,
+                    axis: this.isMobile ? 'x' : 'xy'
                 }
             }
         });
+        
+        // Add mobile gesture support
+        if (this.isTouchDevice) {
+            this.addChartTouchSupport(ctx, this.charts.activity);
+        }
+    }
+
+    /**
+     * Add touch support for chart interactions
+     */
+    addChartTouchSupport(canvas, chart) {
+        let isTouch = false;
+        let startDistance = 0;
+        let startScale = 1;
+
+        // Touch start
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            isTouch = true;
+            
+            if (e.touches.length === 2) {
+                // Pinch zoom start
+                startDistance = this.getTouchDistance(e.touches[0], e.touches[1]);
+                startScale = chart.options.scales?.x?.min !== undefined ? 
+                    (chart.options.scales.x.max - chart.options.scales.x.min) : 1;
+            }
+        }, { passive: false });
+
+        // Touch move
+        canvas.addEventListener('touchmove', (e) => {
+            if (!isTouch) return;
+            e.preventDefault();
+            
+            if (e.touches.length === 2) {
+                // Handle pinch zoom
+                const currentDistance = this.getTouchDistance(e.touches[0], e.touches[1]);
+                const scale = startDistance / currentDistance;
+                
+                // Apply zoom (simplified for mobile performance)
+                if (Math.abs(scale - 1) > 0.1) {
+                    chart.options.animation.duration = 0; // Disable animation during zoom
+                    chart.update('none');
+                }
+            }
+        }, { passive: false });
+
+        // Touch end
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            isTouch = false;
+            
+            // Re-enable animations
+            chart.options.animation.duration = CONFIG.MOBILE.ANIMATION_DURATION;
+        }, { passive: false });
+    }
+
+    /**
+     * Get distance between two touch points
+     */
+    getTouchDistance(touch1, touch2) {
+        const dx = touch1.clientX - touch2.clientX;
+        const dy = touch1.clientY - touch2.clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    /**
+     * Recreate charts for responsive changes
+     */
+    recreateCharts() {
+        // Destroy existing charts
+        Object.values(this.charts).forEach(chart => {
+            if (chart && typeof chart.destroy === 'function') {
+                chart.destroy();
+            }
+        });
+        
+        // Clear charts object
+        this.charts = {};
+        
+        // Recreate with new responsive settings
+        this.initializeCharts();
+    }
+    
+    /**
+     * Update components that depend on secondary data (mobile optimization)
+     */
+    updateSecondaryComponents() {
+        console.log('🔄 Updating secondary components with new data...');
+        
+        // Update market intelligence if needed
+        if (this.data.metrics || this.data.activitySummary) {
+            this.updateMarketIntelligence();
+        }
+        
+        // Update any metric cards that depend on full data
+        this.updateMetricCards();
+        
+        // Trigger any lazy-loaded chart updates
+        this.updateChartsWithNewData();
+    }
+    
+    /**
+     * Update charts when new data becomes available
+     */
+    updateChartsWithNewData() {
+        // Only update if charts exist and new data is available
+        if (Object.keys(this.charts).length === 0) return;
+        
+        // Update activity chart if new activity data available
+        if (this.charts.activity && this.data.activitySummary) {
+            // Update chart data without full recreation for performance
+            this.charts.activity.options.animation.duration = 0;
+            this.charts.activity.update('none');
+            this.charts.activity.options.animation.duration = CONFIG.MOBILE.ANIMATION_DURATION;
+        }
+        
+        // Update other charts as needed
+        if (this.charts.skills && this.data.cv) {
+            this.charts.skills.options.animation.duration = 0;
+            this.charts.skills.update('none');
+            this.charts.skills.options.animation.duration = CONFIG.MOBILE.ANIMATION_DURATION;
+        }
     }
     
     /**
