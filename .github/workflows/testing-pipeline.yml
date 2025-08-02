@@ -84,7 +84,7 @@ jobs:
         run: |
           cd .github/scripts
           echo '🔍 Running bulletproof foundation test suite...'
-          node --test foundation.test.js --test-reporter=spec
+          node --test --test-reporter=spec foundation.test.js
         env:
           CI: true
           NODE_ENV: test
