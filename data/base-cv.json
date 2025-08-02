@@ -174,19 +174,10 @@
       "demo": "https://ticketsmith.adrianwedd.com",
       "status": "Production",
       "period": "2023 - Present",
-      "metrics": [
-        {
-          "value": "95%",
-          "label": "Automation Rate"
-        },
-        {
-          "value": "40%",
-          "label": "Time Reduction"
-        },
-        {
-          "value": "15+",
-          "label": "Enterprise Clients"
-        }
+      "key_outcomes": [
+        "Successful automation of repetitive workflow tasks",
+        "Measurable time savings in team collaboration",
+        "Production deployment with active user adoption"
       ],
       "key_features": [
         "Intelligent workflow analysis and optimization",
@@ -214,19 +205,10 @@
       "github": "https://github.com/adrianwedd/agentic-research",
       "status": "Active Development",
       "period": "2024 - Present",
-      "metrics": [
-        {
-          "value": "10x",
-          "label": "Research Speed"
-        },
-        {
-          "value": "85%",
-          "label": "Accuracy Rate"
-        },
-        {
-          "value": "3",
-          "label": "Patents Pending"
-        }
+      "key_outcomes": [
+        "Advanced multi-agent coordination capabilities",
+        "Experimental autonomous learning implementations",
+        "Innovative research methodology development"
       ],
       "key_features": [
         "Autonomous agent coordination",
@@ -253,19 +235,10 @@
       ],
       "status": "Production Ready",
       "period": "2023 - 2024",
-      "metrics": [
-        {
-          "value": "<100ms",
-          "label": "Response Time"
-        },
-        {
-          "value": "99.9%",
-          "label": "Uptime"
-        },
-        {
-          "value": "50+",
-          "label": "Concurrent Calls"
-        }
+      "key_outcomes": [
+        "Low-latency voice processing implementation",
+        "Stable embedded system deployment",
+        "Scalable concurrent communication handling"
       ],
       "key_features": [
         "Real-time voice processing",
@@ -294,19 +267,10 @@
       "demo": "https://agentic-index.com",
       "status": "Community Driven",
       "period": "2023 - Present",
-      "metrics": [
-        {
-          "value": "500+",
-          "label": "Catalogued Tools"
-        },
-        {
-          "value": "10k+",
-          "label": "Monthly Visitors"
-        },
-        {
-          "value": "50+",
-          "label": "Contributors"
-        }
+      "key_outcomes": [
+        "Comprehensive AI tool database development",
+        "Growing developer community engagement",
+        "Active contribution and maintenance"
       ],
       "key_features": [
         "Expert tool curation",
@@ -333,19 +297,10 @@
       ],
       "status": "Private Development",
       "period": "2024 - Present",
-      "metrics": [
-        {
-          "value": "99.5%",
-          "label": "Accuracy Rate"
-        },
-        {
-          "value": "100%",
-          "label": "Audit Trail"
-        },
-        {
-          "value": "SOC2",
-          "label": "Compliance"
-        }
+      "key_outcomes": [
+        "High-accuracy legal intelligence processing",
+        "Complete transparency and audit capabilities",
+        "Security-first architecture implementation"
       ],
       "key_features": [
         "Demonstrable reliability",
@@ -374,19 +329,10 @@
       "demo": "https://modelatlas.ai",
       "status": "Active Development",
       "period": "2024 - Present",
-      "metrics": [
-        {
-          "value": "200+",
-          "label": "Models Tracked"
-        },
-        {
-          "value": "24/7",
-          "label": "Real-time Updates"
-        },
-        {
-          "value": "5k+",
-          "label": "Users"
-        }
+      "key_outcomes": [
+        "Comprehensive foundation model tracking",
+        "Continuous real-time data updates",
+        "Active user community development"
       ],
       "key_features": [
         "Real-time model tracking",
@@ -730,25 +676,22 @@
   ],
   "certifications": [
     {
-      "name": "AWS Certified Solutions Architect",
-      "issuer": "Amazon Web Services",
-      "date": "2023",
-      "credential_id": "AWS-SA-2023-001",
-      "status": "Active"
+      "name": "Google Analytics Individual Qualification",
+      "issuer": "Google",
+      "date": "2015",
+      "status": "Historical - Professional expertise maintained"
     },
     {
-      "name": "Deep Learning Specialization",
-      "issuer": "Coursera - DeepLearning.AI",
-      "date": "2022",
-      "credential_id": "DLS-2022-456",
-      "status": "Active"
+      "name": "Google AdWords Certification",
+      "issuer": "Google",
+      "date": "2015",
+      "status": "Historical - Professional expertise maintained"
     },
     {
-      "name": "Kubernetes Application Developer",
-      "issuer": "Cloud Native Computing Foundation",
-      "date": "2023",
-      "credential_id": "CKAD-2023-789",
-      "status": "Active"
+      "name": "Bing Ads Accredited Professional",
+      "issuer": "Microsoft",
+      "date": "2015",
+      "status": "Historical - Professional expertise maintained"
     }
   ],
   "languages": [
