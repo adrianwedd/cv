@@ -60,7 +60,7 @@ We use Git Flow for production safety:
 | Branch | Purpose | Deploys To | Merge Rules |
 |---------|---------|------------|-------------|
 | `main` | Production-ready code | [Live CV Site](https://adrianwedd.github.io/cv) | PR required, 1 reviewer |
-| `develop` | Integration & testing | [Staging Site](https://adrianwedd.github.io/cv-staging) | Direct commits OK |
+| `develop` | Integration & testing | [Staging Site](https://adrianwedd.github.io/cv) | Direct commits OK |
 | `feature/*` | New features | Preview environments | Merge to develop |
 | `hotfix/*` | Emergency production fixes | Direct to main | Expedited review |
 

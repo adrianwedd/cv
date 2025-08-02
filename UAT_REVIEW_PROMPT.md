@@ -8,7 +8,7 @@ You are conducting a comprehensive User Acceptance Testing (UAT) review of Adria
 
 - **Primary CV**: <https://adrianwedd.github.io/cv>
 - **Watch Me Work Dashboard**: <https://adrianwedd.github.io/cv/watch-me-work.html>
-- **Staging Environment**: <https://adrianwedd.github.io/cv-staging> (if available)
+- **Staging Environment**: <https://adrianwedd.github.io/cv> (production site)
 
 ## 👥 **Review Personas**
 
