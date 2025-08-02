@@ -47,7 +47,7 @@ jobs:
       - name: 🎯 Build Test Matrix
         id: matrix
         run: |
-          echo 'suites=["accessibility", "dashboard", "mobile", "performance", "theme"]' >> $GITHUB_OUTPUT
+          echo 'suites=["foundation", "accessibility", "dashboard", "mobile", "performance", "cross-browser"]' >> $GITHUB_OUTPUT
 
   foundation-tests:
     name: 🔬 Foundation Test Suite
@@ -107,7 +107,7 @@ jobs:
     name: ♿ WCAG 2.1 AA Compliance
     runs-on: ubuntu-latest
     needs: quality-gate
-    if: false # Temporarily disabled while fixing basic setup
+    if: needs.quality-gate.outputs.should-run-tests == 'true'
     
     steps:
       - name: 📥 Checkout Repository
@@ -295,7 +295,7 @@ jobs:
     name: 🌐 Cross-Browser Compatibility
     runs-on: ubuntu-latest
     needs: quality-gate
-    if: false # Temporarily disabled while fixing basic setup
+    if: needs.quality-gate.outputs.should-run-tests == 'true'
     
     strategy:
       matrix:
