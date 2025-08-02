@@ -1,0 +1,35 @@
+✅ Project root found: /Users/adrian/repos/cv
+✅ Found 2/2 core data files
+✅ Foundation test suite: All systems operational
+▶ Foundation Test Suite - Project Structure
+  ✔ should locate project root correctly (0.616458ms)
+  ✔ should have all critical directories (0.118125ms)
+  ✔ should initialize test environment properly (0.103959ms)
+✔ Foundation Test Suite - Project Structure (1.7555ms)
+▶ Foundation Test Suite - Core File Validation
+  ✔ should validate core CV data files exist (0.141ms)
+  ✔ should handle missing files gracefully (0.069208ms)
+✔ Foundation Test Suite - Core File Validation (0.426292ms)
+▶ Foundation Test Suite - Environment Isolation
+  ✔ should have test environment variables set (0.1765ms)
+  ✔ should have mock API credentials (0.212583ms)
+  ✔ should have mock responses available (0.156208ms)
+✔ Foundation Test Suite - Environment Isolation (0.703917ms)
+▶ Foundation Test Suite - Core Module Loading
+  ✔ should load essential modules without errors (0.543459ms)
+✔ Foundation Test Suite - Core Module Loading (0.72075ms)
+▶ Foundation Test Suite - Error Handling
+  ✔ should handle file system errors gracefully (0.236625ms)
+  ✔ should handle invalid JSON gracefully (0.240625ms)
+✔ Foundation Test Suite - Error Handling (0.528625ms)
+▶ Foundation Test Suite - System Health Check
+  ✔ should pass comprehensive system health check (0.123042ms)
+✔ Foundation Test Suite - System Health Check (0.151625ms)
+ℹ tests 12
+ℹ suites 6
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 63.36075
