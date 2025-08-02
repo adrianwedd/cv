@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-02T01:01:06.616Z",
+    "generated_at": "2025-08-02T01:13:59.427Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 211,
-    "rate_limit_remaining": 4789
+    "api_calls_made": 81,
+    "rate_limit_remaining": 4919
   },
   "user": {
     "login": "adrianwedd",
