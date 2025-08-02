@@ -524,6 +524,7 @@ body {
 
 .main-content {
   flex: 1;
+  padding-top: calc(var(--space-16) + var(--space-4)); /* Account for fixed navigation height */
 }
 
 .section {

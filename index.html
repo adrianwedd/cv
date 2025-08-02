@@ -623,6 +623,13 @@
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/cv/sw.js').catch(() => {});
         }
+        
+        // Initialize Development Intelligence Dashboard
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof DevelopmentIntelligenceDashboard !== 'undefined') {
+                window.devIntelligenceDashboard = new DevelopmentIntelligenceDashboard();
+            }
+        });
     </script>
 
     <!-- Print Styles -->
