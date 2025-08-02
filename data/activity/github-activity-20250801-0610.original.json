@@ -1,5 +1,5 @@
 {
-  "collection_timestamp": "2025-08-01T06:05:52Z",
+  "collection_timestamp": "2025-08-01T06:10:06Z",
   "analysis_period_days": 30,
   "user_profile": {
     "message": "Resource not accessible by integration",
@@ -10,14 +10,27 @@
     "total_count": 0,
     "data": [
       {
+        "name": "adrianwedd",
+        "full_name": "adrianwedd/adrianwedd",
+        "description": "🧠 Adrian Wedd's AI-augmented portfolio & mission log. Recursive systems architect, off-grid permanaut, LLM wrangler.",
+        "language": "JavaScript",
+        "stargazers_count": 0,
+        "forks_count": 0,
+        "updated_at": "2025-08-01T06:09:53Z",
+        "pushed_at": "2025-08-01T06:09:52Z",
+        "size": 19888,
+        "topics": [],
+        "recent_commits": []
+      },
+      {
         "name": "cv",
         "full_name": "adrianwedd/cv",
         "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
         "language": "JavaScript",
         "stargazers_count": 0,
         "forks_count": 0,
-        "updated_at": "2025-08-01T05:47:29Z",
-        "pushed_at": "2025-08-01T05:48:00Z",
+        "updated_at": "2025-08-01T06:05:57Z",
+        "pushed_at": "2025-08-01T06:07:04Z",
         "size": 6059,
         "topics": [
           "ai-automation",
@@ -38,19 +51,6 @@
         "updated_at": "2025-08-01T02:13:36Z",
         "pushed_at": "2025-08-01T02:13:39Z",
         "size": 343,
-        "topics": [],
-        "recent_commits": []
-      },
-      {
-        "name": "adrianwedd",
-        "full_name": "adrianwedd/adrianwedd",
-        "description": "🧠 Adrian Wedd's AI-augmented portfolio & mission log. Recursive systems architect, off-grid permanaut, LLM wrangler.",
-        "language": "JavaScript",
-        "stargazers_count": 0,
-        "forks_count": 0,
-        "updated_at": "2025-08-01T00:29:37Z",
-        "pushed_at": "2025-08-01T00:29:36Z",
-        "size": 19888,
         "topics": [],
         "recent_commits": []
       },
@@ -4996,5 +4996,6 @@
   },
   "commit_stats": {},
   "language_stats": {},
-  "productivity_metrics": {}
+  "productivity_metrics": {},
+  "original_size_kb": 308.2158203125
 }
