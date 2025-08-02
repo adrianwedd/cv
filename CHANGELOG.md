@@ -207,7 +207,7 @@ gh api repos/owner/repo --method PATCH --field has_discussions=true
 #### Multi-Environment Strategy
 
 - **Production**: https://adrianwedd.github.io/cv (main branch, 6-hour updates)
-- **Staging**: https://adrianwedd.github.io/cv-staging (develop branch, 2-hour updates)  
+- **Staging**: https://adrianwedd.github.io/cv (develop branch, 2-hour updates)  
 - **Feature Previews**: Planned for individual feature branch testing
 
 #### Quality Gates Integration
@@ -949,7 +949,7 @@ This session represents a significant evolution in repository capability, demons
 - **Root Cause Resolution**: GitHub Actions permission issues (not ESLint warnings as initially suspected)
 - **Permission Architecture**: Added contents:write, pages:write, id-token:write for deployment access
 - **100% Success Rate**: Continuous Enhancement and Staging Deployment pipelines fully operational  
-- **Live Validation**: https://adrianwedd.github.io/cv-staging deployed and updating every 2 hours
+- **Live Validation**: https://adrianwedd.github.io/cv deployed and updating every 2 hours
 - **Production Impact**: 24/7 automated enhancement pipeline restored with reliable deployment
 
 #### **🎬 Issue #99: Watch Me Work Dashboard - MAJOR PROGRESS**
