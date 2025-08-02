@@ -8,19 +8,8 @@ describe('Career Intelligence Dashboard', () => {
   let testServer;
   
   beforeAll(async () => {
-    // Start test server with robust error handling
-    testServer = await global.testUtils.retryOperation(async () => {
-      const { spawn } = require('child_process');
-      const server = spawn('python', ['-m', 'http.server', '8003'], {
-        cwd: '/Users/adrian/repos/cv',
-        stdio: 'pipe'
-      });
-      
-      // Wait for server to be ready
-      await global.testUtils.waitForServer('http://localhost:8003', 30000);
-      global.APP_BASE_URL = 'http://localhost:8003'; // Use dedicated port for dashboard tests
-      return server;
-    }, 3, 2000);
+    // Use CI-provided server (already running on port 8000)
+    await global.testUtils.waitForServer(global.APP_BASE_URL, 30000);
     
     // Create page with dashboard-optimized configuration
     page = await global.testUtils.retryOperation(async () => {
@@ -48,22 +37,7 @@ describe('Career Intelligence Dashboard', () => {
       page = null;
     }
     
-    // Clean up server
-    if (testServer) {
-      try {
-        testServer.kill('SIGTERM');
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        if (!testServer.killed) {
-          testServer.kill('SIGKILL');
-        }
-      } catch (error) {
-        console.warn('Error stopping dashboard test server:', error.message);
-      }
-      testServer = null;
-    }
-    
-    // Reset global URL
-    global.APP_BASE_URL = 'http://localhost:8000';
+    // No server cleanup needed - using CI-provided server
     
     // Force garbage collection
     if (global.gc) {

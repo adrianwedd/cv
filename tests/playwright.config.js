@@ -50,9 +50,10 @@ module.exports = defineConfig({
     }
   ],
 
-  webServer: {
+  // Use CI-provided server instead of starting our own
+  webServer: process.env.CI ? undefined : {
     command: 'cd .. && python -m http.server 8000',
     port: 8000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 });
