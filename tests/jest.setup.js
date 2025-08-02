@@ -10,61 +10,20 @@ require('jest-extended');
 global.APP_BASE_URL = process.env.APP_BASE_URL || 'http://localhost:8000';
 global.TEST_TIMEOUT = 30000;
 
-// Configure jsdom for browser testing
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-});
-
-// Mock Chart.js for dashboard tests
-global.Chart = {
-  register: jest.fn(),
-  defaults: {
-    global: {
-      defaultFontFamily: 'Arial'
-    }
-  }
-};
-
-// Mock localStorage
-const localStorageMock = {
+// Mock localStorage for puppeteer tests
+global.localStorage = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
   clear: jest.fn(),
 };
-global.localStorage = localStorageMock;
 
 // Mock sessionStorage
-const sessionStorageMock = {
+global.sessionStorage = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
   clear: jest.fn(),
-};
-global.sessionStorage = sessionStorageMock;
-
-// Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
-  observe() {
-    return null;
-  }
-  disconnect() {
-    return null;
-  }
-  unobserve() {
-    return null;
-  }
 };
 
 // Set up error handling for unhandled promises
