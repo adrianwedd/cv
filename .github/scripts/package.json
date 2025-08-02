@@ -1,6 +1,7 @@
 {
   "name": "cv-enhancement-scripts",
   "version": "2.1.0",
+  "type": "module",
   "description": "AI-powered CV enhancement scripts with GitHub activity integration",
   "main": "cv-generator.js",
   "scripts": {
