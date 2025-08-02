@@ -82,26 +82,30 @@
     </script>
 </head>
 <body>
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
+    <div id="loading-screen" class="loading-screen" aria-live="polite" aria-label="Loading CV content">
         <div class="loading-content">
-            <div class="loading-spinner"></div>
-            <div class="loading-text">Initializing CV System...</div>
-            <div class="loading-progress">
+            <div class="loading-spinner" aria-hidden="true"></div>
+            <div class="loading-text" id="loading-status">Initializing CV System...</div>
+            <div class="loading-progress" role="progressbar" aria-labelledby="loading-status" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="loading-bar"></div>
             </div>
         </div>
     </div>
 
     <!-- Theme Toggle -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">
-        <span class="theme-icon">🌙</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" aria-describedby="theme-description">
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+        <span class="sr-only" id="theme-description">Switch between dark and light color themes</span>
     </button>
 
     <!-- Main Container -->
     <div class="container">
         <!-- Header Section -->
-        <header class="header" id="header">
+        <header class="header" id="header" role="banner">
             <div class="header-background"></div>
             <div class="header-content">
                 <div class="profile-section">
@@ -150,24 +154,24 @@
 
                 <!-- Contact Links -->
                 <div class="contact-links">
-                    <a href="https://github.com/adrianwedd" target="_blank" rel="noopener" class="contact-link github">
-                        <span class="link-icon">🔗</span>
+                    <a href="https://github.com/adrianwedd" target="_blank" rel="noopener" class="contact-link github" aria-label="GitHub profile (opens in new tab)">
+                        <span class="link-icon" aria-hidden="true">🔗</span>
                         <span>GitHub</span>
                     </a>
-                    <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener" class="contact-link linkedin">
-                        <span class="link-icon">💼</span>
+                    <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener" class="contact-link linkedin" aria-label="LinkedIn profile (opens in new tab)">
+                        <span class="link-icon" aria-hidden="true">💼</span>
                         <span>LinkedIn</span>
                     </a>
-                    <a href="mailto:adrian@adrianwedd.com" class="contact-link email">
-                        <span class="link-icon">✉️</span>
+                    <a href="mailto:adrian@adrianwedd.com" class="contact-link email" aria-label="Send email to adrian@adrianwedd.com">
+                        <span class="link-icon" aria-hidden="true">✉️</span>
                         <span>Email</span>
                     </a>
-                    <a href="assets/adrian-wedd-cv.pdf" target="_blank" class="contact-link pdf" download>
-                        <span class="link-icon">📄</span>
+                    <a href="assets/adrian-wedd-cv.pdf" target="_blank" class="contact-link pdf" download aria-label="Download CV as PDF file">
+                        <span class="link-icon" aria-hidden="true">📄</span>
                         <span>Download PDF</span>
                     </a>
-                    <button onclick="window.print()" class="contact-link print-btn">
-                        <span class="link-icon">🖨️</span>
+                    <button onclick="window.print()" class="contact-link print-btn" aria-label="Print this CV page">
+                        <span class="link-icon" aria-hidden="true">🖨️</span>
                         <span>Print</span>
                     </button>
                 </div>
@@ -175,43 +179,50 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="navigation" id="navigation">
-            <div class="nav-items">
-                <a href="#about" class="nav-item active" data-section="about">
-                    <span class="nav-icon">👤</span>
+        <nav class="navigation" id="navigation" role="navigation" aria-label="CV sections">
+            <div class="nav-items" role="list">
+                <a href="#about" class="nav-item active" data-section="about" role="listitem" aria-current="page">
+                    <span class="nav-icon" aria-hidden="true">👤</span>
                     <span class="nav-text">About</span>
                 </a>
-                <a href="#experience" class="nav-item" data-section="experience">
-                    <span class="nav-icon">💼</span>
+                <a href="#experience" class="nav-item" data-section="experience" role="listitem">
+                    <span class="nav-icon" aria-hidden="true">💼</span>
                     <span class="nav-text">Experience</span>
                 </a>
-                <a href="#projects" class="nav-item" data-section="projects">
-                    <span class="nav-icon">🚀</span>
+                <a href="#projects" class="nav-item" data-section="projects" role="listitem">
+                    <span class="nav-icon" aria-hidden="true">🚀</span>
                     <span class="nav-text">Projects</span>
                 </a>
-                <a href="#skills" class="nav-item" data-section="skills">
-                    <span class="nav-icon">⚡</span>
+                <a href="#skills" class="nav-item" data-section="skills" role="listitem">
+                    <span class="nav-icon" aria-hidden="true">⚡</span>
                     <span class="nav-text">Skills</span>
                 </a>
-                <a href="#achievements" class="nav-item" data-section="achievements">
-                    <span class="nav-icon">🏆</span>
+                <a href="#achievements" class="nav-item" data-section="achievements" role="listitem">
+                    <span class="nav-icon" aria-hidden="true">🏆</span>
                     <span class="nav-text">Achievements</span>
                 </a>
-                <a href="watch-me-work.html" class="nav-item nav-external" target="_blank" rel="noopener">
-                    <span class="nav-icon">🎬</span>
+                <a href="career-intelligence.html" class="nav-item nav-external" target="_blank" rel="noopener" role="listitem" aria-describedby="career-intelligence-desc">
+                    <span class="nav-icon" aria-hidden="true">📊</span>
+                    <span class="nav-text">Career Intelligence</span>
+                    <span class="external-indicator" aria-hidden="true">↗</span>
+                    <span class="sr-only" id="career-intelligence-desc">Advanced analytics dashboard - Opens in new tab</span>
+                </a>
+                <a href="watch-me-work.html" class="nav-item nav-external" target="_blank" rel="noopener" role="listitem" aria-describedby="external-link-desc">
+                    <span class="nav-icon" aria-hidden="true">🎬</span>
                     <span class="nav-text">Watch Me Work</span>
-                    <span class="external-indicator">↗</span>
+                    <span class="external-indicator" aria-hidden="true">↗</span>
+                    <span class="sr-only" id="external-link-desc">Live activity dashboard - Opens in new tab</span>
                 </a>
             </div>
         </nav>
 
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content" id="main-content" role="main">
             <!-- About Section -->
-            <section id="about" class="section active">
+            <section id="about" class="section active" aria-labelledby="about-title">
                 <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="section-icon">👤</span>
+                    <h2 class="section-title" id="about-title">
+                        <span class="section-icon" aria-hidden="true">👤</span>
                         About Me
                     </h2>
                     <div class="section-subtitle">Professional Overview & Background</div>

@@ -1087,6 +1087,18 @@ body {
   .live-stats {
     grid-template-columns: 1fr;
   }
+  
+  /* Enhanced small screen interactions */
+  .profile-section {
+    text-align: center;
+    padding: var(--space-6);
+  }
+  
+  /* Improved button spacing */
+  .nav-item {
+    padding: var(--space-4) var(--space-2);
+    min-height: 48px; /* Slightly larger for small screens */
+  }
 
   .contact-links {
     flex-direction: column;
@@ -1120,6 +1132,24 @@ body {
     margin: 0 auto;
     padding: 0 var(--container-padding);
     max-width: 100%;
+  }
+  
+  /* Enhanced mobile touch interactions */
+  .theme-toggle {
+    width: 54px;
+    height: 54px;
+    touch-action: manipulation;
+  }
+  
+  /* Improved mobile typography */
+  .section-title {
+    font-size: var(--font-size-2xl);
+    line-height: 1.2;
+  }
+  
+  /* Better mobile spacing */
+  .about-grid {
+    gap: var(--space-8);
   }
 }
 
@@ -1249,10 +1279,50 @@ body {
   }
 }
 
-/* Focus styles */
+/* WCAG 2.1 AA Focus Management */
 *:focus {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
+}
+
+/* Enhanced focus for interactive elements */
+button:focus,
+a:focus,
+.nav-item:focus,
+.contact-link:focus,
+.theme-toggle:focus {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--color-background), 
+              0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Focus visible for keyboard users only */
+*:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+*:focus-visible {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--color-background), 
+              0 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+/* Keyboard navigation enhancement */
+.nav-item:focus-visible,
+.contact-link:focus-visible {
+  transform: translateY(-1px);
+  z-index: 10;
+}
+
+/* Accessible button states */
+button:disabled,
+.contact-link[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* High contrast mode support */
@@ -1260,11 +1330,45 @@ body {
   :root {
     --color-border: #000000;
     --color-text-secondary: #000000;
+    --color-text-primary: #000000;
+    --color-border-focus: #0066cc;
   }
 }
 
 /* Screen reader only content */
 .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 9999;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Enhanced screen reader announcements */
+.sr-description {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1518,5 +1622,50 @@ body {
   
   .metric-value {
     font-size: 1.6em;
+  }
+}
+
+/* ==========================================================================
+   Performance Optimizations
+   ========================================================================== */
+
+/* Critical rendering path optimization */
+.main-content {
+  contain: layout style paint;
+}
+
+/* GPU acceleration for smooth animations */
+.loading-spinner,
+.theme-toggle,
+.nav-item:hover {
+  will-change: transform;
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Inter-var';
+  font-style: normal;
+  font-display: swap; /* Improve loading performance */
+}
+
+/* ==========================================================================
+   Accessibility - Reduced Motion Support
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .theme-toggle:hover .theme-icon {
+    transform: none;
   }
 }
