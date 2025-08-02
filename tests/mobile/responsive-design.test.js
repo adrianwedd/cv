@@ -5,6 +5,7 @@
 
 describe('Mobile Responsiveness and Touch Interactions', () => {
   let page;
+  let testServer;
   
   const viewports = {
     mobile: { width: 375, height: 667, deviceScaleFactor: 2 },
@@ -14,21 +15,96 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
   };
 
   beforeAll(async () => {
-    page = await browser.newPage();
-  }, 30000);
+    // Start test server with robust error handling
+    testServer = await global.testUtils.retryOperation(async () => {
+      const { spawn } = require('child_process');
+      const server = spawn('python', ['-m', 'http.server', '8002'], {
+        cwd: '/Users/adrian/repos/cv',
+        stdio: 'pipe'
+      });
+      
+      // Wait for server to be ready
+      await global.testUtils.waitForServer('http://localhost:8002', 30000);
+      global.APP_BASE_URL = 'http://localhost:8002'; // Use dedicated port for mobile tests
+      return server;
+    }, 3, 2000);
+    
+    // Create page with mobile-optimized configuration
+    page = await global.testUtils.retryOperation(async () => {
+      const newPage = await browser.newPage();
+      
+      // Set up error handling
+      newPage.on('pageerror', error => {
+        console.warn('Page error in mobile test:', error.message);
+      });
+      
+      newPage.on('requestfailed', request => {
+        console.warn('Mobile test request failed:', request.url(), request.failure()?.errorText);
+      });
+      
+      return newPage;
+    }, 3, 1000);
+  }, 90000);
 
   afterAll(async () => {
-    await page.close();
+    // Clean up page
+    if (page) {
+      try {
+        await page.removeAllListeners();
+        await page.close();
+      } catch (error) {
+        console.warn('Error closing mobile test page:', error.message);
+      }
+      page = null;
+    }
+    
+    // Clean up server
+    if (testServer) {
+      try {
+        testServer.kill('SIGTERM');
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        if (!testServer.killed) {
+          testServer.kill('SIGKILL');
+        }
+      } catch (error) {
+        console.warn('Error stopping mobile test server:', error.message);
+      }
+      testServer = null;
+    }
+    
+    // Reset global URL
+    global.APP_BASE_URL = 'http://localhost:8000';
+    
+    // Force garbage collection if available
+    if (global.gc) {
+      global.gc();
+    }
   });
 
   describe('Responsive Layout Adaptation', () => {
     Object.entries(viewports).forEach(([deviceType, viewport]) => {
       describe(`${deviceType} viewport (${viewport.width}x${viewport.height})`, () => {
         beforeEach(async () => {
-          await page.setViewport(viewport);
-          await page.goto(`${global.APP_BASE_URL}/index.html`);
-          await page.waitForSelector('main', { timeout: 10000 });
-        });
+          await global.testUtils.retryOperation(async () => {
+            await page.setViewport(viewport);
+            await page.goto(`${global.APP_BASE_URL}/index.html`, {
+              waitUntil: 'networkidle0',
+              timeout: 30000
+            });
+            await page.waitForSelector('main', { timeout: 15000 });
+            
+            // Ensure page is fully loaded
+            await page.evaluate(() => {
+              return new Promise(resolve => {
+                if (document.readyState === 'complete') {
+                  resolve();
+                } else {
+                  window.addEventListener('load', resolve);
+                }
+              });
+            });
+          }, 3, 2000);
+        }, 45000);
 
         test('should adapt main layout to viewport', async () => {
           const containerWidth = await page.$eval('.container, main', 

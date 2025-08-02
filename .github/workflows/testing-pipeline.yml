@@ -142,7 +142,7 @@ jobs:
     name: ⚡ Performance & Core Web Vitals
     runs-on: ubuntu-latest
     needs: quality-gate
-    if: false # Temporarily disabled while fixing basic setup
+    if: needs.quality-gate.outputs.should-run-tests == 'true' # RE-ENABLED: Bulletproofed with retry logic and dedicated server
     
     steps:
       - name: 📥 Checkout Repository
@@ -202,7 +202,7 @@ jobs:
     name: 📱 Mobile & Responsive Design
     runs-on: ubuntu-latest
     needs: quality-gate
-    if: false # Temporarily disabled while fixing basic setup
+    if: needs.quality-gate.outputs.should-run-tests == 'true' # RE-ENABLED: Bulletproofed with dedicated server and viewport testing
     
     strategy:
       matrix:
@@ -305,7 +305,7 @@ jobs:
     name: 📊 Dashboard Functionality
     runs-on: ubuntu-latest
     needs: quality-gate
-    if: false # Temporarily disabled while fixing basic setup
+    if: needs.quality-gate.outputs.should-run-tests == 'true' # RE-ENABLED: Bulletproofed with Chart.js mocking and dedicated server
     
     steps:
       - name: 📥 Checkout Repository
