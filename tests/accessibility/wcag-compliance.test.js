@@ -10,18 +10,9 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
   let testServer;
   
   beforeAll(async () => {
-    // Start test server with robust error handling
-    testServer = await global.testUtils.retryOperation(async () => {
-      const { spawn } = require('child_process');
-      const server = spawn('python', ['-m', 'http.server', '8000'], {
-        cwd: '/Users/adrian/repos/cv',
-        stdio: 'pipe'
-      });
-      
-      // Wait for server to be ready
-      await global.testUtils.waitForServer('http://localhost:8000', 30000);
-      return server;
-    }, 3, 2000);
+    // Use CI-provided server (already running on port 8000)
+    // Just wait for it to be ready
+    await global.testUtils.waitForServer(global.APP_BASE_URL, 30000);
     
     // Create page with robust configuration
     page = await global.testUtils.retryOperation(async () => {
@@ -53,19 +44,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
       page = null;
     }
     
-    // Clean up server
-    if (testServer) {
-      try {
-        testServer.kill('SIGTERM');
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        if (!testServer.killed) {
-          testServer.kill('SIGKILL');
-        }
-      } catch (error) {
-        console.warn('Error stopping server:', error.message);
-      }
-      testServer = null;
-    }
+    // No server cleanup needed - using CI-provided server
     
     // Force garbage collection if available
     if (global.gc) {
@@ -76,7 +55,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
   describe('Main CV Page Accessibility', () => {
     beforeEach(async () => {
       await global.testUtils.retryOperation(async () => {
-        await page.goto(`${global.APP_BASE_URL}/index.html`, { 
+        await page.goto(`${global.APP_BASE_URL}/`, { 
           waitUntil: 'networkidle0',
           timeout: 30000 
         });
@@ -293,7 +272,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
   describe('Mobile Accessibility', () => {
     beforeEach(async () => {
       await page.setViewport({ width: 375, height: 667 });
-      await page.goto(`${global.APP_BASE_URL}/index.html`);
+      await page.goto(`${global.APP_BASE_URL}/`);
       await page.waitForSelector('main', { timeout: 10000 });
     });
 
@@ -340,7 +319,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
 
   describe('Dark Theme Accessibility', () => {
     beforeEach(async () => {
-      await page.goto(`${global.APP_BASE_URL}/index.html`);
+      await page.goto(`${global.APP_BASE_URL}/`);
       await page.waitForSelector('main', { timeout: 10000 });
       
       // Switch to dark theme
@@ -375,7 +354,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
 
   describe('Form Accessibility', () => {
     test('should have properly labeled form elements', async () => {
-      await page.goto(`${global.APP_BASE_URL}/index.html`);
+      await page.goto(`${global.APP_BASE_URL}/`);
       
       const formElements = await page.$$('input, select, textarea');
       
@@ -412,7 +391,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
 
   describe('Image Accessibility', () => {
     beforeEach(async () => {
-      await page.goto(`${global.APP_BASE_URL}/index.html`);
+      await page.goto(`${global.APP_BASE_URL}/`);
       await page.waitForSelector('main', { timeout: 10000 });
     });
 
