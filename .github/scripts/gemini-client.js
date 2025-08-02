@@ -323,6 +323,648 @@ export class EthicalGeminiClient {
     }
 
     /**
+     * Generate AI-powered networking compatibility analysis
+     */
+    async analyzeNetworkingCompatibility(userProfile, targetProfile) {
+        await this.verifyConsent('networking-compatibility-analysis');
+        await this.enforceRateLimit();
+        
+        this.log('networking-compatibility-start', {
+            userProfile: userProfile.personal_info?.name || 'Anonymous',
+            targetProfile: targetProfile.name || 'Anonymous'
+        });
+        
+        try {
+            const prompt = `
+                Analyze professional networking compatibility between two LinkedIn profiles:
+
+                USER PROFILE:
+                - Name: ${userProfile.personal_info?.name || 'User'}
+                - Current Role: ${userProfile.current_role?.position || 'N/A'} at ${userProfile.current_role?.company || 'N/A'}
+                - Industry: ${userProfile.industry || 'Technology'}
+                - Career Level: ${userProfile.career_level || 'Mid-level'}
+                - Key Skills: ${userProfile.skills?.slice(0, 10).join(', ') || 'Various technical skills'}
+                - Professional Interests: ${userProfile.professional_interests?.join(', ') || 'Technology, AI, Systems'}
+
+                TARGET PROFILE:
+                - Name: ${targetProfile.name || 'Target Professional'}
+                - Headline: ${targetProfile.headline || 'N/A'}
+                - Location: ${targetProfile.location || 'N/A'}
+                - Experience Count: ${targetProfile.experience?.length || 0} positions
+                - Skills: ${targetProfile.skills?.slice(0, 10).map(s => s.name || s).join(', ') || 'N/A'}
+
+                Please analyze and provide a JSON response with:
+                {
+                    "compatibility_score": 0-100,
+                    "compatibility_level": "high|good|moderate|low",
+                    "professional_alignment": {
+                        "industry_match": 0-100,
+                        "skill_overlap": 0-100,
+                        "career_synergy": 0-100,
+                        "geographic_relevance": 0-100
+                    },
+                    "mutual_value_assessment": {
+                        "user_benefits": ["benefit1", "benefit2"],
+                        "target_benefits": ["benefit1", "benefit2"],
+                        "collaboration_potential": "high|medium|low"
+                    },
+                    "connection_strategy": {
+                        "approach": "direct|referral|event-based|content-engagement",
+                        "conversation_starters": ["topic1", "topic2", "topic3"],
+                        "value_proposition": "What unique value can the user offer"
+                    },
+                    "relationship_building": {
+                        "timeline": "immediate|short-term|long-term",
+                        "touchpoint_frequency": "weekly|monthly|quarterly",
+                        "relationship_type": "mentor|peer|collaboration|industry-insight"
+                    },
+                    "risk_assessment": {
+                        "connection_likelihood": 0-100,
+                        "potential_obstacles": ["obstacle1", "obstacle2"],
+                        "mitigation_strategies": ["strategy1", "strategy2"]
+                    }
+                }
+
+                Base your analysis on authentic professional relationship building principles.
+                Focus on mutual value creation and strategic career advancement.
+                Ensure recommendations are actionable and ethical.
+            `;
+            
+            const result = await this.model.generateContent(prompt);
+            const response = await result.response;
+            const analysisText = response.text();
+            
+            // Extract JSON from response
+            let analysis;
+            try {
+                const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    analysis = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No JSON found in response');
+                }
+            } catch (parseError) {
+                this.log('networking-analysis-parse-fallback', { error: parseError.message });
+                analysis = {
+                    compatibility_score: 70,
+                    compatibility_level: 'moderate',
+                    raw_analysis: analysisText,
+                    parsing_error: true
+                };
+            }
+            
+            this.log('networking-compatibility-complete', {
+                compatibilityScore: analysis.compatibility_score,
+                compatibilityLevel: analysis.compatibility_level,
+                tokensUsed: this.estimateTokens(prompt + analysisText)
+            });
+            
+            return {
+                analysis,
+                metadata: {
+                    analysisType: 'networking-compatibility',
+                    timestamp: new Date().toISOString(),
+                    tokensEstimated: this.estimateTokens(prompt + analysisText),
+                    ethicalCompliance: {
+                        consentVerified: true,
+                        rateLimited: true,
+                        auditLogged: true
+                    }
+                }
+            };
+            
+        } catch (error) {
+            this.log('networking-compatibility-error', { error: error.message });
+            throw error;
+        }
+    }
+
+    /**
+     * Generate strategic networking insights and recommendations
+     */
+    async generateNetworkingStrategy(userProfile, networkData) {
+        await this.verifyConsent('networking-strategy-generation');
+        await this.enforceRateLimit();
+        
+        this.log('networking-strategy-start', {
+            userProfile: userProfile.personal_info?.name || 'Anonymous',
+            networkSize: networkData?.totalConnections || 0
+        });
+        
+        try {
+            const prompt = `
+                Generate strategic networking insights and recommendations:
+
+                USER PROFILE:
+                - Name: ${userProfile.personal_info?.name || 'Professional'}
+                - Industry: ${userProfile.industry || 'Technology'}
+                - Career Level: ${userProfile.career_level || 'Mid-level'}
+                - Current Role: ${userProfile.current_role?.position || 'N/A'}
+                - Skills: ${userProfile.skills?.slice(0, 15).join(', ') || 'Various'}
+                - Goals: ${userProfile.networking_goals?.join(', ') || 'Career advancement, Industry insights'}
+
+                CURRENT NETWORK DATA:
+                - Total Connections: ${networkData?.totalConnections || 0}
+                - Industry Distribution: ${JSON.stringify(networkData?.industryBreakdown || [])}
+                - Quality Score: ${networkData?.qualityScore || 50}%
+                - Active Relationships: ${networkData?.activeRelationships || 0}
+
+                Please provide comprehensive networking strategy recommendations in JSON format:
+                {
+                    "strategic_assessment": {
+                        "network_maturity": "early|developing|established|advanced",
+                        "diversification_score": 0-100,
+                        "quality_vs_quantity": "quality-focused|quantity-focused|balanced",
+                        "growth_potential": "high|medium|low"
+                    },
+                    "gap_analysis": {
+                        "missing_industries": ["industry1", "industry2"],
+                        "underrepresented_roles": ["role1", "role2"],
+                        "geographic_gaps": ["region1", "region2"],
+                        "skill_complementarity": ["skill1", "skill2"]
+                    },
+                    "strategic_priorities": [
+                        {
+                            "priority": 1,
+                            "objective": "Expand AI research network",
+                            "target_personas": ["AI researchers", "ML engineers"],
+                            "timeline": "Q4 2025",
+                            "success_metrics": ["5 new AI connections", "2 research collaborations"]
+                        }
+                    ],
+                    "networking_tactics": {
+                        "primary_channels": ["linkedin|conferences|industry-events|online-communities"],
+                        "content_strategy": ["thought-leadership|industry-insights|project-showcasing"],
+                        "engagement_approach": ["proactive|reactive|balanced"],
+                        "relationship_nurturing": ["regular-updates|value-sharing|collaboration-seeking"]
+                    },
+                    "industry_insights": {
+                        "trending_skills": ["skill1", "skill2"],
+                        "emerging_opportunities": ["opportunity1", "opportunity2"],
+                        "market_positioning": "How to position professionally in current market",
+                        "competitive_landscape": "Key differentiators to emphasize"
+                    },
+                    "action_plan": {
+                        "immediate_actions": ["action1", "action2"],
+                        "30_day_goals": ["goal1", "goal2"],
+                        "90_day_objectives": ["objective1", "objective2"],
+                        "annual_targets": ["target1", "target2"]
+                    }
+                }
+
+                Focus on actionable, strategic recommendations that align with career goals.
+                Consider industry trends and professional development opportunities.
+                Emphasize authentic relationship building and mutual value creation.
+            `;
+            
+            const result = await this.model.generateContent(prompt);
+            const response = await result.response;
+            const strategyText = response.text();
+            
+            // Extract JSON from response
+            let strategy;
+            try {
+                const jsonMatch = strategyText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    strategy = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No JSON found in response');
+                }
+            } catch (parseError) {
+                this.log('networking-strategy-parse-fallback', { error: parseError.message });
+                strategy = {
+                    strategic_assessment: { network_maturity: 'developing' },
+                    raw_strategy: strategyText,
+                    parsing_error: true
+                };
+            }
+            
+            this.log('networking-strategy-complete', {
+                strategicPriorities: strategy.strategic_priorities?.length || 0,
+                actionPlan: !!strategy.action_plan,
+                tokensUsed: this.estimateTokens(prompt + strategyText)
+            });
+            
+            return {
+                strategy,
+                metadata: {
+                    analysisType: 'networking-strategy',
+                    timestamp: new Date().toISOString(),
+                    tokensEstimated: this.estimateTokens(prompt + strategyText),
+                    ethicalCompliance: {
+                        consentVerified: true,
+                        rateLimited: true,
+                        auditLogged: true
+                    }
+                }
+            };
+            
+        } catch (error) {
+            this.log('networking-strategy-error', { error: error.message });
+            throw error;
+        }
+    }
+
+    /**
+     * Analyze professional content for networking optimization
+     */
+    async optimizeNetworkingContent(contentType, content, targetAudience = 'professional') {
+        await this.verifyConsent('networking-content-optimization');
+        await this.enforceRateLimit();
+        
+        this.log('networking-content-optimization-start', {
+            contentType,
+            contentLength: content.length,
+            targetAudience
+        });
+        
+        try {
+            const prompt = `
+                Optimize this professional content for maximum networking impact:
+
+                CONTENT TYPE: ${contentType}
+                TARGET AUDIENCE: ${targetAudience}
+                
+                ORIGINAL CONTENT:
+                "${content}"
+
+                Please provide optimization recommendations in JSON format:
+                {
+                    "optimized_content": "Enhanced version of the content",
+                    "key_improvements": [
+                        {
+                            "improvement": "Specific change made",
+                            "rationale": "Why this improves networking impact",
+                            "impact_level": "high|medium|low"
+                        }
+                    ],
+                    "networking_elements": {
+                        "conversation_starters": ["element1", "element2"],
+                        "engagement_hooks": ["hook1", "hook2"],
+                        "value_propositions": ["value1", "value2"],
+                        "call_to_actions": ["cta1", "cta2"]
+                    },
+                    "audience_targeting": {
+                        "primary_personas": ["persona1", "persona2"],
+                        "industry_relevance": ["industry1", "industry2"],
+                        "seniority_appeal": "junior|mid|senior|executive",
+                        "geographic_scope": "local|national|international"
+                    },
+                    "performance_prediction": {
+                        "engagement_potential": 0-100,
+                        "networking_opportunities": 0-100,
+                        "professional_visibility": 0-100,
+                        "relationship_building": 0-100
+                    }
+                }
+
+                Focus on authentic professional communication that builds genuine relationships.
+                Maintain professional tone while enhancing networking potential.
+                Ensure recommendations are actionable and industry-appropriate.
+            `;
+            
+            const result = await this.model.generateContent(prompt);
+            const response = await result.response;
+            const optimizationText = response.text();
+            
+            // Extract JSON from response
+            let optimization;
+            try {
+                const jsonMatch = optimizationText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    optimization = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No JSON found in response');
+                }
+            } catch (parseError) {
+                this.log('networking-content-parse-fallback', { error: parseError.message });
+                optimization = {
+                    optimized_content: content,
+                    raw_optimization: optimizationText,
+                    parsing_error: true
+                };
+            }
+            
+            this.log('networking-content-optimization-complete', {
+                improvementsCount: optimization.key_improvements?.length || 0,
+                engagementPotential: optimization.performance_prediction?.engagement_potential || 0,
+                tokensUsed: this.estimateTokens(prompt + optimizationText)
+            });
+            
+            return {
+                optimization,
+                metadata: {
+                    analysisType: 'networking-content-optimization',
+                    contentType,
+                    targetAudience,
+                    timestamp: new Date().toISOString(),
+                    tokensEstimated: this.estimateTokens(prompt + optimizationText),
+                    ethicalCompliance: {
+                        consentVerified: true,
+                        rateLimited: true,
+                        auditLogged: true
+                    }
+                }
+            };
+            
+        } catch (error) {
+            this.log('networking-content-optimization-error', { error: error.message });
+            throw error;
+        }
+    }
+
+    /**
+     * Generate personalized connection messages
+     */
+    async generateConnectionMessage(userProfile, targetProfile, connectionContext = {}) {
+        await this.verifyConsent('connection-message-generation');
+        await this.enforceRateLimit();
+        
+        this.log('connection-message-start', {
+            targetProfile: targetProfile.name || 'Anonymous',
+            hasContext: Object.keys(connectionContext).length > 0
+        });
+        
+        try {
+            const prompt = `
+                Generate a personalized LinkedIn connection message:
+
+                USER PROFILE:
+                - Name: ${userProfile.personal_info?.name || 'User'}
+                - Current Role: ${userProfile.current_role?.position || 'Professional'}
+                - Company: ${userProfile.current_role?.company || 'N/A'}
+                - Industry: ${userProfile.industry || 'Technology'}
+
+                TARGET PROFILE:
+                - Name: ${targetProfile.name || 'Professional'}
+                - Headline: ${targetProfile.headline || 'N/A'}
+                - Company: ${targetProfile.company || 'N/A'}
+                - Location: ${targetProfile.location || 'N/A'}
+
+                CONNECTION CONTEXT:
+                - Mutual Interests: ${connectionContext.mutualInterests?.join(', ') || 'Professional development'}
+                - Connection Reason: ${connectionContext.reason || 'Professional networking'}
+                - Shared Connections: ${connectionContext.sharedConnections || 0}
+                - Industry Events: ${connectionContext.events?.join(', ') || 'None specified'}
+
+                Generate 3 different connection message options in JSON format:
+                {
+                    "messages": [
+                        {
+                            "style": "professional-direct",
+                            "message": "150 character LinkedIn connection message",
+                            "tone": "professional|friendly|industry-focused",
+                            "personalization_elements": ["element1", "element2"],
+                            "success_probability": 0-100
+                        },
+                        {
+                            "style": "value-focused",
+                            "message": "150 character LinkedIn connection message",
+                            "tone": "professional|friendly|industry-focused", 
+                            "personalization_elements": ["element1", "element2"],
+                            "success_probability": 0-100
+                        },
+                        {
+                            "style": "mutual-interest",
+                            "message": "150 character LinkedIn connection message",
+                            "tone": "professional|friendly|industry-focused",
+                            "personalization_elements": ["element1", "element2"], 
+                            "success_probability": 0-100
+                        }
+                    ],
+                    "follow_up_strategy": {
+                        "timing": "immediate|1-week|2-weeks|1-month",
+                        "approach": "value-sharing|industry-insights|collaboration-proposal",
+                        "content_suggestions": ["suggestion1", "suggestion2"]
+                    },
+                    "relationship_building": {
+                        "short_term_goals": ["goal1", "goal2"],
+                        "long_term_objectives": ["objective1", "objective2"],
+                        "mutual_value_opportunities": ["opportunity1", "opportunity2"]
+                    }
+                }
+
+                Ensure messages are:
+                - Under 150 characters (LinkedIn limit)
+                - Professional and authentic
+                - Personalized to the target profile
+                - Value-focused rather than self-promotional
+                - Respectful and genuine
+            `;
+            
+            const result = await this.model.generateContent(prompt);
+            const response = await result.response;
+            const messageText = response.text();
+            
+            // Extract JSON from response
+            let messageData;
+            try {
+                const jsonMatch = messageText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    messageData = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No JSON found in response');
+                }
+            } catch (parseError) {
+                this.log('connection-message-parse-fallback', { error: parseError.message });
+                messageData = {
+                    messages: [{
+                        style: 'fallback',
+                        message: `Hi ${targetProfile.name}, I'd love to connect and discuss our shared interests in ${userProfile.industry}.`,
+                        tone: 'professional',
+                        personalization_elements: ['name', 'industry'],
+                        success_probability: 70
+                    }],
+                    raw_response: messageText,
+                    parsing_error: true
+                };
+            }
+            
+            this.log('connection-message-complete', {
+                messagesGenerated: messageData.messages?.length || 0,
+                averageSuccessProbability: messageData.messages?.reduce((sum, msg) => sum + (msg.success_probability || 0), 0) / (messageData.messages?.length || 1),
+                tokensUsed: this.estimateTokens(prompt + messageText)
+            });
+            
+            return {
+                messageData,
+                metadata: {
+                    analysisType: 'connection-message-generation',
+                    targetProfile: targetProfile.name || 'Anonymous',
+                    timestamp: new Date().toISOString(),
+                    tokensEstimated: this.estimateTokens(prompt + messageText),
+                    ethicalCompliance: {
+                        consentVerified: true,
+                        rateLimited: true,
+                        auditLogged: true
+                    }
+                }
+            };
+            
+        } catch (error) {
+            this.log('connection-message-error', { error: error.message });
+            throw error;
+        }
+    }
+
+    /**
+     * Analyze network growth opportunities
+     */
+    async analyzeNetworkGrowthOpportunities(userProfile, currentNetwork, targetIndustries = []) {
+        await this.verifyConsent('network-growth-analysis');
+        await this.enforceRateLimit();
+        
+        this.log('network-growth-analysis-start', {
+            currentNetworkSize: currentNetwork?.totalConnections || 0,
+            targetIndustries: targetIndustries.length
+        });
+        
+        try {
+            const prompt = `
+                Analyze network growth opportunities and strategic expansion:
+
+                USER PROFILE:
+                - Career Level: ${userProfile.career_level || 'Mid-level'}
+                - Industry: ${userProfile.industry || 'Technology'}
+                - Skills: ${userProfile.skills?.slice(0, 10).join(', ') || 'Various'}
+                - Goals: ${userProfile.networking_goals?.join(', ') || 'Career advancement'}
+
+                CURRENT NETWORK:
+                - Total Connections: ${currentNetwork?.totalConnections || 0}
+                - Industry Distribution: ${JSON.stringify(currentNetwork?.industryBreakdown || [])}
+                - Quality Score: ${currentNetwork?.qualityScore || 50}%
+                - Geographic Distribution: ${JSON.stringify(currentNetwork?.geographicBreakdown || [])}
+
+                TARGET INDUSTRIES: ${targetIndustries.join(', ') || 'Technology, Government, Consulting'}
+
+                Provide strategic network growth analysis in JSON format:
+                {
+                    "growth_assessment": {
+                        "current_network_health": 0-100,
+                        "diversification_opportunities": 0-100,
+                        "quality_improvement_potential": 0-100,
+                        "strategic_positioning": "weak|developing|strong|excellent"
+                    },
+                    "expansion_opportunities": [
+                        {
+                            "industry": "Target industry",
+                            "growth_potential": 0-100,
+                            "strategic_value": "high|medium|low",
+                            "entry_points": ["channel1", "channel2"],
+                            "key_personas": ["persona1", "persona2"],
+                            "timeline": "immediate|short-term|long-term"
+                        }
+                    ],
+                    "networking_channels": {
+                        "digital_platforms": ["linkedin|twitter|industry-forums"],
+                        "offline_events": ["conferences|meetups|workshops"],
+                        "professional_organizations": ["org1", "org2"],
+                        "content_strategies": ["blogging|speaking|podcasting"]
+                    },
+                    "relationship_optimization": {
+                        "dormant_connections": "Strategy for re-engaging",
+                        "weak_ties_activation": "Converting connections to relationships",
+                        "referral_opportunities": "Leveraging current network for introductions",
+                        "mutual_connections": "Strategic introduction strategies"
+                    },
+                    "competitive_intelligence": {
+                        "industry_leaders": ["leader1", "leader2"],
+                        "emerging_influencers": ["influencer1", "influencer2"],
+                        "thought_leaders": ["thought_leader1", "thought_leader2"],
+                        "networking_trends": ["trend1", "trend2"]
+                    },
+                    "roi_projections": {
+                        "career_advancement_probability": 0-100,
+                        "business_opportunity_potential": 0-100,
+                        "knowledge_acquisition_value": 0-100,
+                        "industry_influence_growth": 0-100
+                    }
+                }
+
+                Focus on strategic, high-value networking opportunities aligned with career goals.
+                Consider industry trends and emerging opportunities.
+                Emphasize sustainable relationship building over transactional networking.
+            `;
+            
+            const result = await this.model.generateContent(prompt);
+            const response = await result.response;
+            const analysisText = response.text();
+            
+            // Extract JSON from response
+            let analysis;
+            try {
+                const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    analysis = JSON.parse(jsonMatch[0]);
+                } else {
+                    throw new Error('No JSON found in response');
+                }
+            } catch (parseError) {
+                this.log('network-growth-parse-fallback', { error: parseError.message });
+                analysis = {
+                    growth_assessment: { current_network_health: 70 },
+                    expansion_opportunities: [],
+                    raw_analysis: analysisText,
+                    parsing_error: true
+                };
+            }
+            
+            this.log('network-growth-analysis-complete', {
+                expansionOpportunities: analysis.expansion_opportunities?.length || 0,
+                networkHealth: analysis.growth_assessment?.current_network_health || 0,
+                tokensUsed: this.estimateTokens(prompt + analysisText)
+            });
+            
+            return {
+                analysis,
+                metadata: {
+                    analysisType: 'network-growth-opportunities',
+                    timestamp: new Date().toISOString(),
+                    tokensEstimated: this.estimateTokens(prompt + analysisText),
+                    ethicalCompliance: {
+                        consentVerified: true,
+                        rateLimited: true,
+                        auditLogged: true
+                    }
+                }
+            };
+            
+        } catch (error) {
+            this.log('network-growth-analysis-error', { error: error.message });
+            throw error;
+        }
+    }
+
+    /**
+     * Generate content for thought leadership
+     */
+    async generateContent(prompt) {
+        await this.verifyConsent('content-generation');
+        await this.enforceRateLimit();
+        
+        this.log('content-generation-start', {
+            promptLength: prompt.length
+        });
+        
+        try {
+            const result = await this.model.generateContent(prompt);
+            const response = await result.response;
+            const content = response.text();
+            
+            this.log('content-generation-complete', {
+                contentLength: content.length,
+                tokensUsed: this.estimateTokens(prompt + content)
+            });
+            
+            return content;
+            
+        } catch (error) {
+            this.log('content-generation-error', { error: error.message });
+            throw error;
+        }
+    }
+
+    /**
      * Get comprehensive audit trail
      */
     getAuditTrail() {
