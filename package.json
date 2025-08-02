@@ -9,7 +9,18 @@
     "validate": "for file in data/*.json; do jq . \"$file\" > /dev/null && echo \"✅ $file valid\"; done",
     "scripts:install": "cd .github/scripts && npm install",
     "scripts:lint": "cd .github/scripts && npm run lint",
-    "scripts:test": "cd .github/scripts && npm test"
+    "scripts:test": "cd .github/scripts && npm test",
+    "test:install": "cd tests && npm install",
+    "test": "cd tests && npm test",
+    "test:ci": "cd tests && npm run test:ci",
+    "test:coverage": "cd tests && npm run test:coverage",
+    "test:accessibility": "cd tests && npm run test:accessibility",
+    "test:performance": "cd tests && npm run test:performance",
+    "test:mobile": "cd tests && npm run test:mobile",
+    "test:dashboard": "cd tests && npm run test:dashboard",
+    "test:e2e": "cd tests && npm run test:e2e",
+    "lighthouse": "cd tests && npm run lighthouse",
+    "quality-gate": "npm run test:ci && npm run lighthouse"
   },
   "keywords": [
     "cv",
