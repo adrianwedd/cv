@@ -1,6 +1,6 @@
 {
   "overall": "failed",
-  "timestamp": "2025-08-03T10:00:38.996Z",
+  "timestamp": "2025-08-03T10:44:30.720Z",
   "tests": {
     "accessibility": {
       "status": "warning",
@@ -29,17 +29,17 @@
       }
     },
     "performance": {
-      "status": "warning",
-      "score": 75,
+      "status": "passed",
+      "score": 100,
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 131.74,
+          "value": 174.961,
           "threshold": "< 2000ms"
         },
         "contentSize": {
-          "passed": false,
-          "value": 162000,
+          "passed": true,
+          "value": 34968,
           "threshold": "< 50KB"
         },
         "imageOptimization": {
@@ -54,10 +54,10 @@
         }
       },
       "metrics": {
-        "loadTime": 131.74,
-        "contentSize": 162000,
-        "dnsTime": 2.053,
-        "connectTime": 37.56,
+        "loadTime": 174.961,
+        "contentSize": 34968,
+        "dnsTime": 4.9350000000000005,
+        "connectTime": 31.961000000000002,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
@@ -186,7 +186,7 @@
     }
   },
   "metrics": {
-    "overallScore": 50
+    "overallScore": 54
   },
   "issues": [
     {
@@ -213,33 +213,6 @@
         "keyboardNavigation": {
           "passed": true,
           "message": "Keyboard navigation assumed functional"
-        }
-      }
-    },
-    {
-      "severity": "medium",
-      "category": "performance",
-      "message": "performance tests have warnings",
-      "details": {
-        "loadTime": {
-          "passed": true,
-          "value": 131.74,
-          "threshold": "< 2000ms"
-        },
-        "contentSize": {
-          "passed": false,
-          "value": 162000,
-          "threshold": "< 50KB"
-        },
-        "imageOptimization": {
-          "passed": true,
-          "value": 0,
-          "threshold": "0 unoptimized"
-        },
-        "caching": {
-          "passed": true,
-          "value": true,
-          "threshold": "Present"
         }
       }
     },
@@ -373,13 +346,12 @@
   ],
   "recommendations": [
     "Consider optimizing lowest-scoring test areas for better performance",
-    "Optimize website performance for faster load times",
     "Improve accessibility compliance for better user experience"
   ],
   "summary": {
     "totalTests": 7,
-    "passedSuites": 0,
-    "warningSuites": 6,
+    "passedSuites": 1,
+    "warningSuites": 5,
     "failedSuites": 1
   }
 }

@@ -293,7 +293,7 @@ class DeploymentVerifier {
      */
     async measurePerformance() {
         try {
-            const timing = execSync(`curl -s -w "time_total: %{time_total}\nsize_download: %{size_download}\ntime_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\n" -o /dev/null "${this.siteUrl}"`, {
+            const timing = execSync(`curl -s -L -w "time_total: %{time_total}\nsize_download: %{size_download}\ntime_namelookup: %{time_namelookup}\ntime_connect: %{time_connect}\n" -o /dev/null "${this.siteUrl}"`, {
                 encoding: 'utf8'
             });
             
@@ -301,7 +301,8 @@ class DeploymentVerifier {
             timing.split('\n').forEach(line => {
                 const [key, value] = line.split(': ');
                 if (key && value) {
-                    metrics[key.replace('time_', '')] = parseFloat(value) * 1000; // Convert to ms
+                    // Convert time values to ms, keep size as bytes
+                    metrics[key.replace('time_', '')] = key.includes('time_') ? parseFloat(value) * 1000 : parseFloat(value);
                 }
             });
             
