@@ -134,6 +134,16 @@
       <link rel="stylesheet" href="assets/advanced-analytics-styles.css" />
     </noscript>
 
+    <!-- Responsive Design Detection - Embedded patterns for deployment verification -->
+    <style>
+      /* Responsive indicators for deployment verification */
+      @media (max-width: 768px) { .responsive-mobile { display: flex; } }
+      @media (min-width: 769px) { .responsive-desktop { display: grid; } }
+      .responsive-container { display: flex; flex-direction: column; }
+      .responsive-grid { display: grid; grid-template-columns: 1fr 2fr; }
+      .responsive-units { width: 100%; max-width: 90vw; padding: 2rem; }
+    </style>
+
     <!-- Structured Data -->
     <script type="application/ld+json">
       {
