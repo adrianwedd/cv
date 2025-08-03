@@ -21,12 +21,18 @@
  * - LOOKBACK_DAYS: Number of days to analyze (default: 30)
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const { exec } = require('child_process');
-const { promisify } = require('util');
-require('dotenv').config();
-const { httpRequest, sleep } = require('./utils/apiClient');
+import fs from 'fs/promises';
+import path from 'path';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import { httpRequest, sleep } from './utils/apiClient.js';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const execAsync = promisify(exec);
 
@@ -931,14 +937,59 @@ class ActivityAnalyzer {
         
         // Save individual data files that are referenced
         const activityPath = path.join(CONFIG.OUTPUT_DIR, 'activity', activityFileName);
+        // CRITICAL: Compress repository data to prevent oversized files
+        const compressRepositoryData = (repoData) => {
+            if (!repoData || !repoData.data) return { data: [], summary: repoData?.summary || {} };
+            
+            return {
+                data: repoData.data.slice(0, 50).map(repo => ({
+                    name: repo.name,
+                    description: repo.description?.substring(0, 200) || null,
+                    language: repo.language,
+                    stars: repo.stargazers_count,
+                    updated: repo.updated_at,
+                    size: repo.size,
+                    topics: repo.topics?.slice(0, 5) || [],
+                    private: repo.private,
+                    fork: repo.fork,
+                    default_branch: repo.default_branch
+                    // REMOVED: Full API responses, nested objects, excessive metadata
+                })),
+                summary: repoData.summary || {}
+            };
+        };
+
+        const compressActivityData = (activityData) => {
+            if (!activityData || !activityData.recent_activity) return activityData;
+            
+            return {
+                ...activityData,
+                recent_activity: activityData.recent_activity.slice(0, 100).map(activity => ({
+                    type: activity.type,
+                    repo: activity.repo?.name,
+                    created_at: activity.created_at,
+                    action: activity.payload?.action || activity.type
+                    // REMOVED: Full payload, actor details, excessive API metadata
+                }))
+            };
+        };
+
         const activityData = {
             collectionTimestamp: new Date().toISOString(),
             analysisPeriodDays: CONFIG.LOOKBACK_DAYS,
-            userProfile: results.user_profile || { message: "Resource not accessible by integration", status: "403" },
-            repositories: results.repositories || { data: [], summary: {} },
-            crossRepoActivity: results.cross_repo_activity || {},
-            localRepositoryMetrics: results.local_repository_metrics || {},
-            languageAnalysis: results.language_analysis || {}
+            userProfile: { status: "compressed" }, // Remove sensitive profile data
+            repositories: compressRepositoryData(results.repositories),
+            crossRepoActivity: compressActivityData(results.cross_repo_activity),
+            localRepositoryMetrics: {
+                line_contributions: results.local_repository_metrics?.line_contributions || {},
+                commit_frequency: results.local_repository_metrics?.commit_frequency || {}
+                // REMOVED: Excessive local metrics
+            },
+            languageAnalysis: {
+                primary_languages: results.language_analysis?.primary_languages?.slice(0, 10) || [],
+                language_distribution: results.language_analysis?.language_distribution?.slice(0, 10) || []
+                // REMOVED: Full language breakdowns
+            }
         };
         await fs.writeFile(activityPath, JSON.stringify(activityData, null, 2), 'utf8');
         
@@ -1374,8 +1425,8 @@ async function main() {
 }
 
 // Execute if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
 
-module.exports = { ActivityAnalyzer, CONFIG };
+export { ActivityAnalyzer, CONFIG };
