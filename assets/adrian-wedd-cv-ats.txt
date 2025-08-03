@@ -19,7 +19,7 @@ SKILLS
 Python, JavaScript, TypeScript, Go, Rust, Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, TensorFlow, PyTorch, React, Vue.js, Node.js, FastAPI, GraphQL, Docker, Kubernetes, GitHub Actions, AWS, Azure, System Architecture, API Design, Database Design, PostgreSQL, MongoDB, Redis
 
 EXPERIENCE
-Systems Analyst / Acting Senior Change Analyst, Homes Tasmania (formerly Department of Communities Tasmania) (2018 - Present)
+Systems Analyst / Acting Senior Change Analyst, Homes Tasmania (formerly Department of Communities Tasmania) (2018 - 2025)
 Leading systems integration and digital transformation initiatives for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.
 - Enhanced Housing Management System integration with external services using RESTful APIs and SFTP
 - Led cybersecurity initiatives significantly improving system security and reducing vulnerabilities
