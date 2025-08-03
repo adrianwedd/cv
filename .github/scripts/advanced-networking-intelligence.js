@@ -16,7 +16,7 @@
  * - Market intelligence integration for strategic positioning
  */
 
-import { EthicalGeminiClient } from './gemini-client.js';
+import { ClaudeBrowserClient } from './claude-browser-client.js';
 import { AINetworkingAgent } from './ai-networking-agent.js';
 import fs from 'fs/promises';
 import path from 'path';
@@ -38,7 +38,9 @@ export class AdvancedNetworkingIntelligence {
             ...options
         };
         
-        this.geminiClient = new EthicalGeminiClient({
+        this.claudeClient = new ClaudeBrowserClient({
+            headless: true,
+            userConsent: true,
             rateLimitMs: this.options.rateLimitMs,
             auditLogging: this.options.auditLogging
         });
@@ -139,7 +141,7 @@ Please provide a comprehensive compatibility analysis with the following structu
 
 Focus on professional value creation and authentic relationship building.`;
 
-        const response = await this.geminiClient.generateResponse(prompt, {
+        const response = await this.claudeClient.sendMessage(prompt, {
             temperature: 0.3,
             maxTokens: 2000
         });
@@ -190,7 +192,7 @@ Create a strategic networking plan with:
 
 Ensure all recommendations are ethical, authentic, and focused on mutual value creation.`;
 
-        const response = await this.geminiClient.generateResponse(prompt, {
+        const response = await this.claudeClient.sendMessage(prompt, {
             temperature: 0.4,
             maxTokens: 2500
         });
@@ -203,6 +205,11 @@ Ensure all recommendations are ethical, authentic, and focused on mutual value c
      */
     async generateMarketIntelligence(userProfile) {
         console.log('📊 Generating market intelligence for strategic positioning...');
+        
+        // Initialize Claude client if needed
+        if (!this.claudeClient.browser) {
+            await this.claudeClient.initialize();
+        }
         
         const marketAnalysis = {
             session_id: this.session.id,
@@ -283,7 +290,7 @@ Provide market positioning analysis:
 
 Focus on actionable insights for strategic career advancement.`;
 
-        const response = await this.geminiClient.generateResponse(prompt, {
+        const response = await this.claudeClient.sendMessage(prompt, {
             temperature: 0.3,
             maxTokens: 2000
         });
@@ -332,7 +339,7 @@ Generate competitive analysis:
 
 Provide strategic, actionable intelligence for career advancement.`;
 
-        const response = await this.geminiClient.generateResponse(prompt, {
+        const response = await this.claudeClient.sendMessage(prompt, {
             temperature: 0.3,
             maxTokens: 2200
         });
