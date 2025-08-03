@@ -253,4 +253,4 @@ Your LinkedIn integration will respect all ethical guidelines while providing po
 
 ---
 
-> 🤖 Generated with [Claude Code](https://claude.ai/code)
+> 🤖 Generated with Claude Code
