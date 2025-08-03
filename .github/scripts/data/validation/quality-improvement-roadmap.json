@@ -1,0 +1,203 @@
+{
+  "metadata": {
+    "generated": "2025-08-03T14:28:24.564Z",
+    "version": "1.0",
+    "estimatedCompletion": "4-6 weeks",
+    "targetScore": "100/100"
+  },
+  "summary": {
+    "totalImprovements": 13,
+    "estimatedImpact": "+61 points (39 → 100)",
+    "priorityBreakdown": {
+      "critical": 3,
+      "high": 4,
+      "medium": 3,
+      "low": 3
+    }
+  },
+  "timeline": {
+    "critical": "1-2 weeks",
+    "high": "2-3 weeks",
+    "medium": "3-4 weeks",
+    "low": "4+ weeks"
+  },
+  "improvements": {
+    "critical": [
+      {
+        "category": "Security",
+        "issue": "Missing Content Security Policy",
+        "solution": "Implement comprehensive CSP headers",
+        "impact": "+25 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com;\">",
+          "location": "Inside <head> section"
+        },
+        "testCommand": "curl -I https://adrianwedd.github.io/cv | grep -i content-security",
+        "successCriteria": "CSP header present and functional"
+      },
+      {
+        "category": "Security",
+        "issue": "Missing Strict Transport Security",
+        "solution": "Configure HTTPS enforcement",
+        "impact": "+20 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<meta http-equiv=\"Strict-Transport-Security\" content=\"max-age=31536000; includeSubDomains\">",
+          "location": "Inside <head> section"
+        },
+        "testCommand": "curl -I https://adrianwedd.github.io/cv | grep -i strict-transport",
+        "successCriteria": "HSTS header enforces HTTPS"
+      },
+      {
+        "category": "Security",
+        "issue": "Missing Subresource Integrity",
+        "solution": "Add SRI hashes to external resources",
+        "impact": "+15 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<script src=\"https://cdn.jsdelivr.net/npm/library@1.0.0/dist/lib.min.js\" \n            integrity=\"sha384-hash\" \n            crossorigin=\"anonymous\"></script>",
+          "location": "All external script/link tags"
+        },
+        "testCommand": "grep -E \"integrity=\" index.html",
+        "successCriteria": "All external resources have SRI hashes"
+      }
+    ],
+    "high": [
+      {
+        "category": "SEO",
+        "issue": "Missing Structured Data",
+        "solution": "Implement JSON-LD structured data",
+        "impact": "+25 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Person\",\n  \"name\": \"Adrian Wedd\",\n  \"jobTitle\": \"Systems Analyst & Developer\",\n  \"url\": \"https://adrianwedd.github.io/cv\",\n  \"sameAs\": [\n    \"https://github.com/adrianwedd\",\n    \"https://linkedin.com/in/adrianwedd\"\n  ],\n  \"knowsAbout\": [\"Software Development\", \"Systems Analysis\", \"API Integration\"],\n  \"worksFor\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Homes Tasmania\"\n  }\n}\n</script>",
+          "location": "Inside <head> section"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep -o \"application/ld+json\"",
+        "successCriteria": "Valid JSON-LD structured data present"
+      },
+      {
+        "category": "SEO",
+        "issue": "Missing Open Graph tags",
+        "solution": "Add comprehensive Open Graph metadata",
+        "impact": "+20 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<meta property=\"og:title\" content=\"Adrian Wedd - Systems Analyst & Developer\">\n<meta property=\"og:description\" content=\"Professional CV showcasing expertise in systems analysis, software development, and API integration.\">\n<meta property=\"og:type\" content=\"profile\">\n<meta property=\"og:url\" content=\"https://adrianwedd.github.io/cv\">\n<meta property=\"og:image\" content=\"https://adrianwedd.github.io/cv/assets/profile-image.jpg\">",
+          "location": "Inside <head> section"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep -o \"og:title\"",
+        "successCriteria": "Complete Open Graph metadata"
+      },
+      {
+        "category": "Accessibility",
+        "issue": "Missing ARIA attributes",
+        "solution": "Implement comprehensive ARIA markup",
+        "impact": "+20 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<nav role=\"navigation\" aria-label=\"Main navigation\">\n<main role=\"main\" aria-label=\"CV Content\">\n<section aria-labelledby=\"experience-heading\">\n<h2 id=\"experience-heading\">Professional Experience</h2>",
+          "location": "Throughout HTML structure"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep -c \"aria-\"",
+        "successCriteria": "ARIA attributes on all interactive elements"
+      },
+      {
+        "category": "Accessibility",
+        "issue": "Insufficient semantic HTML",
+        "solution": "Upgrade to semantic HTML5 structure",
+        "impact": "+15 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<header>\n  <h1>Adrian Wedd</h1>\n  <p>Systems Analyst & Developer</p>\n</header>\n<main>\n  <section aria-labelledby=\"about-heading\">\n    <h2 id=\"about-heading\">About</h2>\n  </section>\n  <section aria-labelledby=\"experience-heading\">\n    <h2 id=\"experience-heading\">Experience</h2>\n  </section>\n</main>\n<footer>\n  <p>&copy; 2025 Adrian Wedd</p>\n</footer>",
+          "location": "Replace div-based layout"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep -E \"<(header|main|section|footer)\"",
+        "successCriteria": "Semantic HTML5 elements throughout"
+      }
+    ],
+    "medium": [
+      {
+        "category": "PWA",
+        "issue": "Missing Web App Manifest",
+        "solution": "Create comprehensive PWA manifest",
+        "impact": "+25 points",
+        "implementation": {
+          "file": "manifest.json",
+          "code": "{\n  \"name\": \"Adrian Wedd - Professional CV\",\n  \"short_name\": \"Adrian CV\",\n  \"description\": \"Professional CV and portfolio\",\n  \"start_url\": \"/cv/\",\n  \"display\": \"standalone\",\n  \"background_color\": \"#ffffff\",\n  \"theme_color\": \"#2563eb\",\n  \"icons\": [\n    {\n      \"src\": \"assets/icon-192.png\",\n      \"sizes\": \"192x192\",\n      \"type\": \"image/png\"\n    },\n    {\n      \"src\": \"assets/icon-512.png\", \n      \"sizes\": \"512x512\",\n      \"type\": \"image/png\"\n    }\n  ]\n}",
+          "location": "Root directory"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv/manifest.json",
+        "successCriteria": "Valid PWA manifest with icons"
+      },
+      {
+        "category": "PWA",
+        "issue": "Missing Service Worker",
+        "solution": "Implement caching service worker",
+        "impact": "+20 points",
+        "implementation": {
+          "file": "sw.js",
+          "code": "const CACHE_NAME = 'cv-cache-v1';\nconst urlsToCache = [\n  '/cv/',\n  '/cv/index.html',\n  '/cv/assets/styles.css',\n  '/cv/assets/script.js'\n];\n\nself.addEventListener('install', event => {\n  event.waitUntil(\n    caches.open(CACHE_NAME)\n      .then(cache => cache.addAll(urlsToCache))\n  );\n});\n\nself.addEventListener('fetch', event => {\n  event.respondWith(\n    caches.match(event.request)\n      .then(response => response || fetch(event.request))\n  );\n});",
+          "location": "Root directory"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv/sw.js",
+        "successCriteria": "Service worker with offline caching"
+      },
+      {
+        "category": "Performance",
+        "issue": "Missing compression optimization",
+        "solution": "Configure GitHub Pages compression",
+        "impact": "+15 points",
+        "implementation": {
+          "file": ".github/workflows/pages.yml",
+          "code": "name: Deploy to GitHub Pages\non:\n  push:\n    branches: [ main ]\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Setup Pages\n        uses: actions/configure-pages@v3\n      - name: Upload artifact\n        uses: actions/upload-pages-artifact@v2\n        with:\n          path: '.'\n      - name: Deploy to GitHub Pages\n        uses: actions/deploy-pages@v2",
+          "location": ".github/workflows/"
+        },
+        "testCommand": "curl -H \"Accept-Encoding: gzip\" -s https://adrianwedd.github.io/cv",
+        "successCriteria": "Gzip compression enabled"
+      }
+    ],
+    "low": [
+      {
+        "category": "Advanced SEO",
+        "issue": "Missing Twitter Card metadata",
+        "solution": "Add Twitter Card optimization",
+        "impact": "+10 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Adrian Wedd - Systems Analyst & Developer\">\n<meta name=\"twitter:description\" content=\"Professional CV showcasing expertise in systems analysis and development.\">\n<meta name=\"twitter:image\" content=\"https://adrianwedd.github.io/cv/assets/profile-image.jpg\">",
+          "location": "Inside <head> section"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep \"twitter:card\"",
+        "successCriteria": "Complete Twitter Card metadata"
+      },
+      {
+        "category": "Performance",
+        "issue": "Suboptimal resource loading",
+        "solution": "Implement resource preloading",
+        "impact": "+10 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<link rel=\"preload\" href=\"assets/styles.css\" as=\"style\">\n<link rel=\"preload\" href=\"assets/script.js\" as=\"script\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"dns-prefetch\" href=\"https://api.github.com\">",
+          "location": "Inside <head> section"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep \"preload\"",
+        "successCriteria": "Optimized resource loading"
+      },
+      {
+        "category": "Accessibility",
+        "issue": "Missing skip navigation",
+        "solution": "Add skip links for accessibility",
+        "impact": "+5 points",
+        "implementation": {
+          "file": "index.html",
+          "code": "<a href=\"#main-content\" class=\"skip-link\">Skip to main content</a>\n<a href=\"#navigation\" class=\"skip-link\">Skip to navigation</a>",
+          "location": "First elements in body"
+        },
+        "testCommand": "curl -s https://adrianwedd.github.io/cv | grep \"skip-link\"",
+        "successCriteria": "Keyboard navigation skip links"
+      }
+    ]
+  }
+}
