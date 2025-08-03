@@ -21,8 +21,13 @@
  * @version 2.1.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Advanced XML-structured prompt constructor with few-shot learning
@@ -623,4 +628,4 @@ class AdvancedXMLPromptConstructor {
     }
 }
 
-module.exports = { AdvancedXMLPromptConstructor };
+export { AdvancedXMLPromptConstructor };

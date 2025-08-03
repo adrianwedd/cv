@@ -22,10 +22,18 @@
  * - TREND_ANALYSIS_DEPTH: Analysis depth (basic|standard|comprehensive)
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-require('dotenv').config();
-const { httpRequest, sleep } = require('./utils/apiClient');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import { httpRequest, sleep } from './utils/apiClient.js';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load environment variables
+dotenv.config();
 
 // Configuration
 const CONFIG = {
@@ -886,9 +894,9 @@ async function main() {
 }
 
 // Export for use as module
-module.exports = { MarketTrendsAnalyzer, CONFIG };
+export { MarketTrendsAnalyzer, CONFIG };
 
-// Run if called directly
-if (require.main === module) {
+// Run if called directly (ES module equivalent)
+if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
