@@ -201,18 +201,31 @@
                     <span class="nav-icon" aria-hidden="true">🏆</span>
                     <span class="nav-text">Achievements</span>
                 </a>
-                <a href="career-intelligence.html" class="nav-item nav-external" target="_blank" rel="noopener" role="listitem" aria-describedby="career-intelligence-desc">
-                    <span class="nav-icon" aria-hidden="true">📊</span>
-                    <span class="nav-text">Career Intelligence</span>
-                    <span class="external-indicator" aria-hidden="true">↗</span>
-                    <span class="sr-only" id="career-intelligence-desc">Advanced analytics dashboard - Opens in new tab</span>
-                </a>
-                <a href="watch-me-work.html" class="nav-item nav-external" target="_blank" rel="noopener" role="listitem" aria-describedby="external-link-desc">
-                    <span class="nav-icon" aria-hidden="true">🎬</span>
-                    <span class="nav-text">Watch Me Work</span>
-                    <span class="external-indicator" aria-hidden="true">↗</span>
-                    <span class="sr-only" id="external-link-desc">Live activity dashboard - Opens in new tab</span>
-                </a>
+                <!-- Advanced Features (Progressive Disclosure) -->
+                <div class="advanced-features-section" id="advanced-features" style="display: none;">
+                    <div class="nav-divider">
+                        <span class="divider-text">Advanced Features</span>
+                    </div>
+                    <a href="career-intelligence.html" class="nav-item nav-external advanced-feature" target="_blank" rel="noopener" role="listitem" aria-describedby="career-intelligence-desc">
+                        <span class="nav-icon" aria-hidden="true">📊</span>
+                        <span class="nav-text">Career Intelligence</span>
+                        <span class="external-indicator" aria-hidden="true">↗</span>
+                        <span class="sr-only" id="career-intelligence-desc">Advanced analytics dashboard - Opens in new tab</span>
+                    </a>
+                    <a href="watch-me-work.html" class="nav-item nav-external advanced-feature" target="_blank" rel="noopener" role="listitem" aria-describedby="external-link-desc">
+                        <span class="nav-icon" aria-hidden="true">🎬</span>
+                        <span class="nav-text">Watch Me Work</span>
+                        <span class="external-indicator" aria-hidden="true">↗</span>
+                        <span class="sr-only" id="external-link-desc">Live activity dashboard - Opens in new tab</span>
+                    </a>
+                </div>
+                
+                <!-- Unlock Advanced Features Button -->
+                <button class="unlock-advanced-btn" id="unlock-advanced" aria-label="Show advanced features and dashboards">
+                    <span class="unlock-icon" aria-hidden="true">🔓</span>
+                    <span class="unlock-text">Advanced Features</span>
+                    <span class="unlock-hint">Developer tools & analytics</span>
+                </button>
             </div>
         </nav>
 

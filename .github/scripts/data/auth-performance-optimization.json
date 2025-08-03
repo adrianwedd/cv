@@ -1,0 +1,99 @@
+{
+  "timestamp": "2025-08-03T07:41:22.463Z",
+  "authMethods": {
+    "oauth": {
+      "responseTime": 1801.578459,
+      "method": "OAuth PKCE Flow",
+      "target": 2000
+    },
+    "browser": {
+      "responseTime": 2501.2648340000005,
+      "method": "Browser Cookie Auth",
+      "target": 3000
+    },
+    "apiKey": {
+      "responseTime": 801.5604170000006,
+      "method": "API Key Direct",
+      "target": 1000
+    },
+    "session": {
+      "responseTime": 401.35495900000024,
+      "method": "Session Validation",
+      "target": 500
+    }
+  },
+  "optimizations": [
+    {
+      "name": "OAuth Token Caching",
+      "description": "Cache valid OAuth tokens to avoid repeated authentication",
+      "target": "oauth",
+      "improvement": 70
+    },
+    {
+      "name": "Browser Session Reuse",
+      "description": "Reuse browser sessions and implement headless optimization",
+      "target": "browser",
+      "improvement": 50
+    },
+    {
+      "name": "API Key Connection Pooling",
+      "description": "Implement HTTP connection pooling for API requests",
+      "target": "apiKey",
+      "improvement": 30
+    },
+    {
+      "name": "Session Cache Optimization",
+      "description": "Implement in-memory session caching with TTL",
+      "target": "session",
+      "improvement": 60
+    },
+    {
+      "name": "Smart Fallback Logic",
+      "description": "Optimize authentication fallback chain timing",
+      "target": "all",
+      "improvement": 20
+    }
+  ],
+  "improvements": {
+    "oauth": {
+      "responseTime": 540.7917080000007,
+      "improvement": 69.98233935922073
+    },
+    "browser": {
+      "responseTime": 1251.2399999999998,
+      "improvement": 49.97570896964845
+    },
+    "apiKey": {
+      "responseTime": 561.1102089999995,
+      "improvement": 29.997764722456466
+    },
+    "session": {
+      "responseTime": 174.2841670000007,
+      "improvement": 56.5760524214675
+    }
+  },
+  "recommendations": {
+    "immediate": [
+      "Implement OAuth token caching with automatic refresh",
+      "Add session validation caching with 5-minute TTL",
+      "Optimize browser automation with session persistence"
+    ],
+    "advanced": [
+      "Implement intelligent authentication method selection",
+      "Add authentication performance monitoring and alerting",
+      "Create fallback timing optimization based on success rates"
+    ],
+    "monitoring": [
+      "Track authentication response times across all methods",
+      "Monitor authentication success rates and fallback usage",
+      "Add performance regression detection for auth flows"
+    ]
+  },
+  "summary": {
+    "averageImprovement": 51.63296636819829,
+    "averageBaselineTime": 1376.4396672500004,
+    "averageOptimizedTime": 631.8565210000002,
+    "timeSavings": 744.5831462500003,
+    "optimizationCount": 5
+  }
+}

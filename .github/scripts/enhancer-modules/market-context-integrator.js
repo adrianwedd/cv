@@ -19,8 +19,13 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Market Context Integrator for Claude AI enhancement
@@ -82,7 +87,7 @@ class MarketContextIntegrator {
      */
     async refreshMarketData() {
         try {
-            const { MarketTrendsAnalyzer } = require('../market-trends-analyzer');
+            const { MarketTrendsAnalyzer } = await import('../market-trends-analyzer.js');
             const analyzer = new MarketTrendsAnalyzer();
             await analyzer.initialize();
             
@@ -618,4 +623,4 @@ ${context.emerging_trends.major_industry_shifts.slice(0, 3).map(shift => `- ${sh
     }
 }
 
-module.exports = { MarketContextIntegrator };
+export { MarketContextIntegrator };

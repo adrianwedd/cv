@@ -1,0 +1,168 @@
+{
+  "timestamp": "2025-08-03T04:40:37.639Z",
+  "overall_status": "fair",
+  "systems": {
+    "linkedin": {
+      "name": "LinkedIn Integration",
+      "status": "degraded",
+      "components": {
+        "playwright_extractor": {
+          "status": "operational",
+          "details": "LinkedIn Playwright Extractor functioning correctly"
+        },
+        "workflow": {
+          "status": "operational",
+          "details": "Recent run successful"
+        },
+        "browser_auth": {
+          "status": "failed",
+          "details": "Browser Authentication error: Command failed: node claude-browser-client.js test - spawnSync /bin/sh ETIMEDOUT"
+        }
+      },
+      "issues": [
+        "Some LinkedIn components have limited functionality"
+      ],
+      "capabilities": []
+    },
+    "ai_router": {
+      "name": "Intelligent AI Router",
+      "status": "operational",
+      "components": {
+        "initialization": {
+          "status": "operational",
+          "details": "Router Initialization functioning correctly"
+        },
+        "analytics": {
+          "status": "operational",
+          "details": "Cost analytics generation working"
+        },
+        "browser_auth": {
+          "status": "degraded",
+          "details": "Missing session cookies"
+        }
+      },
+      "issues": [],
+      "capabilities": [
+        "Cost-optimized AI routing (Browser → OAuth → API)",
+        "Real-time cost tracking and analytics",
+        "Automatic fallback handling",
+        "Enterprise-grade error recovery",
+        "Usage optimization recommendations"
+      ]
+    },
+    "career_intelligence": {
+      "name": "Career Intelligence",
+      "status": "operational",
+      "components": {
+        "job_market": {
+          "status": "operational",
+          "details": "Job Market Intelligence functioning correctly"
+        },
+        "career_pathways": {
+          "status": "operational",
+          "details": "Career Pathway Analyzer functioning correctly"
+        }
+      },
+      "issues": [],
+      "capabilities": [
+        "Real-time job market analysis",
+        "AI-powered career pathway mapping",
+        "Strategic opportunity scoring",
+        "Competitive salary intelligence",
+        "Professional development roadmaps"
+      ]
+    },
+    "github_intelligence": {
+      "name": "GitHub Intelligence",
+      "status": "operational",
+      "components": {
+        "es_modules": {
+          "status": "operational",
+          "details": "ES Module Compatibility functioning correctly"
+        },
+        "api_client": {
+          "status": "operational",
+          "details": "API Client Structure functioning correctly"
+        },
+        "authentication": {
+          "status": "degraded",
+          "details": "GitHub token missing"
+        }
+      },
+      "issues": [
+        "GitHub token required for live data mining"
+      ],
+      "capabilities": [
+        "ES module compatibility established",
+        "Professional contribution analysis framework",
+        "GitHub activity intelligence extraction",
+        "Open source impact measurement",
+        "Technical expertise demonstration"
+      ]
+    },
+    "networking_intelligence": {
+      "name": "Networking Intelligence",
+      "status": "operational",
+      "components": {
+        "initialization": {
+          "status": "operational",
+          "details": "Component Initialization functioning correctly"
+        },
+        "ai_agent": {
+          "status": "operational",
+          "details": "AI Networking Agent functioning correctly"
+        }
+      },
+      "issues": [],
+      "capabilities": [
+        "Multi-dimensional relationship compatibility scoring",
+        "Strategic networking recommendations",
+        "Market intelligence integration",
+        "Professional brand optimization",
+        "Claude browser client integration"
+      ]
+    },
+    "workflows": {
+      "name": "GitHub Workflows",
+      "status": "degraded",
+      "components": {
+        "linkedin-integration-simple": {
+          "status": "operational",
+          "details": "Recent run successful"
+        },
+        "cv-enhancement": {
+          "status": "degraded",
+          "details": "Recent run failed"
+        },
+        "enterprise-testing": {
+          "status": "failed",
+          "details": "Workflow check failed: Command failed: gh run list --workflow=enterprise-testing.yml --limit=1 - Command failed: gh run list --workflow=enterprise-testing.yml --limit=1\nHTTP 404: workflow enterprise-testing.yml not found on the default branch (https://api.github.com/repos/adrianwedd/cv/actions/workflows/enterprise-testing.yml)\n"
+        }
+      },
+      "issues": [
+        "Some workflows experiencing issues"
+      ],
+      "capabilities": []
+    }
+  },
+  "summary": {
+    "total_systems": 6,
+    "operational": 4,
+    "degraded": 2,
+    "failed": 0
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "system": "LinkedIn Integration",
+      "action": "Optimize LinkedIn Integration for full functionality",
+      "details": "Some LinkedIn components have limited functionality"
+    },
+    {
+      "priority": "medium",
+      "system": "GitHub Workflows",
+      "action": "Optimize GitHub Workflows for full functionality",
+      "details": "Some workflows experiencing issues"
+    }
+  ]
+}

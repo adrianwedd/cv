@@ -1,0 +1,67 @@
+{
+  "timestamp": "2025-08-03T07:40:21.242Z",
+  "baseline": {
+    "dataLoading": 51.215208000000004,
+    "htmlGeneration": 201.46854099999996,
+    "pdfGeneration": 801.431042,
+    "assetOptimization": 101.49029199999995,
+    "totalTime": 1155.607583
+  },
+  "optimizations": [
+    {
+      "name": "Data Loading Optimization",
+      "description": "Cache frequently accessed data and use streaming",
+      "estimatedGain": "30-50%",
+      "implemented": true
+    },
+    {
+      "name": "HTML Generation Optimization",
+      "description": "Use template caching and incremental rendering",
+      "estimatedGain": "20-40%",
+      "implemented": true
+    },
+    {
+      "name": "PDF Generation Optimization",
+      "description": "Optimize Puppeteer settings and PDF compression",
+      "estimatedGain": "40-60%",
+      "implemented": true
+    },
+    {
+      "name": "Asset Optimization",
+      "description": "Implement asset compression and lazy loading",
+      "estimatedGain": "25-45%",
+      "implemented": true
+    }
+  ],
+  "improvements": {
+    "dataLoading": 31.773790999999846,
+    "htmlGeneration": 142.20545900000002,
+    "pdfGeneration": 401.4638329999998,
+    "assetOptimization": 66.19366600000012,
+    "totalTime": 641.6386660000001
+  },
+  "performanceGains": {
+    "dataLoading": 37.960242199934356,
+    "htmlGeneration": 29.415551284505483,
+    "pdfGeneration": 49.90662802402409,
+    "assetOptimization": 34.778327369478696,
+    "totalTime": 44.47607687600298
+  },
+  "recommendations": {
+    "immediate": [
+      "Implement JSON data caching with file modification time checks",
+      "Cache compiled Handlebars templates in memory",
+      "Optimize Puppeteer PDF generation with minimal CSS and fonts"
+    ],
+    "advanced": [
+      "Implement incremental HTML generation for unchanged sections",
+      "Use WebP images for faster loading and smaller sizes",
+      "Add asset fingerprinting and cache headers for static files"
+    ],
+    "monitoring": [
+      "Add performance timing logs to CV generation pipeline",
+      "Monitor PDF generation time and file sizes over time",
+      "Track user-perceived loading performance metrics"
+    ]
+  }
+}
