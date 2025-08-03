@@ -1,0 +1,1386 @@
+{
+  "timestamp": "2025-08-03T01:20:31.144Z",
+  "config": {
+    "analysisDate": "2025-08-03T01:20:31.125Z",
+    "careerGoals": {
+      "timeframes": {
+        "immediate": {
+          "months": 6,
+          "focus": "skill optimization"
+        },
+        "shortTerm": {
+          "months": 18,
+          "focus": "role advancement"
+        },
+        "longTerm": {
+          "months": 36,
+          "focus": "strategic positioning"
+        }
+      },
+      "targetRoles": [
+        "Technical Lead",
+        "Solution Architect",
+        "Engineering Manager",
+        "Principal Systems Analyst",
+        "Director of Technology"
+      ],
+      "targetIndustries": [
+        "technology",
+        "fintech",
+        "healthtech",
+        "govtech"
+      ],
+      "targetCompanies": [
+        "enterprise",
+        "scale-up",
+        "consulting"
+      ]
+    },
+    "developmentPriorities": {
+      "technical": [
+        "AI/ML",
+        "Cloud Architecture",
+        "Cybersecurity",
+        "DevOps"
+      ],
+      "leadership": [
+        "Team Management",
+        "Strategic Planning",
+        "Stakeholder Management"
+      ],
+      "business": [
+        "Product Strategy",
+        "Digital Transformation",
+        "Business Analysis"
+      ]
+    }
+  },
+  "currentProfile": {
+    "personalInfo": {
+      "name": "Adrian Wedd",
+      "title": "AI Engineer & Software Architect",
+      "location": "Tasmania, Australia",
+      "email": "adrian@adrianwedd.com",
+      "website": "https://adrianwedd.github.io/cv",
+      "github": "https://github.com/adrianwedd",
+      "linkedin": "https://linkedin.com/in/adrianwedd",
+      "tagline": "Pioneering autonomous systems and intelligent technology solutions",
+      "availability": "Open to opportunities"
+    },
+    "currentRole": {
+      "title": "Systems Analyst / Acting Senior Change Analyst",
+      "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
+      "level": "Senior",
+      "duration": "2018 - Present",
+      "responsibilities": [
+        "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP",
+        "Led cybersecurity initiatives significantly improving system security and reducing vulnerabilities",
+        "Developed automation scripts in Python, PowerShell and JavaScript streamlining operations",
+        "Pioneered use of generative AI for data analysis and decision-making processes",
+        "Improved operational efficiency through strategic systems integration and process optimization"
+      ]
+    },
+    "experience": [
+      {
+        "position": "Systems Analyst / Acting Senior Change Analyst",
+        "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
+        "location": "Tasmania, Australia",
+        "period": "2018 - Present",
+        "type": "Full-time",
+        "description": "Leading systems integration and digital transformation initiatives for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.",
+        "achievements": [
+          "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP",
+          "Led cybersecurity initiatives significantly improving system security and reducing vulnerabilities",
+          "Developed automation scripts in Python, PowerShell and JavaScript streamlining operations",
+          "Pioneered use of generative AI for data analysis and decision-making processes",
+          "Improved operational efficiency through strategic systems integration and process optimization"
+        ],
+        "technologies": [
+          "Python",
+          "TensorFlow",
+          "PyTorch",
+          "LangChain",
+          "JavaScript",
+          "TypeScript",
+          "React",
+          "Node.js",
+          "Docker",
+          "Kubernetes",
+          "AWS",
+          "Azure",
+          "PostgreSQL",
+          "Redis",
+          "Apache Kafka",
+          "Prometheus",
+          "Grafana"
+        ],
+        "key_projects": [
+          "VERITAS: AI-native legal intelligence platform with demonstrable reliability",
+          "TicketSmith: Ecosystem-aware automation platform for enterprise workflow optimization",
+          "Agentic Research Engine: Multi-agent research system with genuine learning capabilities"
+        ]
+      },
+      {
+        "position": "ITS Client Services Officer",
+        "company": "University of Tasmania",
+        "location": "Tasmania, Australia",
+        "period": "2015 - 2018",
+        "type": "Full-time",
+        "description": "Provided comprehensive IT support and technical solutions for university staff and students. Specialized in Microsoft technologies, troubleshooting complex technical problems, and developing procedural documentation.",
+        "achievements": [
+          "Delivered first-line IT support resolving complex technical problems across diverse user base",
+          "Developed comprehensive procedural documentation improving support team efficiency",
+          "Supported Microsoft technology stack ensuring optimal performance for academic environment",
+          "Maintained high user satisfaction through prompt problem resolution and clear communication"
+        ],
+        "technologies": [
+          "JavaScript",
+          "Node.js",
+          "React",
+          "Python",
+          "Docker",
+          "AWS",
+          "MongoDB",
+          "Redis",
+          "Elasticsearch"
+        ]
+      },
+      {
+        "position": "Director",
+        "company": "Digital Agency PTY LTD",
+        "location": "Australia",
+        "period": "2015 - 2018",
+        "type": "Full-time",
+        "description": "Founded and operated digital marketing agency specializing in helping nonprofits and small businesses maximize their digital impact. Expert-level certified across Google and Bing advertising platforms.",
+        "achievements": [
+          "Enabled nonprofits and small businesses to measure digital effectiveness with Google Analytics",
+          "Attracted new audiences through strategic Google AdWords and Google Ad Grants implementation",
+          "Achieved expert-level certification across Google and Bing advertising platforms",
+          "Delivered measurable digital marketing results for diverse client portfolio"
+        ],
+        "technologies": [
+          "Google Analytics",
+          "Google AdWords",
+          "Bing Ads",
+          "Digital Marketing",
+          "Campaign Management",
+          "Performance Tracking"
+        ]
+      },
+      {
+        "position": "Second Level IT Support Engineer",
+        "company": "The Wilderness Society Inc.",
+        "location": "Australia",
+        "period": "2012 - 2015",
+        "type": "Full-time",
+        "description": "Managed comprehensive IT infrastructure for national environmental organization. Specialized in lifecycle management of diverse server environments, network infrastructure, and communication systems.",
+        "achievements": [
+          "Managed lifecycle of 60+ Windows/Debian/Ubuntu servers ensuring optimal performance",
+          "Maintained heterogeneous network infrastructure supporting distributed organization",
+          "Administered Google Apps infrastructure and VOIP PBX systems",
+          "Executed complex upgrades, implementations, migrations and decommissioning projects"
+        ],
+        "technologies": [
+          "Windows Server",
+          "Debian/Ubuntu",
+          "Network Infrastructure",
+          "Google Apps",
+          "VOIP PBX",
+          "Server Management"
+        ]
+      },
+      {
+        "position": "Communications and Logistics Coordinator",
+        "company": "Greenpeace Australia Pacific",
+        "location": "Australia",
+        "period": "2010 - 2012",
+        "type": "Full-time",
+        "description": "Coordinated high-profile environmental campaigns combining technology, logistics, and strategic planning. Specialized in risk assessment, security planning, and ICT support for direct action initiatives.",
+        "achievements": [
+          "Planned and coordinated logistical implementation of direct actions and protests",
+          "Developed comprehensive risk assessments and security plans for campaign activities",
+          "Provided ICT support for actions ensuring reliable communication systems",
+          "Delivered activist training programs building organizational capacity"
+        ],
+        "technologies": [
+          "ICT Systems",
+          "Communications",
+          "Risk Assessment",
+          "Security Planning",
+          "Logistics Management"
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "name": "Python",
+        "category": "Programming Languages",
+        "level": 95,
+        "experience_years": 8,
+        "proficiency": "Expert",
+        "description": "Primary language for AI/ML development, system automation, and backend services"
+      },
+      {
+        "name": "JavaScript",
+        "category": "Programming Languages",
+        "level": 90,
+        "experience_years": 10,
+        "proficiency": "Expert",
+        "description": "Full-stack development, Node.js backend services, React frontend applications"
+      },
+      {
+        "name": "TypeScript",
+        "category": "Programming Languages",
+        "level": 85,
+        "experience_years": 6,
+        "proficiency": "Advanced",
+        "description": "Type-safe development for large-scale applications and robust API design"
+      },
+      {
+        "name": "Go",
+        "category": "Programming Languages",
+        "level": 75,
+        "experience_years": 4,
+        "proficiency": "Advanced",
+        "description": "High-performance backend services and microservices architecture"
+      },
+      {
+        "name": "Rust",
+        "category": "Programming Languages",
+        "level": 70,
+        "experience_years": 3,
+        "proficiency": "Intermediate",
+        "description": "Systems programming and performance-critical applications"
+      },
+      {
+        "name": "Machine Learning",
+        "category": "AI & Data Science",
+        "level": 95,
+        "experience_years": 7,
+        "proficiency": "Expert",
+        "description": "Deep expertise in ML algorithms, model development, and production deployment"
+      },
+      {
+        "name": "Deep Learning",
+        "category": "AI & Data Science",
+        "level": 90,
+        "experience_years": 6,
+        "proficiency": "Expert",
+        "description": "Neural network architectures, training optimization, and specialized AI applications"
+      },
+      {
+        "name": "Natural Language Processing",
+        "category": "AI & Data Science",
+        "level": 88,
+        "experience_years": 5,
+        "proficiency": "Expert",
+        "description": "LLM integration, text processing, and conversational AI systems"
+      },
+      {
+        "name": "Computer Vision",
+        "category": "AI & Data Science",
+        "level": 80,
+        "experience_years": 4,
+        "proficiency": "Advanced",
+        "description": "Image processing, object detection, and visual recognition systems"
+      },
+      {
+        "name": "TensorFlow",
+        "category": "AI & Data Science",
+        "level": 85,
+        "experience_years": 6,
+        "proficiency": "Advanced",
+        "description": "Production ML model development and deployment"
+      },
+      {
+        "name": "PyTorch",
+        "category": "AI & Data Science",
+        "level": 80,
+        "experience_years": 5,
+        "proficiency": "Advanced",
+        "description": "Research-focused deep learning and experimental AI development"
+      },
+      {
+        "name": "React",
+        "category": "Frontend",
+        "level": 90,
+        "experience_years": 8,
+        "proficiency": "Expert",
+        "description": "Modern frontend development with hooks, context, and performance optimization"
+      },
+      {
+        "name": "Vue.js",
+        "category": "Frontend",
+        "level": 75,
+        "experience_years": 5,
+        "proficiency": "Advanced",
+        "description": "Progressive web applications and component-based architecture"
+      },
+      {
+        "name": "Node.js",
+        "category": "Backend",
+        "level": 90,
+        "experience_years": 9,
+        "proficiency": "Expert",
+        "description": "Scalable backend services, API development, and microservices"
+      },
+      {
+        "name": "FastAPI",
+        "category": "Backend",
+        "level": 85,
+        "experience_years": 4,
+        "proficiency": "Advanced",
+        "description": "High-performance API development with automatic documentation"
+      },
+      {
+        "name": "GraphQL",
+        "category": "Backend",
+        "level": 75,
+        "experience_years": 3,
+        "proficiency": "Advanced",
+        "description": "Efficient API design and data fetching optimization"
+      },
+      {
+        "name": "Docker",
+        "category": "DevOps",
+        "level": 90,
+        "experience_years": 7,
+        "proficiency": "Expert",
+        "description": "Containerization, multi-stage builds, and development environment consistency"
+      },
+      {
+        "name": "Kubernetes",
+        "category": "DevOps",
+        "level": 80,
+        "experience_years": 5,
+        "proficiency": "Advanced",
+        "description": "Container orchestration, scaling, and production deployment"
+      },
+      {
+        "name": "GitHub Actions",
+        "category": "DevOps",
+        "level": 85,
+        "experience_years": 4,
+        "proficiency": "Advanced",
+        "description": "CI/CD pipeline design and automation workflows"
+      },
+      {
+        "name": "AWS",
+        "category": "Cloud Platforms",
+        "level": 85,
+        "experience_years": 6,
+        "proficiency": "Advanced",
+        "description": "Cloud architecture, serverless computing, and managed services"
+      },
+      {
+        "name": "Azure",
+        "category": "Cloud Platforms",
+        "level": 75,
+        "experience_years": 4,
+        "proficiency": "Advanced",
+        "description": "Enterprise cloud solutions and AI services integration"
+      },
+      {
+        "name": "System Architecture",
+        "category": "Software Design",
+        "level": 95,
+        "experience_years": 10,
+        "proficiency": "Expert",
+        "description": "Scalable system design, microservices architecture, and performance optimization"
+      },
+      {
+        "name": "API Design",
+        "category": "Software Design",
+        "level": 90,
+        "experience_years": 9,
+        "proficiency": "Expert",
+        "description": "RESTful services, GraphQL, and event-driven architecture"
+      },
+      {
+        "name": "Database Design",
+        "category": "Software Design",
+        "level": 85,
+        "experience_years": 8,
+        "proficiency": "Advanced",
+        "description": "SQL and NoSQL database optimization and schema design"
+      },
+      {
+        "name": "PostgreSQL",
+        "category": "Databases",
+        "level": 85,
+        "experience_years": 7,
+        "proficiency": "Advanced",
+        "description": "Advanced SQL, performance tuning, and data modeling"
+      },
+      {
+        "name": "MongoDB",
+        "category": "Databases",
+        "level": 80,
+        "experience_years": 6,
+        "proficiency": "Advanced",
+        "description": "Document-based data modeling and aggregation pipelines"
+      },
+      {
+        "name": "Redis",
+        "category": "Databases",
+        "level": 80,
+        "experience_years": 5,
+        "proficiency": "Advanced",
+        "description": "Caching strategies, session management, and real-time features"
+      }
+    ],
+    "achievements": [
+      {
+        "icon": "🏛️",
+        "title": "Systems Integration Excellence",
+        "description": "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP, significantly improving data exchange and operational efficiency for Tasmania's public housing sector.",
+        "date": "2018-2024",
+        "category": "Technical Achievement",
+        "impact": "Improved service delivery for vulnerable communities",
+        "protected": true,
+        "verified": true,
+        "source": "manual_verification",
+        "last_verified": "2025-07-31T13:48:36.226Z"
+      },
+      {
+        "icon": "🛡️",
+        "title": "Cybersecurity Leadership",
+        "description": "Led comprehensive cybersecurity initiatives at Homes Tasmania, significantly improving system security posture and reducing vulnerabilities across critical housing management systems.",
+        "date": "2020-2024",
+        "category": "Security Achievement",
+        "impact": "Enhanced protection of sensitive housing data",
+        "protected": true,
+        "verified": true,
+        "source": "manual_verification",
+        "last_verified": "2025-07-31T13:48:36.232Z"
+      },
+      {
+        "icon": "🤖",
+        "title": "AI Innovation Pioneer",
+        "description": "First to showcase and implement generative AI applications for data analysis and decision-making processes within Tasmania's public housing sector, pioneering practical AI adoption.",
+        "date": "2023-2024",
+        "category": "Innovation",
+        "impact": "Advanced AI adoption in public sector",
+        "protected": true,
+        "verified": true,
+        "source": "manual_verification",
+        "last_verified": "2025-07-31T13:48:36.232Z"
+      },
+      {
+        "icon": "🌿",
+        "title": "Environmental Campaign Technology Leadership",
+        "description": "Managed comprehensive IT infrastructure for The Wilderness Society and coordinated high-profile Greenpeace campaigns, combining technology expertise with environmental advocacy.",
+        "date": "2010-2015",
+        "category": "Social Impact",
+        "impact": "Supported critical environmental protection campaigns",
+        "protected": true,
+        "verified": true,
+        "source": "manual_verification",
+        "last_verified": "2025-07-31T13:48:36.232Z"
+      },
+      {
+        "icon": "🎓",
+        "title": "Professional Certification Excellence",
+        "description": "Achieved expert-level certifications across Google Analytics, AdWords, and Bing Ads platforms, demonstrating commitment to continuous learning and professional development.",
+        "date": "2015",
+        "category": "Professional Development",
+        "certifications": [
+          "Google Analytics Individual Qualification",
+          "Google AdWords Certification",
+          "Bing Ads Accredited Professional"
+        ],
+        "protected": true,
+        "verified": true,
+        "source": "manual_verification",
+        "last_verified": "2025-07-31T13:48:36.232Z"
+      },
+      {
+        "icon": "⚡",
+        "title": "Automation & Process Improvement",
+        "description": "Developed automation scripts in Python, PowerShell, and JavaScript that streamlined operations and improved service delivery across multiple organizations.",
+        "date": "2018-2024",
+        "category": "Process Innovation",
+        "impact": "Reduced manual workload and improved efficiency",
+        "protected": true,
+        "verified": true,
+        "source": "manual_verification",
+        "last_verified": "2025-07-31T13:48:36.232Z"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Self-Directed AI & Machine Learning Specialization",
+        "institution": "Independent Study",
+        "period": "2018 - Present",
+        "description": "Comprehensive self-directed learning program covering advanced AI/ML topics, autonomous systems, and emerging technologies through online courses, research papers, and practical projects.",
+        "key_areas": [
+          "Deep Learning & Neural Networks",
+          "Multi-Agent Systems",
+          "Natural Language Processing",
+          "Computer Vision",
+          "Reinforcement Learning",
+          "AI Safety & Ethics"
+        ],
+        "certifications": [
+          "Deep Learning Specialization (Coursera)",
+          "Machine Learning Engineering (Multiple Platforms)",
+          "Advanced AI Systems Architecture"
+        ]
+      },
+      {
+        "degree": "Computer Science Foundation",
+        "institution": "Self-Taught & Professional Experience",
+        "period": "2014 - 2018",
+        "description": "Built comprehensive computer science foundation through combination of self-study, professional projects, and mentorship from industry experts.",
+        "key_areas": [
+          "Data Structures & Algorithms",
+          "Software Engineering Principles",
+          "System Design & Architecture",
+          "Database Systems",
+          "Network Programming",
+          "DevOps & Infrastructure"
+        ]
+      }
+    ],
+    "careerProgression": {
+      "trend": "ascending",
+      "progressionRate": "strong",
+      "nextLevelReadiness": "ready",
+      "roleCount": 5,
+      "diversityScore": 60
+    },
+    "strengthAreas": {
+      "technical": [
+        {
+          "name": "Python",
+          "category": "Programming Languages",
+          "level": 95,
+          "experience_years": 8,
+          "proficiency": "Expert",
+          "description": "Primary language for AI/ML development, system automation, and backend services"
+        },
+        {
+          "name": "JavaScript",
+          "category": "Programming Languages",
+          "level": 90,
+          "experience_years": 10,
+          "proficiency": "Expert",
+          "description": "Full-stack development, Node.js backend services, React frontend applications"
+        },
+        {
+          "name": "TypeScript",
+          "category": "Programming Languages",
+          "level": 85,
+          "experience_years": 6,
+          "proficiency": "Advanced",
+          "description": "Type-safe development for large-scale applications and robust API design"
+        },
+        {
+          "name": "Go",
+          "category": "Programming Languages",
+          "level": 75,
+          "experience_years": 4,
+          "proficiency": "Advanced",
+          "description": "High-performance backend services and microservices architecture"
+        },
+        {
+          "name": "Rust",
+          "category": "Programming Languages",
+          "level": 70,
+          "experience_years": 3,
+          "proficiency": "Intermediate",
+          "description": "Systems programming and performance-critical applications"
+        }
+      ],
+      "leadership": [],
+      "achievements": [
+        {
+          "icon": "🏛️",
+          "title": "Systems Integration Excellence",
+          "description": "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP, significantly improving data exchange and operational efficiency for Tasmania's public housing sector.",
+          "date": "2018-2024",
+          "category": "Technical Achievement",
+          "impact": "Improved service delivery for vulnerable communities",
+          "protected": true,
+          "verified": true,
+          "source": "manual_verification",
+          "last_verified": "2025-07-31T13:48:36.226Z"
+        },
+        {
+          "icon": "🛡️",
+          "title": "Cybersecurity Leadership",
+          "description": "Led comprehensive cybersecurity initiatives at Homes Tasmania, significantly improving system security posture and reducing vulnerabilities across critical housing management systems.",
+          "date": "2020-2024",
+          "category": "Security Achievement",
+          "impact": "Enhanced protection of sensitive housing data",
+          "protected": true,
+          "verified": true,
+          "source": "manual_verification",
+          "last_verified": "2025-07-31T13:48:36.232Z"
+        },
+        {
+          "icon": "🤖",
+          "title": "AI Innovation Pioneer",
+          "description": "First to showcase and implement generative AI applications for data analysis and decision-making processes within Tasmania's public housing sector, pioneering practical AI adoption.",
+          "date": "2023-2024",
+          "category": "Innovation",
+          "impact": "Advanced AI adoption in public sector",
+          "protected": true,
+          "verified": true,
+          "source": "manual_verification",
+          "last_verified": "2025-07-31T13:48:36.232Z"
+        }
+      ],
+      "dominantCategory": "technical"
+    },
+    "yearOfExperience": 10
+  },
+  "currentPositioning": {
+    "currentLevel": "Senior Analyst",
+    "levelInfo": {
+      "experience": "5-7 years",
+      "responsibilities": [
+        "System analysis",
+        "Technical documentation",
+        "Stakeholder liaison"
+      ],
+      "skills": [
+        "Analysis",
+        "Documentation",
+        "Communication"
+      ],
+      "salaryRange": {
+        "min": 100000,
+        "max": 130000
+      }
+    },
+    "marketAlignment": {
+      "salaryPosition": 71.875,
+      "skillTrendAlignment": 10,
+      "experiencePosition": 100,
+      "overallMarketFit": 56
+    },
+    "competitiveAdvantages": [
+      "Strong career progression trajectory",
+      "Strong experience foundation",
+      "Proven track record of achievements"
+    ],
+    "improvementAreas": [
+      "Develop Systems Analysis, API Integration skills",
+      "Strengthen leadership and management capabilities",
+      "Pursue relevant industry certifications",
+      "Build thought leadership through content and speaking"
+    ],
+    "marketReadiness": {
+      "immediate": {
+        "score": 100,
+        "level": "High",
+        "timeframe": "0-6 months",
+        "keyActions": [
+          "Optimize CV for target roles",
+          "Prepare portfolio showcasing key achievements",
+          "Practice technical and behavioral interviews"
+        ]
+      },
+      "shortTerm": {
+        "score": 75,
+        "level": "Medium-High",
+        "timeframe": "6-18 months",
+        "keyActions": [
+          "Complete 1-2 strategic certifications",
+          "Lead high-visibility projects",
+          "Build strategic professional network",
+          "Develop presentation and communication skills"
+        ]
+      },
+      "longTerm": {
+        "score": 60,
+        "level": "Developing",
+        "timeframe": "18+ months",
+        "keyActions": [
+          "Develop executive-level strategic thinking",
+          "Build thought leadership in target areas",
+          "Gain P&L or budget management experience",
+          "Establish industry recognition and speaking opportunities"
+        ]
+      }
+    }
+  },
+  "pathwayScenarios": {
+    "technical": {
+      "name": "Technical Leadership Track",
+      "description": "Focus on technical excellence and solution leadership",
+      "pathways": [
+        {
+          "role": "Principal Systems Analyst",
+          "timeframe": "1-2 years",
+          "probability": 85,
+          "requirements": [
+            "Advanced systems analysis",
+            "Mentoring junior staff",
+            "Cross-functional collaboration"
+          ],
+          "salaryRange": {
+            "min": 140000,
+            "max": 180000
+          }
+        },
+        {
+          "role": "Solution Architect",
+          "timeframe": "2-3 years",
+          "probability": 75,
+          "requirements": [
+            "Enterprise architecture",
+            "Cloud expertise",
+            "Technical strategy"
+          ],
+          "salaryRange": {
+            "min": 160000,
+            "max": 200000
+          }
+        },
+        {
+          "role": "Chief Technology Officer",
+          "timeframe": "4-6 years",
+          "probability": 45,
+          "requirements": [
+            "Technology vision",
+            "Executive leadership",
+            "Board interaction"
+          ],
+          "salaryRange": {
+            "min": 250000,
+            "max": 400000
+          }
+        }
+      ],
+      "timeline": "2-5 years",
+      "requirements": [
+        "Deep technical expertise",
+        "Architecture skills",
+        "Innovation leadership"
+      ],
+      "fitScore": 100,
+      "riskLevel": "Low-Medium",
+      "rewardPotential": "High"
+    },
+    "management": {
+      "name": "People Management Track",
+      "description": "Focus on team leadership and organizational impact",
+      "pathways": [
+        {
+          "role": "Team Lead",
+          "timeframe": "1 year",
+          "probability": 80,
+          "requirements": [
+            "Team management",
+            "Project delivery",
+            "Performance management"
+          ],
+          "salaryRange": {
+            "min": 130000,
+            "max": 160000
+          }
+        },
+        {
+          "role": "Engineering Manager",
+          "timeframe": "2-4 years",
+          "probability": 70,
+          "requirements": [
+            "People leadership",
+            "Strategic planning",
+            "Budget management"
+          ],
+          "salaryRange": {
+            "min": 170000,
+            "max": 220000
+          }
+        },
+        {
+          "role": "Director of Technology",
+          "timeframe": "4-7 years",
+          "probability": 50,
+          "requirements": [
+            "Organizational strategy",
+            "Executive presence",
+            "Cross-functional leadership"
+          ],
+          "salaryRange": {
+            "min": 220000,
+            "max": 300000
+          }
+        }
+      ],
+      "timeline": "3-7 years",
+      "requirements": [
+        "Leadership skills",
+        "People management",
+        "Strategic thinking"
+      ],
+      "fitScore": 75,
+      "riskLevel": "Medium",
+      "rewardPotential": "High"
+    },
+    "consulting": {
+      "name": "Strategic Consulting Track",
+      "description": "Focus on advisory roles and strategic consulting",
+      "pathways": [
+        {
+          "role": "Senior Consultant",
+          "timeframe": "1-2 years",
+          "probability": 75,
+          "requirements": [
+            "Client management",
+            "Domain expertise",
+            "Proposal development"
+          ],
+          "salaryRange": {
+            "min": 120000,
+            "max": 160000
+          }
+        },
+        {
+          "role": "Principal Consultant",
+          "timeframe": "3-4 years",
+          "probability": 65,
+          "requirements": [
+            "Practice development",
+            "Thought leadership",
+            "Business development"
+          ],
+          "salaryRange": {
+            "min": 180000,
+            "max": 250000
+          }
+        },
+        {
+          "role": "Partner/Director",
+          "timeframe": "5-8 years",
+          "probability": 35,
+          "requirements": [
+            "Business ownership",
+            "Client relationship management",
+            "Practice leadership"
+          ],
+          "salaryRange": {
+            "min": 300000,
+            "max": 500000
+          }
+        }
+      ],
+      "timeline": "2-4 years",
+      "requirements": [
+        "Domain expertise",
+        "Client management",
+        "Business acumen"
+      ],
+      "fitScore": 75,
+      "riskLevel": "Medium-High",
+      "rewardPotential": "Very High"
+    },
+    "entrepreneurial": {
+      "name": "Entrepreneurial Track",
+      "description": "Focus on innovation, startups, and business creation",
+      "pathways": [
+        {
+          "role": "Technology Advisor",
+          "timeframe": "1-2 years",
+          "probability": 70,
+          "requirements": [
+            "Advisory experience",
+            "Network building",
+            "Strategic guidance"
+          ],
+          "salaryRange": {
+            "min": 100000,
+            "max": 200000
+          }
+        },
+        {
+          "role": "Startup CTO",
+          "timeframe": "2-4 years",
+          "probability": 55,
+          "requirements": [
+            "Startup experience",
+            "Technical leadership",
+            "Equity participation"
+          ],
+          "salaryRange": {
+            "min": 150000,
+            "max": 300000
+          }
+        },
+        {
+          "role": "Founder/CEO",
+          "timeframe": "3-8 years",
+          "probability": 25,
+          "requirements": [
+            "Business creation",
+            "Investment readiness",
+            "Market validation"
+          ],
+          "salaryRange": {
+            "min": 50000,
+            "max": 1000000
+          }
+        }
+      ],
+      "timeline": "3-8 years",
+      "requirements": [
+        "Business development",
+        "Risk tolerance",
+        "Innovation mindset"
+      ],
+      "fitScore": 75,
+      "riskLevel": "High",
+      "rewardPotential": "Very High"
+    }
+  },
+  "opportunityReadiness": {
+    "immediate": {
+      "timeframe": "0-6 months",
+      "readyOpportunities": [],
+      "developingOpportunities": [],
+      "overallScore": 0
+    },
+    "shortTerm": {
+      "timeframe": "6-18 months",
+      "readyOpportunities": [
+        {
+          "role": "Principal Systems Analyst",
+          "timeframe": "1-2 years",
+          "probability": 85,
+          "requirements": [
+            "Advanced systems analysis",
+            "Mentoring junior staff",
+            "Cross-functional collaboration"
+          ],
+          "salaryRange": {
+            "min": 140000,
+            "max": 180000
+          },
+          "scenario": "Technical Leadership Track",
+          "fitScore": 100,
+          "riskLevel": "Low-Medium"
+        },
+        {
+          "role": "Team Lead",
+          "timeframe": "1 year",
+          "probability": 80,
+          "requirements": [
+            "Team management",
+            "Project delivery",
+            "Performance management"
+          ],
+          "salaryRange": {
+            "min": 130000,
+            "max": 160000
+          },
+          "scenario": "People Management Track",
+          "fitScore": 75,
+          "riskLevel": "Medium"
+        },
+        {
+          "role": "Senior Consultant",
+          "timeframe": "1-2 years",
+          "probability": 75,
+          "requirements": [
+            "Client management",
+            "Domain expertise",
+            "Proposal development"
+          ],
+          "salaryRange": {
+            "min": 120000,
+            "max": 160000
+          },
+          "scenario": "Strategic Consulting Track",
+          "fitScore": 75,
+          "riskLevel": "Medium-High"
+        },
+        {
+          "role": "Technology Advisor",
+          "timeframe": "1-2 years",
+          "probability": 70,
+          "requirements": [
+            "Advisory experience",
+            "Network building",
+            "Strategic guidance"
+          ],
+          "salaryRange": {
+            "min": 100000,
+            "max": 200000
+          },
+          "scenario": "Entrepreneurial Track",
+          "fitScore": 75,
+          "riskLevel": "High"
+        }
+      ],
+      "developingOpportunities": [],
+      "overallScore": 80
+    },
+    "longTerm": {
+      "timeframe": "18+ months",
+      "readyOpportunities": [
+        {
+          "role": "Solution Architect",
+          "timeframe": "2-3 years",
+          "probability": 75,
+          "requirements": [
+            "Enterprise architecture",
+            "Cloud expertise",
+            "Technical strategy"
+          ],
+          "salaryRange": {
+            "min": 160000,
+            "max": 200000
+          },
+          "scenario": "Technical Leadership Track",
+          "fitScore": 100,
+          "riskLevel": "Low-Medium"
+        },
+        {
+          "role": "Engineering Manager",
+          "timeframe": "2-4 years",
+          "probability": 70,
+          "requirements": [
+            "People leadership",
+            "Strategic planning",
+            "Budget management"
+          ],
+          "salaryRange": {
+            "min": 170000,
+            "max": 220000
+          },
+          "scenario": "People Management Track",
+          "fitScore": 75,
+          "riskLevel": "Medium"
+        }
+      ],
+      "developingOpportunities": [
+        {
+          "role": "Chief Technology Officer",
+          "timeframe": "4-6 years",
+          "probability": 45,
+          "requirements": [
+            "Technology vision",
+            "Executive leadership",
+            "Board interaction"
+          ],
+          "salaryRange": {
+            "min": 250000,
+            "max": 400000
+          },
+          "scenario": "Technical Leadership Track",
+          "fitScore": 100,
+          "riskLevel": "Low-Medium"
+        },
+        {
+          "role": "Director of Technology",
+          "timeframe": "4-7 years",
+          "probability": 50,
+          "requirements": [
+            "Organizational strategy",
+            "Executive presence",
+            "Cross-functional leadership"
+          ],
+          "salaryRange": {
+            "min": 220000,
+            "max": 300000
+          },
+          "scenario": "People Management Track",
+          "fitScore": 75,
+          "riskLevel": "Medium"
+        },
+        {
+          "role": "Principal Consultant",
+          "timeframe": "3-4 years",
+          "probability": 65,
+          "requirements": [
+            "Practice development",
+            "Thought leadership",
+            "Business development"
+          ],
+          "salaryRange": {
+            "min": 180000,
+            "max": 250000
+          },
+          "scenario": "Strategic Consulting Track",
+          "fitScore": 75,
+          "riskLevel": "Medium-High"
+        },
+        {
+          "role": "Partner/Director",
+          "timeframe": "5-8 years",
+          "probability": 35,
+          "requirements": [
+            "Business ownership",
+            "Client relationship management",
+            "Practice leadership"
+          ],
+          "salaryRange": {
+            "min": 300000,
+            "max": 500000
+          },
+          "scenario": "Strategic Consulting Track",
+          "fitScore": 75,
+          "riskLevel": "Medium-High"
+        },
+        {
+          "role": "Startup CTO",
+          "timeframe": "2-4 years",
+          "probability": 55,
+          "requirements": [
+            "Startup experience",
+            "Technical leadership",
+            "Equity participation"
+          ],
+          "salaryRange": {
+            "min": 150000,
+            "max": 300000
+          },
+          "scenario": "Entrepreneurial Track",
+          "fitScore": 75,
+          "riskLevel": "High"
+        },
+        {
+          "role": "Founder/CEO",
+          "timeframe": "3-8 years",
+          "probability": 25,
+          "requirements": [
+            "Business creation",
+            "Investment readiness",
+            "Market validation"
+          ],
+          "salaryRange": {
+            "min": 50000,
+            "max": 1000000
+          },
+          "scenario": "Entrepreneurial Track",
+          "fitScore": 75,
+          "riskLevel": "High"
+        }
+      ],
+      "overallScore": 50
+    }
+  },
+  "developmentRoadmaps": {
+    "skillDevelopment": {
+      "title": "Skill Development Roadmap",
+      "timeframe": "12-24 months",
+      "priorities": [
+        {
+          "skill": "Cloud Architecture",
+          "priority": "High",
+          "timeline": "3-6 months",
+          "method": "AWS/Azure certification"
+        },
+        {
+          "skill": "AI/ML Implementation",
+          "priority": "High",
+          "timeline": "6-12 months",
+          "method": "Hands-on projects + coursework"
+        },
+        {
+          "skill": "Executive Communication",
+          "priority": "Medium",
+          "timeline": "6-9 months",
+          "method": "Presentation training + practice"
+        },
+        {
+          "skill": "Strategic Planning",
+          "priority": "Medium",
+          "timeline": "9-12 months",
+          "method": "MBA coursework or executive education"
+        }
+      ],
+      "milestones": [
+        {
+          "milestone": "Complete cloud certification",
+          "timeline": "3 months",
+          "measurable": "AWS Solutions Architect certification"
+        },
+        {
+          "milestone": "Implement AI project",
+          "timeline": "6 months",
+          "measurable": "Deploy production AI solution"
+        },
+        {
+          "milestone": "Lead strategic initiative",
+          "timeline": "9 months",
+          "measurable": "Successfully deliver cross-functional project"
+        },
+        {
+          "milestone": "Speak at industry event",
+          "timeline": "12 months",
+          "measurable": "Present at major conference or meetup"
+        }
+      ]
+    },
+    "experienceBuilding": {
+      "title": "Experience Building Roadmap",
+      "timeframe": "6-18 months",
+      "priorities": [
+        {
+          "experience": "Team Leadership",
+          "priority": "High",
+          "timeline": "0-6 months",
+          "method": "Lead current team initiatives"
+        },
+        {
+          "experience": "Budget Management",
+          "priority": "Medium",
+          "timeline": "6-12 months",
+          "method": "Take on P&L responsibility"
+        },
+        {
+          "experience": "Board Presentation",
+          "priority": "Low",
+          "timeline": "12-18 months",
+          "method": "Present to executive stakeholders"
+        }
+      ],
+      "milestones": []
+    },
+    "networkBuilding": {
+      "title": "Network Building Roadmap",
+      "timeframe": "6-12 months",
+      "priorities": [
+        {
+          "activity": "Industry Meetups",
+          "priority": "High",
+          "frequency": "Monthly",
+          "target": "Local tech community"
+        },
+        {
+          "activity": "LinkedIn Engagement",
+          "priority": "High",
+          "frequency": "Weekly",
+          "target": "Industry thought leaders"
+        },
+        {
+          "activity": "Conference Attendance",
+          "priority": "Medium",
+          "frequency": "Quarterly",
+          "target": "Major industry events"
+        },
+        {
+          "activity": "Mentoring",
+          "priority": "Medium",
+          "frequency": "Ongoing",
+          "target": "Junior professionals"
+        }
+      ],
+      "milestones": []
+    },
+    "thoughtLeadership": {
+      "title": "Thought Leadership Roadmap",
+      "timeframe": "12-36 months",
+      "priorities": [
+        {
+          "activity": "Technical Blog",
+          "priority": "High",
+          "timeline": "0-3 months",
+          "target": "Start regular technical writing"
+        },
+        {
+          "activity": "Industry Speaking",
+          "priority": "Medium",
+          "timeline": "6-12 months",
+          "target": "Speak at 2-3 events annually"
+        },
+        {
+          "activity": "Research Publication",
+          "priority": "Low",
+          "timeline": "12-24 months",
+          "target": "Contribute to industry research"
+        }
+      ],
+      "milestones": []
+    }
+  },
+  "strategicRecommendations": {
+    "executiveSummary": "Focus on technical leadership track with 100% profile match. 0 immediate opportunities ready.",
+    "recommendedPathway": "Technical Leadership Track",
+    "pathwayRationale": "Best alignment with current strengths in technical and career progression pattern.",
+    "actionPlan": {
+      "immediate": {
+        "timeframe": "0-3 months",
+        "actions": [
+          "Optimize LinkedIn profile for target roles and industry visibility",
+          "Update CV to highlight quantifiable achievements and technical leadership",
+          "Identify and connect with 3-5 industry leaders in target companies",
+          "Complete skills assessment and identify top 3 development priorities"
+        ],
+        "success_metrics": [
+          "Profile optimization complete",
+          "Initial networking connections established"
+        ]
+      },
+      "shortTerm": {
+        "timeframe": "3-12 months",
+        "actions": [
+          "Focus on technical leadership track to maximize career fit (100% match)",
+          "Begin systematic skill development in cloud architecture and AI/ML",
+          "Take on leadership role in high-visibility project",
+          "Establish regular thought leadership through technical writing or speaking"
+        ],
+        "success_metrics": [
+          "Leadership role secured",
+          "First certification completed",
+          "Speaking opportunity booked"
+        ]
+      },
+      "longTerm": {
+        "timeframe": "1-3 years",
+        "actions": [
+          "Target Solution Architect role within 2-3 years",
+          "Build recognized expertise in AI implementation and digital transformation",
+          "Develop strategic business acumen through executive education or MBA",
+          "Establish industry recognition as thought leader in technology innovation"
+        ],
+        "success_metrics": [
+          "Target role achieved",
+          "Industry recognition established",
+          "Salary target met"
+        ]
+      }
+    },
+    "riskManagement": {
+      "identifiedRisks": [
+        "Market saturation in technology roles",
+        "Economic downturn impact",
+        "Skills obsolescence"
+      ],
+      "mitigationStrategies": [
+        "Maintain strong performance in current role while pursuing advancement",
+        "Build diverse skill set to remain adaptable to market changes",
+        "Develop multiple pathway options to reduce dependency on single track",
+        "Regular market analysis to adjust strategy based on industry trends"
+      ],
+      "contingencyPlanning": "Maintain multiple pathway options and transferable skills"
+    },
+    "successMetrics": {
+      "careerAdvancement": "Role progression within 18 months",
+      "marketPositioning": "Top 25% of market positioning score",
+      "compensation": "20% salary increase within 24 months",
+      "industryRecognition": "Speaking opportunity within 12 months"
+    }
+  },
+  "executiveSummary": {
+    "currentPosition": "Senior Analyst with 56% market alignment",
+    "recommendedTrack": "Technical Leadership Track",
+    "readinessAssessment": "0 immediate opportunities ready",
+    "keyStrengths": [
+      "Strong career progression trajectory",
+      "Strong experience foundation",
+      "Proven track record of achievements"
+    ],
+    "priorityActions": [
+      "Optimize for immediate market opportunities",
+      "Develop strategic skills aligned with chosen pathway",
+      "Build industry network and thought leadership"
+    ],
+    "timeline": "Strategic progression achievable within 2-3 years",
+    "confidenceLevel": "Medium"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "timestamp": "2025-08-03T07:39:22.159Z",
+  "currentWorkflow": {
+    "averageRunTime": 115,
+    "jobCount": 4,
+    "stepCount": 27,
+    "dependencyCount": {
+      "nodeSetup": true,
+      "caching": false,
+      "npmInstall": true,
+      "dependencies": true
+    },
+    "runnerType": "ubuntu-latest",
+    "cacheUsage": {
+      "nodeModules": false,
+      "npmCache": true,
+      "actionsCache": false,
+      "cacheHitOptimization": false
+    },
+    "parallelizationOpportunities": {
+      "currentlyParallel": false,
+      "canParallelize": true,
+      "independentOperations": [
+        "linting",
+        "testing",
+        "data-processing"
+      ]
+    }
+  },
+  "optimizations": [
+    {
+      "category": "Caching",
+      "title": "Implement Advanced Node.js Caching",
+      "description": "Cache node_modules and npm cache for faster dependency installation",
+      "estimatedSavings": "30-60 seconds",
+      "implementation": "Add actions/cache with node_modules and ~/.npm paths",
+      "priority": "high"
+    },
+    {
+      "category": "Parallelization",
+      "title": "Parallel Job Execution",
+      "description": "Run independent jobs (analysis, testing, generation) in parallel",
+      "estimatedSavings": "40-80 seconds",
+      "implementation": "Split workflow into parallel jobs with proper dependencies",
+      "priority": "high"
+    },
+    {
+      "category": "Runner Optimization",
+      "title": "Use GitHub-hosted Runners Efficiently",
+      "description": "Optimize runner selection and resource usage",
+      "estimatedSavings": "10-20 seconds",
+      "implementation": "Use ubuntu-latest-4core for CPU-intensive tasks",
+      "priority": "medium"
+    },
+    {
+      "category": "Data Processing",
+      "title": "Incremental Data Processing",
+      "description": "Only process changed data instead of full regeneration",
+      "estimatedSavings": "60-120 seconds",
+      "implementation": "Implement change detection and conditional processing",
+      "priority": "high"
+    },
+    {
+      "category": "Step Optimization",
+      "title": "Combine Related Steps",
+      "description": "Reduce step overhead by combining related operations",
+      "estimatedSavings": "5-15 seconds",
+      "implementation": "Group related commands in single steps",
+      "priority": "low"
+    },
+    {
+      "category": "Artifact Management",
+      "title": "Optimize Artifact Handling",
+      "description": "Streamline artifact upload/download operations",
+      "estimatedSavings": "10-30 seconds",
+      "implementation": "Use selective artifact paths and compression",
+      "priority": "medium"
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Implement node_modules caching with actions/cache",
+      "Split workflow into parallel jobs for independent operations",
+      "Add incremental data processing with change detection"
+    ],
+    "shortTerm": [
+      "Optimize artifact handling and compression",
+      "Use larger GitHub runners for CPU-intensive tasks",
+      "Implement conditional step execution based on changes"
+    ],
+    "longTerm": [
+      "Consider self-hosted runners for consistent performance",
+      "Implement workflow result caching for repeated operations",
+      "Add performance monitoring and regression detection"
+    ]
+  },
+  "estimatedImprovements": {
+    "currentRunTime": 115,
+    "optimizedRunTime": 60,
+    "timeSavings": 55,
+    "percentageImprovement": 104,
+    "costSavings": "Estimated 30-50% reduction in workflow minutes"
+  }
+}

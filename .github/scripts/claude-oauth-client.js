@@ -10,11 +10,11 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const crypto = require('crypto');
-const https = require('https');
-const { URL } = require('url');
+import { promises as fs } from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import https from 'https';
+import { URL } from 'url';
 
 /**
  * Claude Max OAuth Client with PKCE authentication
@@ -535,8 +535,8 @@ async function main() {
     }
 }
 
-module.exports = { ClaudeMaxOAuthClient, MaxQuotaExhaustedError };
+export { ClaudeMaxOAuthClient, MaxQuotaExhaustedError };
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

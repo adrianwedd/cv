@@ -1,0 +1,451 @@
+{
+  "timestamp": "2025-08-03T04:41:14.718Z",
+  "config": {
+    "analysisDate": "2025-08-03T04:41:14.701Z",
+    "marketScope": "technology",
+    "geographicScope": "australia",
+    "careerLevel": "senior",
+    "targetRoles": [
+      "systems-analyst",
+      "technical-lead",
+      "solution-architect"
+    ]
+  },
+  "skillTrends": {
+    "trendingSkills": [
+      {
+        "skill": "Systems Analysis",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 140000,
+        "marketValue": 47,
+        "trend": "stable"
+      },
+      {
+        "skill": "API Integration",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 140000,
+        "marketValue": 47,
+        "trend": "stable"
+      },
+      {
+        "skill": "Cybersecurity",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 140000,
+        "marketValue": 47,
+        "trend": "stable"
+      },
+      {
+        "skill": "Cloud Computing",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 140000,
+        "marketValue": 47,
+        "trend": "stable"
+      },
+      {
+        "skill": "Python",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 140000,
+        "marketValue": 47,
+        "trend": "stable"
+      },
+      {
+        "skill": "Leadership",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 160000,
+        "marketValue": 53,
+        "trend": "stable"
+      },
+      {
+        "skill": "Digital Transformation",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 160000,
+        "marketValue": 53,
+        "trend": "stable"
+      },
+      {
+        "skill": "AI Implementation",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 160000,
+        "marketValue": 53,
+        "trend": "stable"
+      },
+      {
+        "skill": "Project Management",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 160000,
+        "marketValue": 53,
+        "trend": "stable"
+      },
+      {
+        "skill": "Stakeholder Management",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 160000,
+        "marketValue": 53,
+        "trend": "stable"
+      },
+      {
+        "skill": "Solution Architecture",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 180000,
+        "marketValue": 60,
+        "trend": "stable"
+      },
+      {
+        "skill": "AWS",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 180000,
+        "marketValue": 60,
+        "trend": "stable"
+      },
+      {
+        "skill": "Microservices",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 180000,
+        "marketValue": 60,
+        "trend": "stable"
+      },
+      {
+        "skill": "DevOps",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 180000,
+        "marketValue": 60,
+        "trend": "stable"
+      },
+      {
+        "skill": "Security Architecture",
+        "demand": 1,
+        "demandScore": 99.99999999999999,
+        "averageSalary": 180000,
+        "marketValue": 60,
+        "trend": "stable"
+      }
+    ],
+    "analysisDate": "2025-08-03T04:41:14.706Z"
+  },
+  "salaryInsights": {
+    "overallMarket": {
+      "averageSalary": 160000,
+      "salaryRange": {
+        "min": 140000,
+        "max": 180000
+      },
+      "locationPremiums": {
+        "Sydney": {
+          "averageSalary": 140000,
+          "premium": -12
+        },
+        "Melbourne": {
+          "averageSalary": 160000,
+          "premium": 0
+        },
+        "Brisbane": {
+          "averageSalary": 180000,
+          "premium": 13
+        }
+      },
+      "experiencePremiums": {}
+    },
+    "roleSpecific": {
+      "seniorsystemsanalyst": {
+        "title": "Senior Systems Analyst",
+        "salaries": [
+          140000
+        ],
+        "averageSalary": 140000,
+        "marketPosition": "Market Rate"
+      },
+      "technicalleaddigitaltransformation": {
+        "title": "Technical Lead - Digital Transformation",
+        "salaries": [
+          160000
+        ],
+        "averageSalary": 160000,
+        "marketPosition": "Market Rate"
+      },
+      "solutionarchitectcloudinfrastructure": {
+        "title": "Solution Architect - Cloud Infrastructure",
+        "salaries": [
+          180000
+        ],
+        "averageSalary": 180000,
+        "marketPosition": "Above Average"
+      }
+    },
+    "competitivePositioning": {}
+  },
+  "opportunities": [
+    {
+      "id": "job-003",
+      "title": "Solution Architect - Cloud Infrastructure",
+      "company": "Cloud Dynamics",
+      "location": "Brisbane, QLD",
+      "salary": {
+        "min": 160000,
+        "max": 200000,
+        "currency": "AUD"
+      },
+      "skills": [
+        "Solution Architecture",
+        "AWS",
+        "Microservices",
+        "DevOps",
+        "Security Architecture"
+      ],
+      "experience": "8+ years",
+      "remote": true,
+      "posted": "2025-08-03",
+      "opportunityScore": {
+        "overall": 65,
+        "breakdown": {
+          "skills": 20,
+          "experience": 75,
+          "location": 85,
+          "salary": 100,
+          "company": 80
+        },
+        "skillMatches": 1,
+        "totalSkills": 5
+      },
+      "matchAnalysis": {
+        "strengths": [
+          "Excellent location match",
+          "Competitive salary offering"
+        ],
+        "improvements": [
+          "Consider developing additional required skills"
+        ],
+        "successProbability": "Medium"
+      },
+      "applicationStrategy": {
+        "priority": "Medium",
+        "approach": "Skill development then application",
+        "timeline": "Apply within 1-2 weeks after preparation",
+        "preparation": [
+          "Address skill gaps through online learning",
+          "Network with company employees",
+          "Enhance portfolio"
+        ]
+      }
+    },
+    {
+      "id": "job-001",
+      "title": "Senior Systems Analyst",
+      "company": "Tech Solutions Ltd",
+      "location": "Sydney, NSW",
+      "salary": {
+        "min": 120000,
+        "max": 160000,
+        "currency": "AUD"
+      },
+      "skills": [
+        "Systems Analysis",
+        "API Integration",
+        "Cybersecurity",
+        "Cloud Computing",
+        "Python"
+      ],
+      "experience": "5+ years",
+      "remote": true,
+      "posted": "2025-08-01",
+      "opportunityScore": {
+        "overall": 64,
+        "breakdown": {
+          "skills": 20,
+          "experience": 75,
+          "location": 85,
+          "salary": 93,
+          "company": 80
+        },
+        "skillMatches": 1,
+        "totalSkills": 5
+      },
+      "matchAnalysis": {
+        "strengths": [
+          "Excellent location match",
+          "Competitive salary offering"
+        ],
+        "improvements": [
+          "Consider developing additional required skills"
+        ],
+        "successProbability": "Medium"
+      },
+      "applicationStrategy": {
+        "priority": "Medium",
+        "approach": "Skill development then application",
+        "timeline": "Apply within 1-2 weeks after preparation",
+        "preparation": [
+          "Address skill gaps through online learning",
+          "Network with company employees",
+          "Enhance portfolio"
+        ]
+      }
+    },
+    {
+      "id": "job-002",
+      "title": "Technical Lead - Digital Transformation",
+      "company": "Innovation Corp",
+      "location": "Melbourne, VIC",
+      "salary": {
+        "min": 140000,
+        "max": 180000,
+        "currency": "AUD"
+      },
+      "skills": [
+        "Leadership",
+        "Digital Transformation",
+        "AI Implementation",
+        "Project Management",
+        "Stakeholder Management"
+      ],
+      "experience": "7+ years",
+      "remote": false,
+      "posted": "2025-08-02",
+      "opportunityScore": {
+        "overall": 56,
+        "breakdown": {
+          "skills": 0,
+          "experience": 75,
+          "location": 70,
+          "salary": 100,
+          "company": 80
+        },
+        "skillMatches": 0,
+        "totalSkills": 5
+      },
+      "matchAnalysis": {
+        "strengths": [
+          "Competitive salary offering"
+        ],
+        "improvements": [
+          "Consider developing additional required skills"
+        ],
+        "successProbability": "Low"
+      },
+      "applicationStrategy": {
+        "priority": "Low",
+        "approach": "Long-term development strategy",
+        "timeline": "Consider in 3-6 months",
+        "preparation": [
+          "Significant skill development required",
+          "Gain experience in target areas",
+          "Build relevant portfolio"
+        ]
+      }
+    }
+  ],
+  "pathways": {
+    "immediate": {
+      "title": "Immediate Opportunities (0-6 months)",
+      "roles": [],
+      "requirements": [
+        "Optimize CV for role-specific keywords",
+        "Prepare portfolio demonstrating relevant projects",
+        "Practice behavioral interview questions"
+      ],
+      "timeline": "0-6 months"
+    },
+    "shortTerm": {
+      "title": "Short-term Growth (6-18 months)",
+      "roles": [
+        {
+          "title": "Solution Architect - Cloud Infrastructure",
+          "company": "Cloud Dynamics",
+          "score": 65,
+          "salary": {
+            "min": 160000,
+            "max": 200000,
+            "currency": "AUD"
+          },
+          "keySkills": [
+            "Solution Architecture",
+            "AWS",
+            "Microservices"
+          ]
+        },
+        {
+          "title": "Senior Systems Analyst",
+          "company": "Tech Solutions Ltd",
+          "score": 64,
+          "salary": {
+            "min": 120000,
+            "max": 160000,
+            "currency": "AUD"
+          },
+          "keySkills": [
+            "Systems Analysis",
+            "API Integration",
+            "Cybersecurity"
+          ]
+        },
+        {
+          "title": "Technical Lead - Digital Transformation",
+          "company": "Innovation Corp",
+          "score": 56,
+          "salary": {
+            "min": 140000,
+            "max": 180000,
+            "currency": "AUD"
+          },
+          "keySkills": [
+            "Leadership",
+            "Digital Transformation",
+            "AI Implementation"
+          ]
+        }
+      ],
+      "requirements": [
+        "Complete 1-2 relevant certifications",
+        "Gain additional experience in emerging technologies",
+        "Build strategic professional network"
+      ],
+      "timeline": "6-18 months"
+    },
+    "longTerm": {
+      "title": "Strategic Advancement (18+ months)",
+      "roles": [],
+      "requirements": [
+        "Develop leadership and management skills",
+        "Gain expertise in cutting-edge technologies",
+        "Build thought leadership through content and speaking"
+      ],
+      "timeline": "18+ months"
+    }
+  },
+  "marketSummary": {
+    "marketHealth": "Moderate",
+    "topInDemandSkills": [
+      "Systems Analysis",
+      "API Integration",
+      "Cybersecurity",
+      "Cloud Computing",
+      "Python"
+    ],
+    "averageMarketSalary": 160000,
+    "opportunityCount": 3,
+    "averageMatchScore": 62,
+    "keyInsights": [
+      "Systems Analysis is the most in-demand skill with 99.99999999999999% market presence",
+      "Average market salary is $160,000",
+      "0 high-match opportunities available"
+    ],
+    "recommendations": [
+      "Focus on developing the top 3 trending skills for maximum market impact",
+      "Consider remote opportunities to access broader market",
+      "Target roles with 75%+ match scores for highest success probability"
+    ]
+  }
+}

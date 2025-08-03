@@ -18,7 +18,7 @@
  * @version 2.1.0
  */
 
-const { AdvancedXMLPromptConstructor } = require('./advanced-xml-prompt-constructor');
+import { AdvancedXMLPromptConstructor } from './advanced-xml-prompt-constructor.js';
 
 /**
  * Integration adapter for XML structured prompts with few-shot learning
@@ -455,4 +455,4 @@ class XMLFewShotIntegrator {
     }
 }
 
-module.exports = { XMLFewShotIntegrator };
+export { XMLFewShotIntegrator };

@@ -36,15 +36,20 @@
  * - ACTIVITY_SCORE: Current GitHub activity score for context
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const crypto = require('crypto');
-const https = require('https');
-const { sleep } = require('./utils/apiClient');
-const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
-const { PromptLibraryManager } = require('./enhancer-modules/prompt-library-manager');
-const { MarketContextIntegrator } = require('./enhancer-modules/market-context-integrator');
-const { PersonaDrivenEnhancer } = require('./enhancer-modules/persona-driven-enhancer');
+import { promises as fs } from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import https from 'https';
+import { fileURLToPath } from 'url';
+import { sleep } from './utils/apiClient.js';
+import { XMLFewShotIntegrator } from './enhancer-modules/xml-few-shot-integrator.js';
+import { PromptLibraryManager } from './enhancer-modules/prompt-library-manager.js';
+import { MarketContextIntegrator } from './enhancer-modules/market-context-integrator.js';
+import { PersonaDrivenEnhancer } from './enhancer-modules/persona-driven-enhancer.js';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const CONFIG = {
@@ -2578,8 +2583,8 @@ function testContentCleaning() {
     console.log('\n🎉 Content cleaning test completed');
 }
 
-// Execute if called directly
-if (require.main === module) {
+// Execute if called directly (ES module equivalent)
+if (import.meta.url === `file://${process.argv[1]}`) {
     const args = process.argv.slice(2);
     
     if (args.includes('--test-cleaning')) {
@@ -2589,4 +2594,4 @@ if (require.main === module) {
     }
 }
 
-module.exports = { CVContentEnhancer, CONFIG, ClaudeApiClient };
+export { CVContentEnhancer, CONFIG, ClaudeApiClient };
