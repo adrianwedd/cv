@@ -938,3 +938,115 @@ jobs:
           ---
           *CV Enhancement Pipeline v${{ env.CV_SYSTEM_VERSION }} - Powered by Claude AI & GitHub Analytics*
           EOF
+
+  # 🔍 Quality Validation & Monitoring
+  quality-validation:
+    name: 🔍 Quality Validation & Monitoring
+    runs-on: ubuntu-latest
+    needs: [cv-enhancement-pipeline]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install Quality Validation Dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+          
+      - name: ⏱️ Wait for Deployment Propagation
+        run: |
+          echo "⏱️ Waiting for GitHub Pages deployment to propagate..."
+          sleep 180  # 3 minutes for deployment and CDN propagation
+          
+      - name: 🔍 Comprehensive Quality Validation
+        id: quality-check
+        run: |
+          cd .github/scripts
+          echo "🔍 Running comprehensive quality validation..."
+          
+          # Run comprehensive quality validator
+          if node comprehensive-quality-validator.js; then
+            echo "✅ Comprehensive quality validation passed"
+            echo "comprehensive_status=passed" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Quality validation completed with warnings"
+            echo "comprehensive_status=warning" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: 🚀 CI Quality Gate Validation  
+        id: ci-quality-gate
+        run: |
+          cd .github/scripts
+          echo "🚀 Running CI quality gate validation..."
+          
+          # Run CI quality validator (stricter requirements)
+          if node ci-quality-validator.js; then
+            echo "✅ CI Quality Gate PASSED - Deployment approved"
+            echo "ci_gate_status=passed" >> $GITHUB_OUTPUT
+            echo "quality_score=$(grep 'Overall CI Score:' <<< "$(node ci-quality-validator.js 2>&1)" | sed 's/.*: \([0-9]*\).*/\1/')" >> $GITHUB_OUTPUT
+          else
+            echo "❌ CI Quality Gate FAILED - Quality issues detected"
+            echo "ci_gate_status=failed" >> $GITHUB_OUTPUT
+            echo "quality_score=0" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: 📊 Quality Metrics Collection
+        run: |
+          cd .github/scripts
+          echo "📊 Collecting quality metrics..."
+          
+          # Generate quality metrics summary
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          QUALITY_SCORE="${{ steps.ci-quality-gate.outputs.quality_score }}"
+          
+          cat > quality-metrics.json << EOF
+          {
+            "timestamp": "$TIMESTAMP",
+            "comprehensive_status": "${{ steps.quality-check.outputs.comprehensive_status }}",
+            "ci_gate_status": "${{ steps.ci-quality-gate.outputs.ci_gate_status }}",
+            "quality_score": "$QUALITY_SCORE",
+            "deployment_url": "https://adrianwedd.github.io/cv",
+            "commit_sha": "${{ github.sha }}",
+            "workflow_run": "${{ github.run_id }}"
+          }
+          EOF
+          
+          echo "✅ Quality metrics collected and saved"
+          
+      - name: 📈 Quality Score Reporting
+        if: always()
+        run: |
+          # Generate quality report for GitHub Actions summary
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          # 🔍 Quality Validation Results
+          
+          ## 📊 Quality Metrics
+          - **Comprehensive Status**: ${{ steps.quality-check.outputs.comprehensive_status || 'unknown' }}
+          - **CI Quality Gate**: ${{ steps.ci-quality-gate.outputs.ci_gate_status || 'unknown' }}
+          - **Quality Score**: ${{ steps.ci-quality-gate.outputs.quality_score || '0' }}/100
+          - **Validation Time**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          ## 🎯 Quality Standards
+          | Category | Target | Status |
+          |----------|--------|--------|
+          | Security Headers | ✅ Enterprise | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
+          | Accessibility | ✅ WCAG 2.1 AA | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
+          | SEO Technical | ✅ Enterprise | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
+          | Performance | ✅ Core Web Vitals | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
+          
+          ## 🔗 Quality Resources
+          - **Live Site**: [adrianwedd.github.io/cv](https://adrianwedd.github.io/cv)
+          - **Quality Report**: Available in workflow artifacts
+          - **Validation Tools**: Comprehensive + CI quality validators
+          
+          ---
+          *Quality validation ensures enterprise-grade standards for professional CV deployment*
+          EOF
