@@ -559,7 +559,8 @@ class AdvancedNetworkingIntelligenceCLI {
                 break;
                 
             case 'market':
-                await this.generateMarketIntelligence();
+                const userProfile = await this.loadUserProfile();
+                await this.intelligence.generateMarketIntelligence(userProfile);
                 break;
                 
             case 'brand':
@@ -608,7 +609,7 @@ class AdvancedNetworkingIntelligenceCLI {
 
     async loadUserProfile() {
         try {
-            const cvPath = path.join(process.cwd(), 'data', 'base-cv.json');
+            const cvPath = path.join(process.cwd(), '..', '..', 'data', 'base-cv.json');
             const cvData = await fs.readFile(cvPath, 'utf8');
             return JSON.parse(cvData);
         } catch (error) {

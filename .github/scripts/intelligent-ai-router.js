@@ -16,6 +16,7 @@
  */
 
 import { ClaudeBrowserClient } from './claude-browser-client.js';
+import { ClaudeMaxOAuthClient } from './claude-oauth-client.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -153,9 +154,11 @@ export class IntelligentAIRouter {
                 return;
             }
             
-            // TODO: Initialize OAuth client when needed
-            this.authMethods.oauth.available = false; // Disabled for now
-            this.log('oauth-auth-ready', 'OAuth authentication initialized');
+            // Initialize OAuth client
+            this.authMethods.oauth.client = new ClaudeMaxOAuthClient();
+            const isOAuthAuthenticated = await this.authMethods.oauth.client.isAuthenticated();
+            this.authMethods.oauth.available = isOAuthAuthenticated;
+            this.log('oauth-auth-ready', `OAuth authentication ${isOAuthAuthenticated ? 'active' : 'available but not authenticated'}`);
             
         } catch (error) {
             this.log('oauth-auth-failed', { error: error.message });
@@ -274,8 +277,18 @@ export class IntelligentAIRouter {
                 return await client.sendMessage(message, options);
                 
             case 'oauth':
-                // TODO: Implement OAuth method execution
-                throw new Error('OAuth method not yet implemented');
+                const oauthClient = this.authMethods.oauth.client;
+                if (!oauthClient) {
+                    throw new Error('OAuth client not initialized');
+                }
+                
+                const messages = [{ role: 'user', content: message }];
+                const result = await oauthClient.makeAuthenticatedRequest(messages, options);
+                return {
+                    content: result.content[0]?.text || 'No response content',
+                    usage: result.usage || {},
+                    metadata: { method: 'oauth', cost: this.authMethods.oauth.cost }
+                };
                 
             case 'api':
                 // TODO: Implement API method execution

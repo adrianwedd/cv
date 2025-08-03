@@ -236,13 +236,13 @@ class SystemValidationReport {
             // Check ES module compatibility
             system.components.es_modules = await this.checkComponent(
                 'ES Module Compatibility',
-                () => this.runCommand('node -c "import { GitHubDataMiner } from \'./github-data-miner.js\'; console.log(\'ES modules working\');"')
+                () => this.runCommand('node --input-type=module -e "import { GitHubDataMiner } from \'./github-data-miner.js\'; console.log(\'ES modules working\');"')
             );
 
             // Check API client structure
             system.components.api_client = await this.checkComponent(
                 'API Client Structure',
-                () => this.runCommand('node -c "import { httpRequest } from \'./utils/apiClient.js\'; console.log(\'API client ready\');"')
+                () => this.runCommand('node --input-type=module -e "import { httpRequest } from \'./utils/apiClient.js\'; console.log(\'API client ready\');"')
             );
 
             // Check token availability (for production use)
