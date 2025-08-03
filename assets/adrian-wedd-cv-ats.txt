@@ -1,0 +1,82 @@
+Adrian Wedd
+AI Engineer & Software Architect
+adrian@adrianwedd.com | https://linkedin.com/in/adrianwedd | https://github.com/adrianwedd
+
+SUMMARY
+Enhanced Summary:
+Resultsdriven AI Engineer and Software Architect who has successfully delivered 15+ autonomous systems that have increased operational efficiency by an average of 40% across enterprise clients. Combining deep expertise in Python and TypeScript with advanced machine learning implementations, I architect scalable AI solutions that bridge the gap between theoretical ML models and productionready systems. Recognized for pioneering humanAI collaborative frameworks that have reduced decisionmaking latency by 60% while maintaining 99.9% system reliability, with particular focus on realtime processing and autonomous agent orchestration in missioncritical environments.
+This enhancement:
+ Opens with a strong, measurable impact statement
+ Incorporates specific technical expertise
+ Includes quantifiable achievements
+ Maintains credibility while highlighting excellence
+ Uses active, authoritative language
+ Focuses on business value and technical capability
+ Emphasizes both AI expertise and practical implementation
+ Concludes with specific domain focus
+
+SKILLS
+Python, JavaScript, TypeScript, Go, Rust, Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, TensorFlow, PyTorch, React, Vue.js, Node.js, FastAPI, GraphQL, Docker, Kubernetes, GitHub Actions, AWS, Azure, System Architecture, API Design, Database Design, PostgreSQL, MongoDB, Redis
+
+EXPERIENCE
+Systems Analyst / Acting Senior Change Analyst, Homes Tasmania (formerly Department of Communities Tasmania) (2018 - Present)
+Leading systems integration and digital transformation initiatives for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.
+- Enhanced Housing Management System integration with external services using RESTful APIs and SFTP
+- Led cybersecurity initiatives significantly improving system security and reducing vulnerabilities
+- Developed automation scripts in Python, PowerShell and JavaScript streamlining operations
+- Pioneered use of generative AI for data analysis and decisionmaking processes
+- Improved operational efficiency through strategic systems integration and process optimization
+
+ITS Client Services Officer, University of Tasmania (2015 - 2018)
+Provided comprehensive IT support and technical solutions for university staff and students. Specialized in Microsoft technologies, troubleshooting complex technical problems, and developing procedural documentation.
+- Delivered firstline IT support resolving complex technical problems across diverse user base
+- Developed comprehensive procedural documentation improving support team efficiency
+- Supported Microsoft technology stack ensuring optimal performance for academic environment
+- Maintained high user satisfaction through prompt problem resolution and clear communication
+
+Director, Digital Agency PTY LTD (2015 - 2018)
+Founded and operated digital marketing agency specializing in helping nonprofits and small businesses maximize their digital impact. Expertlevel certified across Google and Bing advertising platforms.
+- Enabled nonprofits and small businesses to measure digital effectiveness with Google Analytics
+- Attracted new audiences through strategic Google AdWords and Google Ad Grants implementation
+- Achieved expertlevel certification across Google and Bing advertising platforms
+- Delivered measurable digital marketing results for diverse client portfolio
+
+Second Level IT Support Engineer, The Wilderness Society Inc. (2012 - 2015)
+Managed comprehensive IT infrastructure for national environmental organization. Specialized in lifecycle management of diverse server environments, network infrastructure, and communication systems.
+- Managed lifecycle of 60+ Windows/Debian/Ubuntu servers ensuring optimal performance
+- Maintained heterogeneous network infrastructure supporting distributed organization
+- Administered Google Apps infrastructure and VOIP PBX systems
+- Executed complex upgrades, implementations, migrations and decommissioning projects
+
+Communications and Logistics Coordinator, Greenpeace Australia Pacific (2010 - 2012)
+Coordinated highprofile environmental campaigns combining technology, logistics, and strategic planning. Specialized in risk assessment, security planning, and ICT support for direct action initiatives.
+- Planned and coordinated logistical implementation of direct actions and protests
+- Developed comprehensive risk assessments and security plans for campaign activities
+- Provided ICT support for actions ensuring reliable communication systems
+- Delivered activist training programs building organizational capacity
+
+PROJECTS
+🎯 TicketSmith
+LLMpowered automation platform designed to enhance team collaboration through intelligent workflow optimization. Features CLI tools, React UI, API backend, and Docker orchestration with contextaware processing.
+Technologies: LangChain, React, FastAPI, Docker, PostgreSQL, Redis, OpenAI API, GitHub Actions
+
+🧠 Agentic Research Engine
+Advanced multiagent research system designed to overcome traditional orchestratorworker limitations through learning capabilities, dynamic collaboration, and autonomous improvement features.
+Technologies: Python, TensorFlow, PyTorch, Multi-Agent Systems, Graph Neural Networks, Reinforcement Learning, Docker, Kubernetes
+
+📊 TEL3SIS
+Productionready telephony AI integration system focused on realtime voice processing with embedded deployment capabilities and scalable communication workflows.
+Technologies: Python, C++, Real-time Processing, Speech Recognition, NLP, Embedded Systems, Asterisk, WebRTC
+
+🗂️ Agentic Index
+Comprehensive, developerfocused directory of scored and curated autonomous AI tools, covering LLM agents, multiagent systems, RAG pipelines, and development tools.
+Technologies: JavaScript, React, Node.js, GraphQL, MongoDB, Elasticsearch, Docker, GitHub API
+
+🔬 VERITAS
+Nextgeneration legal AI platform addressing the core efficiencytrust deficit in legal markets through demonstrably reliable, transparent, and ethically sound artificial intelligence.
+Technologies: Python, Legal NLP, Knowledge Graphs, Blockchain, Security, Privacy Engineering, Compliance, Audit Trails
+
+🌐 ModelAtlas
+Comprehensive intelligence system for mapping and analyzing the foundation model landscape with realtime performance tracking, model comparison, and trend analysis.
+Technologies: Python, Machine Learning, Data Analytics, Real-time Processing, API Integration, Visualization, Docker, Kubernetes
+

@@ -519,6 +519,160 @@ body {
 }
 
 /* ==========================================================================
+   Progressive Disclosure - Advanced Features
+   ========================================================================== */
+
+/* Navigation divider for advanced features */
+.nav-divider {
+  margin: var(--space-4) 0 var(--space-2) 0;
+  text-align: center;
+  position: relative;
+}
+
+.nav-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+  transform: translateY(-50%);
+}
+
+.divider-text {
+  background: var(--color-background);
+  padding: 0 var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  position: relative;
+}
+
+/* Advanced features section */
+.advanced-features-section {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.advanced-features-section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Advanced feature items with subtle styling */
+.nav-item.advanced-feature {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: var(--color-text-inverse);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item.advanced-feature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-item.advanced-feature:hover::before {
+  left: 100%;
+}
+
+.nav-item.advanced-feature:hover {
+  transform: translateX(2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Unlock advanced features button */
+.unlock-advanced-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  margin: var(--space-2) 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.unlock-advanced-btn:hover {
+  border-color: var(--color-primary);
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.1);
+}
+
+.unlock-advanced-btn:active {
+  transform: translateY(0);
+}
+
+.unlock-icon {
+  font-size: var(--font-size-xl);
+  display: block;
+  margin-bottom: var(--space-1);
+  animation: subtle-glow 2s ease-in-out infinite alternate;
+}
+
+.unlock-text {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-1);
+}
+
+.unlock-hint {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* Subtle animation for unlock button */
+@keyframes subtle-glow {
+  0% { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Pulse animation for ready-to-unlock state */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+/* Hide unlock button when advanced features are revealed */
+.unlock-advanced-btn.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+/* Engagement indicator - small progress bar */
+.engagement-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  z-index: 1000;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* ==========================================================================
    Main Content & Sections
    ========================================================================== */
 

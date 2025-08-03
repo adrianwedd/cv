@@ -1273,11 +1273,232 @@ class ExternalLinkMonitor {
     }
 }
 
+/**
+ * Progressive Disclosure for Advanced Features
+ * Reveals developer tools and analytics based on user engagement
+ */
+class ProgressiveDisclosure {
+    constructor() {
+        this.engagementScore = 0;
+        this.unlockThreshold = 3; // Points needed to unlock
+        this.startTime = Date.now();
+        this.scrollDepth = 0;
+        this.sectionsVisited = new Set();
+        this.isUnlocked = localStorage.getItem('advancedFeaturesUnlocked') === 'true';
+        
+        this.init();
+    }
+
+    init() {
+        this.createEngagementIndicator();
+        this.setupEventListeners();
+        
+        // Auto-unlock if previously unlocked
+        if (this.isUnlocked) {
+            this.unlockAdvancedFeatures(false);
+        } else {
+            // Start engagement tracking
+            this.trackEngagement();
+        }
+    }
+
+    createEngagementIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'engagement-indicator';
+        indicator.id = 'engagement-indicator';
+        document.body.appendChild(indicator);
+    }
+
+    setupEventListeners() {
+        const unlockBtn = document.getElementById('unlock-advanced');
+        if (unlockBtn) {
+            unlockBtn.addEventListener('click', () => {
+                this.unlockAdvancedFeatures(true);
+            });
+        }
+
+        // Track scroll depth
+        window.addEventListener('scroll', this.throttle(() => {
+            this.updateScrollDepth();
+        }, 100));
+
+        // Track section visibility
+        this.observeSections();
+    }
+
+    trackEngagement() {
+        // Time-based engagement (1 point per 30 seconds)
+        setInterval(() => {
+            if (!document.hidden && !this.isUnlocked) {
+                this.addEngagementPoint(0.1, 'time_spent');
+            }
+        }, 3000);
+    }
+
+    updateScrollDepth() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+        
+        if (scrollPercent > this.scrollDepth) {
+            this.scrollDepth = scrollPercent;
+            
+            // Engagement points for scroll milestones
+            if (scrollPercent > 50 && this.scrollDepth <= 50) {
+                this.addEngagementPoint(0.5, 'scroll_halfway');
+            }
+            if (scrollPercent > 80 && this.scrollDepth <= 80) {
+                this.addEngagementPoint(0.5, 'scroll_deep');
+            }
+        }
+
+        this.updateEngagementIndicator();
+    }
+
+    observeSections() {
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    const sectionId = entry.target.id;
+                    if (!this.sectionsVisited.has(sectionId)) {
+                        this.sectionsVisited.add(sectionId);
+                        this.addEngagementPoint(0.3, `visited_${sectionId}`);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    addEngagementPoint(points, reason) {
+        if (this.isUnlocked) return;
+        
+        this.engagementScore += points;
+        console.log(`🎯 Engagement +${points} (${reason}) - Total: ${this.engagementScore.toFixed(1)}`);
+        
+        this.updateEngagementIndicator();
+        
+        // Auto-unlock when threshold reached
+        if (this.engagementScore >= this.unlockThreshold) {
+            setTimeout(() => {
+                this.suggestUnlock();
+            }, 1000);
+        }
+    }
+
+    updateEngagementIndicator() {
+        const indicator = document.getElementById('engagement-indicator');
+        if (indicator) {
+            const progress = Math.min((this.engagementScore / this.unlockThreshold) * 100, 100);
+            indicator.style.width = `${progress}%`;
+        }
+    }
+
+    suggestUnlock() {
+        const unlockBtn = document.getElementById('unlock-advanced');
+        if (unlockBtn && !this.isUnlocked) {
+            // Add pulsing animation to suggest unlocking
+            unlockBtn.style.animation = 'pulse 1.5s ease-in-out infinite';
+            unlockBtn.style.borderColor = 'var(--color-primary)';
+            
+            // Update button text to suggest it's ready
+            const unlockText = unlockBtn.querySelector('.unlock-text');
+            const unlockHint = unlockBtn.querySelector('.unlock-hint');
+            if (unlockText) unlockText.textContent = 'Ready to Unlock!';
+            if (unlockHint) unlockHint.textContent = 'Click to reveal developer features';
+        }
+    }
+
+    unlockAdvancedFeatures(userInitiated = false) {
+        this.isUnlocked = true;
+        localStorage.setItem('advancedFeaturesUnlocked', 'true');
+        
+        const advancedSection = document.getElementById('advanced-features');
+        const unlockBtn = document.getElementById('unlock-advanced');
+        const indicator = document.getElementById('engagement-indicator');
+        
+        if (advancedSection) {
+            advancedSection.style.display = 'block';
+            setTimeout(() => {
+                advancedSection.classList.add('revealed');
+            }, 50);
+        }
+        
+        if (unlockBtn) {
+            unlockBtn.classList.add('hidden');
+        }
+        
+        if (indicator) {
+            indicator.style.width = '100%';
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 1000);
+        }
+        
+        if (userInitiated) {
+            console.log('🔓 Advanced features unlocked by user');
+            
+            // Show a subtle notification
+            this.showUnlockNotification();
+        } else {
+            console.log('🔓 Advanced features auto-restored from previous session');
+        }
+    }
+
+    showUnlockNotification() {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            z-index: 10000;
+            font-size: 14px;
+            font-weight: 500;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+        notification.innerHTML = '🔓 Advanced features unlocked!';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    throttle(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+}
+
 // Initialize application when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     new CVApplication();
     new ExternalLinkMonitor();
     new InteractiveMetrics();
+    new ProgressiveDisclosure();
 });
 
 // Export for potential module usage
