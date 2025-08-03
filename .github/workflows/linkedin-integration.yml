@@ -185,11 +185,14 @@ jobs:
             LANGUAGES=$(jq -r '.summary.top_languages | length' ../data/activity-summary.json)
             RECENT_ACTIVITY=$(jq -r '.summary.commits_last_30_days // 0' ../data/activity-summary.json)
             
-            # Calculate professional networking score
-            NETWORKING_SCORE=$(echo "scale=0; ($REPOS * 0.5) + ($LANGUAGES * 5) + ($RECENT_ACTIVITY * 0.1)" | bc -l)
-            if (( $(echo "$NETWORKING_SCORE > 100" | bc -l) )); then
-              NETWORKING_SCORE=100
-            fi
+            # Calculate professional networking score using Node.js
+            NETWORKING_SCORE=$(node -e "
+              const repos = ${REPOS} || 0;
+              const languages = ${LANGUAGES} || 0;
+              const activity = ${RECENT_ACTIVITY} || 0;
+              const score = Math.floor((repos * 0.5) + (languages * 5) + (activity * 0.1));
+              console.log(Math.min(score, 100));
+            ")
           else
             NETWORKING_SCORE=50
           fi
