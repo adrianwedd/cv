@@ -7,6 +7,12 @@
     <meta name="keywords" content="Adrian Wedd, AI Engineer, Software Architect, Machine Learning, Autonomous Systems, Python, JavaScript, Tasmania">
     <meta name="author" content="Adrian Wedd">
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data:; connect-src 'self' api.github.com;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ogTitle}}">
@@ -20,6 +26,9 @@
     <meta name="twitter:description" content="{{twitterDescription}}">
     
     <title>{{pageTitle}}</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{siteUrl}}">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

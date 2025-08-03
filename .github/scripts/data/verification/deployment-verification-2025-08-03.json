@@ -1,6 +1,6 @@
 {
   "overall": "failed",
-  "timestamp": "2025-08-03T10:44:30.720Z",
+  "timestamp": "2025-08-03T12:53:29.653Z",
   "tests": {
     "accessibility": {
       "status": "warning",
@@ -34,7 +34,7 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 174.961,
+          "value": 423.722,
           "threshold": "< 2000ms"
         },
         "contentSize": {
@@ -54,10 +54,10 @@
         }
       },
       "metrics": {
-        "loadTime": 174.961,
+        "loadTime": 423.722,
         "contentSize": 34968,
-        "dnsTime": 4.9350000000000005,
-        "connectTime": 31.961000000000002,
+        "dnsTime": 5.084,
+        "connectTime": 31.595,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
