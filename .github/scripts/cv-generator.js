@@ -89,6 +89,7 @@ class CVGenerator {
             // Generate website components
             await this.generateHTML();
             await this.copyAssets();
+            await this.copyNetworkingDashboard();
             await this.generatePDF();
             await this.generateATSCV();
             await this.generateDOCXCV(); // New call for DOCX CV
@@ -504,6 +505,113 @@ class CVGenerator {
     }
 
     /**
+     * Copy networking dashboard with dynamic data integration
+     */
+    async copyNetworkingDashboard() {
+        console.log('🔗 Copying networking dashboard...');
+
+        try {
+            const dashboardSource = path.join(CONFIG.INPUT_DIR, 'networking-dashboard.html');
+            const dashboardTarget = path.join(CONFIG.OUTPUT_DIR, 'networking-dashboard.html');
+            
+            // Check if networking dashboard exists
+            const dashboardExists = await fs.access(dashboardSource).then(() => true).catch(() => false);
+            if (!dashboardExists) {
+                console.log('⚠️ networking-dashboard.html not found, skipping');
+                return;
+            }
+
+            // Read dashboard template
+            let dashboardContent = await fs.readFile(dashboardSource, 'utf8');
+            
+            // Update dashboard with latest networking data
+            const networkingData = await this.prepareNetworkingData();
+            
+            // Inject networking data into dashboard
+            const dataScript = `
+                <script>
+                    // LinkedIn Integration Data
+                    window.NETWORKING_DATA = ${JSON.stringify(networkingData, null, 2)};
+                    
+                    // Update dashboard when data loads
+                    document.addEventListener('DOMContentLoaded', function() {
+                        if (typeof updateNetworkingDashboard === 'function') {
+                            updateNetworkingDashboard(window.NETWORKING_DATA);
+                        }
+                    });
+                </script>`;
+            
+            // Insert data script before closing head tag
+            dashboardContent = dashboardContent.replace('</head>', `    ${dataScript}\n</head>`);
+            
+            // Write updated dashboard
+            await fs.writeFile(dashboardTarget, dashboardContent);
+            
+            console.log('✅ Networking dashboard copied and updated with live data');
+            
+        } catch (error) {
+            console.error('❌ Networking dashboard copying failed:', error.message);
+            // Don't throw error - dashboard is optional
+            console.log('⚠️ Continuing without networking dashboard');
+        }
+    }
+
+    /**
+     * Prepare networking data for dashboard
+     */
+    async prepareNetworkingData() {
+        const networkingData = {
+            last_updated: new Date().toISOString(),
+            linkedin_integration: {
+                status: 'available',
+                sync_enabled: true,
+                last_sync: null,
+                changes_detected: 0
+            },
+            professional_metrics: {
+                networking_score: 0,
+                profile_completeness: 85,
+                activity_score: this.activityData?.summary?.activity_score || 50,
+                professional_connections: 0
+            },
+            github_activity: {
+                total_repositories: this.activityData?.summary?.total_repositories || 0,
+                languages_count: this.activityData?.summary?.top_languages?.length || 0,
+                recent_commits: this.activityData?.summary?.commits_last_30_days || 0,
+                active_days: this.activityData?.summary?.active_days_last_30 || 0
+            },
+            ai_insights: {
+                recommendations_available: false,
+                networking_opportunities: [],
+                career_insights: []
+            },
+            dashboard_config: {
+                theme: 'auto',
+                refresh_interval: 300000, // 5 minutes
+                auto_refresh: true
+            }
+        };
+
+        // Try to load existing networking data if available
+        try {
+            const networkingFile = path.join(CONFIG.DATA_DIR, 'networking-data.json');
+            const existingData = await fs.readFile(networkingFile, 'utf8');
+            const parsed = JSON.parse(existingData);
+            
+            // Merge with existing data
+            Object.assign(networkingData.linkedin_integration, parsed.linkedin_integration || {});
+            Object.assign(networkingData.professional_metrics, parsed.professional_metrics || {});
+            Object.assign(networkingData.ai_insights, parsed.ai_insights || {});
+            
+        } catch (error) {
+            // No existing networking data - use defaults
+            console.log('ℹ️ No existing networking data found, using defaults');
+        }
+
+        return networkingData;
+    }
+
+    /**
      * Generate sitemap.xml
      */
     async generateSitemap() {
@@ -546,6 +654,12 @@ class CVGenerator {
         <lastmod>${new Date().toISOString()}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>${CONFIG.SITE_URL}/networking-dashboard.html</loc>
+        <lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
     </url>
 </urlset>`;
 
