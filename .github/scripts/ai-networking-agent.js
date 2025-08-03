@@ -15,7 +15,7 @@
  */
 
 import { EthicalLinkedInExtractor } from './linkedin-playwright-extractor.js';
-import { EthicalGeminiClient } from './gemini-client.js';
+import { ClaudeBrowserClient } from './claude-browser-client.js';
 import fs from 'fs/promises';
 import path from 'path';
 import dotenv from 'dotenv';
@@ -42,7 +42,9 @@ export class AINetworkingAgent {
             auditLogging: this.options.auditLogging
         });
         
-        this.geminiClient = new EthicalGeminiClient({
+        this.claudeClient = new ClaudeBrowserClient({
+            headless: true,
+            userConsent: this.options.userConsent,
             rateLimitMs: 45000, // Conservative rate limiting for networking analysis
             auditLogging: this.options.auditLogging
         });
@@ -197,7 +199,7 @@ Provide compatibility score (0-100) and detailed reasoning.
 Focus on authentic, professional relationship building opportunities.
 `;
 
-            const response = await this.geminiClient.generateContent(prompt);
+            const response = await this.claudeClient.sendMessage(prompt);
             
             // Parse AI response and extract structured data
             const compatibilityData = this.parseCompatibilityResponse(response);
@@ -319,7 +321,7 @@ Focus on authentic, value-driven relationship building.
 Avoid generic connection requests.
 `;
 
-            const response = await this.geminiClient.generateContent(prompt);
+            const response = await this.claudeClient.sendMessage(prompt);
             
             const strategy = this.parseConnectionStrategy(response);
             
@@ -444,7 +446,7 @@ Please provide:
 Focus on actionable insights for professional growth.
 `;
 
-            const response = await this.geminiClient.generateContent(prompt);
+            const response = await this.claudeClient.sendMessage(prompt);
             
             const insights = {
                 strategy_assessment: this.extractStrategyAssessment(response),
