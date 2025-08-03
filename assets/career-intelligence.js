@@ -366,21 +366,55 @@ class CareerIntelligenceDashboard {
      */
     async getLatestFile(type) {
         try {
-            // For now, use a simple approach based on known patterns
+            // First, try to load from data index for reliable file lookup
+            try {
+                const indexResponse = await fetch('data/data-index.json');
+                if (indexResponse.ok) {
+                    const index = await indexResponse.json();
+                    const filename = index.latest[type];
+                    if (filename) {
+                        // Verify the file exists
+                        const response = await fetch(`data/${type}/${filename}`);
+                        if (response.ok) {
+                            console.log(`📄 Using indexed file: ${filename}`);
+                            return filename;
+                        }
+                    }
+                    
+                    // Try fallbacks from index
+                    const fallbacks = index.fallbacks[type] || [];
+                    for (const fallback of fallbacks) {
+                        try {
+                            const response = await fetch(`data/${type}/${fallback}`);
+                            if (response.ok) {
+                                console.log(`📄 Using fallback file: ${fallback}`);
+                                return fallback;
+                            }
+                        } catch (e) {
+                            // Continue to next fallback
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('⚠️ Could not load data index, using pattern fallback');
+            }
+            
+            // Fallback to pattern-based lookup (legacy approach)
             const now = new Date();
             const dateStr = now.toISOString().slice(0, 10).replace(/-/g, '');
-            const timeStr = now.toTimeString().slice(0, 2) + '07'; // Approximate current hour
+            const timeStr = now.toTimeString().slice(0, 2) + '07';
             
-            // Try to fetch the most recent file pattern
             const patterns = [
                 `${type === 'metrics' ? 'professional-development' : 'activity-trends'}-${dateStr}-${timeStr}.json`,
-                `${type === 'metrics' ? 'professional-development' : 'activity-trends'}-20250801-1407.json` // Fallback to known good file
+                type === 'metrics' ? 'professional-development-20250803-0030.json' : 'activity-trends-20250803-0030.json',
+                type === 'metrics' ? 'professional-development-20250802-2205.json' : 'activity-trends-20250802-2205.json'
             ];
             
             for (const pattern of patterns) {
                 try {
                     const response = await fetch(`data/${type}/${pattern}`);
                     if (response.ok) {
+                        console.log(`📄 Using pattern file: ${pattern}`);
                         return pattern;
                     }
                 } catch (e) {
@@ -388,6 +422,7 @@ class CareerIntelligenceDashboard {
                 }
             }
             
+            console.warn(`❌ No ${type} files found`);
             return null;
         } catch (error) {
             console.warn(`Could not determine latest ${type} file:`, error);
@@ -1123,11 +1158,151 @@ class CareerIntelligenceDashboard {
             const loadingText = overlay.querySelector('.loading-text');
             const spinner = overlay.querySelector('.loading-spinner');
             
-            if (loadingText) loadingText.textContent = `Error: ${message}`;
+            if (loadingText) {
+                loadingText.innerHTML = `
+                    <div style="color: #ef4444; margin-bottom: 1rem;">⚠️ ${message}</div>
+                    <div style="font-size: 0.9em; color: #64748b;">
+                        Loading with basic data... <br>
+                        <a href="javascript:location.reload()" style="color: #3b82f6; text-decoration: underline;">Try refreshing the page</a>
+                    </div>
+                `;
+            }
             if (spinner) spinner.style.display = 'none';
+            
+            // Show basic data after 2 seconds
+            setTimeout(() => {
+                this.loadBasicData();
+                overlay.style.display = 'none';
+            }, 2000);
         }
         
-        this.updateStatus('error', 'Data loading failed');
+        this.updateStatus('warning', 'Limited data mode');
+    }
+    
+    /**
+     * Load basic data when full data fails
+     */
+    async loadBasicData() {
+        try {
+            console.log('📊 Loading basic CV data as fallback...');
+            
+            // Load at least the base CV data
+            this.data.cv = await this.fetchJSON('data/base-cv.json');
+            
+            // Generate basic charts from CV data
+            this.generateBasicCharts();
+            this.displayBasicMetrics();
+            
+            this.updateStatus('warning', 'Basic data loaded successfully');
+            
+        } catch (error) {
+            console.error('❌ Basic data loading also failed:', error);
+            this.updateStatus('error', 'Unable to load any data');
+        }
+    }
+    
+    /**
+     * Generate basic charts from CV data
+     */
+    generateBasicCharts() {
+        // Show skills chart from CV data
+        if (this.data.cv?.skills) {
+            this.createBasicSkillsChart();
+        }
+        
+        // Show projects timeline from CV data
+        if (this.data.cv?.projects) {
+            this.createBasicProjectsChart();
+        }
+    }
+    
+    /**
+     * Display basic metrics from CV data
+     */
+    displayBasicMetrics() {
+        if (!this.data.cv) return;
+        
+        const skills = this.data.cv.skills || [];
+        const projects = this.data.cv.projects || [];
+        
+        // Update metric cards with basic data
+        const activityScore = document.getElementById('activity-score');
+        const technicalScore = document.getElementById('technical-score');
+        const communityScore = document.getElementById('community-score');
+        const overallScore = document.getElementById('overall-score');
+        
+        if (activityScore) activityScore.textContent = projects.length;
+        if (technicalScore) technicalScore.textContent = skills.length;
+        if (communityScore) communityScore.textContent = Math.max(skills.filter(s => s.level > 80).length, 1);
+        if (overallScore) overallScore.textContent = Math.round((skills.reduce((sum, s) => sum + s.level, 0) / skills.length) || 85);
+    }
+    
+    /**
+     * Create basic skills chart from CV data
+     */
+    createBasicSkillsChart() {
+        const canvas = document.getElementById('skills-chart');
+        if (!canvas || !this.data.cv?.skills) return;
+        
+        const skills = this.data.cv.skills.slice(0, 8); // Top 8 skills
+        
+        new Chart(canvas, {
+            type: 'radar',
+            data: {
+                labels: skills.map(s => s.name),
+                datasets: [{
+                    label: 'Skill Level',
+                    data: skills.map(s => s.level),
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    borderColor: '#3b82f6',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    }
+    
+    /**
+     * Create basic projects chart from CV data
+     */
+    createBasicProjectsChart() {
+        const canvas = document.getElementById('growth-chart');
+        if (!canvas || !this.data.cv?.projects) return;
+        
+        const projects = this.data.cv.projects;
+        
+        new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: projects.map(p => p.name.replace(/[🎯🧠📊🗂️🔬🌐]/g, '').trim()),
+                datasets: [{
+                    label: 'Technologies Used',
+                    data: projects.map(p => p.technologies?.length || 0),
+                    backgroundColor: '#10b981',
+                    borderColor: '#059669',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 }
 

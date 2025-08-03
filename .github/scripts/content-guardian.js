@@ -19,8 +19,12 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class ContentGuardian {
     constructor() {
@@ -325,8 +329,9 @@ async function main() {
     }
 }
 
-if (require.main === module) {
+// ES module entry point
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
 
-module.exports = ContentGuardian;
+export default ContentGuardian;
