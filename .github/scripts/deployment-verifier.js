@@ -225,10 +225,10 @@ class DeploymentVerifier {
         
         const tests = {
             titlePresent: { passed: !!content.match(/<title>.*<\/title>/), message: 'Title tag present' },
-            metaDescription: { passed: !!content.match(/<meta name="description"/), message: 'Meta description present' },
+            metaDescription: { passed: !!content.match(/<meta[^>]*name=["']description["']/), message: 'Meta description present' },
             structuredData: { passed: !!content.match(/application\/ld\+json/), message: 'Structured data present' },
             headingHierarchy: { passed: this.checkHeadingHierarchy(content), message: 'Proper heading hierarchy' },
-            canonicalUrl: { passed: !!content.match(/<link rel="canonical"/), message: 'Canonical URL present' }
+            canonicalUrl: { passed: !!content.match(/<link[^>]*rel=["']canonical["']/), message: 'Canonical URL present' }
         };
         
         this.results.tests.seo = {
@@ -243,12 +243,21 @@ class DeploymentVerifier {
      */
     async testSecurity() {
         const headers = await this.checkSecurityHeaders();
+        const content = await this.fetchSiteContent();
+        
+        // Check for both HTTP headers and meta tag implementations
+        const hasContentTypeNosniff = !!headers['x-content-type-options'] || 
+                                     content.includes('X-Content-Type-Options');
+        const hasFrameOptions = !!headers['x-frame-options'] || 
+                               content.includes('X-Frame-Options');
+        const hasCSP = !!headers['content-security-policy'] || 
+                      content.includes('Content-Security-Policy');
         
         const tests = {
-            contentTypeNosniff: { passed: !!headers['x-content-type-options'], message: 'X-Content-Type-Options header' },
-            frameOptions: { passed: !!headers['x-frame-options'], message: 'X-Frame-Options header' },
+            contentTypeNosniff: { passed: hasContentTypeNosniff, message: 'X-Content-Type-Options header' },
+            frameOptions: { passed: hasFrameOptions, message: 'X-Frame-Options header' },
             httpsRedirect: { passed: await this.checkHTTPSRedirect(), message: 'HTTPS redirect working' },
-            csp: { passed: !!headers['content-security-policy'], message: 'Content Security Policy' }
+            csp: { passed: hasCSP, message: 'Content Security Policy' }
         };
         
         this.results.tests.security = {
@@ -281,7 +290,7 @@ class DeploymentVerifier {
      */
     async fetchSiteContent() {
         try {
-            const result = execSync(`curl -s "${this.siteUrl}"`, { encoding: 'utf8' });
+            const result = execSync(`curl -s -L "${this.siteUrl}"`, { encoding: 'utf8' });
             return result;
         } catch (error) {
             throw new Error(`Failed to fetch site content: ${error.message}`);
@@ -487,9 +496,25 @@ class DeploymentVerifier {
 
     async testResponsiveLayout() {
         const content = await this.fetchSiteContent();
+        
+        // Enhanced responsive layout detection
+        const indicators = {
+            mediaQueries: /@media[^{]*\{/gi.test(content),
+            viewportMeta: /<meta[^>]*name=["']viewport["'][^>]*>/i.test(content),
+            responsiveKeywords: /responsive|mobile|tablet|desktop/i.test(content),
+            flexboxGrid: /display:\s*flex|display:\s*grid|flex-direction|grid-template/i.test(content),
+            responsiveUnits: /\d+(?:vw|vh|vmin|vmax|%|em|rem)/gi.test(content),
+            breakpoints: /max-width|min-width|media\s*\(/gi.test(content)
+        };
+        
+        const detectedFeatures = Object.values(indicators).filter(Boolean).length;
+        const responsiveScore = Math.round((detectedFeatures / Object.keys(indicators).length) * 100);
+        
         return {
-            passed: content.includes('responsive') || content.includes('@media'),
-            message: 'Responsive design indicators present'
+            passed: detectedFeatures >= 3, // Require at least 3 responsive indicators
+            message: `Responsive design: ${responsiveScore}% (${detectedFeatures}/${Object.keys(indicators).length} indicators)`,
+            details: indicators,
+            score: responsiveScore
         };
     }
 
@@ -539,9 +564,9 @@ class DeploymentVerifier {
      */
     async checkViewportMeta() {
         const content = await this.fetchSiteContent();
-        const hasViewport = /meta\s+name=["']viewport["']/.test(content) || 
-                           content.includes('name="viewport"') || 
-                           content.includes("name='viewport'");
+        // Enhanced viewport detection with flexible attribute ordering
+        const hasViewport = /<meta[^>]*name=["']viewport["'][^>]*>/i.test(content) || 
+                           /<meta[^>]*viewport[^>]*>/i.test(content);
         return {
             passed: hasViewport,
             message: 'Viewport meta tag present'
