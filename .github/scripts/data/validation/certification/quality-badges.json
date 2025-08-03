@@ -1,0 +1,44 @@
+{
+  "overall": {
+    "label": "Quality Score",
+    "message": "39/100",
+    "color": "red",
+    "url": "https://img.shields.io/badge/Quality%20Score-39%2F100-red?style=for-the-badge&logo=checkmarx&logoColor=white"
+  },
+  "certification": {
+    "label": "Certification",
+    "message": "Basic",
+    "color": "red",
+    "url": "https://img.shields.io/badge/Certification-Basic-red?style=for-the-badge&logo=medallia&logoColor=white"
+  },
+  "security": {
+    "label": "Security",
+    "message": "20/100",
+    "color": "red",
+    "url": "https://img.shields.io/badge/Security-20%2F100-red?style=flat-square&logo=security&logoColor=white"
+  },
+  "accessibility": {
+    "label": "Accessibility",
+    "message": "35/100",
+    "color": "red",
+    "url": "https://img.shields.io/badge/Accessibility-35%2F100-red?style=flat-square&logo=accessibility&logoColor=white"
+  },
+  "performance": {
+    "label": "Performance",
+    "message": "75/100",
+    "color": "yellowgreen",
+    "url": "https://img.shields.io/badge/Performance-75%2F100-yellowgreen?style=flat-square&logo=speedtest&logoColor=white"
+  },
+  "seo": {
+    "label": "SEO",
+    "message": "0/100",
+    "color": "red",
+    "url": "https://img.shields.io/badge/SEO-0%2F100-red?style=flat-square&logo=googlesearchconsole&logoColor=white"
+  },
+  "validatedOn": {
+    "label": "Validated",
+    "message": "2025-08-03",
+    "color": "blue",
+    "url": "https://img.shields.io/badge/Validated-2025-08-03-blue?style=flat-square&logo=calendar&logoColor=white"
+  }
+}
