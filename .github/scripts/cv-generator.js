@@ -348,7 +348,8 @@ class CVGenerator {
         const template = Handlebars.compile(htmlContent);
 
         const personalInfo = this.cvData.personal_info || {};
-        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary;
+        const rawProfessionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary;
+        const professionalSummary = rawProfessionalSummary ? this.cleanResponseText(rawProfessionalSummary) : rawProfessionalSummary;
         const summary = this.activityData?.summary || {};
         const professionalMetrics = this.activityData?.professional_metrics || {};
         const cvIntegration = this.activityData?.cv_integration || {};
@@ -373,7 +374,7 @@ class CVGenerator {
                 email: personalInfo.email || 'adrian@adrianwedd.com'
             },
 
-            // Professional Summary
+            // Professional Summary (cleaned of AI artifacts)
             professionalSummary: professionalSummary,
 
             // Live Stats
@@ -847,7 +848,8 @@ Disallow: /data/
         console.log('📝 Generating ATS-optimized plain text CV...');
 
         const personalInfo = this.cvData.personal_info || {};
-        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const rawProfessionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const professionalSummary = rawProfessionalSummary ? this.cleanResponseText(rawProfessionalSummary) : rawProfessionalSummary;
         const skills = this.cvData.skills || [];
         const experience = this.cvData.experience || [];
         const projects = this.cvData.projects || [];
@@ -937,7 +939,8 @@ Disallow: /data/
         console.log('📄 Generating DOCX version of the CV...');
 
         const personalInfo = this.cvData.personal_info || {};
-        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const rawProfessionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const professionalSummary = rawProfessionalSummary ? this.cleanResponseText(rawProfessionalSummary) : rawProfessionalSummary;
         const skills = this.cvData.skills || [];
         const experience = this.cvData.experience || [];
         const projects = this.cvData.projects || [];
@@ -1059,7 +1062,8 @@ Disallow: /data/
         console.log('📝 Generating LaTeX version of the CV...');
 
         const personalInfo = this.cvData.personal_info || {};
-        const professionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const rawProfessionalSummary = this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary || '';
+        const professionalSummary = rawProfessionalSummary ? this.cleanResponseText(rawProfessionalSummary) : rawProfessionalSummary;
         const skills = this.cvData.skills || [];
         const experience = this.cvData.experience || [];
         const projects = this.cvData.projects || [];
