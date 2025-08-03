@@ -158,8 +158,8 @@
     {
       "name": "🎯 TicketSmith",
       "subtitle": "Ecosystem-Aware AI Automation Platform",
-      "description": "Revolutionary LLM-powered platform that transforms team collaboration through intelligent automation. Features CLI tools, React UI, API backend, and Docker orchestration with context-aware workflow optimization.",
-      "detailed_description": "TicketSmith represents a paradigm shift in enterprise workflow automation, leveraging advanced language models to understand and optimize complex business processes. The platform combines intelligent automation with deep ecosystem awareness, resulting in unprecedented efficiency gains.",
+      "description": "LLM-powered automation platform designed to enhance team collaboration through intelligent workflow optimization. Features CLI tools, React UI, API backend, and Docker orchestration with context-aware processing.",
+      "detailed_description": "TicketSmith is an enterprise workflow automation platform that leverages language models to understand and optimize business processes. The platform integrates intelligent automation with ecosystem awareness to improve operational efficiency.",
       "technologies": [
         "LangChain",
         "React",
@@ -190,8 +190,8 @@
     {
       "name": "🧠 Agentic Research Engine",
       "subtitle": "Next-Generation Multi-Agent Research System",
-      "description": "Breakthrough research system that transcends traditional orchestrator-worker limitations through genuine learning, dynamic collaboration, and autonomous self-improvement capabilities.",
-      "detailed_description": "The Agentic Research Engine represents cutting-edge advancement in multi-agent systems, featuring autonomous agents capable of genuine learning and recursive self-enhancement. This system moves beyond static paradigms to create truly intelligent collaborative research environments.",
+      "description": "Advanced multi-agent research system designed to overcome traditional orchestrator-worker limitations through learning capabilities, dynamic collaboration, and autonomous improvement features.",
+      "detailed_description": "The Agentic Research Engine is an experimental multi-agent system featuring autonomous agents with learning capabilities and self-enhancement features. This system explores dynamic collaboration patterns for intelligent research environments.",
       "technologies": [
         "Python",
         "TensorFlow",
@@ -202,7 +202,7 @@
         "Docker",
         "Kubernetes"
       ],
-      "github": "https://github.com/adrianwedd/agentic-research",
+      "github": "https://github.com/adrianwedd/agentic-research-engine",
       "status": "Active Development",
       "period": "2024 - Present",
       "key_outcomes": [
@@ -215,7 +215,7 @@
         "Dynamic task allocation",
         "Genuine learning capabilities",
         "Self-improving algorithms",
-        "Breakthrough collaboration patterns"
+        "Advanced collaboration patterns"
       ]
     },
     {
@@ -284,7 +284,7 @@
       "name": "🔬 VERITAS",
       "subtitle": "AI-Native Legal Intelligence Platform",
       "description": "Next-generation legal AI platform addressing the core efficiency-trust deficit in legal markets through demonstrably reliable, transparent, and ethically sound artificial intelligence.",
-      "detailed_description": "VERITAS represents a groundbreaking approach to legal AI, prioritizing transparency, reliability, and ethical considerations. The platform incorporates systematic safety research and security-first architecture to build trust in AI-powered legal solutions.",
+      "detailed_description": "VERITAS is a legal AI platform focused on transparency, reliability, and ethical considerations. The platform incorporates safety research and security-first architecture to build trust in AI-powered legal solutions.",
       "technologies": [
         "Python",
         "Legal NLP",

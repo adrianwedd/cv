@@ -33,6 +33,15 @@ Please perform a complete session wrap-up following these priorities:
    - Highlight operational excellence patterns learned
    - Keep historical details in PREVIOUS_SESSION_WRAPUPS.md
 
+### 🧠 **Context Efficiency Analysis**
+3.5. **Session Performance Metrics**:
+   - **Context Usage**: [X%] of available context window utilized efficiently
+   - **Key Files Read**: [count] - optimize for <10 per session for speed
+   - **Tool Calls**: [count] - batch operations where possible
+   - **Knowledge Reuse**: [X%] - how much prior session knowledge was leveraged
+   - **Bootstrap Time**: [X minutes] - time from start to productive work
+   - **Objective Completion Rate**: [X/Y objectives] - success percentage vs estimates
+
 4. **NEXT_SESSION_PLAN.md Creation**:
    - Strategic planning for next development session
    - Priority ranking based on business value and technical readiness
@@ -67,10 +76,17 @@ Please perform a complete session wrap-up following these priorities:
 - [ ] Objective 3: [Brief description] - [Impact/metrics]
 
 ### 🎯 **SYSTEM IMPROVEMENTS**
-- **Reliability**: [Before/after metrics - e.g., 3/6 → 4/6 systems operational]
+- **Reliability**: [Before/after metrics - e.g., 3/6 → 4/6 systems operational (+33% improvement)]
 - **Performance**: [Specific improvements - e.g., CI time reduction, response times]
 - **Cost Optimization**: [Cost savings or efficiency gains achieved]
 - **Architecture**: [Modernization or structural improvements]
+
+### 📈 **System Health Trending**
+- **Previous Session**: [X/6] systems operational
+- **Current Session**: [Y/6] systems operational ([+/-Z%] change)
+- **Target Next Session**: [Z/6] systems operational
+- **Reliability Trajectory**: [Improving/Stable/Declining] - [specific trend analysis]
+- **Critical Systems Status**: [List any systems requiring urgent attention]
 
 ### 🔧 **TECHNICAL DELIVERABLES**
 - **Code Changes**: [Files modified, lines of code, new components]

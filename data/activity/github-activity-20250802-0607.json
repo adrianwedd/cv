@@ -110,7 +110,7 @@
       },
       {
         "name": "ordr.fm",
-        "description": "Fucking Methodical Music Sorting. A precision-engineered CLI tool for intelligent music library organization — powered by EXIF metadata, lossless prioritization, and zero-overwrite safety. Sorts chaos",
+        "description": "Methodical Music Sorting. A precision-engineered CLI tool for intelligent music library organization — powered by EXIF metadata, lossless prioritization, and zero-overwrite safety. Sorts chaos",
         "language": "Shell",
         "stars": 0,
         "updated": "2025-07-30T09:53:04Z",

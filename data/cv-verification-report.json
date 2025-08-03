@@ -1,0 +1,269 @@
+{
+  "timestamp": "2025-08-03T07:08:36.713Z",
+  "version": "1.0.0",
+  "overall_authenticity_score": 64,
+  "career_progression": {
+    "verified_positions": [
+      {
+        "position": "Systems Analyst / Acting Senior Change Analyst",
+        "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
+        "period": "2018 - Present",
+        "verified": true,
+        "confidence": 95,
+        "historical_source": "Adrian Wedd CV(1).json"
+      },
+      {
+        "position": "ITS Client Services Officer",
+        "company": "University of Tasmania",
+        "period": "2015 - 2018",
+        "verified": true,
+        "confidence": 95,
+        "historical_source": "Adrian Wedd CV(1).json"
+      },
+      {
+        "position": "Director",
+        "company": "Digital Agency PTY LTD",
+        "period": "2015 - 2018",
+        "verified": true,
+        "confidence": 95,
+        "historical_source": "Adrian Wedd CV(1).json"
+      },
+      {
+        "position": "Second Level IT Support Engineer",
+        "company": "The Wilderness Society Inc.",
+        "period": "2012 - 2015",
+        "verified": true,
+        "confidence": 95,
+        "historical_source": "Adrian Wedd CV(1).json"
+      },
+      {
+        "position": "Communications and Logistics Coordinator",
+        "company": "Greenpeace Australia Pacific",
+        "period": "2010 - 2012",
+        "verified": true,
+        "confidence": 95,
+        "historical_source": "Adrian Wedd CV(1).json"
+      }
+    ],
+    "career_advancement": "verified",
+    "timeline_consistency": "consistent",
+    "position_accuracy": 100
+  },
+  "experience_verification": {
+    "total_claims": 32,
+    "verified_claims": 8,
+    "authenticity_score": 25,
+    "detailed_verification": [
+      {
+        "claim": "Experience with Python",
+        "category": "technical_skill",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Experience with JavaScript",
+        "category": "technical_skill",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Experience with TypeScript",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Go",
+        "category": "technical_skill",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Experience with Rust",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Machine Learning",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Deep Learning",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Natural Language Processing",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Computer Vision",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with TensorFlow",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with PyTorch",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with React",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Vue.js",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Node.js",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with FastAPI",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with GraphQL",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Docker",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Kubernetes",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with GitHub Actions",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with AWS",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Azure",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with System Architecture",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with API Design",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Database Design",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with PostgreSQL",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with MongoDB",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Experience with Redis",
+        "category": "technical_skill",
+        "verified": false,
+        "confidence": 60
+      },
+      {
+        "claim": "Worked at Homes Tasmania (formerly Department of Communities Tasmania)",
+        "category": "employment",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Worked at University of Tasmania",
+        "category": "employment",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Worked at Digital Agency PTY LTD",
+        "category": "employment",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Worked at The Wilderness Society Inc.",
+        "category": "employment",
+        "verified": true,
+        "confidence": 95
+      },
+      {
+        "claim": "Worked at Greenpeace Australia Pacific",
+        "category": "employment",
+        "verified": true,
+        "confidence": 95
+      }
+    ]
+  },
+  "skill_evolution": {
+    "core_skills_maintained": false,
+    "natural_progression": true,
+    "skill_growth_rate": "realistic",
+    "technology_evolution": []
+  },
+  "confidence_scores": {
+    "career_progression": 100,
+    "experience_claims": 25,
+    "skill_evolution": 70,
+    "overall": 64
+  },
+  "recommendations": [
+    {
+      "type": "improvement",
+      "message": "Consider strengthening historical documentation for better verification"
+    }
+  ]
+}
