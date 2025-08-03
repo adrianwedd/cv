@@ -1,4 +1,4 @@
-const https = require('https');
+import https from 'https';
 
 /**
  * Shared HTTP request wrapper with retry logic and exponential backoff.
@@ -59,4 +59,4 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-module.exports = { httpRequest, sleep };
+export { httpRequest, sleep };
