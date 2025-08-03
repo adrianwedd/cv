@@ -7,6 +7,13 @@
     <meta name="keywords" content="Adrian Wedd, AI Engineer, Software Architect, Machine Learning, Autonomous Systems, Python, JavaScript, Tasmania">
     <meta name="author" content="Adrian Wedd">
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.github.com;">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+    
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Adrian Wedd - AI Engineer & Software Architect">
@@ -26,18 +33,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Fonts - Optimized Loading -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Critical Resource Preloading -->
-    <link rel="preload" href="assets/script.js" as="script">
+    <link rel="preload" href="assets/script.min.js" as="script">
     
-    <!-- Icons -->
+    <!-- Icons & PWA -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
     
     <!-- Styles - Optimized Loading -->
-    <!-- Critical: Main styles load immediately -->
-    <link rel="stylesheet" href="assets/styles.css">
+    <!-- Critical: Minified styles load immediately -->
+    <link rel="stylesheet" href="assets/styles.min.css">
     
     <!-- Non-critical: Feature-specific styles load after main content -->
     <link rel="preload" href="assets/cv-export-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -477,10 +486,11 @@
 
     <!-- Scripts - Optimized Loading -->
     <!-- Critical: Main functionality loads first -->
-    <script src="assets/script.js" defer></script>
+    <script src="assets/script.min.js" defer></script>
+    <script src="assets/performance-monitor.min.js" defer></script>
     
     <!-- Non-critical: Advanced features load after main content -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous" defer></script>
     <script src="assets/github-actions-visualizer.js" defer></script>
     <script src="assets/github-actions-analytics.js" defer></script>
     <script src="assets/github-actions-drill-down.js" defer></script>
