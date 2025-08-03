@@ -1,0 +1,72 @@
+{
+  "overall_confidence": 51,
+  "validation_timestamp": "2025-08-01T07:15:38.679Z",
+  "detection_layers": {
+    "quantitative_validation": {
+      "passed": 0,
+      "failed": 0,
+      "accuracy_rate": 0
+    },
+    "timeline_coherence": {
+      "passed": 0,
+      "failed": 0,
+      "violations": []
+    },
+    "generic_language": {
+      "score": 10,
+      "threshold": 50,
+      "flags": [
+        {
+          "pattern": "seamlessly\\s+integrat(?:ed?|ing)",
+          "matches": 1,
+          "examples": [
+            "seamlessly integrate"
+          ]
+        }
+      ]
+    },
+    "impossible_claims": {
+      "detected": [
+        {
+          "category": "suspicious_metrics",
+          "claim": "increased operational efficiency by an average of 40% across enterprise clients. Combining deep expertise in Python and TypeScript with advanced machine learning implementations, I architect scalable AI solutions that bridge the gap between theoretical ML models and production-ready systems. Recognized for pioneering human-AI collaborative frameworks that have reduced decision-making latency by 60%",
+          "severity": "low"
+        }
+      ],
+      "count": 1,
+      "severity": "low"
+    },
+    "consistency_check": {
+      "coherent": true,
+      "conflicts": [],
+      "consistency_score": 100
+    }
+  },
+  "flagged_content": [
+    {
+      "type": "impossible_claims",
+      "claims": [
+        {
+          "category": "suspicious_metrics",
+          "claim": "increased operational efficiency by an average of 40% across enterprise clients. Combining deep expertise in Python and TypeScript with advanced machine learning implementations, I architect scalable AI solutions that bridge the gap between theoretical ML models and production-ready systems. Recognized for pioneering human-AI collaborative frameworks that have reduced decision-making latency by 60%",
+          "severity": "low"
+        }
+      ],
+      "severity": "high"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "accuracy",
+      "message": "Low quantitative accuracy detected",
+      "action": "Verify all numerical claims against GitHub data"
+    }
+  ],
+  "urgent_reviews": [
+    {
+      "priority": "critical",
+      "message": "Low confidence score requires immediate content review",
+      "action": "Manual review and fact-checking of all AI-generated content"
+    }
+  ]
+}
