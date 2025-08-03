@@ -1,6 +1,6 @@
 {
   "overall": "failed",
-  "timestamp": "2025-08-03T09:34:38.191Z",
+  "timestamp": "2025-08-03T10:00:38.996Z",
   "tests": {
     "accessibility": {
       "status": "warning",
@@ -34,7 +34,7 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 113.31099999999999,
+          "value": 131.74,
           "threshold": "< 2000ms"
         },
         "contentSize": {
@@ -54,20 +54,20 @@
         }
       },
       "metrics": {
-        "loadTime": 113.31099999999999,
+        "loadTime": 131.74,
         "contentSize": 162000,
-        "dnsTime": 2.22,
-        "connectTime": 29.352,
+        "dnsTime": 2.053,
+        "connectTime": 37.56,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
     },
     "dataIntegrity": {
       "status": "failed",
-      "score": 0,
+      "score": 40,
       "details": {
         "cvDataPresent": {
-          "passed": false,
+          "passed": true,
           "message": "Core CV data present in HTML"
         },
         "contactInfoValid": {
@@ -75,7 +75,7 @@
           "message": "Contact information present"
         },
         "projectLinksWorking": {
-          "passed": false,
+          "passed": true,
           "message": "0 GitHub project links found"
         },
         "skillsAccurate": {
@@ -186,7 +186,7 @@
     }
   },
   "metrics": {
-    "overallScore": 44
+    "overallScore": 50
   },
   "issues": [
     {
@@ -223,7 +223,7 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 113.31099999999999,
+          "value": 131.74,
           "threshold": "< 2000ms"
         },
         "contentSize": {
@@ -249,7 +249,7 @@
       "message": "dataIntegrity tests failed",
       "details": {
         "cvDataPresent": {
-          "passed": false,
+          "passed": true,
           "message": "Core CV data present in HTML"
         },
         "contactInfoValid": {
@@ -257,7 +257,7 @@
           "message": "Contact information present"
         },
         "projectLinksWorking": {
-          "passed": false,
+          "passed": true,
           "message": "0 GitHub project links found"
         },
         "skillsAccurate": {
