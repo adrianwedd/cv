@@ -12,6 +12,7 @@
     "test:coverage": "mkdir -p coverage && node --test --test-reporter=spec foundation.test.js > coverage/test-results.txt 2>&1 && echo 'Coverage report generated' > coverage/lcov.info",
     "test:accessibility": "node --test tests/accessibility.test.js",
     "test:cross-browser": "node --test tests/cross-browser.test.js",
+    "test:linkedin": "node --test tests/linkedin-integration.test.js",
     "test:integration": "node --test tests/",
     "lint": "eslint *.js",
     "format": "prettier --write *.js",
