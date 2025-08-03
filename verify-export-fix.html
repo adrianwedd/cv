@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Export Verification</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .verification-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        .success { background: #ecfdf5; border-color: #22c55e; color: #065f46; }
+        .error { background: #fef2f2; border-color: #ef4444; color: #991b1b; }
+        .info { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .test-card {
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f9fafb;
+        }
+        .test-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <div class="verification-panel">
+        <h1>🔍 CV Export System Verification</h1>
+        <p>Comprehensive verification of the CV export system fixes.</p>
+        
+        <div id="verification-results">
+            <div class="status info">
+                <strong>📋 Starting verification process...</strong>
+            </div>
+        </div>
+        
+        <div class="test-grid">
+            <div class="test-card">
+                <h3>🔧 System Status</h3>
+                <button class="btn" onclick="checkSystemStatus()">Check Status</button>
+            </div>
+            <div class="test-card">
+                <h3>📄 Data Loading</h3>
+                <button class="btn" onclick="testDataAccess()">Test Data</button>
+            </div>
+            <div class="test-card">
+                <h3>🎨 UI Components</h3>
+                <button class="btn" onclick="testUIComponents()">Test UI</button>
+            </div>
+            <div class="test-card">
+                <h3>📤 Export Functions</h3>
+                <button class="btn" onclick="testExportFunctions()">Test Export</button>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <h3>🚀 Quick Actions</h3>
+            <button class="btn" style="margin: 5px;" onclick="openExportModal()">Open Export Modal</button>
+            <button class="btn" style="margin: 5px;" onclick="testPDFExport()">Test PDF Export</button>
+            <button class="btn" style="margin: 5px;" onclick="testATSExport()">Test ATS Export</button>
+        </div>
+    </div>
+
+    <!-- Load the actual CV export system -->
+    <link rel="stylesheet" href="assets/cv-export-styles.css">
+    <script src="assets/ats-analyzer.js"></script>
+    <script src="assets/cv-template-engine.js"></script>
+    <script src="assets/cv-export-system.js"></script>
+
+    <script>
+        let verificationResults = [];
+        
+        function addVerificationResult(message, type = 'success') {
+            verificationResults.push({
+                message,
+                type,
+                timestamp: new Date().toLocaleTimeString()
+            });
+            updateVerificationDisplay();
+        }
+        
+        function updateVerificationDisplay() {
+            const container = document.getElementById('verification-results');
+            container.innerHTML = verificationResults.map(result => `
+                <div class="status ${result.type}">
+                    <strong>[${result.timestamp}]</strong> ${result.message}
+                </div>
+            `).join('');
+        }
+        
+        function checkSystemStatus() {
+            addVerificationResult('🔍 Checking system components...', 'info');
+            
+            // Check if export system exists
+            if (window.cvExportSystem) {
+                addVerificationResult('✅ CV Export System initialized successfully');
+                
+                // Check data status
+                if (window.cvExportSystem.cvData) {
+                    const data = window.cvExportSystem.cvData;
+                    addVerificationResult(`✅ CV Data loaded: ${data.personal_info?.name || 'Fallback data'}`);
+                } else {
+                    addVerificationResult('⚠️ CV data not yet loaded', 'error');
+                }
+            } else {
+                addVerificationResult('❌ CV Export System not found', 'error');
+            }
+            
+            // Check dependencies
+            const dependencies = [
+                { name: 'ATSAnalyzer', available: typeof ATSAnalyzer !== 'undefined' },
+                { name: 'CVTemplateEngine', available: typeof CVTemplateEngine !== 'undefined' }
+            ];
+            
+            dependencies.forEach(dep => {
+                if (dep.available) {
+                    addVerificationResult(`✅ ${dep.name} dependency available`);
+                } else {
+                    addVerificationResult(`⚠️ ${dep.name} using fallback mode`, 'info');
+                }
+            });
+        }
+        
+        function testDataAccess() {
+            addVerificationResult('📊 Testing data access...', 'info');
+            
+            fetch('data/base-cv.json')
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    addVerificationResult(`✅ Direct data access successful: ${data.personal_info?.name}`);
+                    addVerificationResult(`📋 Data sections: ${Object.keys(data).length}`);
+                })
+                .catch(error => {
+                    addVerificationResult(`❌ Data access failed: ${error.message}`, 'error');
+                });
+        }
+        
+        function testUIComponents() {
+            addVerificationResult('🎨 Testing UI components...', 'info');
+            
+            const exportButton = document.getElementById('cv-export-toggle');
+            const exportModal = document.getElementById('cv-export-modal');
+            
+            if (exportButton) {
+                addVerificationResult('✅ Export button created and accessible');
+                
+                // Test button styling
+                const computed = getComputedStyle(exportButton);
+                if (computed.position === 'fixed') {
+                    addVerificationResult('✅ Export button positioned correctly');
+                } else {
+                    addVerificationResult('⚠️ Export button positioning may be incorrect', 'info');
+                }
+            } else {
+                addVerificationResult('❌ Export button not found', 'error');
+            }
+            
+            if (exportModal) {
+                addVerificationResult('✅ Export modal created');
+            } else {
+                addVerificationResult('❌ Export modal not found', 'error');
+            }
+        }
+        
+        function testExportFunctions() {
+            addVerificationResult('📤 Testing export functions...', 'info');
+            
+            if (window.cvExportSystem) {
+                const system = window.cvExportSystem;
+                
+                // Test ATS scoring
+                try {
+                    system.calculateATSScore();
+                    addVerificationResult(`✅ ATS scoring works: ${system.atsScore}/100`);
+                } catch (error) {
+                    addVerificationResult(`❌ ATS scoring failed: ${error.message}`, 'error');
+                }
+                
+                // Test preview generation
+                try {
+                    const preview = system.generatePreviewContent();
+                    if (preview && preview.length > 0) {
+                        addVerificationResult('✅ Preview generation successful');
+                    } else {
+                        addVerificationResult('⚠️ Preview generation returned empty content', 'info');
+                    }
+                } catch (error) {
+                    addVerificationResult(`❌ Preview generation failed: ${error.message}`, 'error');
+                }
+            } else {
+                addVerificationResult('❌ Cannot test functions - system not initialized', 'error');
+            }
+        }
+        
+        function openExportModal() {
+            if (window.cvExportSystem) {
+                window.cvExportSystem.showExportModal();
+                addVerificationResult('🔓 Export modal opened successfully');
+            } else {
+                addVerificationResult('❌ Cannot open modal - system not initialized', 'error');
+            }
+        }
+        
+        function testPDFExport() {
+            addVerificationResult('📄 Testing PDF export functionality...', 'info');
+            
+            if (window.cvExportSystem) {
+                try {
+                    window.cvExportSystem.selectFormat('pdf');
+                    addVerificationResult('✅ PDF format selected successfully');
+                } catch (error) {
+                    addVerificationResult(`❌ PDF format selection failed: ${error.message}`, 'error');
+                }
+            } else {
+                addVerificationResult('❌ Cannot test PDF export - system not initialized', 'error');
+            }
+        }
+        
+        function testATSExport() {
+            addVerificationResult('🤖 Testing ATS export functionality...', 'info');
+            
+            if (window.cvExportSystem) {
+                try {
+                    window.cvExportSystem.selectFormat('ats-text');
+                    const atsPreview = window.cvExportSystem.generateATSPreview();
+                    if (atsPreview && atsPreview.includes('ATS-Optimized')) {
+                        addVerificationResult('✅ ATS export preview generated successfully');
+                    } else {
+                        addVerificationResult('⚠️ ATS preview may be incomplete', 'info');
+                    }
+                } catch (error) {
+                    addVerificationResult(`❌ ATS export failed: ${error.message}`, 'error');
+                }
+            } else {
+                addVerificationResult('❌ Cannot test ATS export - system not initialized', 'error');
+            }
+        }
+        
+        // Auto-run initial verification
+        document.addEventListener('DOMContentLoaded', () => {
+            addVerificationResult('🚀 Starting automatic verification...', 'info');
+            
+            setTimeout(() => {
+                checkSystemStatus();
+                testDataAccess();
+                testUIComponents();
+            }, 2000);
+        });
+        
+        // Monitor console for export system messages
+        const originalLog = console.log;
+        console.log = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('CV Export') || message.includes('CV data') || message.includes('initialized')) {
+                addVerificationResult(`📝 System: ${message}`, 'info');
+            }
+            originalLog.apply(console, args);
+        };
+    </script>
+</body>
+</html>

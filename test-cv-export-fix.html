@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Export Test</title>
+    <style>
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-dark: #1d4ed8;
+            --color-text-inverse: white;
+            --radius-lg: 8px;
+            --font-size-sm: 14px;
+            --font-weight-medium: 500;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition-normal: 200ms;
+            --z-fixed: 50;
+            --space-2: 8px;
+        }
+        body {
+            font-family: Inter, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        .success {
+            background: #ecfdf5;
+            border-color: #22c55e;
+            color: #065f46;
+        }
+        .error {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        .warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+        .test-button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 CV Export System Test</h1>
+        <p>Testing the fixed CV export system with error handling and fallbacks.</p>
+        
+        <div id="test-results">
+            <div class="test-result warning">
+                <strong>⏳ Initializing tests...</strong>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <button class="test-button" onclick="testExportButton()">Test Export Button</button>
+            <button class="test-button" onclick="testDataLoading()">Test Data Loading</button>
+            <button class="test-button" onclick="testModal()">Test Export Modal</button>
+        </div>
+    </div>
+
+    <!-- Load CSS and JS -->
+    <link rel="stylesheet" href="assets/cv-export-styles.css">
+    <script src="assets/ats-analyzer.js"></script>
+    <script src="assets/cv-template-engine.js"></script>
+    <script src="assets/cv-export-system.js"></script>
+
+    <script>
+        let testResults = [];
+        
+        function addTestResult(message, type = 'success') {
+            testResults.push({ message, type, time: new Date().toLocaleTimeString() });
+            updateTestDisplay();
+        }
+        
+        function updateTestDisplay() {
+            const container = document.getElementById('test-results');
+            container.innerHTML = testResults.map(result => `
+                <div class="test-result ${result.type}">
+                    <strong>[${result.time}]</strong> ${result.message}
+                </div>
+            `).join('');
+        }
+        
+        function testExportButton() {
+            const button = document.getElementById('cv-export-toggle');
+            if (button) {
+                addTestResult('✅ Export button found and created successfully', 'success');
+                button.click();
+                addTestResult('🖱️ Export button clicked - modal should open', 'success');
+            } else {
+                addTestResult('❌ Export button not found', 'error');
+            }
+        }
+        
+        function testDataLoading() {
+            if (window.cvExportSystem && window.cvExportSystem.cvData) {
+                const data = window.cvExportSystem.cvData;
+                addTestResult(`✅ CV data loaded: ${data.personal_info?.name || 'Unknown name'}`, 'success');
+                addTestResult(`📊 Sections: ${Object.keys(data).length}`, 'success');
+            } else {
+                addTestResult('❌ CV data not loaded or export system not initialized', 'error');
+            }
+        }
+        
+        function testModal() {
+            const modal = document.getElementById('cv-export-modal');
+            if (modal) {
+                addTestResult('✅ Export modal created successfully', 'success');
+                modal.classList.add('active');
+                addTestResult('👁️ Modal activated for visual test', 'success');
+                
+                setTimeout(() => {
+                    modal.classList.remove('active');
+                    addTestResult('Modal closed after test', 'success');
+                }, 3000);
+            } else {
+                addTestResult('❌ Export modal not found', 'error');
+            }
+        }
+        
+        // Monitor system initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            addTestResult('🚀 DOM loaded, initializing tests...', 'warning');
+            
+            setTimeout(() => {
+                if (typeof CVExportSystem !== 'undefined') {
+                    addTestResult('✅ CVExportSystem class available', 'success');
+                } else {
+                    addTestResult('❌ CVExportSystem class not found', 'error');
+                }
+                
+                if (window.cvExportSystem) {
+                    addTestResult('✅ Export system instance created', 'success');
+                } else {
+                    addTestResult('❌ Export system not initialized', 'error');
+                }
+                
+                if (typeof ATSAnalyzer !== 'undefined') {
+                    addTestResult('✅ ATSAnalyzer dependency available', 'success');
+                } else {
+                    addTestResult('⚠️ ATSAnalyzer not available (using fallback)', 'warning');
+                }
+                
+                if (typeof CVTemplateEngine !== 'undefined') {
+                    addTestResult('✅ CVTemplateEngine dependency available', 'success');
+                } else {
+                    addTestResult('⚠️ CVTemplateEngine not available (using fallback)', 'warning');
+                }
+            }, 2000);
+        });
+        
+        // Listen for export system console messages
+        const originalConsole = console.log;
+        console.log = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('CV Export System') || message.includes('CV data')) {
+                addTestResult(`📝 ${message}`, 'success');
+            }
+            originalConsole.apply(console, args);
+        };
+        
+        const originalError = console.error;
+        console.error = function(...args) {
+            const message = args.join(' ');
+            addTestResult(`❌ Error: ${message}`, 'error');
+            originalError.apply(console, args);
+        };
+        
+        const originalWarn = console.warn;
+        console.warn = function(...args) {
+            const message = args.join(' ');
+            addTestResult(`⚠️ Warning: ${message}`, 'warning');
+            originalWarn.apply(console, args);
+        };
+    </script>
+</body>
+</html>

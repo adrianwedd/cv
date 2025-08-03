@@ -6,6 +6,161 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is an AI-Enhanced CV System that automatically generates and maintains a professional CV website using GitHub activity analysis and Claude AI content optimization. The system runs on GitHub Actions with scheduled workflows for continuous enhancement.
 
+### Session Management & Knowledge Continuity
+
+**Efficient Session Workflow**: This project uses a structured session management system for optimal Claude Code collaboration:
+
+- **`NEXT_SESSION_PLAN.md`**: Strategic session planning with prioritized objectives, time estimates, and success criteria
+- **Active Development**: Execute planned work with todo tracking and incremental progress documentation  
+- **`SESSION_WRAPUP.md`**: Comprehensive session closure template ensuring knowledge capture and strategic follow-up
+
+**Key Benefits**:
+- **Context Efficiency**: New Claude instances can quickly understand current priorities and system status
+- **Knowledge Preservation**: Detailed session history prevents losing technical insights and architectural decisions
+- **Strategic Planning**: Systematic objective prioritization based on business value and technical readiness
+- **Quality Assurance**: Structured wrap-up process ensures deliverables meet production standards
+
+**Files for Context**:
+- `NEXT_SESSION_PLAN.md` - Current session objectives and strategic priorities
+- `SESSION_WRAPUP.md` - Session closure template and documentation standards
+- `PREVIOUS_SESSION_WRAPUPS.md` - Historical session achievements and learnings archive
+
+### 🚀 Quick Start for New Claude Sessions
+
+**Bootstrap Checklist (5 minutes)**:
+1. **Context**: Read this CLAUDE.md file for project understanding
+2. **Objectives**: Check `NEXT_SESSION_PLAN.md` for current priorities and time estimates
+3. **Health Check**: Run `cd .github/scripts && npm test` to verify system operational status
+4. **Planning**: Use TodoWrite tool immediately to track session progress
+5. **Git Status**: Check current branch and uncommitted changes
+
+**System Status Quick Reference**:
+- **Current Reliability**: 4/6 systems operational (OAuth, GitHub Actions, CV Generator, Analytics)
+- **Authentication**: OAuth-first → API key fallback → activity-only mode
+- **Branch Strategy**: Work in feature branches, PR to main for production changes
+- **Test Requirements**: Must pass `npm run lint` and `npm test` before completion
+
+### ⚡ **Elite Agent Roster** - *Anthropic Best Practices Embodied*
+
+Following Anthropic's 2025 Claude Code guidelines: **Start simple → Add specialization only when needed → Maintain transparency → Strategic sub-agent delegation**
+
+#### **🎭 Anthropic Enhancement Pattern**
+Each agent embodies the perfect fusion:
+- **Epic Persona** (Memorable selection) + **Anthropic Standards** (Production excellence)
+- **XML Structure** (Clear thinking) + **Superpowers** (Intuitive capabilities)  
+- **Context Isolation** (Clean delegation) + **Signature Moves** (Distinctive expertise)
+- **Success Criteria** (Measurable outcomes) + **Strategic Deployment** (When to use)
+
+**📋 Full Implementation Details**: See `agents/` directory for complete Anthropic-compliant agent specifications with XML patterns, system prompts, and production examples.
+
+**🛡️ Fortress Guardian** (`security-auditor`)  
+*"No vulnerability shall pass"*  
+**Superpowers**: Penetration testing mindset, zero-trust architecture, cryptographic mastery  
+**Deploy When**: Authentication flows, data protection, API security, compliance audits  
+**Signature Move**: Multi-layered security analysis with automated threat modeling
+
+**⚡ Performance Virtuoso** (`performance-engineer`)  
+*"Milliseconds matter, nanoseconds define legends"*  
+**Superpowers**: Profiling wizardry, bottleneck intuition, scalability prophecy  
+**Deploy When**: Optimization challenges, load testing, resource constraints  
+**Signature Move**: Real-time performance surgery with predictive scaling  
+**Tools**: Bash (profiling tools), Read (performance analysis), Edit (optimization)  
+**Success Criteria**: Performance metrics, optimization plans, scalability reports
+
+**Anthropic XML Pattern**:
+```xml
+<performance_analysis>
+  <profiling>Identify bottlenecks and resource constraints</profiling>
+  <measurement>Establish baseline metrics and targets</measurement>
+  <optimization>Implement performance improvements</optimization>
+  <validation>Test and validate performance gains</validation>
+  <scaling>Plan for future performance requirements</scaling>
+</performance_analysis>
+```
+
+**🌐 Integration Maestro** (`api-integration-specialist`)  
+*"No API too complex, no rate limit unconquerable"*  
+**Superpowers**: Protocol fluency, resilience patterns, elegant error orchestration  
+**Deploy When**: Third-party APIs, webhook systems, microservice communication  
+**Signature Move**: Self-healing integration architecture with graceful degradation  
+**Tools**: Read (API analysis), Edit (integration code), Bash (API testing), WebFetch (docs)  
+**Success Criteria**: Integration architecture, error handling, test suites, documentation
+
+**Anthropic XML Pattern**:
+```xml
+<integration_design>
+  <api_analysis>Study endpoints, rate limits, and protocols</api_analysis>
+  <resilience_patterns>Implement retry logic and circuit breakers</resilience_patterns>
+  <error_handling>Design graceful degradation strategies</error_handling>
+  <testing>Create comprehensive integration test suites</testing>
+  <documentation>Generate API specs and usage guides</documentation>
+</integration_design>
+```
+
+**🧪 Testing Alchemist** (`testing-strategist`)  
+*"Quality through precision, reliability through obsession"*  
+**Superpowers**: Test pyramid mastery, mutation testing, CI/CD telepathy  
+**Deploy When**: Test architecture, coverage optimization, quality gates  
+**Signature Move**: Zero-flaky-test frameworks with bulletproof automation  
+**Tools**: Read (test analysis), Edit (test implementation), Bash (test execution), Grep (patterns)  
+**Success Criteria**: Test suites, coverage reports, quality configurations, documentation
+
+**👑 Code Sovereign** (`code-reviewer`)  
+*"Excellence is not negotiable"*  
+**Superpowers**: Pattern recognition, architectural intuition, refactoring artistry  
+**Deploy When**: Code quality, architectural decisions, best practice enforcement  
+**Signature Move**: Elegant solutions that read like poetry yet perform like rockets  
+**Tools**: Read (code analysis), Grep (pattern detection), Edit (refactoring), Glob (structure)  
+**Success Criteria**: Review reports, refactoring plans, architecture docs, quality metrics
+
+**📜 Knowledge Curator** (`documentation-curator`)  
+*"Understanding flows through clarity"*  
+**Superpowers**: Technical storytelling, API documentation poetry, knowledge archaeology  
+**Deploy When**: Documentation strategy, API specs, onboarding experiences  
+**Signature Move**: Self-updating documentation that anticipates developer needs  
+**Tools**: Read (doc analysis), Edit (content creation), Grep (gap analysis), WebFetch (research)  
+**Success Criteria**: API docs, developer guides, knowledge systems, accessibility metrics
+
+**🚀 Deployment Commander** (`deployment-engineer`)  
+*"Production is the only environment that matters"*  
+**Superpowers**: Infrastructure as code, monitoring omniscience, zero-downtime deployments  
+**Deploy When**: Production readiness, infrastructure scaling, operational excellence  
+**Signature Move**: Self-healing production systems with predictive maintenance  
+**Tools**: Read (config analysis), Edit (deployment scripts), Bash (automation), WebFetch (platform docs)  
+**Success Criteria**: Deployment pipelines, monitoring setup, recovery procedures, runbooks
+
+**🎯 Repository Surgeon** (`repository-specialist`)  
+*"Chaos becomes order, issues become opportunities"*  
+**Superpowers**: Issue archaeology, backlog optimization, technical debt elimination  
+**Deploy When**: Repository health, issue management, project maintenance  
+**Signature Move**: Comprehensive health assessments with strategic roadmaps  
+**Tools**: Bash (analysis tools), Grep (pattern detection), Read (structure analysis), Edit (improvements)  
+**Success Criteria**: Health reports, issue strategies, structure improvements, automation
+
+**🏗️ Data Architect** (`data-architect`)  
+*"Structure is beauty, validation is truth"*  
+**Superpowers**: Schema elegance, data integrity, content verification mastery  
+**Deploy When**: Data modeling, validation systems, content management  
+**Signature Move**: Self-validating data architectures with intelligent migrations  
+**Tools**: Read (data analysis), Edit (schema improvements), Bash (validation), Grep (patterns)  
+**Success Criteria**: Architecture diagrams, validation systems, migration scripts, integrity reports
+
+### 🎭 **Agent Selection Matrix**
+
+| Task Type | Primary Agent | Secondary Agent | Context |
+|-----------|---------------|-----------------|---------|
+| **Security Issue** | 🛡️ Fortress Guardian | 👑 Code Sovereign | Auth, data protection |
+| **Performance Problem** | ⚡ Performance Virtuoso | 🚀 Deployment Commander | Optimization, scaling |
+| **API Integration** | 🌐 Integration Maestro | 🛡️ Fortress Guardian | External services |
+| **Testing Challenge** | 🧪 Testing Alchemist | 👑 Code Sovereign | Quality assurance |
+| **Code Quality** | 👑 Code Sovereign | 📜 Knowledge Curator | Architecture, patterns |
+| **Documentation** | 📜 Knowledge Curator | 🎯 Repository Surgeon | Knowledge management |
+| **Production Issues** | 🚀 Deployment Commander | ⚡ Performance Virtuoso | Infrastructure |
+| **Project Health** | 🎯 Repository Surgeon | 📜 Knowledge Curator | Maintenance |
+| **Data Problems** | 🏗️ Data Architect | 🛡️ Fortress Guardian | Schema, validation |
+
+*Choose your champion based on the primary challenge. Secondary agents provide complementary expertise for complex scenarios.*
+
 ## Architecture
 
 ### Core Components
