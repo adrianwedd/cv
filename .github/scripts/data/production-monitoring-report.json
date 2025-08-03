@@ -1,0 +1,107 @@
+{
+  "timestamp": "2025-08-03T04:11:19.026Z",
+  "overall_status": "warning",
+  "checks": {
+    "system_validation": {
+      "status": "healthy",
+      "operational_systems": 4,
+      "total_systems": 6,
+      "response_time": 35207,
+      "details": {
+        "operational": 4,
+        "total": 6,
+        "degraded": 2,
+        "failed": 0,
+        "response_time": 35207,
+        "overall_status": "fair"
+      }
+    },
+    "oauth_authentication": {
+      "status": "degraded",
+      "details": {
+        "authenticated": false,
+        "details": "💡 No saved tokens found - authentication required\n❌ Not authenticated"
+      }
+    },
+    "ai_router": {
+      "status": "healthy",
+      "available_methods": 3,
+      "details": {
+        "available_methods": 3,
+        "cost_breakdown": {
+          "browser": {
+            "requests": 0,
+            "cost_per_request": 0,
+            "total_cost": 0,
+            "error_rate": 0
+          },
+          "oauth": {
+            "requests": 0,
+            "cost_per_request": 0.02,
+            "total_cost": 0,
+            "error_rate": 0
+          },
+          "api": {
+            "requests": 0,
+            "cost_per_request": 0.05,
+            "total_cost": 0,
+            "error_rate": 0
+          }
+        },
+        "total_requests": 0,
+        "recommendations": [
+          {
+            "type": "cost-optimization",
+            "priority": "high",
+            "message": "Consider using browser authentication (free) for cost savings"
+          }
+        ]
+      }
+    },
+    "cost_optimization": {
+      "status": "healthy",
+      "daily_cost": 0,
+      "details": {
+        "daily_cost": 0,
+        "within_thresholds": true,
+        "cost_breakdown": {
+          "browser": {
+            "requests": 0,
+            "cost_per_request": 0,
+            "total_cost": 0,
+            "error_rate": 0
+          },
+          "oauth": {
+            "requests": 0,
+            "cost_per_request": 0.02,
+            "total_cost": 0,
+            "error_rate": 0
+          },
+          "api": {
+            "requests": 0,
+            "cost_per_request": 0.05,
+            "total_cost": 0,
+            "error_rate": 0
+          }
+        },
+        "recommendations": [
+          {
+            "type": "cost-optimization",
+            "priority": "high",
+            "message": "Consider using browser authentication (free) for cost savings"
+          }
+        ]
+      }
+    }
+  },
+  "alerts": [],
+  "recommendations": [
+    {
+      "priority": "medium",
+      "category": "authentication",
+      "message": "OAuth authentication not available. Consider setting up Claude Max subscription.",
+      "action": "Configure OAuth authentication for cost optimization"
+    }
+  ],
+  "lastCheck": "2025-08-03T04:11:54.526Z"
+}
