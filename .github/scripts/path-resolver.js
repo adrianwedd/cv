@@ -3,8 +3,13 @@
  * Bulletproof path handling for consistent file access across all environments
  */
 
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class PathResolver {
   constructor() {
@@ -160,4 +165,4 @@ class PathResolver {
 
 // Export singleton instance
 const pathResolver = new PathResolver();
-module.exports = pathResolver;
+export default pathResolver;

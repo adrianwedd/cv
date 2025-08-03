@@ -17,20 +17,26 @@
  * Output: ./dist/ directory with complete website
  */
 
-const fs = require('fs').promises;
-const puppeteer = require('puppeteer');
-const path = require('path');
-const Handlebars = require('handlebars');
-const { Document, Packer, Paragraph, TextRun, HeadingLevel } = require('docx');
+import { promises as fs } from 'fs';
+import puppeteer from 'puppeteer';
+import path from 'path';
+import Handlebars from 'handlebars';
+import { Document, Packer, Paragraph, TextRun, HeadingLevel } from 'docx';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Determine root directory by checking for project-specific files
 // We look for index.html as the definitive indicator of project root
 let rootPrefix = '.';
 
 // Check if index.html exists in current directory (we're in project root)
-if (require('fs').existsSync(path.join(process.cwd(), 'index.html'))) {
+import fsSync from 'fs';
+if (fsSync.existsSync(path.join(process.cwd(), 'index.html'))) {
     rootPrefix = '.';
-} else if (require('fs').existsSync(path.join(process.cwd(), '../../index.html'))) {
+} else if (fsSync.existsSync(path.join(process.cwd(), '../../index.html'))) {
     // We're likely in .github/scripts
     rootPrefix = '../..';
 } else {
@@ -38,7 +44,7 @@ if (require('fs').existsSync(path.join(process.cwd(), 'index.html'))) {
     let currentDir = process.cwd();
     let levelsUp = 0;
     while (levelsUp < 5) {
-        if (require('fs').existsSync(path.join(currentDir, 'index.html'))) {
+        if (fsSync.existsSync(path.join(currentDir, 'index.html'))) {
             rootPrefix = '../'.repeat(levelsUp) || '.';
             break;
         }
@@ -1163,9 +1169,9 @@ async function main() {
     }
 }
 
-// Execute if called directly
-if (require.main === module) {
+// Execute if called directly (ES module equivalent)
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
 
-module.exports = { CVGenerator, CONFIG };
+export { CVGenerator, CONFIG };
