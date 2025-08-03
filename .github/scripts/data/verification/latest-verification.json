@@ -1,6 +1,6 @@
 {
   "overall": "excellent",
-  "timestamp": "2025-08-03T13:58:09.675Z",
+  "timestamp": "2025-08-03T14:11:34.603Z",
   "tests": {
     "accessibility": {
       "status": "passed",
@@ -34,12 +34,12 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 157.409,
+          "value": 169.178,
           "threshold": "< 2000ms"
         },
         "contentSize": {
           "passed": true,
-          "value": 34357,
+          "value": 49222,
           "threshold": "< 50KB"
         },
         "imageOptimization": {
@@ -54,17 +54,17 @@
         }
       },
       "metrics": {
-        "loadTime": 157.409,
-        "contentSize": 34357,
-        "dnsTime": 1.7830000000000001,
-        "connectTime": 28.267,
+        "loadTime": 169.178,
+        "contentSize": 49222,
+        "dnsTime": 2.111,
+        "connectTime": 35.804,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
     },
     "dataIntegrity": {
-      "status": "failed",
-      "score": 80,
+      "status": "passed",
+      "score": 100,
       "details": {
         "cvDataPresent": {
           "passed": true,
@@ -76,14 +76,14 @@
         },
         "projectLinksWorking": {
           "passed": true,
-          "message": "2 GitHub project links found"
+          "message": "5 GitHub project links found"
         },
         "skillsAccurate": {
           "passed": true,
           "message": "Core technical skills present"
         },
         "timelineConsistent": {
-          "passed": false,
+          "passed": true,
           "message": "Timeline includes current year"
         }
       }
@@ -102,20 +102,20 @@
         },
         "navigation": {
           "passed": true,
-          "message": "15 navigation elements found"
+          "message": "19 navigation elements found"
         },
         "responsiveLayout": {
           "passed": true,
-          "message": "Responsive design: 67% (4/6 indicators)",
+          "message": "Responsive design: 50% (3/6 indicators)",
           "details": {
             "mediaQueries": false,
             "viewportMeta": true,
-            "responsiveKeywords": true,
+            "responsiveKeywords": false,
             "flexboxGrid": false,
             "responsiveUnits": true,
             "breakpoints": true
           },
-          "score": 67
+          "score": 50
         },
         "errorHandling": {
           "passed": true,
@@ -195,42 +195,14 @@
     }
   },
   "metrics": {
-    "overallScore": 97
+    "overallScore": 100
   },
-  "issues": [
-    {
-      "severity": "high",
-      "category": "dataIntegrity",
-      "message": "dataIntegrity tests failed",
-      "details": {
-        "cvDataPresent": {
-          "passed": true,
-          "message": "Core CV data present in HTML"
-        },
-        "contactInfoValid": {
-          "passed": true,
-          "message": "Contact information present"
-        },
-        "projectLinksWorking": {
-          "passed": true,
-          "message": "2 GitHub project links found"
-        },
-        "skillsAccurate": {
-          "passed": true,
-          "message": "Core technical skills present"
-        },
-        "timelineConsistent": {
-          "passed": false,
-          "message": "Timeline includes current year"
-        }
-      }
-    }
-  ],
+  "issues": [],
   "recommendations": [],
   "summary": {
     "totalTests": 7,
-    "passedSuites": 6,
+    "passedSuites": 7,
     "warningSuites": 0,
-    "failedSuites": 1
+    "failedSuites": 0
   }
 }
