@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0.0",
-    "last_updated": "2025-08-03T10:00:00Z",
+    "last_updated": "2024-01-15T00:00:00Z",
     "data_source": "AI-Enhanced CV System",
     "enhancement_ready": true,
     "content_protection": {
@@ -22,13 +22,13 @@
     "tagline": "Pioneering autonomous systems and intelligent technology solutions",
     "availability": "Open to opportunities"
   },
-  "professional_summary": "Seasoned Systems Analyst and Technology Professional with over 7 years transforming critical government housing systems in Tasmania. As of 2025, I continue bridging the gap between technical innovation and social impact, specializing in systems integration, cybersecurity, and pioneering AI adoption in the public sector. My diverse career path spans environmental advocacy, digital marketing, and government service - bringing a unique perspective that combines technical depth with values-driven problem-solving. I excel at translating complex technical concepts into actionable solutions that improve service delivery for vulnerable communities.",
+  "professional_summary": "Seasoned Systems Analyst and Technology Professional with over 6 years transforming critical government housing systems in Tasmania. I bridge the gap between technical innovation and social impact, specializing in systems integration, cybersecurity, and pioneering AI adoption in the public sector. My diverse career path spans environmental advocacy, digital marketing, and government service - bringing a unique perspective that combines technical depth with values-driven problem-solving. I excel at translating complex technical concepts into actionable solutions that improve service delivery for vulnerable communities.",
   "experience": [
     {
       "position": "Systems Analyst / Acting Senior Change Analyst",
       "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
       "location": "Tasmania, Australia",
-      "period": "2018 - 2025",
+      "period": "2018 - Present",
       "type": "Full-time",
       "description": "Leading systems integration and digital transformation initiatives for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.",
       "achievements": [
@@ -173,7 +173,7 @@
       "github": "https://github.com/adrianwedd/ticketsmith",
       "demo": "https://ticketsmith.adrianwedd.com",
       "status": "Production",
-      "period": "2023 - 2025",
+      "period": "2023 - Present",
       "key_outcomes": [
         "Successful automation of repetitive workflow tasks",
         "Measurable time savings in team collaboration",
@@ -204,7 +204,7 @@
       ],
       "github": "https://github.com/adrianwedd/agentic-research-engine",
       "status": "Active Development",
-      "period": "2024 - 2025",
+      "period": "2024 - Present",
       "key_outcomes": [
         "Advanced multi-agent coordination capabilities",
         "Experimental autonomous learning implementations",
@@ -266,7 +266,7 @@
       "github": "https://github.com/adrianwedd/agentic-index",
       "demo": "https://agentic-index.com",
       "status": "Community Driven",
-      "period": "2023 - 2025",
+      "period": "2023 - Present",
       "key_outcomes": [
         "Comprehensive AI tool database development",
         "Growing developer community engagement",
@@ -296,7 +296,7 @@
         "Audit Trails"
       ],
       "status": "Private Development",
-      "period": "2024 - 2025",
+      "period": "2024 - Present",
       "key_outcomes": [
         "High-accuracy legal intelligence processing",
         "Complete transparency and audit capabilities",
@@ -328,7 +328,7 @@
       "github": "https://github.com/adrianwedd/modelatlas",
       "demo": "https://modelatlas.ai",
       "status": "Active Development",
-      "period": "2024 - 2025",
+      "period": "2024 - Present",
       "key_outcomes": [
         "Comprehensive foundation model tracking",
         "Continuous real-time data updates",
@@ -643,7 +643,7 @@
     {
       "degree": "Self-Directed AI & Machine Learning Specialization",
       "institution": "Independent Study",
-      "period": "2018 - 2025",
+      "period": "2018 - Present",
       "description": "Comprehensive self-directed learning program covering advanced AI/ML topics, autonomous systems, and emerging technologies through online courses, research papers, and practical projects.",
       "key_areas": [
         "Deep Learning & Neural Networks",
@@ -717,13 +717,13 @@
     {
       "role": "AI Ethics Advisor",
       "organization": "Open Source AI Initiative",
-      "period": "2023 - 2025",
+      "period": "2023 - Present",
       "description": "Providing guidance on ethical AI development practices and contributing to open-source AI safety tools."
     },
     {
       "role": "Mentor",
       "organization": "TechMentorship Network",
-      "period": "2020 - 2025",
+      "period": "2020 - Present",
       "description": "Mentoring junior developers and career changers entering the AI and software development field."
     }
   ]
