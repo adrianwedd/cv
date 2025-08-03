@@ -1,13 +1,13 @@
 {
-  "overall": "failed",
-  "timestamp": "2025-08-03T12:53:29.653Z",
+  "overall": "excellent",
+  "timestamp": "2025-08-03T13:58:09.675Z",
   "tests": {
     "accessibility": {
-      "status": "warning",
-      "score": 80,
+      "status": "passed",
+      "score": 100,
       "details": {
         "htmlValidation": {
-          "passed": false,
+          "passed": true,
           "message": "Basic HTML structure validation"
         },
         "headingStructure": {
@@ -34,12 +34,12 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 423.722,
+          "value": 157.409,
           "threshold": "< 2000ms"
         },
         "contentSize": {
           "passed": true,
-          "value": 34968,
+          "value": 34357,
           "threshold": "< 50KB"
         },
         "imageOptimization": {
@@ -54,32 +54,32 @@
         }
       },
       "metrics": {
-        "loadTime": 423.722,
-        "contentSize": 34968,
-        "dnsTime": 5.084,
-        "connectTime": 31.595,
+        "loadTime": 157.409,
+        "contentSize": 34357,
+        "dnsTime": 1.7830000000000001,
+        "connectTime": 28.267,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
     },
     "dataIntegrity": {
       "status": "failed",
-      "score": 40,
+      "score": 80,
       "details": {
         "cvDataPresent": {
           "passed": true,
           "message": "Core CV data present in HTML"
         },
         "contactInfoValid": {
-          "passed": false,
+          "passed": true,
           "message": "Contact information present"
         },
         "projectLinksWorking": {
           "passed": true,
-          "message": "0 GitHub project links found"
+          "message": "2 GitHub project links found"
         },
         "skillsAccurate": {
-          "passed": false,
+          "passed": true,
           "message": "Core technical skills present"
         },
         "timelineConsistent": {
@@ -89,24 +89,33 @@
       }
     },
     "functionality": {
-      "status": "warning",
-      "score": 40,
+      "status": "passed",
+      "score": 100,
       "details": {
         "pdfDownload": {
           "passed": true,
           "message": "PDF download available"
         },
         "themeToggle": {
-          "passed": false,
+          "passed": true,
           "message": "Theme functionality present"
         },
         "navigation": {
-          "passed": false,
-          "message": "0 navigation elements found"
+          "passed": true,
+          "message": "15 navigation elements found"
         },
         "responsiveLayout": {
-          "passed": false,
-          "message": "Responsive design indicators present"
+          "passed": true,
+          "message": "Responsive design: 67% (4/6 indicators)",
+          "details": {
+            "mediaQueries": false,
+            "viewportMeta": true,
+            "responsiveKeywords": true,
+            "flexboxGrid": false,
+            "responsiveUnits": true,
+            "breakpoints": true
+          },
+          "score": 67
         },
         "errorHandling": {
           "passed": true,
@@ -115,19 +124,19 @@
       }
     },
     "seo": {
-      "status": "warning",
-      "score": 40,
+      "status": "passed",
+      "score": 100,
       "details": {
         "titlePresent": {
           "passed": true,
           "message": "Title tag present"
         },
         "metaDescription": {
-          "passed": false,
+          "passed": true,
           "message": "Meta description present"
         },
         "structuredData": {
-          "passed": false,
+          "passed": true,
           "message": "Structured data present"
         },
         "headingHierarchy": {
@@ -135,21 +144,21 @@
           "message": "Proper heading hierarchy"
         },
         "canonicalUrl": {
-          "passed": false,
+          "passed": true,
           "message": "Canonical URL present"
         }
       }
     },
     "security": {
-      "status": "warning",
-      "score": 25,
+      "status": "passed",
+      "score": 100,
       "details": {
         "contentTypeNosniff": {
-          "passed": false,
+          "passed": true,
           "message": "X-Content-Type-Options header"
         },
         "frameOptions": {
-          "passed": false,
+          "passed": true,
           "message": "X-Frame-Options header"
         },
         "httpsRedirect": {
@@ -157,21 +166,21 @@
           "message": "HTTPS redirect working"
         },
         "csp": {
-          "passed": false,
+          "passed": true,
           "message": "Content Security Policy"
         }
       }
     },
     "mobileResponsiveness": {
-      "status": "warning",
-      "score": 50,
+      "status": "passed",
+      "score": 100,
       "details": {
         "viewportMeta": {
-          "passed": false,
+          "passed": true,
           "message": "Viewport meta tag present"
         },
         "mobileStyles": {
-          "passed": false,
+          "passed": true,
           "message": "Mobile styles detected"
         },
         "touchTargets": {
@@ -186,36 +195,9 @@
     }
   },
   "metrics": {
-    "overallScore": 54
+    "overallScore": 97
   },
   "issues": [
-    {
-      "severity": "medium",
-      "category": "accessibility",
-      "message": "accessibility tests have warnings",
-      "details": {
-        "htmlValidation": {
-          "passed": false,
-          "message": "Basic HTML structure validation"
-        },
-        "headingStructure": {
-          "passed": true,
-          "message": "Single H1 heading present"
-        },
-        "altTextPresence": {
-          "passed": true,
-          "message": "0/0 images have alt text"
-        },
-        "colorContrast": {
-          "passed": true,
-          "message": "Color contrast assumed adequate with design system"
-        },
-        "keyboardNavigation": {
-          "passed": true,
-          "message": "Keyboard navigation assumed functional"
-        }
-      }
-    },
     {
       "severity": "high",
       "category": "dataIntegrity",
@@ -226,15 +208,15 @@
           "message": "Core CV data present in HTML"
         },
         "contactInfoValid": {
-          "passed": false,
+          "passed": true,
           "message": "Contact information present"
         },
         "projectLinksWorking": {
           "passed": true,
-          "message": "0 GitHub project links found"
+          "message": "2 GitHub project links found"
         },
         "skillsAccurate": {
-          "passed": false,
+          "passed": true,
           "message": "Core technical skills present"
         },
         "timelineConsistent": {
@@ -242,116 +224,13 @@
           "message": "Timeline includes current year"
         }
       }
-    },
-    {
-      "severity": "medium",
-      "category": "functionality",
-      "message": "functionality tests have warnings",
-      "details": {
-        "pdfDownload": {
-          "passed": true,
-          "message": "PDF download available"
-        },
-        "themeToggle": {
-          "passed": false,
-          "message": "Theme functionality present"
-        },
-        "navigation": {
-          "passed": false,
-          "message": "0 navigation elements found"
-        },
-        "responsiveLayout": {
-          "passed": false,
-          "message": "Responsive design indicators present"
-        },
-        "errorHandling": {
-          "passed": true,
-          "message": "Error handling assumed functional"
-        }
-      }
-    },
-    {
-      "severity": "medium",
-      "category": "seo",
-      "message": "seo tests have warnings",
-      "details": {
-        "titlePresent": {
-          "passed": true,
-          "message": "Title tag present"
-        },
-        "metaDescription": {
-          "passed": false,
-          "message": "Meta description present"
-        },
-        "structuredData": {
-          "passed": false,
-          "message": "Structured data present"
-        },
-        "headingHierarchy": {
-          "passed": true,
-          "message": "Proper heading hierarchy"
-        },
-        "canonicalUrl": {
-          "passed": false,
-          "message": "Canonical URL present"
-        }
-      }
-    },
-    {
-      "severity": "medium",
-      "category": "security",
-      "message": "security tests have warnings",
-      "details": {
-        "contentTypeNosniff": {
-          "passed": false,
-          "message": "X-Content-Type-Options header"
-        },
-        "frameOptions": {
-          "passed": false,
-          "message": "X-Frame-Options header"
-        },
-        "httpsRedirect": {
-          "passed": true,
-          "message": "HTTPS redirect working"
-        },
-        "csp": {
-          "passed": false,
-          "message": "Content Security Policy"
-        }
-      }
-    },
-    {
-      "severity": "medium",
-      "category": "mobileResponsiveness",
-      "message": "mobileResponsiveness tests have warnings",
-      "details": {
-        "viewportMeta": {
-          "passed": false,
-          "message": "Viewport meta tag present"
-        },
-        "mobileStyles": {
-          "passed": false,
-          "message": "Mobile styles detected"
-        },
-        "touchTargets": {
-          "passed": true,
-          "message": "Touch targets assumed adequate"
-        },
-        "textReadability": {
-          "passed": true,
-          "message": "Text readability assumed adequate"
-        }
-      }
     }
   ],
-  "recommendations": [
-    "Consider optimizing lowest-scoring test areas for better performance",
-    "Improve accessibility compliance for better user experience"
-  ],
+  "recommendations": [],
   "summary": {
     "totalTests": 7,
-    "passedSuites": 1,
-    "warningSuites": 5,
+    "passedSuites": 6,
+    "warningSuites": 0,
     "failedSuites": 1
   }
 }
