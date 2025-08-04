@@ -1153,6 +1153,34 @@ ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.gi
             achievements: []
         };
     }
+
+    /**
+     * Clean AI-enhanced content from meta-commentary and artifacts
+     */
+    cleanResponseText(text) {
+        if (!text) return text;
+        
+        // Remove common meta-commentary patterns
+        const metaPatterns = [
+            /^Here's an enhanced.*?:\s*/i,
+            /^\*\*Enhanced.*?\*\*\s*/i,
+            /^Enhanced.*?:\s*/i,
+            /\n\nThis enhancement:.*$/s,
+            /\n\n.*?enhancement.*?:\s*\n.*$/s,
+            /\n\n.*?improvement.*?:\s*\n.*$/s,
+            /The.*?provided.*?placeholder.*$/s,
+            /^I'll.*?\.\s*/i,
+            /^Let me.*?\.\s*/i
+        ];
+        
+        let cleaned = text;
+        for (const pattern of metaPatterns) {
+            cleaned = cleaned.replace(pattern, '');
+        }
+        
+        // Normalize whitespace
+        return cleaned.trim().replace(/\n{3,}/g, '\n\n');
+    }
 }
 
 /**

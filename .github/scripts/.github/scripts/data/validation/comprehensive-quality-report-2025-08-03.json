@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-03T15:59:17.451Z",
+  "timestamp": "2025-08-03T17:02:46.074Z",
   "overallScore": 39,
   "categories": {
     "Advanced Security Audit": {
@@ -19,20 +19,20 @@
           "server": "GitHub.com",
           "content-type": "text/html",
           "location": "https://adrianwedd.github.io/cv/",
-          "x-github-request-id": "E7F8:2BF9C8:EF2AE8:F45E5D:688F874B",
+          "x-github-request-id": "D832:3BC1CD:EF26EB:F47572:688F9634",
           "accept-ranges": "bytes",
           "age": "0",
-          "date": "Sun, 03 Aug 2025 15:59:17 GMT",
+          "date": "Sun, 03 Aug 2025 17:02:46 GMT",
           "via": "1.1 varnish",
-          "x-served-by": "cache-mel11223-MEL",
+          "x-served-by": "cache-mel11281-MEL",
           "x-cache": "MISS",
           "x-cache-hits": "0",
-          "x-timer": "S1754236758.647010,VS0,VE228",
+          "x-timer": "S1754240566.323672,VS0,VE217",
           "vary": "Accept-Encoding",
-          "x-fastly-request-id": "0fd442e35d3ea542c5a2f47cc2008369b5950551"
+          "x-fastly-request-id": "c47ed15f58378aa3f780bf5893c9cd2bd9434b20"
         },
         "httpsRedirect": true,
-        "responseTime": 383
+        "responseTime": 400
       },
       "details": {
         "Content Security Policy": {
@@ -132,7 +132,7 @@
         "Performance: Compression Support - none (target: gzip or brotli)"
       ],
       "evidence": {
-        "loadTime": 39,
+        "loadTime": 31,
         "contentSize": 162,
         "compressionRatio": "uncompressed",
         "responseHeaders": {
@@ -141,23 +141,23 @@
           "server": "GitHub.com",
           "content-type": "text/html",
           "location": "https://adrianwedd.github.io/cv/",
-          "x-github-request-id": "E7F8:2BF9C8:EF2AE8:F45E5D:688F874B",
+          "x-github-request-id": "D832:3BC1CD:EF26EB:F47572:688F9634",
           "accept-ranges": "bytes",
-          "date": "Sun, 03 Aug 2025 15:59:17 GMT",
+          "date": "Sun, 03 Aug 2025 17:02:46 GMT",
           "via": "1.1 varnish",
           "age": "0",
-          "x-served-by": "cache-mel11223-MEL",
+          "x-served-by": "cache-mel11281-MEL",
           "x-cache": "HIT",
           "x-cache-hits": "2",
-          "x-timer": "S1754236758.946884,VS0,VE0",
+          "x-timer": "S1754240567.619550,VS0,VE0",
           "vary": "Accept-Encoding",
-          "x-fastly-request-id": "b3552e608f0e69548a80dc1480acc33d0e0ffea6"
+          "x-fastly-request-id": "ca55f7b1f0058839112830ce61c38c91f1c232d9"
         }
       },
       "details": {
         "Page Load Time": {
           "passed": true,
-          "actual": "39ms",
+          "actual": "31ms",
           "target": "< 1000ms",
           "points": 30,
           "maxPoints": 30
@@ -363,7 +363,7 @@
     "badgeColor": "yellow",
     "issuedDate": "2025-08-03",
     "validUntil": "2025-11-01",
-    "certificationId": "CV-QV-MDVV9TET",
+    "certificationId": "CV-QV-MDVXJG63",
     "categories": [
       {
         "name": "Advanced Security Audit",
