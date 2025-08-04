@@ -10,23 +10,23 @@
  * @version 2.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const { 
+import { promises as fs } from 'fs';
+import path from 'path';
+import { 
     ClaudeApiClient,
     QuotaExhaustedError,
     RateLimitExceededError,
     AuthenticationError,
     ServerError,
     NetworkError
-} = require('./claude-api-client');
-const {
+} from './claude-api-client.js';
+import {
     ProfessionalSummaryEnhancer,
     SkillsEnhancer,
     ExperienceEnhancer,
     ProjectsEnhancer
-} = require('./content-enhancers');
-const ContentGuardian = require('../content-guardian');
+} from './content-enhancers.js';
+import ContentGuardian from '../content-guardian.js';
 
 /**
  * Main Enhancement Orchestrator
@@ -751,4 +751,4 @@ class EnhancementOrchestrator {
     }
 }
 
-module.exports = { EnhancementOrchestrator };
+export { EnhancementOrchestrator };
