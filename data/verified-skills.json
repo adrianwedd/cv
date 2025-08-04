@@ -1,0 +1,153 @@
+{
+  "timestamp": "2025-08-03T16:35:00Z",
+  "verification_source": "employment_history_and_github",
+  "verified_skills": [
+    {
+      "name": "Python",
+      "category": "Programming Languages",
+      "level": 85,
+      "experience_years": 7,
+      "proficiency": "Advanced",
+      "verification": "GitHub activity + Homes Tasmania work",
+      "description": "Primary language for automation, data analysis, and system integration"
+    },
+    {
+      "name": "JavaScript",
+      "category": "Programming Languages",
+      "level": 80,
+      "experience_years": 8,
+      "proficiency": "Advanced",
+      "verification": "GitHub repos + CV system development",
+      "description": "Frontend development and Node.js automation scripts"
+    },
+    {
+      "name": "PowerShell",
+      "category": "Programming Languages",
+      "level": 75,
+      "experience_years": 7,
+      "proficiency": "Advanced",
+      "verification": "Homes Tasmania Windows environment",
+      "description": "Windows automation and system administration"
+    },
+    {
+      "name": "API Development",
+      "category": "Integration",
+      "level": 85,
+      "experience_years": 7,
+      "proficiency": "Advanced",
+      "verification": "Housing system integrations",
+      "description": "RESTful API design and implementation"
+    },
+    {
+      "name": "Systems Integration",
+      "category": "Architecture",
+      "level": 90,
+      "experience_years": 7,
+      "proficiency": "Expert",
+      "verification": "Core role at Homes Tasmania",
+      "description": "Enterprise system integration and data exchange"
+    },
+    {
+      "name": "Cybersecurity",
+      "category": "Security",
+      "level": 80,
+      "experience_years": 5,
+      "proficiency": "Advanced",
+      "verification": "Security initiatives at Homes Tasmania",
+      "description": "Vulnerability assessment and security hardening"
+    },
+    {
+      "name": "IT Support",
+      "category": "Operations",
+      "level": 85,
+      "experience_years": 10,
+      "proficiency": "Expert",
+      "verification": "UTAS + Wilderness Society roles",
+      "description": "Enterprise IT support and troubleshooting"
+    },
+    {
+      "name": "Server Administration",
+      "category": "Infrastructure",
+      "level": 75,
+      "experience_years": 8,
+      "proficiency": "Advanced",
+      "verification": "60+ servers at Wilderness Society",
+      "description": "Windows and Linux server management"
+    },
+    {
+      "name": "Google Analytics",
+      "category": "Digital Marketing",
+      "level": 85,
+      "experience_years": 9,
+      "proficiency": "Expert",
+      "verification": "Certified + Digital Agency work",
+      "description": "Analytics implementation and reporting"
+    },
+    {
+      "name": "Digital Marketing",
+      "category": "Marketing",
+      "level": 80,
+      "experience_years": 9,
+      "proficiency": "Advanced",
+      "verification": "Digital Agency PTY LTD",
+      "description": "Google Ads, SEO, and campaign management"
+    },
+    {
+      "name": "Process Automation",
+      "category": "Automation",
+      "level": 85,
+      "experience_years": 7,
+      "proficiency": "Advanced",
+      "verification": "Automation scripts at Homes Tasmania",
+      "description": "Workflow automation and efficiency improvements"
+    },
+    {
+      "name": "Technical Documentation",
+      "category": "Communication",
+      "level": 80,
+      "experience_years": 10,
+      "proficiency": "Advanced",
+      "verification": "Consistent across all roles",
+      "description": "Clear technical writing and documentation"
+    },
+    {
+      "name": "GitHub/Git",
+      "category": "DevOps",
+      "level": 75,
+      "experience_years": 5,
+      "proficiency": "Advanced",
+      "verification": "Active GitHub profile with 318 commits",
+      "description": "Version control and collaborative development"
+    },
+    {
+      "name": "AI Implementation",
+      "category": "Emerging Tech",
+      "level": 70,
+      "experience_years": 2,
+      "proficiency": "Intermediate",
+      "verification": "Pioneer at Homes Tasmania",
+      "description": "Practical AI adoption in government sector"
+    }
+  ],
+  "skills_to_develop": [
+    "Cloud platforms (AWS/Azure)",
+    "Container technologies (Docker/Kubernetes)",
+    "Modern frameworks (React/Vue)",
+    "Machine Learning fundamentals",
+    "Infrastructure as Code"
+  ],
+  "removed_unverified_claims": [
+    "TensorFlow",
+    "PyTorch",
+    "Deep Learning",
+    "Computer Vision",
+    "Natural Language Processing",
+    "Kubernetes",
+    "React (as expert)",
+    "Vue.js",
+    "FastAPI",
+    "GraphQL",
+    "MongoDB",
+    "Redis"
+  ]
+}
