@@ -97,6 +97,13 @@ class CVApplication {
                     this.navigateToSection(section);
                 }
             }
+            
+            // Print button handling
+            const printElement = e.target.closest('[data-action="print"]');
+            if (printElement) {
+                e.preventDefault();
+                window.print();
+            }
         });
 
         // Keyboard navigation
@@ -125,6 +132,38 @@ class CVApplication {
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
                 this.refreshLiveData();
+            }
+        });
+        
+        // Handle CSS and font loading
+        this.setupAssetLoading();
+    }
+
+    /**
+     * Setup asset loading (CSS and fonts) to prevent console warnings
+     */
+    setupAssetLoading() {
+        // Load font with fallback
+        const fontLoader = document.getElementById('font-loader');
+        if (fontLoader) {
+            fontLoader.addEventListener('load', () => {
+                fontLoader.media = 'all';
+            });
+        }
+        
+        // Load CSS stylesheets
+        const preloadLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+        preloadLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                // Create actual stylesheet link
+                const stylesheet = document.createElement('link');
+                stylesheet.rel = 'stylesheet';
+                stylesheet.href = href;
+                stylesheet.onload = () => {
+                    link.setAttribute('data-loaded', 'true');
+                };
+                document.head.appendChild(stylesheet);
             }
         });
     }
@@ -1576,8 +1615,8 @@ class AccessibilityControls {
         // Close on outside click
         document.addEventListener('click', (e) => {
             if (this.isVisible && 
-                \!e.target.closest('#accessibility-controls') && 
-                \!e.target.closest('#accessibility-toggle')) {
+                !e.target.closest('#accessibility-controls') && 
+                !e.target.closest('#accessibility-toggle')) {
                 this.hideControls();
             }
         });
@@ -1687,7 +1726,7 @@ class AccessibilityControls {
     }
 
     toggleReducedMotion(button) {
-        const isActive = \!document.body.classList.contains('reduce-motion');
+        const isActive = !document.body.classList.contains('reduce-motion');
         document.body.classList.toggle('reduce-motion', isActive);
         button.classList.toggle('active', isActive);
         this.preferences.reducedMotion = isActive;
@@ -1717,7 +1756,7 @@ class AccessibilityControls {
     enableHighContrast() {
         console.log('🎨 High contrast mode enabled by system preference');
         const button = document.querySelector('[data-action="toggle-high-contrast"]');
-        if (button && \!button.classList.contains('active')) {
+        if (button && !button.classList.contains('active')) {
             this.toggleHighContrast(button);
         }
     }
