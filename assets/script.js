@@ -743,7 +743,10 @@ class CVApplication {
      * Toggle theme between dark and light
      */
     toggleTheme() {
-        const themeOrder = ['light', 'dark', 'auto'];\n        const currentIndex = themeOrder.indexOf(this.themePreference);\n        const nextIndex = (currentIndex + 1) % themeOrder.length;\n        this.themePreference = themeOrder[nextIndex];
+        const themeOrder = ['light', 'dark', 'auto'];
+        const currentIndex = themeOrder.indexOf(this.themePreference);
+        const nextIndex = (currentIndex + 1) % themeOrder.length;
+        this.themePreference = themeOrder[nextIndex];
         this.applyTheme(this.themePreference);
         
         // Save preference
