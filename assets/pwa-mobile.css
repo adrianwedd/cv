@@ -1,0 +1,39 @@
+/* PWA Mobile Enhancements */
+@media screen and (max-width: 768px) {
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+  
+  /* Mobile-first responsive improvements */
+  .header {
+    padding: 0.5rem 1rem;
+  }
+  
+  .section {
+    padding: 1.5rem 0;
+  }
+  
+  /* Touch-friendly buttons */
+  button, .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* PWA Specific Enhancements */
+@media all and (display-mode: standalone) {
+  body {
+    background: var(--color-background);
+    user-select: none;
+  }
+  
+  .header {
+    padding-top: env(safe-area-inset-top);
+  }
+}
