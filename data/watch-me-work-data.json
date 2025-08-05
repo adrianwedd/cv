@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-05T17:26:36.282Z",
+    "generated_at": "2025-08-05T17:29:03.665Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 329,
-    "rate_limit_remaining": 4671
+    "api_calls_made": 461,
+    "rate_limit_remaining": 4539
   },
   "user": {
     "login": "adrianwedd",
@@ -16,7 +16,7 @@
     "following": 37
   },
   "metrics": {
-    "commits_today": 32,
+    "commits_today": 33,
     "commits_this_week": 76,
     "streak_days": 3,
     "velocity_score": 328,
@@ -31,7 +31,7 @@
       "ReleaseEvent": 1,
       "CreateEvent": 3
     },
-    "last_commit_date": "2025-08-05T17:25:30Z",
+    "last_commit_date": "2025-08-05T17:27:41Z",
     "last_issue_date": "2025-08-05T16:10:42Z"
   },
   "activities": [
@@ -10330,7 +10330,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-05T17:25:38Z",
+      "updated_at": "2025-08-05T17:28:07Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -10340,7 +10340,7 @@
         "commits": 10,
         "issues": 2,
         "total": 12,
-        "last_commit": "2025-08-05T17:25:30Z",
+        "last_commit": "2025-08-05T17:27:41Z",
         "last_issue": "2025-08-04T23:35:45Z"
       }
     },
@@ -10766,6 +10766,92 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "7888f63b20fbc06a43752b4f5e80c19fabac0313",
+      "node_id": "C_kwDOPUy_0toAKDc4ODhmNjNiMjBmYmMwNmE0Mzc1MmI0ZjVlODBjMTlmYWJhYzAzMTM",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-05T17:27:41Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-05T17:28:02Z"
+        },
+        "message": "Fix critical JavaScript syntax error preventing initialization\n\n- Remove malformed \\n characters in toggleTheme method at line 746\n- This was causing 'Invalid or unexpected token' error\n- Fixes loading screen being stuck on 'Initializing Premium CV System...'\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "8bfaa3a4b186a105d589453588fa991d7b9fc155",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/8bfaa3a4b186a105d589453588fa991d7b9fc155"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/7888f63b20fbc06a43752b4f5e80c19fabac0313",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/7888f63b20fbc06a43752b4f5e80c19fabac0313",
+      "html_url": "https://github.com/adrianwedd/cv/commit/7888f63b20fbc06a43752b4f5e80c19fabac0313",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/7888f63b20fbc06a43752b4f5e80c19fabac0313/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "a46e35bf6c3cdf16f04424c6ab160a3c5f5c8ae4",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/a46e35bf6c3cdf16f04424c6ab160a3c5f5c8ae4",
+          "html_url": "https://github.com/adrianwedd/cv/commit/a46e35bf6c3cdf16f04424c6ab160a3c5f5c8ae4"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "9ecb0d5868b3549a44f08ca63664e35346167cfc",
       "node_id": "C_kwDOPUy_0toAKDllY2IwZDU4NjhiMzU0OWE0NGYwOGNhNjM2NjRlMzUzNDYxNjdjZmM",
@@ -15311,92 +15397,6 @@
           "sha": "53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
           "url": "https://api.github.com/repos/adrianwedd/cv/commits/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
           "html_url": "https://github.com/adrianwedd/cv/commit/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
-      "node_id": "C_kwDOPUy_0toAKDUzNzI1ZTliMWFhNGVjY2YwNTNlMDkzNWUyNmM3MzAxYjNhYzhkY2Q",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:14:07Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:14:43Z"
-        },
-        "message": "🤖 Quality Automation CI/CD Integration - Complete SEO Excellence\n\n## 🔍 CI/CD Quality Validation Framework\n- ✅ Quality validation job added to GitHub Actions pipeline\n- ✅ 3-minute deployment wait for GitHub Pages propagation\n- ✅ Dual validator system (comprehensive + CI quality gates)\n- ✅ Automated quality metrics collection and reporting\n- ✅ Enterprise-grade quality standards enforcement\n\n## 📊 SEO Implementation Verification System\n- ✅ Comprehensive SEO validation summary tool\n- ✅ Structured data verification with evidence-based reporting\n- ✅ Technical SEO optimization validation framework\n- ✅ Performance SEO integration assessment capabilities\n\n## 🎯 Session Completion - All Objectives Achieved\n- ✅ Advanced Structured Data: Schema.org JSON-LD deployed\n- ✅ Technical SEO Optimization: Enhanced OG, Twitter Cards, meta tags\n- ✅ Performance SEO Integration: Resource hints, font optimization\n- ✅ Quality Automation: CI/CD pipeline integration complete\n\nTarget Achievement: 65/100 → 80/100 (+15 points) SEO excellence\nStrategic Impact: Enterprise-grade automated quality monitoring\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "cd2a8160477dbc327589399ff0e55772882fecc5",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/cd2a8160477dbc327589399ff0e55772882fecc5"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
-      "html_url": "https://github.com/adrianwedd/cv/commit/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "d735acaebcba8f0e94c30e550caa557eace69c86",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/d735acaebcba8f0e94c30e550caa557eace69c86",
-          "html_url": "https://github.com/adrianwedd/cv/commit/d735acaebcba8f0e94c30e550caa557eace69c86"
         }
       ],
       "repository": "cv",
@@ -31899,6 +31899,102 @@
   ],
   "timeline": [
     {
+      "id": "commit-7888f63b20fbc06a43752b4f5e80c19fabac0313",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-05T17:27:41Z",
+      "repo": "cv",
+      "data": {
+        "sha": "7888f63b20fbc06a43752b4f5e80c19fabac0313",
+        "node_id": "C_kwDOPUy_0toAKDc4ODhmNjNiMjBmYmMwNmE0Mzc1MmI0ZjVlODBjMTlmYWJhYzAzMTM",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-05T17:27:41Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-05T17:28:02Z"
+          },
+          "message": "Fix critical JavaScript syntax error preventing initialization\n\n- Remove malformed \\n characters in toggleTheme method at line 746\n- This was causing 'Invalid or unexpected token' error\n- Fixes loading screen being stuck on 'Initializing Premium CV System...'\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "8bfaa3a4b186a105d589453588fa991d7b9fc155",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/8bfaa3a4b186a105d589453588fa991d7b9fc155"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/7888f63b20fbc06a43752b4f5e80c19fabac0313",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/7888f63b20fbc06a43752b4f5e80c19fabac0313",
+        "html_url": "https://github.com/adrianwedd/cv/commit/7888f63b20fbc06a43752b4f5e80c19fabac0313",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/7888f63b20fbc06a43752b4f5e80c19fabac0313/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "a46e35bf6c3cdf16f04424c6ab160a3c5f5c8ae4",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/a46e35bf6c3cdf16f04424c6ab160a3c5f5c8ae4",
+            "html_url": "https://github.com/adrianwedd/cv/commit/a46e35bf6c3cdf16f04424c6ab160a3c5f5c8ae4"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: Fix critical JavaScript syntax error preventing initialization",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
       "id": "commit-9ecb0d5868b3549a44f08ca63664e35346167cfc",
       "type": "commit",
       "subtype": "push",
@@ -42943,56 +43039,6 @@
         "_activity_type": "commit"
       },
       "_formatted": "Committed: chore: Update .gitignore to exclude test files and music files",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "activity-52946966604",
-      "type": "github_activity",
-      "subtype": "PushEvent",
-      "timestamp": "2025-08-05T04:07:30Z",
-      "repo": "adrianwedd/ordr.fm",
-      "data": {
-        "id": "52946966604",
-        "type": "PushEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1028304060,
-          "name": "adrianwedd/ordr.fm",
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm"
-        },
-        "payload": {
-          "repository_id": 1028304060,
-          "push_id": 25929992958,
-          "size": 1,
-          "distinct_size": 1,
-          "ref": "refs/heads/main",
-          "head": "74d02c2edd97cfe60f8948b177f32c2fd2026346",
-          "before": "23ee70b0aca67ccb18952931e96d11837664467f",
-          "commits": [
-            {
-              "sha": "74d02c2edd97cfe60f8948b177f32c2fd2026346",
-              "author": {
-                "email": "adrian@adrianwedd.com",
-                "name": "Adrian Wedd"
-              },
-              "message": "feat: Add interactive setup wizard and helper tools (#36)\n\nCreated user-friendly onboarding experience with interactive tools.\n\nNew Tools:\n- setup_wizard.sh - Interactive configuration wizard\n- command_builder.sh - Build complex commands interactively\n- system_check.sh - Verify system readiness\n\nSetup Wizard Features:\n- Dependency checking with installation guidance\n- Interactive directory configuration\n- Feature selection (parallel, electronic, Discogs)\n- Safety options configuration\n- Test run capability\n- Custom command generation\n\nCommand Builder Features:\n- Interactive command construction\n- Pre-built templates for common scenarios\n- Option explanations\n- Command saving and execution\n- Quick mode for common tasks\n\nSystem Check Features:\n- OS and shell compatibility verification\n- Dependency status (required and optional)\n- System resource assessment\n- File system capability testing\n- Network connectivity check\n- Performance recommendations\n- Detailed report generation\n\nThese tools significantly improve the user experience, making it easy\nfor new users to get started and configure ordr.fm correctly.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-              "distinct": true,
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/commits/74d02c2edd97cfe60f8948b177f32c2fd2026346"
-            }
-          ]
-        },
-        "public": true,
-        "created_at": "2025-08-05T04:07:30Z"
-      },
-      "_formatted": "Pushed 1 commit: feat: Add interactive setup wizard and helper tools (#36)",
       "_icon": "📝",
       "_color": "#22c55e"
     }
