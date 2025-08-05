@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-05T17:11:36.166Z",
+    "generated_at": "2025-08-05T17:26:36.282Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 147,
-    "rate_limit_remaining": 4853
+    "api_calls_made": 329,
+    "rate_limit_remaining": 4671
   },
   "user": {
     "login": "adrianwedd",
@@ -16,7 +16,7 @@
     "following": 37
   },
   "metrics": {
-    "commits_today": 31,
+    "commits_today": 32,
     "commits_this_week": 76,
     "streak_days": 3,
     "velocity_score": 328,
@@ -31,7 +31,7 @@
       "ReleaseEvent": 1,
       "CreateEvent": 3
     },
-    "last_commit_date": "2025-08-05T17:10:32Z",
+    "last_commit_date": "2025-08-05T17:25:30Z",
     "last_issue_date": "2025-08-05T16:10:42Z"
   },
   "activities": [
@@ -10330,7 +10330,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-05T17:10:45Z",
+      "updated_at": "2025-08-05T17:25:38Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -10340,7 +10340,7 @@
         "commits": 10,
         "issues": 2,
         "total": 12,
-        "last_commit": "2025-08-05T17:10:32Z",
+        "last_commit": "2025-08-05T17:25:30Z",
         "last_issue": "2025-08-04T23:35:45Z"
       }
     },
@@ -10766,6 +10766,92 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "9ecb0d5868b3549a44f08ca63664e35346167cfc",
+      "node_id": "C_kwDOPUy_0toAKDllY2IwZDU4NjhiMzU0OWE0NGYwOGNhNjM2NjRlMzUzNDYxNjdjZmM",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-05T17:25:30Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-05T17:25:30Z"
+        },
+        "message": "Fix missing assets and integrity hash issues\n\n- Create missing PWA mobile CSS and enhancement JS files\n- Add placeholder AI/intelligence module JS files to prevent 404s\n- Remove invalid SRI integrity hash from Google Fonts\n- Prevent console errors and resource loading failures\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "3eaf408d093c6d89a38938e319bdb7cbcab2b213",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/3eaf408d093c6d89a38938e319bdb7cbcab2b213"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/9ecb0d5868b3549a44f08ca63664e35346167cfc",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/9ecb0d5868b3549a44f08ca63664e35346167cfc",
+      "html_url": "https://github.com/adrianwedd/cv/commit/9ecb0d5868b3549a44f08ca63664e35346167cfc",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/9ecb0d5868b3549a44f08ca63664e35346167cfc/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "09d9cd5d87c3a767dc088561e153ec5262d69c9f",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/09d9cd5d87c3a767dc088561e153ec5262d69c9f",
+          "html_url": "https://github.com/adrianwedd/cv/commit/09d9cd5d87c3a767dc088561e153ec5262d69c9f"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "a971a70037319ec7f995ed436c4223fba9b750ae",
       "node_id": "C_kwDOPUy_0toAKGE5NzFhNzAwMzczMTllYzdmOTk1ZWQ0MzZjNDIyM2ZiYTliNzUwYWU",
@@ -15311,92 +15397,6 @@
           "sha": "d735acaebcba8f0e94c30e550caa557eace69c86",
           "url": "https://api.github.com/repos/adrianwedd/cv/commits/d735acaebcba8f0e94c30e550caa557eace69c86",
           "html_url": "https://github.com/adrianwedd/cv/commit/d735acaebcba8f0e94c30e550caa557eace69c86"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "7aa83dd246473ee56f59ea664adaec26686e1eda",
-      "node_id": "C_kwDOPUy_0toAKDdhYTgzZGQyNDY0NzNlZTU2ZjU5ZWE2NjRhZGFlYzI2Njg2ZTFlZGE",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:05:23Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:05:23Z"
-        },
-        "message": "🔍 SEO Technical Excellence Implementation - 90/100 Score Target\n\n## 🎯 Advanced Structured Data Implementation (+40 points)\n- ✅ Comprehensive Schema.org JSON-LD for professional profile\n- ✅ Person, Organization, CreativeWork, and Occupation schemas\n- ✅ Professional skills, achievements, and work examples structured\n- ✅ Search engine rich results optimization ready\n\n## 🌐 Technical SEO Optimization (+30 points)\n- ✅ Enhanced Open Graph with profile-specific metadata\n- ✅ Advanced Twitter Card with creator attribution\n- ✅ Optimized meta descriptions and enhanced keywords\n- ✅ Robots.txt and sitemap.xml for proper crawling\n- ✅ Mobile app meta tags and theme color optimization\n\n## ⚡ Performance SEO Integration (+20 points)\n- ✅ Critical Resource Hints (preconnect, dns-prefetch, preload)\n- ✅ Enhanced font loading with display=swap optimization\n- ✅ Advanced crawling directives for search engines\n- ✅ Mobile-first indexing preparation\n\nTarget Achievement: 0/100 → 90/100 SEO score via enterprise-grade optimization\nStrategic Impact: Professional discoverability and search engine visibility\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "d97c652dcdcbaf95309e1d0cf9cb2d1aa0dafdcd",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/d97c652dcdcbaf95309e1d0cf9cb2d1aa0dafdcd"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/7aa83dd246473ee56f59ea664adaec26686e1eda",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/7aa83dd246473ee56f59ea664adaec26686e1eda",
-      "html_url": "https://github.com/adrianwedd/cv/commit/7aa83dd246473ee56f59ea664adaec26686e1eda",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/7aa83dd246473ee56f59ea664adaec26686e1eda/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "6d6246366277d29d54fddfe291476dad56ed0f48",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/6d6246366277d29d54fddfe291476dad56ed0f48",
-          "html_url": "https://github.com/adrianwedd/cv/commit/6d6246366277d29d54fddfe291476dad56ed0f48"
         }
       ],
       "repository": "cv",
@@ -31899,6 +31899,102 @@
   ],
   "timeline": [
     {
+      "id": "commit-9ecb0d5868b3549a44f08ca63664e35346167cfc",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-05T17:25:30Z",
+      "repo": "cv",
+      "data": {
+        "sha": "9ecb0d5868b3549a44f08ca63664e35346167cfc",
+        "node_id": "C_kwDOPUy_0toAKDllY2IwZDU4NjhiMzU0OWE0NGYwOGNhNjM2NjRlMzUzNDYxNjdjZmM",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-05T17:25:30Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-05T17:25:30Z"
+          },
+          "message": "Fix missing assets and integrity hash issues\n\n- Create missing PWA mobile CSS and enhancement JS files\n- Add placeholder AI/intelligence module JS files to prevent 404s\n- Remove invalid SRI integrity hash from Google Fonts\n- Prevent console errors and resource loading failures\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "3eaf408d093c6d89a38938e319bdb7cbcab2b213",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/3eaf408d093c6d89a38938e319bdb7cbcab2b213"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/9ecb0d5868b3549a44f08ca63664e35346167cfc",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/9ecb0d5868b3549a44f08ca63664e35346167cfc",
+        "html_url": "https://github.com/adrianwedd/cv/commit/9ecb0d5868b3549a44f08ca63664e35346167cfc",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/9ecb0d5868b3549a44f08ca63664e35346167cfc/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "09d9cd5d87c3a767dc088561e153ec5262d69c9f",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/09d9cd5d87c3a767dc088561e153ec5262d69c9f",
+            "html_url": "https://github.com/adrianwedd/cv/commit/09d9cd5d87c3a767dc088561e153ec5262d69c9f"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: Fix missing assets and integrity hash issues",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
       "id": "commit-a971a70037319ec7f995ed436c4223fba9b750ae",
       "type": "commit",
       "subtype": "push",
@@ -42897,56 +42993,6 @@
         "created_at": "2025-08-05T04:07:30Z"
       },
       "_formatted": "Pushed 1 commit: feat: Add interactive setup wizard and helper tools (#36)",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "activity-52946897382",
-      "type": "github_activity",
-      "subtype": "PushEvent",
-      "timestamp": "2025-08-05T04:04:38Z",
-      "repo": "adrianwedd/Agentic-Index",
-      "data": {
-        "id": "52946897382",
-        "type": "PushEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1001353858,
-          "name": "adrianwedd/Agentic-Index",
-          "url": "https://api.github.com/repos/adrianwedd/Agentic-Index"
-        },
-        "payload": {
-          "repository_id": 1001353858,
-          "push_id": 25929957767,
-          "size": 1,
-          "distinct_size": 1,
-          "ref": "refs/heads/main",
-          "head": "634ae49734b309dad775c08f142ae9a88113c11b",
-          "before": "78f1e2abd74f83f4c268bdd9f91ef739c6f5ddf5",
-          "commits": [
-            {
-              "sha": "634ae49734b309dad775c08f142ae9a88113c11b",
-              "author": {
-                "email": "adrian@adrianwedd.com",
-                "name": "Adrian Wedd"
-              },
-              "message": "fix: resolve isort import sorting issue in API config\n\nFix import order in agentic_index_api/config.py to satisfy isort requirements.\nThis should resolve the remaining lint-format CI failure.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-              "distinct": true,
-              "url": "https://api.github.com/repos/adrianwedd/Agentic-Index/commits/634ae49734b309dad775c08f142ae9a88113c11b"
-            }
-          ]
-        },
-        "public": true,
-        "created_at": "2025-08-05T04:04:38Z"
-      },
-      "_formatted": "Pushed 1 commit: fix: resolve isort import sorting issue in API config",
       "_icon": "📝",
       "_color": "#22c55e"
     }
