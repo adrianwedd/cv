@@ -1,0 +1,86 @@
+{
+  "status": "operational",
+  "lastCheck": "2025-08-06T02:31:43.454Z",
+  "uptime": 0,
+  "checks": {
+    "website_availability": {
+      "success": false,
+      "responseTime": 81,
+      "message": "Request failed: getaddrinfo ENOTFOUND cv.adrianwedd.dev",
+      "timestamp": "2025-08-06T02:31:43.535Z",
+      "checkName": "Website Availability",
+      "type": "http",
+      "critical": true
+    },
+    "github_api_rate": {
+      "success": false,
+      "message": "No GitHub token configured",
+      "timestamp": "2025-08-06T02:31:43.535Z",
+      "checkName": "GitHub API Rate Limit",
+      "type": "api",
+      "critical": false
+    },
+    "data_integrity": {
+      "success": false,
+      "results": {
+        "baseCv": {
+          "exists": false,
+          "error": "ENOENT: no such file or directory, open '/home/pi/repos/cv/.github/scripts/data/base-cv.json'"
+        },
+        "activitySummary": {
+          "exists": false,
+          "error": "ENOENT: no such file or directory, open '/home/pi/repos/cv/.github/scripts/data/activity-summary.json'"
+        }
+      },
+      "message": "Data integrity issues detected",
+      "timestamp": "2025-08-06T02:31:43.536Z",
+      "checkName": "Data Integrity",
+      "type": "data",
+      "critical": true
+    },
+    "workflow_health": {
+      "success": false,
+      "message": "Workflow health check failed: ENOENT: no such file or directory, scandir '/home/pi/repos/cv/.github/scripts/.github/workflows'",
+      "timestamp": "2025-08-06T02:31:43.536Z",
+      "checkName": "GitHub Workflows Health",
+      "type": "workflow",
+      "critical": false
+    },
+    "auth_health": {
+      "success": false,
+      "authMethods": [],
+      "issues": [
+        "OAuth token not configured",
+        "API key not configured",
+        "Browser session not configured"
+      ],
+      "message": "No authentication configured",
+      "timestamp": "2025-08-06T02:31:43.536Z",
+      "checkName": "Authentication Health",
+      "type": "auth",
+      "critical": true
+    },
+    "system_resources": {
+      "success": true,
+      "dataDirectorySize": "4.62 MB",
+      "lastModified": "2025-08-06T02:31:43.210Z",
+      "message": "Data directory: 4.62 MB",
+      "timestamp": "2025-08-06T02:31:43.542Z",
+      "checkName": "System Resources",
+      "type": "system",
+      "critical": false
+    }
+  },
+  "alerts": [],
+  "incidents": [],
+  "startTime": 1754447428437,
+  "lastCheckDuration": 88,
+  "systemHealth": {
+    "percentage": 17,
+    "status": "critical",
+    "criticalIssues": 3,
+    "warnings": 2,
+    "successfulChecks": 1,
+    "totalChecks": 6
+  }
+}

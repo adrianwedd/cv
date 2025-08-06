@@ -1,0 +1,236 @@
+{
+  "timestamp": "2025-08-06T01:58:10.369Z",
+  "results": {
+    "total_dashboards": 15,
+    "responsive_score": 60,
+    "performance_score": 40,
+    "reliability_score": 47,
+    "accessibility_score": 27,
+    "consistency_score": 51,
+    "overall_score": 45,
+    "issues_found": 34,
+    "optimizations_applied": 113
+  },
+  "summary": {
+    "overall_status": "NEEDS_IMPROVEMENT",
+    "total_dashboards": 15,
+    "issues_found": 34,
+    "optimizations_applied": 113
+  },
+  "dashboard_analysis": [
+    {
+      "path": "career-intelligence.html",
+      "category": "analytics",
+      "size": 12855,
+      "issues": 2,
+      "optimizations": 5,
+      "features": {
+        "responsive": false,
+        "performant": true,
+        "reliable": false,
+        "accessible": true
+      }
+    },
+    {
+      "path": "debug-export.html",
+      "category": "utilities",
+      "size": 3872,
+      "issues": 4,
+      "optimizations": 8,
+      "features": {
+        "responsive": false,
+        "performant": false,
+        "reliable": false,
+        "accessible": false
+      }
+    },
+    {
+      "path": "index.html",
+      "category": "primary",
+      "size": 63513,
+      "issues": 0,
+      "optimizations": 2,
+      "features": {
+        "responsive": true,
+        "performant": true,
+        "reliable": true,
+        "accessible": true
+      }
+    },
+    {
+      "path": "networking-dashboard.html",
+      "category": "features",
+      "size": 43277,
+      "issues": 0,
+      "optimizations": 8,
+      "features": {
+        "responsive": true,
+        "performant": true,
+        "reliable": true,
+        "accessible": true
+      }
+    },
+    {
+      "path": "staging/index.html",
+      "category": "primary",
+      "size": 4124,
+      "issues": 3,
+      "optimizations": 9,
+      "features": {
+        "responsive": true,
+        "performant": false,
+        "reliable": false,
+        "accessible": false
+      }
+    },
+    {
+      "path": "template.html",
+      "category": "other",
+      "size": 26079,
+      "issues": 1,
+      "optimizations": 8,
+      "features": {
+        "responsive": true,
+        "performant": true,
+        "reliable": false,
+        "accessible": true
+      }
+    },
+    {
+      "path": "test-analytics.html",
+      "category": "analytics",
+      "size": 16314,
+      "issues": 4,
+      "optimizations": 9,
+      "features": {
+        "responsive": false,
+        "performant": false,
+        "reliable": false,
+        "accessible": false
+      }
+    },
+    {
+      "path": "test-cv-export-fix.html",
+      "category": "exports",
+      "size": 7452,
+      "issues": 2,
+      "optimizations": 8,
+      "features": {
+        "responsive": true,
+        "performant": false,
+        "reliable": true,
+        "accessible": false
+      }
+    },
+    {
+      "path": "test-dashboard-reliability.html",
+      "category": "testing",
+      "size": 26704,
+      "issues": 1,
+      "optimizations": 7,
+      "features": {
+        "responsive": true,
+        "performant": true,
+        "reliable": true,
+        "accessible": false
+      }
+    },
+    {
+      "path": "test-dashboard.html",
+      "category": "testing",
+      "size": 6458,
+      "issues": 1,
+      "optimizations": 9,
+      "features": {
+        "responsive": true,
+        "performant": true,
+        "reliable": true,
+        "accessible": false
+      }
+    },
+    {
+      "path": "test-export.html",
+      "category": "exports",
+      "size": 9017,
+      "issues": 2,
+      "optimizations": 9,
+      "features": {
+        "responsive": true,
+        "performant": false,
+        "reliable": true,
+        "accessible": false
+      }
+    },
+    {
+      "path": "test-personalization.html",
+      "category": "specialized",
+      "size": 13463,
+      "issues": 4,
+      "optimizations": 8,
+      "features": {
+        "responsive": false,
+        "performant": false,
+        "reliable": false,
+        "accessible": false
+      }
+    },
+    {
+      "path": "test-project-showcase.html",
+      "category": "specialized",
+      "size": 6982,
+      "issues": 4,
+      "optimizations": 8,
+      "features": {
+        "responsive": false,
+        "performant": false,
+        "reliable": false,
+        "accessible": false
+      }
+    },
+    {
+      "path": "verify-export-fix.html",
+      "category": "utilities",
+      "size": 11934,
+      "issues": 2,
+      "optimizations": 8,
+      "features": {
+        "responsive": true,
+        "performant": false,
+        "reliable": true,
+        "accessible": false
+      }
+    },
+    {
+      "path": "watch-me-work.html",
+      "category": "features",
+      "size": 8747,
+      "issues": 4,
+      "optimizations": 8,
+      "features": {
+        "responsive": false,
+        "performant": false,
+        "reliable": false,
+        "accessible": false
+      }
+    }
+  ],
+  "optimizations_summary": {
+    "add_mobile_css": 15,
+    "add_touch_optimizations": 14,
+    "add_critical_css": 13,
+    "add_dns_prefetch": 6,
+    "add_error_handling": 8,
+    "add_offline_detection": 15,
+    "add_loading_states": 5,
+    "add_focus_management": 12,
+    "add_skip_links": 13,
+    "add_aria_landmarks": 13
+  },
+  "recommendations": [
+    "📱 Improve responsive design with better mobile layouts",
+    "⚡ Optimize performance with lazy loading and resource preloading",
+    "🛡️  Add comprehensive error handling and offline capabilities",
+    "♿ Enhance accessibility with ARIA labels and keyboard navigation",
+    "🎯 Standardize common elements across all dashboards"
+  ]
+}

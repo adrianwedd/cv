@@ -952,5 +952,42 @@
             page-break-inside: avoid;
         }
     </style>
+
+<script>
+// Offline/online detection
+function updateConnectionStatus() {
+  const isOnline = navigator.onLine;
+  const indicator = document.getElementById('connection-indicator') || createConnectionIndicator();
+  
+  if (isOnline) {
+    indicator.textContent = '🌐 Online';
+    indicator.className = 'connection-indicator online';
+  } else {
+    indicator.textContent = '📴 Offline';
+    indicator.className = 'connection-indicator offline';
+  }
+}
+
+function createConnectionIndicator() {
+  const indicator = document.createElement('div');
+  indicator.id = 'connection-indicator';
+  indicator.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    z-index: 1000;
+    transition: all 0.3s ease;
+  `;
+  document.body.appendChild(indicator);
+  return indicator;
+}
+
+window.addEventListener('online', updateConnectionStatus);
+window.addEventListener('offline', updateConnectionStatus);
+document.addEventListener('DOMContentLoaded', updateConnectionStatus);
+</script>
 </body>
 </html>
