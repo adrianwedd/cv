@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-06T00:14:54.741Z",
+    "generated_at": "2025-08-06T02:38:30.694Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 102,
-    "rate_limit_remaining": 4898
+    "api_calls_made": 100,
+    "rate_limit_remaining": 4900
   },
   "user": {
     "login": "adrianwedd",
@@ -16,25 +16,95 @@
     "following": 37
   },
   "metrics": {
-    "commits_today": 0,
+    "commits_today": 2,
     "commits_this_week": 76,
-    "streak_days": 0,
+    "streak_days": 4,
     "velocity_score": 328,
     "focus_time": 40,
     "weekly_commits": 76,
     "weekly_issues": 50,
     "total_activities": 100,
     "activity_distribution": {
-      "IssuesEvent": 40,
+      "PushEvent": 30,
+      "IssuesEvent": 39,
       "IssueCommentEvent": 27,
       "ReleaseEvent": 2,
-      "PushEvent": 29,
       "CreateEvent": 2
     },
-    "last_commit_date": "2025-08-05T17:27:41Z",
-    "last_issue_date": "2025-08-05T16:10:42Z"
+    "last_commit_date": "2025-08-06T02:36:59Z",
+    "last_issue_date": "2025-08-06T02:19:20Z"
   },
   "activities": [
+    {
+      "id": "52963825958",
+      "type": "PushEvent",
+      "repo": "adrianwedd/Dx0",
+      "repo_full_name": "adrianwedd/Dx0",
+      "created_at": "2025-08-05T11:12:26Z",
+      "payload": {
+        "repository_id": 1014538160,
+        "push_id": 25937962620,
+        "size": 4,
+        "distinct_size": 4,
+        "ref": "refs/heads/main",
+        "head": "82537523bdef7501edbbe8920bdbcbb184e29083",
+        "before": "45d0619140882688239be1d4890761a49748ae65",
+        "commits": [
+          {
+            "sha": "69e69a9756b3c77163058505fe8deda2f317af9f",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "Complete session management analysis - Issue #310 Chunk 1\n\n**Critical Findings:**\n- Thread-safety violations in MESSAGE_HISTORY and FAILED_LOGINS global dictionaries\n- Race conditions under concurrent WebSocket connections\n- Memory leaks from unbounded in-memory storage\n- SQLite bottleneck for high concurrency scenarios\n\n**Current Architecture Assessment:**\n- SessionStore (SQLite): ✅ Thread-safe\n- BudgetManager: ✅ Thread-safe (delegates to SessionStore)\n- Global rate limiting state: ❌ NOT thread-safe\n- Global failed login tracking: ❌ NOT thread-safe\n\n**Production Readiness:**\n- Development: ✅ Acceptable (single user)\n- Staging: ⚠️ Problematic (race conditions)\n- Production: ❌ Not ready (critical blocking issues)\n\n**Immediate Priority:** Fix thread-safety issues before scaling\n\nNext: Research session backend options (Redis vs Database)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/69e69a9756b3c77163058505fe8deda2f317af9f"
+          },
+          {
+            "sha": "1baaf76945ed25e74ad9ae99bcc0fa292c678068",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "Session backend research and architectural decision - Issue #310 Chunk 2\n\n**Backend Selection: Redis** ✅\n\n**Decision Rationale:**\n- Excellent concurrency and thread-safety\n- Native TTL support for automatic expiration\n- Atomic operations prevent race conditions\n- Rich data structures for complex session data\n- Memory efficient with bounded usage\n- Production-proven for high-scale applications\n\n**Alternatives Evaluated:**\n- PostgreSQL: Too heavyweight, complex TTL management\n- Enhanced SQLite: Limited concurrency, doesn't solve core issues\n- In-Memory + Locks: Quick fix but not production-ready\n\n**Implementation Strategy:**\n1. Abstract SessionBackend interface for flexibility\n2. Redis primary implementation with async support\n3. Fallback strategy for development environments\n4. Configuration integration with existing settings system\n\n**Deployment Flexibility:**\n- Development: Redis in Docker container\n- Staging: Single Redis instance\n- Production: Redis Cluster or managed service (ElastiCache)\n\nNext: Design abstract session storage interface\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/1baaf76945ed25e74ad9ae99bcc0fa292c678068"
+          },
+          {
+            "sha": "71b2b9d7e3c1277a9a73f3c83f0b9caa1cfcd435",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "Implement session backend abstraction and Redis implementation - Issue #310 Chunks 3&4\n\n**Abstract Session Interface (session_backend.py):**\n- SessionData model with comprehensive session information\n- SessionBackend abstract base class with async operations\n- InMemorySessionBackend for development and testing\n- SessionBackendFactory for backend selection\n- Built-in TTL support, rate limiting, and failed login tracking\n\n**Redis Session Backend (redis_session_backend.py):**\n- Full Redis implementation with aioredis\n- Atomic operations using Redis pipelines\n- Efficient data structures (hashes for sessions, lists for timestamps)\n- Automatic TTL management and cleanup\n- Connection pooling and error handling\n- Health checks and monitoring support\n\n**Configuration Integration:**\n- Added session_backend, redis_url, redis_password settings\n- Environment variable support (SESSION_BACKEND, REDIS_URL, REDIS_PASSWORD)\n- Added aioredis==2.0.1 dependency for Redis client\n\n**Key Features:**\n- Thread-safe concurrent access with Redis atomic operations\n- Memory efficient with bounded data structures\n- Automatic session expiration via Redis TTL\n- Comprehensive rate limiting and security tracking\n- Production-ready with connection pooling\n\nNext: Integration with FastAPI application\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/71b2b9d7e3c1277a9a73f3c83f0b9caa1cfcd435"
+          },
+          {
+            "sha": "82537523bdef7501edbbe8920bdbcbb184e29083",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "Fix async test configuration issues and implement comprehensive testing framework\n\nThis commit resolves 13 failing tests by fixing pytest-asyncio configuration and updating test infrastructure:\n\n## Async Testing Configuration\n- Added pytest-asyncio configuration to pyproject.toml with asyncio_mode=\"auto\"\n- Fixed pytest markers configuration and added strict marker validation\n- Ensured proper async test discovery and execution\n\n## Session Backend Integration\n- Updated tests to work with new session backend system\n- Added clear_failed_logins() and clear_all_session_data() methods for test isolation\n- Fixed test_login_lockout and test_ws_rate_limit to use session backend instead of deprecated global variables\n\n## Test Infrastructure Improvements\n- Updated test_cost_chart_updates to work with current React build artifacts\n- Fixed static file path resolution for UI tests\n- Added proper async test cleanup patterns\n\n## Documentation\n- Created comprehensive Async Testing Guide (docs/async_testing_guide.md)\n- Updated main documentation index with async testing reference\n- Added best practices for WebSocket testing, server lifecycle management, and test isolation\n\n## Results\n- All 21 UI tests now pass (was 12 failing, 9 passing)\n- All async tests across test_llm_engine_async.py, test_orchestrator.py, and test_evaluation.py continue to work\n- Proper test isolation and race condition prevention implemented\n- Robust foundation for future async test development\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/82537523bdef7501edbbe8920bdbcbb184e29083"
+          }
+        ]
+      },
+      "actor": {
+        "id": 3725784,
+        "login": "adrianwedd",
+        "display_login": "adrianwedd",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+      },
+      "public": true,
+      "_formatted_description": "Pushed 4 commits: Complete session management analysis - Issue #310 Chunk 1 (and 3 more)",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
     {
       "id": "52953399149",
       "type": "IssuesEvent",
@@ -10436,131 +10506,6 @@
       "_formatted_description": "Opened issue #313: Consolidate Frontend into a Single, Modern UI",
       "_icon": "🐛",
       "_color": "#f59e0b"
-    },
-    {
-      "id": "52946078572",
-      "type": "IssuesEvent",
-      "repo": "adrianwedd/Dx0",
-      "repo_full_name": "adrianwedd/Dx0",
-      "created_at": "2025-08-05T03:29:48Z",
-      "payload": {
-        "action": "opened",
-        "issue": {
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-          "repository_url": "https://api.github.com/repos/adrianwedd/Dx0",
-          "labels_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/labels{/name}",
-          "comments_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/comments",
-          "events_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/events",
-          "html_url": "https://github.com/adrianwedd/Dx0/issues/312",
-          "id": 3291417752,
-          "node_id": "I_kwDOPHifsM7ELwyY",
-          "number": 312,
-          "title": "Update OpenAI API Usage to the Latest Version",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "labels": [
-            {
-              "id": 9057621979,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BX2w",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/backend",
-              "name": "backend",
-              "color": "0052cc",
-              "default": false,
-              "description": "Backend/server-side changes"
-            },
-            {
-              "id": 9057622280,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BZCA",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/1",
-              "name": "1",
-              "color": "ededed",
-              "default": false,
-              "description": ""
-            },
-            {
-              "id": 9057622622,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BaXg",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/refactor",
-              "name": "refactor",
-              "color": "fbca04",
-              "default": false,
-              "description": "Code refactoring"
-            },
-            {
-              "id": 9057623613,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BePQ",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/migrated-from-yaml",
-              "name": "migrated-from-yaml",
-              "color": "fef2c0",
-              "default": false,
-              "description": "Migrated from tasks.yml"
-            }
-          ],
-          "state": "open",
-          "locked": false,
-          "assignee": null,
-          "assignees": [],
-          "milestone": null,
-          "comments": 0,
-          "created_at": "2025-08-05T03:29:46Z",
-          "updated_at": "2025-08-05T03:29:46Z",
-          "closed_at": null,
-          "author_association": "OWNER",
-          "active_lock_reason": null,
-          "sub_issues_summary": {
-            "total": 0,
-            "completed": 0,
-            "percent_completed": 0
-          },
-          "body": "The `sdb/cpt_lookup.py` file uses the deprecated `openai.ChatCompletion.create` method. This should be updated to use the new `client.chat.completions.create` method from the latest version of the `openai` library. All API calls should be updated to match the new syntax and data structures.\n\n**Component**: backend\n**Area**: refactor\n**Priority**: 1\n\n---\n*Migrated from tasks.yml*",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "timeline_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/timeline",
-          "performed_via_github_app": null,
-          "state_reason": null
-        }
-      },
-      "actor": {
-        "id": 3725784,
-        "login": "adrianwedd",
-        "display_login": "adrianwedd",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-      },
-      "public": true,
-      "_formatted_description": "Opened issue #312: Update OpenAI API Usage to the Latest Version",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
     }
   ],
   "repositories": [
@@ -10571,7 +10516,7 @@
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-06T00:14:15Z",
+      "updated_at": "2025-08-06T02:37:35Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -10579,10 +10524,31 @@
       "_is_fork_with_activity": false,
       "recent_activity": {
         "commits": 10,
-        "issues": 2,
-        "total": 12,
-        "last_commit": "2025-08-05T17:27:41Z",
-        "last_issue": "2025-08-04T23:35:45Z"
+        "issues": 3,
+        "total": 13,
+        "last_commit": "2025-08-06T02:36:59Z",
+        "last_issue": "2025-08-06T02:19:20Z"
+      }
+    },
+    {
+      "name": "adrianwedd",
+      "full_name": "adrianwedd/adrianwedd",
+      "description": "🧠 Adrian Wedd's AI-augmented portfolio & mission log. Recursive systems architect, off-grid permanaut, LLM wrangler.",
+      "language": "JavaScript",
+      "stars": 0,
+      "forks": 0,
+      "updated_at": "2025-08-06T00:26:28Z",
+      "html_url": "https://github.com/adrianwedd/adrianwedd",
+      "private": false,
+      "fork": false,
+      "_is_main_repo": true,
+      "_is_fork_with_activity": false,
+      "recent_activity": {
+        "commits": 10,
+        "issues": 4,
+        "total": 14,
+        "last_commit": "2025-07-31T16:06:31Z",
+        "last_issue": "2025-08-04T21:27:01Z"
       }
     },
     {
@@ -10604,27 +10570,6 @@
         "total": 10,
         "last_commit": "2025-08-03T04:35:12Z",
         "last_issue": null
-      }
-    },
-    {
-      "name": "adrianwedd",
-      "full_name": "adrianwedd/adrianwedd",
-      "description": "🧠 Adrian Wedd's AI-augmented portfolio & mission log. Recursive systems architect, off-grid permanaut, LLM wrangler.",
-      "language": "JavaScript",
-      "stars": 0,
-      "forks": 0,
-      "updated_at": "2025-08-05T18:08:27Z",
-      "html_url": "https://github.com/adrianwedd/adrianwedd",
-      "private": false,
-      "fork": false,
-      "_is_main_repo": true,
-      "_is_fork_with_activity": false,
-      "recent_activity": {
-        "commits": 10,
-        "issues": 4,
-        "total": 14,
-        "last_commit": "2025-07-31T16:06:31Z",
-        "last_issue": "2025-08-04T21:27:01Z"
       }
     },
     {
@@ -10705,8 +10650,8 @@
       "_is_fork_with_activity": false,
       "recent_activity": {
         "commits": 6,
-        "issues": 2,
-        "total": 8,
+        "issues": 1,
+        "total": 7,
         "last_commit": "2025-08-04T18:51:07Z",
         "last_issue": "2025-08-04T18:51:41Z"
       }
@@ -11007,6 +10952,264 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "062abde0f9fa26e391177ea4081b58e85f6828d4",
+      "node_id": "C_kwDOPUy_0toAKDA2MmFiZGUwZjlmYTI2ZTM5MTE3N2VhNDA4MWI1OGU4NWY2ODI4ZDQ",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T02:36:59Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T02:37:23Z"
+        },
+        "message": "🎯 Strategic Excellence Implementation Complete - Enterprise Platform Deployed\n\n## 🏆 Major Achievement Summary\n- ✅ 9/12 Strategic Tasks Complete (75% implementation)\n- ✅ All P0 Critical & P1 High Priority Tasks Delivered\n- ✅ Enterprise-Grade Production Infrastructure Deployed\n\n## 🚀 Phase 1 (P0 Critical) - Production Stability ✅ COMPLETE\n- Service Worker Optimization: Fixed registration paths, intelligent caching\n- Mobile Touch Optimization: WCAG 2.1 AA compliance, 44px touch targets\n- Data Integrity Verification: 86/100 score, comprehensive validation\n\n## 📊 Phase 2 (P1 High) - Quality Excellence ✅ COMPLETE\n- Dashboard Ecosystem: 113 optimizations across 15 dashboards\n- Mobile Responsive Dashboards: 5 PWA dashboards with touch optimization\n- OAuth Cost Optimization: Real-time monitoring, 5-hour reset tracking\n\n## 🎯 Phase 3 (P2 Medium) - Strategic Excellence ✅ COMPLETE\n- Repository Health: 88/100 score with automated monitoring\n- Production Monitoring: 99.9% uptime, 6 health checks, automated recovery\n- Feature Roadmap: Comprehensive 2025 strategy with 4-quarter timeline\n\n## 📋 Key Deliverables Created\n**Strategic Documentation:**\n- FEATURE-ROADMAP.md: Complete 2025 evolution plan\n- repository-health-report.md: Health assessment & improvements\n\n**Production Dashboards:**\n- roadmap-dashboard.html: Interactive strategic timeline\n- oauth-usage-dashboard.html: Real-time cost optimization\n- mobile-dashboard-hub.html: Mobile-first dashboard ecosystem\n- dashboards/monitoring.html: Enterprise health monitoring\n\n**Automation Systems:**\n- production-monitor.js: 6 health checks with alerting\n- oauth-cost-optimizer.js: Cost tracking with budget alerts\n- repository-health-monitor.js: Automated 88/100 health scoring\n- recovery-system.js: Self-healing with 5 recovery procedures\n\n**Mobile Excellence:**\n- 5 mobile-responsive dashboards with PWA shortcuts\n- Touch-optimized interfaces with gesture support\n- Mobile-first design patterns throughout\n\n## 📊 Current System Status\n- Repository Health Score: 88/100 (Target: 95+)\n- Production Reliability: 99.9% uptime monitoring\n- Mobile Performance: 100/100 PWA optimization\n- Cost Management: OAuth-first with intelligent budgeting\n- Test Coverage: 21.1% (Target: 80%+ in Q1 2025)\n\n## 🎯 Next Phase: Q1 2025 Foundation Excellence\nRemaining P3 tasks align with Q1 2025 roadmap objectives:\n- Testing Infrastructure Overhaul (80+ coverage)\n- JavaScript Modular Architecture (eliminate technical debt)\n- ES Module Migration (modern foundation)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "be468d2b16b733cc9968be8fc734b2a97210e313",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/be468d2b16b733cc9968be8fc734b2a97210e313"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/062abde0f9fa26e391177ea4081b58e85f6828d4",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/062abde0f9fa26e391177ea4081b58e85f6828d4",
+      "html_url": "https://github.com/adrianwedd/cv/commit/062abde0f9fa26e391177ea4081b58e85f6828d4",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/062abde0f9fa26e391177ea4081b58e85f6828d4/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+          "html_url": "https://github.com/adrianwedd/cv/commit/e3726d942a01e1d3dc83ff36e1886ddb138c7134"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
+    {
+      "sha": "e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+      "node_id": "C_kwDOPUy_0toAKGUzNzI2ZDk0MmEwMWUxZDNkYzgzZmYzNmUxODg2ZGRiMTM4YzcxMzQ",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T01:53:23Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T02:37:23Z"
+        },
+        "message": "🚀 P0 Critical Infrastructure Excellence - Production Stability Complete\n\n**🎯 PHASE 1 COMPLETE: Immediate Sprint (P0 Critical)**\nAll production stability blockers resolved with enterprise-grade solutions.\n\n**✅ Task 1: Service Worker Path & Caching Strategy - COMPLETED**\n- Advanced multi-strategy caching (Cache-First, Network-First)\n- Intelligent resource categorization (Critical, Data, Runtime patterns)\n- Comprehensive error handling with graceful degradation\n- PWA Manager with update notifications and install prompts\n- Cache versioning (v3) with automatic cleanup\n- Offline functionality with proper fallbacks\n\n**✅ Task 2: Mobile Touch Optimization - COMPLETED**\n- WCAG 2.1 AA compliant touch targets (44x44px minimum)\n- Comprehensive touch feedback with ripple effects\n- iOS-specific optimizations (viewport fixes, scroll bounce prevention)\n- Safe area handling for notched devices\n- Orientation change optimization\n- Touch device detection and adaptive behavior\n- Enhanced accessibility with focus states\n\n**✅ Task 3: Data Integrity Verification - COMPLETED**\n- Comprehensive DataIntegrityVerifier with 86/100 baseline score\n- Schema validation against base-cv.json structure\n- Content authenticity verification using protected-content.json\n- Cross-reference validation between data files\n- Hallucination detection with pattern matching\n- Data consistency checks with automated repair suggestions\n- Enterprise reporting with timestamps and recommendations\n\n**🔧 Technical Improvements:**\n- Service Worker v3 with intelligent caching strategies\n- Mobile-first CSS with 6 responsive breakpoints\n- Touch-optimized JavaScript with haptic-like feedback\n- Production-grade data validation pipeline\n- Automated integrity scoring and reporting\n\n**📊 Quality Metrics:**\n- Service Worker: 100% offline functionality\n- Mobile Experience: WCAG 2.1 AA compliance achieved\n- Data Integrity: 86/100 score with 0 critical issues\n- Touch Optimization: Full iOS/Android compatibility\n- PWA Ready: Install prompts and update management\n\n**🎯 Phase 1 Success Criteria - ALL MET:**\n✅ Production stability ensured\n✅ Mobile experience optimized\n✅ Data integrity guaranteed\n✅ Zero critical issues detected\n\nReady for Phase 2: Quality Excellence (P1 High priority items)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "aaca93c4ee3062038f13d79d69bed17b5a097a56",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/aaca93c4ee3062038f13d79d69bed17b5a097a56"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+      "html_url": "https://github.com/adrianwedd/cv/commit/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+          "html_url": "https://github.com/adrianwedd/cv/commit/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
+    {
+      "sha": "ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+      "node_id": "C_kwDOPUy_0toAKGVmOWNmNTI4NjRiMDMzNWI4YTQ4MTM5NGIxYzZjZGJkYmIzYWIyYjU",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-05T18:14:06Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T02:37:22Z"
+        },
+        "message": "🚨 Fix Critical Website Loading Issues\n\n**JavaScript Syntax Errors Fixed:**\n- Fixed escaped exclamation marks (\\!\\) in script.js lines 1579, 1580, 1729, 1759\n- Resolved \"Invalid or unexpected token\" errors preventing website initialization\n\n**Service Worker Cache Failures Fixed:**\n- Updated cache to use correct file paths (/cv/ prefix)\n- Added graceful error handling for missing assets\n- Changed cache version to v2 for fresh cache\n\n**CSP Violations Resolved:**\n- Removed all onclick inline event handlers from HTML\n- Replaced with data-action attributes and event delegation\n- Fixed print button functionality using event listeners\n- Removed onload attributes from preload links\n\n**Asset Loading Improvements:**\n- Added setupAssetLoading() method to handle CSS and font loading\n- Prevents console warnings for unused preload resources\n- Proper fallback handling for font loading\n\n**Impact:**\n- Website now loads without JavaScript errors\n- Service worker functions properly\n- Print functionality works without CSP violations\n- Clean console with no critical errors\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "a2daeed37af46485a5fd8d84ba44f041a92ddf61",
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/a2daeed37af46485a5fd8d84ba44f041a92ddf61"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/cv/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+      "html_url": "https://github.com/adrianwedd/cv/commit/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "c5bd142f53083934ebb8303f4212df506eefcefe",
+          "url": "https://api.github.com/repos/adrianwedd/cv/commits/c5bd142f53083934ebb8303f4212df506eefcefe",
+          "html_url": "https://github.com/adrianwedd/cv/commit/c5bd142f53083934ebb8303f4212df506eefcefe"
+        }
+      ],
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "_activity_type": "commit"
+    },
     {
       "sha": "7888f63b20fbc06a43752b4f5e80c19fabac0313",
       "node_id": "C_kwDOPUy_0toAKDc4ODhmNjNiMjBmYmMwNmE0Mzc1MmI0ZjVlODBjMTlmYWJhYzAzMTM",
@@ -15302,178 +15505,6 @@
       "_activity_type": "commit"
     },
     {
-      "sha": "367f08b3536e27879ad6e2d35245baf29fb0a369",
-      "node_id": "C_kwDOPUy_0toAKDM2N2YwOGIzNTM2ZTI3ODc5YWQ2ZTJkMzUyNDViYWYyOWZiMGEzNjk",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T17:21:51Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-04T00:10:01Z"
-        },
-        "message": "🎭 Elite Agent Emergency Data Recovery - Session Wrap-up Excellence\n\nComplete session documentation following comprehensive data recovery mission:\n\n📋 Session Achievements:\n• Data Architect: 35/100 → 100/100 data integrity transformation (+65 points)\n• Quality Assurance Engineer: 96/100 EXCELLENT website validation\n• CV-Groomer: Complete repository health assessment and strategic roadmap\n• System Reliability: 5/6 → 6/6 operational (100% excellence achieved)\n\n🔧 Technical Deliverables:\n• CLAUDE.md: Added elite agent recovery session insights\n• NEXT_SESSION_PLAN.md: Strategic roadmap for perfect 100/100 quality achievement\n• Session Export: Comprehensive documentation in ~/.claude/logs/\n\n🎯 Strategic Positioning:\n• 100% verified authentic professional content (zero AI hallucinations)\n• Enterprise-ready website architecture (96/100 EXCELLENT)\n• Clear optimization pathway to perfect 100/100 technical excellence\n• Production-ready platform suitable for Fortune 500 evaluation\n\nNext Session Priority: Perfect 100/100 quality + enterprise security framework\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "3c28aec03dadf05ec0f8f8e2ee9bffe306760eac",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/3c28aec03dadf05ec0f8f8e2ee9bffe306760eac"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/367f08b3536e27879ad6e2d35245baf29fb0a369",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/367f08b3536e27879ad6e2d35245baf29fb0a369",
-      "html_url": "https://github.com/adrianwedd/cv/commit/367f08b3536e27879ad6e2d35245baf29fb0a369",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/367f08b3536e27879ad6e2d35245baf29fb0a369/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "9140899118456dbfac4530d1d01351f0a5c9c9b4",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/9140899118456dbfac4530d1d01351f0a5c9c9b4",
-          "html_url": "https://github.com/adrianwedd/cv/commit/9140899118456dbfac4530d1d01351f0a5c9c9b4"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "b7d3c4585cf2989323a53607cc2dfa710e21fe63",
-      "node_id": "C_kwDOPUy_0toAKGI3ZDNjNDU4NWNmMjk4OTMyM2E1MzYwN2NjMmRmYTcxMGUyMWZlNjM",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:45:19Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:45:19Z"
-        },
-        "message": "📚 Session Wrap-up Documentation - SEO Technical Excellence Complete\n\n## 🎯 Comprehensive Session Closure Excellence\n- Updated CLAUDE.md with SEO Technical Excellence & Quality Automation achievements\n- Created NEXT_SESSION_PLAN.md for Progressive Web App implementation roadmap\n- Documented 0/100 → 90/100 SEO score transformation with automation integration\n- Established strategic pathway for 80/100 → 90/100 quality score progression\n\n## 📊 Session Performance Excellence\n- 100% objective completion (5/5 primary objectives achieved)\n- SEO transformation breakthrough with comprehensive structured data\n- Quality automation framework operational with CI/CD integration\n- Strategic GitHub issues management with PWA advancement roadmap\n\n## 🚀 Next Session Preparation\n- Progressive Web App implementation prioritized as primary objective\n- Core Web Vitals excellence and quality dashboard enhancement planned\n- Service worker, manifest, and offline functionality roadmap established\n- Clear success criteria and implementation phases defined\n\nEnterprise Achievement: ✅ COMPLETE - SEO Technical Excellence + Quality Automation\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-        "tree": {
-          "sha": "da7c6911f1a3fb1028ce9117b9e92560eb002fce",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/da7c6911f1a3fb1028ce9117b9e92560eb002fce"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/b7d3c4585cf2989323a53607cc2dfa710e21fe63",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/b7d3c4585cf2989323a53607cc2dfa710e21fe63",
-      "html_url": "https://github.com/adrianwedd/cv/commit/b7d3c4585cf2989323a53607cc2dfa710e21fe63",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/b7d3c4585cf2989323a53607cc2dfa710e21fe63/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "8e58026b781b571ec817f6c590e7156ec798d097",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/8e58026b781b571ec817f6c590e7156ec798d097",
-          "html_url": "https://github.com/adrianwedd/cv/commit/8e58026b781b571ec817f6c590e7156ec798d097"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "_activity_type": "commit"
-    },
-    {
       "sha": "a250bce76217c367c2509de9256ece3820e248f8",
       "node_id": "C_kwDOPXg8zNoAKGEyNTBiY2U3NjIxN2MzNjdjMjUwOWRlOTI1NmVjZTM4MjBlMjQ4Zjg",
       "commit": {
@@ -15557,92 +15588,6 @@
       "repository": "claude-nexus",
       "repository_full_name": "adrianwedd/claude-nexus",
       "repository_url": "https://github.com/adrianwedd/claude-nexus",
-      "_activity_type": "commit"
-    },
-    {
-      "sha": "8e58026b781b571ec817f6c590e7156ec798d097",
-      "node_id": "C_kwDOPUy_0toAKDhlNTgwMjZiNzgxYjU3MWVjODE3ZjZjNTkwZTcxNTZlYzc5OGQwOTc",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:14:32Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-08-03T16:14:43Z"
-        },
-        "message": "Cleanup validation artifacts",
-        "tree": {
-          "sha": "317e36e717b21ea56bb7343738a99cb080b18f59",
-          "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/317e36e717b21ea56bb7343738a99cb080b18f59"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/8e58026b781b571ec817f6c590e7156ec798d097",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/cv/commits/8e58026b781b571ec817f6c590e7156ec798d097",
-      "html_url": "https://github.com/adrianwedd/cv/commit/8e58026b781b571ec817f6c590e7156ec798d097",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/8e58026b781b571ec817f6c590e7156ec798d097/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
-          "url": "https://api.github.com/repos/adrianwedd/cv/commits/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd",
-          "html_url": "https://github.com/adrianwedd/cv/commit/53725e9b1aa4eccf053e0935e26c7301b3ac8dcd"
-        }
-      ],
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "repository_url": "https://github.com/adrianwedd/cv",
       "_activity_type": "commit"
     },
     {
@@ -26392,6 +26337,105 @@
   ],
   "recent_issues": [
     {
+      "url": "https://api.github.com/repos/adrianwedd/cv/issues/256",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/labels{/name}",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/comments",
+      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/events",
+      "html_url": "https://github.com/adrianwedd/cv/issues/256",
+      "id": 3294954904,
+      "node_id": "I_kwDOPUy_0s7EZQWY",
+      "number": 256,
+      "title": "🏥 Repository Health Assessment Complete - Strategic Action Plan",
+      "user": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 9022917081,
+          "node_id": "LA_kwDOPUy_0s8AAAACGc7J2Q",
+          "url": "https://api.github.com/repos/adrianwedd/cv/labels/enhancement",
+          "name": "enhancement",
+          "color": "a2eeef",
+          "default": true,
+          "description": "New feature or request"
+        },
+        {
+          "id": 9023347478,
+          "node_id": "LA_kwDOPUy_0s8AAAACGdVbFg",
+          "url": "https://api.github.com/repos/adrianwedd/cv/labels/monitoring",
+          "name": "monitoring",
+          "color": "0052CC",
+          "default": false,
+          "description": "Related to system monitoring and observability"
+        },
+        {
+          "id": 9023360223,
+          "node_id": "LA_kwDOPUy_0s8AAAACGdWM3w",
+          "url": "https://api.github.com/repos/adrianwedd/cv/labels/P1:%20High",
+          "name": "P1: High",
+          "color": "D93F0B",
+          "default": false,
+          "description": "High priority; should be addressed soon"
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [],
+      "milestone": null,
+      "comments": 0,
+      "created_at": "2025-08-06T02:19:20Z",
+      "updated_at": "2025-08-06T02:19:20Z",
+      "closed_at": null,
+      "author_association": "OWNER",
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "body": "## Repository Surgeon Deployment Complete\n\n**Health Score: 88/100** 🟡 **GOOD** (Strategic Improvement Needed)\n\n### Critical Findings\n\n1. **✅ Excellent Infrastructure**: CI/CD (100/100), Security (100/100), Performance (100/100)\n2. **⚠️ Critical Issue**: Test suite failure rate requires immediate attention\n3. **🎯 Technical Debt**: 128 items identified, including 2 large files requiring modularization\n\n### Immediate Actions Required (P1)\n\n- **Fix failing test suites** - 50% failure rate blocking CI/CD reliability\n- **Resolve ES module compatibility issues** in test infrastructure\n- **Modularize large files**: `claude-enhancer.js` (2,597 lines), `script.js` (2,616 lines)\n\n### Automated Health Monitoring Deployed\n\n✅ **New System**: `repository-health-monitor.js` \n✅ **Comprehensive Report**: `repository-health-report.md`\n✅ **Continuous Monitoring**: Real-time health score tracking\n✅ **Automated Alerts**: Critical/warning notifications\n\n### Strategic Roadmap (Next 30 Days)\n\n1. **Phase 1**: Fix test infrastructure (1-2 weeks)\n2. **Phase 2**: Technical debt reduction (2-3 weeks) \n3. **Phase 3**: Achieve 95+ health score target\n\n**Repository Surgeon Mission Complete** - *\"Chaos becomes order, issues become opportunities\"* ✨\n\n### Files Created\n- `/repository-health-report.md` - Comprehensive analysis\n- `/.github/scripts/repository-health-monitor.js` - Automated monitoring\n- `/data/repository-health.json` - Current health metrics",
+      "closed_by": null,
+      "reactions": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/256/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/timeline",
+      "performed_via_github_app": null,
+      "state_reason": null,
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "type": "issue",
+      "_activity_type": "issue"
+    },
+    {
       "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82",
       "repository_url": "https://github.com/adrianwedd/ordr.fm",
       "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82/labels{/name}",
@@ -32046,99 +32090,406 @@
       "repository_full_name": "adrianwedd/ADHDo",
       "type": "issue",
       "_activity_type": "issue"
-    },
-    {
-      "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/6",
-      "repository_url": "https://github.com/adrianwedd/ADHDo",
-      "labels_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/6/labels{/name}",
-      "comments_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/6/comments",
-      "events_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/6/events",
-      "html_url": "https://github.com/adrianwedd/ADHDo/issues/6",
-      "id": 3290455023,
-      "node_id": "I_kwDOPYPvd87EIFvv",
-      "number": 6,
-      "title": "📋 ADHDo Development Roadmap & Milestones",
-      "user": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "labels": [
-        {
-          "id": 9055874818,
-          "node_id": "LA_kwDOPYPvd88AAAACG8WvAg",
-          "url": "https://api.github.com/repos/adrianwedd/ADHDo/labels/documentation",
-          "name": "documentation",
-          "color": "0075ca",
-          "default": true,
-          "description": "Improvements or additions to documentation"
-        },
-        {
-          "id": 9055958733,
-          "node_id": "LA_kwDOPYPvd88AAAACG8b2zQ",
-          "url": "https://api.github.com/repos/adrianwedd/ADHDo/labels/phase-1",
-          "name": "phase-1",
-          "color": "0052cc",
-          "default": false,
-          "description": "Phase 1 development tasks"
-        }
-      ],
-      "state": "open",
-      "locked": false,
-      "assignee": null,
-      "assignees": [],
-      "milestone": null,
-      "comments": 0,
-      "created_at": "2025-08-04T18:49:57Z",
-      "updated_at": "2025-08-04T18:49:57Z",
-      "closed_at": null,
-      "author_association": "OWNER",
-      "active_lock_reason": null,
-      "sub_issues_summary": {
-        "total": 0,
-        "completed": 0,
-        "percent_completed": 0
-      },
-      "body": "## 🚀 ADHDo/MCP Platform Development Roadmap\n\nThis issue tracks the overall development roadmap and major milestones for the ADHDo platform and MCP framework expansion.\n\n### ✅ **Phase 0: Foundation (COMPLETED)**\n- [x] Working MCP ADHD Server MVP\n- [x] Crisis detection and safety protocols\n- [x] Redis integration for context persistence  \n- [x] Performance optimization (<3s response time)\n- [x] Comprehensive architecture documentation\n- [x] Business strategy and monetization roadmap\n- [x] GitHub repository with full project history\n\n### 🔄 **Phase 1: Production Readiness (Current - Next 3 months)**\n- [ ] User authentication and session management (#1)\n- [ ] Telegram bot integration for nudges (#4)\n- [ ] Database integration (PostgreSQL)\n- [ ] Rate limiting and security hardening\n- [ ] Frontend interface (web app)\n- [ ] Deployment automation (CI/CD)\n- [ ] User onboarding and documentation\n- [ ] Beta user testing program\n\n**Target**: 100 active users, $5K MRR\n\n### 🎯 **Phase 2: Domain Expansion (Months 3-9)**\n- [ ] Second domain research and selection (#2, #5)\n- [ ] MCP framework abstraction\n- [ ] Domain adapter implementation\n- [ ] Professional tools and dashboards\n- [ ] Multi-tenant architecture\n- [ ] Enterprise authentication (SSO)\n- [ ] Advanced analytics and reporting\n\n**Target**: 1,000 users across 2 domains, $50K MRR\n\n### 🌍 **Phase 3: Platform Scale (Months 9-18)**\n- [ ] Third and fourth domain implementations\n- [ ] Domain marketplace for third parties\n- [ ] Enterprise sales and white-label\n- [ ] Mobile applications (iOS/Android)\n- [ ] Integration partnerships (health apps, productivity tools)\n- [ ] Clinical validation studies\n- [ ] International expansion\n\n**Target**: 10,000 users across 4+ domains, $500K MRR\n\n### 📊 **Key Performance Indicators**\n- **User Engagement**: Daily active users, session length\n- **Response Quality**: User satisfaction scores, effectiveness ratings\n- **Performance**: Response times, uptime, error rates\n- **Safety**: Crisis detection accuracy, response time to alerts\n- **Business**: Monthly recurring revenue, customer acquisition cost\n\n**Last Updated**: 2025-08-05\n**Status**: Phase 0 Complete, Phase 1 In Progress",
-      "closed_by": null,
-      "reactions": {
-        "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/6/reactions",
-        "total_count": 0,
-        "+1": 0,
-        "-1": 0,
-        "laugh": 0,
-        "hooray": 0,
-        "confused": 0,
-        "heart": 0,
-        "rocket": 0,
-        "eyes": 0
-      },
-      "timeline_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/6/timeline",
-      "performed_via_github_app": null,
-      "state_reason": null,
-      "repository": "ADHDo",
-      "repository_full_name": "adrianwedd/ADHDo",
-      "type": "issue",
-      "_activity_type": "issue"
     }
   ],
   "timeline": [
+    {
+      "id": "commit-062abde0f9fa26e391177ea4081b58e85f6828d4",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-06T02:36:59Z",
+      "repo": "cv",
+      "data": {
+        "sha": "062abde0f9fa26e391177ea4081b58e85f6828d4",
+        "node_id": "C_kwDOPUy_0toAKDA2MmFiZGUwZjlmYTI2ZTM5MTE3N2VhNDA4MWI1OGU4NWY2ODI4ZDQ",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T02:36:59Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T02:37:23Z"
+          },
+          "message": "🎯 Strategic Excellence Implementation Complete - Enterprise Platform Deployed\n\n## 🏆 Major Achievement Summary\n- ✅ 9/12 Strategic Tasks Complete (75% implementation)\n- ✅ All P0 Critical & P1 High Priority Tasks Delivered\n- ✅ Enterprise-Grade Production Infrastructure Deployed\n\n## 🚀 Phase 1 (P0 Critical) - Production Stability ✅ COMPLETE\n- Service Worker Optimization: Fixed registration paths, intelligent caching\n- Mobile Touch Optimization: WCAG 2.1 AA compliance, 44px touch targets\n- Data Integrity Verification: 86/100 score, comprehensive validation\n\n## 📊 Phase 2 (P1 High) - Quality Excellence ✅ COMPLETE\n- Dashboard Ecosystem: 113 optimizations across 15 dashboards\n- Mobile Responsive Dashboards: 5 PWA dashboards with touch optimization\n- OAuth Cost Optimization: Real-time monitoring, 5-hour reset tracking\n\n## 🎯 Phase 3 (P2 Medium) - Strategic Excellence ✅ COMPLETE\n- Repository Health: 88/100 score with automated monitoring\n- Production Monitoring: 99.9% uptime, 6 health checks, automated recovery\n- Feature Roadmap: Comprehensive 2025 strategy with 4-quarter timeline\n\n## 📋 Key Deliverables Created\n**Strategic Documentation:**\n- FEATURE-ROADMAP.md: Complete 2025 evolution plan\n- repository-health-report.md: Health assessment & improvements\n\n**Production Dashboards:**\n- roadmap-dashboard.html: Interactive strategic timeline\n- oauth-usage-dashboard.html: Real-time cost optimization\n- mobile-dashboard-hub.html: Mobile-first dashboard ecosystem\n- dashboards/monitoring.html: Enterprise health monitoring\n\n**Automation Systems:**\n- production-monitor.js: 6 health checks with alerting\n- oauth-cost-optimizer.js: Cost tracking with budget alerts\n- repository-health-monitor.js: Automated 88/100 health scoring\n- recovery-system.js: Self-healing with 5 recovery procedures\n\n**Mobile Excellence:**\n- 5 mobile-responsive dashboards with PWA shortcuts\n- Touch-optimized interfaces with gesture support\n- Mobile-first design patterns throughout\n\n## 📊 Current System Status\n- Repository Health Score: 88/100 (Target: 95+)\n- Production Reliability: 99.9% uptime monitoring\n- Mobile Performance: 100/100 PWA optimization\n- Cost Management: OAuth-first with intelligent budgeting\n- Test Coverage: 21.1% (Target: 80%+ in Q1 2025)\n\n## 🎯 Next Phase: Q1 2025 Foundation Excellence\nRemaining P3 tasks align with Q1 2025 roadmap objectives:\n- Testing Infrastructure Overhaul (80+ coverage)\n- JavaScript Modular Architecture (eliminate technical debt)\n- ES Module Migration (modern foundation)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "be468d2b16b733cc9968be8fc734b2a97210e313",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/be468d2b16b733cc9968be8fc734b2a97210e313"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/062abde0f9fa26e391177ea4081b58e85f6828d4",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/062abde0f9fa26e391177ea4081b58e85f6828d4",
+        "html_url": "https://github.com/adrianwedd/cv/commit/062abde0f9fa26e391177ea4081b58e85f6828d4",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/062abde0f9fa26e391177ea4081b58e85f6828d4/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+            "html_url": "https://github.com/adrianwedd/cv/commit/e3726d942a01e1d3dc83ff36e1886ddb138c7134"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: 🎯 Strategic Excellence Implementation Complete - Enterprise Platform Deployed",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "issue-3294954904",
+      "type": "issue",
+      "subtype": "issue",
+      "timestamp": "2025-08-06T02:19:20Z",
+      "repo": "cv",
+      "data": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/256",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/labels{/name}",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/comments",
+        "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/events",
+        "html_url": "https://github.com/adrianwedd/cv/issues/256",
+        "id": 3294954904,
+        "node_id": "I_kwDOPUy_0s7EZQWY",
+        "number": 256,
+        "title": "🏥 Repository Health Assessment Complete - Strategic Action Plan",
+        "user": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 9022917081,
+            "node_id": "LA_kwDOPUy_0s8AAAACGc7J2Q",
+            "url": "https://api.github.com/repos/adrianwedd/cv/labels/enhancement",
+            "name": "enhancement",
+            "color": "a2eeef",
+            "default": true,
+            "description": "New feature or request"
+          },
+          {
+            "id": 9023347478,
+            "node_id": "LA_kwDOPUy_0s8AAAACGdVbFg",
+            "url": "https://api.github.com/repos/adrianwedd/cv/labels/monitoring",
+            "name": "monitoring",
+            "color": "0052CC",
+            "default": false,
+            "description": "Related to system monitoring and observability"
+          },
+          {
+            "id": 9023360223,
+            "node_id": "LA_kwDOPUy_0s8AAAACGdWM3w",
+            "url": "https://api.github.com/repos/adrianwedd/cv/labels/P1:%20High",
+            "name": "P1: High",
+            "color": "D93F0B",
+            "default": false,
+            "description": "High priority; should be addressed soon"
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignee": null,
+        "assignees": [],
+        "milestone": null,
+        "comments": 0,
+        "created_at": "2025-08-06T02:19:20Z",
+        "updated_at": "2025-08-06T02:19:20Z",
+        "closed_at": null,
+        "author_association": "OWNER",
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "body": "## Repository Surgeon Deployment Complete\n\n**Health Score: 88/100** 🟡 **GOOD** (Strategic Improvement Needed)\n\n### Critical Findings\n\n1. **✅ Excellent Infrastructure**: CI/CD (100/100), Security (100/100), Performance (100/100)\n2. **⚠️ Critical Issue**: Test suite failure rate requires immediate attention\n3. **🎯 Technical Debt**: 128 items identified, including 2 large files requiring modularization\n\n### Immediate Actions Required (P1)\n\n- **Fix failing test suites** - 50% failure rate blocking CI/CD reliability\n- **Resolve ES module compatibility issues** in test infrastructure\n- **Modularize large files**: `claude-enhancer.js` (2,597 lines), `script.js` (2,616 lines)\n\n### Automated Health Monitoring Deployed\n\n✅ **New System**: `repository-health-monitor.js` \n✅ **Comprehensive Report**: `repository-health-report.md`\n✅ **Continuous Monitoring**: Real-time health score tracking\n✅ **Automated Alerts**: Critical/warning notifications\n\n### Strategic Roadmap (Next 30 Days)\n\n1. **Phase 1**: Fix test infrastructure (1-2 weeks)\n2. **Phase 2**: Technical debt reduction (2-3 weeks) \n3. **Phase 3**: Achieve 95+ health score target\n\n**Repository Surgeon Mission Complete** - *\"Chaos becomes order, issues become opportunities\"* ✨\n\n### Files Created\n- `/repository-health-report.md` - Comprehensive analysis\n- `/.github/scripts/repository-health-monitor.js` - Automated monitoring\n- `/data/repository-health.json` - Current health metrics",
+        "closed_by": null,
+        "reactions": {
+          "url": "https://api.github.com/repos/adrianwedd/cv/issues/256/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/256/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "type": "issue",
+        "_activity_type": "issue"
+      },
+      "_formatted": "Issue #256: 🏥 Repository Health Assessment Complete - Strategic Action Plan",
+      "_icon": "🐛",
+      "_color": "#f59e0b"
+    },
+    {
+      "id": "commit-e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-06T01:53:23Z",
+      "repo": "cv",
+      "data": {
+        "sha": "e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+        "node_id": "C_kwDOPUy_0toAKGUzNzI2ZDk0MmEwMWUxZDNkYzgzZmYzNmUxODg2ZGRiMTM4YzcxMzQ",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T01:53:23Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T02:37:23Z"
+          },
+          "message": "🚀 P0 Critical Infrastructure Excellence - Production Stability Complete\n\n**🎯 PHASE 1 COMPLETE: Immediate Sprint (P0 Critical)**\nAll production stability blockers resolved with enterprise-grade solutions.\n\n**✅ Task 1: Service Worker Path & Caching Strategy - COMPLETED**\n- Advanced multi-strategy caching (Cache-First, Network-First)\n- Intelligent resource categorization (Critical, Data, Runtime patterns)\n- Comprehensive error handling with graceful degradation\n- PWA Manager with update notifications and install prompts\n- Cache versioning (v3) with automatic cleanup\n- Offline functionality with proper fallbacks\n\n**✅ Task 2: Mobile Touch Optimization - COMPLETED**\n- WCAG 2.1 AA compliant touch targets (44x44px minimum)\n- Comprehensive touch feedback with ripple effects\n- iOS-specific optimizations (viewport fixes, scroll bounce prevention)\n- Safe area handling for notched devices\n- Orientation change optimization\n- Touch device detection and adaptive behavior\n- Enhanced accessibility with focus states\n\n**✅ Task 3: Data Integrity Verification - COMPLETED**\n- Comprehensive DataIntegrityVerifier with 86/100 baseline score\n- Schema validation against base-cv.json structure\n- Content authenticity verification using protected-content.json\n- Cross-reference validation between data files\n- Hallucination detection with pattern matching\n- Data consistency checks with automated repair suggestions\n- Enterprise reporting with timestamps and recommendations\n\n**🔧 Technical Improvements:**\n- Service Worker v3 with intelligent caching strategies\n- Mobile-first CSS with 6 responsive breakpoints\n- Touch-optimized JavaScript with haptic-like feedback\n- Production-grade data validation pipeline\n- Automated integrity scoring and reporting\n\n**📊 Quality Metrics:**\n- Service Worker: 100% offline functionality\n- Mobile Experience: WCAG 2.1 AA compliance achieved\n- Data Integrity: 86/100 score with 0 critical issues\n- Touch Optimization: Full iOS/Android compatibility\n- PWA Ready: Install prompts and update management\n\n**🎯 Phase 1 Success Criteria - ALL MET:**\n✅ Production stability ensured\n✅ Mobile experience optimized\n✅ Data integrity guaranteed\n✅ Zero critical issues detected\n\nReady for Phase 2: Quality Excellence (P1 High priority items)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "aaca93c4ee3062038f13d79d69bed17b5a097a56",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/aaca93c4ee3062038f13d79d69bed17b5a097a56"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+        "html_url": "https://github.com/adrianwedd/cv/commit/e3726d942a01e1d3dc83ff36e1886ddb138c7134",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/e3726d942a01e1d3dc83ff36e1886ddb138c7134/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+            "html_url": "https://github.com/adrianwedd/cv/commit/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: 🚀 P0 Critical Infrastructure Excellence - Production Stability Complete",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "commit-ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-05T18:14:06Z",
+      "repo": "cv",
+      "data": {
+        "sha": "ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+        "node_id": "C_kwDOPUy_0toAKGVmOWNmNTI4NjRiMDMzNWI4YTQ4MTM5NGIxYzZjZGJkYmIzYWIyYjU",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-05T18:14:06Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T02:37:22Z"
+          },
+          "message": "🚨 Fix Critical Website Loading Issues\n\n**JavaScript Syntax Errors Fixed:**\n- Fixed escaped exclamation marks (\\!\\) in script.js lines 1579, 1580, 1729, 1759\n- Resolved \"Invalid or unexpected token\" errors preventing website initialization\n\n**Service Worker Cache Failures Fixed:**\n- Updated cache to use correct file paths (/cv/ prefix)\n- Added graceful error handling for missing assets\n- Changed cache version to v2 for fresh cache\n\n**CSP Violations Resolved:**\n- Removed all onclick inline event handlers from HTML\n- Replaced with data-action attributes and event delegation\n- Fixed print button functionality using event listeners\n- Removed onload attributes from preload links\n\n**Asset Loading Improvements:**\n- Added setupAssetLoading() method to handle CSS and font loading\n- Prevents console warnings for unused preload resources\n- Proper fallback handling for font loading\n\n**Impact:**\n- Website now loads without JavaScript errors\n- Service worker functions properly\n- Print functionality works without CSP violations\n- Clean console with no critical errors\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "a2daeed37af46485a5fd8d84ba44f041a92ddf61",
+            "url": "https://api.github.com/repos/adrianwedd/cv/git/trees/a2daeed37af46485a5fd8d84ba44f041a92ddf61"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/cv/git/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/cv/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+        "html_url": "https://github.com/adrianwedd/cv/commit/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/commits/ef9cf52864b0335b8a481394b1c6cdbdbb3ab2b5/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "c5bd142f53083934ebb8303f4212df506eefcefe",
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/c5bd142f53083934ebb8303f4212df506eefcefe",
+            "html_url": "https://github.com/adrianwedd/cv/commit/c5bd142f53083934ebb8303f4212df506eefcefe"
+          }
+        ],
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: 🚨 Fix Critical Website Loading Issues",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
     {
       "id": "commit-7888f63b20fbc06a43752b4f5e80c19fabac0313",
       "type": "commit",
@@ -35240,6 +35591,86 @@
       "_formatted": "PR #65: docker(deps): Bump alpine from 3.18 to 3.22",
       "_icon": "🔄",
       "_color": "#3b82f6"
+    },
+    {
+      "id": "activity-52963825958",
+      "type": "github_activity",
+      "subtype": "PushEvent",
+      "timestamp": "2025-08-05T11:12:26Z",
+      "repo": "adrianwedd/Dx0",
+      "data": {
+        "id": "52963825958",
+        "type": "PushEvent",
+        "actor": {
+          "id": 3725784,
+          "login": "adrianwedd",
+          "display_login": "adrianwedd",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+        },
+        "repo": {
+          "id": 1014538160,
+          "name": "adrianwedd/Dx0",
+          "url": "https://api.github.com/repos/adrianwedd/Dx0"
+        },
+        "payload": {
+          "repository_id": 1014538160,
+          "push_id": 25937962620,
+          "size": 4,
+          "distinct_size": 4,
+          "ref": "refs/heads/main",
+          "head": "82537523bdef7501edbbe8920bdbcbb184e29083",
+          "before": "45d0619140882688239be1d4890761a49748ae65",
+          "commits": [
+            {
+              "sha": "69e69a9756b3c77163058505fe8deda2f317af9f",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "Complete session management analysis - Issue #310 Chunk 1\n\n**Critical Findings:**\n- Thread-safety violations in MESSAGE_HISTORY and FAILED_LOGINS global dictionaries\n- Race conditions under concurrent WebSocket connections\n- Memory leaks from unbounded in-memory storage\n- SQLite bottleneck for high concurrency scenarios\n\n**Current Architecture Assessment:**\n- SessionStore (SQLite): ✅ Thread-safe\n- BudgetManager: ✅ Thread-safe (delegates to SessionStore)\n- Global rate limiting state: ❌ NOT thread-safe\n- Global failed login tracking: ❌ NOT thread-safe\n\n**Production Readiness:**\n- Development: ✅ Acceptable (single user)\n- Staging: ⚠️ Problematic (race conditions)\n- Production: ❌ Not ready (critical blocking issues)\n\n**Immediate Priority:** Fix thread-safety issues before scaling\n\nNext: Research session backend options (Redis vs Database)\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/69e69a9756b3c77163058505fe8deda2f317af9f"
+            },
+            {
+              "sha": "1baaf76945ed25e74ad9ae99bcc0fa292c678068",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "Session backend research and architectural decision - Issue #310 Chunk 2\n\n**Backend Selection: Redis** ✅\n\n**Decision Rationale:**\n- Excellent concurrency and thread-safety\n- Native TTL support for automatic expiration\n- Atomic operations prevent race conditions\n- Rich data structures for complex session data\n- Memory efficient with bounded usage\n- Production-proven for high-scale applications\n\n**Alternatives Evaluated:**\n- PostgreSQL: Too heavyweight, complex TTL management\n- Enhanced SQLite: Limited concurrency, doesn't solve core issues\n- In-Memory + Locks: Quick fix but not production-ready\n\n**Implementation Strategy:**\n1. Abstract SessionBackend interface for flexibility\n2. Redis primary implementation with async support\n3. Fallback strategy for development environments\n4. Configuration integration with existing settings system\n\n**Deployment Flexibility:**\n- Development: Redis in Docker container\n- Staging: Single Redis instance\n- Production: Redis Cluster or managed service (ElastiCache)\n\nNext: Design abstract session storage interface\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/1baaf76945ed25e74ad9ae99bcc0fa292c678068"
+            },
+            {
+              "sha": "71b2b9d7e3c1277a9a73f3c83f0b9caa1cfcd435",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "Implement session backend abstraction and Redis implementation - Issue #310 Chunks 3&4\n\n**Abstract Session Interface (session_backend.py):**\n- SessionData model with comprehensive session information\n- SessionBackend abstract base class with async operations\n- InMemorySessionBackend for development and testing\n- SessionBackendFactory for backend selection\n- Built-in TTL support, rate limiting, and failed login tracking\n\n**Redis Session Backend (redis_session_backend.py):**\n- Full Redis implementation with aioredis\n- Atomic operations using Redis pipelines\n- Efficient data structures (hashes for sessions, lists for timestamps)\n- Automatic TTL management and cleanup\n- Connection pooling and error handling\n- Health checks and monitoring support\n\n**Configuration Integration:**\n- Added session_backend, redis_url, redis_password settings\n- Environment variable support (SESSION_BACKEND, REDIS_URL, REDIS_PASSWORD)\n- Added aioredis==2.0.1 dependency for Redis client\n\n**Key Features:**\n- Thread-safe concurrent access with Redis atomic operations\n- Memory efficient with bounded data structures\n- Automatic session expiration via Redis TTL\n- Comprehensive rate limiting and security tracking\n- Production-ready with connection pooling\n\nNext: Integration with FastAPI application\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/71b2b9d7e3c1277a9a73f3c83f0b9caa1cfcd435"
+            },
+            {
+              "sha": "82537523bdef7501edbbe8920bdbcbb184e29083",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "Fix async test configuration issues and implement comprehensive testing framework\n\nThis commit resolves 13 failing tests by fixing pytest-asyncio configuration and updating test infrastructure:\n\n## Async Testing Configuration\n- Added pytest-asyncio configuration to pyproject.toml with asyncio_mode=\"auto\"\n- Fixed pytest markers configuration and added strict marker validation\n- Ensured proper async test discovery and execution\n\n## Session Backend Integration\n- Updated tests to work with new session backend system\n- Added clear_failed_logins() and clear_all_session_data() methods for test isolation\n- Fixed test_login_lockout and test_ws_rate_limit to use session backend instead of deprecated global variables\n\n## Test Infrastructure Improvements\n- Updated test_cost_chart_updates to work with current React build artifacts\n- Fixed static file path resolution for UI tests\n- Added proper async test cleanup patterns\n\n## Documentation\n- Created comprehensive Async Testing Guide (docs/async_testing_guide.md)\n- Updated main documentation index with async testing reference\n- Added best practices for WebSocket testing, server lifecycle management, and test isolation\n\n## Results\n- All 21 UI tests now pass (was 12 failing, 9 passing)\n- All async tests across test_llm_engine_async.py, test_orchestrator.py, and test_evaluation.py continue to work\n- Proper test isolation and race condition prevention implemented\n- Robust foundation for future async test development\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/82537523bdef7501edbbe8920bdbcbb184e29083"
+            }
+          ]
+        },
+        "public": true,
+        "created_at": "2025-08-05T11:12:26Z"
+      },
+      "_formatted": "Pushed 4 commits: Complete session management analysis - Issue #310 Chunk 1 (and 3 more)",
+      "_icon": "📝",
+      "_color": "#22c55e"
     },
     {
       "id": "commit-82537523bdef7501edbbe8920bdbcbb184e29083",
@@ -42556,612 +42987,6 @@
         "_activity_type": "issue"
       },
       "_formatted": "Issue #312: Update OpenAI API Usage to the Latest Version",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
-    },
-    {
-      "id": "commit-a0b34419418df4b94b8dc92cd11f1ff7a5725f60",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-05T04:47:45Z",
-      "repo": "Dx0",
-      "data": {
-        "sha": "a0b34419418df4b94b8dc92cd11f1ff7a5725f60",
-        "node_id": "C_kwDOPHifsNoAKGEwYjM0NDE5NDE4ZGY0Yjk0YjhkYzkyY2QxMWYxZmY3YTU3MjVmNjA",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-05T04:47:45Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-05T04:47:45Z"
-          },
-          "message": "Migrate OpenAI API calls to new v1+ client syntax\n\n- Update sdb/cpt_lookup.py to use client.chat.completions.create() instead of deprecated ChatCompletion.create()\n- Update sdb/llm_client.py OpenAIClient._chat() method to use modern client API\n- Replace resp.choices[0].message[\"content\"] with resp.choices[0].message.content\n- Update test_cpt_lookup.py to mock new OpenAI client structure\n- All tests passing: CPT lookup (3/3), LLM cache (3/3), Judge (8/8)\n\nThis completes migration from deprecated OpenAI v0.x API to v1+ client-based API.\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "01210a67ade8e1910cdbb876792505e49e399428",
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/git/trees/01210a67ade8e1910cdbb876792505e49e399428"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/git/commits/a0b34419418df4b94b8dc92cd11f1ff7a5725f60",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/a0b34419418df4b94b8dc92cd11f1ff7a5725f60",
-        "html_url": "https://github.com/adrianwedd/Dx0/commit/a0b34419418df4b94b8dc92cd11f1ff7a5725f60",
-        "comments_url": "https://api.github.com/repos/adrianwedd/Dx0/commits/a0b34419418df4b94b8dc92cd11f1ff7a5725f60/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "194ed4dc045de024b29a00d60237493b3eecb2bd",
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/194ed4dc045de024b29a00d60237493b3eecb2bd",
-            "html_url": "https://github.com/adrianwedd/Dx0/commit/194ed4dc045de024b29a00d60237493b3eecb2bd"
-          }
-        ],
-        "repository": "Dx0",
-        "repository_full_name": "adrianwedd/Dx0",
-        "repository_url": "https://github.com/adrianwedd/Dx0",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: Migrate OpenAI API calls to new v1+ client syntax",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "activity-52947781382",
-      "type": "github_activity",
-      "subtype": "IssueCommentEvent",
-      "timestamp": "2025-08-05T04:41:23Z",
-      "repo": "adrianwedd/Dx0",
-      "data": {
-        "id": "52947781382",
-        "type": "IssueCommentEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1014538160,
-          "name": "adrianwedd/Dx0",
-          "url": "https://api.github.com/repos/adrianwedd/Dx0"
-        },
-        "payload": {
-          "action": "created",
-          "issue": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-            "repository_url": "https://api.github.com/repos/adrianwedd/Dx0",
-            "labels_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/labels{/name}",
-            "comments_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/comments",
-            "events_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/events",
-            "html_url": "https://github.com/adrianwedd/Dx0/issues/312",
-            "id": 3291417752,
-            "node_id": "I_kwDOPHifsM7ELwyY",
-            "number": 312,
-            "title": "Update OpenAI API Usage to the Latest Version",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 9057621979,
-                "node_id": "LA_kwDOPHifsM8AAAACG-BX2w",
-                "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/backend",
-                "name": "backend",
-                "color": "0052cc",
-                "default": false,
-                "description": "Backend/server-side changes"
-              },
-              {
-                "id": 9057622622,
-                "node_id": "LA_kwDOPHifsM8AAAACG-BaXg",
-                "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/refactor",
-                "name": "refactor",
-                "color": "fbca04",
-                "default": false,
-                "description": "Code refactoring"
-              },
-              {
-                "id": 9057623613,
-                "node_id": "LA_kwDOPHifsM8AAAACG-BePQ",
-                "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/migrated-from-yaml",
-                "name": "migrated-from-yaml",
-                "color": "fef2c0",
-                "default": false,
-                "description": "Migrated from tasks.yml"
-              },
-              {
-                "id": 9057652721,
-                "node_id": "LA_kwDOPHifsM8AAAACG-DP8Q",
-                "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/medium-priority",
-                "name": "medium-priority",
-                "color": "fbca04",
-                "default": false,
-                "description": "Medium priority task"
-              },
-              {
-                "id": 9057653280,
-                "node_id": "LA_kwDOPHifsM8AAAACG-DSIA",
-                "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/large-effort",
-                "name": "large-effort",
-                "color": "ffe6e6",
-                "default": false,
-                "description": "Large effort required"
-              },
-              {
-                "id": 9057653752,
-                "node_id": "LA_kwDOPHifsM8AAAACG-DT-A",
-                "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/todo",
-                "name": "todo",
-                "color": "d1ecf1",
-                "default": false,
-                "description": "Ready to start"
-              }
-            ],
-            "state": "open",
-            "locked": false,
-            "assignee": null,
-            "assignees": [],
-            "milestone": null,
-            "comments": 1,
-            "created_at": "2025-08-05T03:29:46Z",
-            "updated_at": "2025-08-05T04:41:22Z",
-            "closed_at": null,
-            "author_association": "OWNER",
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "body": "The `sdb/cpt_lookup.py` file uses the deprecated `openai.ChatCompletion.create` method. This should be updated to use the new `client.chat.completions.create` method from the latest version of the `openai` library. All API calls should be updated to match the new syntax and data structures.\n\n**Component**: backend\n**Area**: refactor\n**Priority**: 1\n\n---\n*Migrated from tasks.yml*",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/timeline",
-            "performed_via_github_app": null,
-            "state_reason": null
-          },
-          "comment": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/comments/3153269356",
-            "html_url": "https://github.com/adrianwedd/Dx0/issues/312#issuecomment-3153269356",
-            "issue_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-            "id": 3153269356,
-            "node_id": "IC_kwDOPHifsM678xJs",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "created_at": "2025-08-05T04:41:21Z",
-            "updated_at": "2025-08-05T04:41:21Z",
-            "author_association": "OWNER",
-            "body": "✅ **Completed Chunk 2: Update OpenAI Library to Latest Version**\n\n**Changes Made:**\n- Updated OpenAI library from 1.93.1 to 1.98.0 (latest available)\n- Added explicit OpenAI dependency to requirements-dev.txt\n- Removed problematic Sphinx documentation dependencies that were causing conflicts\n- Verified core imports and configuration loading work correctly\n- All configuration tests pass with new version\n\n**Testing:**\n- Core LLM client imports successfully\n- Configuration tests pass (2/2)\n- No breaking changes detected in basic functionality\n\n**Next:** Proceeding to Chunk 3 - Migrate deprecated API calls to new OpenAI syntax\n\nCommit: 194ed4d",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/comments/3153269356/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "performed_via_github_app": null
-          }
-        },
-        "public": true,
-        "created_at": "2025-08-05T04:41:23Z"
-      },
-      "_formatted": "Commented on issue #312: Update OpenAI API Usage to the Latest Version",
-      "_icon": "💬",
-      "_color": "#8b5cf6"
-    },
-    {
-      "id": "commit-194ed4dc045de024b29a00d60237493b3eecb2bd",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-05T04:41:11Z",
-      "repo": "Dx0",
-      "data": {
-        "sha": "194ed4dc045de024b29a00d60237493b3eecb2bd",
-        "node_id": "C_kwDOPHifsNoAKDE5NGVkNGRjMDQ1ZGUwMjRiMjlhMDBkNjAyMzc0OTNiM2VlY2IyYmQ",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-05T04:41:11Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-05T04:41:11Z"
-          },
-          "message": "Update OpenAI library to latest version 1.98.0\n\n- Update requirements-dev.txt to pin OpenAI at 1.98.0\n- Successfully upgraded from 1.93.1 to 1.98.0\n- Removed problematic Sphinx documentation dependencies\n- Core tests pass with new OpenAI version\n- Import and configuration loading work correctly\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "46caf664fd716f8538aa6ee0fc8537f58cdad5e6",
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/git/trees/46caf664fd716f8538aa6ee0fc8537f58cdad5e6"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/git/commits/194ed4dc045de024b29a00d60237493b3eecb2bd",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/194ed4dc045de024b29a00d60237493b3eecb2bd",
-        "html_url": "https://github.com/adrianwedd/Dx0/commit/194ed4dc045de024b29a00d60237493b3eecb2bd",
-        "comments_url": "https://api.github.com/repos/adrianwedd/Dx0/commits/194ed4dc045de024b29a00d60237493b3eecb2bd/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "d873214cf0b43102d761af0ba4f692887a3ee36d",
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/commits/d873214cf0b43102d761af0ba4f692887a3ee36d",
-            "html_url": "https://github.com/adrianwedd/Dx0/commit/d873214cf0b43102d761af0ba4f692887a3ee36d"
-          }
-        ],
-        "repository": "Dx0",
-        "repository_full_name": "adrianwedd/Dx0",
-        "repository_url": "https://github.com/adrianwedd/Dx0",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: Update OpenAI library to latest version 1.98.0",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "activity-52947753430",
-      "type": "github_activity",
-      "subtype": "IssuesEvent",
-      "timestamp": "2025-08-05T04:40:15Z",
-      "repo": "adrianwedd/ordr.fm",
-      "data": {
-        "id": "52947753430",
-        "type": "IssuesEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1028304060,
-          "name": "adrianwedd/ordr.fm",
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm"
-        },
-        "payload": {
-          "action": "opened",
-          "issue": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51",
-            "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-            "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/labels{/name}",
-            "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/comments",
-            "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/events",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/issues/51",
-            "id": 3291535937,
-            "node_id": "I_kwDOPUqsvM7EMNpB",
-            "number": 51,
-            "title": "Node.js MusicBrainz Integration with Database Relationships and Visualization",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 9021671224,
-                "node_id": "LA_kwDOPUqsvM8AAAACGbvHOA",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/enhancement",
-                "name": "enhancement",
-                "color": "a2eeef",
-                "default": true,
-                "description": "New feature or request"
-              }
-            ],
-            "state": "open",
-            "locked": false,
-            "assignee": null,
-            "assignees": [],
-            "milestone": null,
-            "comments": 0,
-            "created_at": "2025-08-05T04:40:13Z",
-            "updated_at": "2025-08-05T04:40:13Z",
-            "closed_at": null,
-            "author_association": "OWNER",
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "body": "## Overview\n\nImplement Node.js-based MusicBrainz integration that focuses on building rich database relationships and providing advanced visualization capabilities for music metadata connections.\n\n## Node.js Architecture Approach\n\n### 1. Database-First Design\n- **Primary Focus**: Build comprehensive relationship database\n- **Technology Stack**: Node.js + SQLite/PostgreSQL + Express + D3.js\n- **Data Storage**: Persistent relationship mapping and metadata caching\n- **Real-time Updates**: WebSocket connections for live data visualization\n\n### 2. MusicBrainz Integration Goals\n- Complement existing Discogs data with MusicBrainz relationships\n- Focus on artist collaborations, band relationships, and label connections\n- Enhanced classical music work/composer relationships\n- ISRC and recording-level metadata linking\n\n## Technical Implementation\n\n### 3. Node.js MusicBrainz Client (`server/lib/musicbrainz.js`)\n```javascript\nclass MusicBrainzClient {\n  // Core API methods\n  async searchReleases(artist, title, options = {})\n  async getRelease(mbid, includes = [])\n  async getArtist(mbid, includes = ['aliases', 'relationships'])\n  async getWork(mbid, includes = ['relationships'])\n  \n  // Relationship mapping\n  async getArtistRelationships(mbid)\n  async getLabelRelationships(mbid)\n  async getWorkRelationships(mbid)\n  \n  // Data processing\n  async enrichExistingAlbum(albumId)\n  async buildRelationshipGraph()\n}\n```\n\n### 4. Enhanced Database Schema\n```sql\n-- MusicBrainz entities\nCREATE TABLE mb_artists (\n  mbid TEXT PRIMARY KEY,\n  name TEXT NOT NULL,\n  sort_name TEXT,\n  type TEXT,\n  life_span_begin DATE,\n  life_span_end DATE,\n  disambiguation TEXT\n);\n\nCREATE TABLE mb_releases (\n  mbid TEXT PRIMARY KEY,\n  title TEXT NOT NULL,\n  artist_mbid TEXT,\n  date DATE,\n  country TEXT,\n  barcode TEXT,\n  FOREIGN KEY (artist_mbid) REFERENCES mb_artists(mbid)\n);\n\n-- Relationships between entities\nCREATE TABLE mb_artist_relationships (\n  id INTEGER PRIMARY KEY,\n  artist1_mbid TEXT,\n  artist2_mbid TEXT,\n  relationship_type TEXT,\n  direction TEXT,\n  begin_date DATE,\n  end_date DATE,\n  attributes JSON,\n  FOREIGN KEY (artist1_mbid) REFERENCES mb_artists(mbid),\n  FOREIGN KEY (artist2_mbid) REFERENCES mb_artists(mbid)\n);\n\n-- Link existing albums to MusicBrainz data\nCREATE TABLE album_mb_mappings (\n  album_id INTEGER,\n  mb_release_mbid TEXT,\n  confidence REAL,\n  mapping_source TEXT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (album_id) REFERENCES albums(id),\n  FOREIGN KEY (mb_release_mbid) REFERENCES mb_releases(mbid)\n);\n```\n\n### 5. Visualization Components\n\n#### Network Graph Visualization (`public/js/network-viz.js`)\n- **D3.js Force Graph**: Artist collaboration networks\n- **Relationship Types**: Band members, collaborations, label relationships\n- **Interactive Features**: Node filtering, relationship exploration, timeline scrubbing\n\n#### Metadata Dashboard (`public/js/dashboard.js`)\n- **Real-time Stats**: MusicBrainz vs Discogs coverage comparison\n- **Relationship Metrics**: Network density, clustering coefficients\n- **Data Quality**: Confidence scores, missing data identification\n\n### 6. API Endpoints for Visualization\n\n```javascript\n// Relationship data\nGET /api/musicbrainz/artists/:mbid/relationships\nGET /api/musicbrainz/network/collaborations\nGET /api/musicbrainz/network/labels\n\n// Visualization data\nGET /api/viz/artist-network?type=collaborations&depth=2\nGET /api/viz/timeline/:artistMbid\nGET /api/viz/influence-map/:genreName\n\n// Data enrichment\nPOST /api/musicbrainz/enrich-album/:albumId\nPOST /api/musicbrainz/batch-enrich\nGET /api/musicbrainz/enrichment-status\n```\n\n## Research Phase\n\n### 7. MusicBrainz API Deep Dive\n- [ ] **Relationship Types Analysis**: Document all available relationship types\n- [ ] **Include Parameters**: Map optimal data fetching strategies\n- [ ] **Rate Limiting**: Implement respectful API usage (1 req/sec standard)\n- [ ] **Data Coverage**: Compare with existing Discogs data quality\n- [ ] **Classical Music**: Analyze work/composition relationship modeling\n\n### 8. Visualization Requirements\n- [ ] **Force-Directed Graphs**: Artist collaboration networks\n- [ ] **Hierarchical Layouts**: Label/artist/release hierarchies  \n- [ ] **Timeline Views**: Artist career progression and collaborations\n- [ ] **Sankey Diagrams**: Genre evolution and influence flows\n- [ ] **Interactive Filtering**: Dynamic data exploration\n\n## Implementation Phases\n\n### Phase 1: Core Integration (Week 1-2)\n- [ ] Set up Node.js MusicBrainz client library\n- [ ] Design and implement extended database schema\n- [ ] Create basic API endpoints for data fetching\n- [ ] Implement caching and rate limiting\n\n### Phase 2: Relationship Mapping (Week 2-3)\n- [ ] Build artist relationship extraction\n- [ ] Map existing albums to MusicBrainz releases\n- [ ] Create confidence scoring for mappings\n- [ ] Implement batch enrichment processes\n\n### Phase 3: Visualization (Week 3-4)\n- [ ] Build D3.js network visualization components\n- [ ] Create interactive relationship explorer\n- [ ] Implement real-time data updates\n- [ ] Add filtering and search capabilities\n\n### Phase 4: Advanced Features (Week 4+)\n- [ ] Timeline-based relationship exploration\n- [ ] Genre influence mapping\n- [ ] Classical music work relationships\n- [ ] Export capabilities for external analysis\n\n## Data Processing Pipeline\n\n### 9. Enrichment Workflow\n```\n1. Existing Album → Search MusicBrainz by artist/title\n2. Match candidates → Calculate confidence scores\n3. Best match → Fetch full release + relationships\n4. Store mapping → Update relationship database\n5. Propagate updates → Notify visualization clients\n```\n\n### 10. Relationship Processing\n```\n1. Artist MBID → Fetch all relationships\n2. Parse relationship types → Store in normalized format\n3. Build graph connections → Update network data\n4. Calculate metrics → Network centrality, clustering\n5. Update visualization → Real-time WebSocket updates\n```\n\n## Success Metrics\n\n### Technical Metrics\n- [ ] **API Performance**: < 500ms average response time\n- [ ] **Database Efficiency**: Complex relationship queries < 1s\n- [ ] **Visualization Responsiveness**: < 100ms interaction lag\n- [ ] **Data Coverage**: 80%+ albums with MusicBrainz mappings\n\n### User Experience Metrics\n- [ ] **Discovery**: Enhanced artist relationship exploration\n- [ ] **Data Quality**: Reduced duplicate/ambiguous entries\n- [ ] **Insights**: New relationship patterns identified\n- [ ] **Performance**: Smooth real-time visualization updates\n\n## Testing Strategy\n\n### 11. Integration Testing\n- [ ] MusicBrainz API integration reliability\n- [ ] Database relationship integrity\n- [ ] WebSocket real-time update accuracy\n- [ ] Visualization performance with large datasets\n\n### 12. Data Quality Testing\n- [ ] Confidence score accuracy validation\n- [ ] Relationship mapping correctness\n- [ ] Classical music work relationship accuracy\n- [ ] Artist alias resolution improvement\n\n## Documentation\n\n- [ ] **API Documentation**: Complete endpoint reference\n- [ ] **Database Schema**: Relationship model documentation\n- [ ] **Visualization Guide**: User interaction patterns\n- [ ] **Development Setup**: Local environment configuration\n\n## Future Enhancements\n\n- **Machine Learning**: Automatic relationship confidence scoring\n- **Community Features**: User-contributed relationship verification\n- **Advanced Analytics**: Network analysis and trend identification\n- **Export Tools**: Data export for academic research\n\n🤖 Generated with [Claude Code](https://claude.ai/code)",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/timeline",
-            "performed_via_github_app": null,
-            "state_reason": null
-          }
-        },
-        "public": true,
-        "created_at": "2025-08-05T04:40:15Z"
-      },
-      "_formatted": "Opened issue #51: Node.js MusicBrainz Integration with Database Relationships ",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
-    },
-    {
-      "id": "activity-52947733198",
-      "type": "github_activity",
-      "subtype": "IssuesEvent",
-      "timestamp": "2025-08-05T04:39:25Z",
-      "repo": "adrianwedd/ordr.fm",
-      "data": {
-        "id": "52947733198",
-        "type": "IssuesEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1028304060,
-          "name": "adrianwedd/ordr.fm",
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm"
-        },
-        "payload": {
-          "action": "opened",
-          "issue": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/50",
-            "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-            "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/50/labels{/name}",
-            "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/50/comments",
-            "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/50/events",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/issues/50",
-            "id": 3291534689,
-            "node_id": "I_kwDOPUqsvM7EMNVh",
-            "number": 50,
-            "title": "Detailed MusicBrainz Integration Research and Implementation Plan",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 9021671224,
-                "node_id": "LA_kwDOPUqsvM8AAAACGbvHOA",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/enhancement",
-                "name": "enhancement",
-                "color": "a2eeef",
-                "default": true,
-                "description": "New feature or request"
-              }
-            ],
-            "state": "open",
-            "locked": false,
-            "assignee": null,
-            "assignees": [],
-            "milestone": null,
-            "comments": 0,
-            "created_at": "2025-08-05T04:39:23Z",
-            "updated_at": "2025-08-05T04:39:23Z",
-            "closed_at": null,
-            "author_association": "OWNER",
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "body": "## Overview\n\nResearch and implement comprehensive MusicBrainz API integration to complement existing Discogs data, with focus on enhanced metadata quality, classical music support, and acoustic fingerprinting capabilities.\n\n## Research Phase\n\n### 1. MusicBrainz API Analysis\n- [ ] Study MusicBrainz API endpoints and rate limiting (1000 requests/second)\n- [ ] Compare metadata coverage vs Discogs for electronic music\n- [ ] Analyze classical music metadata capabilities\n- [ ] Research ISRC and acoustic fingerprint integration\n- [ ] Document API authentication requirements (optional for basic usage)\n\n### 2. Integration Strategy Design\n- [ ] Design dual-provider metadata enrichment workflow\n- [ ] Create fallback logic: Discogs primary, MusicBrainz secondary (or vice versa)\n- [ ] Plan confidence scoring system combining both sources\n- [ ] Design caching strategy for MusicBrainz responses\n- [ ] Plan rate limiting coordination between APIs\n\n### 3. Data Model Extensions\n- [ ] Extend database schema for MusicBrainz IDs (MBID)\n- [ ] Add fields for ISRC, acoustic fingerprints\n- [ ] Design relationship tables for MusicBrainz entities\n- [ ] Plan migration strategy for existing data\n\n## Implementation Phase\n\n### 4. Core MusicBrainz Module (`lib/musicbrainz.sh`)\n- [ ] `init_musicbrainz()` - Initialize configuration and cache\n- [ ] `musicbrainz_search_releases()` - Search releases by artist/title\n- [ ] `musicbrainz_get_release()` - Get detailed release information\n- [ ] `musicbrainz_get_artist()` - Get artist information and relationships\n- [ ] `musicbrainz_lookup_isrc()` - ISRC-based track lookup\n- [ ] `musicbrainz_rate_limit()` - Handle API rate limiting\n- [ ] `musicbrainz_cache_*()` - Response caching functions\n\n### 5. Enhanced Metadata Processing (`lib/metadata.sh`)\n- [ ] `enrich_metadata_with_musicbrainz()` - Main enrichment function\n- [ ] `combine_metadata_sources()` - Merge Discogs + MusicBrainz data\n- [ ] `calculate_combined_confidence()` - Multi-source confidence scoring\n- [ ] `resolve_metadata_conflicts()` - Handle conflicting data\n- [ ] `extract_musicbrainz_relationships()` - Artist/label relationships\n\n## Technical Specifications\n\n### API Integration\n- **Base URL**: `https://musicbrainz.org/ws/2/`\n- **Rate Limit**: 1000 requests/second (much higher than Discogs)\n- **Authentication**: Optional (higher rate limits with account)\n- **Response Format**: JSON or XML\n- **Cache TTL**: 7 days (longer than Discogs due to more stable data)\n\n### Configuration Variables\n```bash\nMUSICBRAINZ_ENABLED=1\nMUSICBRAINZ_USER_AGENT=\"ordr.fm/2.1.0\"\nMUSICBRAINZ_CACHE_DIR=\"./musicbrainz_cache\"\nMUSICBRAINZ_CACHE_EXPIRY=168  # 7 days in hours\nMUSICBRAINZ_RATE_LIMIT=50     # Conservative: 50 req/min\nMUSICBRAINZ_CONFIDENCE_THRESHOLD=0.8\nMUSICBRAINZ_PREFER_OVER_DISCOGS=0  # 0=fallback, 1=primary\n```\n\n## Success Metrics\n\n- [ ] Increased metadata completion rate (target: +15%)\n- [ ] Better classical music organization\n- [ ] Enhanced artist relationship data\n- [ ] < 2s average enrichment time per album\n\n🤖 Generated with [Claude Code](https://claude.ai/code)",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/50/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/50/timeline",
-            "performed_via_github_app": null,
-            "state_reason": null
-          }
-        },
-        "public": true,
-        "created_at": "2025-08-05T04:39:25Z"
-      },
-      "_formatted": "Opened issue #50: Detailed MusicBrainz Integration Research and Implementation",
       "_icon": "🐛",
       "_color": "#f59e0b"
     }
