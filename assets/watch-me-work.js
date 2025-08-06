@@ -1204,7 +1204,16 @@ class WatchMeWorkDashboard {
 
 // Initialize dashboard when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new WatchMeWorkDashboard();
+    try {
+        console.log('🚀 Initializing WatchMeWorkDashboard...');
+        window.dashboard = new WatchMeWorkDashboard();
+        console.log('✅ WatchMeWorkDashboard initialized successfully');
+    } catch (error) {
+        console.error('❌ Failed to initialize WatchMeWorkDashboard:', error);
+        if (typeof showErrorFallback === 'function') {
+            showErrorFallback('Dashboard initialization failed: ' + error.message);
+        }
+    }
 });
 
 // Export for potential module usage
