@@ -1,0 +1,16 @@
+{
+  "calculation_timestamp": "2025-08-06T06:06:01Z",
+  "analysis_period_days": 30,
+  "scores": {
+    "activity_score": 100,
+    "technical_diversity_score": 100,
+    "community_impact_score": 20,
+    "overall_professional_score": 76.0
+  },
+  "raw_data": {
+    "commits": 395,
+    "active_days": 9,
+    "repositories": 100,
+    "stars_received": 4
+  }
+}
