@@ -1,0 +1,294 @@
+/* Mobile Dashboard Styles */
+:root {
+    --mobile-primary: #2563eb;
+    --mobile-secondary: #64748b;
+    --mobile-success: #10b981;
+    --mobile-warning: #f59e0b;
+    --mobile-error: #ef4444;
+    --mobile-background: #f8fafc;
+    --mobile-surface: #ffffff;
+    --mobile-border: #e2e8f0;
+    --mobile-text-primary: #0f172a;
+    --mobile-text-secondary: #475569;
+}
+
+/* Mobile Card Styles */
+.mobile-card {
+    background: var(--mobile-surface);
+    border-radius: var(--mobile-border-radius);
+    padding: var(--mobile-padding);
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid var(--mobile-border);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--mobile-text-primary);
+    margin: 0 0 12px 0;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+/* Profile Card */
+.profile-card {
+    background: linear-gradient(135deg, var(--mobile-primary), #3b82f6);
+    color: white;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 16px;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.profile-title {
+    font-size: 16px;
+    opacity: 0.9;
+    margin: 0 0 8px 0;
+}
+
+.profile-location {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-btn.primary {
+    background: var(--mobile-primary);
+    color: white;
+}
+
+.action-btn.secondary {
+    background: var(--mobile-border);
+    color: var(--mobile-text-primary);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+/* Activity Styles */
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--mobile-border);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--mobile-background);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+.activity-content {
+    flex: 1;
+}
+
+.activity-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--mobile-text-primary);
+    margin-bottom: 2px;
+}
+
+.activity-time {
+    font-size: 12px;
+    color: var(--mobile-text-secondary);
+}
+
+/* Skills Styles */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-chip {
+    background: var(--mobile-background);
+    color: var(--mobile-text-primary);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.skill-item {
+    background: var(--mobile-surface);
+    border: 1px solid var(--mobile-border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.skill-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--mobile-text-primary);
+}
+
+.skill-level {
+    font-size: 12px;
+    color: var(--mobile-success);
+    font-weight: 500;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--mobile-border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--mobile-primary), var(--mobile-success));
+    transition: width 0.3s ease;
+}
+
+/* Chart Styles */
+.chart-container {
+    position: relative;
+    height: 200px;
+    margin: 16px 0;
+}
+
+.mobile-chart {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Loading and States */
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--mobile-border);
+    border-top: 3px solid var(--mobile-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+    .mobile-content {
+        padding: 12px;
+    }
+    
+    .mobile-card {
+        padding: 12px;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+}

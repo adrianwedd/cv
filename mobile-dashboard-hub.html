@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" class="mobile-hub">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Dashboard Hub - Adrian Wedd</title>
+    <meta name="description" content="Mobile-optimized dashboard hub for Adrian Wedd's professional portfolio">
+    
+    <!-- Mobile optimization -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/mobile-dashboard.css">
+    <link rel="stylesheet" href="assets/pwa-mobile.css">
+    
+    <style>
+        .hub-container {
+            padding: 20px;
+            max-width: 100%;
+        }
+        
+        .hub-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .hub-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .hub-subtitle {
+            font-size: 16px;
+            color: #64748b;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-tile {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 120px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .dashboard-tile:active {
+            transform: scale(0.95);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+        }
+        
+        .tile-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .tile-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        
+        .tile-subtitle {
+            font-size: 12px;
+            color: #64748b;
+        }
+        
+        .quick-actions {
+            margin-top: 20px;
+        }
+        
+        .action-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.95);
+            background: #f8fafc;
+        }
+        
+        .action-btn.primary {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="hub-container">
+        <div class="hub-header">
+            <h1 class="hub-title">Adrian Wedd</h1>
+            <p class="hub-subtitle">Mobile Dashboard Hub</p>
+        </div>
+        
+        <div class="dashboard-grid">
+            <a href="mobile-cv-dashboard.html" class="dashboard-tile">
+                <div class="tile-icon">👤</div>
+                <div class="tile-title">CV Overview</div>
+                <div class="tile-subtitle">Profile & Summary</div>
+            </a>
+            
+            <a href="mobile-activity-dashboard.html" class="dashboard-tile">
+                <div class="tile-icon">⚡</div>
+                <div class="tile-title">Live Activity</div>
+                <div class="tile-subtitle">Real-time Updates</div>
+            </a>
+            
+            <a href="mobile-skills-dashboard.html" class="dashboard-tile">
+                <div class="tile-icon">🎯</div>
+                <div class="tile-title">Skills</div>
+                <div class="tile-subtitle">Expertise & Growth</div>
+            </a>
+            
+            <a href="mobile-projects-dashboard.html" class="dashboard-tile">
+                <div class="tile-icon">📁</div>
+                <div class="tile-title">Projects</div>
+                <div class="tile-subtitle">Portfolio & Work</div>
+            </a>
+            
+            <a href="mobile-analytics-dashboard.html" class="dashboard-tile">
+                <div class="tile-icon">📊</div>
+                <div class="tile-title">Analytics</div>
+                <div class="tile-subtitle">Career Metrics</div>
+            </a>
+            
+            <a href="index.html" class="dashboard-tile">
+                <div class="tile-icon">💻</div>
+                <div class="tile-title">Desktop CV</div>
+                <div class="tile-subtitle">Full Experience</div>
+            </a>
+        </div>
+        
+        <div class="quick-actions">
+            <div class="action-row">
+                <a href="mailto:adrian@adrianwedd.com" class="action-btn primary">
+                    <span>✉️</span>
+                    <span>Contact</span>
+                </a>
+                <a href="assets/adrian-wedd-cv.pdf" class="action-btn" download>
+                    <span>📄</span>
+                    <span>Download CV</span>
+                </a>
+            </div>
+            
+            <div class="action-row">
+                <a href="https://github.com/adrianwedd" target="_blank" class="action-btn">
+                    <span>→</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/adrianwedd" target="_blank" class="action-btn">
+                    <span>in</span>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="assets/mobile-dashboard.js" defer></script>
+    <script src="assets/pwa-enhancements.js" defer></script>
+</body>
+</html>
