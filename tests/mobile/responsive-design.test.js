@@ -167,7 +167,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
       );
       
       await page.setViewport(viewports.tablet);
-      await page.waitForTimeout(500);
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       const tabletLayout = await page.$eval('body', el => 
         window.getComputedStyle(el).getPropertyValue('--layout-type') || 'tablet'
@@ -280,7 +280,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
         );
         
         await menuToggle.tap();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         const newState = await page.evaluate(el => 
           el.getAttribute('aria-expanded'), menuToggle
@@ -296,11 +296,11 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
       if (menuToggle) {
         // Open menu
         await menuToggle.tap();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Click outside
         await page.tap('main');
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         const finalState = await page.evaluate(el => 
           el.getAttribute('aria-expanded'), menuToggle
@@ -378,7 +378,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
           }
         });
         
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         expect(consoleErrors).toHaveLength(0);
       }
     });
@@ -460,7 +460,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
       
       // Simulate orientation change
       await page.setViewport({ width: 667, height: 375 });
-      await page.waitForTimeout(500);
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       const landscapeLayout = await page.$eval('body', el => el.offsetWidth);
       
@@ -479,7 +479,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
         window.scrollBy({ top: 300, behavior: 'smooth' });
       });
       
-      await page.waitForTimeout(1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       const scrollEnd = await page.evaluate(() => window.pageYOffset);
       

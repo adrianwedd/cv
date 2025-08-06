@@ -158,7 +158,7 @@ describe('Career Intelligence Dashboard', () => {
 
     test('should animate counters from 0', async () => {
       // Wait for animation to start
-      await page.waitForTimeout(500);
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       const firstValue = await page.$eval(
         '.metric-card:first-child .metric-number', 
@@ -166,7 +166,7 @@ describe('Career Intelligence Dashboard', () => {
       );
       
       // Wait for animation to progress
-      await page.waitForTimeout(1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       const secondValue = await page.$eval(
         '.metric-card:first-child .metric-number', 
@@ -270,7 +270,7 @@ describe('Career Intelligence Dashboard', () => {
       
       if (themeToggle) {
         await themeToggle.click();
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         const newBodyClass = await page.$eval('body', el => el.className);
         expect(newBodyClass).toMatch(/theme-(light|dark)/);
