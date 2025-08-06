@@ -83,7 +83,7 @@ test.describe('Cross-Browser Compatibility', () => {
         
         // Toggle theme
         await themeToggle.click();
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Verify theme changed
         const newClass = await page.locator('body').getAttribute('class');
@@ -99,7 +99,7 @@ test.describe('Cross-Browser Compatibility', () => {
       if (await themeToggle.isVisible()) {
         // Set dark theme
         await themeToggle.click();
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Reload page
         await page.reload();
@@ -169,7 +169,7 @@ test.describe('Cross-Browser Compatibility', () => {
       }
       
       // Wait for potential JS execution
-      await page.waitForTimeout(2000);
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Filter out non-critical errors
       const criticalErrors = jsErrors.filter(error => 
@@ -286,12 +286,12 @@ test.describe('Cross-Browser Compatibility', () => {
       
       // Test mobile view
       await page.setViewportSize({ width: 375, height: 667 });
-      await page.waitForTimeout(500);
+      await new Promise(resolve => setTimeout(resolve, 500));
       const mobileLayout = await page.locator('body').getAttribute('class');
       
       // Test tablet view
       await page.setViewportSize({ width: 768, height: 1024 });
-      await page.waitForTimeout(500);
+      await new Promise(resolve => setTimeout(resolve, 500));
       const tabletLayout = await page.locator('body').getAttribute('class');
       
       // Layouts should adapt (at least one should be different)
@@ -311,7 +311,7 @@ test.describe('Cross-Browser Compatibility', () => {
       
       for (const viewport of viewports) {
         await page.setViewportSize(viewport);
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Check font sizes are reasonable
         const fontSize = await page.evaluate(() => {
@@ -400,7 +400,7 @@ test.describe('Cross-Browser Compatibility', () => {
         await firstTarget.tap();
         
         // Should handle tap without errors
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
       }
     });
 
@@ -428,7 +428,7 @@ test.describe('Cross-Browser Compatibility', () => {
         await expect(page.locator('main')).toBeVisible();
         
         await page.goBack();
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         await page.goForward();
         await expect(page.locator('main')).toBeVisible();

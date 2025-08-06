@@ -49,7 +49,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
         await page.waitForSelector('main', { timeout: 8000 });
         
         // Quick readiness check instead of full load wait
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
       }, 2, 1000);
     }, 20000);
 
@@ -131,7 +131,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
       for (const element of elementsToTest) {
         try {
           await element.focus();
-          await page.waitForTimeout(50); // Minimal wait for focus
+          await new Promise(resolve => setTimeout(resolve, 50)); // Minimal wait for focus
           
           const focusStyles = await page.evaluate((el) => {
             const styles = window.getComputedStyle(el, ':focus');
@@ -210,7 +210,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
         }
         
         // Minimal wait for JavaScript initialization
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
       }, 2, 1500);
     }, 20000);
 
@@ -353,7 +353,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
         const themeToggle = await page.$('.theme-toggle, [data-theme-toggle], button[title*="theme"], button[aria-label*="theme"]');
         if (themeToggle) {
           await themeToggle.click();
-          await page.waitForTimeout(300);
+          await new Promise(resolve => setTimeout(resolve, 300));
         }
       } catch (error) {
         console.warn('Theme toggle not found or failed:', error.message);

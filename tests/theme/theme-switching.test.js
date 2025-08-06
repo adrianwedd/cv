@@ -57,7 +57,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Click toggle
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Get new theme
         const newTheme = await page.$eval('body', el => {
@@ -89,7 +89,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Toggle theme
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Get new CSS variables
         const newColors = await page.evaluate(() => {
@@ -119,7 +119,7 @@ describe('Theme Switching and Persistence', () => {
         }, themeToggle);
         
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         const newIcon = await page.evaluate(el => {
           return el.textContent.trim() || 
@@ -141,7 +141,7 @@ describe('Theme Switching and Persistence', () => {
       
       if (themeToggle) {
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         const savedTheme = await page.evaluate(() => {
           return localStorage.getItem('theme') || 
@@ -181,7 +181,7 @@ describe('Theme Switching and Persistence', () => {
       if (themeToggle) {
         // Set dark theme
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Navigate to another page
         await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
@@ -308,7 +308,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Toggle to dark theme
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Test dark theme contrast
         const darkContrast = await page.evaluate(() => {
@@ -341,7 +341,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Toggle theme
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Get new styles
         const newStyles = await page.evaluate(() => {
@@ -383,7 +383,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Toggle theme
         await themeToggle.click();
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Check if charts have updated
         const chartThemeUpdated = await page.evaluate(() => {
@@ -406,7 +406,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Toggle to dark theme
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Test dark theme functionality
         const darkMetricCards = await page.$$('.metric-card');
@@ -488,7 +488,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Toggle to dark theme
         await themeToggle.click();
-        await page.waitForTimeout(300);
+        await new Promise(resolve => setTimeout(resolve, 300));
         
         // Test focus in dark theme
         await themeToggle.focus();
