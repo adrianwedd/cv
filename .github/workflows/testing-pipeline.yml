@@ -338,7 +338,7 @@ jobs:
           npm ci
           echo "✅ Dependencies installed"
 
-      - name: 🌐 Install Playwright Browser: ${{ matrix.browser-name }}
+      - name: 🌐 Install Playwright Browser ${{ matrix.browser }}
         run: |
           cd tests
           npx playwright install-deps ${{ matrix.browser }}
