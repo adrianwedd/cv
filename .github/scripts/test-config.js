@@ -81,7 +81,7 @@ const MOCK_RESPONSES = {
 };
 
 // Export configuration
-module.exports = {
+export {
   TEST_CONFIG,
   setupTestEnvironment,
   MOCK_RESPONSES

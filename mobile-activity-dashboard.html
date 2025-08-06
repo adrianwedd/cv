@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="mobile-optimized">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Activity Dashboard - Adrian Wedd</title>
+    <meta name="description" content="Real-time activity tracking optimized for mobile viewing">
+    
+    <!-- Mobile-first optimization -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- Performance optimizations -->
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="assets/mobile-dashboard.css">
+    <link rel="stylesheet" href="assets/pwa-mobile.css">
+    
+    <!-- Icons and manifest -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Critical inline CSS for mobile -->
+    <style>
+        :root {
+            --mobile-header-height: 56px;
+            --mobile-tab-height: 60px;
+            --mobile-padding: 16px;
+            --mobile-border-radius: 12px;
+            --touch-target-size: 44px;
+            --safe-area-top: env(safe-area-inset-top, 0px);
+            --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .mobile-app {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding-top: var(--safe-area-top);
+            padding-bottom: var(--safe-area-bottom);
+        }
+        
+        .mobile-header {
+            height: var(--mobile-header-height);
+            background: #2563eb;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 var(--mobile-padding);
+            position: sticky;
+            top: var(--safe-area-top);
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: var(--mobile-padding);
+        }
+        
+        .mobile-tabs {
+            height: var(--mobile-tab-height);
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            position: sticky;
+            bottom: var(--safe-area-bottom);
+        }
+        
+        .mobile-tab {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: var(--touch-target-size);
+            font-size: 12px;
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .mobile-tab.active {
+            color: #2563eb;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 1000;
+        }
+        
+        .loading-screen.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div>Loading Activity Dashboard...</div>
+        </div>
+    </div>
+    
+    <!-- Mobile App Container -->
+    <div class="mobile-app" id="mobile-app">
+        <!-- Mobile Header -->
+        <header class="mobile-header">
+            <button class="header-btn back-btn" id="back-btn" aria-label="Go back">
+                ←
+            </button>
+            <h1 class="header-title">Activity Dashboard</h1>
+            <button class="header-btn menu-btn" id="menu-btn" aria-label="Menu">
+                ☰
+            </button>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="mobile-content" id="mobile-content">
+            
+            <!-- Activity Overview -->
+            <div class="mobile-card overview-card">
+                <h3 class="card-title">Activity Overview</h3>
+                <div class="overview-stats">
+                    <div class="overview-stat">
+                        <div class="stat-number" id="today-commits">12</div>
+                        <div class="stat-desc">Commits Today</div>
+                    </div>
+                    <div class="overview-stat">
+                        <div class="stat-number" id="week-streak">7</div>
+                        <div class="stat-desc">Day Streak</div>
+                    </div>
+                    <div class="overview-stat">
+                        <div class="stat-number" id="active-repos">4</div>
+                        <div class="stat-desc">Active Repos</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Activity Timeline -->
+            <div class="mobile-card timeline-card">
+                <div class="card-header">
+                    <h3 class="card-title">Recent Activity</h3>
+                    <button class="refresh-btn" id="refresh-activity">
+                        <span class="refresh-icon">🔄</span>
+                    </button>
+                </div>
+                <div class="activity-timeline" id="activity-timeline">
+                    <!-- Timeline items will be populated by JavaScript -->
+                    <div class="timeline-item">
+                        <div class="timeline-time">2:30 PM</div>
+                        <div class="timeline-content">
+                            <div class="timeline-icon commit">📝</div>
+                            <div class="timeline-text">
+                                <strong>Pushed commit</strong> to cv repository
+                                <div class="timeline-detail">Updated mobile dashboards</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-time">1:15 PM</div>
+                        <div class="timeline-content">
+                            <div class="timeline-icon issue">🐛</div>
+                            <div class="timeline-text">
+                                <strong>Closed issue</strong> in ticketsmith
+                                <div class="timeline-detail">Fix mobile responsiveness</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Load more button -->
+                <button class="load-more-btn" id="load-more">
+                    Load More Activity
+                </button>
+            </div>
+            
+            <!-- Repositories -->
+            <div class="mobile-card repos-card">
+                <h3 class="card-title">Active Repositories</h3>
+                <div class="repos-list" id="repos-list">
+                    <div class="repo-item">
+                        <div class="repo-info">
+                            <div class="repo-name">cv</div>
+                            <div class="repo-desc">AI-enhanced CV system</div>
+                            <div class="repo-stats">
+                                <span class="repo-lang">JavaScript</span>
+                                <span class="repo-commits">42 commits</span>
+                            </div>
+                        </div>
+                        <div class="repo-action">
+                            <button class="repo-btn">View →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Bottom Navigation Tabs -->
+        <nav class="mobile-tabs" role="navigation" aria-label="Main navigation">
+            <a href="mobile-cv-dashboard.html" class="mobile-tab" data-tab="cv">
+                <span class="tab-icon">👤</span>
+                <span class="tab-label">CV</span>
+            </a>
+            <a href="mobile-activity-dashboard.html" class="mobile-tab" data-tab="activity">
+                <span class="tab-icon">⚡</span>
+                <span class="tab-label">Activity</span>
+            </a>
+            <a href="mobile-skills-dashboard.html" class="mobile-tab" data-tab="skills">
+                <span class="tab-icon">🎯</span>
+                <span class="tab-label">Skills</span>
+            </a>
+            <a href="mobile-projects-dashboard.html" class="mobile-tab" data-tab="projects">
+                <span class="tab-icon">📁</span>
+                <span class="tab-label">Projects</span>
+            </a>
+            <a href="mobile-analytics-dashboard.html" class="mobile-tab" data-tab="analytics">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">Analytics</span>
+            </a>
+        </nav>
+    </div>
+    
+    <!-- Mobile Scripts -->
+    <script src="assets/mobile-dashboard.js" defer></script>
+    <script src="assets/pwa-enhancements.js" defer></script>
+    
+    <!-- Touch and gesture handling -->
+    <script>
+        // Mobile-specific initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hide loading screen
+            const loadingScreen = document.getElementById('loading-screen');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 1000);
+            
+            // Set active tab
+            const currentPage = location.pathname.split('/').pop();
+            const activeTab = document.querySelector(`[href="${currentPage}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+            
+            // Touch feedback
+            document.querySelectorAll('.mobile-tab, .header-btn').forEach(element => {
+                element.addEventListener('touchstart', (e) => {
+                    element.style.backgroundColor = 'rgba(37, 99, 235, 0.1)';
+                });
+                
+                element.addEventListener('touchend', () => {
+                    element.style.backgroundColor = '';
+                });
+            });
+            
+            // Back button functionality
+            document.getElementById('back-btn').addEventListener('click', () => {
+                if (history.length > 1) {
+                    history.back();
+                } else {
+                    location.href = 'index.html';
+                }
+            });
+        });
+        
+        // Pull-to-refresh functionality
+        let startY = 0;
+        let currentY = 0;
+        let isPulling = false;
+        
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            isPulling = window.scrollY === 0;
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!isPulling) return;
+            
+            currentY = e.touches[0].clientY;
+            const diff = currentY - startY;
+            
+            if (diff > 0 && diff < 100) {
+                e.preventDefault();
+                document.body.style.transform = `translateY(${diff * 0.5}px)`;
+                document.body.style.transition = 'none';
+            }
+        }, { passive: false });
+        
+        document.addEventListener('touchend', () => {
+            if (isPulling && currentY - startY > 60) {
+                // Trigger refresh
+                location.reload();
+            }
+            
+            document.body.style.transform = '';
+            document.body.style.transition = 'transform 0.3s ease';
+            isPulling = false;
+        });
+    </script>
+</body>
+</html>

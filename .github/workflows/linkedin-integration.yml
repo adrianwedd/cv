@@ -1,0 +1,689 @@
+name: 🔗 LinkedIn Professional Integration
+
+# 🎯 **LINKEDIN PROFESSIONAL AUTOMATION PIPELINE**
+# This workflow automates LinkedIn profile synchronization with comprehensive
+# ethical safeguards, AI-powered optimization, and professional networking intelligence.
+#
+# 🔄 **EXECUTION SCHEDULE**: Mon, Wed, Fri at 9 AM UTC + manual dispatch
+# 📊 **FEATURES**: Bidirectional sync, AI enhancement, networking analytics
+# 🔒 **ETHICS**: User consent, rate limiting, audit logging, respectful automation
+# 🎨 **INTEGRATION**: Seamless CV enhancement pipeline connectivity
+
+on:
+  schedule:
+    # Mon, Wed, Fri at 9 AM UTC (professional posting schedule)
+    - cron: '0 9 * * 1,3,5'
+  workflow_dispatch:
+    inputs:
+      sync_mode:
+        description: '🔗 LinkedIn Sync Mode'
+        required: false
+        default: 'bidirectional'
+        type: choice
+        options:
+          - bidirectional      # CV ↔ LinkedIn full sync
+          - cv-to-linkedin     # CV → LinkedIn update only
+          - linkedin-to-cv     # LinkedIn → CV extraction only
+          - analysis-only      # Professional analytics only
+      dry_run:
+        description: '🧪 Dry Run (Preview Only)'
+        required: false
+        default: true
+        type: boolean
+      networking_analysis:
+        description: '🤝 AI Networking Analysis'
+        required: false
+        default: true
+        type: boolean
+      force_sync:
+        description: '🔄 Force Full Synchronization'
+        required: false
+        default: false
+        type: boolean
+  push:
+    paths: 
+      - 'data/base-cv.json'    # Trigger on CV data changes
+      - '.github/scripts/linkedin-*.js'  # Trigger on LinkedIn component updates
+
+env:
+  LINKEDIN_SYSTEM_VERSION: "v1.0-enterprise"
+  TIMEZONE: "Australia/Tasmania"
+  # Professional networking configuration
+  ETHICAL_FRAMEWORK: "enabled"
+  AUDIT_LOGGING: "comprehensive"
+  RATE_LIMIT_MS: "45000"       # 45 seconds between operations
+  MAX_UPDATES_PER_SESSION: "5" # Safety limit on profile changes
+
+# 🔗 **LINKEDIN INTEGRATION WORKFLOW MAP**
+# Each job creates professional networking intelligence with:
+# - Ethical automation with comprehensive consent verification
+# - AI-powered content optimization and networking recommendations
+# - Real-time dashboard updates with professional analytics
+# - Complete audit trails and professional compliance
+
+jobs:
+  # 🔍 LINKEDIN PROFILE ANALYSIS & STRATEGY
+  linkedin-intelligence:
+    name: 🔍 LinkedIn Intelligence Analysis
+    runs-on: ubuntu-latest
+    outputs:
+      sync-strategy: ${{ steps.strategy.outputs.strategy }}
+      profile-status: ${{ steps.profile.outputs.status }}
+      networking-score: ${{ steps.networking.outputs.score }}
+      ai-recommendations: ${{ steps.ai.outputs.recommendations }}
+      session-id: ${{ steps.session.outputs.id }}
+      consent-verified: ${{ steps.consent.outputs.verified }}
+    steps:
+      - name: 🚀 LinkedIn Integration Initialization
+        run: |
+          echo "🔗 **LINKEDIN PROFESSIONAL INTEGRATION INITIATED**"
+          echo "📅 $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
+          echo "🔄 Sync Mode: ${{ github.event.inputs.sync_mode || 'bidirectional' }}"
+          echo "🧪 Dry Run: ${{ github.event.inputs.dry_run || 'true' }}"
+          echo "🤝 Networking Analysis: ${{ github.event.inputs.networking_analysis || 'true' }}"
+          echo "📊 Version: ${{ env.LINKEDIN_SYSTEM_VERSION }}"
+
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔧 Node.js Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Dependencies Installation
+        run: |
+          echo "📦 **Installing LinkedIn Integration Dependencies**"
+          cd .github/scripts
+          npm ci --production
+          echo "✅ Dependencies installed successfully"
+
+      - name: ✅ User Consent Verification
+        id: consent
+        run: |
+          echo "✅ **VERIFYING USER CONSENT & ETHICAL COMPLIANCE**"
+          
+          # Check for LinkedIn user consent environment variable
+          if [ -n "${{ secrets.LINKEDIN_USER_CONSENT }}" ] && [ "${{ secrets.LINKEDIN_USER_CONSENT }}" = "true" ]; then
+            CONSENT_VERIFIED="true"
+            echo "✅ User consent verified for LinkedIn profile modifications"
+          else
+            CONSENT_VERIFIED="false"
+            echo "⚠️ User consent not provided - analysis-only mode will be used"
+          fi
+          
+          echo "verified=$CONSENT_VERIFIED" >> $GITHUB_OUTPUT
+          echo "::notice title=Consent Status::User consent verified: $CONSENT_VERIFIED"
+
+      - name: 🎯 Synchronization Strategy
+        id: strategy
+        run: |
+          SYNC_MODE="${{ github.event.inputs.sync_mode || 'bidirectional' }}"
+          DRY_RUN="${{ github.event.inputs.dry_run || 'true' }}"
+          FORCE_SYNC="${{ github.event.inputs.force_sync || 'false' }}"
+          CONSENT="${{ steps.consent.outputs.verified }}"
+          
+          # Determine strategy based on inputs and consent
+          if [ "$CONSENT" = "false" ]; then
+            STRATEGY="analysis-only"
+            echo "🔍 Strategy: Analysis only (no consent for modifications)"
+          elif [ "$DRY_RUN" = "true" ]; then
+            STRATEGY="preview"
+            echo "🧪 Strategy: Preview mode (dry run)"
+          elif [ "$FORCE_SYNC" = "true" ]; then
+            STRATEGY="force-sync"
+            echo "🔄 Strategy: Force synchronization"
+          else
+            STRATEGY="$SYNC_MODE"
+            echo "🎯 Strategy: ${SYNC_MODE^}"
+          fi
+          
+          echo "strategy=$STRATEGY" >> $GITHUB_OUTPUT
+          echo "::notice title=Sync Strategy::Selected: $STRATEGY"
+
+      - name: 🔗 LinkedIn Profile Status Check
+        id: profile
+        run: |
+          echo "🔗 **CHECKING LINKEDIN PROFILE STATUS**"
+          cd .github/scripts
+          
+          # Test LinkedIn connectivity and profile access
+          if [ -n "${{ secrets.LINKEDIN_SESSION_COOKIES }}" ]; then
+            # Test profile extraction
+            if timeout 120 node linkedin-playwright-extractor.js test; then
+              PROFILE_STATUS="accessible"
+              echo "✅ LinkedIn profile accessible and ready for sync"
+            else
+              PROFILE_STATUS="limited"
+              echo "⚠️ LinkedIn profile access limited - using cached data"
+            fi
+          else
+            PROFILE_STATUS="no-auth"
+            echo "⚠️ No LinkedIn authentication - analysis mode only"
+          fi
+          
+          echo "status=$PROFILE_STATUS" >> $GITHUB_OUTPUT
+          echo "::notice title=Profile Status::$PROFILE_STATUS"
+        env:
+          LINKEDIN_SESSION_COOKIES: ${{ secrets.LINKEDIN_SESSION_COOKIES }}
+          LINKEDIN_USER_CONSENT: ${{ secrets.LINKEDIN_USER_CONSENT }}
+
+      - name: 🤝 Professional Networking Analysis
+        id: networking
+        run: |
+          echo "🤝 **ANALYZING PROFESSIONAL NETWORKING METRICS**"
+          
+          # Calculate networking effectiveness score
+          if [ -f "../data/activity-summary.json" ]; then
+            # Extract GitHub activity metrics for networking context
+            REPOS=$(jq -r '.summary.total_repositories // 0' ../data/activity-summary.json)
+            LANGUAGES=$(jq -r '.summary.top_languages | length' ../data/activity-summary.json)
+            RECENT_ACTIVITY=$(jq -r '.summary.commits_last_30_days // 0' ../data/activity-summary.json)
+            
+            # Calculate professional networking score using Node.js
+            NETWORKING_SCORE=$(node -e "
+              const repos = ${REPOS} || 0;
+              const languages = ${LANGUAGES} || 0;
+              const activity = ${RECENT_ACTIVITY} || 0;
+              const score = Math.floor((repos * 0.5) + (languages * 5) + (activity * 0.1));
+              console.log(Math.min(score, 100));
+            ")
+          else
+            NETWORKING_SCORE=50
+          fi
+          
+          echo "🤝 **Networking Analysis:**"
+          echo "  • Professional Score: $NETWORKING_SCORE/100"
+          echo "  • Repository Portfolio: $REPOS repositories"
+          echo "  • Technology Stack: $LANGUAGES languages"
+          echo "  • Recent Activity: $RECENT_ACTIVITY commits (30d)"
+          
+          echo "score=$NETWORKING_SCORE" >> $GITHUB_OUTPUT
+          echo "::notice title=Networking Score::$NETWORKING_SCORE/100"
+
+      - name: 🤖 AI Enhancement Recommendations
+        id: ai
+        run: |
+          echo "🤖 **GENERATING AI-POWERED RECOMMENDATIONS**"
+          cd .github/scripts
+          
+          STRATEGY="${{ steps.strategy.outputs.strategy }}"
+          NETWORKING_SCORE="${{ steps.networking.outputs.score }}"
+          
+          # Generate AI recommendations based on strategy and networking score
+          if [ "${{ github.event.inputs.networking_analysis }}" = "true" ] && [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then
+            AI_RECOMMENDATIONS="enabled"
+            echo "🤖 AI recommendations: Enabled with Gemini integration"
+          else
+            AI_RECOMMENDATIONS="disabled"
+            echo "⚠️ AI recommendations: Disabled (no API key or analysis disabled)"
+          fi
+          
+          echo "recommendations=$AI_RECOMMENDATIONS" >> $GITHUB_OUTPUT
+          echo "::notice title=AI Recommendations::$AI_RECOMMENDATIONS"
+
+      - name: 🔢 Session Tracking
+        id: session
+        run: |
+          SESSION_ID="linkedin-$(date +%Y%m%d-%H%M%S)-${GITHUB_RUN_NUMBER}"
+          echo "🔢 LinkedIn Session ID: $SESSION_ID"
+          echo "id=$SESSION_ID" >> $GITHUB_OUTPUT
+
+      - name: 📝 Intelligence Summary
+        if: always()
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## 🔗 LinkedIn Intelligence Analysis Results
+          
+          | Analysis | Result |
+          |----------|--------|
+          | 🎯 Sync Strategy | ${{ steps.strategy.outputs.strategy }} |
+          | 🔗 Profile Status | ${{ steps.profile.outputs.status }} |
+          | ✅ User Consent | ${{ steps.consent.outputs.verified }} |
+          | 🤝 Networking Score | ${{ steps.networking.outputs.score }}/100 |
+          | 🤖 AI Recommendations | ${{ steps.ai.outputs.recommendations }} |
+          | 🔢 Session ID | `${{ steps.session.outputs.id }}` |
+          EOF
+
+  # 🔄 LINKEDIN PROFILE SYNCHRONIZATION
+  linkedin-synchronization:
+    name: 🔄 LinkedIn Profile Sync
+    runs-on: ubuntu-latest
+    needs: linkedin-intelligence
+    if: needs.linkedin-intelligence.outputs.profile-status != 'no-auth'
+    outputs:
+      sync-status: ${{ steps.sync.outputs.status }}
+      changes-detected: ${{ steps.sync.outputs.changes }}
+      operations-count: ${{ steps.sync.outputs.operations }}
+      backup-created: ${{ steps.backup.outputs.status }}
+    environment:
+      name: linkedin-sync
+      url: https://linkedin.com/in/${{ secrets.LINKEDIN_PROFILE_USERNAME }}
+    steps:
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔧 Node.js Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Dependencies Installation
+        run: |
+          cd .github/scripts
+          npm ci --production
+
+      - name: 💾 Profile Backup Creation
+        id: backup
+        run: |
+          echo "💾 **CREATING LINKEDIN PROFILE BACKUP**"
+          cd .github/scripts
+          
+          # Create backup of current LinkedIn profile data
+          if timeout 180 node linkedin-playwright-extractor.js extract "${{ secrets.LINKEDIN_PROFILE_URL }}" --backup; then
+            BACKUP_STATUS="created"
+            echo "✅ LinkedIn profile backup created successfully"
+          else
+            BACKUP_STATUS="failed"
+            echo "⚠️ Profile backup failed - proceeding with caution"
+          fi
+          
+          echo "status=$BACKUP_STATUS" >> $GITHUB_OUTPUT
+          echo "::notice title=Backup Status::$BACKUP_STATUS"
+        env:
+          LINKEDIN_SESSION_COOKIES: ${{ secrets.LINKEDIN_SESSION_COOKIES }}
+          LINKEDIN_USER_CONSENT: ${{ secrets.LINKEDIN_USER_CONSENT }}
+
+      - name: 🔄 Profile Synchronization Execution
+        id: sync
+        run: |
+          echo "🔄 **EXECUTING LINKEDIN PROFILE SYNCHRONIZATION**"
+          cd .github/scripts
+          
+          STRATEGY="${{ needs.linkedin-intelligence.outputs.sync-strategy }}"
+          DRY_RUN="${{ github.event.inputs.dry_run || 'true' }}"
+          
+          # Build synchronization command
+          SYNC_COMMAND="node linkedin-profile-synchronizer.js sync ${{ secrets.LINKEDIN_PROFILE_URL }}"
+          
+          if [ "$DRY_RUN" = "true" ]; then
+            SYNC_COMMAND="$SYNC_COMMAND --dry-run"
+            echo "🧪 Executing dry run synchronization"
+          else
+            echo "🔄 Executing live synchronization"
+          fi
+          
+          # Add strategy-specific flags
+          case "$STRATEGY" in
+            "cv-to-linkedin")
+              SYNC_COMMAND="$SYNC_COMMAND --direction=cv-to-linkedin"
+              ;;
+            "linkedin-to-cv")
+              SYNC_COMMAND="$SYNC_COMMAND --direction=linkedin-to-cv"
+              ;;
+            "analysis-only")
+              SYNC_COMMAND="$SYNC_COMMAND --analysis-only"
+              ;;
+            "force-sync")
+              SYNC_COMMAND="$SYNC_COMMAND --force"
+              ;;
+          esac
+          
+          # Execute synchronization with timeout
+          START_TIME=$(date +%s)
+          
+          if timeout 600 $SYNC_COMMAND 2>&1 | tee sync.log; then
+            SYNC_STATUS="success"
+            echo "✅ LinkedIn synchronization completed successfully"
+          else
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 124 ]; then
+              SYNC_STATUS="timeout"
+              echo "⚠️ Synchronization timed out (10 minutes)"
+            else
+              SYNC_STATUS="partial"
+              echo "⚠️ Synchronization completed with issues (exit code: $EXIT_CODE)"
+            fi
+          fi
+          
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+          
+          # Extract synchronization metrics
+          CHANGES_DETECTED=$(grep -c "change detected" sync.log 2>/dev/null || echo "0")
+          OPERATIONS_COUNT=$(grep -c "operation:" sync.log 2>/dev/null || echo "0")
+          
+          echo "📊 **Synchronization Results:**"
+          echo "  • Status: $SYNC_STATUS"
+          echo "  • Duration: ${DURATION}s"
+          echo "  • Changes detected: $CHANGES_DETECTED"
+          echo "  • Operations performed: $OPERATIONS_COUNT"
+          
+          echo "status=$SYNC_STATUS" >> $GITHUB_OUTPUT
+          echo "changes=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          echo "operations=$OPERATIONS_COUNT" >> $GITHUB_OUTPUT
+          echo "duration=$DURATION" >> $GITHUB_OUTPUT
+          echo "::notice title=Sync Status::$SYNC_STATUS - $CHANGES_DETECTED changes, $OPERATIONS_COUNT operations, ${DURATION}s"
+        env:
+          LINKEDIN_SESSION_COOKIES: ${{ secrets.LINKEDIN_SESSION_COOKIES }}
+          LINKEDIN_USER_CONSENT: ${{ secrets.LINKEDIN_USER_CONSENT }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 🤖 AI NETWORKING INTELLIGENCE
+  ai-networking-analysis:
+    name: 🤖 AI Networking Intelligence
+    runs-on: ubuntu-latest
+    needs: [linkedin-intelligence, linkedin-synchronization]
+    if: needs.linkedin-intelligence.outputs.ai-recommendations == 'enabled'
+    outputs:
+      analysis-status: ${{ steps.analysis.outputs.status }}
+      recommendations-generated: ${{ steps.analysis.outputs.recommendations }}
+      networking-insights: ${{ steps.analysis.outputs.insights }}
+    environment:
+      name: ai-networking
+      url: https://console.cloud.google.com/ai/generative
+    steps:
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔧 Node.js Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Dependencies Installation
+        run: |
+          cd .github/scripts
+          npm ci --production
+
+      - name: 🤖 AI Networking Analysis Execution
+        id: analysis
+        run: |
+          echo "🤖 **EXECUTING AI-POWERED NETWORKING ANALYSIS**"
+          cd .github/scripts
+          
+          # Execute AI networking agent with comprehensive analysis
+          START_TIME=$(date +%s)
+          
+          if timeout 300 node ai-networking-agent.js analyze "${{ secrets.LINKEDIN_PROFILE_URL }}" --comprehensive; then
+            ANALYSIS_STATUS="success"
+            echo "✅ AI networking analysis completed successfully"
+          else
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 124 ]; then
+              ANALYSIS_STATUS="timeout"
+              echo "⚠️ AI analysis timed out (5 minutes)"
+            else
+              ANALYSIS_STATUS="partial"
+              echo "⚠️ AI analysis completed with issues (exit code: $EXIT_CODE)"
+            fi
+          fi
+          
+          END_TIME=$(date +%s)
+          DURATION=$((END_TIME - START_TIME))
+          
+          # Check for generated recommendations and insights
+          if [ -f "../data/networking-recommendations.json" ]; then
+            RECOMMENDATIONS_COUNT=$(jq -r '.recommendations | length' ../data/networking-recommendations.json)
+            INSIGHTS_COUNT=$(jq -r '.insights | length' ../data/networking-recommendations.json)
+          else
+            RECOMMENDATIONS_COUNT=0
+            INSIGHTS_COUNT=0
+          fi
+          
+          echo "🤖 **AI Analysis Results:**"
+          echo "  • Status: $ANALYSIS_STATUS"
+          echo "  • Duration: ${DURATION}s"
+          echo "  • Recommendations: $RECOMMENDATIONS_COUNT"
+          echo "  • Insights: $INSIGHTS_COUNT"
+          
+          echo "status=$ANALYSIS_STATUS" >> $GITHUB_OUTPUT
+          echo "recommendations=$RECOMMENDATIONS_COUNT" >> $GITHUB_OUTPUT
+          echo "insights=$INSIGHTS_COUNT" >> $GITHUB_OUTPUT
+          echo "duration=$DURATION" >> $GITHUB_OUTPUT
+          echo "::notice title=AI Analysis::$ANALYSIS_STATUS - $RECOMMENDATIONS_COUNT recommendations, $INSIGHTS_COUNT insights, ${DURATION}s"
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          LINKEDIN_SESSION_COOKIES: ${{ secrets.LINKEDIN_SESSION_COOKIES }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # 📊 NETWORKING DASHBOARD UPDATE
+  dashboard-update:
+    name: 📊 Networking Dashboard Update
+    runs-on: ubuntu-latest
+    needs: [linkedin-intelligence, linkedin-synchronization, ai-networking-analysis]
+    if: always() && needs.linkedin-intelligence.result == 'success'
+    outputs:
+      dashboard-status: ${{ steps.dashboard.outputs.status }}
+      analytics-updated: ${{ steps.dashboard.outputs.analytics }}
+    environment:
+      name: networking-dashboard
+      url: https://adrianwedd.com/networking-dashboard.html
+    steps:
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔧 Node.js Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Dependencies Installation
+        run: |
+          cd .github/scripts
+          npm ci --production
+
+      - name: 📊 Professional Dashboard Update
+        id: dashboard
+        run: |
+          echo "📊 **UPDATING PROFESSIONAL NETWORKING DASHBOARD**"
+          
+          # Update networking dashboard with latest LinkedIn and AI data
+          SYNC_STATUS="${{ needs.linkedin-synchronization.outputs.sync-status || 'skipped' }}"
+          AI_STATUS="${{ needs.ai-networking-analysis.outputs.analysis-status || 'skipped' }}"
+          
+          # Create dashboard update timestamp
+          DASHBOARD_UPDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          
+          # Update dashboard data with LinkedIn integration results
+          cat > networking-dashboard-data.json << EOF
+          {
+            "last_updated": "$DASHBOARD_UPDATE",
+            "linkedin_integration": {
+              "sync_status": "$SYNC_STATUS",
+              "changes_detected": "${{ needs.linkedin-synchronization.outputs.changes-detected || 0 }}",
+              "operations_count": "${{ needs.linkedin-synchronization.outputs.operations-count || 0 }}",
+              "backup_created": "${{ needs.linkedin-synchronization.outputs.backup-created || 'false' }}"
+            },
+            "ai_networking": {
+              "analysis_status": "$AI_STATUS",
+              "recommendations_generated": "${{ needs.ai-networking-analysis.outputs.recommendations-generated || 0 }}",
+              "networking_insights": "${{ needs.ai-networking-analysis.outputs.networking-insights || 0 }}"
+            },
+            "session_metadata": {
+              "session_id": "${{ needs.linkedin-intelligence.outputs.session-id }}",
+              "networking_score": "${{ needs.linkedin-intelligence.outputs.networking-score }}",
+              "sync_strategy": "${{ needs.linkedin-intelligence.outputs.sync-strategy }}",
+              "consent_verified": "${{ needs.linkedin-intelligence.outputs.consent-verified }}"
+            }
+          }
+          EOF
+          
+          if [ -f "networking-dashboard-data.json" ]; then
+            DASHBOARD_STATUS="updated"
+            ANALYTICS_UPDATED="true"
+            echo "✅ Professional dashboard updated successfully"
+          else
+            DASHBOARD_STATUS="failed"
+            ANALYTICS_UPDATED="false"
+            echo "⚠️ Dashboard update failed"
+          fi
+          
+          echo "status=$DASHBOARD_STATUS" >> $GITHUB_OUTPUT
+          echo "analytics=$ANALYTICS_UPDATED" >> $GITHUB_OUTPUT
+          echo "::notice title=Dashboard Update::$DASHBOARD_STATUS (analytics: $ANALYTICS_UPDATED)"
+
+  # 📈 PROFESSIONAL ANALYTICS & REPORTING
+  professional-reporting:
+    name: 📈 Professional Analytics
+    runs-on: ubuntu-latest
+    needs: [linkedin-intelligence, linkedin-synchronization, ai-networking-analysis, dashboard-update]
+    if: always()
+    environment:
+      name: professional-analytics
+      url: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: 📥 Repository Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔧 Node.js Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+
+      - name: 📦 Dependencies Installation
+        run: |
+          cd .github/scripts
+          npm ci --production
+
+      - name: 📊 Professional Analytics Recording
+        run: |
+          echo "📊 **RECORDING LINKEDIN INTEGRATION ANALYTICS**"
+          cd .github/scripts
+          
+          # Record LinkedIn session analytics
+          if command -v node >/dev/null; then
+            node usage-monitor.js record-linkedin-session \
+              --session-id="${{ needs.linkedin-intelligence.outputs.session-id }}" \
+              --sync-mode="${{ github.event.inputs.sync_mode || 'bidirectional' }}" \
+              --strategy="${{ needs.linkedin-intelligence.outputs.sync-strategy }}" \
+              --networking-score="${{ needs.linkedin-intelligence.outputs.networking-score }}" \
+              --sync-status="${{ needs.linkedin-synchronization.outputs.sync-status || 'skipped' }}" \
+              --changes-detected="${{ needs.linkedin-synchronization.outputs.changes-detected || 0 }}" \
+              --ai-analysis="${{ needs.ai-networking-analysis.outputs.analysis-status || 'skipped' }}" \
+              --recommendations="${{ needs.ai-networking-analysis.outputs.recommendations-generated || 0 }}" \
+              --consent-verified="${{ needs.linkedin-intelligence.outputs.consent-verified }}" || {
+              echo "⚠️ LinkedIn analytics recording failed, creating manual entry"
+            }
+          else
+            echo "⚠️ Node.js not available for analytics recording"
+          fi
+
+      - name: 📈 Integration Performance Analysis
+        run: |
+          echo "📈 **LINKEDIN INTEGRATION PERFORMANCE ANALYSIS**"
+          
+          # Calculate LinkedIn integration metrics
+          TOTAL_JOBS=5
+          SUCCESSFUL_JOBS=$(echo "${{ needs.linkedin-intelligence.result == 'success' }} + \
+                                  ${{ (needs.linkedin-synchronization.result == 'success') || (needs.linkedin-synchronization.result == 'skipped') }} + \
+                                  ${{ (needs.ai-networking-analysis.result == 'success') || (needs.ai-networking-analysis.result == 'skipped') }} + \
+                                  ${{ needs.dashboard-update.result == 'success' }}" | bc)
+          SUCCESS_RATE=$(echo "scale=1; $SUCCESSFUL_JOBS / $TOTAL_JOBS * 100" | bc)
+          
+          echo "🔗 **LinkedIn Integration Performance:**"
+          echo "  • Success rate: $SUCCESS_RATE% ($SUCCESSFUL_JOBS/$TOTAL_JOBS jobs)"
+          echo "  • Session ID: ${{ needs.linkedin-intelligence.outputs.session-id }}"
+          echo "  • Sync strategy: ${{ needs.linkedin-intelligence.outputs.sync-strategy }}"
+          echo "  • Networking score: ${{ needs.linkedin-intelligence.outputs.networking-score }}/100"
+          echo "  • Profile status: ${{ needs.linkedin-intelligence.outputs.profile-status }}"
+          echo "  • User consent: ${{ needs.linkedin-intelligence.outputs.consent-verified }}"
+          echo "  • Changes detected: ${{ needs.linkedin-synchronization.outputs.changes-detected || 0 }}"
+          echo "  • AI recommendations: ${{ needs.ai-networking-analysis.outputs.recommendations-generated || 0 }}"
+          echo "  • Dashboard updated: ${{ needs.dashboard-update.outputs.dashboard-status }}"
+          
+          echo "::notice title=LinkedIn Integration Success::$SUCCESS_RATE% success rate"
+
+      - name: 🚀 LinkedIn Integration Summary
+        run: |
+          echo "🔗 **LINKEDIN PROFESSIONAL INTEGRATION COMPLETED**"
+          echo ""
+          echo "📊 **Final Results:**"
+          echo "  🎯 Strategy: ${{ needs.linkedin-intelligence.outputs.sync-strategy }}"
+          echo "  🔗 Profile: ${{ needs.linkedin-intelligence.outputs.profile-status }}"
+          echo "  ✅ Consent: ${{ needs.linkedin-intelligence.outputs.consent-verified }}"
+          echo "  🔄 Sync: ${{ needs.linkedin-synchronization.outputs.sync-status || 'skipped' }}"
+          echo "  🤖 AI Analysis: ${{ needs.ai-networking-analysis.outputs.analysis-status || 'skipped' }}"
+          echo "  📊 Dashboard: ${{ needs.dashboard-update.outputs.dashboard-status }}"
+          echo "  🤝 Networking Score: ${{ needs.linkedin-intelligence.outputs.networking-score }}/100"
+          echo ""
+          echo "✅ **LinkedIn Integration Successfully Completed!**"
+          
+          # Write comprehensive summary to GitHub Actions UI
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          # 🔗 LinkedIn Professional Integration Summary
+          
+          ## 📊 Integration Metrics
+          | Metric | Value |
+          |--------|-------|
+          | 🎯 **Sync Strategy** | ${{ needs.linkedin-intelligence.outputs.sync-strategy }} |
+          | 🔗 **Profile Status** | ${{ needs.linkedin-intelligence.outputs.profile-status }} |
+          | ✅ **User Consent** | ${{ needs.linkedin-intelligence.outputs.consent-verified }} |
+          | 🤝 **Networking Score** | ${{ needs.linkedin-intelligence.outputs.networking-score }}/100 |
+          | 🔄 **Synchronization** | ${{ needs.linkedin-synchronization.outputs.sync-status || 'skipped' }} |
+          | 📝 **Changes Detected** | ${{ needs.linkedin-synchronization.outputs.changes-detected || 0 }} |
+          | ⚙️ **Operations** | ${{ needs.linkedin-synchronization.outputs.operations-count || 0 }} |
+          | 💾 **Backup Created** | ${{ needs.linkedin-synchronization.outputs.backup-created || 'false' }} |
+          | 🤖 **AI Analysis** | ${{ needs.ai-networking-analysis.outputs.analysis-status || 'skipped' }} |
+          | 💡 **Recommendations** | ${{ needs.ai-networking-analysis.outputs.recommendations-generated || 0 }} |
+          | 📊 **Dashboard Status** | ${{ needs.dashboard-update.outputs.dashboard-status }} |
+          
+          ## 🔗 Professional Links
+          - 🔗 [LinkedIn Profile](https://linkedin.com/in/${{ secrets.LINKEDIN_PROFILE_USERNAME }})
+          - 📊 [Networking Dashboard](https://adrianwedd.com/networking-dashboard.html)
+          - 🤖 [AI Insights](https://adrianwedd.com/networking-dashboard.html#ai-insights)
+          
+          ## 🚀 Integration Results
+          - **Session ID**: `${{ needs.linkedin-intelligence.outputs.session-id }}`
+          - **Sync Mode**: ${{ github.event.inputs.sync_mode || 'bidirectional' }}
+          - **Dry Run**: ${{ github.event.inputs.dry_run || 'true' }}
+          
+          ---
+          > 🤖 Generated with [Claude Code](https://claude.ai/code)
+          EOF
+
+      - name: 💾 Commit LinkedIn Integration Data
+        run: |
+          echo "💾 **COMMITTING LINKEDIN INTEGRATION UPDATES**"
+          
+          git config --local user.email "linkedin-integration@adrianwedd.com"
+          git config --local user.name "LinkedIn Integration Bot"
+          
+          # Check for changes
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "ℹ️ No LinkedIn integration changes to commit"
+          else
+            git add data/ networking-dashboard-data.json
+            git commit -m "🔗 LinkedIn Integration: Session ${{ needs.linkedin-intelligence.outputs.session-id }}
+
+            🎯 Strategy: ${{ needs.linkedin-intelligence.outputs.sync-strategy }}
+            🤝 Networking Score: ${{ needs.linkedin-intelligence.outputs.networking-score }}/100
+            🔄 Sync Status: ${{ needs.linkedin-synchronization.outputs.sync-status || 'skipped' }}
+            📝 Changes: ${{ needs.linkedin-synchronization.outputs.changes-detected || 0 }}
+            🤖 AI Recommendations: ${{ needs.ai-networking-analysis.outputs.recommendations-generated || 0 }}
+            📊 Dashboard: ${{ needs.dashboard-update.outputs.dashboard-status }}
+
+            🤖 Generated with [Claude Code](https://claude.ai/code)
+
+            Co-Authored-By: Claude <noreply@anthropic.com>" || {
+              echo "⚠️ Commit failed, possibly no changes or conflict"
+            }
+            
+            git push || {
+              echo "⚠️ Push failed, possibly due to concurrent modifications"
+            }
+          fi

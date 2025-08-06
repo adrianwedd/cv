@@ -1,10 +1,15 @@
-const assert = require('assert');
-const { test, suite, beforeEach, afterEach } = require('node:test');
-const fs = require('fs').promises;
-const path = require('path');
+import assert from 'assert';
+import { test, suite, beforeEach, afterEach } from 'node:test';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Import the analyzer after we set up the module-level LANGUAGE_SKILLS
-const { ActivityAnalyzer, CONFIG } = require('./activity-analyzer.js');
+import { ActivityAnalyzer, CONFIG } from './activity-analyzer.js';
 
 suite('ActivityAnalyzer', () => {
     let analyzer;

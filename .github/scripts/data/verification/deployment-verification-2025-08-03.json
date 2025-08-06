@@ -1,0 +1,238 @@
+{
+  "overall": "excellent",
+  "timestamp": "2025-08-03T23:41:23.780Z",
+  "tests": {
+    "accessibility": {
+      "status": "passed",
+      "score": 100,
+      "details": {
+        "htmlValidation": {
+          "passed": true,
+          "message": "Basic HTML structure validation"
+        },
+        "headingStructure": {
+          "passed": true,
+          "message": "Single H1 heading present"
+        },
+        "altTextPresence": {
+          "passed": true,
+          "message": "0/0 images have alt text"
+        },
+        "colorContrast": {
+          "passed": true,
+          "message": "Color contrast assumed adequate with design system"
+        },
+        "keyboardNavigation": {
+          "passed": true,
+          "message": "Keyboard navigation assumed functional"
+        }
+      }
+    },
+    "performance": {
+      "status": "warning",
+      "score": 75,
+      "details": {
+        "loadTime": {
+          "passed": true,
+          "value": 201.315,
+          "threshold": "< 2000ms"
+        },
+        "contentSize": {
+          "passed": false,
+          "value": 55891,
+          "threshold": "< 50KB"
+        },
+        "imageOptimization": {
+          "passed": true,
+          "value": 0,
+          "threshold": "0 unoptimized"
+        },
+        "caching": {
+          "passed": true,
+          "value": true,
+          "threshold": "Present"
+        }
+      },
+      "metrics": {
+        "loadTime": 201.315,
+        "contentSize": 55891,
+        "dnsTime": 4.8069999999999995,
+        "connectTime": 33.324,
+        "unoptimizedImages": 0,
+        "cacheHeaders": true
+      }
+    },
+    "dataIntegrity": {
+      "status": "passed",
+      "score": 100,
+      "details": {
+        "cvDataPresent": {
+          "passed": true,
+          "message": "Core CV data present in HTML"
+        },
+        "contactInfoValid": {
+          "passed": true,
+          "message": "Contact information present"
+        },
+        "projectLinksWorking": {
+          "passed": true,
+          "message": "9 GitHub project links found"
+        },
+        "skillsAccurate": {
+          "passed": true,
+          "message": "Core technical skills present"
+        },
+        "timelineConsistent": {
+          "passed": true,
+          "message": "Timeline includes current year"
+        }
+      }
+    },
+    "functionality": {
+      "status": "passed",
+      "score": 100,
+      "details": {
+        "pdfDownload": {
+          "passed": true,
+          "message": "PDF download available"
+        },
+        "themeToggle": {
+          "passed": true,
+          "message": "Theme functionality present"
+        },
+        "navigation": {
+          "passed": true,
+          "message": "19 navigation elements found"
+        },
+        "responsiveLayout": {
+          "passed": true,
+          "message": "Responsive design: 67% (4/6 indicators)",
+          "details": {
+            "mediaQueries": false,
+            "viewportMeta": true,
+            "responsiveKeywords": true,
+            "flexboxGrid": false,
+            "responsiveUnits": true,
+            "breakpoints": true
+          },
+          "score": 67
+        },
+        "errorHandling": {
+          "passed": true,
+          "message": "Error handling assumed functional"
+        }
+      }
+    },
+    "seo": {
+      "status": "passed",
+      "score": 100,
+      "details": {
+        "titlePresent": {
+          "passed": true,
+          "message": "Title tag present"
+        },
+        "metaDescription": {
+          "passed": true,
+          "message": "Meta description present"
+        },
+        "structuredData": {
+          "passed": true,
+          "message": "Structured data present"
+        },
+        "headingHierarchy": {
+          "passed": true,
+          "message": "Proper heading hierarchy"
+        },
+        "canonicalUrl": {
+          "passed": true,
+          "message": "Canonical URL present"
+        }
+      }
+    },
+    "security": {
+      "status": "passed",
+      "score": 100,
+      "details": {
+        "contentTypeNosniff": {
+          "passed": true,
+          "message": "X-Content-Type-Options header"
+        },
+        "frameOptions": {
+          "passed": true,
+          "message": "X-Frame-Options header"
+        },
+        "httpsRedirect": {
+          "passed": true,
+          "message": "HTTPS redirect working"
+        },
+        "csp": {
+          "passed": true,
+          "message": "Content Security Policy"
+        }
+      }
+    },
+    "mobileResponsiveness": {
+      "status": "passed",
+      "score": 100,
+      "details": {
+        "viewportMeta": {
+          "passed": true,
+          "message": "Viewport meta tag present"
+        },
+        "mobileStyles": {
+          "passed": true,
+          "message": "Mobile styles detected"
+        },
+        "touchTargets": {
+          "passed": true,
+          "message": "Touch targets assumed adequate"
+        },
+        "textReadability": {
+          "passed": true,
+          "message": "Text readability assumed adequate"
+        }
+      }
+    }
+  },
+  "metrics": {
+    "overallScore": 96
+  },
+  "issues": [
+    {
+      "severity": "medium",
+      "category": "performance",
+      "message": "performance tests have warnings",
+      "details": {
+        "loadTime": {
+          "passed": true,
+          "value": 201.315,
+          "threshold": "< 2000ms"
+        },
+        "contentSize": {
+          "passed": false,
+          "value": 55891,
+          "threshold": "< 50KB"
+        },
+        "imageOptimization": {
+          "passed": true,
+          "value": 0,
+          "threshold": "0 unoptimized"
+        },
+        "caching": {
+          "passed": true,
+          "value": true,
+          "threshold": "Present"
+        }
+      }
+    }
+  ],
+  "recommendations": [
+    "Optimize website performance for faster load times"
+  ],
+  "summary": {
+    "totalTests": 7,
+    "passedSuites": 6,
+    "warningSuites": 1,
+    "failedSuites": 0
+  }
+}

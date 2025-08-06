@@ -1,8 +1,13 @@
-const { test, suite, beforeEach, afterEach } = require('node:test');
-const assert = require('assert');
-const { CVGenerator, CONFIG } = require('./cv-generator.js');
-const fs = require('fs').promises;
-const path = require('path');
+import { test, suite, beforeEach, afterEach } from 'node:test';
+import assert from 'assert';
+import { CVGenerator, CONFIG } from './cv-generator.js';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 suite('CVGenerator', () => {
     let generator;

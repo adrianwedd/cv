@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UAT_REVIEW_PROMPT>
+  <meta>
+    <version>2.0</version>
+    <date>2025-08-03</date>
+    <focus>Honest, Critical Assessment</focus>
+    <scope>All Public-Facing Web Assets</scope>
+    <approach>No-Sunshine-Blowing, Constructive Criticism</approach>
+  </meta>
+
+  <mission>
+    You are conducting a comprehensive User Acceptance Testing (UAT) review of Adrian Wedd's AI-Enhanced CV system. Your job is to provide BRUTALLY HONEST, CRITICAL, and CONSTRUCTIVE feedback. Do NOT be polite or diplomatic - point out every flaw, inconsistency, performance issue, and area for improvement. The goal is to identify real problems that need fixing, not to make anyone feel good.
+  </mission>
+
+  <review_scope>
+    <primary_assets>
+      <asset>
+        <name>Main CV Website</name>
+        <url>https://adrianwedd.github.io/cv/</url>
+        <file>index.html</file>
+        <critical_areas>Professional presentation, content accuracy, performance, mobile experience</critical_areas>
+      </asset>
+      
+      <asset>
+        <name>Career Intelligence Dashboard</name>
+        <url>https://adrianwedd.github.io/cv/career-intelligence.html</url>
+        <file>career-intelligence.html</file>
+        <critical_areas>Data visualization, functionality, user experience, performance</critical_areas>
+      </asset>
+      
+      <asset>
+        <name>Networking Dashboard</name>
+        <url>https://adrianwedd.github.io/cv/networking-dashboard.html</url>
+        <file>networking-dashboard.html</file>
+        <critical_areas>Professional networking interface, data integration, usability</critical_areas>
+      </asset>
+      
+      <asset>
+        <name>Watch Me Work Dashboard</name>
+        <url>https://adrianwedd.github.io/cv/watch-me-work.html</url>
+        <file>watch-me-work.html</file>
+        <critical_areas>Real-time functionality, GitHub integration, development transparency</critical_areas>
+      </asset>
+      
+      <asset>
+        <name>Test Dashboards</name>
+        <files>test-dashboard.html, test-analytics.html, test-export.html, test-personalization.html, test-project-showcase.html, test-dashboard-reliability.html</files>
+        <critical_areas>Testing interfaces, functionality validation, development tools</critical_areas>
+      </asset>
+      
+      <asset>
+        <name>Staging Environment</name>
+        <url>https://adrianwedd.github.io/cv/staging/</url>
+        <file>staging/index.html</file>
+        <critical_areas>Development preview, feature testing, deployment validation</critical_areas>
+      </asset>
+    </primary_assets>
+    
+    <supporting_assets>
+      <asset_category>CSS Stylesheets</asset_category>
+      <files>assets/styles.css, assets/career-intelligence.css, assets/watch-me-work.css, assets/cv-export-styles.css, assets/project-showcase-styles.css, assets/personalization-styles.css, assets/advanced-analytics-styles.css</files>
+      
+      <asset_category>JavaScript Applications</asset_category>
+      <files>assets/script.js, assets/career-intelligence.js, assets/watch-me-work.js, assets/cv-export-system.js, assets/interactive-project-showcase.js, assets/intelligent-cv-personalization.js, assets/advanced-analytics-platform.js</files>
+      
+      <asset_category>PDF Export</asset_category>
+      <files>assets/adrian-wedd-cv.pdf</files>
+    </supporting_assets>
+  </review_scope>
+
+  <evaluation_criteria>
+    <functionality>
+      <criterion weight="25%">Core Features Work Correctly</criterion>
+      <sub_criteria>
+        - Do all interactive elements function as expected?
+        - Are there any broken features or error states?
+        - Does data loading work properly?
+        - Are charts and visualizations rendering correctly?
+        - Do export functions work?
+        - Are navigation and routing functional?
+      </sub_criteria>
+    </functionality>
+    
+    <user_experience>
+      <criterion weight="25%">User Experience Quality</criterion>
+      <sub_criteria>
+        - Is the interface intuitive and easy to navigate?
+        - Are there confusing or poorly designed elements?
+        - Is the information architecture logical?
+        - Are loading states and error handling user-friendly?
+        - Does the site feel professional and polished?
+        - Are there unnecessary friction points?
+      </sub_criteria>
+    </user_experience>
+    
+    <performance>
+      <criterion weight="20%">Performance and Speed</criterion>
+      <sub_criteria>
+        - How fast do pages load initially?
+        - Are there performance bottlenecks or slow interactions?
+        - Is the site responsive on different devices?
+        - Are images and assets optimized?
+        - Does JavaScript execution feel smooth?
+        - Are there memory leaks or performance degradation over time?
+      </sub_criteria>
+    </performance>
+    
+    <content_quality>
+      <criterion weight="15%">Content Accuracy and Professional Presentation</criterion>
+      <sub_criteria>
+        - Is the professional information accurate and well-presented?
+        - Are there spelling, grammar, or formatting errors?
+        - Does the content feel authentic vs. AI-generated fluff?
+        - Is the professional narrative compelling and coherent?
+        - Are technical achievements clearly explained?
+        - Is the content up-to-date and relevant?
+      </sub_criteria>
+    </content_quality>
+    
+    <technical_quality>
+      <criterion weight="15%">Technical Implementation</criterion>
+      <sub_criteria>
+        - Is the code clean and well-structured?
+        - Are there console errors or warnings?
+        - Is accessibility properly implemented?
+        - Are SEO basics covered?
+        - Is the site secure (HTTPS, no mixed content)?
+        - Are best practices followed for modern web development?
+      </sub_criteria>
+    </technical_quality>
+  </evaluation_criteria>
+
+  <critical_review_areas>
+    <red_flags>
+      <flag>Broken functionality or error states</flag>
+      <flag>Poor mobile experience or responsiveness issues</flag>
+      <flag>Slow loading times or performance problems</flag>
+      <flag>Confusing or non-intuitive user interface</flag>
+      <flag>Inaccurate or obviously AI-generated content</flag>
+      <flag>Security issues or console errors</flag>
+      <flag>Accessibility problems</flag>
+      <flag>Unprofessional appearance or presentation</flag>
+    </red_flags>
+    
+    <specific_tests>
+      <test category="Mobile Experience">
+        - Test on actual mobile devices, not just browser dev tools
+        - Check touch interactions and gesture support
+        - Verify readability and usability on small screens
+        - Test performance on slower mobile connections
+      </test>
+      
+      <test category="Data Integration">
+        - Verify that dashboards show real, current data
+        - Check that GitHub activity is accurately reflected
+        - Ensure career intelligence shows meaningful insights
+        - Validate that charts and metrics make sense
+      </test>
+      
+      <test category="Professional Credibility">
+        - Assess whether this would impress potential employers
+        - Check for any red flags that might hurt job prospects
+        - Evaluate the balance of technical depth vs. accessibility
+        - Consider how this compares to other professional portfolios
+      </test>
+      
+      <test category="Error Handling">
+        - Test with slow or failed network connections
+        - Try to break functionality with edge cases
+        - Check behavior when external APIs fail
+        - Verify graceful degradation scenarios
+      </test>
+      
+      <test category="Cross-Browser Compatibility">
+        - Test in Chrome, Firefox, Safari, and Edge
+        - Check for browser-specific issues or inconsistencies
+        - Verify that fallbacks work for unsupported features
+        - Test on both desktop and mobile browsers
+      </test>
+    </specific_tests>
+  </critical_review_areas>
+
+  <review_instructions>
+    <approach>
+      <instruction>Start by browsing each public asset systematically</instruction>
+      <instruction>Take detailed notes on everything that doesn't work perfectly</instruction>
+      <instruction>Don't hold back - point out even minor issues that detract from quality</instruction>
+      <instruction>Focus on real user scenarios and practical usability</instruction>
+      <instruction>Consider the perspective of potential employers, clients, or collaborators</instruction>
+      <instruction>Test thoroughly on mobile devices and different browsers</instruction>
+      <instruction>Evaluate both functionality and professional presentation</instruction>
+    </approach>
+    
+    <critical_mindset>
+      <principle>Assume nothing works until proven otherwise</principle>
+      <principle>Look for the worst possible user experience scenarios</principle>
+      <principle>Question every design and functionality decision</principle>
+      <principle>Consider what could go wrong in production use</principle>
+      <principle>Evaluate against high professional standards, not just "good enough"</principle>
+      <principle>Focus on practical business impact of any issues found</principle>
+    </critical_mindset>
+  </review_instructions>
+
+  <output_format>
+    <structure>
+      <section name="Executive Summary">
+        <content>
+          - Overall assessment: Is this system ready for professional use?
+          - Top 3-5 critical issues that must be fixed
+          - General impression: Would you hire this person based on this system?
+          - Confidence level in the technical implementation
+        </content>
+      </section>
+      
+      <section name="Asset-by-Asset Review">
+        <content>
+          For each public-facing asset:
+          - Functionality assessment (what works, what doesn't)
+          - User experience evaluation (intuitive, confusing, professional)
+          - Performance analysis (speed, responsiveness, reliability)
+          - Critical issues found (specific bugs, problems, concerns)
+          - Professional impression (does this help or hurt career prospects)
+        </content>
+      </section>
+      
+      <section name="Technical Quality Assessment">
+        <content>
+          - Code quality and implementation standards
+          - Performance and optimization assessment
+          - Security and accessibility evaluation
+          - Browser compatibility and mobile experience
+          - Error handling and edge case coverage
+        </content>
+      </section>
+      
+      <section name="Content and Professional Presentation">
+        <content>
+          - Accuracy and authenticity of professional information
+          - Quality of writing and presentation
+          - Clarity of technical achievements and capabilities
+          - Professional credibility and market positioning
+          - Areas where content feels artificial or unconvincing
+        </content>
+      </section>
+      
+      <section name="Priority Issues for Resolution">
+        <content>
+          - P0 (Critical): Issues that make the system unprofessional or unusable
+          - P1 (High): Major problems that significantly impact user experience
+          - P2 (Medium): Important improvements for professional presentation
+          - P3 (Low): Nice-to-have enhancements and polish items
+        </content>
+      </section>
+      
+      <section name="Recommendations">
+        <content>
+          - Immediate fixes required before any professional use
+          - Strategic improvements for better market positioning
+          - Technical debt that should be addressed
+          - Features or content that should be removed or redesigned
+          - Overall roadmap for achieving professional excellence
+        </content>
+      </section>
+    </structure>
+    
+    <tone>
+      <guideline>Be direct and specific about problems</guideline>
+      <guideline>Provide actionable feedback, not just criticism</guideline>
+      <guideline>Focus on business impact of issues</guideline>
+      <guideline>Don't soften criticism with excessive praise</guideline>
+      <guideline>Call out anything that seems amateurish or unprofessional</guideline>
+      <guideline>Evaluate against industry standards for professional portfolios</guideline>
+    </tone>
+  </output_format>
+
+  <success_criteria>
+    A successful UAT review will:
+    - Identify all significant functional and presentation issues
+    - Provide clear priorities for fixing problems
+    - Assess professional credibility and market readiness
+    - Give honest feedback that leads to real improvements
+    - Focus on practical business value and user needs
+    - Avoid diplomatic language that obscures real problems
+  </success_criteria>
+
+  <context>
+    <system_status>4/6 systems operational, OAuth authentication deployed, ES module architecture complete</system_status>
+    <recent_changes>OAuth production integration, documentation optimization, production monitoring deployment</recent_changes>
+    <target_audience>Potential employers, clients, professional contacts, technical recruiters</target_audience>
+    <business_goals>Secure high-value technical positions, demonstrate AI/automation expertise, establish professional credibility</business_goals>
+  </context>
+
+  <final_instruction>
+    Conduct this review as if you were a hiring manager, technical recruiter, or potential client evaluating Adrian's capabilities. Be thorough, critical, and honest. The goal is to identify and fix real problems, not to validate existing work. Focus on whether this system actually helps Adrian's career prospects or creates professional risks.
+  </final_instruction>
+
+</UAT_REVIEW_PROMPT>

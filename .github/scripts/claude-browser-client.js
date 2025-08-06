@@ -10,10 +10,14 @@
  * @version 1.0.0
  */
 
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-const path = require('path');
-const fs = require('fs');
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Enable stealth mode
 puppeteer.use(StealthPlugin());
@@ -488,8 +492,8 @@ async function main() {
     }
 }
 
-module.exports = { ClaudeBrowserClient };
+export { ClaudeBrowserClient };
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

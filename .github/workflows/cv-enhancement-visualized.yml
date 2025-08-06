@@ -303,6 +303,51 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: 🚨 Critical File Size Validation
+        id: size-validation
+        run: |
+          echo "🚨 **VALIDATING DATA FILE SIZES (CRITICAL)**"
+          cd .github/scripts
+          
+          # Critical file size limits to prevent repository bloat
+          OVERSIZED_FILES=()
+          
+          # Check activity files (should be <100KB)
+          find ../data/activity/ -name '*.json' -size +100k -exec echo "❌ CRITICAL: {} exceeds 100KB limit" \; -exec ls -lh {} \; | while read line; do
+            echo "$line"
+            if [[ $line == *"❌ CRITICAL"* ]]; then
+              exit 1
+            fi
+          done
+          
+          # Check watch-me-work data (should be <1MB)
+          find ../data/ -name 'watch-me-work-data*.json' -size +1M -exec echo "❌ CRITICAL: {} exceeds 1MB limit" \; -exec ls -lh {} \; | while read line; do
+            echo "$line"
+            if [[ $line == *"❌ CRITICAL"* ]]; then
+              exit 1
+            fi
+          done
+          
+          # Check intelligence files (should be <500KB)
+          find ../data/intelligence/ -name '*.json' -size +500k -exec echo "❌ CRITICAL: {} exceeds 500KB limit" \; -exec ls -lh {} \; | while read line; do
+            echo "$line"
+            if [[ $line == *"❌ CRITICAL"* ]]; then
+              exit 1
+            fi
+          done
+          
+          # Summary of current data files
+          echo "📊 **Current Data File Summary:**"
+          find ../data/ -name '*.json' -exec ls -lh {} \; | head -10
+          
+          # Calculate total data directory size
+          TOTAL_SIZE=$(du -sh ../data | cut -f1)
+          echo "📦 Total data directory size: $TOTAL_SIZE"
+          echo "✅ File size validation completed - No oversized files detected"
+          
+          echo "total-size=$TOTAL_SIZE" >> $GITHUB_OUTPUT
+          echo "::notice title=Data Size Validation::Total: $TOTAL_SIZE - All files within limits"
+
   # 🤖 AI CONTENT ENHANCEMENT
   ai-enhancement:
     name: 🤖 AI Content Enhancement

@@ -66,5 +66,8 @@
       "technical_positioning": "Aligned with AI/ML industry demands",
       "career_advancement": "Strategic insights provided for senior-level positioning"
     }
-  }
+  },
+  "disabled": true,
+  "disabled_reason": "Data integrity issues - using verified content only",
+  "disabled_timestamp": "2025-08-03T17-00-38-494Z"
 }

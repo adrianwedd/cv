@@ -1,7 +1,7 @@
-const { test, suite, beforeEach, afterEach } = require('node:test');
-const assert = require('assert');
-const { CVContentEnhancer, ClaudeApiClient, CONFIG } = require('./claude-enhancer.js');
-const crypto = require('crypto');
+import { test, suite, beforeEach, afterEach } from 'node:test';
+import assert from 'assert';
+import { CVContentEnhancer, ClaudeApiClient, CONFIG } from './claude-enhancer.js';
+import crypto from 'crypto';
 
 suite('ClaudeApiClient', () => {
     let client;

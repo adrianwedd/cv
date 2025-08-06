@@ -1,0 +1,57 @@
+{
+  "name": "Adrian Wedd CV",
+  "short_name": "Adrian CV",
+  "description": "AI Engineer & Software Architect CV",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mobile Dashboard Hub",
+      "short_name": "Hub",
+      "description": "Mobile dashboard hub with quick access to all features",
+      "url": "/cv/mobile-dashboard-hub.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Live Activity",
+      "short_name": "Activity",
+      "description": "Real-time activity and GitHub integration",
+      "url": "/cv/mobile-activity-dashboard.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Skills Dashboard",
+      "short_name": "Skills",
+      "description": "Technical skills and expertise overview",
+      "url": "/cv/mobile-skills-dashboard.html",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

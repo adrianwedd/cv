@@ -23,9 +23,13 @@
  * - LOOKBACK_DAYS: Number of days to analyze (default: 90)
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const { httpRequest, sleep } = require('./utils/apiClient');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { httpRequest, sleep } from './utils/apiClient.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const CONFIG = {
@@ -783,8 +787,8 @@ async function main() {
 }
 
 // Execute if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
 
-module.exports = { GitHubDataMiner };
+export { GitHubDataMiner };
