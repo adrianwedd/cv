@@ -2028,7 +2028,12 @@ body {
 }
 
 .safe-mode .theme-toggle {
-  display: none !important; /* Hide potentially problematic features */
+  display: none !important; /* Hide potentially problematic features in safe mode only */
+}
+
+/* Ensure theme toggle is visible in normal mode */
+body:not(.safe-mode) .theme-toggle {
+  display: flex !important; /* Override any hiding for normal operation */
 }
 
 /* Professional error state styling */
@@ -2083,11 +2088,15 @@ body {
   }
 
   .loading-screen,
-  .theme-toggle,
-  .navigation,
-  .footer-links,
   .system-info {
     display: none !important;
+  }
+  
+  /* Keep essential interactive elements visible in print */
+  .theme-toggle,
+  .navigation,
+  .footer-links {
+    display: none !important; /* Hidden only for print - not interactive media */
   }
 
   .container {

@@ -206,10 +206,13 @@ class WatchMeWorkDashboard {
             // Process loaded data
             this.processDashboardData(dashboardData);
             
-            // Update UI
+            // Update UI with data
             this.updateMetrics();
             this.updateActivityTimeline();
             this.updateRepositoryGrid();
+            
+            // Force UI update to show data is loaded
+            this.markDataLoaded();
             
             this.lastRefresh = new Date(dashboardData.metadata?.generated_at || new Date());
             this.updateFooterTimestamp();
@@ -1199,6 +1202,35 @@ class WatchMeWorkDashboard {
             _formatted: `Sound notifications ${this.soundEnabled ? 'enabled' : 'disabled'}`,
             description: this.soundEnabled ? 'You will hear sounds for new activities' : 'Sound notifications are now muted'
         });
+    }
+    
+    /**
+     * Mark data as loaded and update UI indicators
+     */
+    markDataLoaded() {
+        // Remove loading states
+        const loadingElements = document.querySelectorAll('.loading, [data-loading="true"]');
+        loadingElements.forEach(el => {
+            el.classList.remove('loading');
+            el.removeAttribute('data-loading');
+        });
+        
+        // Update loading text elements
+        const loadingTexts = document.querySelectorAll('.loading-text');
+        loadingTexts.forEach(el => {
+            if (el.textContent.includes('Loading')) {
+                el.textContent = el.textContent.replace('Loading', 'Loaded');
+            }
+        });
+        
+        // Show data sections
+        const dataSections = document.querySelectorAll('.activity-stream, .repository-grid, .metrics-grid');
+        dataSections.forEach(section => {
+            section.style.display = 'block';
+            section.classList.add('data-loaded');
+        });
+        
+        console.log('✅ Dashboard marked as loaded with data');
     }
 }
 
