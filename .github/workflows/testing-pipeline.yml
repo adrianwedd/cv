@@ -355,7 +355,6 @@ jobs:
 
       - name: 🌐 Start Test Server
         run: |
-          cd /Users/adrian/repos/cv
           python3 -m http.server 8000 &
           SERVER_PID=$!
           echo $SERVER_PID > /tmp/test-server.pid
