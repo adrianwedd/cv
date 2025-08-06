@@ -17,8 +17,13 @@
  * @version 2.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Prompt Library Manager for version-controlled prompt templates
@@ -556,4 +561,4 @@ class PromptLibraryManager {
     }
 }
 
-module.exports = { PromptLibraryManager };
+export { PromptLibraryManager };

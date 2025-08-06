@@ -14,8 +14,12 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Watch Me Work Data Processor
@@ -535,8 +539,8 @@ class WatchMeWorkDataProcessor {
      * Save processed data to file
      */
     async saveData(filePath, data) {
-        await fs.mkdir(path.dirname(filePath), { recursive: true });
-        await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+        await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
+        await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2));
     }
 
     /**
@@ -703,8 +707,9 @@ async function main() {
     }
 }
 
-module.exports = { WatchMeWorkDataProcessor };
+export { WatchMeWorkDataProcessor };
 
-if (require.main === module) {
+// Check if this module is being run directly
+if (import.meta.url === `file://${process.argv[1]}`||import.meta.url.endsWith(process.argv[1])) {
     main().catch(console.error);
 }

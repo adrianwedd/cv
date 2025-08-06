@@ -1,0 +1,19 @@
+{
+  "analysis_timestamp": "2025-08-05T14:10:01Z",
+  "commit_trends": {
+    "1_day": 20,
+    "7_days": 366,
+    "30_days": 366,
+    "90_days": 366
+  },
+  "averages": {
+    "daily_avg": 52.28,
+    "weekly_avg": 85.11,
+    "monthly_avg": 122.00
+  },
+  "trend_analysis": {
+    "direction": "decreasing",
+    "velocity_change": -38.00,
+    "consistency_score": 26.00
+  }
+}

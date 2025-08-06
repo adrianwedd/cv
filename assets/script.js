@@ -97,6 +97,13 @@ class CVApplication {
                     this.navigateToSection(section);
                 }
             }
+            
+            // Print button handling
+            const printElement = e.target.closest('[data-action="print"]');
+            if (printElement) {
+                e.preventDefault();
+                window.print();
+            }
         });
 
         // Keyboard navigation
@@ -127,6 +134,278 @@ class CVApplication {
                 this.refreshLiveData();
             }
         });
+        
+        // Handle CSS and font loading
+        this.setupAssetLoading();
+        
+        // Setup mobile touch optimizations
+        this.setupMobileTouchOptimizations();
+    }
+
+    /**
+     * Setup asset loading (CSS and fonts) to prevent console warnings
+     */
+    setupAssetLoading() {
+        // Load font with fallback
+        const fontLoader = document.getElementById('font-loader');
+        if (fontLoader) {
+            fontLoader.addEventListener('load', () => {
+                fontLoader.media = 'all';
+            });
+        }
+        
+        // Load CSS stylesheets
+        const preloadLinks = document.querySelectorAll('link[rel="preload"][as="style"]');
+        preloadLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                // Create actual stylesheet link
+                const stylesheet = document.createElement('link');
+                stylesheet.rel = 'stylesheet';
+                stylesheet.href = href;
+                stylesheet.onload = () => {
+                    link.setAttribute('data-loaded', 'true');
+                };
+                document.head.appendChild(stylesheet);
+            }
+        });
+    }
+
+    /**
+     * Setup mobile touch optimizations for enhanced mobile experience
+     */
+    setupMobileTouchOptimizations() {
+        // Detect touch device
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (isTouchDevice) {
+            document.documentElement.classList.add('touch-device');
+            
+            // Enhanced touch feedback for interactive elements
+            this.setupTouchFeedback();
+            
+            // Optimize scroll behavior for mobile
+            this.setupMobileScrolling();
+            
+            // Handle orientation changes
+            this.setupOrientationHandling();
+            
+            // iOS specific optimizations
+            this.setupiOSOptimizations();
+            
+            console.log('📱 Mobile touch optimizations enabled');
+        }
+    }
+    
+    /**
+     * Setup enhanced touch feedback for better user experience
+     */
+    setupTouchFeedback() {
+        const touchElements = document.querySelectorAll('button, .btn, .nav-item, .contact-link, .skill-item, .project-card');
+        
+        touchElements.forEach(element => {
+            // Enhance touch feedback with haptic-like response
+            element.addEventListener('touchstart', (e) => {
+                element.style.transform = 'scale(0.96)';
+                element.style.transition = 'transform 0.1s ease';
+                
+                // Add ripple effect
+                this.createRippleEffect(e, element);
+            }, { passive: true });
+            
+            element.addEventListener('touchend', () => {
+                element.style.transform = '';
+                element.style.transition = 'transform 0.15s ease';
+            }, { passive: true });
+            
+            element.addEventListener('touchcancel', () => {
+                element.style.transform = '';
+                element.style.transition = 'transform 0.15s ease';
+            }, { passive: true });
+        });
+    }
+    
+    /**
+     * Create ripple effect for touch feedback
+     */
+    createRippleEffect(event, element) {
+        const rect = element.getBoundingClientRect();
+        const touch = event.touches[0];
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-effect';
+        ripple.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            top: ${y}px;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            animation: ripple 0.3s linear;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        
+        // Add ripple animation styles if not exists
+        if (!document.querySelector('#ripple-styles')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-styles';
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        width: 60px;
+                        height: 60px;
+                        opacity: 0;
+                    }
+                }
+                .ripple-container {
+                    position: relative;
+                    overflow: hidden;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Make element a ripple container
+        if (!element.classList.contains('ripple-container')) {
+            element.classList.add('ripple-container');
+        }
+        
+        element.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.remove();
+            }
+        }, 300);
+    }
+    
+    /**
+     * Optimize scrolling behavior for mobile devices
+     */
+    setupMobileScrolling() {
+        // Smooth momentum scrolling for iOS
+        document.documentElement.style.webkitOverflowScrolling = 'touch';
+        
+        // Optimize navigation scrolling
+        const navigation = document.querySelector('.navigation');
+        if (navigation) {
+            navigation.style.webkitOverflowScrolling = 'touch';
+            navigation.style.scrollbarWidth = 'none';
+        }
+        
+        // Enhance section navigation with scroll snap
+        const sections = document.querySelectorAll('.section');
+        if (sections.length > 0) {
+            sections.forEach(section => {
+                section.style.scrollMarginTop = '80px';
+            });
+        }
+        
+        // Improve scroll performance with passive listeners
+        document.addEventListener('touchmove', (e) => {
+            // Allow native scrolling
+        }, { passive: true });
+        
+        // Handle pull-to-refresh on mobile
+        let startY = 0;
+        let isAtTop = false;
+        
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].pageY;
+            isAtTop = window.scrollY === 0;
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (isAtTop && e.touches[0].pageY > startY + 5) {
+                // Prevent pull-to-refresh on the page
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+    
+    /**
+     * Handle device orientation changes
+     */
+    setupOrientationHandling() {
+        const handleOrientationChange = () => {
+            // Delay to ensure viewport is updated
+            setTimeout(() => {
+                // Recalculate responsive elements
+                this.handleWindowResize();
+                
+                // Fix viewport height on mobile browsers
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                console.log(`📱 Orientation changed: ${window.innerHeight}x${window.innerWidth}`);
+            }, 100);
+        };
+        
+        // Handle both orientationchange and resize for better compatibility
+        window.addEventListener('orientationchange', handleOrientationChange);
+        window.addEventListener('resize', handleOrientationChange);
+        
+        // Set initial viewport height
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    /**
+     * iOS specific optimizations
+     */
+    setupiOSOptimizations() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        
+        if (isIOS) {
+            document.documentElement.classList.add('ios-device');
+            
+            // Fix iOS viewport zoom on form focus
+            const viewport = document.querySelector('meta[name=viewport]');
+            if (viewport) {
+                const handleFocusIn = () => {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0');
+                };
+                
+                const handleFocusOut = () => {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1');
+                };
+                
+                document.addEventListener('focusin', handleFocusIn);
+                document.addEventListener('focusout', handleFocusOut);
+            }
+            
+            // Fix iOS scroll bounce
+            document.addEventListener('touchmove', (e) => {
+                if (e.target.closest('.navigation') || e.target.closest('.scrollable')) {
+                    // Allow scrolling in specific containers
+                    return;
+                }
+                
+                // Prevent bounce on body
+                if (e.target === document.body) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Handle iOS safe area
+            const updateSafeArea = () => {
+                const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
+                const safeAreaBottom = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom') || '0px';
+                
+                console.log(`📱 iOS safe area - top: ${safeAreaTop}, bottom: ${safeAreaBottom}`);
+            };
+            
+            updateSafeArea();
+            window.addEventListener('orientationchange', updateSafeArea);
+            
+            console.log('🍎 iOS optimizations enabled');
+        }
     }
 
     /**
@@ -743,7 +1022,10 @@ class CVApplication {
      * Toggle theme between dark and light
      */
     toggleTheme() {
-        this.themePreference = this.themePreference === 'light' ? 'dark' : 'light';
+        const themeOrder = ['light', 'dark', 'auto'];
+        const currentIndex = themeOrder.indexOf(this.themePreference);
+        const nextIndex = (currentIndex + 1) % themeOrder.length;
+        this.themePreference = themeOrder[nextIndex];
         this.applyTheme(this.themePreference);
         
         // Save preference
@@ -760,7 +1042,7 @@ class CVApplication {
      * Apply theme to document
      */
     applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
+        // Prevent transition flicker\n        document.documentElement.classList.add('theme-transitioning');\n        \n        // Apply theme\n        document.documentElement.setAttribute('data-theme', theme);\n        \n        // Detect system preference if auto mode\n        if (theme === 'auto') {\n            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;\n            document.documentElement.setAttribute('data-theme', systemPrefersDark ? 'dark' : 'light');\n        }\n        \n        // Remove transition class after short delay\n        setTimeout(() => {\n            document.documentElement.classList.remove('theme-transitioning');\n        }, 50);\n        \n        // Update meta theme-color for mobile browsers\n        this.updateThemeColor(theme);
     }
 
     /**
@@ -1273,14 +1555,1061 @@ class ExternalLinkMonitor {
     }
 }
 
+/**
+ * Progressive Disclosure for Advanced Features
+ * Reveals developer tools and analytics based on user engagement
+ */
+class ProgressiveDisclosure {
+    constructor() {
+        this.engagementScore = 0;
+        this.unlockThreshold = 3; // Points needed to unlock
+        this.startTime = Date.now();
+        this.scrollDepth = 0;
+        this.sectionsVisited = new Set();
+        this.isUnlocked = localStorage.getItem('advancedFeaturesUnlocked') === 'true';
+        
+        this.init();
+    }
+
+    init() {
+        this.createEngagementIndicator();
+        this.setupEventListeners();
+        
+        // Auto-unlock if previously unlocked
+        if (this.isUnlocked) {
+            this.unlockAdvancedFeatures(false);
+        } else {
+            // Start engagement tracking
+            this.trackEngagement();
+        }
+    }
+
+    createEngagementIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'engagement-indicator';
+        indicator.id = 'engagement-indicator';
+        document.body.appendChild(indicator);
+    }
+
+    setupEventListeners() {
+        const unlockBtn = document.getElementById('unlock-advanced');
+        if (unlockBtn) {
+            unlockBtn.addEventListener('click', () => {
+                this.unlockAdvancedFeatures(true);
+            });
+        }
+
+        // Track scroll depth
+        window.addEventListener('scroll', this.throttle(() => {
+            this.updateScrollDepth();
+        }, 100));
+
+        // Track section visibility
+        this.observeSections();
+    }
+
+    trackEngagement() {
+        // Time-based engagement (1 point per 30 seconds)
+        setInterval(() => {
+            if (!document.hidden && !this.isUnlocked) {
+                this.addEngagementPoint(0.1, 'time_spent');
+            }
+        }, 3000);
+    }
+
+    updateScrollDepth() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = Math.min((scrollTop / docHeight) * 100, 100);
+        
+        if (scrollPercent > this.scrollDepth) {
+            this.scrollDepth = scrollPercent;
+            
+            // Engagement points for scroll milestones
+            if (scrollPercent > 50 && this.scrollDepth <= 50) {
+                this.addEngagementPoint(0.5, 'scroll_halfway');
+            }
+            if (scrollPercent > 80 && this.scrollDepth <= 80) {
+                this.addEngagementPoint(0.5, 'scroll_deep');
+            }
+        }
+
+        this.updateEngagementIndicator();
+    }
+
+    observeSections() {
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                    const sectionId = entry.target.id;
+                    if (!this.sectionsVisited.has(sectionId)) {
+                        this.sectionsVisited.add(sectionId);
+                        this.addEngagementPoint(0.3, `visited_${sectionId}`);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => observer.observe(section));
+    }
+
+    addEngagementPoint(points, reason) {
+        if (this.isUnlocked) return;
+        
+        this.engagementScore += points;
+        console.log(`🎯 Engagement +${points} (${reason}) - Total: ${this.engagementScore.toFixed(1)}`);
+        
+        this.updateEngagementIndicator();
+        
+        // Auto-unlock when threshold reached
+        if (this.engagementScore >= this.unlockThreshold) {
+            setTimeout(() => {
+                this.suggestUnlock();
+            }, 1000);
+        }
+    }
+
+    updateEngagementIndicator() {
+        const indicator = document.getElementById('engagement-indicator');
+        if (indicator) {
+            const progress = Math.min((this.engagementScore / this.unlockThreshold) * 100, 100);
+            indicator.style.width = `${progress}%`;
+        }
+    }
+
+    suggestUnlock() {
+        const unlockBtn = document.getElementById('unlock-advanced');
+        if (unlockBtn && !this.isUnlocked) {
+            // Add pulsing animation to suggest unlocking
+            unlockBtn.style.animation = 'pulse 1.5s ease-in-out infinite';
+            unlockBtn.style.borderColor = 'var(--color-primary)';
+            
+            // Update button text to suggest it's ready
+            const unlockText = unlockBtn.querySelector('.unlock-text');
+            const unlockHint = unlockBtn.querySelector('.unlock-hint');
+            if (unlockText) unlockText.textContent = 'Ready to Unlock!';
+            if (unlockHint) unlockHint.textContent = 'Click to reveal developer features';
+        }
+    }
+
+    unlockAdvancedFeatures(userInitiated = false) {
+        this.isUnlocked = true;
+        localStorage.setItem('advancedFeaturesUnlocked', 'true');
+        
+        const advancedSection = document.getElementById('advanced-features');
+        const unlockBtn = document.getElementById('unlock-advanced');
+        const indicator = document.getElementById('engagement-indicator');
+        
+        if (advancedSection) {
+            advancedSection.style.display = 'block';
+            setTimeout(() => {
+                advancedSection.classList.add('revealed');
+            }, 50);
+        }
+        
+        if (unlockBtn) {
+            unlockBtn.classList.add('hidden');
+        }
+        
+        if (indicator) {
+            indicator.style.width = '100%';
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 1000);
+        }
+        
+        if (userInitiated) {
+            console.log('🔓 Advanced features unlocked by user');
+            
+            // Show a subtle notification
+            this.showUnlockNotification();
+        } else {
+            console.log('🔓 Advanced features auto-restored from previous session');
+        }
+    }
+
+    showUnlockNotification() {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            z-index: 10000;
+            font-size: 14px;
+            font-weight: 500;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+        notification.innerHTML = '🔓 Advanced features unlocked!';
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 300);
+        }, 3000);
+    }
+
+    throttle(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+}
+
 // Initialize application when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     new CVApplication();
     new ExternalLinkMonitor();
     new InteractiveMetrics();
+    new ProgressiveDisclosure();
 });
 
 // Export for potential module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { CVApplication, CONFIG };
 }
+
+/**
+ * Accessibility Controls Manager
+ * Provides neurotype-aware design controls and theme management
+ */
+class AccessibilityControls {
+    constructor() {
+        this.isVisible = false;
+        this.currentMode = 'default';
+        this.preferences = this.loadPreferences();
+        this.init();
+    }
+
+    init() {
+        this.createAccessibilityControls();
+        this.setupEventListeners();
+        this.applyStoredPreferences();
+        this.setupSystemPreferenceListeners();
+    }
+
+    createAccessibilityControls() {
+        // Create toggle button
+        const toggle = document.createElement('button');
+        toggle.id = 'accessibility-toggle';
+        toggle.className = 'accessibility-toggle';
+        toggle.innerHTML = '♿';
+        toggle.title = 'Accessibility Controls';
+        toggle.setAttribute('aria-label', 'Toggle accessibility controls');
+        document.body.appendChild(toggle);
+
+        // Create controls panel
+        const panel = document.createElement('div');
+        panel.id = 'accessibility-controls';
+        panel.className = 'accessibility-controls';
+        panel.innerHTML = `
+            <h3>Accessibility Controls</h3>
+            <button class="control-button" data-action="toggle-adhd">ADHD-Friendly Mode</button>
+            <button class="control-button" data-action="toggle-autism">Autism-Friendly Mode</button>
+            <button class="control-button" data-action="toggle-high-contrast">High Contrast</button>
+            <button class="control-button" data-action="reduce-motion">Reduce Motion</button>
+            <button class="control-button" data-action="reset-preferences">Reset All</button>
+        `;
+        document.body.appendChild(panel);
+    }
+
+    setupEventListeners() {
+        const toggle = document.getElementById('accessibility-toggle');
+        const panel = document.getElementById('accessibility-controls');
+
+        toggle.addEventListener('click', () => this.toggleControls());
+
+        panel.addEventListener('click', (e) => {
+            if (e.target.classList.contains('control-button')) {
+                const action = e.target.dataset.action;
+                this.handleControlAction(action, e.target);
+            }
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isVisible) {
+                this.hideControls();
+            }
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (this.isVisible && 
+                !e.target.closest('#accessibility-controls') && 
+                !e.target.closest('#accessibility-toggle')) {
+                this.hideControls();
+            }
+        });
+    }
+
+    setupSystemPreferenceListeners() {
+        // Listen for system dark mode changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (this.preferences.theme === 'auto') {
+                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                this.updateThemeColor(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // Listen for reduced motion preference changes
+        window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+            if (e.matches) {
+                this.enableReducedMotion();
+            }
+        });
+
+        // Listen for high contrast preference changes
+        window.matchMedia('(prefers-contrast: high)').addEventListener('change', (e) => {
+            if (e.matches) {
+                this.enableHighContrast();
+            }
+        });
+    }
+
+    toggleControls() {
+        if (this.isVisible) {
+            this.hideControls();
+        } else {
+            this.showControls();
+        }
+    }
+
+    showControls() {
+        const panel = document.getElementById('accessibility-controls');
+        panel.classList.add('visible');
+        this.isVisible = true;
+    }
+
+    hideControls() {
+        const panel = document.getElementById('accessibility-controls');
+        panel.classList.remove('visible');
+        this.isVisible = false;
+    }
+
+    handleControlAction(action, button) {
+        switch (action) {
+            case 'toggle-adhd':
+                this.toggleADHDMode(button);
+                break;
+            case 'toggle-autism':
+                this.toggleAutismMode(button);
+                break;
+            case 'toggle-high-contrast':
+                this.toggleHighContrast(button);
+                break;
+            case 'reduce-motion':
+                this.toggleReducedMotion(button);
+                break;
+            case 'reset-preferences':
+                this.resetPreferences();
+                break;
+        }
+    }
+
+    toggleADHDMode(button) {
+        const isActive = document.body.classList.toggle('adhd-mode');
+        button.classList.toggle('active', isActive);
+        this.preferences.adhdMode = isActive;
+        this.savePreferences();
+        
+        if (isActive) {
+            this.currentMode = 'adhd';
+            console.log('🧠 ADHD-friendly mode activated');
+        } else {
+            this.currentMode = 'default';
+            console.log('🧠 ADHD-friendly mode deactivated');
+        }
+    }
+
+    toggleAutismMode(button) {
+        const isActive = document.body.classList.toggle('autism-mode');
+        button.classList.toggle('active', isActive);
+        this.preferences.autismMode = isActive;
+        this.savePreferences();
+        
+        if (isActive) {
+            this.currentMode = 'autism';
+            console.log('🧠 Autism-friendly mode activated');
+        } else {
+            this.currentMode = 'default';
+            console.log('🧠 Autism-friendly mode deactivated');
+        }
+    }
+
+    toggleHighContrast(button) {
+        const isActive = document.body.classList.toggle('high-contrast-mode');
+        button.classList.toggle('active', isActive);
+        this.preferences.highContrast = isActive;
+        this.savePreferences();
+        
+        console.log(`🎨 High contrast mode ${isActive ? 'activated' : 'deactivated'}`);
+    }
+
+    toggleReducedMotion(button) {
+        const isActive = !document.body.classList.contains('reduce-motion');
+        document.body.classList.toggle('reduce-motion', isActive);
+        button.classList.toggle('active', isActive);
+        this.preferences.reducedMotion = isActive;
+        this.savePreferences();
+        
+        if (isActive) {
+            this.enableReducedMotion();
+        }
+        
+        console.log(`🎬 Reduced motion ${isActive ? 'activated' : 'deactivated'}`);
+    }
+
+    enableReducedMotion() {
+        const style = document.createElement('style');
+        style.id = 'reduced-motion-override';
+        style.textContent = `
+            *, *::before, *::after {
+                animation-duration: 0.01ms \!important;
+                animation-iteration-count: 1 \!important;
+                transition-duration: 0.01ms \!important;
+                scroll-behavior: auto \!important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    enableHighContrast() {
+        console.log('🎨 High contrast mode enabled by system preference');
+        const button = document.querySelector('[data-action="toggle-high-contrast"]');
+        if (button && !button.classList.contains('active')) {
+            this.toggleHighContrast(button);
+        }
+    }
+
+    resetPreferences() {
+        // Remove all accessibility classes
+        document.body.classList.remove('adhd-mode', 'autism-mode', 'high-contrast-mode', 'reduce-motion');
+        
+        // Reset all buttons
+        document.querySelectorAll('.control-button').forEach(button => {
+            button.classList.remove('active');
+        });
+        
+        // Remove custom styles
+        const reducedMotionStyle = document.getElementById('reduced-motion-override');
+        if (reducedMotionStyle) {
+            reducedMotionStyle.remove();
+        }
+        
+        // Clear preferences
+        this.preferences = {
+            theme: 'light',
+            adhdMode: false,
+            autismMode: false,
+            highContrast: false,
+            reducedMotion: false
+        };
+        this.savePreferences();
+        this.currentMode = 'default';
+        
+        console.log('🔄 All accessibility preferences reset');
+    }
+
+    applyStoredPreferences() {
+        if (this.preferences.adhdMode) {
+            document.body.classList.add('adhd-mode');
+            this.currentMode = 'adhd';
+            const button = document.querySelector('[data-action="toggle-adhd"]');
+            if (button) button.classList.add('active');
+        }
+        
+        if (this.preferences.autismMode) {
+            document.body.classList.add('autism-mode');
+            this.currentMode = 'autism';
+            const button = document.querySelector('[data-action="toggle-autism"]');
+            if (button) button.classList.add('active');
+        }
+        
+        if (this.preferences.highContrast) {
+            document.body.classList.add('high-contrast-mode');
+            const button = document.querySelector('[data-action="toggle-high-contrast"]');
+            if (button) button.classList.add('active');
+        }
+        
+        if (this.preferences.reducedMotion) {
+            document.body.classList.add('reduce-motion');
+            this.enableReducedMotion();
+            const button = document.querySelector('[data-action="reduce-motion"]');
+            if (button) button.classList.add('active');
+        }
+    }
+
+    loadPreferences() {
+        try {
+            const stored = localStorage.getItem('accessibility-preferences');
+            return stored ? JSON.parse(stored) : {
+                theme: 'light',
+                adhdMode: false,
+                autismMode: false,
+                highContrast: false,
+                reducedMotion: false
+            };
+        } catch (error) {
+            console.warn('Failed to load accessibility preferences:', error);
+            return {
+                theme: 'light',
+                adhdMode: false,
+                autismMode: false,
+                highContrast: false,
+                reducedMotion: false
+            };
+        }
+    }
+
+    savePreferences() {
+        try {
+            localStorage.setItem('accessibility-preferences', JSON.stringify(this.preferences));
+        } catch (error) {
+            console.warn('Failed to save accessibility preferences:', error);
+        }
+    }
+
+    updateThemeColor(theme) {
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeColorMeta) {
+            const colors = {
+                light: '#ffffff',
+                dark: '#0a0f1a'
+            };
+            themeColorMeta.setAttribute('content', colors[theme] || colors.light);
+        }
+    }
+
+    // Public API for integration with main app
+    getCurrentMode() {
+        return this.currentMode;
+    }
+
+    getPreferences() {
+        return { ...this.preferences };
+    }
+
+    isADHDModeActive() {
+        return this.preferences.adhdMode;
+    }
+
+    isAutismModeActive() {
+        return this.preferences.autismMode;
+    }
+
+    isHighContrastActive() {
+        return this.preferences.highContrast;
+    }
+
+    isReducedMotionActive() {
+        return this.preferences.reducedMotion;
+    }
+}
+
+/**
+ * Advanced Animation System - Premium Micro-Interactions
+ * Handles scroll animations, motion choreography, and performance optimization
+ */
+class AdvancedAnimationSystem {
+    constructor() {
+        this.observerOptions = {
+            threshold: [0, 0.1, 0.2, 0.5, 0.8, 1],
+            rootMargin: '-10% 0px -10% 0px'
+        };
+        
+        this.intersectionObserver = null;
+        this.animatedElements = new Set();
+        this.pendingAnimations = new Map();
+        this.performanceMode = this.detectPerformanceMode();
+        this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        this.init();
+    }
+
+    init() {
+        console.log('🎭 Initializing Advanced Animation System...');
+        
+        // Check if animations should be disabled
+        if (this.reducedMotion) {
+            console.log('⚠️ Reduced motion detected - simplified animations enabled');
+            this.enableReducedMotionMode();
+            return;
+        }
+
+        this.setupIntersectionObserver();
+        this.setupScrollAnimations();
+        this.setupMicroInteractions();
+        this.setupPerformanceMonitoring();
+        this.orchestrateInitialAnimations();
+        
+        console.log('✨ Advanced Animation System initialized');
+    }
+
+    detectPerformanceMode() {
+        // Detect device capabilities for performance optimization
+        const connection = navigator.connection;
+        const deviceMemory = navigator.deviceMemory || 4;
+        const hardwareConcurrency = navigator.hardwareConcurrency || 4;
+        
+        if (connection && connection.effectiveType === '2g') return 'low';
+        if (deviceMemory < 2 || hardwareConcurrency < 2) return 'low';
+        if (deviceMemory >= 8 && hardwareConcurrency >= 8) return 'high';
+        
+        return 'medium';
+    }
+
+    setupIntersectionObserver() {
+        this.intersectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const element = entry.target;
+                const animationType = element.dataset.animate;
+                
+                if (entry.isIntersecting && !this.animatedElements.has(element)) {
+                    this.triggerScrollAnimation(element, animationType);
+                    this.animatedElements.add(element);
+                }
+            });
+        }, this.observerOptions);
+    }
+
+    setupScrollAnimations() {
+        // Prepare elements for scroll animations
+        const animatableElements = document.querySelectorAll('[data-animate]');
+        
+        animatableElements.forEach((element, index) => {
+            const animationType = element.dataset.animate || 'fade-in-up';
+            const delay = element.dataset.delay || (index * 100);
+            
+            // Set initial state
+            element.style.setProperty('--animation-delay', `${delay}ms`);
+            element.classList.add('scroll-animate');
+            
+            // Add specific animation class
+            switch(animationType) {
+                case 'fade-in-left':
+                    element.classList.add('scroll-animate-left');
+                    break;
+                case 'fade-in-right':
+                    element.classList.add('scroll-animate-right');
+                    break;
+                case 'scale-in':
+                    element.classList.add('scroll-animate-scale');
+                    break;
+                default:
+                    // fade-in-up is default
+                    break;
+            }
+            
+            this.intersectionObserver.observe(element);
+        });
+
+        // Auto-detect timeline items for staggered animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        timelineItems.forEach((item, index) => {
+            item.dataset.animate = 'fade-in-left';
+            item.dataset.delay = index * 150;
+            item.classList.add('scroll-animate-left');
+            this.intersectionObserver.observe(item);
+        });
+
+        // Auto-detect competency items
+        const competencyItems = document.querySelectorAll('.competency-item');
+        competencyItems.forEach((item, index) => {
+            item.dataset.animate = 'scale-in';
+            item.dataset.delay = index * 100;
+            item.classList.add('scroll-animate-scale');
+            this.intersectionObserver.observe(item);
+        });
+
+        // Auto-detect stat items
+        const statItems = document.querySelectorAll('.stat-item');
+        statItems.forEach((item, index) => {
+            item.dataset.animate = 'scale-in';
+            item.dataset.delay = index * 80;
+            item.classList.add('scroll-animate-scale');
+            this.intersectionObserver.observe(item);
+        });
+    }
+
+    triggerScrollAnimation(element, animationType) {
+        const delay = parseInt(element.dataset.delay) || 0;
+        
+        setTimeout(() => {
+            element.classList.add('in-view');
+            
+            // Add specific animation class based on type
+            switch(animationType) {
+                case 'fade-in-up':
+                    element.classList.add('animate-fade-in-up');
+                    break;
+                case 'fade-in-left':
+                    element.classList.add('animate-fade-in-left');
+                    break;
+                case 'fade-in-right':
+                    element.classList.add('animate-fade-in-right');
+                    break;
+                case 'scale-in':
+                    element.classList.add('animate-scale-in');
+                    break;
+                case 'slide-in-down':
+                    element.classList.add('animate-slide-in-down');
+                    break;
+            }
+
+            // Add timeline-specific animations
+            if (element.classList.contains('timeline-item')) {
+                element.classList.add('animate-in');
+            }
+        }, delay);
+    }
+
+    setupMicroInteractions() {
+        // Enhanced button interactions
+        this.setupButtonInteractions();
+        this.setupCardInteractions();
+        this.setupNavigationInteractions();
+        this.setupMagneticEffects();
+    }
+
+    setupButtonInteractions() {
+        const buttons = document.querySelectorAll('.contact-link, .nav-item, .theme-toggle, .footer-link');
+        
+        buttons.forEach(button => {
+            // Add ripple effect
+            button.classList.add('interaction-ripple');
+            
+            // Enhanced hover effects
+            button.addEventListener('mouseenter', (e) => {
+                if (!this.reducedMotion && this.performanceMode !== 'low') {
+                    button.style.setProperty('--magnetic-x', '0px');
+                    button.style.setProperty('--magnetic-y', '0px');
+                }
+            });
+
+            // Active state feedback
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.98)';
+                button.style.transition = 'transform 0.1s ease';
+            });
+
+            button.addEventListener('mouseup', () => {
+                button.style.transform = '';
+                button.style.transition = '';
+            });
+        });
+    }
+
+    setupCardInteractions() {
+        const cards = document.querySelectorAll('.timeline-content, .competency-item, .stat-item');
+        
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (!this.reducedMotion) {
+                    card.classList.add('interaction-glow');
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('interaction-glow');
+            });
+        });
+    }
+
+    setupNavigationInteractions() {
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Add click feedback
+                item.classList.add('nav-clicked');
+                setTimeout(() => {
+                    item.classList.remove('nav-clicked');
+                }, 300);
+            });
+        });
+    }
+
+    setupMagneticEffects() {
+        if (this.performanceMode === 'low' || this.reducedMotion) return;
+
+        const magneticElements = document.querySelectorAll('.theme-toggle, .contact-link');
+        
+        magneticElements.forEach(element => {
+            element.classList.add('interaction-magnetic');
+            
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const deltaX = (e.clientX - centerX) * 0.2;
+                const deltaY = (e.clientY - centerY) * 0.2;
+                
+                element.style.setProperty('--magnetic-x', `${deltaX}px`);
+                element.style.setProperty('--magnetic-y', `${deltaY}px`);
+            });
+
+            element.addEventListener('mouseleave', () => {
+                element.style.setProperty('--magnetic-x', '0px');
+                element.style.setProperty('--magnetic-y', '0px');
+            });
+        });
+    }
+
+    setupPerformanceMonitoring() {
+        // Monitor animation performance
+        if (this.performanceMode === 'high') {
+            this.monitorFrameRate();
+        }
+    }
+
+    monitorFrameRate() {
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fps = 60;
+
+        const checkFrameRate = (currentTime) => {
+            frameCount++;
+            
+            if (currentTime - lastTime >= 1000) {
+                fps = Math.round((frameCount * 1000) / (currentTime - lastTime));
+                frameCount = 0;
+                lastTime = currentTime;
+                
+                // Adjust animation quality based on performance
+                if (fps < 45) {
+                    this.reduceAnimationComplexity();
+                } else if (fps > 55 && this.performanceMode === 'medium') {
+                    this.increaseAnimationComplexity();
+                }
+            }
+            
+            requestAnimationFrame(checkFrameRate);
+        };
+        
+        requestAnimationFrame(checkFrameRate);
+    }
+
+    orchestrateInitialAnimations() {
+        // Stagger initial page load animations
+        const header = document.querySelector('.header');
+        const navigation = document.querySelector('.navigation');
+        const mainContent = document.querySelector('.main-content');
+
+        if (header) {
+            header.style.animation = 'slideInDown 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards';
+        }
+
+        if (navigation) {
+            setTimeout(() => {
+                navigation.style.animation = 'fadeInUp 0.6s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards';
+            }, 200);
+        }
+
+        if (mainContent) {
+            setTimeout(() => {
+                mainContent.style.animation = 'fadeInUp 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards';
+            }, 400);
+        }
+    }
+
+    enableReducedMotionMode() {
+        document.body.classList.add('reduced-motion');
+        
+        // Override CSS animations with minimal versions
+        const style = document.createElement('style');
+        style.textContent = `
+            .reduced-motion *,
+            .reduced-motion *::before,
+            .reduced-motion *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    reduceAnimationComplexity() {
+        console.log('🐌 Reducing animation complexity for better performance');
+        const complexAnimations = document.querySelectorAll('.interaction-glow, .interaction-magnetic');
+        complexAnimations.forEach(el => {
+            el.classList.add('performance-mode-low');
+        });
+    }
+
+    increaseAnimationComplexity() {
+        const simplifiedAnimations = document.querySelectorAll('.performance-mode-low');
+        simplifiedAnimations.forEach(el => {
+            el.classList.remove('performance-mode-low');
+        });
+    }
+
+    // Public API
+    addScrollAnimation(element, type = 'fade-in-up', delay = 0) {
+        element.dataset.animate = type;
+        element.dataset.delay = delay;
+        element.classList.add('scroll-animate');
+        
+        if (this.intersectionObserver) {
+            this.intersectionObserver.observe(element);
+        }
+    }
+
+    triggerManualAnimation(element, animationClass) {
+        if (this.reducedMotion) return;
+        
+        element.classList.add(animationClass);
+        
+        // Clean up after animation completes
+        setTimeout(() => {
+            element.classList.remove(animationClass);
+        }, 1000);
+    }
+
+    destroy() {
+        if (this.intersectionObserver) {
+            this.intersectionObserver.disconnect();
+        }
+        this.animatedElements.clear();
+        this.pendingAnimations.clear();
+    }
+}
+
+/**
+ * Progressive Enhancement for Skill Bars with Animated Progress
+ */
+class AnimatedSkillBars {
+    constructor() {
+        this.skillBars = [];
+        this.init();
+    }
+
+    init() {
+        this.createSkillBars();
+        this.setupAnimations();
+    }
+
+    createSkillBars() {
+        // Look for skill items with proficiency data
+        const skillItems = document.querySelectorAll('[data-proficiency]');
+        
+        skillItems.forEach(item => {
+            const proficiency = parseInt(item.dataset.proficiency) || 0;
+            const skillName = item.textContent.trim();
+            
+            this.createAnimatedBar(item, proficiency, skillName);
+        });
+    }
+
+    createAnimatedBar(container, proficiency, name) {
+        const barContainer = document.createElement('div');
+        barContainer.className = 'skill-bar-container';
+        
+        const barFill = document.createElement('div');
+        barFill.className = 'skill-bar-fill';
+        barFill.style.width = '0%';
+        barFill.dataset.targetWidth = `${proficiency}%`;
+        
+        const barBg = document.createElement('div');
+        barBg.className = 'skill-bar-bg';
+        barBg.appendChild(barFill);
+        
+        barContainer.appendChild(barBg);
+        
+        // Add to DOM
+        if (container.classList.contains('tech-tag')) {
+            container.style.position = 'relative';
+            container.appendChild(barContainer);
+        }
+        
+        this.skillBars.push({
+            element: barFill,
+            target: proficiency,
+            animated: false
+        });
+    }
+
+    setupAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBar = this.skillBars.find(bar => 
+                        entry.target.contains(bar.element)
+                    );
+                    
+                    if (skillBar && !skillBar.animated) {
+                        this.animateSkillBar(skillBar);
+                        skillBar.animated = true;
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        this.skillBars.forEach(bar => {
+            observer.observe(bar.element.closest('.tech-tag') || bar.element);
+        });
+    }
+
+    animateSkillBar(skillBar) {
+        const { element, target } = skillBar;
+        let current = 0;
+        const increment = target / 60; // 60 frames animation
+        
+        const animate = () => {
+            current += increment;
+            
+            if (current >= target) {
+                current = target;
+                element.style.width = `${target}%`;
+                element.classList.add('skill-bar-complete');
+                return;
+            }
+            
+            element.style.width = `${current}%`;
+            requestAnimationFrame(animate);
+        };
+        
+        setTimeout(() => {
+            requestAnimationFrame(animate);
+        }, Math.random() * 500); // Stagger the animations
+    }
+}
+
+// Initialize animation systems when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize accessibility controls first
+    setTimeout(() => {
+        new AccessibilityControls();
+        console.log('♿ Accessibility controls initialized');
+    }, 1000);
+
+    // Initialize advanced animations after accessibility is set up
+    setTimeout(() => {
+        window.animationSystem = new AdvancedAnimationSystem();
+        window.skillBars = new AnimatedSkillBars();
+        console.log('🎭 Advanced animation systems initialized');
+    }, 1200);
+});
+

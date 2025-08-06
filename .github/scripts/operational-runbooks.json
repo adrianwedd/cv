@@ -1,0 +1,683 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-08",
+    "description": "Operational runbooks for CV enhancement system incident response and maintenance",
+    "owner": "Adrian Wedd",
+    "emergency_contact": "GitHub Issues",
+    "escalation_path": ["System Owner", "GitHub Support", "Service Providers"]
+  },
+  "runbooks": {
+    "website_outage": {
+      "title": "Website Outage Response",
+      "severity": "P0 - Critical",
+      "estimated_resolution_time": "15 minutes",
+      "description": "Complete website unavailability or major functionality loss",
+      "symptoms": [
+        "CV website (cv.adrianwedd.dev) returns 5xx errors",
+        "DNS resolution fails",
+        "Page load times exceed 30 seconds",
+        "Critical functionality broken"
+      ],
+      "investigation_steps": [
+        {
+          "step": 1,
+          "action": "Verify website availability",
+          "command": "curl -I https://cv.adrianwedd.dev",
+          "expected": "HTTP/2 200",
+          "timeout": "30 seconds"
+        },
+        {
+          "step": 2,
+          "action": "Check GitHub Pages deployment status",
+          "command": "gh api repos/AdrianWedd/cv/pages",
+          "expected": "status: built",
+          "notes": "Requires GITHUB_TOKEN"
+        },
+        {
+          "step": 3,
+          "action": "Verify DNS resolution",
+          "command": "nslookup cv.adrianwedd.dev",
+          "expected": "Valid IP addresses returned",
+          "timeout": "10 seconds"
+        },
+        {
+          "step": 4,
+          "action": "Check recent workflow runs",
+          "command": "gh run list --repo AdrianWedd/cv --limit 5",
+          "expected": "Recent successful deployments",
+          "notes": "Look for failed CV enhancement workflows"
+        }
+      ],
+      "resolution_steps": [
+        {
+          "step": 1,
+          "action": "Trigger emergency rebuild",
+          "command": "gh workflow run cv-enhancement.yml --repo AdrianWedd/cv",
+          "wait_time": "5 minutes",
+          "verification": "Check website availability after completion"
+        },
+        {
+          "step": 2,
+          "action": "Verify static assets",
+          "command": "curl -I https://cv.adrianwedd.dev/assets/styles.css",
+          "expected": "HTTP/2 200",
+          "notes": "Ensure CSS, JS, and other assets load correctly"
+        },
+        {
+          "step": 3,
+          "action": "Test key functionality",
+          "checks": [
+            "Homepage loads completely",
+            "Navigation works",
+            "PDF download functions",
+            "Mobile responsiveness",
+            "Theme switching"
+          ]
+        },
+        {
+          "step": 4,
+          "action": "Monitor for stability",
+          "duration": "10 minutes",
+          "frequency": "Every 2 minutes",
+          "alert_if": "Any check fails or response time > 5 seconds"
+        }
+      ],
+      "escalation": {
+        "after_30_minutes": "Contact GitHub Pages support",
+        "after_60_minutes": "Consider alternative hosting",
+        "after_120_minutes": "Activate disaster recovery plan"
+      },
+      "prevention": [
+        "Monitor deployment success rates",
+        "Implement health checks in workflows",
+        "Maintain backup deployment options",
+        "Regular DNS monitoring"
+      ]
+    },
+    "data_corruption": {
+      "title": "Data Corruption Recovery",
+      "severity": "P0 - Critical",
+      "estimated_resolution_time": "10 minutes",
+      "description": "Core CV data files corrupted or missing critical information",
+      "symptoms": [
+        "CV displays incomplete information",
+        "JSON parsing errors in workflows",
+        "Missing sections (experience, skills, projects)",
+        "Workflow failures due to malformed data"
+      ],
+      "investigation_steps": [
+        {
+          "step": 1,
+          "action": "Validate base CV data",
+          "command": "jq . data/base-cv.json",
+          "expected": "Valid JSON output",
+          "timeout": "5 seconds"
+        },
+        {
+          "step": 2,
+          "action": "Check activity summary",
+          "command": "jq . data/activity-summary.json",
+          "expected": "Valid JSON with metrics",
+          "notes": "Look for total_repositories, total_commits fields"
+        },
+        {
+          "step": 3,
+          "action": "Run data integrity check",
+          "command": "node .github/scripts/recovery-system.js test data_recovery",
+          "expected": "Corruption detection results",
+          "timeout": "30 seconds"
+        },
+        {
+          "step": 4,
+          "action": "Check backup availability",
+          "command": "ls -la data/backups/",
+          "expected": "Recent backup files present",
+          "notes": "Look for files less than 24 hours old"
+        }
+      ],
+      "resolution_steps": [
+        {
+          "step": 1,
+          "action": "Create emergency backup",
+          "command": "cp -r data/ data/emergency-backup-$(date +%Y%m%d-%H%M%S)/",
+          "notes": "Preserve current state before recovery"
+        },
+        {
+          "step": 2,
+          "action": "Execute data recovery",
+          "command": "node .github/scripts/recovery-system.js recover data_recovery",
+          "wait_time": "2 minutes",
+          "verification": "Check restored data integrity"
+        },
+        {
+          "step": 3,
+          "action": "Validate restored data",
+          "commands": [
+            "jq '.personal_info.name' data/base-cv.json",
+            "jq '.experience | length' data/base-cv.json",
+            "jq '.skills | length' data/base-cv.json"
+          ],
+          "expected": "All fields populated correctly"
+        },
+        {
+          "step": 4,
+          "action": "Trigger CV regeneration",
+          "command": "gh workflow run cv-enhancement.yml --repo AdrianWedd/cv",
+          "wait_time": "5 minutes",
+          "verification": "Website displays correct information"
+        }
+      ],
+      "escalation": {
+        "if_no_backups": "Reconstruct from Git history",
+        "if_git_corrupted": "Manual recreation required",
+        "if_repeated_corruption": "Investigate root cause"
+      },
+      "prevention": [
+        "Automated backup before modifications",
+        "Data validation in CI pipelines",
+        "Version control for all data changes",
+        "Regular integrity monitoring"
+      ]
+    },
+    "authentication_failure": {
+      "title": "Authentication System Failure",
+      "severity": "P1 - High",
+      "estimated_resolution_time": "5 minutes",
+      "description": "All Claude AI authentication methods failing, preventing enhancements",
+      "symptoms": [
+        "AI enhancement workflows failing with auth errors",
+        "OAuth token rejection",
+        "API key invalid responses",
+        "Browser session expired"
+      ],
+      "investigation_steps": [
+        {
+          "step": 1,
+          "action": "Test OAuth authentication",
+          "command": "node .github/scripts/claude-oauth-client.js status",
+          "expected": "Active OAuth session",
+          "notes": "Check token expiration and quota"
+        },
+        {
+          "step": 2,
+          "action": "Test API key authentication",
+          "command": "node .github/scripts/claude-enhancer.js --test-auth",
+          "expected": "API key validation success",
+          "notes": "Verify ANTHROPIC_API_KEY"
+        },
+        {
+          "step": 3,
+          "action": "Test browser authentication",
+          "command": "node .github/scripts/claude-browser-client.js test",
+          "expected": "Browser session active",
+          "notes": "Check cookie expiration"
+        },
+        {
+          "step": 4,
+          "action": "Check GitHub secrets",
+          "verification": "Confirm all auth secrets are set",
+          "secrets": [
+            "CLAUDE_OAUTH_TOKEN",
+            "ANTHROPIC_API_KEY", 
+            "CLAUDE_SESSION_KEY",
+            "CLAUDE_ORG_ID",
+            "CLAUDE_USER_ID"
+          ]
+        }
+      ],
+      "resolution_steps": [
+        {
+          "step": 1,
+          "action": "Execute auth recovery",
+          "command": "node .github/scripts/recovery-system.js recover auth_recovery",
+          "wait_time": "1 minute",
+          "verification": "At least one auth method working"
+        },
+        {
+          "step": 2,
+          "action": "Update workflow configuration",
+          "notes": "Set AUTH_STRATEGY to working method",
+          "options": ["oauth_first", "api_key_first", "browser_first"]
+        },
+        {
+          "step": 3,
+          "action": "Test enhancement workflow",
+          "command": "gh workflow run cv-enhancement.yml --repo AdrianWedd/cv -f enhancement_mode=conservative",
+          "wait_time": "3 minutes",
+          "verification": "Workflow completes successfully"
+        },
+        {
+          "step": 4,
+          "action": "Monitor authentication health",
+          "duration": "15 minutes",
+          "frequency": "Every 3 minutes",
+          "command": "node .github/scripts/production-monitor.js check"
+        }
+      ],
+      "fallback_options": [
+        {
+          "option": "Activity-only mode",
+          "command": "Set ENHANCEMENT_STRATEGY=activity-only",
+          "impact": "No AI enhancements, GitHub data only"
+        },
+        {
+          "option": "Manual content updates",
+          "process": "Update base-cv.json manually",
+          "impact": "No automated enhancements"
+        }
+      ],
+      "escalation": {
+        "after_15_minutes": "Check service status pages",
+        "after_30_minutes": "Contact authentication providers",
+        "after_60_minutes": "Switch to manual update mode"
+      }
+    },
+    "rate_limiting": {
+      "title": "API Rate Limit Management",
+      "severity": "P2 - Medium", 
+      "estimated_resolution_time": "Immediate",
+      "description": "GitHub or Claude API rate limits exceeded, affecting automation",
+      "symptoms": [
+        "HTTP 429 errors in workflows",
+        "GitHub API quota exceeded messages", 
+        "Claude AI quota exhausted",
+        "Workflows timing out or failing"
+      ],
+      "investigation_steps": [
+        {
+          "step": 1,
+          "action": "Check GitHub rate limits",
+          "command": "gh api rate_limit",
+          "expected": "Current limit status",
+          "notes": "Core limit, search limit, GraphQL limit"
+        },
+        {
+          "step": 2,
+          "action": "Check Claude usage",
+          "command": "node .github/scripts/usage-monitor.js status",
+          "expected": "Current usage statistics",
+          "notes": "Daily and monthly budget status"
+        },
+        {
+          "step": 3,
+          "action": "Review recent API calls",
+          "command": "node .github/scripts/usage-monitor.js report",
+          "expected": "Usage breakdown by component",
+          "notes": "Identify high-usage sources"
+        }
+      ],
+      "resolution_steps": [
+        {
+          "step": 1,
+          "action": "Execute rate limit recovery",
+          "command": "node .github/scripts/recovery-system.js recover rate_limit_recovery",
+          "immediate": true,
+          "verification": "System switches to cached data"
+        },
+        {
+          "step": 2,
+          "action": "Enable activity-only mode",
+          "command": "Set ENHANCEMENT_STRATEGY=activity-only",
+          "duration": "Until rate limits reset",
+          "impact": "Reduced functionality, GitHub data only"
+        },
+        {
+          "step": 3,
+          "action": "Reduce polling frequency",
+          "changes": [
+            "Increase cron schedule intervals",
+            "Reduce API calls per workflow",
+            "Use cached data where possible"
+          ]
+        },
+        {
+          "step": 4,
+          "action": "Monitor rate limit recovery",
+          "command": "watch -n 300 'gh api rate_limit | jq .rate'",
+          "duration": "Until limits reset",
+          "notes": "GitHub limits reset hourly"
+        }
+      ],
+      "prevention": [
+        "Implement API call budgeting",
+        "Cache API responses aggressively", 
+        "Use conditional requests (If-Modified-Since)",
+        "Implement exponential backoff",
+        "Monitor usage trends"
+      ]
+    },
+    "workflow_failures": {
+      "title": "GitHub Workflow Failure Recovery",
+      "severity": "P2 - Medium",
+      "estimated_resolution_time": "10 minutes", 
+      "description": "CV enhancement workflows failing consistently",
+      "symptoms": [
+        "Multiple workflow runs failing",
+        "Build errors in CI pipelines",
+        "Deployment failures",
+        "Test failures preventing merges"
+      ],
+      "investigation_steps": [
+        {
+          "step": 1,
+          "action": "Check recent workflow runs",
+          "command": "gh run list --repo AdrianWedd/cv --limit 10",
+          "expected": "List of recent runs with status",
+          "notes": "Look for failure patterns"
+        },
+        {
+          "step": 2,
+          "action": "Review latest failure logs",
+          "command": "gh run view $(gh run list --limit 1 --json databaseId -q '.[0].databaseId')",
+          "expected": "Detailed failure information",
+          "notes": "Identify specific error messages"
+        },
+        {
+          "step": 3,
+          "action": "Check dependency status",
+          "commands": [
+            "npm audit --audit-level=moderate",
+            "node --version",
+            "npm --version"
+          ],
+          "location": ".github/scripts/",
+          "expected": "No critical vulnerabilities"
+        },
+        {
+          "step": 4,
+          "action": "Validate workflow syntax",
+          "command": "yamllint .github/workflows/*.yml",
+          "expected": "No syntax errors",
+          "notes": "Check for YAML formatting issues"
+        }
+      ],
+      "resolution_steps": [
+        {
+          "step": 1,
+          "action": "Execute workflow recovery",
+          "command": "node .github/scripts/recovery-system.js recover workflow_recovery",
+          "wait_time": "3 minutes",
+          "verification": "Failed workflows restarted"
+        },
+        {
+          "step": 2,
+          "action": "Fix common issues",
+          "fixes": [
+            "Update Node.js dependencies",
+            "Clear npm cache",
+            "Regenerate package-lock.json",
+            "Fix environment variable issues"
+          ]
+        },
+        {
+          "step": 3,
+          "action": "Test workflow locally",
+          "commands": [
+            "cd .github/scripts",
+            "npm install",
+            "npm test",
+            "npm run lint"
+          ],
+          "expected": "All tests pass locally"
+        },
+        {
+          "step": 4,
+          "action": "Retry failed workflows",
+          "command": "gh workflow run cv-enhancement.yml --repo AdrianWedd/cv",
+          "wait_time": "5 minutes",
+          "verification": "Workflow completes successfully"
+        }
+      ],
+      "common_fixes": {
+        "dependency_conflicts": [
+          "cd .github/scripts",
+          "rm package-lock.json",
+          "rm -rf node_modules",
+          "npm install"
+        ],
+        "authentication_errors": [
+          "Check GitHub secrets configuration",
+          "Verify token permissions",
+          "Test authentication locally"
+        ],
+        "timeout_issues": [
+          "Increase workflow timeout values",
+          "Optimize long-running operations",
+          "Add progress indicators"
+        ],
+        "disk_space": [
+          "Clean up artifact storage",
+          "Remove old workflow runs",
+          "Optimize data file sizes"
+        ]
+      },
+      "escalation": {
+        "after_3_failures": "Review workflow architecture",
+        "after_24_hours": "Consider workflow simplification", 
+        "persistent_failures": "Disable problematic workflows temporarily"
+      }
+    },
+    "performance_degradation": {
+      "title": "Website Performance Issues",
+      "severity": "P3 - Low",
+      "estimated_resolution_time": "20 minutes",
+      "description": "Website loading slowly or performance metrics declining",
+      "symptoms": [
+        "Page load times > 5 seconds",
+        "Large asset sizes",
+        "Poor mobile performance",
+        "Low Lighthouse scores"
+      ],
+      "investigation_steps": [
+        {
+          "step": 1,
+          "action": "Test website performance",
+          "command": "curl -w '%{time_total}\\n' -o /dev/null -s https://cv.adrianwedd.dev",
+          "expected": "< 3 seconds response time",
+          "notes": "Test from multiple locations"
+        },
+        {
+          "step": 2,
+          "action": "Check asset sizes",
+          "commands": [
+            "ls -lh assets/*.css",
+            "ls -lh assets/*.js", 
+            "ls -lh assets/*.pdf"
+          ],
+          "expected": "Reasonable file sizes",
+          "notes": "CSS < 100KB, JS < 200KB"
+        },
+        {
+          "step": 3,
+          "action": "Run Lighthouse audit",
+          "command": "npx lighthouse https://cv.adrianwedd.dev --output=json",
+          "expected": "Performance score > 90",
+          "notes": "Check all categories"
+        }
+      ],
+      "resolution_steps": [
+        {
+          "step": 1,
+          "action": "Optimize CSS and JavaScript",
+          "commands": [
+            "npx csso assets/styles.css --output assets/styles.min.css",
+            "npx uglifyjs assets/script.js --output assets/script.min.js"
+          ],
+          "verification": "Reduced file sizes"
+        },
+        {
+          "step": 2,
+          "action": "Compress images and assets", 
+          "tools": ["imageoptim", "pngcrush", "jpegoptim"],
+          "target": "Reduce image sizes by 20-50%"
+        },
+        {
+          "step": 3,
+          "action": "Enable caching headers",
+          "files": ["_headers", ".htaccess"],
+          "settings": [
+            "Cache-Control: max-age=31536000 for static assets",
+            "gzip compression for text files"
+          ]
+        },
+        {
+          "step": 4,
+          "action": "Update CV generation",
+          "command": "node .github/scripts/cv-generator.js --optimize",
+          "wait_time": "2 minutes",
+          "verification": "Optimized assets deployed"
+        }
+      ],
+      "monitoring": [
+        "Regular Lighthouse audits",
+        "Performance budget enforcement",
+        "Asset size monitoring",
+        "Real user monitoring (RUM)"
+      ]
+    }
+  },
+  "emergency_procedures": {
+    "disaster_recovery": {
+      "title": "Complete System Disaster Recovery",
+      "activation_criteria": [
+        "Repository completely inaccessible",
+        "All authentication methods failed permanently",
+        "Data corruption with no backups",
+        "GitHub Pages service extended outage"
+      ],
+      "immediate_actions": [
+        "Document current system state",
+        "Notify stakeholders of outage",
+        "Activate alternative hosting",
+        "Begin data reconstruction"
+      ],
+      "recovery_process": [
+        "Restore from Git history",
+        "Rebuild authentication systems",
+        "Recreate deployment pipeline",
+        "Verify system functionality",
+        "Resume normal operations"
+      ],
+      "alternative_hosting": {
+        "platforms": ["Netlify", "Vercel", "Firebase Hosting"],
+        "requirements": "Static site hosting with custom domain",
+        "deployment": "Manual deployment from local repository"
+      }
+    },
+    "security_incident": {
+      "title": "Security Incident Response",
+      "activation_criteria": [
+        "Unauthorized access detected",
+        "Authentication tokens compromised",
+        "Malicious code injection",
+        "Data breach suspected"
+      ],
+      "immediate_actions": [
+        "Revoke all authentication tokens",
+        "Change all passwords immediately",
+        "Enable GitHub security monitoring",
+        "Review recent commits for malicious changes"
+      ],
+      "investigation_steps": [
+        "Audit access logs",
+        "Review commit history",
+        "Check workflow execution logs",
+        "Verify data integrity"
+      ],
+      "recovery_steps": [
+        "Reset all authentication credentials",
+        "Review and update security policies",
+        "Implement additional monitoring",
+        "Document incident and lessons learned"
+      ]
+    }
+  },
+  "maintenance_procedures": {
+    "monthly_health_check": {
+      "frequency": "First Monday of each month",
+      "duration": "30 minutes",
+      "checklist": [
+        "Review system performance metrics",
+        "Update dependencies and security patches",
+        "Test all authentication methods",
+        "Verify backup integrity",
+        "Review and update documentation",
+        "Test disaster recovery procedures",
+        "Audit access permissions",
+        "Review monitoring thresholds"
+      ]
+    },
+    "quarterly_review": {
+      "frequency": "End of each quarter", 
+      "duration": "2 hours",
+      "activities": [
+        "Comprehensive system architecture review",
+        "Performance optimization assessment",
+        "Security audit and penetration testing",
+        "Backup and recovery testing",
+        "Documentation updates",
+        "Stakeholder feedback collection",
+        "Technology stack evaluation",
+        "Roadmap planning"
+      ]
+    }
+  },
+  "contact_information": {
+    "primary_contact": {
+      "name": "System Owner",
+      "method": "GitHub Issues",
+      "url": "https://github.com/AdrianWedd/cv/issues"
+    },
+    "escalation_contacts": [
+      {
+        "level": "L2",
+        "contact": "GitHub Support",
+        "when": "Platform-wide issues",
+        "url": "https://support.github.com"
+      },
+      {
+        "level": "L3", 
+        "contact": "Service Provider Support",
+        "when": "Third-party service issues",
+        "providers": ["Anthropic", "Cloudflare", "Domain Registrar"]
+      }
+    ]
+  },
+  "tools_and_resources": {
+    "monitoring_tools": [
+      {
+        "name": "Production Monitor",
+        "command": "node .github/scripts/production-monitor.js dashboard",
+        "purpose": "Real-time system status"
+      },
+      {
+        "name": "Recovery System", 
+        "command": "node .github/scripts/recovery-system.js status",
+        "purpose": "Automated recovery procedures"
+      },
+      {
+        "name": "Usage Monitor",
+        "command": "node .github/scripts/usage-monitor.js report",
+        "purpose": "API usage and cost tracking"
+      }
+    ],
+    "external_resources": [
+      {
+        "name": "GitHub Status",
+        "url": "https://githubstatus.com",
+        "purpose": "Platform availability"
+      },
+      {
+        "name": "Anthropic Status", 
+        "url": "https://status.anthropic.com",
+        "purpose": "Claude API availability"
+      },
+      {
+        "name": "DNS Checker",
+        "url": "https://dnschecker.org",
+        "purpose": "Global DNS propagation"
+      }
+    ]
+  }
+}

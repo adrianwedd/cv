@@ -1,0 +1,34 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://adrianwedd.github.io/cv/sitemap.xml
+
+# Allow search engines to index all content
+Allow: /assets/
+Allow: /data/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block unnecessary crawling of development files
+Disallow: /.github/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /*.log
+Disallow: /*.tmp
+
+# Allow access to important resources
+Allow: /assets/adrian-wedd-cv.pdf
+Allow: /assets/styles.css
+Allow: /assets/script.js

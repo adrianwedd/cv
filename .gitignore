@@ -8,6 +8,13 @@ node_modules/
 .github/scripts/node_modules/
 # package-lock.json - keep this for CI caching
 
+# Security - Authentication credentials
+*.cookies.json
+temp/cookies*
+temp/new_cookies*
+*session-key*
+*auth-token*
+
 # Build outputs
 dist/
 
@@ -22,3 +29,6 @@ Thumbs.db
 # Python generated files
 *.log
 __pycache__/
+
+# Claude logs
+.claude/

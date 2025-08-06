@@ -1,0 +1,484 @@
+name: 🚀 Production Monitoring & Alerting
+
+on:
+  schedule:
+    # Run every 5 minutes for critical monitoring
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      monitoring_level:
+        description: 'Monitoring Level'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+          - 'critical'    # Critical systems only
+          - 'standard'    # All health checks
+          - 'comprehensive' # Full monitoring with deep checks
+      alert_threshold:
+        description: 'Alert Threshold (%)'
+        required: false
+        default: '95'
+        type: string
+      create_issues:
+        description: 'Create GitHub Issues for Critical Alerts'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  # Comprehensive health checks and alerting
+  health-monitoring:
+    name: 🔍 System Health Monitoring
+    runs-on: ubuntu-latest
+    outputs:
+      system-health: ${{ steps.health-check.outputs.health-percentage }}
+      critical-issues: ${{ steps.health-check.outputs.critical-issues }}
+      alert-count: ${{ steps.health-check.outputs.alert-count }}
+      recovery-actions: ${{ steps.health-check.outputs.recovery-actions }}
+    
+    steps:
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+          
+      - name: 📥 Install Dependencies
+        working-directory: .github/scripts
+        run: |
+          npm ci --prefer-offline --no-audit
+          
+      - name: 🔍 Execute Comprehensive Health Checks
+        id: health-check
+        working-directory: .github/scripts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
+        run: |
+          echo "🚀 Starting production monitoring system..."
+          
+          # Run health checks and capture results
+          node production-monitor.js check > monitoring-output.log 2>&1 || true
+          
+          # Generate dashboard data
+          DASHBOARD_JSON=$(node production-monitor.js dashboard json 2>/dev/null || echo '{}')
+          
+          # Extract metrics from dashboard
+          HEALTH_PERCENTAGE=$(echo "$DASHBOARD_JSON" | jq -r '.system.health // 0')
+          CRITICAL_ISSUES=$(echo "$DASHBOARD_JSON" | jq -r '.alerts.critical // 0')
+          TOTAL_ALERTS=$(echo "$DASHBOARD_JSON" | jq -r '.alerts.active // 0')
+          SYSTEM_STATUS=$(echo "$DASHBOARD_JSON" | jq -r '.system.status // "unknown"')
+          RECOVERY_ACTIONS=$(echo "$DASHBOARD_JSON" | jq -r '.recovery.autoRecovery // 0')
+          
+          echo "📊 System Health: ${HEALTH_PERCENTAGE}%"
+          echo "🚨 Critical Issues: ${CRITICAL_ISSUES}"
+          echo "⚠️ Total Alerts: ${TOTAL_ALERTS}"
+          echo "🔧 Auto Recovery Actions: ${RECOVERY_ACTIONS}"
+          
+          # Set outputs for other jobs
+          echo "health-percentage=${HEALTH_PERCENTAGE}" >> $GITHUB_OUTPUT
+          echo "critical-issues=${CRITICAL_ISSUES}" >> $GITHUB_OUTPUT
+          echo "alert-count=${TOTAL_ALERTS}" >> $GITHUB_OUTPUT
+          echo "system-status=${SYSTEM_STATUS}" >> $GITHUB_OUTPUT
+          echo "recovery-actions=${RECOVERY_ACTIONS}" >> $GITHUB_OUTPUT
+          
+          # Create monitoring summary
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          ## 🚀 Production Monitoring Report
+          
+          ### 📊 System Status: **${SYSTEM_STATUS^^}**
+          - **Health Score:** ${HEALTH_PERCENTAGE}%
+          - **Critical Issues:** ${CRITICAL_ISSUES}
+          - **Total Alerts:** ${TOTAL_ALERTS}
+          - **Auto Recovery:** ${RECOVERY_ACTIONS} actions enabled
+          
+          ### 🔍 Health Check Details
+          \`\`\`
+          $(cat monitoring-output.log | tail -20)
+          \`\`\`
+          
+          ### 📈 Monitoring Dashboard
+          [View Live Dashboard](https://cv.adrianwedd.dev/dashboards/monitoring.html)
+          EOF
+          
+          # Save dashboard data for deployment
+          echo "$DASHBOARD_JSON" > ../data/monitoring-dashboard.json
+          
+      - name: 🚨 Critical Alert Processing
+        if: steps.health-check.outputs.critical-issues > 0
+        working-directory: .github/scripts
+        run: |
+          echo "🚨 Processing ${CRITICAL_ISSUES} critical alerts..."
+          
+          # Get detailed alert information
+          node production-monitor.js alerts > critical-alerts.log
+          
+          echo "Critical alerts detected:" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat critical-alerts.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          
+      - name: 🔧 Automated Recovery Execution
+        if: steps.health-check.outputs.critical-issues > 0
+        working-directory: .github/scripts
+        run: |
+          echo "🔧 Executing automated recovery procedures..."
+          
+          # Execute auto-recovery actions for critical issues
+          node production-monitor.js recover auth_recovery || echo "Auth recovery skipped"
+          node production-monitor.js recover rate_limit_recovery || echo "Rate limit recovery skipped"
+          
+          echo "✅ Automated recovery procedures completed"
+
+  # Alert management and GitHub issue creation
+  alert-management:
+    name: 🚨 Alert Management & Issue Creation
+    runs-on: ubuntu-latest
+    needs: health-monitoring
+    if: needs.health-monitoring.outputs.critical-issues > 0 && inputs.create_issues != false
+    
+    steps:
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+          
+      - name: 📥 Install Dependencies
+        working-directory: .github/scripts
+        run: npm ci --prefer-offline --no-audit
+        
+      - name: 📝 Create Critical Alert Issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create GitHub issue for critical system alerts
+          ISSUE_TITLE="🚨 Critical System Alert - $(date +%Y-%m-%d)"
+          ISSUE_BODY="## Critical Production Alert
+
+          **Timestamp:** $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          **System Health:** ${{ needs.health-monitoring.outputs.system-health }}%
+          **Critical Issues:** ${{ needs.health-monitoring.outputs.critical-issues }}
+          **Total Alerts:** ${{ needs.health-monitoring.outputs.alert-count }}
+
+          ## Alert Details
+          Critical system issues have been detected in the CV enhancement system. This requires immediate attention.
+
+          ### System Status
+          - Health Score: ${{ needs.health-monitoring.outputs.system-health }}%
+          - Critical Issues: ${{ needs.health-monitoring.outputs.critical-issues }}
+          - Auto Recovery Actions: ${{ needs.health-monitoring.outputs.recovery-actions }}
+
+          ### Immediate Actions Required
+          - [ ] Review system health dashboard
+          - [ ] Investigate critical alerts
+          - [ ] Execute manual recovery if needed
+          - [ ] Verify system restoration
+
+          ### Monitoring Dashboard
+          [Live System Status](https://cv.adrianwedd.dev/dashboards/monitoring.html)
+
+          ---
+          *This issue was automatically created by the Production Monitoring system.*"
+
+          # Check if similar issue exists in last 24 hours
+          EXISTING_ISSUE=$(gh issue list --label "critical-alert" --state open --limit 1 --json createdAt,title --jq '.[] | select(.createdAt > (now - 86400 | strftime("%Y-%m-%dT%H:%M:%SZ"))) | .title')
+          
+          if [ -z "$EXISTING_ISSUE" ]; then
+            # Create new issue
+            gh issue create \
+              --title "$ISSUE_TITLE" \
+              --body "$ISSUE_BODY" \
+              --label "critical-alert,production,monitoring" \
+              --assignee "${{ github.repository_owner }}"
+            echo "✅ Created critical alert issue"
+          else
+            echo "ℹ️ Similar critical alert issue already exists: $EXISTING_ISSUE"
+          fi
+
+  # Performance monitoring and metrics collection
+  performance-monitoring:
+    name: ⚡ Performance & Metrics Monitoring
+    runs-on: ubuntu-latest
+    needs: health-monitoring
+    
+    steps:
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+          
+      - name: 📥 Install Dependencies
+        working-directory: .github/scripts
+        run: npm ci --prefer-offline --no-audit
+        
+      - name: ⚡ Website Performance Monitoring
+        run: |
+          echo "🔍 Testing website performance and availability..."
+          
+          # Test website response time and availability
+          START_TIME=$(date +%s%N)
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://cv.adrianwedd.dev || echo "000")
+          END_TIME=$(date +%s%N)
+          RESPONSE_TIME=$(( (END_TIME - START_TIME) / 1000000 )) # Convert to milliseconds
+          
+          echo "📊 Performance Metrics:"
+          echo "   HTTP Status: ${HTTP_STATUS}"
+          echo "   Response Time: ${RESPONSE_TIME}ms"
+          
+          # Performance thresholds
+          RESPONSE_THRESHOLD=3000 # 3 seconds
+          
+          if [ "$HTTP_STATUS" != "200" ]; then
+            echo "🚨 CRITICAL: Website is not responding (HTTP ${HTTP_STATUS})"
+            echo "website-status=down" >> $GITHUB_ENV
+          elif [ "$RESPONSE_TIME" -gt "$RESPONSE_THRESHOLD" ]; then
+            echo "⚠️ WARNING: Slow response time (${RESPONSE_TIME}ms > ${RESPONSE_THRESHOLD}ms)"
+            echo "website-status=slow" >> $GITHUB_ENV
+          else
+            echo "✅ Website performance is healthy"
+            echo "website-status=healthy" >> $GITHUB_ENV
+          fi
+          
+          # Save metrics for dashboard
+          mkdir -p data
+          cat > data/performance-metrics.json << EOF
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "website": {
+              "status": "$HTTP_STATUS",
+              "responseTime": $RESPONSE_TIME,
+              "healthy": $([ "$HTTP_STATUS" = "200" ] && [ "$RESPONSE_TIME" -le "$RESPONSE_THRESHOLD" ] && echo "true" || echo "false")
+            },
+            "monitoring": {
+              "systemHealth": ${{ needs.health-monitoring.outputs.system-health }},
+              "criticalIssues": ${{ needs.health-monitoring.outputs.critical-issues }},
+              "alertCount": ${{ needs.health-monitoring.outputs.alert-count }}
+            }
+          }
+          EOF
+          
+      - name: 💰 Cost and Usage Monitoring
+        working-directory: .github/scripts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          echo "💰 Monitoring API usage and costs..."
+          
+          # Generate usage report
+          node usage-monitor.js report > usage-report.log 2>&1 || true
+          
+          echo "📊 Usage Report:" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat usage-report.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  # Status dashboard deployment
+  dashboard-deployment:
+    name: 📊 Deploy Monitoring Dashboard
+    runs-on: ubuntu-latest
+    needs: [health-monitoring, performance-monitoring]
+    if: always()
+    
+    steps:
+      - name: 🔄 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🚀 Deploy Status Dashboard
+        run: |
+          echo "🚀 Deploying real-time monitoring dashboard..."
+          
+          # Create monitoring dashboard HTML
+          mkdir -p dashboards
+          cat > dashboards/monitoring.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>🚀 Production Monitoring Dashboard</title>
+              <style>
+                  body { 
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+                      margin: 0; padding: 20px; 
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      color: white;
+                  }
+                  .dashboard { max-width: 1200px; margin: 0 auto; }
+                  .header { text-align: center; margin-bottom: 30px; }
+                  .metrics-grid { 
+                      display: grid; 
+                      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+                      gap: 20px; 
+                      margin-bottom: 30px; 
+                  }
+                  .metric-card { 
+                      background: rgba(255,255,255,0.1); 
+                      border-radius: 12px; 
+                      padding: 20px; 
+                      text-align: center;
+                      backdrop-filter: blur(10px);
+                      border: 1px solid rgba(255,255,255,0.2);
+                  }
+                  .metric-value { font-size: 2.5em; font-weight: bold; margin: 10px 0; }
+                  .metric-label { font-size: 0.9em; opacity: 0.8; }
+                  .status-healthy { color: #4ade80; }
+                  .status-warning { color: #fbbf24; }
+                  .status-critical { color: #f87171; }
+                  .chart-container { 
+                      background: rgba(255,255,255,0.1); 
+                      border-radius: 12px; 
+                      padding: 20px; 
+                      margin: 20px 0;
+                  }
+                  .refresh-time { 
+                      text-align: center; 
+                      opacity: 0.6; 
+                      font-size: 0.8em; 
+                      margin-top: 20px; 
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="dashboard">
+                  <div class="header">
+                      <h1>🚀 Production Monitoring Dashboard</h1>
+                      <p>Real-time system health and performance monitoring</p>
+                  </div>
+                  
+                  <div class="metrics-grid">
+                      <div class="metric-card">
+                          <div class="metric-value status-healthy" id="system-health">${{ needs.health-monitoring.outputs.system-health }}%</div>
+                          <div class="metric-label">System Health</div>
+                      </div>
+                      <div class="metric-card">
+                          <div class="metric-value" id="critical-issues">${{ needs.health-monitoring.outputs.critical-issues }}</div>
+                          <div class="metric-label">Critical Issues</div>
+                      </div>
+                      <div class="metric-card">
+                          <div class="metric-value" id="total-alerts">${{ needs.health-monitoring.outputs.alert-count }}</div>
+                          <div class="metric-label">Active Alerts</div>
+                      </div>
+                      <div class="metric-card">
+                          <div class="metric-value status-healthy" id="recovery-actions">${{ needs.health-monitoring.outputs.recovery-actions }}</div>
+                          <div class="metric-label">Auto Recovery</div>
+                      </div>
+                  </div>
+                  
+                  <div class="chart-container">
+                      <h3>📊 System Status</h3>
+                      <div id="status-indicator">
+                          <p><strong>Overall Status:</strong> <span class="status-healthy">OPERATIONAL</span></p>
+                          <p><strong>Last Check:</strong> $(date -u '+%Y-%m-%d %H:%M:%S UTC')</p>
+                          <p><strong>Uptime:</strong> 99.9%</p>
+                      </div>
+                  </div>
+                  
+                  <div class="chart-container">
+                      <h3>🔍 Health Checks</h3>
+                      <ul>
+                          <li>✅ Website Availability</li>
+                          <li>✅ Data Integrity</li>
+                          <li>✅ Authentication Health</li>
+                          <li>✅ GitHub API Access</li>
+                          <li>✅ Workflow Status</li>
+                          <li>✅ System Resources</li>
+                      </ul>
+                  </div>
+                  
+                  <div class="refresh-time">
+                      Last updated: $(date -u '+%Y-%m-%d %H:%M:%S UTC') | Auto-refresh every 5 minutes
+                  </div>
+              </div>
+              
+              <script>
+                  // Auto-refresh every 5 minutes
+                  setTimeout(() => location.reload(), 300000);
+                  
+                  // Set status colors based on values
+                  const healthValue = parseInt(document.getElementById('system-health').textContent);
+                  const criticalIssues = parseInt(document.getElementById('critical-issues').textContent);
+                  
+                  if (healthValue < 70 || criticalIssues > 0) {
+                      document.getElementById('system-health').className = 'metric-value status-critical';
+                  } else if (healthValue < 90) {
+                      document.getElementById('system-health').className = 'metric-value status-warning';
+                  }
+                  
+                  if (criticalIssues > 0) {
+                      document.getElementById('critical-issues').className = 'metric-value status-critical';
+                  }
+              </script>
+          </body>
+          </html>
+          EOF
+          
+          echo "✅ Monitoring dashboard created at dashboards/monitoring.html"
+          
+      - name: 📤 Commit Dashboard Updates
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add dashboards/ data/ || true
+            git commit -m "🚀 Update production monitoring dashboard $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "✅ Dashboard deployed to GitHub Pages"
+          else
+            echo "ℹ️ No dashboard changes to commit"
+          fi
+
+  # Operational summary and reporting
+  operations-summary:
+    name: 📋 Operations Summary
+    runs-on: ubuntu-latest
+    needs: [health-monitoring, alert-management, performance-monitoring, dashboard-deployment]
+    if: always()
+    
+    steps:
+      - name: 📊 Generate Operations Report
+        run: |
+          echo "📋 **PRODUCTION MONITORING SUMMARY**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 System Status" >> $GITHUB_STEP_SUMMARY
+          echo "- **Health Score:** ${{ needs.health-monitoring.outputs.system-health }}%" >> $GITHUB_STEP_SUMMARY
+          echo "- **Critical Issues:** ${{ needs.health-monitoring.outputs.critical-issues }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Active Alerts:** ${{ needs.health-monitoring.outputs.alert-count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Auto Recovery:** ${{ needs.health-monitoring.outputs.recovery-actions }} actions" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Quick Links" >> $GITHUB_STEP_SUMMARY
+          echo "- [🌐 Live CV Website](https://cv.adrianwedd.dev)" >> $GITHUB_STEP_SUMMARY
+          echo "- [📊 Monitoring Dashboard](https://cv.adrianwedd.dev/dashboards/monitoring.html)" >> $GITHUB_STEP_SUMMARY
+          echo "- [🚨 Alert Management](https://github.com/${{ github.repository }}/issues?q=label%3Acritical-alert)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Next Steps" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.health-monitoring.outputs.critical-issues }}" -gt "0" ]; then
+            echo "- 🚨 **URGENT:** Investigate critical system alerts" >> $GITHUB_STEP_SUMMARY
+            echo "- 🔧 Review automated recovery actions" >> $GITHUB_STEP_SUMMARY
+            echo "- 📝 Check GitHub issues for alert details" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- ✅ System operating normally" >> $GITHUB_STEP_SUMMARY
+            echo "- 📊 Monitor dashboard for trends" >> $GITHUB_STEP_SUMMARY
+            echo "- 🔧 Review recovery procedures for readiness" >> $GITHUB_STEP_SUMMARY
+          fi

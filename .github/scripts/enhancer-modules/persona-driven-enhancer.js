@@ -17,8 +17,13 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Persona expertise mapping for intelligent selection
@@ -100,7 +105,7 @@ class PersonaDrivenEnhancer {
         try {
             // Initialize prompt library if not provided
             if (!this.promptLibrary) {
-                const { PromptLibraryManager } = require('./prompt-library-manager');
+                const { PromptLibraryManager } = await import('./prompt-library-manager.js');
                 this.promptLibrary = new PromptLibraryManager('v2.0');
                 await this.promptLibrary.initialize();
             }
@@ -555,4 +560,4 @@ class PersonaDrivenEnhancer {
     }
 }
 
-module.exports = { PersonaDrivenEnhancer, PERSONA_EXPERTISE, CONTEXT_WEIGHTS };
+export { PersonaDrivenEnhancer, PERSONA_EXPERTISE, CONTEXT_WEIGHTS };

@@ -1,0 +1,132 @@
+{
+  "production_sla": {
+    "uptime_target": "99.9%",
+    "response_time_target": "< 30 seconds",
+    "error_rate_threshold": "< 5%",
+    "monitoring_interval": "30 seconds"
+  },
+  "alerting_thresholds": {
+    "system_health": {
+      "critical": {
+        "operational_systems": "< 4",
+        "failed_systems": "> 1",
+        "response_time": "> 60 seconds"
+      },
+      "warning": {
+        "operational_systems": "< 5",
+        "degraded_systems": "> 2",
+        "response_time": "> 30 seconds"
+      }
+    },
+    "cost_optimization": {
+      "critical": {
+        "daily_api_cost": "> $50",
+        "oauth_quota_usage": "> 95%",
+        "fallback_rate": "> 50%"
+      },
+      "warning": {
+        "daily_api_cost": "> $20",
+        "oauth_quota_usage": "> 75%",
+        "fallback_rate": "> 25%"
+      }
+    },
+    "authentication": {
+      "critical": {
+        "browser_auth_failures": "> 80%",
+        "oauth_auth_failures": "> 50%",
+        "all_auth_methods_failed": true
+      },
+      "warning": {
+        "browser_auth_failures": "> 50%",
+        "oauth_auth_failures": "> 25%",
+        "api_fallback_usage": "> 50%"
+      }
+    }
+  },
+  "notification_channels": {
+    "slack": {
+      "enabled": false,
+      "webhook_url": "",
+      "critical_channel": "#alerts-critical",
+      "warning_channel": "#alerts-warnings"
+    },
+    "email": {
+      "enabled": false,
+      "recipients": [],
+      "smtp_config": {}
+    },
+    "github_issues": {
+      "enabled": true,
+      "create_on_critical": true,
+      "labels": ["monitoring", "production", "critical"]
+    }
+  },
+  "health_checks": {
+    "system_validation": {
+      "frequency": "every 30 minutes",
+      "timeout": "120 seconds",
+      "retry_count": 3
+    },
+    "oauth_authentication": {
+      "frequency": "every 2 hours",
+      "timeout": "30 seconds",
+      "retry_count": 2
+    },
+    "linkedin_integration": {
+      "frequency": "every 6 hours",
+      "timeout": "60 seconds",
+      "retry_count": 1
+    },
+    "ai_router_functionality": {
+      "frequency": "every 1 hour",
+      "timeout": "45 seconds",
+      "retry_count": 2
+    }
+  },
+  "recovery_procedures": {
+    "authentication_failure": {
+      "steps": [
+        "Attempt OAuth token refresh",
+        "Fallback to API key authentication",
+        "Generate monitoring alert",
+        "Create GitHub issue if persistent"
+      ]
+    },
+    "system_degradation": {
+      "steps": [
+        "Run comprehensive system validation",
+        "Restart failed components",
+        "Escalate to manual intervention if needed",
+        "Document recovery in monitoring logs"
+      ]
+    },
+    "cost_threshold_exceeded": {
+      "steps": [
+        "Switch to browser-only authentication",
+        "Suspend non-critical AI operations",
+        "Generate cost analysis report",
+        "Review and optimize usage patterns"
+      ]
+    }
+  },
+  "reporting": {
+    "daily_summary": {
+      "enabled": true,
+      "include_cost_analysis": true,
+      "include_uptime_metrics": true,
+      "include_error_summary": true
+    },
+    "weekly_analysis": {
+      "enabled": true,
+      "include_trend_analysis": true,
+      "include_optimization_recommendations": true,
+      "include_capacity_planning": true
+    },
+    "monthly_review": {
+      "enabled": true,
+      "include_sla_compliance": true,
+      "include_cost_optimization_analysis": true,
+      "include_system_evolution_roadmap": true
+    }
+  }
+}

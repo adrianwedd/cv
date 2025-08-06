@@ -10,8 +10,8 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import fs from 'fs/promises';
+import path from 'path';
 
 /**
  * Usage Monitor and Budget Tracker
@@ -543,8 +543,8 @@ async function main() {
     }
 }
 
-module.exports = { UsageMonitor };
+export { UsageMonitor };
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

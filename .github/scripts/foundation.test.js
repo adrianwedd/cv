@@ -3,14 +3,19 @@
  * Bulletproof test suite with zero external dependencies
  */
 
-const { test, describe } = require('node:test');
-const assert = require('node:assert');
-const path = require('path');
-const fs = require('fs');
+import { test, describe } from 'node:test';
+import assert from 'node:assert';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Import test utilities
-const pathResolver = require('./path-resolver');
-const { setupTestEnvironment, MOCK_RESPONSES } = require('./test-config');
+import pathResolver from './path-resolver.js';
+import { setupTestEnvironment, MOCK_RESPONSES } from './test-config.js';
 
 // Setup isolated test environment
 setupTestEnvironment();
@@ -101,16 +106,18 @@ describe('Foundation Test Suite - Environment Isolation', () => {
 });
 
 describe('Foundation Test Suite - Core Module Loading', () => {
-  test('should load essential modules without errors', () => {
+  test('should load essential modules without errors', async () => {
     // Quick module validation without heavy loading
-    assert.doesNotThrow(() => {
-      const pathResolverModule = require('./path-resolver');
-      assert.ok(pathResolverModule, 'Path resolver should load');
+    assert.doesNotThrow(async () => {
+      const pathResolverModule = await import('./path-resolver.js');
+      assert.ok(pathResolverModule.default, 'Path resolver should load');
     }, 'Core modules should load without errors');
     
     // Test Node.js built-ins
-    assert.ok(require('fs'), 'fs module should be available');
-    assert.ok(require('path'), 'path module should be available');
+    const fs = await import('fs');
+    const path = await import('path');
+    assert.ok(fs, 'fs module should be available');
+    assert.ok(path, 'path module should be available');
   });
 });
 

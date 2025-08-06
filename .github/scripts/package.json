@@ -12,6 +12,7 @@
     "test:coverage": "mkdir -p coverage && node --test --test-reporter=spec foundation.test.js > coverage/test-results.txt 2>&1 && echo 'Coverage report generated' > coverage/lcov.info",
     "test:accessibility": "node --test tests/accessibility.test.js",
     "test:cross-browser": "node --test tests/cross-browser.test.js",
+    "test:linkedin": "node --test tests/linkedin-integration.test.js",
     "test:integration": "node --test tests/",
     "lint": "eslint *.js",
     "format": "prettier --write *.js",
@@ -38,6 +39,7 @@
   "author": "Adrian Wedd <adrian@adrianwedd.com>",
   "license": "MIT",
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
     "chrome-remote-interface": "^0.33.3",
@@ -45,6 +47,7 @@
     "docx": "^9.5.1",
     "dotenv": "^17.2.1",
     "handlebars": "^4.7.8",
+    "js-yaml": "^4.1.0",
     "jsdoc": "^4.0.4",
     "lodash": "^4.17.21",
     "marked": "^16.1.1",

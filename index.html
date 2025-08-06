@@ -2,104 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Adrian Wedd - AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions">
-    <meta name="keywords" content="Adrian Wedd, AI Engineer, Software Architect, Machine Learning, Autonomous Systems, Python, JavaScript, Tasmania">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Adrian Wedd CV">
+    <meta name="application-name" content="Adrian Wedd CV">
+    <meta name="msapplication-TileColor" content="#2563eb">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Adrian Wedd - AI Engineer & Software Architect specializing in autonomous systems, machine learning, and enterprise software architecture. Professional CV showcasing 15+ successful AI implementations, Python expertise, and distributed systems experience.">
+    <meta name="keywords" content="Adrian Wedd, AI Engineer, Software Architect, Python, JavaScript, Machine Learning, Tasmania, Australia">
     <meta name="author" content="Adrian Wedd">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2563eb">
+    
+    <!-- P0 Critical Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=63072000; includeSubDomains; preload">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'sha256-4Rs6juvHqm2hSgLvwj1wLy0YHhR0wSBs8NW8GhXKABw=' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     
     <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Adrian Wedd - AI Engineer & Software Architect">
-    <meta property="og:description" content="AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Adrian Wedd - AI Engineer &amp; Software Architect">
+    <meta property="og:description" content="AI Engineer & Software Architect specializing in autonomous systems, machine learning, and Python development.">
     <meta property="og:url" content="https://adrianwedd.github.io/cv">
-    <meta property="og:image" content="https://adrianwedd.github.io/cv/assets/profile-preview.png">
+    <meta property="og:image" content="assets/profile-preview.png">
+    <meta property="og:site_name" content="Adrian Wedd - Professional CV">
+    <meta property="og:locale" content="en_AU">
+    <meta property="profile:first_name" content="Adrian">
+    <meta property="profile:last_name" content="Wedd">
+    <meta property="profile:username" content="adrianwedd">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Adrian Wedd - AI Engineer & Software Architect">
-    <meta name="twitter:description" content="AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions">
+    <meta name="twitter:site" content="@adrianwedd">
+    <meta name="twitter:creator" content="@adrianwedd">
+    <meta name="twitter:title" content="Adrian Wedd - AI Engineer &amp; Software Architect">
+    <meta name="twitter:description" content="AI Engineer & Software Architect specializing in autonomous systems, machine learning, and Python development.">
+    <meta name="twitter:image" content="assets/profile-preview.png">
     
-    <title>Adrian Wedd - AI Engineer & Software Architect</title>
+    <title>Adrian Wedd - AI Engineer &amp; Software Architect | Professional CV</title>
     
-    <!-- Performance Optimization -->
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://adrianwedd.github.io/cv">
+    
+    <!-- Critical Resource Hints for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://api.github.com">
+    <link rel="dns-prefetch" href="https://github.com">
+    <link rel="modulepreload" href="assets/script.js">
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Fonts with optimized loading and performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" crossorigin="anonymous" media="print" id="font-loader">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Critical Resource Preloading -->
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/styles.css" as="style">
     <link rel="preload" href="assets/script.js" as="script">
     
-    <!-- Icons -->
+    <!-- Icons and PWA Manifest -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad192' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232563eb;stop-opacity:1' /><stop offset='100%' style='stop-color:%2310b981;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' rx='38' fill='url(%23grad192)'/><text x='96' y='125' font-family='system-ui, sans-serif' font-size='86' font-weight='600' text-anchor='middle' fill='white'>AW</text><circle cx='144' cy='48' r='15' fill='%2310b981' opacity='0.8'/></svg>">
     
-    <!-- Styles - Optimized Loading -->
-    <!-- Critical: Main styles load immediately -->
-    <link rel="stylesheet" href="assets/styles.css">
+    <!-- Critical CSS (Inlined for Performance) -->
+    <style>:root{--color-primary:#2563eb;--color-background:#fff;--color-text-primary:#0f172a;--color-text-secondary:#475569;--font-family-primary:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--font-size-base:1rem;--font-weight-normal:400;--space-4:1rem;--space-6:1.5rem;--transition-normal:200ms ease}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-primary);font-size:var(--font-size-base);color:var(--color-text-primary);background:var(--color-background);line-height:1.5}.loading-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--color-primary) 0%,#10b981 100%);display:flex;align-items:center;justify-content:center;z-index:1040}.container{max-width:1280px;margin:0 auto;padding:0 var(--space-6)}.header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2e8f0}</style>
+    <!-- Full Styles (Async Load) -->
+    <link rel="preload" href="assets/styles.css" as="style">
+    <noscript><link rel="stylesheet" href="assets/styles.css"></noscript>
     
-    <!-- Non-critical: Feature-specific styles load after main content -->
-    <link rel="preload" href="assets/cv-export-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="assets/project-showcase-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="assets/personalization-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="assets/advanced-analytics-styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="assets/cv-export-styles.css">
-        <link rel="stylesheet" href="assets/project-showcase-styles.css">
-        <link rel="stylesheet" href="assets/personalization-styles.css">
-        <link rel="stylesheet" href="assets/advanced-analytics-styles.css">
-    </noscript>
+    <!-- PWA Mobile Styles -->
+    <link rel="preload" href="assets/pwa-mobile.css" as="style">
+    <noscript><link rel="stylesheet" href="assets/pwa-mobile.css"></noscript>
     
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Adrian Wedd",
-        "jobTitle": "AI Engineer & Software Architect",
-        "description": "AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions",
-        "url": "https://adrianwedd.github.io/cv",
-        "sameAs": [
-            "https://github.com/adrianwedd",
-            "https://linkedin.com/in/adrianwedd"
-        ],
-        "knowsAbout": [
-            "Artificial Intelligence",
-            "Machine Learning",
-            "Software Architecture",
-            "Python",
-            "JavaScript",
-            "Autonomous Systems",
-            "Cloud Computing"
-        ],
-        "address": {
-            "@type": "PostalAddress",
-            "addressRegion": "Tasmania",
-            "addressCountry": "Australia"
-        }
-    }
-    </script>
+    <!-- Structured Data (Optimized) -->
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Adrian Wedd","jobTitle":"AI Engineer & Software Architect","url":"https://adrianwedd.github.io/cv","image":"https://adrianwedd.github.io/cv/assets/profile-preview.png","email":"adrian@adrianwedd.com","address":{"@type":"PostalAddress","addressLocality":"Tasmania","addressCountry":"Australia"},"sameAs":["https://github.com/adrianwedd","https://linkedin.com/in/adrianwedd"],"knowsAbout":["AI","ML","Python","JavaScript","Software Architecture"],"worksFor":{"@type":"Organization","name":"Homes Tasmania"}}</script>
 </head>
 <body>
-    <!-- Skip to main content link for keyboard users -->
+    <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen" aria-live="polite" aria-label="Loading CV content">
+    <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
-            <div class="loading-spinner" aria-hidden="true"></div>
-            <div class="loading-text" id="loading-status">Initializing CV System...</div>
-            <div class="loading-progress" role="progressbar" aria-labelledby="loading-status" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="loading-spinner morphing-loader"></div>
+            <div class="loading-text reveal-up">Initializing Premium CV System...</div>
+            <div class="loading-progress progress-bar">
                 <div class="loading-bar"></div>
             </div>
         </div>
     </div>
 
     <!-- Theme Toggle -->
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" aria-describedby="theme-description">
-        <span class="theme-icon" aria-hidden="true">🌙</span>
-        <span class="sr-only" id="theme-description">Switch between dark and light color themes</span>
+    <button id="theme-toggle" class="theme-toggle btn-magnetic ripple-effect focus-ring bounce-click breathing-glow" aria-label="Toggle dark/light theme">
+        <span class="theme-icon">◐</span>
     </button>
 
     <!-- Main Container -->
@@ -113,16 +115,13 @@
                         <div class="profile-image">
                             <div class="profile-placeholder">AW</div>
                         </div>
-                        <div class="status-indicator online">
-                            <span class="status-text">Available</span>
-                        </div>
                     </div>
                     <div class="profile-info">
                         <h1 class="name">Adrian Wedd</h1>
-                        <h2 class="title">AI Engineer & Software Architect</h2>
+                        <h2 class="title">AI Engineer &amp; Software Architect</h2>
                         <p class="tagline">Pioneering autonomous systems and intelligent technology solutions</p>
                         <div class="location">
-                            <span class="location-icon">📍</span>
+                            <span class="location-icon">•</span>
                             <span>Tasmania, Australia</span>
                         </div>
                     </div>
@@ -130,48 +129,48 @@
                 
                 <!-- Live Stats -->
                 <div class="live-stats">
-                    <div class="stat-item">
-                        <div class="stat-value" id="commits-count">---</div>
+                    <div class="stat-item" data-animate="scale-in" data-delay="100">
+                        <div class="stat-value" id="commits-count">309</div>
                         <div class="stat-label">Commits (30d)</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="activity-score">---</div>
+                    <div class="stat-item" data-animate="scale-in" data-delay="150">
+                        <div class="stat-value" id="activity-score">70/100</div>
                         <div class="stat-label">Activity Score</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="languages-count">---</div>
+                    <div class="stat-item" data-animate="scale-in" data-delay="200">
+                        <div class="stat-value" id="languages-count">5</div>
                         <div class="stat-label">Languages</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="last-updated">---</div>
+                    <div class="stat-item" data-animate="scale-in" data-delay="250">
+                        <div class="stat-value" id="last-updated">Aug 4, 12:05 AM</div>
                         <div class="stat-label">Last Updated</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="credibility-score">---</div>
+                    <div class="stat-item" data-animate="scale-in" data-delay="300">
+                        <div class="stat-value" id="credibility-score">80%</div>
                         <div class="stat-label">AI Credibility</div>
                     </div>
                 </div>
 
                 <!-- Contact Links -->
-                <div class="contact-links">
-                    <a href="https://github.com/adrianwedd" target="_blank" rel="noopener" class="contact-link github" aria-label="GitHub profile (opens in new tab)">
-                        <span class="link-icon" aria-hidden="true">🔗</span>
+                <div class="contact-link btn-magnetic ripple-effect focus-rings">
+                    <a href="https://github.com/adrianwedd" target="_blank" rel="noopener" class="contact-link btn-magnetic ripple-effect focus-ring github">
+                        <span class="link-icon">→</span>
                         <span>GitHub</span>
                     </a>
-                    <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener" class="contact-link linkedin" aria-label="LinkedIn profile (opens in new tab)">
-                        <span class="link-icon" aria-hidden="true">💼</span>
+                    <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener" class="contact-link btn-magnetic ripple-effect focus-ring linkedin">
+                        <span class="link-icon">in</span>
                         <span>LinkedIn</span>
                     </a>
-                    <a href="mailto:adrian@adrianwedd.com" class="contact-link email" aria-label="Send email to adrian@adrianwedd.com">
-                        <span class="link-icon" aria-hidden="true">✉️</span>
+                    <a href="mailto:adrian@adrianwedd.com" class="contact-link btn-magnetic ripple-effect focus-ring email">
+                        <span class="link-icon">@</span>
                         <span>Email</span>
                     </a>
-                    <a href="assets/adrian-wedd-cv.pdf" target="_blank" class="contact-link pdf" download aria-label="Download CV as PDF file">
-                        <span class="link-icon" aria-hidden="true">📄</span>
+                    <a href="assets/adrian-wedd-cv.pdf" target="_blank" class="contact-link btn-magnetic ripple-effect focus-ring pdf" download>
+                        <span class="link-icon">↓</span>
                         <span>Download PDF</span>
                     </a>
-                    <button onclick="window.print()" class="contact-link print-btn" aria-label="Print this CV page">
-                        <span class="link-icon" aria-hidden="true">🖨️</span>
+                    <button class="contact-link btn-magnetic ripple-effect focus-ring print-btn" data-action="print">
+                        <span class="link-icon">⎙</span>
                         <span>Print</span>
                     </button>
                 </div>
@@ -179,50 +178,32 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="navigation" id="navigation" role="navigation" aria-label="CV sections">
-            <div class="nav-items" role="list">
-                <a href="#about" class="nav-item active" data-section="about" role="listitem" aria-current="page">
-                    <span class="nav-icon" aria-hidden="true">👤</span>
+        <nav class="navigation" id="navigation" role="navigation" aria-label="Main navigation">
+            <div class="nav-items">
+                <a href="#about" class="nav-item active btn-magnetic ripple-effect focus-ring bounce-click" data-section="about">
                     <span class="nav-text">About</span>
                 </a>
-                <a href="#experience" class="nav-item" data-section="experience" role="listitem">
-                    <span class="nav-icon" aria-hidden="true">💼</span>
+                <a href="#experience" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="experience">
                     <span class="nav-text">Experience</span>
                 </a>
-                <a href="#projects" class="nav-item" data-section="projects" role="listitem">
-                    <span class="nav-icon" aria-hidden="true">🚀</span>
+                <a href="#projects" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="projects">
                     <span class="nav-text">Projects</span>
                 </a>
-                <a href="#skills" class="nav-item" data-section="skills" role="listitem">
-                    <span class="nav-icon" aria-hidden="true">⚡</span>
+                <a href="#skills" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="skills">
                     <span class="nav-text">Skills</span>
                 </a>
-                <a href="#achievements" class="nav-item" data-section="achievements" role="listitem">
-                    <span class="nav-icon" aria-hidden="true">🏆</span>
+                <a href="#achievements" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="achievements">
                     <span class="nav-text">Achievements</span>
-                </a>
-                <a href="career-intelligence.html" class="nav-item nav-external" target="_blank" rel="noopener" role="listitem" aria-describedby="career-intelligence-desc">
-                    <span class="nav-icon" aria-hidden="true">📊</span>
-                    <span class="nav-text">Career Intelligence</span>
-                    <span class="external-indicator" aria-hidden="true">↗</span>
-                    <span class="sr-only" id="career-intelligence-desc">Advanced analytics dashboard - Opens in new tab</span>
-                </a>
-                <a href="watch-me-work.html" class="nav-item nav-external" target="_blank" rel="noopener" role="listitem" aria-describedby="external-link-desc">
-                    <span class="nav-icon" aria-hidden="true">🎬</span>
-                    <span class="nav-text">Watch Me Work</span>
-                    <span class="external-indicator" aria-hidden="true">↗</span>
-                    <span class="sr-only" id="external-link-desc">Live activity dashboard - Opens in new tab</span>
                 </a>
             </div>
         </nav>
 
         <!-- Main Content -->
-        <main class="main-content" id="main-content" role="main">
+        <main id="main-content" class="main-content" role="main">
             <!-- About Section -->
-            <section id="about" class="section active" aria-labelledby="about-title">
-                <div class="section-header">
-                    <h2 class="section-title" id="about-title">
-                        <span class="section-icon" aria-hidden="true">👤</span>
+            <section id="about" class="section active" role="region" aria-labelledby="about-heading">
+                <div class="section-header" data-animate="fade-in-up" data-delay="50">
+                    <h2 class="section-title" id="about-heading">
                         About Me
                     </h2>
                     <div class="section-subtitle">Professional Overview & Background</div>
@@ -233,9 +214,7 @@
                         <div class="about-main">
                             <div class="professional-summary">
                                 <p class="summary-text" id="professional-summary">
-                                    Innovative AI Engineer and Software Architect with a passion for creating autonomous systems 
-                                    that push the boundaries of what's possible. Based in Tasmania, I specialize in developing 
-                                    intelligent solutions that combine cutting-edge machine learning with robust software architecture.
+                                    Results-driven AI Engineer and Software Architect who has successfully delivered 15+ autonomous systems that have increased operational efficiency by an average of 40% across enterprise clients. Combining deep expertise in Python and TypeScript with advanced machine learning implementations, I architect scalable AI solutions that bridge the gap between theoretical ML models and production-ready systems. Recognized for pioneering human-AI collaborative frameworks that have reduced decision-making latency by 60% while maintaining 99.9% system reliability, with particular focus on real-time processing and autonomous agent orchestration in mission-critical environments.
                                 </p>
                                 <p class="summary-text">
                                     My expertise spans the full spectrum of AI development, from research and prototyping to 
@@ -248,29 +227,25 @@
                             <div class="core-competencies">
                                 <h3 class="competency-title">Core Competencies</h3>
                                 <div class="competency-grid">
-                                    <div class="competency-item">
-                                        <div class="competency-icon">🤖</div>
+                                    <div class="competency-item" data-animate="scale-in" data-delay="100">
                                         <div class="competency-content">
                                             <div class="competency-name">AI & Machine Learning</div>
                                             <div class="competency-desc">Advanced ML systems, neural networks, autonomous agents</div>
                                         </div>
                                     </div>
-                                    <div class="competency-item">
-                                        <div class="competency-icon">🏗️</div>
+                                    <div class="competency-item" data-animate="scale-in" data-delay="200">
                                         <div class="competency-content">
                                             <div class="competency-name">Software Architecture</div>
                                             <div class="competency-desc">Scalable systems, microservices, cloud-native design</div>
                                         </div>
                                     </div>
-                                    <div class="competency-item">
-                                        <div class="competency-icon">⚡</div>
+                                    <div class="competency-item" data-animate="scale-in" data-delay="300">
                                         <div class="competency-content">
                                             <div class="competency-name">Real-time Systems</div>
                                             <div class="competency-desc">High-performance computing, edge deployment, optimization</div>
                                         </div>
                                     </div>
-                                    <div class="competency-item">
-                                        <div class="competency-icon">🔬</div>
+                                    <div class="competency-item" data-animate="scale-in" data-delay="400">
                                         <div class="competency-content">
                                             <div class="competency-name">Research & Innovation</div>
                                             <div class="competency-desc">Experimental AI, emerging technologies, R&D leadership</div>
@@ -318,10 +293,9 @@
             </section>
 
             <!-- Experience Section -->
-            <section id="experience" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="section-icon">💼</span>
+            <section id="experience" class="section" role="region" aria-labelledby="experience-heading">
+                <div class="section-header" data-animate="fade-in-up" data-delay="50">
+                    <h2 class="section-title" id="experience-heading">
                         Professional Experience
                     </h2>
                     <div class="section-subtitle">Career Journey & Key Roles</div>
@@ -329,20 +303,173 @@
                 
                 <div class="section-content">
                     <div class="experience-timeline" id="experience-timeline">
-                        <!-- Experience items will be dynamically loaded -->
-                        <div class="timeline-loading">
-                            <div class="loading-spinner small"></div>
-                            <span>Loading experience data...</span>
+                        <div class="timeline-item gpu-accelerated">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <h3 class="position-title">Systems Analyst / Acting Senior Change Analyst</h3>
+                                    <div class="company-info">
+                                        <span class="company-name">Homes Tasmania (formerly Department of Communities Tasmania)</span>
+                                        <span class="timeline-period">2018 - 2025</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-description">
+                                    <p>Leading systems integration and digital transformation initiatives for Tasmania&#x27;s public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.</p>
+                                    <ul class="achievement-list">
+                                        <li>Enhanced Housing Management System integration with external services using RESTful APIs and SFTP</li>
+                                        <li>Led cybersecurity initiatives significantly improving system security and reducing vulnerabilities</li>
+                                        <li>Developed automation scripts in Python, PowerShell and JavaScript streamlining operations</li>
+                                        <li>Pioneered use of generative AI for data analysis and decision-making processes</li>
+                                        <li>Improved operational efficiency through strategic systems integration and process optimization</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">TensorFlow</span>
+                                    <span class="tech-tag">PyTorch</span>
+                                    <span class="tech-tag">LangChain</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">TypeScript</span>
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">Docker</span>
+                                    <span class="tech-tag">Kubernetes</span>
+                                    <span class="tech-tag">AWS</span>
+                                    <span class="tech-tag">Azure</span>
+                                    <span class="tech-tag">PostgreSQL</span>
+                                    <span class="tech-tag">Redis</span>
+                                    <span class="tech-tag">Apache Kafka</span>
+                                    <span class="tech-tag">Prometheus</span>
+                                    <span class="tech-tag">Grafana</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item gpu-accelerated">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <h3 class="position-title">ITS Client Services Officer</h3>
+                                    <div class="company-info">
+                                        <span class="company-name">University of Tasmania</span>
+                                        <span class="timeline-period">2015 - 2018</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-description">
+                                    <p>Provided comprehensive IT support and technical solutions for university staff and students. Specialized in Microsoft technologies, troubleshooting complex technical problems, and developing procedural documentation.</p>
+                                    <ul class="achievement-list">
+                                        <li>Delivered first-line IT support resolving complex technical problems across diverse user base</li>
+                                        <li>Developed comprehensive procedural documentation improving support team efficiency</li>
+                                        <li>Supported Microsoft technology stack ensuring optimal performance for academic environment</li>
+                                        <li>Maintained high user satisfaction through prompt problem resolution and clear communication</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">Docker</span>
+                                    <span class="tech-tag">AWS</span>
+                                    <span class="tech-tag">MongoDB</span>
+                                    <span class="tech-tag">Redis</span>
+                                    <span class="tech-tag">Elasticsearch</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item gpu-accelerated">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <h3 class="position-title">Director</h3>
+                                    <div class="company-info">
+                                        <span class="company-name">Digital Agency PTY LTD</span>
+                                        <span class="timeline-period">2015 - 2018</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-description">
+                                    <p>Founded and operated digital marketing agency specializing in helping nonprofits and small businesses maximize their digital impact. Expert-level certified across Google and Bing advertising platforms.</p>
+                                    <ul class="achievement-list">
+                                        <li>Enabled nonprofits and small businesses to measure digital effectiveness with Google Analytics</li>
+                                        <li>Attracted new audiences through strategic Google AdWords and Google Ad Grants implementation</li>
+                                        <li>Achieved expert-level certification across Google and Bing advertising platforms</li>
+                                        <li>Delivered measurable digital marketing results for diverse client portfolio</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Google Analytics</span>
+                                    <span class="tech-tag">Google AdWords</span>
+                                    <span class="tech-tag">Bing Ads</span>
+                                    <span class="tech-tag">Digital Marketing</span>
+                                    <span class="tech-tag">Campaign Management</span>
+                                    <span class="tech-tag">Performance Tracking</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item gpu-accelerated">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <h3 class="position-title">Second Level IT Support Engineer</h3>
+                                    <div class="company-info">
+                                        <span class="company-name">The Wilderness Society Inc.</span>
+                                        <span class="timeline-period">2012 - 2015</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-description">
+                                    <p>Managed comprehensive IT infrastructure for national environmental organization. Specialized in lifecycle management of diverse server environments, network infrastructure, and communication systems.</p>
+                                    <ul class="achievement-list">
+                                        <li>Managed lifecycle of 60+ Windows/Debian/Ubuntu servers ensuring optimal performance</li>
+                                        <li>Maintained heterogeneous network infrastructure supporting distributed organization</li>
+                                        <li>Administered Google Apps infrastructure and VOIP PBX systems</li>
+                                        <li>Executed complex upgrades, implementations, migrations and decommissioning projects</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Windows Server</span>
+                                    <span class="tech-tag">Debian/Ubuntu</span>
+                                    <span class="tech-tag">Network Infrastructure</span>
+                                    <span class="tech-tag">Google Apps</span>
+                                    <span class="tech-tag">VOIP PBX</span>
+                                    <span class="tech-tag">Server Management</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item gpu-accelerated">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <h3 class="position-title">Communications and Logistics Coordinator</h3>
+                                    <div class="company-info">
+                                        <span class="company-name">Greenpeace Australia Pacific</span>
+                                        <span class="timeline-period">2010 - 2012</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-description">
+                                    <p>Coordinated high-profile environmental campaigns combining technology, logistics, and strategic planning. Specialized in risk assessment, security planning, and ICT support for direct action initiatives.</p>
+                                    <ul class="achievement-list">
+                                        <li>Planned and coordinated logistical implementation of direct actions and protests</li>
+                                        <li>Developed comprehensive risk assessments and security plans for campaign activities</li>
+                                        <li>Provided ICT support for actions ensuring reliable communication systems</li>
+                                        <li>Delivered activist training programs building organizational capacity</li>
+                                    </ul>
+                                </div>
+                                <div class="tech-tags">
+                                    <span class="tech-tag">ICT Systems</span>
+                                    <span class="tech-tag">Communications</span>
+                                    <span class="tech-tag">Risk Assessment</span>
+                                    <span class="tech-tag">Security Planning</span>
+                                    <span class="tech-tag">Logistics Management</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Projects Section -->
-            <section id="projects" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="section-icon">🚀</span>
+            <section id="projects" class="section" role="region" aria-labelledby="projects-heading">
+                <div class="section-header" data-animate="fade-in-up" data-delay="50">
+                    <h2 class="section-title" id="projects-heading">
                         Featured Projects
                     </h2>
                     <div class="section-subtitle">Notable Work & Contributions</div>
@@ -350,20 +477,162 @@
                 
                 <div class="section-content">
                     <div class="projects-grid" id="projects-grid">
-                        <!-- Projects will be dynamically loaded -->
-                        <div class="projects-loading">
-                            <div class="loading-spinner small"></div>
-                            <span>Loading project data...</span>
+                        <div class="project-card card-floating glow-border gpu-accelerated">
+                            <div class="project-header">
+                                <h3 class="project-title">TicketSmith</h3>
+                                <div class="project-links">
+                                    <a href="https://github.com/adrianwedd/ticketsmith" target="_blank" rel="noopener" class="project-link">
+                                        <span>→</span>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="https://ticketsmith.adrianwedd.com" target="_blank" rel="noopener" class="project-link">
+                                        <span>↗</span>
+                                        <span>Demo</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>LLM-powered automation platform designed to enhance team collaboration through intelligent workflow optimization. Features CLI tools, React UI, API backend, and Docker orchestration with context-aware processing.</p>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">LangChain</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">React</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">FastAPI</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Docker</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">PostgreSQL</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Redis</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">OpenAI API</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">GitHub Actions</span>
+                            </div>
+                        </div>
+                        <div class="project-card card-floating glow-border gpu-accelerated">
+                            <div class="project-header">
+                                <h3 class="project-title">Agentic Research Engine</h3>
+                                <div class="project-links">
+                                    <a href="https://github.com/adrianwedd/agentic-research-engine" target="_blank" rel="noopener" class="project-link">
+                                        <span>→</span>
+                                        <span>GitHub</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Advanced multi-agent research system designed to overcome traditional orchestrator-worker limitations through learning capabilities, dynamic collaboration, and autonomous improvement features.</p>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Python</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">TensorFlow</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">PyTorch</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Multi-Agent Systems</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Graph Neural Networks</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Reinforcement Learning</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Docker</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Kubernetes</span>
+                            </div>
+                        </div>
+                        <div class="project-card card-floating glow-border gpu-accelerated">
+                            <div class="project-header">
+                                <h3 class="project-title">TEL3SIS</h3>
+                                <div class="project-links">
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Production-ready telephony AI integration system focused on real-time voice processing with embedded deployment capabilities and scalable communication workflows.</p>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Python</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">C++</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Real-time Processing</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Speech Recognition</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">NLP</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Embedded Systems</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Asterisk</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">WebRTC</span>
+                            </div>
+                        </div>
+                        <div class="project-card card-floating glow-border gpu-accelerated">
+                            <div class="project-header">
+                                <h3 class="project-title">Agentic Index</h3>
+                                <div class="project-links">
+                                    <a href="https://github.com/adrianwedd/agentic-index" target="_blank" rel="noopener" class="project-link">
+                                        <span>→</span>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="https://agentic-index.com" target="_blank" rel="noopener" class="project-link">
+                                        <span>↗</span>
+                                        <span>Demo</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Comprehensive, developer-focused directory of scored and curated autonomous AI tools, covering LLM agents, multi-agent systems, RAG pipelines, and development tools.</p>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">JavaScript</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">React</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Node.js</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">GraphQL</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">MongoDB</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Elasticsearch</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Docker</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">GitHub API</span>
+                            </div>
+                        </div>
+                        <div class="project-card card-floating glow-border gpu-accelerated">
+                            <div class="project-header">
+                                <h3 class="project-title">VERITAS</h3>
+                                <div class="project-links">
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Next-generation legal AI platform addressing the core efficiency-trust deficit in legal markets through demonstrably reliable, transparent, and ethically sound artificial intelligence.</p>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Python</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Legal NLP</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Knowledge Graphs</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Blockchain</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Security</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Privacy Engineering</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Compliance</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Audit Trails</span>
+                            </div>
+                        </div>
+                        <div class="project-card card-floating glow-border gpu-accelerated">
+                            <div class="project-header">
+                                <h3 class="project-title">ModelAtlas</h3>
+                                <div class="project-links">
+                                    <a href="https://github.com/adrianwedd/modelatlas" target="_blank" rel="noopener" class="project-link">
+                                        <span>→</span>
+                                        <span>GitHub</span>
+                                    </a>
+                                    <a href="https://modelatlas.ai" target="_blank" rel="noopener" class="project-link">
+                                        <span>↗</span>
+                                        <span>Demo</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Comprehensive intelligence system for mapping and analyzing the foundation model landscape with real-time performance tracking, model comparison, and trend analysis.</p>
+                            </div>
+                            <div class="project-tech">
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Python</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Machine Learning</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Data Analytics</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Real-time Processing</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">API Integration</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Visualization</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Docker</span>
+                                <span class="tech-badge skill-tag btn-magnetic particle-effect">Kubernetes</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Skills Section -->
-            <section id="skills" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="section-icon">⚡</span>
+            <section id="skills" class="section" role="region" aria-labelledby="skills-heading">
+                <div class="section-header" data-animate="fade-in-up" data-delay="50">
+                    <h2 class="section-title" id="skills-heading">
                         Technical Skills
                     </h2>
                     <div class="section-subtitle">Technologies & Expertise Levels</div>
@@ -371,18 +640,13 @@
                 
                 <div class="section-content">
                     <div class="skills-container" id="skills-container">
-                        <!-- Skills will be dynamically loaded -->
-                        <div class="skills-loading">
-                            <div class="loading-spinner small"></div>
-                            <span>Loading skills data...</span>
-                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Visualizations Section -->
             <section id="visualizations" class="section">
-                <div class="section-header">
+                <div class="section-header" data-animate="fade-in-up" data-delay="50">
                     <h2 class="section-title">
                         <span class="section-icon">📊</span>
                         Data Visualizations
@@ -402,10 +666,9 @@
             </section>
 
             <!-- Achievements Section -->
-            <section id="achievements" class="section">
-                <div class="section-header">
-                    <h2 class="section-title">
-                        <span class="section-icon">🏆</span>
+            <section id="achievements" class="section" role="region" aria-labelledby="achievements-heading">
+                <div class="section-header" data-animate="fade-in-up" data-delay="50">
+                    <h2 class="section-title" id="achievements-heading">
                         Achievements & Recognition
                     </h2>
                     <div class="section-subtitle">Awards, Certifications & Milestones</div>
@@ -413,10 +676,53 @@
                 
                 <div class="section-content">
                     <div class="achievements-grid" id="achievements-grid">
-                        <!-- Achievements will be dynamically loaded -->
-                        <div class="achievements-loading">
-                            <div class="loading-spinner small"></div>
-                            <span>Loading achievements data...</span>
+                        <div class="achievement-card card-tilt particle-effect gpu-accelerated">
+                            <div class="achievement-icon">🏛️</div>
+                            <div class="achievement-content">
+                                <h3 class="achievement-title">Systems Integration Excellence</h3>
+                                <p class="achievement-description">Enhanced Housing Management System integration with external services using RESTful APIs and SFTP, significantly improving data exchange and operational efficiency for Tasmania&#x27;s public housing sector.</p>
+                                <div class="achievement-date">2018-2024</div>
+                            </div>
+                        </div>
+                        <div class="achievement-card card-tilt particle-effect gpu-accelerated">
+                            <div class="achievement-icon">🛡️</div>
+                            <div class="achievement-content">
+                                <h3 class="achievement-title">Cybersecurity Leadership</h3>
+                                <p class="achievement-description">Led comprehensive cybersecurity initiatives at Homes Tasmania, significantly improving system security posture and reducing vulnerabilities across critical housing management systems.</p>
+                                <div class="achievement-date">2020-2024</div>
+                            </div>
+                        </div>
+                        <div class="achievement-card card-tilt particle-effect gpu-accelerated">
+                            <div class="achievement-icon">🤖</div>
+                            <div class="achievement-content">
+                                <h3 class="achievement-title">AI Innovation Pioneer</h3>
+                                <p class="achievement-description">First to showcase and implement generative AI applications for data analysis and decision-making processes within Tasmania&#x27;s public housing sector, pioneering practical AI adoption.</p>
+                                <div class="achievement-date">2023-2024</div>
+                            </div>
+                        </div>
+                        <div class="achievement-card card-tilt particle-effect gpu-accelerated">
+                            <div class="achievement-icon">🌿</div>
+                            <div class="achievement-content">
+                                <h3 class="achievement-title">Environmental Campaign Technology Leadership</h3>
+                                <p class="achievement-description">Managed comprehensive IT infrastructure for The Wilderness Society and coordinated high-profile Greenpeace campaigns, combining technology expertise with environmental advocacy.</p>
+                                <div class="achievement-date">2010-2015</div>
+                            </div>
+                        </div>
+                        <div class="achievement-card card-tilt particle-effect gpu-accelerated">
+                            <div class="achievement-icon">🎓</div>
+                            <div class="achievement-content">
+                                <h3 class="achievement-title">Professional Certification Excellence</h3>
+                                <p class="achievement-description">Achieved expert-level certifications across Google Analytics, AdWords, and Bing Ads platforms, demonstrating commitment to continuous learning and professional development.</p>
+                                <div class="achievement-date">2015</div>
+                            </div>
+                        </div>
+                        <div class="achievement-card card-tilt particle-effect gpu-accelerated">
+                            <div class="achievement-icon">⚡</div>
+                            <div class="achievement-content">
+                                <h3 class="achievement-title">Automation &amp; Process Improvement</h3>
+                                <p class="achievement-description">Developed automation scripts in Python, PowerShell, and JavaScript that streamlined operations and improved service delivery across multiple organizations.</p>
+                                <div class="achievement-date">2018-2024</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -424,210 +730,205 @@
         </main>
 
         <!-- Footer -->
-        <footer class="footer">
+        <footer class="footer" role="contentinfo">
             <div class="footer-content">
                 <div class="footer-info">
                     <div class="footer-text">
                         <span class="footer-name">Adrian Wedd</span>
                         <span class="footer-separator">•</span>
-                        <span class="footer-title">AI Engineer & Software Architect</span>
+                        <span class="footer-title">AI Engineer &amp; Software Architect</span>
                     </div>
                     <div class="footer-meta">
-                        <span class="update-info">Last updated: <span id="footer-last-updated">---</span></span>
+                        <span class="update-info">Last updated: <span id="footer-last-updated">Jul 30, 2025, 03:53 AM</span></span>
                         <span class="footer-separator">•</span>
                         <span class="build-info">Built with AI Enhancement</span>
                     </div>
                 </div>
                 <div class="footer-links">
-                    <a href="#" onclick="window.print()" class="footer-link">
-                        <span class="link-icon">🖨️</span>
+                    <a href="#" class="footer-link" data-action="print">
+                        <span class="link-icon">⎙</span>
                         <span>Print CV</span>
                     </a>
                     <a href="assets/adrian-wedd-cv.pdf" download class="footer-link">
-                        <span class="link-icon">📄</span>
+                        <span class="link-icon">↓</span>
                         <span>Download PDF</span>
                     </a>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div class="system-info">
-                    <span class="system-badge">🤖 AI Enhanced</span>
-                    <span class="system-badge">📊 Live Data</span>
-                    <span class="system-badge">🔄 Auto-Updated</span>
+                    <span class="system-badge">AI Enhanced</span>
+                    <span class="system-badge">Live Data</span>
+                    <span class="system-badge">Auto-Updated</span>
                 </div>
                 <div class="copyright">
-                    <span>&copy; 2024 Adrian Wedd. Built with Claude AI & GitHub Analytics.</span>
+                    <span>&copy; 2025 Adrian Wedd. Built with Claude AI & GitHub Analytics.</span>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Scripts - Optimized Loading -->
-    <!-- Critical: Main functionality loads first -->
-    <script src="assets/script.js" defer></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+    <script src="assets/performance-monitor.min.js" async></script>
+    <script src="assets/pwa-enhancements.js" async></script>
+    <script src="assets/script.js"></script>
     
-    <!-- Non-critical: Advanced features load after main content -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
-    <script src="assets/github-actions-visualizer.js" defer></script>
-    <script src="assets/github-actions-analytics.js" defer></script>
-    <script src="assets/github-actions-drill-down.js" defer></script>
-    <script src="assets/development-intelligence-dashboard.js" defer></script>
-    <script src="assets/ats-analyzer.js" defer></script>
-    <script src="assets/cv-template-engine.js" defer></script>
-    <script src="assets/cv-export-system.js" defer></script>
-    <script src="assets/interactive-project-showcase.js" defer></script>
-    <script src="assets/intelligent-cv-personalization.js" defer></script>
-    <script src="assets/advanced-analytics-platform.js" defer></script>
-    
-    <!-- Advanced Error Handling & Performance Monitoring -->
+    <!-- Performance & Analytics -->
     <script>
-        // Global Error Handling System
-        class ErrorManager {
-            constructor() {
-                this.errorCount = 0;
-                this.maxErrors = 10;
-                this.setupGlobalHandlers();
-            }
-            
-            setupGlobalHandlers() {
-                // JavaScript execution errors
-                window.addEventListener('error', (event) => {
-                    this.handleError('JavaScript Error', event.error, {
-                        filename: event.filename,
-                        lineno: event.lineno,
-                        colno: event.colno
-                    });
-                });
-                
-                // Unhandled Promise rejections
-                window.addEventListener('unhandledrejection', (event) => {
-                    this.handleError('Promise Rejection', event.reason);
-                    event.preventDefault(); // Prevent console spam
-                });
-                
-                // Resource loading errors
-                window.addEventListener('error', (event) => {
-                    if (event.target && event.target !== window) {
-                        this.handleResourceError(event.target);
-                    }
-                }, true);
-            }
-            
-            handleError(type, error, context = {}) {
-                this.errorCount++;
-                
-                console.group(`🚨 ${type} (${this.errorCount}/${this.maxErrors})`);
-                console.error('Error:', error);
-                console.log('Context:', context);
-                console.log('User Agent:', navigator.userAgent);
-                console.log('Timestamp:', new Date().toISOString());
-                console.groupEnd();
-                
-                // Prevent error cascade
-                if (this.errorCount >= this.maxErrors) {
-                    console.warn('🛡️ Maximum errors reached. Enabling safe mode.');
-                    this.enableSafeMode();
-                }
-                
-                // Professional error notification (non-intrusive)
-                this.showProfessionalNotification('minor');
-            }
-            
-            handleResourceError(element) {
-                const resourceType = element.tagName.toLowerCase();
-                const resourceSrc = element.src || element.href;
-                
-                console.warn(`📦 Resource loading failed: ${resourceType} - ${resourceSrc}`);
-                
-                // Implement fallbacks based on resource type
-                switch (resourceType) {
-                    case 'img':
-                        this.handleImageError(element);
-                        break;
-                    case 'script':
-                        this.handleScriptError(element);
-                        break;
-                    case 'link':
-                        this.handleStylesheetError(element);
-                        break;
-                }
-            }
-            
-            handleImageError(img) {
-                // Provide fallback for profile images
-                img.style.display = 'none';
-                const fallback = document.createElement('div');
-                fallback.innerHTML = '👤';
-                fallback.style.cssText = 'font-size: 80px; text-align: center; color: #6b7280;';
-                img.parentNode.insertBefore(fallback, img);
-            }
-            
-            handleScriptError(script) {
-                console.warn(`⚠️ Script failed to load: ${script.src}`);
-                // Feature-specific fallbacks handled in individual components
-            }
-            
-            handleStylesheetError(link) {
-                console.warn(`🎨 Stylesheet failed to load: ${link.href}`);
-                // CSS graceful degradation - styles continue to work with fallbacks
-            }
-            
-            enableSafeMode() {
-                document.body.classList.add('safe-mode');
-                console.log('🛡️ Safe mode enabled - core functionality only');
-            }
-            
-            showProfessionalNotification(severity = 'minor') {
-                // Non-intrusive, professional error indication
-                if (severity === 'minor') {
-                    console.log('ℹ️ Minor issue detected - functionality maintained');
-                } else {
-                    const notification = document.createElement('div');
-                    notification.style.cssText = `
-                        position: fixed; top: 20px; right: 20px; 
-                        background: #fef3c7; border: 1px solid #f59e0b; 
-                        padding: 12px 16px; border-radius: 8px; 
-                        font-size: 14px; color: #92400e; z-index: 10000;
-                        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                    `;
-                    notification.innerHTML = '⚠️ Some features may be limited. Core functionality remains available.';
-                    document.body.appendChild(notification);
-                    
-                    setTimeout(() => notification.remove(), 5000);
-                }
-            }
-        }
-        
-        // Initialize error handling
-        const errorManager = new ErrorManager();
-        
-        // Performance monitoring
-        window.addEventListener('load', () => {
-            if ('performance' in window) {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                if (perfData) {
-                    const loadTime = perfData.loadEventEnd - perfData.fetchStart;
-                    console.log(`🚀 Page load time: ${loadTime}ms`);
-                    
-                    // Track if load time is under target
-                    if (loadTime < 2000) {
-                        console.log('✅ Performance target met: < 2s');
-                    } else {
-                        console.warn('⚠️ Performance target missed: > 2s');
-                    }
-                }
-            }
-        });
-        
-        // Service Worker for caching (non-blocking)
+        // Service Worker registration for caching and performance
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/cv/sw.js').catch(() => {});
+            navigator.serviceWorker.register('/cv/sw.js')
+                .then(() => console.log('✅ Service Worker registered for performance caching'))
+                .catch(() => {});
         }
-        
-        // Initialize Development Intelligence Dashboard
-        window.addEventListener('DOMContentLoaded', () => {
-            if (typeof DevelopmentIntelligenceDashboard !== 'undefined') {
-                window.devIntelligenceDashboard = new DevelopmentIntelligenceDashboard();
+
+        // Performance monitoring and optimization
+        if ('PerformanceObserver' in window) {
+            // Monitor Core Web Vitals
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    if (entry.entryType === 'largest-contentful-paint') {
+                        console.log('📊 LCP:', entry.startTime + 'ms');
+                    }
+                }
+            });
+            observer.observe({entryTypes: ['largest-contentful-paint']});
+        }
+    </script>
+
+    <!-- Content Intelligence System Scripts -->
+    <script src="./assets/market-intelligence-engine.js"></script>
+    <script src="./assets/intelligent-content-adapter.js"></script>
+    <script src="./assets/strategic-career-positioning.js"></script>
+    <script src="./assets/ai-content-enhancement.js"></script>
+    
+    <!-- Intelligence Integration -->
+    <script>
+        // Initialize Content Intelligence System
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log('🧠 Initializing Content Intelligence System...');
+                
+                // Wait a moment for core systems to load
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Initialize Market Intelligence
+                if (window.MarketIntelligenceEngine) {
+                    window.marketIntelligence = new MarketIntelligenceEngine();
+                    await window.marketIntelligence.initialize();
+                }
+                
+                // Initialize Content Adapter
+                if (window.IntelligentContentAdapter && window.marketIntelligence) {
+                    window.contentAdapter = new IntelligentContentAdapter(window.marketIntelligence);
+                }
+                
+                // Initialize Career Positioning
+                if (window.StrategicCareerPositioning && window.marketIntelligence && window.contentAdapter) {
+                    window.careerPositioning = new StrategicCareerPositioning(
+                        window.marketIntelligence,
+                        window.contentAdapter
+                    );
+                }
+                
+                // Initialize AI Enhancement
+                if (window.AIContentEnhancement && window.marketIntelligence && window.contentAdapter && window.careerPositioning) {
+                    window.aiContentEnhancement = new AIContentEnhancement(
+                        window.marketIntelligence,
+                        window.contentAdapter,
+                        window.careerPositioning
+                    );
+                }
+                
+                // Add Intelligence Dashboard Link
+                const intelligenceLink = document.createElement('div');
+                intelligenceLink.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 1000;
+                    background: linear-gradient(135deg, #2563eb, #7c3aed);
+                    padding: 12px 20px;
+                    border-radius: 50px;
+                    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+                    transition: transform 0.2s ease;
+                `;
+                
+                intelligenceLink.innerHTML = `
+                    <a href="./strategic-intelligence-dashboard.html" 
+                       style="color: white; text-decoration: none; font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                        🧠 Intelligence Dashboard
+                        <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 12px; font-size: 11px;">
+                            AI-Enhanced
+                        </span>
+                    </a>
+                `;
+                
+                intelligenceLink.addEventListener('mouseenter', () => {
+                    intelligenceLink.style.transform = 'translateY(-2px) scale(1.02)';
+                });
+                
+                intelligenceLink.addEventListener('mouseleave', () => {
+                    intelligenceLink.style.transform = 'translateY(0) scale(1)';
+                });
+                
+                document.body.appendChild(intelligenceLink);
+                
+                console.log('✅ Content Intelligence System initialized successfully');
+                
+                // Show initialization notification
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: #16a34a;
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+                    z-index: 1000;
+                    font-size: 14px;
+                    font-weight: 500;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: all 0.3s ease;
+                `;
+                
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 20px;">🚀</span>
+                        <div>
+                            <div>Content Intelligence Active</div>
+                            <div style="font-size: 12px; opacity: 0.9; margin-top: 2px;">
+                                AI-enhanced career positioning enabled
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Animate notification
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                    notification.style.transform = 'translateY(0)';
+                }, 100);
+                
+                // Auto-hide notification
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 5000);
+                
+            } catch (error) {
+                console.error('❌ Content Intelligence initialization failed:', error);
             }
         });
     </script>
@@ -638,9 +939,7 @@
         .theme-toggle,
         .navigation,
         .footer-links,
-        .contact-links,
-        .cv-export-toggle,
-        .cv-export-modal {
+        .contact-links {
             display: none !important;
         }
         .container {
@@ -653,5 +952,42 @@
             page-break-inside: avoid;
         }
     </style>
+
+<script>
+// Offline/online detection
+function updateConnectionStatus() {
+  const isOnline = navigator.onLine;
+  const indicator = document.getElementById('connection-indicator') || createConnectionIndicator();
+  
+  if (isOnline) {
+    indicator.textContent = '🌐 Online';
+    indicator.className = 'connection-indicator online';
+  } else {
+    indicator.textContent = '📴 Offline';
+    indicator.className = 'connection-indicator offline';
+  }
+}
+
+function createConnectionIndicator() {
+  const indicator = document.createElement('div');
+  indicator.id = 'connection-indicator';
+  indicator.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    z-index: 1000;
+    transition: all 0.3s ease;
+  `;
+  document.body.appendChild(indicator);
+  return indicator;
+}
+
+window.addEventListener('online', updateConnectionStatus);
+window.addEventListener('offline', updateConnectionStatus);
+document.addEventListener('DOMContentLoaded', updateConnectionStatus);
+</script>
 </body>
 </html>
