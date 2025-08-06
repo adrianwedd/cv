@@ -3,9 +3,9 @@
  * Enterprise-grade browser compatibility testing
  */
 
-const { defineConfig, devices } = require('@playwright/test');
+import { defineConfig, devices } from '@playwright/test';
 
-module.exports = defineConfig({
+export default defineConfig({
   testDir: './cross-browser',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -51,8 +51,14 @@ module.exports = defineConfig({
   ],
 
   webServer: {
-    command: 'cd .. && python -m http.server 8000',
+    command: 'cd .. && python3 -m http.server 8000',
     port: 8000,
+    timeout: 20000,
     reuseExistingServer: !process.env.CI,
+    stdout: 'pipe',
+    stderr: 'pipe',
+    env: {
+      ...process.env
+    }
   },
 });

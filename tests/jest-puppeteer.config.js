@@ -36,6 +36,14 @@ module.exports = {
     ignoreHTTPSErrors: true
   },
   browserContext: 'default',
-  // Server configuration disabled - tests will handle server setup manually
-  // to avoid port conflicts and improve reliability
+  server: {
+    command: 'python -m http.server 8001',
+    port: 8001,
+    launchTimeout: 15000,
+    debug: false,
+    options: {
+      cwd: '..',
+      stdio: 'pipe'
+    }
+  }
 };
