@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-06T10:11:30.936Z",
+    "generated_at": "2025-08-06T10:19:36.148Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 219,
-    "rate_limit_remaining": 4781
+    "api_calls_made": 348,
+    "rate_limit_remaining": 4652
   },
   "user": {
     "login": "adrianwedd",
@@ -16,12 +16,12 @@
     "following": 37
   },
   "metrics": {
-    "commits_today": 17,
-    "commits_this_week": 81,
+    "commits_today": 19,
+    "commits_this_week": 83,
     "streak_days": 4,
-    "velocity_score": 343,
+    "velocity_score": 349,
     "focus_time": 40,
-    "weekly_commits": 81,
+    "weekly_commits": 83,
     "weekly_issues": 50,
     "total_activities": 100,
     "activity_distribution": {
@@ -31,7 +31,7 @@
       "CreateEvent": 4,
       "ReleaseEvent": 2
     },
-    "last_commit_date": "2025-08-06T09:20:58Z",
+    "last_commit_date": "2025-08-06T10:13:31Z",
     "last_issue_date": "2025-08-06T10:11:03Z"
   },
   "activities": [
@@ -10785,13 +10785,34 @@
   ],
   "repositories": [
     {
+      "name": "raspberry-pi-hailo-ai-demos",
+      "full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
+      "description": null,
+      "language": "Shell",
+      "stars": 0,
+      "forks": 0,
+      "updated_at": "2025-08-06T10:13:36Z",
+      "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
+      "private": false,
+      "fork": false,
+      "_is_main_repo": true,
+      "_is_fork_with_activity": false,
+      "recent_activity": {
+        "commits": 6,
+        "issues": 0,
+        "total": 6,
+        "last_commit": "2025-08-06T10:13:31Z",
+        "last_issue": null
+      }
+    },
+    {
       "name": "cv",
       "full_name": "adrianwedd/cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
       "stars": 0,
       "forks": 0,
-      "updated_at": "2025-08-06T10:10:42Z",
+      "updated_at": "2025-08-06T10:11:36Z",
       "html_url": "https://github.com/adrianwedd/cv",
       "private": false,
       "fork": false,
@@ -10803,27 +10824,6 @@
         "total": 17,
         "last_commit": "2025-08-06T03:07:51Z",
         "last_issue": "2025-08-06T09:43:08Z"
-      }
-    },
-    {
-      "name": "raspberry-pi-hailo-ai-demos",
-      "full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
-      "description": null,
-      "language": "Shell",
-      "stars": 0,
-      "forks": 0,
-      "updated_at": "2025-08-06T09:28:51Z",
-      "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
-      "private": false,
-      "fork": false,
-      "_is_main_repo": true,
-      "_is_fork_with_activity": false,
-      "recent_activity": {
-        "commits": 4,
-        "issues": 0,
-        "total": 4,
-        "last_commit": "2025-08-06T09:20:58Z",
-        "last_issue": null
       }
     },
     {
@@ -11248,6 +11248,178 @@
     }
   ],
   "recent_commits": [
+    {
+      "sha": "7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+      "node_id": "C_kwDOPZN7idoAKDc0ODE3NjZiZDM5NmMxYjNmOTE2NGFiZDBmNzZmYTFjMmE4YTY0YWI",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T10:13:31Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T10:13:31Z"
+        },
+        "message": "Temporarily remove workflows",
+        "tree": {
+          "sha": "9fadd593b6ada763c889998cf98a1d94f3a6b6b8",
+          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/trees/9fadd593b6ada763c889998cf98a1d94f3a6b6b8"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/commits/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+      "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+      "comments_url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "62aeffde7f11237b11eea212509193d661f27e38",
+          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/62aeffde7f11237b11eea212509193d661f27e38",
+          "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/62aeffde7f11237b11eea212509193d661f27e38"
+        }
+      ],
+      "repository": "raspberry-pi-hailo-ai-demos",
+      "repository_full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
+      "repository_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
+      "_activity_type": "commit"
+    },
+    {
+      "sha": "62aeffde7f11237b11eea212509193d661f27e38",
+      "node_id": "C_kwDOPZN7idoAKDYyYWVmZmRlN2YxMTIzN2IxMWVlYTIxMjUwOTE5M2Q2NjFmMjdlMzg",
+      "commit": {
+        "author": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T10:01:42Z"
+        },
+        "committer": {
+          "name": "Adrian Wedd",
+          "email": "adrian@adrianwedd.com",
+          "date": "2025-08-06T10:01:42Z"
+        },
+        "message": "Add submodule management scripts and workflows (without workflow scope)\n\nAdded management tools:\n• scripts/sync-submodules.sh: Manual sync script for local/CI use\n• Updated README with CI/CD status badges\n• Prepared GitHub Actions workflows (in .github/workflows/)\n• Added Dependabot configuration\n\nFeatures:\n✅ Manual submodule sync script with multiple modes\n✅ Check for outdated repositories\n✅ Status reporting with category counts\n✅ Single submodule update support\n✅ Ready for CI/CD integration\n\nUsage:\n./scripts/sync-submodules.sh all     # Update all submodules\n./scripts/sync-submodules.sh check   # Check for outdated\n./scripts/sync-submodules.sh status  # Show statistics\n\nNote: GitHub Actions workflows are included but require\nworkflow scope permissions to push. You can:\n1. Push manually with proper GitHub token\n2. Enable workflows directly in GitHub UI\n3. Use the manual sync script locally\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+        "tree": {
+          "sha": "6eb2f43833a7387ec9ef3d59108b394d5514bf89",
+          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/trees/6eb2f43833a7387ec9ef3d59108b394d5514bf89"
+        },
+        "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/commits/62aeffde7f11237b11eea212509193d661f27e38",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/62aeffde7f11237b11eea212509193d661f27e38",
+      "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/62aeffde7f11237b11eea212509193d661f27e38",
+      "comments_url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/62aeffde7f11237b11eea212509193d661f27e38/comments",
+      "author": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c",
+          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c",
+          "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c"
+        }
+      ],
+      "repository": "raspberry-pi-hailo-ai-demos",
+      "repository_full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
+      "repository_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
+      "_activity_type": "commit"
+    },
     {
       "sha": "d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c",
       "node_id": "C_kwDOPZN7idoAKGQ0Y2ZhMGJmOTY0ZjYyODhkNGVhMTlmZDhjMTUzYzM0ZDA3MTdhN2M",
@@ -31961,6 +32133,102 @@
   ],
   "timeline": [
     {
+      "id": "commit-7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-06T10:13:31Z",
+      "repo": "raspberry-pi-hailo-ai-demos",
+      "data": {
+        "sha": "7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+        "node_id": "C_kwDOPZN7idoAKDc0ODE3NjZiZDM5NmMxYjNmOTE2NGFiZDBmNzZmYTFjMmE4YTY0YWI",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T10:13:31Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T10:13:31Z"
+          },
+          "message": "Temporarily remove workflows",
+          "tree": {
+            "sha": "9fadd593b6ada763c889998cf98a1d94f3a6b6b8",
+            "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/trees/9fadd593b6ada763c889998cf98a1d94f3a6b6b8"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/commits/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+        "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab",
+        "comments_url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/7481766bd396c1b3f9164abd0f76fa1c2a8a64ab/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "62aeffde7f11237b11eea212509193d661f27e38",
+            "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/62aeffde7f11237b11eea212509193d661f27e38",
+            "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/62aeffde7f11237b11eea212509193d661f27e38"
+          }
+        ],
+        "repository": "raspberry-pi-hailo-ai-demos",
+        "repository_full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
+        "repository_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: Temporarily remove workflows",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
       "id": "issue-3296070217",
       "type": "issue",
       "subtype": "issue",
@@ -32323,6 +32591,102 @@
       "_formatted": "Issue #18: Mobile UX: Touch-friendly buttons and modal sizing",
       "_icon": "🐛",
       "_color": "#f59e0b"
+    },
+    {
+      "id": "commit-62aeffde7f11237b11eea212509193d661f27e38",
+      "type": "commit",
+      "subtype": "push",
+      "timestamp": "2025-08-06T10:01:42Z",
+      "repo": "raspberry-pi-hailo-ai-demos",
+      "data": {
+        "sha": "62aeffde7f11237b11eea212509193d661f27e38",
+        "node_id": "C_kwDOPZN7idoAKDYyYWVmZmRlN2YxMTIzN2IxMWVlYTIxMjUwOTE5M2Q2NjFmMjdlMzg",
+        "commit": {
+          "author": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T10:01:42Z"
+          },
+          "committer": {
+            "name": "Adrian Wedd",
+            "email": "adrian@adrianwedd.com",
+            "date": "2025-08-06T10:01:42Z"
+          },
+          "message": "Add submodule management scripts and workflows (without workflow scope)\n\nAdded management tools:\n• scripts/sync-submodules.sh: Manual sync script for local/CI use\n• Updated README with CI/CD status badges\n• Prepared GitHub Actions workflows (in .github/workflows/)\n• Added Dependabot configuration\n\nFeatures:\n✅ Manual submodule sync script with multiple modes\n✅ Check for outdated repositories\n✅ Status reporting with category counts\n✅ Single submodule update support\n✅ Ready for CI/CD integration\n\nUsage:\n./scripts/sync-submodules.sh all     # Update all submodules\n./scripts/sync-submodules.sh check   # Check for outdated\n./scripts/sync-submodules.sh status  # Show statistics\n\nNote: GitHub Actions workflows are included but require\nworkflow scope permissions to push. You can:\n1. Push manually with proper GitHub token\n2. Enable workflows directly in GitHub UI\n3. Use the manual sync script locally\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+          "tree": {
+            "sha": "6eb2f43833a7387ec9ef3d59108b394d5514bf89",
+            "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/trees/6eb2f43833a7387ec9ef3d59108b394d5514bf89"
+          },
+          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/commits/62aeffde7f11237b11eea212509193d661f27e38",
+          "comment_count": 0,
+          "verification": {
+            "verified": false,
+            "reason": "unsigned",
+            "signature": null,
+            "payload": null,
+            "verified_at": null
+          }
+        },
+        "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/62aeffde7f11237b11eea212509193d661f27e38",
+        "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/62aeffde7f11237b11eea212509193d661f27e38",
+        "comments_url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/62aeffde7f11237b11eea212509193d661f27e38/comments",
+        "author": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "committer": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "parents": [
+          {
+            "sha": "d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c",
+            "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c",
+            "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/d4cfa0bf964f6288d4ea19fd8c153c34d0717a7c"
+          }
+        ],
+        "repository": "raspberry-pi-hailo-ai-demos",
+        "repository_full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
+        "repository_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
+        "_activity_type": "commit"
+      },
+      "_formatted": "Committed: Add submodule management scripts and workflows (without workflow scope)",
+      "_icon": "📝",
+      "_color": "#22c55e"
     },
     {
       "id": "issue-3296013478",
@@ -42601,381 +42965,6 @@
       "_formatted": "Opened issue #68: 🧪 Test rate limiting functionality for v2.1.1",
       "_icon": "🐛",
       "_color": "#f59e0b"
-    },
-    {
-      "id": "activity-52972535792",
-      "type": "github_activity",
-      "subtype": "IssueCommentEvent",
-      "timestamp": "2025-08-05T14:08:25Z",
-      "repo": "adrianwedd/ordr.fm",
-      "data": {
-        "id": "52972535792",
-        "type": "IssueCommentEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1028304060,
-          "name": "adrianwedd/ordr.fm",
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm"
-        },
-        "payload": {
-          "action": "created",
-          "issue": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62",
-            "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-            "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62/labels{/name}",
-            "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62/comments",
-            "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62/events",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/issues/62",
-            "id": 3292870241,
-            "node_id": "I_kwDOPUqsvM7ERTZh",
-            "number": 62,
-            "title": "📊 Security Status Dashboard",
-            "user": {
-              "login": "github-actions[bot]",
-              "id": 41898282,
-              "node_id": "MDM6Qm90NDE4OTgyODI=",
-              "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/github-actions%5Bbot%5D",
-              "html_url": "https://github.com/apps/github-actions",
-              "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
-              "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
-              "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
-              "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
-              "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
-              "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
-              "type": "Bot",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 9021671214,
-                "node_id": "LA_kwDOPUqsvM8AAAACGbvHLg",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/documentation",
-                "name": "documentation",
-                "color": "0075ca",
-                "default": true,
-                "description": "Improvements or additions to documentation"
-              },
-              {
-                "id": 9058422299,
-                "node_id": "LA_kwDOPUqsvM8AAAACG-yOGw",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/security-status",
-                "name": "security-status",
-                "color": "0e8a16",
-                "default": false,
-                "description": "Security status dashboard issue"
-              }
-            ],
-            "state": "open",
-            "locked": false,
-            "assignee": null,
-            "assignees": [],
-            "milestone": null,
-            "comments": 1,
-            "created_at": "2025-08-05T12:10:53Z",
-            "updated_at": "2025-08-05T14:08:23Z",
-            "closed_at": null,
-            "author_association": "NONE",
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "body": "## 📊 Security Status Report\n\n### CodeQL Alerts\n- **Open Alerts**: 29\n- **Resolved Alerts**: 0\n- **Total Security Issues**: 6\n\n### Alert Breakdown by Severity\n- **ERROR**: 1\n- **WARNING**: 28\n- **NOTE**: 0\n\n### Recent Activity\n- Last scan: 2025-08-05T12:10:52.936Z\n- Auto-created issues: 1\n\n---\n*This summary is generated automatically every 6 hours*\n",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62/timeline",
-            "performed_via_github_app": null,
-            "state_reason": null
-          },
-          "comment": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/comments/3155393557",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/issues/62#issuecomment-3155393557",
-            "issue_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/62",
-            "id": 3155393557,
-            "node_id": "IC_kwDOPUqsvM68E3wV",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "created_at": "2025-08-05T14:08:23Z",
-            "updated_at": "2025-08-05T14:08:23Z",
-            "author_association": "OWNER",
-            "body": "📊 **SECURITY STATUS UPDATE**\n\n## Major Security Improvements Completed\n\n### ✅ Recently Fixed Issues\n1. **Rate Limiting (#59)** - All API endpoints now have comprehensive rate limiting\n2. **Workflow Permissions (#57)** - All GitHub Actions workflows have explicit permissions\n3. **Dependency Security (#58)** - All packages audited, 0 vulnerabilities found\n\n### 📈 Current Security Posture\n- **API Security**: Rate limiting implemented across all endpoints\n- **CI/CD Security**: Workflow permissions properly configured\n- **Dependency Security**: Clean audit results (0 vulnerabilities)\n- **Access Control**: Principle of least privilege applied\n\n### 🎯 Next Security Priorities\n- Monitor CodeQL scan results for remaining alerts\n- Consider implementing additional security headers\n- Evaluate input validation on API endpoints\n- Review authentication/authorization for sensitive endpoints\n\nThe project security posture has significantly improved with these recent fixes.",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/comments/3155393557/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "performed_via_github_app": null
-          }
-        },
-        "public": true,
-        "created_at": "2025-08-05T14:08:25Z"
-      },
-      "_formatted": "Commented on issue #62: 📊 Security Status Dashboard",
-      "_icon": "💬",
-      "_color": "#8b5cf6"
-    },
-    {
-      "id": "activity-52972524904",
-      "type": "github_activity",
-      "subtype": "IssueCommentEvent",
-      "timestamp": "2025-08-05T14:08:12Z",
-      "repo": "adrianwedd/ordr.fm",
-      "data": {
-        "id": "52972524904",
-        "type": "IssueCommentEvent",
-        "actor": {
-          "id": 3725784,
-          "login": "adrianwedd",
-          "display_login": "adrianwedd",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-        },
-        "repo": {
-          "id": 1028304060,
-          "name": "adrianwedd/ordr.fm",
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm"
-        },
-        "payload": {
-          "action": "created",
-          "issue": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58",
-            "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-            "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58/labels{/name}",
-            "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58/comments",
-            "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58/events",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/issues/58",
-            "id": 3291913162,
-            "node_id": "I_kwDOPUqsvM7ENpvK",
-            "number": 58,
-            "title": "🔒 v2.1.1 Security Patch Release",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "labels": [
-              {
-                "id": 9051762396,
-                "node_id": "LA_kwDOPUqsvM8AAAACG4bu3A",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/security",
-                "name": "security",
-                "color": "ff0000",
-                "default": false,
-                "description": "Security-related issues"
-              },
-              {
-                "id": 9058580859,
-                "node_id": "LA_kwDOPUqsvM8AAAACG-75ew",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/high-priority",
-                "name": "high-priority",
-                "color": "d93f0b",
-                "default": false,
-                "description": "High priority issues requiring immediate attention"
-              },
-              {
-                "id": 9058581742,
-                "node_id": "LA_kwDOPUqsvM8AAAACG-787g",
-                "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/v2.1.1",
-                "name": "v2.1.1",
-                "color": "e99695",
-                "default": false,
-                "description": "Security patch release v2.1.1"
-              }
-            ],
-            "state": "open",
-            "locked": false,
-            "assignee": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "assignees": [
-              {
-                "login": "adrianwedd",
-                "id": 3725784,
-                "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-                "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-                "gravatar_id": "",
-                "url": "https://api.github.com/users/adrianwedd",
-                "html_url": "https://github.com/adrianwedd",
-                "followers_url": "https://api.github.com/users/adrianwedd/followers",
-                "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-                "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-                "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-                "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-                "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-                "repos_url": "https://api.github.com/users/adrianwedd/repos",
-                "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-                "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-                "type": "User",
-                "user_view_type": "public",
-                "site_admin": false
-              }
-            ],
-            "milestone": null,
-            "comments": 1,
-            "created_at": "2025-08-05T07:23:34Z",
-            "updated_at": "2025-08-05T14:08:11Z",
-            "closed_at": null,
-            "author_association": "OWNER",
-            "active_lock_reason": null,
-            "sub_issues_summary": {
-              "total": 0,
-              "completed": 0,
-              "percent_completed": 0
-            },
-            "body": "# v2.1.1 Security Patch Release\n\n## 🔒 Overview\nThis release addresses security vulnerabilities identified by CodeQL scanning, including missing rate limiting and workflow permissions issues.\n\n## 🎯 Scope\n\n### Security Fixes Required\n1. **Rate Limiting** (8 High-severity alerts)\n   - Add express-rate-limit to visualization/server.js\n   - Add express-rate-limit to server/server.js\n   - Implement proper rate limiting on all API endpoints\n   - Add stricter limits for resource-intensive endpoints\n\n2. **Workflow Permissions** (9 Medium-severity alerts)\n   - Add explicit permissions to all GitHub Actions workflows\n   - Follow principle of least privilege\n   - Default to read-only access where possible\n\n3. **Dependency Updates** (4 High-severity from Dependabot)\n   - Update vulnerable dependencies identified by GitHub\n   - Run npm audit fix\n   - Test all functionality after updates\n\n## 📋 Tasks\n\n- [ ] Implement rate limiting in visualization server\n- [ ] Implement rate limiting in main server\n- [ ] Add permissions to all workflow files\n- [ ] Update vulnerable dependencies\n- [ ] Run full test suite\n- [ ] Update CHANGELOG.md\n- [ ] Create v2.1.1 release\n\n## 🧪 Testing Requirements\n\n### Rate Limiting Tests\n```bash\n# Test rate limiting works\nfor i in {1..150}; do\n  curl -s -o /dev/null -w \"%{http_code}\\n\" http://localhost:3000/api/stats\ndone\n# Should see 429 responses after limit\n```\n\n### Security Scanning\n- [ ] CodeQL scan passes with no high/critical issues\n- [ ] npm audit shows 0 vulnerabilities\n- [ ] All GitHub Actions workflows have explicit permissions\n\n## 📅 Timeline\n- **Priority**: High - Security fixes should be released ASAP\n- **Target**: Within 1 week of v2.1.0\n- **Effort**: 1-2 days\n\n## 🚀 Release Process\n1. Create security fixes on `security-patch-v2.1.1` branch\n2. Run all security scans and tests\n3. Create PR with security fixes\n4. Fast-track review and merge\n5. Tag and release v2.1.1\n6. Update Docker images\n7. Notify users of security update\n\n## 📖 Documentation\n- Update SECURITY.md with fixed vulnerabilities\n- Add security patch notes to CHANGELOG.md\n- Document rate limiting configuration options\n\n---\n**Labels**: security, high-priority, v2.1.1",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58/timeline",
-            "performed_via_github_app": null,
-            "state_reason": null
-          },
-          "comment": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/comments/3155392895",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/issues/58#issuecomment-3155392895",
-            "issue_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/58",
-            "id": 3155392895,
-            "node_id": "IC_kwDOPUqsvM68E3l_",
-            "user": {
-              "login": "adrianwedd",
-              "id": 3725784,
-              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-              "gravatar_id": "",
-              "url": "https://api.github.com/users/adrianwedd",
-              "html_url": "https://github.com/adrianwedd",
-              "followers_url": "https://api.github.com/users/adrianwedd/followers",
-              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-              "repos_url": "https://api.github.com/users/adrianwedd/repos",
-              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-              "type": "User",
-              "user_view_type": "public",
-              "site_admin": false
-            },
-            "created_at": "2025-08-05T14:08:11Z",
-            "updated_at": "2025-08-05T14:08:11Z",
-            "author_association": "OWNER",
-            "body": "🔒 **SECURITY FIXES COMPLETED**\n\nAll critical security issues for v2.1.1 have been resolved:\n\n## ✅ Completed Fixes\n\n### 1. Rate Limiting Implementation (#59)\n- ✅ Added express-rate-limit to all API endpoints\n- ✅ Differential limits based on endpoint resource intensity\n- ✅ Configurable via environment variables\n- ✅ Proper error handling and retry-after headers\n\n### 2. GitHub Actions Workflow Permissions (#57)\n- ✅ Added explicit permissions to all 7 workflow files\n- ✅ Follows principle of least privilege\n- ✅ Addresses 9 medium-severity CodeQL alerts\n\n### 3. Dependency Security Audit\n- ✅ found 0 vulnerabilities shows 0 vulnerabilities in both servers\n- ✅ All dependencies are secure\n- ✅ No critical updates required\n\n## 🧪 Testing Required\n- [ ] Rate limiting functionality test\n- [ ] Workflow permissions verification\n- [ ] Full CodeQL security scan\n- [ ] Performance impact assessment\n\nReady for v2.1.1 release once testing is complete.",
-            "reactions": {
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/comments/3155392895/reactions",
-              "total_count": 0,
-              "+1": 0,
-              "-1": 0,
-              "laugh": 0,
-              "hooray": 0,
-              "confused": 0,
-              "heart": 0,
-              "rocket": 0,
-              "eyes": 0
-            },
-            "performed_via_github_app": null
-          }
-        },
-        "public": true,
-        "created_at": "2025-08-05T14:08:12Z"
-      },
-      "_formatted": "Commented on issue #58: 🔒 v2.1.1 Security Patch Release",
-      "_icon": "💬",
-      "_color": "#8b5cf6"
     }
   ]
 }
