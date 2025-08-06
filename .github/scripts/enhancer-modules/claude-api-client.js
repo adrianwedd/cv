@@ -10,11 +10,16 @@
  * @version 2.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const crypto = require('crypto');
-const https = require('https');
-const { sleep } = require('../utils/apiClient');
+import { promises as fs } from 'fs';
+import path from 'path';
+import crypto from 'crypto';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import https from 'https';
+import { sleep } from '../utils/apiClient.js';
 
 /**
  * Custom error classes for better error handling
@@ -360,7 +365,7 @@ class ClaudeApiClient {
     }
 }
 
-module.exports = { 
+export { 
     ClaudeApiClient, 
     QuotaExhaustedError,
     RateLimitExceededError,
