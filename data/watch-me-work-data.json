@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-06T11:14:56.884Z",
+    "generated_at": "2025-08-06T11:17:21.749Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 180,
-    "rate_limit_remaining": 4820
+    "api_calls_made": 268,
+    "rate_limit_remaining": 4732
   },
   "user": {
     "login": "adrianwedd",
@@ -25,9 +25,9 @@
     "weekly_issues": 50,
     "total_activities": 100,
     "activity_distribution": {
-      "IssuesEvent": 47,
+      "PushEvent": 20,
       "IssueCommentEvent": 30,
-      "PushEvent": 19,
+      "IssuesEvent": 46,
       "CreateEvent": 3,
       "ReleaseEvent": 1
     },
@@ -35,6 +35,332 @@
     "last_issue_date": "2025-08-06T11:00:13Z"
   },
   "activities": [
+    {
+      "id": "53013532649",
+      "type": "PushEvent",
+      "repo": "adrianwedd/cv",
+      "repo_full_name": "adrianwedd/cv",
+      "created_at": "2025-08-06T10:10:40Z",
+      "payload": {
+        "repository_id": 1028440018,
+        "push_id": 25961940411,
+        "size": 1,
+        "distinct_size": 1,
+        "ref": "refs/heads/main",
+        "head": "c0bb6eb810d9ff7fca8ae5d06f7d13ba3aa39141",
+        "before": "0ee27e29c62040b4c68653a20f6da005ad24fb18",
+        "commits": [
+          {
+            "sha": "c0bb6eb810d9ff7fca8ae5d06f7d13ba3aa39141",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "📚 Comprehensive Session Wrap-up - Critical Infrastructure Excellence\n\n**Session Documentation Complete:**\n- Updated CLAUDE.md with August 4 critical loading & ES module success achievements\n- Created comprehensive NEXT_SESSION_PLAN.md with PWA optimization roadmap\n- Session achievements: Critical loading issue + ES module architecture modernization\n- Production status: 96/100 EXCELLENT maintained with 6/6 systems operational\n\n**Strategic Planning:**\n- P1 Critical: Service Worker asset reference consistency (Issue #251)\n- P2 High: Testing framework reliability enhancement (Issue #208)\n- Technical readiness: All prerequisites completed for infrastructure hardening\n- Session confidence: HIGH with clear objectives and proven patterns\n\n**Knowledge Continuity:**\n- Complete session export archived to ~/.claude/logs/\n- GitHub issues comprehensively groomed with strategic priorities\n- Repository health: PRODUCTION-READY with optimization roadmap\n- Development velocity: Restored with modern ES module architecture\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/c0bb6eb810d9ff7fca8ae5d06f7d13ba3aa39141"
+          }
+        ]
+      },
+      "actor": {
+        "id": 3725784,
+        "login": "adrianwedd",
+        "display_login": "adrianwedd",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+      },
+      "public": true,
+      "_formatted_description": "Pushed 1 commit: 📚 Comprehensive Session Wrap-up - Critical Infrastructure Excellence",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "53013527775",
+      "type": "IssueCommentEvent",
+      "repo": "adrianwedd/ADHDo",
+      "repo_full_name": "adrianwedd/ADHDo",
+      "created_at": "2025-08-06T10:10:34Z",
+      "payload": {
+        "action": "created",
+        "issue": {
+          "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19",
+          "repository_url": "https://api.github.com/repos/adrianwedd/ADHDo",
+          "labels_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/labels{/name}",
+          "comments_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/comments",
+          "events_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/events",
+          "html_url": "https://github.com/adrianwedd/ADHDo/issues/19",
+          "id": 3296068592,
+          "node_id": "I_kwDOPYPvd87EdgPw",
+          "number": 19,
+          "title": "ADHD-Friendly Error Messages",
+          "user": {
+            "login": "adrianwedd",
+            "id": 3725784,
+            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/adrianwedd",
+            "html_url": "https://github.com/adrianwedd",
+            "followers_url": "https://api.github.com/users/adrianwedd/followers",
+            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+            "repos_url": "https://api.github.com/users/adrianwedd/repos",
+            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "labels": [
+            {
+              "id": 9055874834,
+              "node_id": "LA_kwDOPYPvd88AAAACG8WvEg",
+              "url": "https://api.github.com/repos/adrianwedd/ADHDo/labels/enhancement",
+              "name": "enhancement",
+              "color": "a2eeef",
+              "default": true,
+              "description": "New feature or request"
+            }
+          ],
+          "state": "open",
+          "locked": false,
+          "assignee": null,
+          "assignees": [],
+          "milestone": null,
+          "comments": 1,
+          "created_at": "2025-08-06T10:01:19Z",
+          "updated_at": "2025-08-06T10:10:33Z",
+          "closed_at": null,
+          "author_association": "OWNER",
+          "active_lock_reason": null,
+          "sub_issues_summary": {
+            "total": 0,
+            "completed": 0,
+            "percent_completed": 0
+          },
+          "body": "## Problem\nPhase 0 testing identified error messages that are not optimized for ADHD users.\n\n## Current Issue\nError message: 'Registration failed. Please try again.' lacks ADHD-friendly characteristics:\n- Uses negative language ('failed')\n- Provides no helpful guidance\n- Could increase anxiety and overwhelm\n\n## ADHD-Friendly Requirements\nError messages should be:\n- **Supportive**: Use encouraging language\n- **Specific**: Explain what to do next\n- **Concise**: Under 100 characters when possible\n- **Positive**: Avoid words like 'failed', 'error', 'invalid'\n\n## Example Improvements\n❌ 'Registration failed. Please try again.'\n✅ 'Let's try that again\\! Please check your email format and password length.'\n\n❌ 'Invalid credentials'\n✅ 'Hmm, that email and password don't match. Want to reset your password?'\n\n## Acceptance Criteria\n- [ ] Replace all negative error language with supportive alternatives\n- [ ] Provide specific guidance in error messages\n- [ ] Test error messages pass ADHD-friendly criteria (supportive, specific, positive)\n- [ ] Update authentication error messages\n- [ ] Update form validation messages\n- [ ] Maintain error message consistency across all endpoints\n\n## Priority\n**Medium** - Important for ADHD user experience and reducing overwhelm",
+          "reactions": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/reactions",
+            "total_count": 0,
+            "+1": 0,
+            "-1": 0,
+            "laugh": 0,
+            "hooray": 0,
+            "confused": 0,
+            "heart": 0,
+            "rocket": 0,
+            "eyes": 0
+          },
+          "timeline_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/timeline",
+          "performed_via_github_app": null,
+          "state_reason": null
+        },
+        "comment": {
+          "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159084314",
+          "html_url": "https://github.com/adrianwedd/ADHDo/issues/19#issuecomment-3159084314",
+          "issue_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19",
+          "id": 3159084314,
+          "node_id": "IC_kwDOPYPvd868S80a",
+          "user": {
+            "login": "adrianwedd",
+            "id": 3725784,
+            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/adrianwedd",
+            "html_url": "https://github.com/adrianwedd",
+            "followers_url": "https://api.github.com/users/adrianwedd/followers",
+            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+            "repos_url": "https://api.github.com/users/adrianwedd/repos",
+            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2025-08-06T10:10:33Z",
+          "updated_at": "2025-08-06T10:10:33Z",
+          "author_association": "OWNER",
+          "body": "✅ **COMPLETE** - ADHD-friendly error messages implemented\n\n## ✅ **Changes Made**\n- **Password validation messages**: Changed from harsh to encouraging\n  - ❌ 'Password must be at least 8 characters long' \n  - ✅ 'Almost there\\! Your password needs to be at least 8 characters long'\n\n- **Registration error messages**: Made supportive\n  - ❌ 'Registration failed. Please try again.'\n  - ✅ 'Let's try that again\\! Something went wrong with creating your account. Please check your info and give it another go.'\n\n- **Login error messages**: More helpful\n  - ❌ 'Invalid email or password. Please check your credentials and try again.'\n  - ✅ 'Hmm, that email and password don't match our records. Double-check your info, or would you like to reset your password?'\n\n- **Account exists messages**: Positive framing\n  - ❌ 'An account with this email already exists. Please try logging in instead.'\n  - ✅ 'Good news\\! You already have an account with this email. Would you like to sign in instead?'\n\n- **Telegram bot messages**: Updated for consistency\n\n## ✅ **ADHD-Friendly Characteristics Achieved**\n- Supportive language (no 'failed', 'invalid', 'error')\n- Specific guidance on next steps\n- Encouraging tone throughout\n- Under 100 characters where possible\n\nError messages now meet ADHD-friendly criteria\\! 🎉",
+          "reactions": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159084314/reactions",
+            "total_count": 0,
+            "+1": 0,
+            "-1": 0,
+            "laugh": 0,
+            "hooray": 0,
+            "confused": 0,
+            "heart": 0,
+            "rocket": 0,
+            "eyes": 0
+          },
+          "performed_via_github_app": null
+        }
+      },
+      "actor": {
+        "id": 3725784,
+        "login": "adrianwedd",
+        "display_login": "adrianwedd",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+      },
+      "public": true,
+      "_formatted_description": "Commented on issue #19: ADHD-Friendly Error Messages",
+      "_icon": "💬",
+      "_color": "#8b5cf6"
+    },
+    {
+      "id": "53013516277",
+      "type": "IssueCommentEvent",
+      "repo": "adrianwedd/ADHDo",
+      "repo_full_name": "adrianwedd/ADHDo",
+      "created_at": "2025-08-06T10:10:19Z",
+      "payload": {
+        "action": "created",
+        "issue": {
+          "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18",
+          "repository_url": "https://api.github.com/repos/adrianwedd/ADHDo",
+          "labels_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/labels{/name}",
+          "comments_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/comments",
+          "events_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/events",
+          "html_url": "https://github.com/adrianwedd/ADHDo/issues/18",
+          "id": 3296067947,
+          "node_id": "I_kwDOPYPvd87EdgFr",
+          "number": 18,
+          "title": "Mobile UX: Touch-friendly buttons and modal sizing",
+          "user": {
+            "login": "adrianwedd",
+            "id": 3725784,
+            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/adrianwedd",
+            "html_url": "https://github.com/adrianwedd",
+            "followers_url": "https://api.github.com/users/adrianwedd/followers",
+            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+            "repos_url": "https://api.github.com/users/adrianwedd/repos",
+            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "labels": [
+            {
+              "id": 9055874834,
+              "node_id": "LA_kwDOPYPvd88AAAACG8WvEg",
+              "url": "https://api.github.com/repos/adrianwedd/ADHDo/labels/enhancement",
+              "name": "enhancement",
+              "color": "a2eeef",
+              "default": true,
+              "description": "New feature or request"
+            }
+          ],
+          "state": "open",
+          "locked": false,
+          "assignee": null,
+          "assignees": [],
+          "milestone": null,
+          "comments": 1,
+          "created_at": "2025-08-06T10:01:06Z",
+          "updated_at": "2025-08-06T10:10:18Z",
+          "closed_at": null,
+          "author_association": "OWNER",
+          "active_lock_reason": null,
+          "sub_issues_summary": {
+            "total": 0,
+            "completed": 0,
+            "percent_completed": 0
+          },
+          "body": "## Problem\nPhase 0 testing identified mobile UX issues that could impact ADHD users on mobile devices.\n\n## Issues Found\n- **Touch-friendly buttons**: Buttons are smaller than 44px height (Apple's recommended touch target)\n- **Mobile modal sizing**: Authentication modal is too wide for mobile screens (375px viewport)\n\n## ADHD Impact\n- Small touch targets cause frustration and failed interactions\n- Wide modals require horizontal scrolling, breaking focus\n- Mobile users represent significant portion of ADHD community\n\n## Acceptance Criteria\n- [ ] All interactive buttons are minimum 44px height for touch accessibility\n- [ ] Authentication modal fits within 95% of mobile viewport width\n- [ ] Test on 375px and 320px viewports\n- [ ] Maintain visual hierarchy on mobile\n- [ ] No horizontal scrolling required\n\n## Testing\nPhase 0 testing suite validates these requirements automatically.\n\n## Priority\n**High** - Required for beta user acceptance",
+          "reactions": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/reactions",
+            "total_count": 0,
+            "+1": 0,
+            "-1": 0,
+            "laugh": 0,
+            "hooray": 0,
+            "confused": 0,
+            "heart": 0,
+            "rocket": 0,
+            "eyes": 0
+          },
+          "timeline_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/timeline",
+          "performed_via_github_app": null,
+          "state_reason": null
+        },
+        "comment": {
+          "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159081730",
+          "html_url": "https://github.com/adrianwedd/ADHDo/issues/18#issuecomment-3159081730",
+          "issue_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18",
+          "id": 3159081730,
+          "node_id": "IC_kwDOPYPvd868S8MC",
+          "user": {
+            "login": "adrianwedd",
+            "id": 3725784,
+            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/adrianwedd",
+            "html_url": "https://github.com/adrianwedd",
+            "followers_url": "https://api.github.com/users/adrianwedd/followers",
+            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+            "repos_url": "https://api.github.com/users/adrianwedd/repos",
+            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "created_at": "2025-08-06T10:10:18Z",
+          "updated_at": "2025-08-06T10:10:18Z",
+          "author_association": "OWNER",
+          "body": "✅ **PARTIALLY COMPLETE** - Mobile UX improvements implemented\n\n## ✅ **Completed**\n- Added min-h-[44px] and min-w-[44px] classes to all interactive buttons\n- Updated modal container with responsive margins (mx-4 sm:mx-0)\n- Enhanced touch target sizes for authentication modal buttons\n- Improved user menu button sizing (w-11 h-11)\n\n## ❌ **Still Testing as Failed**\n- Touch-friendly buttons: Test still reports buttons too small for mobile\n- Mobile modal fits screen: Test reports modal too wide for mobile\n\n## 🔧 **Next Steps**\n- Investigate test criteria - may need larger touch targets (48px Apple standard)\n- Review modal width calculation in mobile viewports\n- Consider using CSS media queries for better mobile optimization\n\nThe improvements are implemented but may need refinement based on test feedback.",
+          "reactions": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159081730/reactions",
+            "total_count": 0,
+            "+1": 0,
+            "-1": 0,
+            "laugh": 0,
+            "hooray": 0,
+            "confused": 0,
+            "heart": 0,
+            "rocket": 0,
+            "eyes": 0
+          },
+          "performed_via_github_app": null
+        }
+      },
+      "actor": {
+        "id": 3725784,
+        "login": "adrianwedd",
+        "display_login": "adrianwedd",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+      },
+      "public": true,
+      "_formatted_description": "Commented on issue #18: Mobile UX: Touch-friendly buttons and modal sizing",
+      "_icon": "💬",
+      "_color": "#8b5cf6"
+    },
     {
       "id": "53013128340",
       "type": "IssuesEvent",
@@ -10833,480 +11159,6 @@
       "_formatted_description": "Pushed 1 commit: fix: resolve all major CI/CD test failures to achieve 8/8 workflow success",
       "_icon": "📝",
       "_color": "#22c55e"
-    },
-    {
-      "id": "52947956998",
-      "type": "IssueCommentEvent",
-      "repo": "adrianwedd/Dx0",
-      "repo_full_name": "adrianwedd/Dx0",
-      "created_at": "2025-08-05T04:48:35Z",
-      "payload": {
-        "action": "created",
-        "issue": {
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-          "repository_url": "https://api.github.com/repos/adrianwedd/Dx0",
-          "labels_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/labels{/name}",
-          "comments_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/comments",
-          "events_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/events",
-          "html_url": "https://github.com/adrianwedd/Dx0/issues/312",
-          "id": 3291417752,
-          "node_id": "I_kwDOPHifsM7ELwyY",
-          "number": 312,
-          "title": "Update OpenAI API Usage to the Latest Version",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "labels": [
-            {
-              "id": 9057621979,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BX2w",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/backend",
-              "name": "backend",
-              "color": "0052cc",
-              "default": false,
-              "description": "Backend/server-side changes"
-            },
-            {
-              "id": 9057622622,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BaXg",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/refactor",
-              "name": "refactor",
-              "color": "fbca04",
-              "default": false,
-              "description": "Code refactoring"
-            },
-            {
-              "id": 9057623613,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BePQ",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/migrated-from-yaml",
-              "name": "migrated-from-yaml",
-              "color": "fef2c0",
-              "default": false,
-              "description": "Migrated from tasks.yml"
-            },
-            {
-              "id": 9057652721,
-              "node_id": "LA_kwDOPHifsM8AAAACG-DP8Q",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/medium-priority",
-              "name": "medium-priority",
-              "color": "fbca04",
-              "default": false,
-              "description": "Medium priority task"
-            },
-            {
-              "id": 9057653280,
-              "node_id": "LA_kwDOPHifsM8AAAACG-DSIA",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/large-effort",
-              "name": "large-effort",
-              "color": "ffe6e6",
-              "default": false,
-              "description": "Large effort required"
-            },
-            {
-              "id": 9057653752,
-              "node_id": "LA_kwDOPHifsM8AAAACG-DT-A",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/todo",
-              "name": "todo",
-              "color": "d1ecf1",
-              "default": false,
-              "description": "Ready to start"
-            }
-          ],
-          "state": "open",
-          "locked": false,
-          "assignee": null,
-          "assignees": [],
-          "milestone": null,
-          "comments": 2,
-          "created_at": "2025-08-05T03:29:46Z",
-          "updated_at": "2025-08-05T04:48:34Z",
-          "closed_at": null,
-          "author_association": "OWNER",
-          "active_lock_reason": null,
-          "sub_issues_summary": {
-            "total": 0,
-            "completed": 0,
-            "percent_completed": 0
-          },
-          "body": "The `sdb/cpt_lookup.py` file uses the deprecated `openai.ChatCompletion.create` method. This should be updated to use the new `client.chat.completions.create` method from the latest version of the `openai` library. All API calls should be updated to match the new syntax and data structures.\n\n**Component**: backend\n**Area**: refactor\n**Priority**: 1\n\n---\n*Migrated from tasks.yml*",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "timeline_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/timeline",
-          "performed_via_github_app": null,
-          "state_reason": null
-        },
-        "comment": {
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/comments/3153279385",
-          "html_url": "https://github.com/adrianwedd/Dx0/issues/312#issuecomment-3153279385",
-          "issue_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-          "id": 3153279385,
-          "node_id": "IC_kwDOPHifsM678zmZ",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "created_at": "2025-08-05T04:48:33Z",
-          "updated_at": "2025-08-05T04:48:33Z",
-          "author_association": "OWNER",
-          "body": "✅ **Completed Chunk 3: Migrate API calls to new OpenAI syntax**\n\n**Changes Made:**\n- Migrated sdb/cpt_lookup.py from deprecated openai.ChatCompletion.create() to client.chat.completions.create()\n- Updated sdb/llm_client.py OpenAIClient._chat() method to use modern client API\n- Fixed response attribute access: resp.choices[0].message[\"content\"] → resp.choices[0].message.content\n- Updated test_cpt_lookup.py to mock new OpenAI client structure\n\n**Testing:**\n- All CPT lookup tests pass (3/3)\n- All LLM cache tests pass (3/3) \n- All Judge tests pass (8/8)\n- All Decision engine tests pass (9/9)\n- All configuration and metrics tests pass (5/5)\n- **Total: 28/28 tests passing**\n\n✅ **Completed Chunk 4: Validation and testing of new OpenAI API**\n\n**Validation Results:**\n- Comprehensive test coverage across all OpenAI-dependent modules\n- No breaking changes detected\n- All deprecated API calls successfully migrated\n- Response format compatibility maintained\n- Error handling preserved through migration\n\n**Issue #312 Status: COMPLETED**\nAll 4 chunks finished successfully. OpenAI API is now fully up-to-date with v1.98.0 using modern client syntax.\n\nCommits: 194ed4d, a0b3441",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/comments/3153279385/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "performed_via_github_app": null
-        }
-      },
-      "actor": {
-        "id": 3725784,
-        "login": "adrianwedd",
-        "display_login": "adrianwedd",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-      },
-      "public": true,
-      "_formatted_description": "Commented on issue #312: Update OpenAI API Usage to the Latest Version",
-      "_icon": "💬",
-      "_color": "#8b5cf6"
-    },
-    {
-      "id": "52947781382",
-      "type": "IssueCommentEvent",
-      "repo": "adrianwedd/Dx0",
-      "repo_full_name": "adrianwedd/Dx0",
-      "created_at": "2025-08-05T04:41:23Z",
-      "payload": {
-        "action": "created",
-        "issue": {
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-          "repository_url": "https://api.github.com/repos/adrianwedd/Dx0",
-          "labels_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/labels{/name}",
-          "comments_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/comments",
-          "events_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/events",
-          "html_url": "https://github.com/adrianwedd/Dx0/issues/312",
-          "id": 3291417752,
-          "node_id": "I_kwDOPHifsM7ELwyY",
-          "number": 312,
-          "title": "Update OpenAI API Usage to the Latest Version",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "labels": [
-            {
-              "id": 9057621979,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BX2w",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/backend",
-              "name": "backend",
-              "color": "0052cc",
-              "default": false,
-              "description": "Backend/server-side changes"
-            },
-            {
-              "id": 9057622622,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BaXg",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/refactor",
-              "name": "refactor",
-              "color": "fbca04",
-              "default": false,
-              "description": "Code refactoring"
-            },
-            {
-              "id": 9057623613,
-              "node_id": "LA_kwDOPHifsM8AAAACG-BePQ",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/migrated-from-yaml",
-              "name": "migrated-from-yaml",
-              "color": "fef2c0",
-              "default": false,
-              "description": "Migrated from tasks.yml"
-            },
-            {
-              "id": 9057652721,
-              "node_id": "LA_kwDOPHifsM8AAAACG-DP8Q",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/medium-priority",
-              "name": "medium-priority",
-              "color": "fbca04",
-              "default": false,
-              "description": "Medium priority task"
-            },
-            {
-              "id": 9057653280,
-              "node_id": "LA_kwDOPHifsM8AAAACG-DSIA",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/large-effort",
-              "name": "large-effort",
-              "color": "ffe6e6",
-              "default": false,
-              "description": "Large effort required"
-            },
-            {
-              "id": 9057653752,
-              "node_id": "LA_kwDOPHifsM8AAAACG-DT-A",
-              "url": "https://api.github.com/repos/adrianwedd/Dx0/labels/todo",
-              "name": "todo",
-              "color": "d1ecf1",
-              "default": false,
-              "description": "Ready to start"
-            }
-          ],
-          "state": "open",
-          "locked": false,
-          "assignee": null,
-          "assignees": [],
-          "milestone": null,
-          "comments": 1,
-          "created_at": "2025-08-05T03:29:46Z",
-          "updated_at": "2025-08-05T04:41:22Z",
-          "closed_at": null,
-          "author_association": "OWNER",
-          "active_lock_reason": null,
-          "sub_issues_summary": {
-            "total": 0,
-            "completed": 0,
-            "percent_completed": 0
-          },
-          "body": "The `sdb/cpt_lookup.py` file uses the deprecated `openai.ChatCompletion.create` method. This should be updated to use the new `client.chat.completions.create` method from the latest version of the `openai` library. All API calls should be updated to match the new syntax and data structures.\n\n**Component**: backend\n**Area**: refactor\n**Priority**: 1\n\n---\n*Migrated from tasks.yml*",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "timeline_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312/timeline",
-          "performed_via_github_app": null,
-          "state_reason": null
-        },
-        "comment": {
-          "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/comments/3153269356",
-          "html_url": "https://github.com/adrianwedd/Dx0/issues/312#issuecomment-3153269356",
-          "issue_url": "https://api.github.com/repos/adrianwedd/Dx0/issues/312",
-          "id": 3153269356,
-          "node_id": "IC_kwDOPHifsM678xJs",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "created_at": "2025-08-05T04:41:21Z",
-          "updated_at": "2025-08-05T04:41:21Z",
-          "author_association": "OWNER",
-          "body": "✅ **Completed Chunk 2: Update OpenAI Library to Latest Version**\n\n**Changes Made:**\n- Updated OpenAI library from 1.93.1 to 1.98.0 (latest available)\n- Added explicit OpenAI dependency to requirements-dev.txt\n- Removed problematic Sphinx documentation dependencies that were causing conflicts\n- Verified core imports and configuration loading work correctly\n- All configuration tests pass with new version\n\n**Testing:**\n- Core LLM client imports successfully\n- Configuration tests pass (2/2)\n- No breaking changes detected in basic functionality\n\n**Next:** Proceeding to Chunk 3 - Migrate deprecated API calls to new OpenAI syntax\n\nCommit: 194ed4d",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/Dx0/issues/comments/3153269356/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "performed_via_github_app": null
-        }
-      },
-      "actor": {
-        "id": 3725784,
-        "login": "adrianwedd",
-        "display_login": "adrianwedd",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-      },
-      "public": true,
-      "_formatted_description": "Commented on issue #312: Update OpenAI API Usage to the Latest Version",
-      "_icon": "💬",
-      "_color": "#8b5cf6"
-    },
-    {
-      "id": "52947753430",
-      "type": "IssuesEvent",
-      "repo": "adrianwedd/ordr.fm",
-      "repo_full_name": "adrianwedd/ordr.fm",
-      "created_at": "2025-08-05T04:40:15Z",
-      "payload": {
-        "action": "opened",
-        "issue": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51",
-          "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-          "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/labels{/name}",
-          "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/comments",
-          "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/events",
-          "html_url": "https://github.com/adrianwedd/ordr.fm/issues/51",
-          "id": 3291535937,
-          "node_id": "I_kwDOPUqsvM7EMNpB",
-          "number": 51,
-          "title": "Node.js MusicBrainz Integration with Database Relationships and Visualization",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "labels": [
-            {
-              "id": 9021671224,
-              "node_id": "LA_kwDOPUqsvM8AAAACGbvHOA",
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/enhancement",
-              "name": "enhancement",
-              "color": "a2eeef",
-              "default": true,
-              "description": "New feature or request"
-            }
-          ],
-          "state": "open",
-          "locked": false,
-          "assignee": null,
-          "assignees": [],
-          "milestone": null,
-          "comments": 0,
-          "created_at": "2025-08-05T04:40:13Z",
-          "updated_at": "2025-08-05T04:40:13Z",
-          "closed_at": null,
-          "author_association": "OWNER",
-          "active_lock_reason": null,
-          "sub_issues_summary": {
-            "total": 0,
-            "completed": 0,
-            "percent_completed": 0
-          },
-          "body": "## Overview\n\nImplement Node.js-based MusicBrainz integration that focuses on building rich database relationships and providing advanced visualization capabilities for music metadata connections.\n\n## Node.js Architecture Approach\n\n### 1. Database-First Design\n- **Primary Focus**: Build comprehensive relationship database\n- **Technology Stack**: Node.js + SQLite/PostgreSQL + Express + D3.js\n- **Data Storage**: Persistent relationship mapping and metadata caching\n- **Real-time Updates**: WebSocket connections for live data visualization\n\n### 2. MusicBrainz Integration Goals\n- Complement existing Discogs data with MusicBrainz relationships\n- Focus on artist collaborations, band relationships, and label connections\n- Enhanced classical music work/composer relationships\n- ISRC and recording-level metadata linking\n\n## Technical Implementation\n\n### 3. Node.js MusicBrainz Client (`server/lib/musicbrainz.js`)\n```javascript\nclass MusicBrainzClient {\n  // Core API methods\n  async searchReleases(artist, title, options = {})\n  async getRelease(mbid, includes = [])\n  async getArtist(mbid, includes = ['aliases', 'relationships'])\n  async getWork(mbid, includes = ['relationships'])\n  \n  // Relationship mapping\n  async getArtistRelationships(mbid)\n  async getLabelRelationships(mbid)\n  async getWorkRelationships(mbid)\n  \n  // Data processing\n  async enrichExistingAlbum(albumId)\n  async buildRelationshipGraph()\n}\n```\n\n### 4. Enhanced Database Schema\n```sql\n-- MusicBrainz entities\nCREATE TABLE mb_artists (\n  mbid TEXT PRIMARY KEY,\n  name TEXT NOT NULL,\n  sort_name TEXT,\n  type TEXT,\n  life_span_begin DATE,\n  life_span_end DATE,\n  disambiguation TEXT\n);\n\nCREATE TABLE mb_releases (\n  mbid TEXT PRIMARY KEY,\n  title TEXT NOT NULL,\n  artist_mbid TEXT,\n  date DATE,\n  country TEXT,\n  barcode TEXT,\n  FOREIGN KEY (artist_mbid) REFERENCES mb_artists(mbid)\n);\n\n-- Relationships between entities\nCREATE TABLE mb_artist_relationships (\n  id INTEGER PRIMARY KEY,\n  artist1_mbid TEXT,\n  artist2_mbid TEXT,\n  relationship_type TEXT,\n  direction TEXT,\n  begin_date DATE,\n  end_date DATE,\n  attributes JSON,\n  FOREIGN KEY (artist1_mbid) REFERENCES mb_artists(mbid),\n  FOREIGN KEY (artist2_mbid) REFERENCES mb_artists(mbid)\n);\n\n-- Link existing albums to MusicBrainz data\nCREATE TABLE album_mb_mappings (\n  album_id INTEGER,\n  mb_release_mbid TEXT,\n  confidence REAL,\n  mapping_source TEXT,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  FOREIGN KEY (album_id) REFERENCES albums(id),\n  FOREIGN KEY (mb_release_mbid) REFERENCES mb_releases(mbid)\n);\n```\n\n### 5. Visualization Components\n\n#### Network Graph Visualization (`public/js/network-viz.js`)\n- **D3.js Force Graph**: Artist collaboration networks\n- **Relationship Types**: Band members, collaborations, label relationships\n- **Interactive Features**: Node filtering, relationship exploration, timeline scrubbing\n\n#### Metadata Dashboard (`public/js/dashboard.js`)\n- **Real-time Stats**: MusicBrainz vs Discogs coverage comparison\n- **Relationship Metrics**: Network density, clustering coefficients\n- **Data Quality**: Confidence scores, missing data identification\n\n### 6. API Endpoints for Visualization\n\n```javascript\n// Relationship data\nGET /api/musicbrainz/artists/:mbid/relationships\nGET /api/musicbrainz/network/collaborations\nGET /api/musicbrainz/network/labels\n\n// Visualization data\nGET /api/viz/artist-network?type=collaborations&depth=2\nGET /api/viz/timeline/:artistMbid\nGET /api/viz/influence-map/:genreName\n\n// Data enrichment\nPOST /api/musicbrainz/enrich-album/:albumId\nPOST /api/musicbrainz/batch-enrich\nGET /api/musicbrainz/enrichment-status\n```\n\n## Research Phase\n\n### 7. MusicBrainz API Deep Dive\n- [ ] **Relationship Types Analysis**: Document all available relationship types\n- [ ] **Include Parameters**: Map optimal data fetching strategies\n- [ ] **Rate Limiting**: Implement respectful API usage (1 req/sec standard)\n- [ ] **Data Coverage**: Compare with existing Discogs data quality\n- [ ] **Classical Music**: Analyze work/composition relationship modeling\n\n### 8. Visualization Requirements\n- [ ] **Force-Directed Graphs**: Artist collaboration networks\n- [ ] **Hierarchical Layouts**: Label/artist/release hierarchies  \n- [ ] **Timeline Views**: Artist career progression and collaborations\n- [ ] **Sankey Diagrams**: Genre evolution and influence flows\n- [ ] **Interactive Filtering**: Dynamic data exploration\n\n## Implementation Phases\n\n### Phase 1: Core Integration (Week 1-2)\n- [ ] Set up Node.js MusicBrainz client library\n- [ ] Design and implement extended database schema\n- [ ] Create basic API endpoints for data fetching\n- [ ] Implement caching and rate limiting\n\n### Phase 2: Relationship Mapping (Week 2-3)\n- [ ] Build artist relationship extraction\n- [ ] Map existing albums to MusicBrainz releases\n- [ ] Create confidence scoring for mappings\n- [ ] Implement batch enrichment processes\n\n### Phase 3: Visualization (Week 3-4)\n- [ ] Build D3.js network visualization components\n- [ ] Create interactive relationship explorer\n- [ ] Implement real-time data updates\n- [ ] Add filtering and search capabilities\n\n### Phase 4: Advanced Features (Week 4+)\n- [ ] Timeline-based relationship exploration\n- [ ] Genre influence mapping\n- [ ] Classical music work relationships\n- [ ] Export capabilities for external analysis\n\n## Data Processing Pipeline\n\n### 9. Enrichment Workflow\n```\n1. Existing Album → Search MusicBrainz by artist/title\n2. Match candidates → Calculate confidence scores\n3. Best match → Fetch full release + relationships\n4. Store mapping → Update relationship database\n5. Propagate updates → Notify visualization clients\n```\n\n### 10. Relationship Processing\n```\n1. Artist MBID → Fetch all relationships\n2. Parse relationship types → Store in normalized format\n3. Build graph connections → Update network data\n4. Calculate metrics → Network centrality, clustering\n5. Update visualization → Real-time WebSocket updates\n```\n\n## Success Metrics\n\n### Technical Metrics\n- [ ] **API Performance**: < 500ms average response time\n- [ ] **Database Efficiency**: Complex relationship queries < 1s\n- [ ] **Visualization Responsiveness**: < 100ms interaction lag\n- [ ] **Data Coverage**: 80%+ albums with MusicBrainz mappings\n\n### User Experience Metrics\n- [ ] **Discovery**: Enhanced artist relationship exploration\n- [ ] **Data Quality**: Reduced duplicate/ambiguous entries\n- [ ] **Insights**: New relationship patterns identified\n- [ ] **Performance**: Smooth real-time visualization updates\n\n## Testing Strategy\n\n### 11. Integration Testing\n- [ ] MusicBrainz API integration reliability\n- [ ] Database relationship integrity\n- [ ] WebSocket real-time update accuracy\n- [ ] Visualization performance with large datasets\n\n### 12. Data Quality Testing\n- [ ] Confidence score accuracy validation\n- [ ] Relationship mapping correctness\n- [ ] Classical music work relationship accuracy\n- [ ] Artist alias resolution improvement\n\n## Documentation\n\n- [ ] **API Documentation**: Complete endpoint reference\n- [ ] **Database Schema**: Relationship model documentation\n- [ ] **Visualization Guide**: User interaction patterns\n- [ ] **Development Setup**: Local environment configuration\n\n## Future Enhancements\n\n- **Machine Learning**: Automatic relationship confidence scoring\n- **Community Features**: User-contributed relationship verification\n- **Advanced Analytics**: Network analysis and trend identification\n- **Export Tools**: Data export for academic research\n\n🤖 Generated with [Claude Code](https://claude.ai/code)",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/51/timeline",
-          "performed_via_github_app": null,
-          "state_reason": null
-        }
-      },
-      "actor": {
-        "id": 3725784,
-        "login": "adrianwedd",
-        "display_login": "adrianwedd",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-      },
-      "public": true,
-      "_formatted_description": "Opened issue #51: Node.js MusicBrainz Integration with Database Relationships ",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
     }
   ],
   "repositories": [
@@ -11748,27 +11600,6 @@
         "issues": 0,
         "total": 10,
         "last_commit": "2025-07-14T14:19:33Z",
-        "last_issue": null
-      }
-    },
-    {
-      "name": "vocode-core",
-      "full_name": "adrianwedd/vocode-core",
-      "description": "🤖 Build voice-based LLM agents. Modular + open source.",
-      "language": "Python",
-      "stars": 0,
-      "forks": 0,
-      "updated_at": "2025-07-07T14:58:26Z",
-      "html_url": "https://github.com/adrianwedd/vocode-core",
-      "private": false,
-      "fork": true,
-      "_is_main_repo": false,
-      "_is_fork_with_activity": true,
-      "recent_activity": {
-        "commits": 1,
-        "issues": 0,
-        "total": 1,
-        "last_commit": "2025-07-07T11:16:22Z",
         "last_issue": null
       }
     }
@@ -27751,92 +27582,6 @@
       "repository_full_name": "adrianwedd/latent-self",
       "repository_url": "https://github.com/adrianwedd/latent-self",
       "_activity_type": "commit"
-    },
-    {
-      "sha": "29ac3acfe8d552071e5700b7d92e84bc306121a1",
-      "node_id": "C_kwDOJrLtyNoAKDI5YWMzYWNmZThkNTUyMDcxZTU3MDBiN2Q5MmU4NGJjMzA2MTIxYTE",
-      "commit": {
-        "author": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-07-07T11:16:22Z"
-        },
-        "committer": {
-          "name": "Adrian Wedd",
-          "email": "adrian@adrianwedd.com",
-          "date": "2025-07-07T11:16:22Z"
-        },
-        "message": "Sync fork with upstream",
-        "tree": {
-          "sha": "7c62702e014e77a632cca1a505dd0ccbd9e90cac",
-          "url": "https://api.github.com/repos/adrianwedd/vocode-core/git/trees/7c62702e014e77a632cca1a505dd0ccbd9e90cac"
-        },
-        "url": "https://api.github.com/repos/adrianwedd/vocode-core/git/commits/29ac3acfe8d552071e5700b7d92e84bc306121a1",
-        "comment_count": 0,
-        "verification": {
-          "verified": false,
-          "reason": "unsigned",
-          "signature": null,
-          "payload": null,
-          "verified_at": null
-        }
-      },
-      "url": "https://api.github.com/repos/adrianwedd/vocode-core/commits/29ac3acfe8d552071e5700b7d92e84bc306121a1",
-      "html_url": "https://github.com/adrianwedd/vocode-core/commit/29ac3acfe8d552071e5700b7d92e84bc306121a1",
-      "comments_url": "https://api.github.com/repos/adrianwedd/vocode-core/commits/29ac3acfe8d552071e5700b7d92e84bc306121a1/comments",
-      "author": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "committer": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "parents": [
-        {
-          "sha": "e054c33a72787b6a4920f91eb8598ad0bafb4240",
-          "url": "https://api.github.com/repos/adrianwedd/vocode-core/commits/e054c33a72787b6a4920f91eb8598ad0bafb4240",
-          "html_url": "https://github.com/adrianwedd/vocode-core/commit/e054c33a72787b6a4920f91eb8598ad0bafb4240"
-        }
-      ],
-      "repository": "vocode-core",
-      "repository_full_name": "adrianwedd/vocode-core",
-      "repository_url": "https://github.com/adrianwedd/vocode-core",
-      "_activity_type": "commit"
     }
   ],
   "recent_issues": [
@@ -33182,6 +32927,209 @@
       "_color": "#f59e0b"
     },
     {
+      "id": "activity-53013532649",
+      "type": "github_activity",
+      "subtype": "PushEvent",
+      "timestamp": "2025-08-06T10:10:40Z",
+      "repo": "adrianwedd/cv",
+      "data": {
+        "id": "53013532649",
+        "type": "PushEvent",
+        "actor": {
+          "id": 3725784,
+          "login": "adrianwedd",
+          "display_login": "adrianwedd",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+        },
+        "repo": {
+          "id": 1028440018,
+          "name": "adrianwedd/cv",
+          "url": "https://api.github.com/repos/adrianwedd/cv"
+        },
+        "payload": {
+          "repository_id": 1028440018,
+          "push_id": 25961940411,
+          "size": 1,
+          "distinct_size": 1,
+          "ref": "refs/heads/main",
+          "head": "c0bb6eb810d9ff7fca8ae5d06f7d13ba3aa39141",
+          "before": "0ee27e29c62040b4c68653a20f6da005ad24fb18",
+          "commits": [
+            {
+              "sha": "c0bb6eb810d9ff7fca8ae5d06f7d13ba3aa39141",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "📚 Comprehensive Session Wrap-up - Critical Infrastructure Excellence\n\n**Session Documentation Complete:**\n- Updated CLAUDE.md with August 4 critical loading & ES module success achievements\n- Created comprehensive NEXT_SESSION_PLAN.md with PWA optimization roadmap\n- Session achievements: Critical loading issue + ES module architecture modernization\n- Production status: 96/100 EXCELLENT maintained with 6/6 systems operational\n\n**Strategic Planning:**\n- P1 Critical: Service Worker asset reference consistency (Issue #251)\n- P2 High: Testing framework reliability enhancement (Issue #208)\n- Technical readiness: All prerequisites completed for infrastructure hardening\n- Session confidence: HIGH with clear objectives and proven patterns\n\n**Knowledge Continuity:**\n- Complete session export archived to ~/.claude/logs/\n- GitHub issues comprehensively groomed with strategic priorities\n- Repository health: PRODUCTION-READY with optimization roadmap\n- Development velocity: Restored with modern ES module architecture\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/cv/commits/c0bb6eb810d9ff7fca8ae5d06f7d13ba3aa39141"
+            }
+          ]
+        },
+        "public": true,
+        "created_at": "2025-08-06T10:10:40Z"
+      },
+      "_formatted": "Pushed 1 commit: 📚 Comprehensive Session Wrap-up - Critical Infrastructure Excellence",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "activity-53013527775",
+      "type": "github_activity",
+      "subtype": "IssueCommentEvent",
+      "timestamp": "2025-08-06T10:10:34Z",
+      "repo": "adrianwedd/ADHDo",
+      "data": {
+        "id": "53013527775",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 3725784,
+          "login": "adrianwedd",
+          "display_login": "adrianwedd",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+        },
+        "repo": {
+          "id": 1032056695,
+          "name": "adrianwedd/ADHDo",
+          "url": "https://api.github.com/repos/adrianwedd/ADHDo"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19",
+            "repository_url": "https://api.github.com/repos/adrianwedd/ADHDo",
+            "labels_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/labels{/name}",
+            "comments_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/comments",
+            "events_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/events",
+            "html_url": "https://github.com/adrianwedd/ADHDo/issues/19",
+            "id": 3296068592,
+            "node_id": "I_kwDOPYPvd87EdgPw",
+            "number": 19,
+            "title": "ADHD-Friendly Error Messages",
+            "user": {
+              "login": "adrianwedd",
+              "id": 3725784,
+              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/adrianwedd",
+              "html_url": "https://github.com/adrianwedd",
+              "followers_url": "https://api.github.com/users/adrianwedd/followers",
+              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+              "repos_url": "https://api.github.com/users/adrianwedd/repos",
+              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 9055874834,
+                "node_id": "LA_kwDOPYPvd88AAAACG8WvEg",
+                "url": "https://api.github.com/repos/adrianwedd/ADHDo/labels/enhancement",
+                "name": "enhancement",
+                "color": "a2eeef",
+                "default": true,
+                "description": "New feature or request"
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignee": null,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2025-08-06T10:01:19Z",
+            "updated_at": "2025-08-06T10:10:33Z",
+            "closed_at": null,
+            "author_association": "OWNER",
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "body": "## Problem\nPhase 0 testing identified error messages that are not optimized for ADHD users.\n\n## Current Issue\nError message: 'Registration failed. Please try again.' lacks ADHD-friendly characteristics:\n- Uses negative language ('failed')\n- Provides no helpful guidance\n- Could increase anxiety and overwhelm\n\n## ADHD-Friendly Requirements\nError messages should be:\n- **Supportive**: Use encouraging language\n- **Specific**: Explain what to do next\n- **Concise**: Under 100 characters when possible\n- **Positive**: Avoid words like 'failed', 'error', 'invalid'\n\n## Example Improvements\n❌ 'Registration failed. Please try again.'\n✅ 'Let's try that again\\! Please check your email format and password length.'\n\n❌ 'Invalid credentials'\n✅ 'Hmm, that email and password don't match. Want to reset your password?'\n\n## Acceptance Criteria\n- [ ] Replace all negative error language with supportive alternatives\n- [ ] Provide specific guidance in error messages\n- [ ] Test error messages pass ADHD-friendly criteria (supportive, specific, positive)\n- [ ] Update authentication error messages\n- [ ] Update form validation messages\n- [ ] Maintain error message consistency across all endpoints\n\n## Priority\n**Medium** - Important for ADHD user experience and reducing overwhelm",
+            "reactions": {
+              "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159084314",
+            "html_url": "https://github.com/adrianwedd/ADHDo/issues/19#issuecomment-3159084314",
+            "issue_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/19",
+            "id": 3159084314,
+            "node_id": "IC_kwDOPYPvd868S80a",
+            "user": {
+              "login": "adrianwedd",
+              "id": 3725784,
+              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/adrianwedd",
+              "html_url": "https://github.com/adrianwedd",
+              "followers_url": "https://api.github.com/users/adrianwedd/followers",
+              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+              "repos_url": "https://api.github.com/users/adrianwedd/repos",
+              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2025-08-06T10:10:33Z",
+            "updated_at": "2025-08-06T10:10:33Z",
+            "author_association": "OWNER",
+            "body": "✅ **COMPLETE** - ADHD-friendly error messages implemented\n\n## ✅ **Changes Made**\n- **Password validation messages**: Changed from harsh to encouraging\n  - ❌ 'Password must be at least 8 characters long' \n  - ✅ 'Almost there\\! Your password needs to be at least 8 characters long'\n\n- **Registration error messages**: Made supportive\n  - ❌ 'Registration failed. Please try again.'\n  - ✅ 'Let's try that again\\! Something went wrong with creating your account. Please check your info and give it another go.'\n\n- **Login error messages**: More helpful\n  - ❌ 'Invalid email or password. Please check your credentials and try again.'\n  - ✅ 'Hmm, that email and password don't match our records. Double-check your info, or would you like to reset your password?'\n\n- **Account exists messages**: Positive framing\n  - ❌ 'An account with this email already exists. Please try logging in instead.'\n  - ✅ 'Good news\\! You already have an account with this email. Would you like to sign in instead?'\n\n- **Telegram bot messages**: Updated for consistency\n\n## ✅ **ADHD-Friendly Characteristics Achieved**\n- Supportive language (no 'failed', 'invalid', 'error')\n- Specific guidance on next steps\n- Encouraging tone throughout\n- Under 100 characters where possible\n\nError messages now meet ADHD-friendly criteria\\! 🎉",
+            "reactions": {
+              "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159084314/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null
+          }
+        },
+        "public": true,
+        "created_at": "2025-08-06T10:10:34Z"
+      },
+      "_formatted": "Commented on issue #19: ADHD-Friendly Error Messages",
+      "_icon": "💬",
+      "_color": "#8b5cf6"
+    },
+    {
       "id": "issue-3296068592",
       "type": "issue",
       "subtype": "issue",
@@ -33271,6 +33219,159 @@
       "_formatted": "Issue #19: ADHD-Friendly Error Messages",
       "_icon": "🐛",
       "_color": "#f59e0b"
+    },
+    {
+      "id": "activity-53013516277",
+      "type": "github_activity",
+      "subtype": "IssueCommentEvent",
+      "timestamp": "2025-08-06T10:10:19Z",
+      "repo": "adrianwedd/ADHDo",
+      "data": {
+        "id": "53013516277",
+        "type": "IssueCommentEvent",
+        "actor": {
+          "id": 3725784,
+          "login": "adrianwedd",
+          "display_login": "adrianwedd",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+        },
+        "repo": {
+          "id": 1032056695,
+          "name": "adrianwedd/ADHDo",
+          "url": "https://api.github.com/repos/adrianwedd/ADHDo"
+        },
+        "payload": {
+          "action": "created",
+          "issue": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18",
+            "repository_url": "https://api.github.com/repos/adrianwedd/ADHDo",
+            "labels_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/labels{/name}",
+            "comments_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/comments",
+            "events_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/events",
+            "html_url": "https://github.com/adrianwedd/ADHDo/issues/18",
+            "id": 3296067947,
+            "node_id": "I_kwDOPYPvd87EdgFr",
+            "number": 18,
+            "title": "Mobile UX: Touch-friendly buttons and modal sizing",
+            "user": {
+              "login": "adrianwedd",
+              "id": 3725784,
+              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/adrianwedd",
+              "html_url": "https://github.com/adrianwedd",
+              "followers_url": "https://api.github.com/users/adrianwedd/followers",
+              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+              "repos_url": "https://api.github.com/users/adrianwedd/repos",
+              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "labels": [
+              {
+                "id": 9055874834,
+                "node_id": "LA_kwDOPYPvd88AAAACG8WvEg",
+                "url": "https://api.github.com/repos/adrianwedd/ADHDo/labels/enhancement",
+                "name": "enhancement",
+                "color": "a2eeef",
+                "default": true,
+                "description": "New feature or request"
+              }
+            ],
+            "state": "open",
+            "locked": false,
+            "assignee": null,
+            "assignees": [],
+            "milestone": null,
+            "comments": 1,
+            "created_at": "2025-08-06T10:01:06Z",
+            "updated_at": "2025-08-06T10:10:18Z",
+            "closed_at": null,
+            "author_association": "OWNER",
+            "active_lock_reason": null,
+            "sub_issues_summary": {
+              "total": 0,
+              "completed": 0,
+              "percent_completed": 0
+            },
+            "body": "## Problem\nPhase 0 testing identified mobile UX issues that could impact ADHD users on mobile devices.\n\n## Issues Found\n- **Touch-friendly buttons**: Buttons are smaller than 44px height (Apple's recommended touch target)\n- **Mobile modal sizing**: Authentication modal is too wide for mobile screens (375px viewport)\n\n## ADHD Impact\n- Small touch targets cause frustration and failed interactions\n- Wide modals require horizontal scrolling, breaking focus\n- Mobile users represent significant portion of ADHD community\n\n## Acceptance Criteria\n- [ ] All interactive buttons are minimum 44px height for touch accessibility\n- [ ] Authentication modal fits within 95% of mobile viewport width\n- [ ] Test on 375px and 320px viewports\n- [ ] Maintain visual hierarchy on mobile\n- [ ] No horizontal scrolling required\n\n## Testing\nPhase 0 testing suite validates these requirements automatically.\n\n## Priority\n**High** - Required for beta user acceptance",
+            "reactions": {
+              "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "timeline_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18/timeline",
+            "performed_via_github_app": null,
+            "state_reason": null
+          },
+          "comment": {
+            "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159081730",
+            "html_url": "https://github.com/adrianwedd/ADHDo/issues/18#issuecomment-3159081730",
+            "issue_url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/18",
+            "id": 3159081730,
+            "node_id": "IC_kwDOPYPvd868S8MC",
+            "user": {
+              "login": "adrianwedd",
+              "id": 3725784,
+              "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+              "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+              "gravatar_id": "",
+              "url": "https://api.github.com/users/adrianwedd",
+              "html_url": "https://github.com/adrianwedd",
+              "followers_url": "https://api.github.com/users/adrianwedd/followers",
+              "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+              "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+              "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+              "repos_url": "https://api.github.com/users/adrianwedd/repos",
+              "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+              "type": "User",
+              "user_view_type": "public",
+              "site_admin": false
+            },
+            "created_at": "2025-08-06T10:10:18Z",
+            "updated_at": "2025-08-06T10:10:18Z",
+            "author_association": "OWNER",
+            "body": "✅ **PARTIALLY COMPLETE** - Mobile UX improvements implemented\n\n## ✅ **Completed**\n- Added min-h-[44px] and min-w-[44px] classes to all interactive buttons\n- Updated modal container with responsive margins (mx-4 sm:mx-0)\n- Enhanced touch target sizes for authentication modal buttons\n- Improved user menu button sizing (w-11 h-11)\n\n## ❌ **Still Testing as Failed**\n- Touch-friendly buttons: Test still reports buttons too small for mobile\n- Mobile modal fits screen: Test reports modal too wide for mobile\n\n## 🔧 **Next Steps**\n- Investigate test criteria - may need larger touch targets (48px Apple standard)\n- Review modal width calculation in mobile viewports\n- Consider using CSS media queries for better mobile optimization\n\nThe improvements are implemented but may need refinement based on test feedback.",
+            "reactions": {
+              "url": "https://api.github.com/repos/adrianwedd/ADHDo/issues/comments/3159081730/reactions",
+              "total_count": 0,
+              "+1": 0,
+              "-1": 0,
+              "laugh": 0,
+              "hooray": 0,
+              "confused": 0,
+              "heart": 0,
+              "rocket": 0,
+              "eyes": 0
+            },
+            "performed_via_github_app": null
+          }
+        },
+        "public": true,
+        "created_at": "2025-08-06T10:10:19Z"
+      },
+      "_formatted": "Commented on issue #18: Mobile UX: Touch-friendly buttons and modal sizing",
+      "_icon": "💬",
+      "_color": "#8b5cf6"
     },
     {
       "id": "issue-3296067947",
@@ -43412,296 +43513,6 @@
       "_formatted": "Committed: Fix ES module compatibility issues",
       "_icon": "📝",
       "_color": "#22c55e"
-    },
-    {
-      "id": "commit-d2d0532807acfe3bfea52c39a53e85d956565db8",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-05T16:23:51Z",
-      "repo": "raspberry-pi-hailo-ai-demos",
-      "data": {
-        "sha": "d2d0532807acfe3bfea52c39a53e85d956565db8",
-        "node_id": "C_kwDOPZN7idoAKGQyZDA1MzI4MDdhY2ZlM2JmZWE1MmMzOWE1M2U4NWQ5NTY1NjVkYjg",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-05T16:23:51Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-05T16:23:51Z"
-          },
-          "message": "Add curated Hailo AI demos collection with submodules\n\n- Official hailo-rpi5-examples (pose estimation, object detection, CLIP)\n- TAPPAS high-performance AI pipelines\n- DeGirum PySDK examples\n- C++ YOLOv8 implementation\n- ROS2 integration package\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "7421a9c4df30bc22e308105b48bb1a020126a78e",
-            "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/trees/7421a9c4df30bc22e308105b48bb1a020126a78e"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/git/commits/d2d0532807acfe3bfea52c39a53e85d956565db8",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/d2d0532807acfe3bfea52c39a53e85d956565db8",
-        "html_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos/commit/d2d0532807acfe3bfea52c39a53e85d956565db8",
-        "comments_url": "https://api.github.com/repos/adrianwedd/raspberry-pi-hailo-ai-demos/commits/d2d0532807acfe3bfea52c39a53e85d956565db8/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [],
-        "repository": "raspberry-pi-hailo-ai-demos",
-        "repository_full_name": "adrianwedd/raspberry-pi-hailo-ai-demos",
-        "repository_url": "https://github.com/adrianwedd/raspberry-pi-hailo-ai-demos",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: Add curated Hailo AI demos collection with submodules",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "issue-3293641472",
-      "type": "issue",
-      "subtype": "issue",
-      "timestamp": "2025-08-05T16:10:42Z",
-      "repo": "ordr.fm",
-      "data": {
-        "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82",
-        "repository_url": "https://github.com/adrianwedd/ordr.fm",
-        "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82/labels{/name}",
-        "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82/comments",
-        "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82/events",
-        "html_url": "https://github.com/adrianwedd/ordr.fm/issues/82",
-        "id": 3293641472,
-        "node_id": "I_kwDOPUqsvM7EUPsA",
-        "number": 82,
-        "title": "CI Pipeline Failed: CI Pipeline #25",
-        "user": {
-          "login": "github-actions[bot]",
-          "id": 41898282,
-          "node_id": "MDM6Qm90NDE4OTgyODI=",
-          "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/github-actions%5Bbot%5D",
-          "html_url": "https://github.com/apps/github-actions",
-          "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
-          "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
-          "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
-          "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
-          "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
-          "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
-          "type": "Bot",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 9021671205,
-            "node_id": "LA_kwDOPUqsvM8AAAACGbvHJQ",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/bug",
-            "name": "bug",
-            "color": "d73a4a",
-            "default": true,
-            "description": "Something isn't working"
-          },
-          {
-            "id": 9060892069,
-            "node_id": "LA_kwDOPUqsvM8AAAACHBI9pQ",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/ci-failure",
-            "name": "ci-failure",
-            "color": "ededed",
-            "default": false,
-            "description": null
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignee": null,
-        "assignees": [],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2025-08-05T16:10:42Z",
-        "updated_at": "2025-08-05T16:10:42Z",
-        "closed_at": null,
-        "author_association": "NONE",
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "body": "The CI pipeline failed on refs/heads/main.\n\nWorkflow: CI Pipeline\nRun: 25\nCommit: d5d4c7c741617201c2c4c37e6100321483f8723a",
-        "closed_by": null,
-        "reactions": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/82/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "repository": "ordr.fm",
-        "repository_full_name": "adrianwedd/ordr.fm",
-        "type": "issue",
-        "_activity_type": "issue"
-      },
-      "_formatted": "Issue #82: CI Pipeline Failed: CI Pipeline #25",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
-    },
-    {
-      "id": "issue-3293479046",
-      "type": "issue",
-      "subtype": "issue",
-      "timestamp": "2025-08-05T15:08:13Z",
-      "repo": "ordr.fm",
-      "data": {
-        "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/81",
-        "repository_url": "https://github.com/adrianwedd/ordr.fm",
-        "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/81/labels{/name}",
-        "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/81/comments",
-        "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/81/events",
-        "html_url": "https://github.com/adrianwedd/ordr.fm/issues/81",
-        "id": 3293479046,
-        "node_id": "I_kwDOPUqsvM7EToCG",
-        "number": 81,
-        "title": "CI Pipeline Failed: CI Pipeline #24",
-        "user": {
-          "login": "github-actions[bot]",
-          "id": 41898282,
-          "node_id": "MDM6Qm90NDE4OTgyODI=",
-          "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/github-actions%5Bbot%5D",
-          "html_url": "https://github.com/apps/github-actions",
-          "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
-          "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
-          "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
-          "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
-          "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
-          "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
-          "type": "Bot",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 9021671205,
-            "node_id": "LA_kwDOPUqsvM8AAAACGbvHJQ",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/bug",
-            "name": "bug",
-            "color": "d73a4a",
-            "default": true,
-            "description": "Something isn't working"
-          },
-          {
-            "id": 9060892069,
-            "node_id": "LA_kwDOPUqsvM8AAAACHBI9pQ",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/ci-failure",
-            "name": "ci-failure",
-            "color": "ededed",
-            "default": false,
-            "description": null
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignee": null,
-        "assignees": [],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2025-08-05T15:08:13Z",
-        "updated_at": "2025-08-05T15:08:13Z",
-        "closed_at": null,
-        "author_association": "NONE",
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "body": "The CI pipeline failed on refs/heads/main.\n\nWorkflow: CI Pipeline\nRun: 24\nCommit: d0312eba4d83409705fd57b81cbfbaafc4df897e",
-        "closed_by": null,
-        "reactions": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/81/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/81/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "repository": "ordr.fm",
-        "repository_full_name": "adrianwedd/ordr.fm",
-        "type": "issue",
-        "_activity_type": "issue"
-      },
-      "_formatted": "Issue #81: CI Pipeline Failed: CI Pipeline #24",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
     }
   ]
 }
