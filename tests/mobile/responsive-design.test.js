@@ -33,10 +33,8 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
     page = await global.testUtils.retryOperation(async () => {
       const newPage = await browser.newPage();
       
-      // Set up error handling
-      newPage.on('pageerror', error => {
-        console.warn('Page error in mobile test:', error.message);
-      });
+      // Set up enhanced error handling
+      await global.testUtils.setupPageErrorHandling(newPage);
       
       newPage.on('requestfailed', request => {
         console.warn('Mobile test request failed:', request.url(), request.failure()?.errorText);
