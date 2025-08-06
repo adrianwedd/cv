@@ -3,12 +3,22 @@
  * Configures testing environment for CV system enterprise testing
  */
 
-// Extend Jest matchers
+// Extend Jest matchers (CommonJS for Jest compatibility)
 require('jest-extended');
 
+// Node.js fetch polyfill for older versions
+if (!global.fetch) {
+  try {
+    global.fetch = require('node-fetch');
+  } catch (error) {
+    // Fallback if node-fetch not available
+    console.warn('node-fetch not available, using manual HTTP requests');
+  }
+}
+
 // Set up global test configuration
-global.APP_BASE_URL = process.env.APP_BASE_URL || 'http://localhost:8000';
-global.TEST_TIMEOUT = 60000; // Increased for CI stability
+global.APP_BASE_URL = process.env.APP_BASE_URL || 'http://localhost:8001';
+global.TEST_TIMEOUT = 30000; // Optimized for performance
 global.RETRY_COUNT = process.env.CI ? 3 : 1; // Retry failed tests in CI
 
 // Mock localStorage for puppeteer tests
@@ -80,20 +90,39 @@ global.testUtils = {
     );
   },
   
-  waitForServer: async (url = global.APP_BASE_URL, timeout = 30000) => {
+  waitForServer: async (url = global.APP_BASE_URL, timeout = 15000) => {
     const startTime = Date.now();
+    let lastError = null;
+    
     while (Date.now() - startTime < timeout) {
       try {
-        const response = await fetch(url);
-        if (response.ok) {
-          return true;
-        }
+        // Use http module for more reliable server checking
+        const { default: http } = await import('http');
+        const urlObj = new URL(url);
+        
+        await new Promise((resolve, reject) => {
+          const req = http.request({
+            hostname: urlObj.hostname,
+            port: urlObj.port,
+            path: urlObj.pathname,
+            method: 'GET',
+            timeout: 2000
+          }, (res) => {
+            resolve(res.statusCode < 400);
+          });
+          
+          req.on('error', reject);
+          req.on('timeout', () => reject(new Error('Request timeout')));
+          req.end();
+        });
+        
+        return true;
       } catch (error) {
-        // Server not ready yet
+        lastError = error;
       }
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
-    throw new Error(`Server at ${url} not ready after ${timeout}ms`);
+    throw new Error(`Server at ${url} not ready after ${timeout}ms. Last error: ${lastError?.message || 'Unknown'}`);
   },
   
   safePageOperation: async (page, operation) => {
@@ -108,6 +137,59 @@ global.testUtils = {
       }
       throw error;
     }
+  },
+  
+  // Simple HTTP server for tests
+  startTestServer: async (port = 8000, rootDir = null) => {
+    const { default: http } = await import('http');
+    const { default: fs } = await import('fs');
+    const { default: path } = await import('path');
+    
+    rootDir = rootDir || path.resolve(__dirname, '..');
+    
+    return new Promise((resolve, reject) => {
+      const server = http.createServer((req, res) => {
+        let filePath = path.join(rootDir, req.url === '/' ? 'index.html' : req.url);
+        
+        // Security check
+        if (!filePath.startsWith(rootDir)) {
+          filePath = path.join(rootDir, 'index.html');
+        }
+        
+        fs.readFile(filePath, (err, data) => {
+          if (err) {
+            res.writeHead(404, { 'Content-Type': 'text/plain' });
+            res.end('Not Found');
+            return;
+          }
+          
+          const ext = path.extname(filePath).toLowerCase();
+          const contentTypes = {
+            '.html': 'text/html',
+            '.css': 'text/css',
+            '.js': 'application/javascript',
+            '.json': 'application/json'
+          };
+          
+          res.writeHead(200, { 'Content-Type': contentTypes[ext] || 'text/plain' });
+          res.end(data);
+        });
+      });
+      
+      server.on('error', (err) => {
+        if (err.code === 'EADDRINUSE') {
+          console.log(`Port ${port} in use, server likely already running`);
+          resolve(server);
+        } else {
+          reject(err);
+        }
+      });
+      
+      server.listen(port, () => {
+        console.log(`✅ Test server started on port ${port}`);
+        resolve(server);
+      });
+    });
   }
 };
 

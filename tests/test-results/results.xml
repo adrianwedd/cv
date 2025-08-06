@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="5.108759">
+<testsuite name="browser-compatibility.spec.js" timestamp="2025-08-06T11:09:31.590Z" hostname="webkit" tests="1" failures="0" skipped="0" time="1.467" errors="0">
+<testcase name="Cross-Browser Compatibility › Core Functionality › should load main CV page across all browsers" classname="browser-compatibility.spec.js" time="1.467">
+</testcase>
+</testsuite>
+</testsuites>
