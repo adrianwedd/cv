@@ -137,6 +137,9 @@ class CVApplication {
         
         // Handle CSS and font loading
         this.setupAssetLoading();
+        
+        // Setup mobile touch optimizations
+        this.setupMobileTouchOptimizations();
     }
 
     /**
@@ -166,6 +169,243 @@ class CVApplication {
                 document.head.appendChild(stylesheet);
             }
         });
+    }
+
+    /**
+     * Setup mobile touch optimizations for enhanced mobile experience
+     */
+    setupMobileTouchOptimizations() {
+        // Detect touch device
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (isTouchDevice) {
+            document.documentElement.classList.add('touch-device');
+            
+            // Enhanced touch feedback for interactive elements
+            this.setupTouchFeedback();
+            
+            // Optimize scroll behavior for mobile
+            this.setupMobileScrolling();
+            
+            // Handle orientation changes
+            this.setupOrientationHandling();
+            
+            // iOS specific optimizations
+            this.setupiOSOptimizations();
+            
+            console.log('📱 Mobile touch optimizations enabled');
+        }
+    }
+    
+    /**
+     * Setup enhanced touch feedback for better user experience
+     */
+    setupTouchFeedback() {
+        const touchElements = document.querySelectorAll('button, .btn, .nav-item, .contact-link, .skill-item, .project-card');
+        
+        touchElements.forEach(element => {
+            // Enhance touch feedback with haptic-like response
+            element.addEventListener('touchstart', (e) => {
+                element.style.transform = 'scale(0.96)';
+                element.style.transition = 'transform 0.1s ease';
+                
+                // Add ripple effect
+                this.createRippleEffect(e, element);
+            }, { passive: true });
+            
+            element.addEventListener('touchend', () => {
+                element.style.transform = '';
+                element.style.transition = 'transform 0.15s ease';
+            }, { passive: true });
+            
+            element.addEventListener('touchcancel', () => {
+                element.style.transform = '';
+                element.style.transition = 'transform 0.15s ease';
+            }, { passive: true });
+        });
+    }
+    
+    /**
+     * Create ripple effect for touch feedback
+     */
+    createRippleEffect(event, element) {
+        const rect = element.getBoundingClientRect();
+        const touch = event.touches[0];
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-effect';
+        ripple.style.cssText = `
+            position: absolute;
+            left: ${x}px;
+            top: ${y}px;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            animation: ripple 0.3s linear;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        
+        // Add ripple animation styles if not exists
+        if (!document.querySelector('#ripple-styles')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-styles';
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        width: 60px;
+                        height: 60px;
+                        opacity: 0;
+                    }
+                }
+                .ripple-container {
+                    position: relative;
+                    overflow: hidden;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Make element a ripple container
+        if (!element.classList.contains('ripple-container')) {
+            element.classList.add('ripple-container');
+        }
+        
+        element.appendChild(ripple);
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+            if (ripple.parentNode) {
+                ripple.remove();
+            }
+        }, 300);
+    }
+    
+    /**
+     * Optimize scrolling behavior for mobile devices
+     */
+    setupMobileScrolling() {
+        // Smooth momentum scrolling for iOS
+        document.documentElement.style.webkitOverflowScrolling = 'touch';
+        
+        // Optimize navigation scrolling
+        const navigation = document.querySelector('.navigation');
+        if (navigation) {
+            navigation.style.webkitOverflowScrolling = 'touch';
+            navigation.style.scrollbarWidth = 'none';
+        }
+        
+        // Enhance section navigation with scroll snap
+        const sections = document.querySelectorAll('.section');
+        if (sections.length > 0) {
+            sections.forEach(section => {
+                section.style.scrollMarginTop = '80px';
+            });
+        }
+        
+        // Improve scroll performance with passive listeners
+        document.addEventListener('touchmove', (e) => {
+            // Allow native scrolling
+        }, { passive: true });
+        
+        // Handle pull-to-refresh on mobile
+        let startY = 0;
+        let isAtTop = false;
+        
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].pageY;
+            isAtTop = window.scrollY === 0;
+        }, { passive: true });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (isAtTop && e.touches[0].pageY > startY + 5) {
+                // Prevent pull-to-refresh on the page
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+    
+    /**
+     * Handle device orientation changes
+     */
+    setupOrientationHandling() {
+        const handleOrientationChange = () => {
+            // Delay to ensure viewport is updated
+            setTimeout(() => {
+                // Recalculate responsive elements
+                this.handleWindowResize();
+                
+                // Fix viewport height on mobile browsers
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                console.log(`📱 Orientation changed: ${window.innerHeight}x${window.innerWidth}`);
+            }, 100);
+        };
+        
+        // Handle both orientationchange and resize for better compatibility
+        window.addEventListener('orientationchange', handleOrientationChange);
+        window.addEventListener('resize', handleOrientationChange);
+        
+        // Set initial viewport height
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    /**
+     * iOS specific optimizations
+     */
+    setupiOSOptimizations() {
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        
+        if (isIOS) {
+            document.documentElement.classList.add('ios-device');
+            
+            // Fix iOS viewport zoom on form focus
+            const viewport = document.querySelector('meta[name=viewport]');
+            if (viewport) {
+                const handleFocusIn = () => {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0');
+                };
+                
+                const handleFocusOut = () => {
+                    viewport.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=5, user-scalable=1');
+                };
+                
+                document.addEventListener('focusin', handleFocusIn);
+                document.addEventListener('focusout', handleFocusOut);
+            }
+            
+            // Fix iOS scroll bounce
+            document.addEventListener('touchmove', (e) => {
+                if (e.target.closest('.navigation') || e.target.closest('.scrollable')) {
+                    // Allow scrolling in specific containers
+                    return;
+                }
+                
+                // Prevent bounce on body
+                if (e.target === document.body) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            // Handle iOS safe area
+            const updateSafeArea = () => {
+                const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-top') || '0px';
+                const safeAreaBottom = getComputedStyle(document.documentElement).getPropertyValue('--safe-area-inset-bottom') || '0px';
+                
+                console.log(`📱 iOS safe area - top: ${safeAreaTop}, bottom: ${safeAreaBottom}`);
+            };
+            
+            updateSafeArea();
+            window.addEventListener('orientationchange', updateSafeArea);
+            
+            console.log('🍎 iOS optimizations enabled');
+        }
     }
 
     /**

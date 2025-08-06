@@ -1,39 +1,332 @@
-/* PWA Mobile Enhancements */
+/**
+ * PWA Mobile Touch Optimization
+ * Comprehensive mobile touch experience with accessibility and performance focus
+ */
+
+/* Universal Touch Optimizations */
+* {
+  /* Remove default touch behaviors for custom handling */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Touch-friendly interactive elements */
+button, 
+.btn, 
+.nav-item,
+.contact-link,
+.footer-link,
+.skill-item,
+.project-card,
+.experience-item,
+input,
+textarea,
+select {
+  /* WCAG 2.1 AA minimum touch target size (44x44px) */
+  min-height: 44px;
+  min-width: 44px;
+  
+  /* Enhanced touch response */
+  touch-action: manipulation;
+  cursor: pointer;
+  
+  /* Prevent text selection on touch */
+  -webkit-user-select: none;
+  user-select: none;
+  
+  /* Smooth touch feedback */
+  transition: transform 0.15s ease, background-color 0.15s ease, opacity 0.15s ease;
+}
+
+/* Text elements should allow selection */
+p, h1, h2, h3, h4, h5, h6, span, div.text-content {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Touch feedback states */
+button:active,
+.btn:active,
+.nav-item:active,
+.contact-link:active {
+  transform: scale(0.96);
+  opacity: 0.8;
+}
+
+/* Mobile Layout Optimizations */
 @media screen and (max-width: 768px) {
+  
+  /* Safe area handling for notched devices */
   body {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .header {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   
   .container {
-    padding: 0 1rem;
+    padding: 0 max(1rem, env(safe-area-inset-left)) 0 max(1rem, env(safe-area-inset-right));
+    max-width: 100%;
   }
   
-  /* Mobile-first responsive improvements */
-  .header {
-    padding: 0.5rem 1rem;
+  /* Enhanced navigation for touch */
+  .navigation {
+    padding: 0.5rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   
+  .navigation::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .nav-items {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  .nav-item {
+    flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    white-space: nowrap;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  /* Touch-optimized sections */
   .section {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
+    margin: 0 1rem;
   }
   
-  /* Touch-friendly buttons */
-  button, .btn {
-    min-height: 44px;
-    min-width: 44px;
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Contact buttons optimization */
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .contact-link {
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  
+  /* Skills grid optimization */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .skill-category {
+    background: var(--color-surface);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  .skill-item {
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    border-radius: 0.5rem;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+  }
+  
+  /* Experience cards optimization */
+  .experience-item,
+  .project-card {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+  
+  /* Form elements optimization */
+  input, textarea, select {
+    padding: 1rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 0.5rem;
+    border: 2px solid var(--color-border);
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary-alpha);
+  }
+  
+  /* Typography scaling */
+  h1 { font-size: 2.25rem; line-height: 1.2; }
+  h2 { font-size: 1.875rem; line-height: 1.25; }
+  h3 { font-size: 1.5rem; line-height: 1.3; }
+  
+  /* Improved spacing for readability */
+  p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  /* Footer optimization */
+  .footer {
+    padding: 2rem max(1rem, env(safe-area-inset-left)) max(2rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-right));
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .footer-link {
+    padding: 0.75rem 1rem;
+    text-align: center;
   }
 }
 
-/* PWA Specific Enhancements */
+/* Tablet optimizations */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .contact-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* PWA Standalone Mode Enhancements */
 @media all and (display-mode: standalone) {
   body {
     background: var(--color-background);
+    /* Remove user selection in app mode */
+    -webkit-user-select: none;
     user-select: none;
   }
   
+  /* Allow selection for text content */
+  .text-content,
+  .section p,
+  .experience-description,
+  .project-description {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  
   .header {
-    padding-top: env(safe-area-inset-top);
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+    background: var(--color-background-alpha);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  /* Add app-like animations */
+  .nav-item.active {
+    background: var(--color-primary);
+    color: white;
+    transform: none;
+  }
+  
+  /* Enhance app-like feel */
+  .section {
+    scroll-margin-top: 100px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  button,
+  .btn,
+  .nav-item,
+  .contact-link {
+    border: 2px solid currentColor;
+  }
+  
+  .nav-item.active {
+    background: currentColor;
+    color: var(--color-background);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark mode mobile optimizations */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .skill-item,
+  .experience-item,
+  .project-card {
+    background: var(--color-surface-dark, #1e293b);
+    border-color: var(--color-border-dark, #334155);
+    color: var(--color-text-dark, #f8fafc);
+  }
+}
+
+/* Touch device specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .nav-item:hover,
+  .contact-link:hover,
+  .skill-item:hover {
+    transform: none;
+  }
+  
+  /* Enhance focus states for accessibility */
+  .nav-item:focus,
+  .contact-link:focus,
+  button:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  /* Improve touch target spacing */
+  .nav-items {
+    gap: 0.75rem;
+  }
+  
+  /* Add visual touch feedback */
+  .contact-link:active,
+  .nav-item:active {
+    background: var(--color-primary-alpha);
   }
 }
