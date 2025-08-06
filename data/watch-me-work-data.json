@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2025-08-06T13:07:53.096Z",
+    "generated_at": "2025-08-06T13:24:02.541Z",
     "username": "adrianwedd",
     "lookback_days": 90,
     "data_freshness": "live",
-    "api_calls_made": 96,
-    "rate_limit_remaining": 4904
+    "api_calls_made": 88,
+    "rate_limit_remaining": 4912
   },
   "user": {
     "login": "adrianwedd",
@@ -25,16 +25,96 @@
     "weekly_issues": 50,
     "total_activities": 100,
     "activity_distribution": {
-      "PushEvent": 18,
-      "IssuesEvent": 47,
-      "IssueCommentEvent": 31,
+      "PushEvent": 20,
+      "IssuesEvent": 46,
+      "IssueCommentEvent": 30,
       "CreateEvent": 3,
       "ReleaseEvent": 1
     },
     "last_commit_date": "2025-08-06T11:32:42Z",
-    "last_issue_date": "2025-08-06T13:07:37Z"
+    "last_issue_date": "2025-08-06T13:23:33Z"
   },
   "activities": [
+    {
+      "id": "53016423012",
+      "type": "PushEvent",
+      "repo": "adrianwedd/cv",
+      "repo_full_name": "adrianwedd/cv",
+      "created_at": "2025-08-06T11:16:29Z",
+      "payload": {
+        "repository_id": 1028440018,
+        "push_id": 25963323318,
+        "size": 1,
+        "distinct_size": 1,
+        "ref": "refs/heads/develop",
+        "head": "ff4c31239089d24eeb7862b3222debcaa23afb97",
+        "before": "81f8430d6f6261171db90ae4de9b3f415cfcc403",
+        "commits": [
+          {
+            "sha": "ff4c31239089d24eeb7862b3222debcaa23afb97",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "🔧 Fix hardcoded path in CI test server startup\n\nCritical fix for GitHub Actions CI environment:\n- Remove hardcoded '/Users/adrian/repos/cv' path from cross-browser test server\n- Server now starts from current working directory (repository root)\n- Resolves test server startup failures in Dashboard and Mobile test suites\n- Enables proper test execution in containerized CI environment\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/ff4c31239089d24eeb7862b3222debcaa23afb97"
+          }
+        ]
+      },
+      "actor": {
+        "id": 3725784,
+        "login": "adrianwedd",
+        "display_login": "adrianwedd",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+      },
+      "public": true,
+      "_formatted_description": "Pushed 1 commit: 🔧 Fix hardcoded path in CI test server startup",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "53016323256",
+      "type": "PushEvent",
+      "repo": "adrianwedd/cv",
+      "repo_full_name": "adrianwedd/cv",
+      "created_at": "2025-08-06T11:14:12Z",
+      "payload": {
+        "repository_id": 1028440018,
+        "push_id": 25963276110,
+        "size": 1,
+        "distinct_size": 1,
+        "ref": "refs/heads/develop",
+        "head": "219f5a1c3ca5d9e87d4e4d23f2e74567fb8fbb16",
+        "before": "9ae12d3e7aa70dc4f341e219f0a14ce5d71a88c5",
+        "commits": [
+          {
+            "sha": "219f5a1c3ca5d9e87d4e4d23f2e74567fb8fbb16",
+            "author": {
+              "email": "adrian@adrianwedd.com",
+              "name": "Adrian Wedd"
+            },
+            "message": "🔧 Fix YAML syntax error in testing-pipeline.yml - matrix variable correction",
+            "distinct": true,
+            "url": "https://api.github.com/repos/adrianwedd/cv/commits/219f5a1c3ca5d9e87d4e4d23f2e74567fb8fbb16"
+          }
+        ]
+      },
+      "actor": {
+        "id": 3725784,
+        "login": "adrianwedd",
+        "display_login": "adrianwedd",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+      },
+      "public": true,
+      "_formatted_description": "Pushed 1 commit: 🔧 Fix YAML syntax error in testing-pipeline.yml - matrix variable correction",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
     {
       "id": "53016227822",
       "type": "PushEvent",
@@ -11193,247 +11273,6 @@
       "_formatted_description": "Closed issue #50: Detailed MusicBrainz Integration Research and Implementation",
       "_icon": "🐛",
       "_color": "#f59e0b"
-    },
-    {
-      "id": "52951166647",
-      "type": "IssueCommentEvent",
-      "repo": "adrianwedd/ordr.fm",
-      "repo_full_name": "adrianwedd/ordr.fm",
-      "created_at": "2025-08-05T06:32:23Z",
-      "payload": {
-        "action": "created",
-        "issue": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47",
-          "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-          "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/labels{/name}",
-          "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/comments",
-          "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/events",
-          "html_url": "https://github.com/adrianwedd/ordr.fm/issues/47",
-          "id": 3291530314,
-          "node_id": "I_kwDOPUqsvM7EMMRK",
-          "number": 47,
-          "title": "Create Docker Image for Easy Deployment",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "labels": [
-            {
-              "id": 9021671224,
-              "node_id": "LA_kwDOPUqsvM8AAAACGbvHOA",
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/enhancement",
-              "name": "enhancement",
-              "color": "a2eeef",
-              "default": true,
-              "description": "New feature or request"
-            }
-          ],
-          "state": "closed",
-          "locked": false,
-          "assignee": null,
-          "assignees": [],
-          "milestone": null,
-          "comments": 1,
-          "created_at": "2025-08-05T04:36:28Z",
-          "updated_at": "2025-08-05T06:32:22Z",
-          "closed_at": "2025-08-05T06:32:22Z",
-          "author_association": "OWNER",
-          "active_lock_reason": null,
-          "sub_issues_summary": {
-            "total": 0,
-            "completed": 0,
-            "percent_completed": 0
-          },
-          "body": "## Summary\nCreate an official Docker image to simplify deployment and make ordr.fm accessible to users who prefer containerized solutions.\n\n## 🔄 Status: READY FOR IMPLEMENTATION\n\nWith the Node.js server now complete, Docker deployment is the next logical step for easier distribution.\n\n## Requirements\n\n### Multi-stage Dockerfile\n- [ ] **Base Stage**: Alpine Linux with system dependencies\n- [ ] **Node.js Stage**: Install Node.js dependencies for web server\n- [ ] **Bash Stage**: Include ordr.fm bash scripts and dependencies\n- [ ] **Final Stage**: Combine all components with proper permissions\n\n### Dependencies to Include\n- [ ] **System Tools**: `exiftool`, `jq`, `sqlite3`, `curl`, `rsync`\n- [ ] **Node.js Runtime**: Latest LTS with npm packages\n- [ ] **ordr.fm Components**: Bash scripts, Node.js server, database schema\n\n### Configuration Support\n- [ ] **Environment Variables**: All configuration via ENV vars\n- [ ] **Volume Mounts**: Music directories, config files, databases\n- [ ] **Health Checks**: HTTP endpoint monitoring\n- [ ] **Signal Handling**: Graceful shutdown support\n\n## Technical Implementation\n\n### Dockerfile Structure\n```dockerfile\n# Multi-stage build for optimized image size\nFROM node:18-alpine AS node-deps\n# Install Node.js dependencies\n\nFROM alpine:latest AS system-deps  \n# Install system dependencies (exiftool, jq, etc.)\n\nFROM alpine:latest AS final\n# Combine everything with minimal footprint\n```\n\n### Volume Mounts\n```yaml\nvolumes:\n  - /music:/data/music:ro          # Source music directory\n  - /organized:/data/organized     # Destination directory  \n  - ./config:/app/config           # Configuration files\n  - ./data:/app/data               # Database and cache\n```\n\n### Environment Variables\n```bash\n# Paths\nORDR_SOURCE_DIR=/data/music\nORDR_DEST_DIR=/data/organized\nORDR_CONFIG_FILE=/app/config/ordr.fm.conf\n\n# Server\nPORT=3000\nNODE_ENV=production\n\n# Integrations\nDISCOGS_USER_TOKEN=your_token_here\nMUSICBRAINZ_USER_AGENT=ordr.fm-docker/2.1.0\n```\n\n## Docker Hub Publishing\n\n### Automated Builds\n- [ ] **GitHub Actions**: Build on push to main\n- [ ] **Multi-platform**: Support ARM64 and AMD64\n- [ ] **Versioning**: Semantic versioning with latest tag\n- [ ] **Security Scanning**: Automated vulnerability checks\n\n### Repository Structure\n```\nadrianwedd/ordr.fm:latest\nadrianwedd/ordr.fm:2.1.0\nadrianwedd/ordr.fm:2.1\nadrianwedd/ordr.fm:2\n```\n\n## Usage Examples\n\n### Basic Usage\n```bash\n# Quick start with local music directory\ndocker run -v /home/user/Music:/data/music:ro \\\n           -v /home/user/Organized:/data/organized \\\n           -p 3000:3000 \\\n           adrianwedd/ordr.fm:latest\n```\n\n### Production Deployment\n```yaml\n# docker-compose.yml\nversion: '3.8'\nservices:\n  ordr-fm:\n    image: adrianwedd/ordr.fm:latest\n    ports:\n      - \"3000:3000\"\n    volumes:\n      - music-library:/data/music:ro\n      - organized-music:/data/organized\n      - ./config:/app/config\n      - ./data:/app/data\n    environment:\n      - DISCOGS_USER_TOKEN=${DISCOGS_TOKEN}\n      - ORDR_ENABLE_ELECTRONIC=1\n      - ORDR_ENABLE_DISCOGS=1\n    restart: unless-stopped\n\nvolumes:\n  music-library:\n    driver: local\n  organized-music:\n    driver: local\n```\n\n### Web Interface Access\n```bash\n# Access visualization dashboard\nopen http://localhost:3000\n\n# API endpoints available\ncurl http://localhost:3000/api/stats\ncurl http://localhost:3000/health\n```\n\n## Benefits of Docker Deployment\n\n### Simplified Installation\n- No need to install system dependencies manually\n- Consistent environment across different systems\n- Easy updates through image versioning\n\n### Isolation and Security\n- Containerized execution environment\n- Controlled filesystem access through volumes\n- Network isolation with exposed ports only\n\n### Scalability\n- Easy deployment on container orchestration platforms\n- Horizontal scaling for large music collections\n- Resource limitation and monitoring\n\n## Priority: HIGH\n\nDocker deployment significantly improves accessibility and adoption by:\n- Eliminating complex dependency installation\n- Providing consistent cross-platform experience  \n- Enabling easy deployment on NAS devices and servers\n- Supporting container orchestration platforms\n\n## Implementation Timeline\n- **Week 1**: Create multi-stage Dockerfile and test locally\n- **Week 2**: Set up GitHub Actions for automated builds\n- **Week 3**: Publish to Docker Hub with documentation\n- **Week 4**: Create deployment examples and troubleshooting guide\n\n🤖 Generated with [Claude Code](https://claude.ai/code)",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/timeline",
-          "performed_via_github_app": null,
-          "state_reason": "completed"
-        },
-        "comment": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/comments/3153680854",
-          "html_url": "https://github.com/adrianwedd/ordr.fm/issues/47#issuecomment-3153680854",
-          "issue_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47",
-          "id": 3153680854,
-          "node_id": "IC_kwDOPUqsvM67-VnW",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "created_at": "2025-08-05T06:32:22Z",
-          "updated_at": "2025-08-05T06:32:22Z",
-          "author_association": "OWNER",
-          "body": "✅ **COMPLETED in v2.1.0**\n\nThis issue has been fully implemented with a comprehensive Docker deployment solution:\n\n## 🐳 Implemented Features\n- **Multi-stage Dockerfile** with Node.js + Bash environments\n- **Production docker-compose.yml** with proper volume mapping\n- **Security hardening** (non-root user, read-only volumes)\n- **Multi-architecture support** (AMD64, ARM64)\n- **Complete documentation** in docs/DOCKER.md\n- **Environment configuration** with .env.example\n- **Automated CI/CD** with GitHub Actions for Docker builds\n\n## 🚀 Quick Start\n```bash\ncurl -O https://raw.githubusercontent.com/adrianwedd/ordr.fm/main/docker-compose.yml\ncurl -O https://raw.githubusercontent.com/adrianwedd/ordr.fm/main/.env.example\ncp .env.example .env && nano .env  # Configure paths\ndocker-compose up -d\n```\n\n## 📖 Documentation\n- [Docker Deployment Guide](docs/DOCKER.md)\n- [Release Checklist](RELEASE_CHECKLIST.md)\n\nClosing as completed. Docker images will be available on GitHub Container Registry once v2.1.0 is tagged.",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/comments/3153680854/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "performed_via_github_app": null
-        }
-      },
-      "actor": {
-        "id": 3725784,
-        "login": "adrianwedd",
-        "display_login": "adrianwedd",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-      },
-      "public": true,
-      "_formatted_description": "Commented on issue #47: Create Docker Image for Easy Deployment",
-      "_icon": "💬",
-      "_color": "#8b5cf6"
-    },
-    {
-      "id": "52951166583",
-      "type": "IssuesEvent",
-      "repo": "adrianwedd/ordr.fm",
-      "repo_full_name": "adrianwedd/ordr.fm",
-      "created_at": "2025-08-05T06:32:23Z",
-      "payload": {
-        "action": "closed",
-        "issue": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47",
-          "repository_url": "https://api.github.com/repos/adrianwedd/ordr.fm",
-          "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/labels{/name}",
-          "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/comments",
-          "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/events",
-          "html_url": "https://github.com/adrianwedd/ordr.fm/issues/47",
-          "id": 3291530314,
-          "node_id": "I_kwDOPUqsvM7EMMRK",
-          "number": 47,
-          "title": "Create Docker Image for Easy Deployment",
-          "user": {
-            "login": "adrianwedd",
-            "id": 3725784,
-            "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-            "gravatar_id": "",
-            "url": "https://api.github.com/users/adrianwedd",
-            "html_url": "https://github.com/adrianwedd",
-            "followers_url": "https://api.github.com/users/adrianwedd/followers",
-            "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-            "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-            "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-            "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-            "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-            "repos_url": "https://api.github.com/users/adrianwedd/repos",
-            "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-            "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-            "type": "User",
-            "user_view_type": "public",
-            "site_admin": false
-          },
-          "labels": [
-            {
-              "id": 9021671224,
-              "node_id": "LA_kwDOPUqsvM8AAAACGbvHOA",
-              "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/enhancement",
-              "name": "enhancement",
-              "color": "a2eeef",
-              "default": true,
-              "description": "New feature or request"
-            }
-          ],
-          "state": "closed",
-          "locked": false,
-          "assignee": null,
-          "assignees": [],
-          "milestone": null,
-          "comments": 1,
-          "created_at": "2025-08-05T04:36:28Z",
-          "updated_at": "2025-08-05T06:32:22Z",
-          "closed_at": "2025-08-05T06:32:22Z",
-          "author_association": "OWNER",
-          "active_lock_reason": null,
-          "sub_issues_summary": {
-            "total": 0,
-            "completed": 0,
-            "percent_completed": 0
-          },
-          "body": "## Summary\nCreate an official Docker image to simplify deployment and make ordr.fm accessible to users who prefer containerized solutions.\n\n## 🔄 Status: READY FOR IMPLEMENTATION\n\nWith the Node.js server now complete, Docker deployment is the next logical step for easier distribution.\n\n## Requirements\n\n### Multi-stage Dockerfile\n- [ ] **Base Stage**: Alpine Linux with system dependencies\n- [ ] **Node.js Stage**: Install Node.js dependencies for web server\n- [ ] **Bash Stage**: Include ordr.fm bash scripts and dependencies\n- [ ] **Final Stage**: Combine all components with proper permissions\n\n### Dependencies to Include\n- [ ] **System Tools**: `exiftool`, `jq`, `sqlite3`, `curl`, `rsync`\n- [ ] **Node.js Runtime**: Latest LTS with npm packages\n- [ ] **ordr.fm Components**: Bash scripts, Node.js server, database schema\n\n### Configuration Support\n- [ ] **Environment Variables**: All configuration via ENV vars\n- [ ] **Volume Mounts**: Music directories, config files, databases\n- [ ] **Health Checks**: HTTP endpoint monitoring\n- [ ] **Signal Handling**: Graceful shutdown support\n\n## Technical Implementation\n\n### Dockerfile Structure\n```dockerfile\n# Multi-stage build for optimized image size\nFROM node:18-alpine AS node-deps\n# Install Node.js dependencies\n\nFROM alpine:latest AS system-deps  \n# Install system dependencies (exiftool, jq, etc.)\n\nFROM alpine:latest AS final\n# Combine everything with minimal footprint\n```\n\n### Volume Mounts\n```yaml\nvolumes:\n  - /music:/data/music:ro          # Source music directory\n  - /organized:/data/organized     # Destination directory  \n  - ./config:/app/config           # Configuration files\n  - ./data:/app/data               # Database and cache\n```\n\n### Environment Variables\n```bash\n# Paths\nORDR_SOURCE_DIR=/data/music\nORDR_DEST_DIR=/data/organized\nORDR_CONFIG_FILE=/app/config/ordr.fm.conf\n\n# Server\nPORT=3000\nNODE_ENV=production\n\n# Integrations\nDISCOGS_USER_TOKEN=your_token_here\nMUSICBRAINZ_USER_AGENT=ordr.fm-docker/2.1.0\n```\n\n## Docker Hub Publishing\n\n### Automated Builds\n- [ ] **GitHub Actions**: Build on push to main\n- [ ] **Multi-platform**: Support ARM64 and AMD64\n- [ ] **Versioning**: Semantic versioning with latest tag\n- [ ] **Security Scanning**: Automated vulnerability checks\n\n### Repository Structure\n```\nadrianwedd/ordr.fm:latest\nadrianwedd/ordr.fm:2.1.0\nadrianwedd/ordr.fm:2.1\nadrianwedd/ordr.fm:2\n```\n\n## Usage Examples\n\n### Basic Usage\n```bash\n# Quick start with local music directory\ndocker run -v /home/user/Music:/data/music:ro \\\n           -v /home/user/Organized:/data/organized \\\n           -p 3000:3000 \\\n           adrianwedd/ordr.fm:latest\n```\n\n### Production Deployment\n```yaml\n# docker-compose.yml\nversion: '3.8'\nservices:\n  ordr-fm:\n    image: adrianwedd/ordr.fm:latest\n    ports:\n      - \"3000:3000\"\n    volumes:\n      - music-library:/data/music:ro\n      - organized-music:/data/organized\n      - ./config:/app/config\n      - ./data:/app/data\n    environment:\n      - DISCOGS_USER_TOKEN=${DISCOGS_TOKEN}\n      - ORDR_ENABLE_ELECTRONIC=1\n      - ORDR_ENABLE_DISCOGS=1\n    restart: unless-stopped\n\nvolumes:\n  music-library:\n    driver: local\n  organized-music:\n    driver: local\n```\n\n### Web Interface Access\n```bash\n# Access visualization dashboard\nopen http://localhost:3000\n\n# API endpoints available\ncurl http://localhost:3000/api/stats\ncurl http://localhost:3000/health\n```\n\n## Benefits of Docker Deployment\n\n### Simplified Installation\n- No need to install system dependencies manually\n- Consistent environment across different systems\n- Easy updates through image versioning\n\n### Isolation and Security\n- Containerized execution environment\n- Controlled filesystem access through volumes\n- Network isolation with exposed ports only\n\n### Scalability\n- Easy deployment on container orchestration platforms\n- Horizontal scaling for large music collections\n- Resource limitation and monitoring\n\n## Priority: HIGH\n\nDocker deployment significantly improves accessibility and adoption by:\n- Eliminating complex dependency installation\n- Providing consistent cross-platform experience  \n- Enabling easy deployment on NAS devices and servers\n- Supporting container orchestration platforms\n\n## Implementation Timeline\n- **Week 1**: Create multi-stage Dockerfile and test locally\n- **Week 2**: Set up GitHub Actions for automated builds\n- **Week 3**: Publish to Docker Hub with documentation\n- **Week 4**: Create deployment examples and troubleshooting guide\n\n🤖 Generated with [Claude Code](https://claude.ai/code)",
-          "reactions": {
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/reactions",
-            "total_count": 0,
-            "+1": 0,
-            "-1": 0,
-            "laugh": 0,
-            "hooray": 0,
-            "confused": 0,
-            "heart": 0,
-            "rocket": 0,
-            "eyes": 0
-          },
-          "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/47/timeline",
-          "performed_via_github_app": null,
-          "state_reason": "completed"
-        }
-      },
-      "actor": {
-        "id": 3725784,
-        "login": "adrianwedd",
-        "display_login": "adrianwedd",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
-      },
-      "public": true,
-      "_formatted_description": "Closed issue #47: Create Docker Image for Easy Deployment",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
     }
   ],
   "repositories": [
@@ -11455,7 +11294,7 @@
         "issues": 13,
         "total": 23,
         "last_commit": "2025-08-06T03:07:51Z",
-        "last_issue": "2025-08-06T13:07:37Z"
+        "last_issue": "2025-08-06T13:23:33Z"
       }
     },
     {
@@ -28205,6 +28044,168 @@
   ],
   "recent_issues": [
     {
+      "url": "https://api.github.com/repos/adrianwedd/cv/issues/265",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/labels{/name}",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/comments",
+      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/events",
+      "html_url": "https://github.com/adrianwedd/cv/issues/265",
+      "id": 3296626683,
+      "node_id": "I_kwDOPUy_0s7Efof7",
+      "number": 265,
+      "title": "📊 Dashboard Data Integration Failures Preventing Functionality",
+      "user": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 9022917061,
+          "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
+          "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
+          "name": "bug",
+          "color": "d73a4a",
+          "default": true,
+          "description": "Something isn't working"
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [],
+      "milestone": null,
+      "comments": 2,
+      "created_at": "2025-08-06T13:01:49Z",
+      "updated_at": "2025-08-06T13:23:33Z",
+      "closed_at": null,
+      "author_association": "OWNER",
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "body": "## Problem\nMultiple dashboards showing perpetual loading states despite rich data sources being available (2.6MB GitHub activity, 247 connections, 175 repos).\n\n## Affected Dashboards\n- Watch Me Work Dashboard: Filter system non-functional\n- Career Intelligence Dashboard: Completely non-functional\n- OAuth Usage Dashboard: Authentication failures\n- Networking Dashboard: Data integration issues\n\n## Impact\n- Professional showcases non-functional\n- Rich data (247 connections, 175 repos) not leveraged\n- Poor impression for visitors and recruiters\n- Dashboard ecosystem fails to demonstrate capabilities\n\n## Root Cause\nData integration pipeline failures across multiple dashboard systems.\n\n## Fix Required\n- Audit data loading mechanisms in dashboard JavaScript\n- Fix authentication flows for OAuth dashboard\n- Restore filter functionality in Watch Me Work\n- Test end-to-end dashboard data flows\n\n## Priority\nP1 High - Professional showcase impact\n\n## Source\nQA Engineer dashboard audit findings - August 6, 2025",
+      "closed_by": null,
+      "reactions": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/265/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/timeline",
+      "performed_via_github_app": null,
+      "state_reason": null,
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "type": "issue",
+      "_activity_type": "issue"
+    },
+    {
+      "url": "https://api.github.com/repos/adrianwedd/cv/issues/262",
+      "repository_url": "https://github.com/adrianwedd/cv",
+      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/labels{/name}",
+      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/comments",
+      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/events",
+      "html_url": "https://github.com/adrianwedd/cv/issues/262",
+      "id": 3296616827,
+      "node_id": "I_kwDOPUy_0s7EfmF7",
+      "number": 262,
+      "title": "🚨 P0 Critical: JavaScript Module Loading Errors Blocking Interactive Features",
+      "user": {
+        "login": "adrianwedd",
+        "id": 3725784,
+        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/adrianwedd",
+        "html_url": "https://github.com/adrianwedd",
+        "followers_url": "https://api.github.com/users/adrianwedd/followers",
+        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+        "repos_url": "https://api.github.com/users/adrianwedd/repos",
+        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "labels": [
+        {
+          "id": 9022917061,
+          "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
+          "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
+          "name": "bug",
+          "color": "d73a4a",
+          "default": true,
+          "description": "Something isn't working"
+        }
+      ],
+      "state": "open",
+      "locked": false,
+      "assignee": null,
+      "assignees": [],
+      "milestone": null,
+      "comments": 2,
+      "created_at": "2025-08-06T12:58:44Z",
+      "updated_at": "2025-08-06T13:23:30Z",
+      "closed_at": null,
+      "author_association": "OWNER",
+      "active_lock_reason": null,
+      "sub_issues_summary": {
+        "total": 0,
+        "completed": 0,
+        "percent_completed": 0
+      },
+      "body": "## Problem\nJavaScript module loading errors preventing interactive features from functioning correctly.\n\n## Impact\n- Interactive elements may fail\n- Feature functionality compromised\n- Poor user experience\n- Potential site functionality breakdown\n\n## Root Cause\nModule loading sequence or CommonJS vs ES module compatibility issues.\n\n## Fix Required\n- Audit JavaScript module loading in assets/script.js\n- Resolve module format compatibility\n- Add proper error handling and fallbacks\n- Test all interactive features\n\n## Priority\nP0 Critical - Core functionality affected\n\n## Source\nQA Engineer audit findings - August 6, 2025",
+      "closed_by": null,
+      "reactions": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/262/reactions",
+        "total_count": 0,
+        "+1": 0,
+        "-1": 0,
+        "laugh": 0,
+        "hooray": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 0
+      },
+      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/timeline",
+      "performed_via_github_app": null,
+      "state_reason": null,
+      "repository": "cv",
+      "repository_full_name": "adrianwedd/cv",
+      "type": "issue",
+      "_activity_type": "issue"
+    },
+    {
       "url": "https://api.github.com/repos/adrianwedd/cv/issues/264",
       "repository_url": "https://github.com/adrianwedd/cv",
       "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/264/labels{/name}",
@@ -28502,168 +28503,6 @@
       "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/261/timeline",
       "performed_via_github_app": null,
       "state_reason": "completed",
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "type": "issue",
-      "_activity_type": "issue"
-    },
-    {
-      "url": "https://api.github.com/repos/adrianwedd/cv/issues/265",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/labels{/name}",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/comments",
-      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/events",
-      "html_url": "https://github.com/adrianwedd/cv/issues/265",
-      "id": 3296626683,
-      "node_id": "I_kwDOPUy_0s7Efof7",
-      "number": 265,
-      "title": "📊 Dashboard Data Integration Failures Preventing Functionality",
-      "user": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "labels": [
-        {
-          "id": 9022917061,
-          "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
-          "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
-          "name": "bug",
-          "color": "d73a4a",
-          "default": true,
-          "description": "Something isn't working"
-        }
-      ],
-      "state": "open",
-      "locked": false,
-      "assignee": null,
-      "assignees": [],
-      "milestone": null,
-      "comments": 0,
-      "created_at": "2025-08-06T13:01:49Z",
-      "updated_at": "2025-08-06T13:01:49Z",
-      "closed_at": null,
-      "author_association": "OWNER",
-      "active_lock_reason": null,
-      "sub_issues_summary": {
-        "total": 0,
-        "completed": 0,
-        "percent_completed": 0
-      },
-      "body": "## Problem\nMultiple dashboards showing perpetual loading states despite rich data sources being available (2.6MB GitHub activity, 247 connections, 175 repos).\n\n## Affected Dashboards\n- Watch Me Work Dashboard: Filter system non-functional\n- Career Intelligence Dashboard: Completely non-functional\n- OAuth Usage Dashboard: Authentication failures\n- Networking Dashboard: Data integration issues\n\n## Impact\n- Professional showcases non-functional\n- Rich data (247 connections, 175 repos) not leveraged\n- Poor impression for visitors and recruiters\n- Dashboard ecosystem fails to demonstrate capabilities\n\n## Root Cause\nData integration pipeline failures across multiple dashboard systems.\n\n## Fix Required\n- Audit data loading mechanisms in dashboard JavaScript\n- Fix authentication flows for OAuth dashboard\n- Restore filter functionality in Watch Me Work\n- Test end-to-end dashboard data flows\n\n## Priority\nP1 High - Professional showcase impact\n\n## Source\nQA Engineer dashboard audit findings - August 6, 2025",
-      "closed_by": null,
-      "reactions": {
-        "url": "https://api.github.com/repos/adrianwedd/cv/issues/265/reactions",
-        "total_count": 0,
-        "+1": 0,
-        "-1": 0,
-        "laugh": 0,
-        "hooray": 0,
-        "confused": 0,
-        "heart": 0,
-        "rocket": 0,
-        "eyes": 0
-      },
-      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/timeline",
-      "performed_via_github_app": null,
-      "state_reason": null,
-      "repository": "cv",
-      "repository_full_name": "adrianwedd/cv",
-      "type": "issue",
-      "_activity_type": "issue"
-    },
-    {
-      "url": "https://api.github.com/repos/adrianwedd/cv/issues/262",
-      "repository_url": "https://github.com/adrianwedd/cv",
-      "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/labels{/name}",
-      "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/comments",
-      "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/events",
-      "html_url": "https://github.com/adrianwedd/cv/issues/262",
-      "id": 3296616827,
-      "node_id": "I_kwDOPUy_0s7EfmF7",
-      "number": 262,
-      "title": "🚨 P0 Critical: JavaScript Module Loading Errors Blocking Interactive Features",
-      "user": {
-        "login": "adrianwedd",
-        "id": 3725784,
-        "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-        "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/adrianwedd",
-        "html_url": "https://github.com/adrianwedd",
-        "followers_url": "https://api.github.com/users/adrianwedd/followers",
-        "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-        "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-        "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-        "repos_url": "https://api.github.com/users/adrianwedd/repos",
-        "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-        "type": "User",
-        "user_view_type": "public",
-        "site_admin": false
-      },
-      "labels": [
-        {
-          "id": 9022917061,
-          "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
-          "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
-          "name": "bug",
-          "color": "d73a4a",
-          "default": true,
-          "description": "Something isn't working"
-        }
-      ],
-      "state": "open",
-      "locked": false,
-      "assignee": null,
-      "assignees": [],
-      "milestone": null,
-      "comments": 0,
-      "created_at": "2025-08-06T12:58:44Z",
-      "updated_at": "2025-08-06T12:58:44Z",
-      "closed_at": null,
-      "author_association": "OWNER",
-      "active_lock_reason": null,
-      "sub_issues_summary": {
-        "total": 0,
-        "completed": 0,
-        "percent_completed": 0
-      },
-      "body": "## Problem\nJavaScript module loading errors preventing interactive features from functioning correctly.\n\n## Impact\n- Interactive elements may fail\n- Feature functionality compromised\n- Poor user experience\n- Potential site functionality breakdown\n\n## Root Cause\nModule loading sequence or CommonJS vs ES module compatibility issues.\n\n## Fix Required\n- Audit JavaScript module loading in assets/script.js\n- Resolve module format compatibility\n- Add proper error handling and fallbacks\n- Test all interactive features\n\n## Priority\nP0 Critical - Core functionality affected\n\n## Source\nQA Engineer audit findings - August 6, 2025",
-      "closed_by": null,
-      "reactions": {
-        "url": "https://api.github.com/repos/adrianwedd/cv/issues/262/reactions",
-        "total_count": 0,
-        "+1": 0,
-        "-1": 0,
-        "laugh": 0,
-        "hooray": 0,
-        "confused": 0,
-        "heart": 0,
-        "rocket": 0,
-        "eyes": 0
-      },
-      "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/timeline",
-      "performed_via_github_app": null,
-      "state_reason": null,
       "repository": "cv",
       "repository_full_name": "adrianwedd/cv",
       "type": "issue",
@@ -32983,6 +32822,188 @@
   ],
   "timeline": [
     {
+      "id": "issue-3296626683",
+      "type": "issue",
+      "subtype": "issue",
+      "timestamp": "2025-08-06T13:23:33Z",
+      "repo": "cv",
+      "data": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/265",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/labels{/name}",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/comments",
+        "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/events",
+        "html_url": "https://github.com/adrianwedd/cv/issues/265",
+        "id": 3296626683,
+        "node_id": "I_kwDOPUy_0s7Efof7",
+        "number": 265,
+        "title": "📊 Dashboard Data Integration Failures Preventing Functionality",
+        "user": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 9022917061,
+            "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
+            "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
+            "name": "bug",
+            "color": "d73a4a",
+            "default": true,
+            "description": "Something isn't working"
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignee": null,
+        "assignees": [],
+        "milestone": null,
+        "comments": 2,
+        "created_at": "2025-08-06T13:01:49Z",
+        "updated_at": "2025-08-06T13:23:33Z",
+        "closed_at": null,
+        "author_association": "OWNER",
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "body": "## Problem\nMultiple dashboards showing perpetual loading states despite rich data sources being available (2.6MB GitHub activity, 247 connections, 175 repos).\n\n## Affected Dashboards\n- Watch Me Work Dashboard: Filter system non-functional\n- Career Intelligence Dashboard: Completely non-functional\n- OAuth Usage Dashboard: Authentication failures\n- Networking Dashboard: Data integration issues\n\n## Impact\n- Professional showcases non-functional\n- Rich data (247 connections, 175 repos) not leveraged\n- Poor impression for visitors and recruiters\n- Dashboard ecosystem fails to demonstrate capabilities\n\n## Root Cause\nData integration pipeline failures across multiple dashboard systems.\n\n## Fix Required\n- Audit data loading mechanisms in dashboard JavaScript\n- Fix authentication flows for OAuth dashboard\n- Restore filter functionality in Watch Me Work\n- Test end-to-end dashboard data flows\n\n## Priority\nP1 High - Professional showcase impact\n\n## Source\nQA Engineer dashboard audit findings - August 6, 2025",
+        "closed_by": null,
+        "reactions": {
+          "url": "https://api.github.com/repos/adrianwedd/cv/issues/265/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "type": "issue",
+        "_activity_type": "issue"
+      },
+      "_formatted": "Issue #265: 📊 Dashboard Data Integration Failures Preventing Functionality",
+      "_icon": "🐛",
+      "_color": "#f59e0b"
+    },
+    {
+      "id": "issue-3296616827",
+      "type": "issue",
+      "subtype": "issue",
+      "timestamp": "2025-08-06T13:23:30Z",
+      "repo": "cv",
+      "data": {
+        "url": "https://api.github.com/repos/adrianwedd/cv/issues/262",
+        "repository_url": "https://github.com/adrianwedd/cv",
+        "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/labels{/name}",
+        "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/comments",
+        "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/events",
+        "html_url": "https://github.com/adrianwedd/cv/issues/262",
+        "id": 3296616827,
+        "node_id": "I_kwDOPUy_0s7EfmF7",
+        "number": 262,
+        "title": "🚨 P0 Critical: JavaScript Module Loading Errors Blocking Interactive Features",
+        "user": {
+          "login": "adrianwedd",
+          "id": 3725784,
+          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "html_url": "https://github.com/adrianwedd",
+          "followers_url": "https://api.github.com/users/adrianwedd/followers",
+          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
+          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
+          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
+          "repos_url": "https://api.github.com/users/adrianwedd/repos",
+          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "labels": [
+          {
+            "id": 9022917061,
+            "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
+            "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
+            "name": "bug",
+            "color": "d73a4a",
+            "default": true,
+            "description": "Something isn't working"
+          }
+        ],
+        "state": "open",
+        "locked": false,
+        "assignee": null,
+        "assignees": [],
+        "milestone": null,
+        "comments": 2,
+        "created_at": "2025-08-06T12:58:44Z",
+        "updated_at": "2025-08-06T13:23:30Z",
+        "closed_at": null,
+        "author_association": "OWNER",
+        "active_lock_reason": null,
+        "sub_issues_summary": {
+          "total": 0,
+          "completed": 0,
+          "percent_completed": 0
+        },
+        "body": "## Problem\nJavaScript module loading errors preventing interactive features from functioning correctly.\n\n## Impact\n- Interactive elements may fail\n- Feature functionality compromised\n- Poor user experience\n- Potential site functionality breakdown\n\n## Root Cause\nModule loading sequence or CommonJS vs ES module compatibility issues.\n\n## Fix Required\n- Audit JavaScript module loading in assets/script.js\n- Resolve module format compatibility\n- Add proper error handling and fallbacks\n- Test all interactive features\n\n## Priority\nP0 Critical - Core functionality affected\n\n## Source\nQA Engineer audit findings - August 6, 2025",
+        "closed_by": null,
+        "reactions": {
+          "url": "https://api.github.com/repos/adrianwedd/cv/issues/262/reactions",
+          "total_count": 0,
+          "+1": 0,
+          "-1": 0,
+          "laugh": 0,
+          "hooray": 0,
+          "confused": 0,
+          "heart": 0,
+          "rocket": 0,
+          "eyes": 0
+        },
+        "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/timeline",
+        "performed_via_github_app": null,
+        "state_reason": null,
+        "repository": "cv",
+        "repository_full_name": "adrianwedd/cv",
+        "type": "issue",
+        "_activity_type": "issue"
+      },
+      "_formatted": "Issue #262: 🚨 P0 Critical: JavaScript Module Loading Errors Blocking Interactive Features",
+      "_icon": "🐛",
+      "_color": "#f59e0b"
+    },
+    {
       "id": "issue-3296624520",
       "type": "issue",
       "subtype": "issue",
@@ -33312,188 +33333,6 @@
         "_activity_type": "issue"
       },
       "_formatted": "Issue #261: 🚨 P0 Critical: Service Worker 404 Error Breaking PWA Functionality",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
-    },
-    {
-      "id": "issue-3296626683",
-      "type": "issue",
-      "subtype": "issue",
-      "timestamp": "2025-08-06T13:01:49Z",
-      "repo": "cv",
-      "data": {
-        "url": "https://api.github.com/repos/adrianwedd/cv/issues/265",
-        "repository_url": "https://github.com/adrianwedd/cv",
-        "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/labels{/name}",
-        "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/comments",
-        "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/events",
-        "html_url": "https://github.com/adrianwedd/cv/issues/265",
-        "id": 3296626683,
-        "node_id": "I_kwDOPUy_0s7Efof7",
-        "number": 265,
-        "title": "📊 Dashboard Data Integration Failures Preventing Functionality",
-        "user": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 9022917061,
-            "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
-            "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
-            "name": "bug",
-            "color": "d73a4a",
-            "default": true,
-            "description": "Something isn't working"
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignee": null,
-        "assignees": [],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2025-08-06T13:01:49Z",
-        "updated_at": "2025-08-06T13:01:49Z",
-        "closed_at": null,
-        "author_association": "OWNER",
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "body": "## Problem\nMultiple dashboards showing perpetual loading states despite rich data sources being available (2.6MB GitHub activity, 247 connections, 175 repos).\n\n## Affected Dashboards\n- Watch Me Work Dashboard: Filter system non-functional\n- Career Intelligence Dashboard: Completely non-functional\n- OAuth Usage Dashboard: Authentication failures\n- Networking Dashboard: Data integration issues\n\n## Impact\n- Professional showcases non-functional\n- Rich data (247 connections, 175 repos) not leveraged\n- Poor impression for visitors and recruiters\n- Dashboard ecosystem fails to demonstrate capabilities\n\n## Root Cause\nData integration pipeline failures across multiple dashboard systems.\n\n## Fix Required\n- Audit data loading mechanisms in dashboard JavaScript\n- Fix authentication flows for OAuth dashboard\n- Restore filter functionality in Watch Me Work\n- Test end-to-end dashboard data flows\n\n## Priority\nP1 High - Professional showcase impact\n\n## Source\nQA Engineer dashboard audit findings - August 6, 2025",
-        "closed_by": null,
-        "reactions": {
-          "url": "https://api.github.com/repos/adrianwedd/cv/issues/265/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/265/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "repository": "cv",
-        "repository_full_name": "adrianwedd/cv",
-        "type": "issue",
-        "_activity_type": "issue"
-      },
-      "_formatted": "Issue #265: 📊 Dashboard Data Integration Failures Preventing Functionality",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
-    },
-    {
-      "id": "issue-3296616827",
-      "type": "issue",
-      "subtype": "issue",
-      "timestamp": "2025-08-06T12:58:44Z",
-      "repo": "cv",
-      "data": {
-        "url": "https://api.github.com/repos/adrianwedd/cv/issues/262",
-        "repository_url": "https://github.com/adrianwedd/cv",
-        "labels_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/labels{/name}",
-        "comments_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/comments",
-        "events_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/events",
-        "html_url": "https://github.com/adrianwedd/cv/issues/262",
-        "id": 3296616827,
-        "node_id": "I_kwDOPUy_0s7EfmF7",
-        "number": 262,
-        "title": "🚨 P0 Critical: JavaScript Module Loading Errors Blocking Interactive Features",
-        "user": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 9022917061,
-            "node_id": "LA_kwDOPUy_0s8AAAACGc7JxQ",
-            "url": "https://api.github.com/repos/adrianwedd/cv/labels/bug",
-            "name": "bug",
-            "color": "d73a4a",
-            "default": true,
-            "description": "Something isn't working"
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignee": null,
-        "assignees": [],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2025-08-06T12:58:44Z",
-        "updated_at": "2025-08-06T12:58:44Z",
-        "closed_at": null,
-        "author_association": "OWNER",
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "body": "## Problem\nJavaScript module loading errors preventing interactive features from functioning correctly.\n\n## Impact\n- Interactive elements may fail\n- Feature functionality compromised\n- Poor user experience\n- Potential site functionality breakdown\n\n## Root Cause\nModule loading sequence or CommonJS vs ES module compatibility issues.\n\n## Fix Required\n- Audit JavaScript module loading in assets/script.js\n- Resolve module format compatibility\n- Add proper error handling and fallbacks\n- Test all interactive features\n\n## Priority\nP0 Critical - Core functionality affected\n\n## Source\nQA Engineer audit findings - August 6, 2025",
-        "closed_by": null,
-        "reactions": {
-          "url": "https://api.github.com/repos/adrianwedd/cv/issues/262/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/adrianwedd/cv/issues/262/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "repository": "cv",
-        "repository_full_name": "adrianwedd/cv",
-        "type": "issue",
-        "_activity_type": "issue"
-      },
-      "_formatted": "Issue #262: 🚨 P0 Critical: JavaScript Module Loading Errors Blocking Interactive Features",
       "_icon": "🐛",
       "_color": "#f59e0b"
     },
@@ -34379,6 +34218,106 @@
       "_formatted": "Issue #101: ⚡ Optimize parallel processing performance bottlenecks",
       "_icon": "🐛",
       "_color": "#f59e0b"
+    },
+    {
+      "id": "activity-53016423012",
+      "type": "github_activity",
+      "subtype": "PushEvent",
+      "timestamp": "2025-08-06T11:16:29Z",
+      "repo": "adrianwedd/cv",
+      "data": {
+        "id": "53016423012",
+        "type": "PushEvent",
+        "actor": {
+          "id": 3725784,
+          "login": "adrianwedd",
+          "display_login": "adrianwedd",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+        },
+        "repo": {
+          "id": 1028440018,
+          "name": "adrianwedd/cv",
+          "url": "https://api.github.com/repos/adrianwedd/cv"
+        },
+        "payload": {
+          "repository_id": 1028440018,
+          "push_id": 25963323318,
+          "size": 1,
+          "distinct_size": 1,
+          "ref": "refs/heads/develop",
+          "head": "ff4c31239089d24eeb7862b3222debcaa23afb97",
+          "before": "81f8430d6f6261171db90ae4de9b3f415cfcc403",
+          "commits": [
+            {
+              "sha": "ff4c31239089d24eeb7862b3222debcaa23afb97",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "🔧 Fix hardcoded path in CI test server startup\n\nCritical fix for GitHub Actions CI environment:\n- Remove hardcoded '/Users/adrian/repos/cv' path from cross-browser test server\n- Server now starts from current working directory (repository root)\n- Resolves test server startup failures in Dashboard and Mobile test suites\n- Enables proper test execution in containerized CI environment\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/cv/commits/ff4c31239089d24eeb7862b3222debcaa23afb97"
+            }
+          ]
+        },
+        "public": true,
+        "created_at": "2025-08-06T11:16:29Z"
+      },
+      "_formatted": "Pushed 1 commit: 🔧 Fix hardcoded path in CI test server startup",
+      "_icon": "📝",
+      "_color": "#22c55e"
+    },
+    {
+      "id": "activity-53016323256",
+      "type": "github_activity",
+      "subtype": "PushEvent",
+      "timestamp": "2025-08-06T11:14:12Z",
+      "repo": "adrianwedd/cv",
+      "data": {
+        "id": "53016323256",
+        "type": "PushEvent",
+        "actor": {
+          "id": 3725784,
+          "login": "adrianwedd",
+          "display_login": "adrianwedd",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/adrianwedd",
+          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?"
+        },
+        "repo": {
+          "id": 1028440018,
+          "name": "adrianwedd/cv",
+          "url": "https://api.github.com/repos/adrianwedd/cv"
+        },
+        "payload": {
+          "repository_id": 1028440018,
+          "push_id": 25963276110,
+          "size": 1,
+          "distinct_size": 1,
+          "ref": "refs/heads/develop",
+          "head": "219f5a1c3ca5d9e87d4e4d23f2e74567fb8fbb16",
+          "before": "9ae12d3e7aa70dc4f341e219f0a14ce5d71a88c5",
+          "commits": [
+            {
+              "sha": "219f5a1c3ca5d9e87d4e4d23f2e74567fb8fbb16",
+              "author": {
+                "email": "adrian@adrianwedd.com",
+                "name": "Adrian Wedd"
+              },
+              "message": "🔧 Fix YAML syntax error in testing-pipeline.yml - matrix variable correction",
+              "distinct": true,
+              "url": "https://api.github.com/repos/adrianwedd/cv/commits/219f5a1c3ca5d9e87d4e4d23f2e74567fb8fbb16"
+            }
+          ]
+        },
+        "public": true,
+        "created_at": "2025-08-06T11:14:12Z"
+      },
+      "_formatted": "Pushed 1 commit: 🔧 Fix YAML syntax error in testing-pipeline.yml - matrix variable correction",
+      "_icon": "📝",
+      "_color": "#22c55e"
     },
     {
       "id": "activity-53016227822",
@@ -43910,202 +43849,6 @@
         "_activity_type": "issue"
       },
       "_formatted": "Issue #88: CI Pipeline Failed: CI Pipeline #31",
-      "_icon": "🐛",
-      "_color": "#f59e0b"
-    },
-    {
-      "id": "commit-747405061ffefed2de66025184f599fba4c2fa2a",
-      "type": "commit",
-      "subtype": "push",
-      "timestamp": "2025-08-06T05:28:19Z",
-      "repo": "ordr.fm",
-      "data": {
-        "sha": "747405061ffefed2de66025184f599fba4c2fa2a",
-        "node_id": "C_kwDOPUqsvNoAKDc0NzQwNTA2MWZmZWZlZDJkZTY2MDI1MTg0ZjU5OWZiYTRjMmZhMmE",
-        "commit": {
-          "author": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-06T05:28:19Z"
-          },
-          "committer": {
-            "name": "Adrian Wedd",
-            "email": "adrian@adrianwedd.com",
-            "date": "2025-08-06T05:28:19Z"
-          },
-          "message": "fix: Update database schema test for correct table names\n\n- Change 'albums' to 'albums_with_mb' (actual table name)\n- Make move_operations check non-fatal since it may be in different schema\n\n🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>",
-          "tree": {
-            "sha": "0912ee64ef4c8aa9e98d210bcbf1c2e0785f386c",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/git/trees/0912ee64ef4c8aa9e98d210bcbf1c2e0785f386c"
-          },
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/git/commits/747405061ffefed2de66025184f599fba4c2fa2a",
-          "comment_count": 0,
-          "verification": {
-            "verified": false,
-            "reason": "unsigned",
-            "signature": null,
-            "payload": null,
-            "verified_at": null
-          }
-        },
-        "url": "https://api.github.com/repos/adrianwedd/ordr.fm/commits/747405061ffefed2de66025184f599fba4c2fa2a",
-        "html_url": "https://github.com/adrianwedd/ordr.fm/commit/747405061ffefed2de66025184f599fba4c2fa2a",
-        "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/commits/747405061ffefed2de66025184f599fba4c2fa2a/comments",
-        "author": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "committer": {
-          "login": "adrianwedd",
-          "id": 3725784,
-          "node_id": "MDQ6VXNlcjM3MjU3ODQ=",
-          "avatar_url": "https://avatars.githubusercontent.com/u/3725784?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/adrianwedd",
-          "html_url": "https://github.com/adrianwedd",
-          "followers_url": "https://api.github.com/users/adrianwedd/followers",
-          "following_url": "https://api.github.com/users/adrianwedd/following{/other_user}",
-          "gists_url": "https://api.github.com/users/adrianwedd/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/adrianwedd/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/adrianwedd/subscriptions",
-          "organizations_url": "https://api.github.com/users/adrianwedd/orgs",
-          "repos_url": "https://api.github.com/users/adrianwedd/repos",
-          "events_url": "https://api.github.com/users/adrianwedd/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/adrianwedd/received_events",
-          "type": "User",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "parents": [
-          {
-            "sha": "58a2c476af88def6fda6158c46d864f77e181fa5",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/commits/58a2c476af88def6fda6158c46d864f77e181fa5",
-            "html_url": "https://github.com/adrianwedd/ordr.fm/commit/58a2c476af88def6fda6158c46d864f77e181fa5"
-          }
-        ],
-        "repository": "ordr.fm",
-        "repository_full_name": "adrianwedd/ordr.fm",
-        "repository_url": "https://github.com/adrianwedd/ordr.fm",
-        "_activity_type": "commit"
-      },
-      "_formatted": "Committed: fix: Update database schema test for correct table names",
-      "_icon": "📝",
-      "_color": "#22c55e"
-    },
-    {
-      "id": "issue-3295227887",
-      "type": "issue",
-      "subtype": "issue",
-      "timestamp": "2025-08-06T05:23:18Z",
-      "repo": "ordr.fm",
-      "data": {
-        "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/87",
-        "repository_url": "https://github.com/adrianwedd/ordr.fm",
-        "labels_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/87/labels{/name}",
-        "comments_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/87/comments",
-        "events_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/87/events",
-        "html_url": "https://github.com/adrianwedd/ordr.fm/issues/87",
-        "id": 3295227887,
-        "node_id": "I_kwDOPUqsvM7EaS_v",
-        "number": 87,
-        "title": "CI Pipeline Failed: CI Pipeline #30",
-        "user": {
-          "login": "github-actions[bot]",
-          "id": 41898282,
-          "node_id": "MDM6Qm90NDE4OTgyODI=",
-          "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
-          "gravatar_id": "",
-          "url": "https://api.github.com/users/github-actions%5Bbot%5D",
-          "html_url": "https://github.com/apps/github-actions",
-          "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
-          "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
-          "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
-          "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
-          "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
-          "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
-          "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
-          "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
-          "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
-          "type": "Bot",
-          "user_view_type": "public",
-          "site_admin": false
-        },
-        "labels": [
-          {
-            "id": 9021671205,
-            "node_id": "LA_kwDOPUqsvM8AAAACGbvHJQ",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/bug",
-            "name": "bug",
-            "color": "d73a4a",
-            "default": true,
-            "description": "Something isn't working"
-          },
-          {
-            "id": 9060892069,
-            "node_id": "LA_kwDOPUqsvM8AAAACHBI9pQ",
-            "url": "https://api.github.com/repos/adrianwedd/ordr.fm/labels/ci-failure",
-            "name": "ci-failure",
-            "color": "ededed",
-            "default": false,
-            "description": null
-          }
-        ],
-        "state": "open",
-        "locked": false,
-        "assignee": null,
-        "assignees": [],
-        "milestone": null,
-        "comments": 0,
-        "created_at": "2025-08-06T05:23:18Z",
-        "updated_at": "2025-08-06T05:23:18Z",
-        "closed_at": null,
-        "author_association": "NONE",
-        "active_lock_reason": null,
-        "sub_issues_summary": {
-          "total": 0,
-          "completed": 0,
-          "percent_completed": 0
-        },
-        "body": "The CI pipeline failed on refs/heads/main.\n\nWorkflow: CI Pipeline\nRun: 30\nCommit: 58a2c476af88def6fda6158c46d864f77e181fa5",
-        "closed_by": null,
-        "reactions": {
-          "url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/87/reactions",
-          "total_count": 0,
-          "+1": 0,
-          "-1": 0,
-          "laugh": 0,
-          "hooray": 0,
-          "confused": 0,
-          "heart": 0,
-          "rocket": 0,
-          "eyes": 0
-        },
-        "timeline_url": "https://api.github.com/repos/adrianwedd/ordr.fm/issues/87/timeline",
-        "performed_via_github_app": null,
-        "state_reason": null,
-        "repository": "ordr.fm",
-        "repository_full_name": "adrianwedd/ordr.fm",
-        "type": "issue",
-        "_activity_type": "issue"
-      },
-      "_formatted": "Issue #87: CI Pipeline Failed: CI Pipeline #30",
       "_icon": "🐛",
       "_color": "#f59e0b"
     }
