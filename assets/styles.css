@@ -357,6 +357,7 @@ body {
   right: var(--space-6);
   width: 50px;
   height: 50px;
+  z-index: 1000;
   background: var(--color-background-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
@@ -402,6 +403,22 @@ body {
 
 .theme-toggle:focus-visible {
   animation: buttonPulse 1.5s ease-in-out infinite;
+}
+
+/* Add subtle breathing animation for discoverability */
+.theme-toggle:not(:hover):not(:focus) {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { 
+    opacity: 0.9; 
+    box-shadow: var(--shadow-md);
+  }
+  50% { 
+    opacity: 1; 
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(59, 130, 246, 0.3);
+  }
 }
 
 .theme-icon {
@@ -2011,7 +2028,12 @@ body {
 }
 
 .safe-mode .theme-toggle {
-  display: none !important; /* Hide potentially problematic features */
+  display: none !important; /* Hide potentially problematic features in safe mode only */
+}
+
+/* Ensure theme toggle is visible in normal mode */
+body:not(.safe-mode) .theme-toggle {
+  display: flex !important; /* Override any hiding for normal operation */
 }
 
 /* Professional error state styling */
@@ -2066,11 +2088,15 @@ body {
   }
 
   .loading-screen,
-  .theme-toggle,
-  .navigation,
-  .footer-links,
   .system-info {
     display: none !important;
+  }
+  
+  /* Keep essential interactive elements visible in print */
+  .theme-toggle,
+  .navigation,
+  .footer-links {
+    display: none !important; /* Hidden only for print - not interactive media */
   }
 
   .container {
