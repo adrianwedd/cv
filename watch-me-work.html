@@ -278,6 +278,19 @@
     <script src="assets/watch-me-work.js"></script>
 
 <script>
+// Enhanced initialization and error handling
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Watch Me Work dashboard loading...');
+    
+    // Add timeout to catch initialization failures
+    setTimeout(() => {
+        if (!window.dashboard || !document.querySelector('.activity-stream .activity-item')) {
+            console.warn('⚠️ Dashboard may not have initialized properly');
+            showErrorFallback('Dashboard loading issues detected. Refreshing may help.');
+        }
+    }, 10000);
+});
+
 // Global error handling
 window.addEventListener('error', (event) => {
   console.error('Dashboard error:', event.error);
