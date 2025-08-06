@@ -27,10 +27,8 @@ describe('Career Intelligence Dashboard', () => {
       const newPage = await browser.newPage();
       await newPage.setViewport({ width: 1280, height: 720 });
       
-      // Set up error handling
-      newPage.on('pageerror', error => {
-        console.warn('Page error in dashboard test:', error.message);
-      });
+      // Set up enhanced error handling
+      await global.testUtils.setupPageErrorHandling(newPage);
       
       return newPage;
     }, 3, 1000);

@@ -14,12 +14,8 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
       const newPage = await browser.newPage();
       await newPage.setViewport({ width: 1280, height: 720 });
       
-      // Suppress non-critical page errors to reduce noise
-      newPage.on('pageerror', error => {
-        if (!error.message.includes('favicon') && !error.message.includes('Chart.js')) {
-          console.warn('Page error in accessibility test:', error.message);
-        }
-      });
+      // Use enhanced page error handling
+      await global.testUtils.setupPageErrorHandling(newPage);
       
       return newPage;
     }, 2, 1000);
