@@ -10,9 +10,14 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const { JSDOM } = require('jsdom');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { JSDOM } from 'jsdom';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class MultiFormatValidator {
     constructor() {
@@ -726,8 +731,8 @@ async function main() {
     }
 }
 
-if (require.main === module) {
+export { MultiFormatValidator };
+
+if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
-
-module.exports = { MultiFormatValidator };
