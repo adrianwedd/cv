@@ -1,0 +1,27 @@
+#!/bin/sh
+#
+# Pre-commit hook for code quality checks
+# This script runs before every commit to ensure code quality
+#
+
+echo "🔍 Running pre-commit quality checks..."
+
+# Navigate to scripts directory
+cd .github/scripts
+
+# Run the comprehensive pre-commit hook
+node pre-commit-hook.js
+
+# Capture exit code
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ Commit rejected - Quality checks failed"
+    echo "💡 Fix the issues above and try again"
+    echo "💡 Or run: cd .github/scripts && npm run quality:check"
+    exit 1
+fi
+
+echo "✅ All quality checks passed - Commit approved"
+exit 0
