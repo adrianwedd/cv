@@ -45,8 +45,66 @@
     <script type="application/ld+json">
     
     </script>
+<link rel="stylesheet" href="assets/pwa-mobile.css">
+
+<!-- Touch Optimization -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#2563eb">
+
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+<style>
+/* Critical CSS for above-the-fold content */
+.dashboard-header {
+  background: var(--color-primary, #2563eb);
+  color: white;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
 </head>
 <body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href="#navigation" class="skip-link">Skip to navigation</a>
+
+<style>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 0 0 4px 4px;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+</style>
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
@@ -92,7 +150,7 @@
                 <!-- Live Stats -->
                 <div class="live-stats">
                     <div class="stat-item">
-                        <div class="stat-value" id="commits-count">380</div>
+                        <div class="stat-value" id="commits-count">381</div>
                         <div class="stat-label">Commits (30d)</div>
                     </div>
                     <div class="stat-item">
@@ -104,7 +162,7 @@
                         <div class="stat-label">Languages</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" id="last-updated">Aug 6, 12:27 AM</div>
+                        <div class="stat-value" id="last-updated">Aug 6, 01:32 AM</div>
                         <div class="stat-label">Last Updated</div>
                     </div>
                     <div class="stat-item">
@@ -679,5 +737,96 @@
             page-break-inside: avoid;
         }
     </style>
+
+<script>
+// Global error handling
+window.addEventListener('error', (event) => {
+  console.error('Dashboard error:', event.error);
+  showErrorFallback(event.error.message);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+  console.error('Unhandled promise rejection:', event.reason);
+  showErrorFallback('Network or data loading error');
+});
+
+function showErrorFallback(message) {
+  const errorContainer = document.getElementById('error-container') || createErrorContainer();
+  errorContainer.innerHTML = `
+    <div class="error-message">
+      <h3>⚠️ Something went wrong</h3>
+      <p>${message}</p>
+      <button onclick="location.reload()" class="retry-button">Retry</button>
+    </div>
+  `;
+  errorContainer.style.display = 'block';
+}
+
+function createErrorContainer() {
+  const container = document.createElement('div');
+  container.id = 'error-container';
+  container.className = 'error-container';
+  container.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ef4444;
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    max-width: 300px;
+    display: none;
+  `;
+  document.body.appendChild(container);
+  return container;
+}
+</script>
+
+<script>
+// Offline/online detection
+function updateConnectionStatus() {
+  const isOnline = navigator.onLine;
+  const indicator = document.getElementById('connection-indicator') || createConnectionIndicator();
+  
+  if (isOnline) {
+    indicator.textContent = '🌐 Online';
+    indicator.className = 'connection-indicator online';
+  } else {
+    indicator.textContent = '📴 Offline';
+    indicator.className = 'connection-indicator offline';
+  }
+}
+
+function createConnectionIndicator() {
+  const indicator = document.createElement('div');
+  indicator.id = 'connection-indicator';
+  indicator.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    z-index: 1000;
+    transition: all 0.3s ease;
+  `;
+  document.body.appendChild(indicator);
+  return indicator;
+}
+
+window.addEventListener('online', updateConnectionStatus);
+window.addEventListener('offline', updateConnectionStatus);
+document.addEventListener('DOMContentLoaded', updateConnectionStatus);
+</script>
+
+<main role="main" id="main-content" aria-label="Dashboard content">
+  <!-- Main dashboard content -->
+</main>
+
+<nav role="navigation" id="navigation" aria-label="Dashboard navigation">
+  <!-- Navigation content -->
+</nav>
 </body>
 </html>
