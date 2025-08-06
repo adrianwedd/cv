@@ -1098,33 +1098,15 @@ class CVApplication {
     completeLoadingSequence() {
         const loadingTime = Date.now() - this.loadingStartTime;
         const minLoadingTime = 1500; // Minimum loading time for UX
-        const maxLoadingTime = 3000; // Maximum loading time - fail safe
-        
-        // Ensure loading screen is removed within 3 seconds maximum
-        const timeoutId = setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                console.warn('⚠️ Loading screen timeout - forcing removal');
-                loadingScreen.classList.add('hidden');
-                setTimeout(() => {
-                    if (loadingScreen.parentNode) {
-                        loadingScreen.remove();
-                    }
-                }, CONFIG.ANIMATION_DURATION);
-            }
-        }, maxLoadingTime);
         
         setTimeout(() => {
             const loadingScreen = document.getElementById('loading-screen');
             if (loadingScreen) {
-                clearTimeout(timeoutId); // Clear the failsafe timeout
                 loadingScreen.classList.add('hidden');
                 
                 // Remove loading screen after animation
                 setTimeout(() => {
-                    if (loadingScreen.parentNode) {
-                        loadingScreen.remove();
-                    }
+                    loadingScreen.remove();
                 }, CONFIG.ANIMATION_DURATION);
             }
             
