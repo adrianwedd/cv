@@ -1,0 +1,31 @@
+{
+  "collectionTimestamp": "2025-08-08T00:26:25.641Z",
+  "analysisPeriodDays": 30,
+  "userProfile": {
+    "status": "compressed"
+  },
+  "repositories": {
+    "data": [],
+    "summary": {}
+  },
+  "crossRepoActivity": {
+    "summary": {
+      "note": "Limited by GitHub API rate limits or permissions"
+    },
+    "repository_breakdown": []
+  },
+  "localRepositoryMetrics": {
+    "line_contributions": {
+      "lines_contributed": 60000,
+      "lines_added": 120000,
+      "lines_deleted": 60950,
+      "files_modified": 776,
+      "binary_files_filtered": 138
+    },
+    "commit_frequency": {}
+  },
+  "languageAnalysis": {
+    "primary_languages": [],
+    "language_distribution": []
+  }
+}

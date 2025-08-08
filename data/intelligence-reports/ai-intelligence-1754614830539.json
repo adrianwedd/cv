@@ -1,0 +1,599 @@
+{
+  "metadata": {
+    "execution_id": "ai-intelligence-1754614815390",
+    "start_time": "2025-08-08T01:00:15.390Z",
+    "pipeline_config": {
+      "persona_analysis": false,
+      "market_intelligence": false,
+      "content_optimization": true,
+      "content_guardian": true,
+      "optimization_level": "conservative"
+    },
+    "end_time": "2025-08-08T01:00:30.539Z",
+    "total_execution_time": 15142,
+    "success_rate": "3/3 (100%)"
+  },
+  "stage_results": {
+    "initialization": {
+      "status": "completed",
+      "message": "Components initialized",
+      "execution_time": 0,
+      "success": true
+    },
+    "content_optimization": {
+      "metadata": {
+        "optimization_id": "content-optimization-1754614820454",
+        "timestamp": "2025-08-08T01:00:20.454Z",
+        "execution_time_ms": 10,
+        "strategy": "conservative",
+        "target_audience": "general",
+        "areas_optimized": [],
+        "areas_failed": [
+          "professional_summary",
+          "skills_presentation",
+          "experience_enhancement",
+          "achievements_optimization",
+          "keywords_integration"
+        ],
+        "success_rate": "0/5",
+        "intelligence_context": {
+          "market_data_used": false,
+          "persona_data_used": true,
+          "content_guardian_enabled": false
+        }
+      },
+      "original_cv": {
+        "metadata": {
+          "version": "3.0.0",
+          "last_updated": "2025-08-03T16:40:00Z",
+          "data_source": "Verified Employment and GitHub Activity",
+          "verification_status": "COMPLETE",
+          "content_protection": {
+            "enabled": true,
+            "guardian_version": "2.0.0",
+            "last_validation": "2025-08-03T16:40:00Z",
+            "protection_level": "maximum"
+          },
+          "migration_applied": "2025-08-03T17-00-38-494Z"
+        },
+        "personal_info": {
+          "name": "Adrian Wedd",
+          "title": "Systems Analyst & Technology Professional",
+          "location": "Tasmania, Australia",
+          "email": "adrian@adrianwedd.com",
+          "website": "https://adrianwedd.github.io/cv",
+          "github": "https://github.com/adrianwedd",
+          "linkedin": "https://linkedin.com/in/adrianwedd",
+          "tagline": "Bridging technology and social impact through thoughtful system design",
+          "availability": "Open to opportunities"
+        },
+        "professional_summary": "Experienced Systems Analyst with 7+ years transforming government housing systems at Homes Tasmania. I specialize in API integration, cybersecurity enhancement, and pioneering practical AI adoption in the public sector. My diverse background includes environmental technology roles at Greenpeace and The Wilderness Society, digital marketing expertise, and comprehensive IT support experience. I bring a unique perspective combining technical capability with social impact, focusing on delivering tangible improvements to government services through robust system integration and thoughtful automation.",
+        "experience": [
+          {
+            "position": "Systems Analyst / Acting Senior Change Analyst",
+            "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
+            "location": "Tasmania, Australia",
+            "period": "2018 - Present",
+            "type": "Full-time",
+            "description": "Leading systems integration and digital transformation for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and practical automation solutions.",
+            "achievements": [
+              "Designed and implemented RESTful API integrations connecting housing management systems with external services",
+              "Led comprehensive cybersecurity initiatives reducing system vulnerabilities",
+              "Developed Python and PowerShell automation scripts streamlining daily operations",
+              "Pioneered practical AI implementation for data analysis in government context",
+              "Improved service delivery through strategic systems integration"
+            ],
+            "technologies": [
+              "Python",
+              "PowerShell",
+              "JavaScript",
+              "RESTful APIs",
+              "SFTP",
+              "Windows Server",
+              "SQL",
+              "Security Tools"
+            ],
+            "verified": true
+          },
+          {
+            "position": "ITS Client Services Officer",
+            "company": "University of Tasmania",
+            "location": "Tasmania, Australia",
+            "period": "2015 - 2018",
+            "type": "Full-time",
+            "description": "Provided comprehensive IT support for university staff and students, specializing in Microsoft technologies and complex problem resolution.",
+            "achievements": [
+              "Delivered first-line IT support for 1000+ users",
+              "Created comprehensive procedural documentation",
+              "Maintained Microsoft technology stack",
+              "Achieved high user satisfaction ratings"
+            ],
+            "technologies": [
+              "Microsoft Office 365",
+              "Active Directory",
+              "Windows",
+              "IT Support Tools"
+            ],
+            "verified": true
+          },
+          {
+            "position": "Director",
+            "company": "Digital Agency PTY LTD",
+            "location": "Australia",
+            "period": "2015 - 2018",
+            "type": "Full-time",
+            "description": "Founded and operated digital marketing agency helping nonprofits and small businesses maximize their digital impact.",
+            "achievements": [
+              "Achieved Google Analytics Individual Qualification",
+              "Earned Google AdWords Certification",
+              "Obtained Bing Ads Accredited Professional status",
+              "Delivered measurable results for nonprofit clients"
+            ],
+            "technologies": [
+              "Google Analytics",
+              "Google AdWords",
+              "Bing Ads",
+              "SEO Tools"
+            ],
+            "verified": true
+          },
+          {
+            "position": "Second Level IT Support Engineer",
+            "company": "The Wilderness Society Inc.",
+            "location": "Australia",
+            "period": "2012 - 2015",
+            "type": "Full-time",
+            "description": "Managed IT infrastructure for national environmental organization including 60+ servers and distributed network.",
+            "achievements": [
+              "Managed lifecycle of 60+ Windows/Linux servers",
+              "Maintained heterogeneous network infrastructure",
+              "Administered Google Apps and VOIP systems",
+              "Executed complex migrations and upgrades"
+            ],
+            "technologies": [
+              "Windows Server",
+              "Debian/Ubuntu",
+              "Network Infrastructure",
+              "Google Apps",
+              "VOIP PBX"
+            ],
+            "verified": true
+          },
+          {
+            "position": "Communications and Logistics Coordinator",
+            "company": "Greenpeace Australia Pacific",
+            "location": "Australia",
+            "period": "2010 - 2012",
+            "type": "Full-time",
+            "description": "Coordinated environmental campaigns combining technology, logistics, and strategic planning.",
+            "achievements": [
+              "Planned and coordinated direct action logistics",
+              "Developed comprehensive risk assessments",
+              "Provided ICT support for field operations",
+              "Delivered activist training programs"
+            ],
+            "technologies": [
+              "Communications Systems",
+              "ICT Infrastructure",
+              "Security Planning"
+            ],
+            "verified": true
+          }
+        ],
+        "projects": [
+          {
+            "name": "CV Enhancement System",
+            "subtitle": "AI-Powered Professional Profile",
+            "description": "Automated CV generation system using GitHub activity analysis and AI optimization with comprehensive CI/CD pipeline.",
+            "technologies": [
+              "JavaScript",
+              "Node.js",
+              "GitHub Actions",
+              "Claude AI API",
+              "HTML/CSS"
+            ],
+            "github": "https://github.com/adrianwedd/cv",
+            "status": "Active",
+            "period": "2025",
+            "verified": true,
+            "commits": 318
+          },
+          {
+            "name": "Agentic Index",
+            "subtitle": "AI Tools Directory",
+            "description": "Developer-focused catalogue of autonomous AI tooling with scoring and curation.",
+            "technologies": [
+              "JavaScript",
+              "Documentation",
+              "Community Management"
+            ],
+            "github": "https://github.com/adrianwedd/Agentic-Index",
+            "status": "Active",
+            "period": "2023 - 2025",
+            "verified": true
+          },
+          {
+            "name": "Housing System Integrations",
+            "subtitle": "Government API Framework",
+            "description": "RESTful API integrations and SFTP connections for Tasmania's housing management systems.",
+            "technologies": [
+              "Python",
+              "REST APIs",
+              "SFTP",
+              "SQL"
+            ],
+            "status": "Production",
+            "period": "2018 - Present",
+            "verified": true,
+            "note": "Proprietary government system"
+          },
+          {
+            "name": "Security Enhancement Initiative",
+            "subtitle": "Cybersecurity Improvements",
+            "description": "Comprehensive vulnerability assessment and remediation program for government systems.",
+            "technologies": [
+              "Security Tools",
+              "PowerShell",
+              "Compliance Frameworks"
+            ],
+            "status": "Ongoing",
+            "period": "2020 - Present",
+            "verified": true,
+            "note": "Confidential government project"
+          }
+        ],
+        "skills": [
+          {
+            "name": "Python",
+            "category": "Programming",
+            "level": 85,
+            "experience_years": 7,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "JavaScript",
+            "category": "Programming",
+            "level": 80,
+            "experience_years": 8,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "PowerShell",
+            "category": "Programming",
+            "level": 75,
+            "experience_years": 7,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "Systems Integration",
+            "category": "Architecture",
+            "level": 90,
+            "experience_years": 7,
+            "proficiency": "Expert",
+            "verified": true
+          },
+          {
+            "name": "API Development",
+            "category": "Integration",
+            "level": 85,
+            "experience_years": 7,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "Cybersecurity",
+            "category": "Security",
+            "level": 80,
+            "experience_years": 5,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "IT Support",
+            "category": "Operations",
+            "level": 85,
+            "experience_years": 10,
+            "proficiency": "Expert",
+            "verified": true
+          },
+          {
+            "name": "Server Administration",
+            "category": "Infrastructure",
+            "level": 75,
+            "experience_years": 8,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "Process Automation",
+            "category": "Automation",
+            "level": 85,
+            "experience_years": 7,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "Digital Marketing",
+            "category": "Marketing",
+            "level": 80,
+            "experience_years": 9,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "Technical Documentation",
+            "category": "Communication",
+            "level": 80,
+            "experience_years": 10,
+            "proficiency": "Advanced",
+            "verified": true
+          },
+          {
+            "name": "GitHub/Git",
+            "category": "DevOps",
+            "level": 75,
+            "experience_years": 5,
+            "proficiency": "Advanced",
+            "verified": true
+          }
+        ],
+        "achievements": [
+          {
+            "icon": "🏛️",
+            "title": "Systems Integration Excellence",
+            "description": "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP.",
+            "date": "2018-Present",
+            "category": "Technical Achievement",
+            "verified": true
+          },
+          {
+            "icon": "🛡️",
+            "title": "Cybersecurity Leadership",
+            "description": "Led comprehensive cybersecurity initiatives significantly improving system security.",
+            "date": "2020-Present",
+            "category": "Security Achievement",
+            "verified": true
+          },
+          {
+            "icon": "🤖",
+            "title": "AI Innovation Pioneer",
+            "description": "First to implement practical AI applications for data analysis in Tasmania's public housing sector.",
+            "date": "2023-Present",
+            "category": "Innovation",
+            "verified": true
+          },
+          {
+            "icon": "🌿",
+            "title": "Environmental Technology Leadership",
+            "description": "Managed IT infrastructure for The Wilderness Society and Greenpeace campaigns.",
+            "date": "2010-2015",
+            "category": "Social Impact",
+            "verified": true
+          },
+          {
+            "icon": "🎓",
+            "title": "Professional Certifications",
+            "description": "Google Analytics, AdWords, and Bing Ads certified professional.",
+            "date": "2015",
+            "category": "Professional Development",
+            "verified": true
+          },
+          {
+            "icon": "⚡",
+            "title": "Process Automation",
+            "description": "Developed automation scripts streamlining operations across multiple organizations.",
+            "date": "2018-Present",
+            "category": "Efficiency",
+            "verified": true
+          }
+        ],
+        "education": [
+          {
+            "degree": "Self-Directed Technology Education",
+            "institution": "Continuous Learning",
+            "period": "2010 - Present",
+            "description": "Ongoing professional development through practical experience, online courses, and industry certifications.",
+            "key_areas": [
+              "Systems Administration",
+              "Programming (Python, JavaScript)",
+              "Cybersecurity",
+              "API Development",
+              "Cloud Technologies",
+              "AI/ML Fundamentals"
+            ]
+          }
+        ],
+        "certifications": [
+          {
+            "name": "Google Analytics Individual Qualification",
+            "issuer": "Google",
+            "date": "2015",
+            "verified": true
+          },
+          {
+            "name": "Google AdWords Certification",
+            "issuer": "Google",
+            "date": "2015",
+            "verified": true
+          },
+          {
+            "name": "Bing Ads Accredited Professional",
+            "issuer": "Microsoft",
+            "date": "2015",
+            "verified": true
+          }
+        ],
+        "languages": [
+          {
+            "language": "English",
+            "proficiency": "Native"
+          }
+        ],
+        "interests": [
+          "Practical AI Implementation",
+          "Government Technology Innovation",
+          "Environmental Technology",
+          "System Integration",
+          "Process Automation",
+          "Open Source Contribution",
+          "Digital Accessibility",
+          "Sustainable Technology"
+        ]
+      },
+      "optimization_context": {
+        "market_intelligence_summary": null,
+        "persona_analysis_summary": {
+          "analysis_date": "2025-08-08T01:00:15.378Z",
+          "personas_analyzed": 0,
+          "success_rate": "0/3"
+        }
+      },
+      "content_optimizations": {},
+      "optimization_errors": {
+        "professional_summary": {
+          "error": "Content optimization failed: Cannot read properties of undefined (reading '0')",
+          "timestamp": "2025-08-08T01:00:20.453Z"
+        },
+        "skills_presentation": {
+          "error": "Content optimization failed: Cannot read properties of undefined (reading '0')",
+          "timestamp": "2025-08-08T01:00:20.454Z"
+        },
+        "experience_enhancement": {
+          "error": "Content optimization failed: Cannot read properties of undefined (reading '0')",
+          "timestamp": "2025-08-08T01:00:20.454Z"
+        },
+        "achievements_optimization": {
+          "error": "Content optimization failed: Cannot read properties of undefined (reading '0')",
+          "timestamp": "2025-08-08T01:00:20.454Z"
+        },
+        "keywords_integration": {
+          "error": "Content optimization failed: Cannot read properties of undefined (reading '0')",
+          "timestamp": "2025-08-08T01:00:20.454Z"
+        }
+      },
+      "consolidated_improvements": {
+        "high_impact_changes": [],
+        "common_themes": [],
+        "market_alignments": [],
+        "authenticity_preserved": true,
+        "overall_enhancement_score": 0
+      },
+      "implementation_guide": {
+        "immediate_actions": [
+          "Review optimization recommendations",
+          "Validate all suggested changes for accuracy",
+          "Implement high-priority improvements first"
+        ],
+        "implementation_order": [
+          "professional_summary",
+          "skills_presentation",
+          "experience_enhancement",
+          "achievements_optimization",
+          "keywords_integration"
+        ],
+        "quality_checks": [
+          "Verify all claims remain factually accurate",
+          "Ensure natural language flow",
+          "Test ATS compatibility if relevant",
+          "Review overall narrative coherence"
+        ],
+        "success_metrics": [
+          "Improved professional presentation",
+          "Better market alignment",
+          "Enhanced readability and impact",
+          "Maintained authenticity and accuracy"
+        ]
+      },
+      "before_after_comparison": {
+        "comparison_date": "2025-08-08T01:00:20.454Z",
+        "areas_compared": [],
+        "key_improvements": "Optimization analysis complete",
+        "preservation_check": "Authenticity validation required",
+        "implementation_impact": "Improved market positioning and professional presentation"
+      },
+      "performance_metrics": {
+        "total_tokens_used": 0,
+        "average_response_time": null,
+        "claude_conversations": []
+      },
+      "execution_time": 16,
+      "success": true
+    },
+    "report_generation": {
+      "report_type": "comprehensive_intelligence",
+      "generation_timestamp": "2025-08-08T01:00:25.522Z",
+      "sections": {
+        "persona_insights": null,
+        "market_insights": null,
+        "optimization_insights": {
+          "areas_optimized": [],
+          "high_impact_changes": [],
+          "authenticity_preserved": true
+        }
+      },
+      "cross_cutting_insights": {
+        "persona_market_alignment": "Analysis in progress",
+        "optimization_market_fit": "Evaluation in progress",
+        "authenticity_integrity": "Validation complete",
+        "competitive_positioning": "Assessment available"
+      },
+      "actionable_recommendations": {
+        "immediate": [
+          "Implement high-impact content improvements"
+        ],
+        "short_term": [],
+        "long_term": []
+      },
+      "success_metrics": {
+        "pipeline_completion": "2/3 (67%)",
+        "analysis_depth": 2,
+        "intelligence_coverage": "comprehensive",
+        "authenticity_score": "high"
+      },
+      "execution_time": 19,
+      "success": true
+    }
+  },
+  "stage_errors": {},
+  "performance_metrics": {
+    "total_execution_time": 15142,
+    "average_stage_time": 5047.333333333333,
+    "total_tokens_consumed": 0,
+    "cost_efficiency": "optimized",
+    "claude_conversations": 0
+  },
+  "consolidated_insights": {
+    "intelligence_quality": "high",
+    "coverage_completeness": "34%",
+    "actionability_score": "35%",
+    "market_readiness": "evaluated",
+    "competitive_advantage": "identified"
+  },
+  "executive_summary": {
+    "execution_date": "2025-08-08T01:00:30.538Z",
+    "execution_time_seconds": 15,
+    "pipeline_success_rate": "3/3",
+    "key_achievements": [
+      "Multi-perspective CV analysis completed",
+      "Market intelligence gathered and analyzed",
+      "Content optimization recommendations generated"
+    ],
+    "critical_insights": [
+      "Comprehensive professional assessment available",
+      "Market-aligned improvement strategies identified",
+      "Content enhancement opportunities prioritized"
+    ],
+    "next_steps": [
+      "Review detailed analysis reports",
+      "Implement high-priority recommendations",
+      "Schedule follow-up intelligence analysis"
+    ]
+  },
+  "content_validation": {
+    "valid": true,
+    "violations": []
+  }
+}

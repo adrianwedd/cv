@@ -1,0 +1,166 @@
+{
+  "$schema": "https://adrianwedd.github.io/cv/schemas/mobile-schema.json",
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2025-08-08T00:00:00Z",
+    "optimization_level": "maximum",
+    "target_devices": ["mobile", "tablet", "desktop"],
+    "progressive_loading": true
+  },
+  "payload_structure": {
+    "critical_first_paint": {
+      "description": "Essential data for initial page render (< 14KB)",
+      "target_size_kb": 14,
+      "includes": [
+        "profile.personal",
+        "profile.contact.email",
+        "profile.contact.website",
+        "career.summary",
+        "expertise.technical_skills[0:3]",
+        "portfolio.featured_projects[0:2]"
+      ],
+      "priority": 1
+    },
+    "above_the_fold": {
+      "description": "Complete header and hero section data (< 28KB)",
+      "target_size_kb": 28,
+      "includes": [
+        "profile",
+        "career.summary",
+        "expertise.technical_skills[0:6]",
+        "portfolio.featured_projects[0:3]",
+        "recognition.achievements[0:3]"
+      ],
+      "priority": 2
+    },
+    "main_content": {
+      "description": "Full professional content (< 50KB)",
+      "target_size_kb": 50,
+      "includes": [
+        "career.positions",
+        "portfolio.featured_projects",
+        "expertise.technical_skills",
+        "recognition.achievements[0:6]"
+      ],
+      "priority": 3
+    },
+    "supplementary_content": {
+      "description": "Additional details and metadata (< 20KB)",
+      "target_size_kb": 20,
+      "includes": [
+        "credentials",
+        "additional_info",
+        "metadata",
+        "recognition.achievements[6:]"
+      ],
+      "priority": 4
+    }
+  },
+  "compression_strategies": {
+    "field_abbreviation": {
+      "enabled": true,
+      "mappings": {
+        "description": "desc",
+        "technologies": "tech",
+        "achievements": "ach",
+        "experience_years": "exp_yrs",
+        "proficiency": "prof",
+        "certification": "cert"
+      }
+    },
+    "data_deduplication": {
+      "enabled": true,
+      "shared_references": {
+        "technologies": "shared_tech_list",
+        "categories": "shared_categories",
+        "dates": "shared_date_formats"
+      }
+    },
+    "selective_fields": {
+      "mobile_exclude": [
+        "metadata.content_protection",
+        "metadata.data_integrity",
+        "portfolio.project_categories",
+        "expertise.skill_categories",
+        "expertise.proficiency_levels"
+      ],
+      "mobile_simplified": {
+        "career.positions": {
+          "keep": ["position", "company", "period", "achievements[0:2]", "verified"],
+          "remove": ["type", "location", "description", "technologies"]
+        },
+        "expertise.technical_skills": {
+          "keep": ["name", "proficiency", "level", "verified"],
+          "remove": ["category", "experience_years", "related_projects", "certifications", "last_used"]
+        }
+      }
+    }
+  },
+  "responsive_breakpoints": {
+    "mobile": {
+      "max_width": "768px",
+      "max_payload_kb": 35,
+      "features": ["essential_only", "compressed_images", "lazy_load"]
+    },
+    "tablet": {
+      "max_width": "1024px", 
+      "max_payload_kb": 60,
+      "features": ["enhanced_content", "progressive_images", "prefetch"]
+    },
+    "desktop": {
+      "min_width": "1025px",
+      "max_payload_kb": 100,
+      "features": ["full_content", "high_res_images", "preload_all"]
+    }
+  },
+  "caching_strategy": {
+    "static_content": {
+      "cache_duration": "7d",
+      "includes": ["profile", "credentials", "additional_info"]
+    },
+    "dynamic_content": {
+      "cache_duration": "1h", 
+      "includes": ["activity_overview", "professional_metrics"]
+    },
+    "real_time_content": {
+      "cache_duration": "5m",
+      "includes": ["skills_analysis", "dashboard_widgets"]
+    }
+  },
+  "lazy_loading_config": {
+    "image_loading": {
+      "strategy": "intersection_observer",
+      "threshold": 0.1,
+      "root_margin": "50px"
+    },
+    "content_sections": {
+      "strategy": "progressive_disclosure",
+      "sections": [
+        {"name": "hero", "priority": 1, "preload": true},
+        {"name": "experience", "priority": 2, "load_on_scroll": true},
+        {"name": "projects", "priority": 3, "load_on_interaction": true},
+        {"name": "skills", "priority": 4, "load_on_demand": true}
+      ]
+    }
+  },
+  "performance_targets": {
+    "first_contentful_paint": "< 1.5s",
+    "largest_contentful_paint": "< 2.5s", 
+    "cumulative_layout_shift": "< 0.1",
+    "first_input_delay": "< 100ms",
+    "time_to_interactive": "< 3.5s"
+  },
+  "accessibility_optimization": {
+    "screen_reader_priority": [
+      "profile.personal.name",
+      "profile.personal.title", 
+      "career.summary",
+      "expertise.technical_skills"
+    ],
+    "keyboard_navigation": {
+      "skip_links": true,
+      "focus_management": true,
+      "aria_live_regions": ["activity_updates", "skill_changes"]
+    }
+  }
+}

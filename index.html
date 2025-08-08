@@ -14,14 +14,14 @@
     <meta name="keywords" content="Adrian Wedd, AI Engineer, Software Architect, Python, JavaScript, Machine Learning, Tasmania, Australia">
     <meta name="author" content="Adrian Wedd">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#2563eb">
+    <meta name="theme-color" content="#0a0a0a">
     
     <!-- P0 Critical Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Strict-Transport-Security" content="max-age=63072000; includeSubDomains; preload">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'sha256-4Rs6juvHqm2hSgLvwj1wLy0YHhR0wSBs8NW8GhXKABw=' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Aa9XyV3oxZ3sp+N8ea+HfzNXLpmIEug4hVE0hoSi1sM=' 'sha256-l74R7GW8JAh+jJBqG4s7nmjvWdVqeCnXjqQriOOstTI=' 'sha256-7KCGaAJYKxwU/sROMBtgC529vHiFKcoulEYHsvZL2us=' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     
@@ -85,24 +85,21 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Adrian Wedd","jobTitle":"AI Engineer & Software Architect","url":"https://adrianwedd.github.io/cv","image":"https://adrianwedd.github.io/cv/assets/profile-preview.png","email":"adrian@adrianwedd.com","address":{"@type":"PostalAddress","addressLocality":"Tasmania","addressCountry":"Australia"},"sameAs":["https://github.com/adrianwedd","https://linkedin.com/in/adrianwedd"],"knowsAbout":["AI","ML","Python","JavaScript","Software Architecture"],"worksFor":{"@type":"Organization","name":"Homes Tasmania"}}</script>
 </head>
 <body>
-    <!-- Skip Link for Accessibility -->
+    <!-- Enhanced Skip Links for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
     
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
-            <div class="loading-spinner morphing-loader"></div>
-            <div class="loading-text reveal-up">Initializing Premium CV System...</div>
+            <div class="loading-spinner morphing-loader" role="status" aria-label="Loading"></div>
+            <div class="loading-text reveal-up" aria-live="polite">Initializing Premium CV System...</div>
             <div class="loading-progress progress-bar">
                 <div class="loading-bar"></div>
             </div>
         </div>
     </div>
 
-    <!-- Theme Toggle -->
-    <button id="theme-toggle" class="theme-toggle btn-magnetic ripple-effect focus-ring bounce-click breathing-glow" aria-label="Toggle dark/light theme">
-        <span class="theme-icon">◐</span>
-    </button>
 
     <!-- Main Container -->
     <div class="container">
@@ -151,48 +148,40 @@
                     </div>
                 </div>
 
-                <!-- Contact Links -->
-                <div class="contact-link btn-magnetic ripple-effect focus-rings">
-                    <a href="https://github.com/adrianwedd" target="_blank" rel="noopener" class="contact-link btn-magnetic ripple-effect focus-ring github">
-                        <span class="link-icon">→</span>
-                        <span>GitHub</span>
+                <!-- Clean Contact Links -->
+                <div class="contact-links">
+                    <a href="https://github.com/adrianwedd" target="_blank" rel="noopener" class="contact-link github">
+                        <span class="link-icon">GitHub</span>
                     </a>
-                    <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener" class="contact-link btn-magnetic ripple-effect focus-ring linkedin">
-                        <span class="link-icon">in</span>
-                        <span>LinkedIn</span>
+                    <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener" class="contact-link linkedin">
+                        <span class="link-icon">LinkedIn</span>
                     </a>
-                    <a href="mailto:adrian@adrianwedd.com" class="contact-link btn-magnetic ripple-effect focus-ring email">
-                        <span class="link-icon">@</span>
-                        <span>Email</span>
+                    <a href="mailto:adrian@adrianwedd.com" class="contact-link email">
+                        <span class="link-icon">Email</span>
                     </a>
-                    <a href="assets/adrian-wedd-cv.pdf" target="_blank" class="contact-link btn-magnetic ripple-effect focus-ring pdf" download>
-                        <span class="link-icon">↓</span>
-                        <span>Download PDF</span>
+                    <a href="assets/adrian-wedd-cv.pdf" target="_blank" class="contact-link download" download>
+                        <span class="link-icon">Download CV</span>
                     </a>
-                    <button class="contact-link btn-magnetic ripple-effect focus-ring print-btn" data-action="print">
-                        <span class="link-icon">⎙</span>
-                        <span>Print</span>
-                    </button>
                 </div>
             </div>
         </header>
 
-        <!-- Navigation -->
+        <!-- Clean Navigation -->
         <nav class="navigation" id="navigation" role="navigation" aria-label="Main navigation">
             <div class="nav-items">
-                <a href="#about" class="nav-item active btn-magnetic ripple-effect focus-ring bounce-click" data-section="about">
+                <a href="#about" class="nav-item active" data-section="about">
                     <span class="nav-text">About</span>
                 </a>
-                <a href="#experience" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="experience">
+                <a href="#experience" class="nav-item" data-section="experience">
                     <span class="nav-text">Experience</span>
                 </a>
-                <a href="#projects" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="projects">
+                <a href="#projects" class="nav-item" data-section="projects">
                     <span class="nav-text">Projects</span>
                 </a>
-                <a href="#skills" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="skills">
+                <a href="#skills" class="nav-item" data-section="skills">
                     <span class="nav-text">Skills</span>
                 </a>
-                <a href="#achievements" class="nav-item btn-magnetic ripple-effect focus-ring bounce-click" data-section="achievements">
+                <a href="#achievements" class="nav-item" data-section="achievements">
                     <span class="nav-text">Achievements</span>
                 </a>
             </div>
@@ -770,15 +759,15 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-    <script src="assets/performance-monitor.min.js" async></script>
-    <script src="assets/pwa-enhancements.js" async></script>
-    <script src="assets/script.js"></script>
+    <script src="assets/performance-monitor.min.js" defer></script>
+    <script src="assets/pwa-enhancements.js" defer></script>
+    <script src="assets/script.js" defer></script>
     
     <!-- Performance & Analytics -->
     <script>
         // Service Worker registration for caching and performance
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/cv/sw.js')
+            navigator.serviceWorker.register('/sw.js')
                 .then(() => console.log('✅ Service Worker registered for performance caching'))
                 .catch(() => {});
         }
@@ -798,10 +787,10 @@
     </script>
 
     <!-- Content Intelligence System Scripts -->
-    <script src="./assets/market-intelligence-engine.js"></script>
-    <script src="./assets/intelligent-content-adapter.js"></script>
-    <script src="./assets/strategic-career-positioning.js"></script>
-    <script src="./assets/ai-content-enhancement.js"></script>
+    <script src="./assets/market-intelligence-engine.js" defer></script>
+    <script src="./assets/intelligent-content-adapter.js" defer></script>
+    <script src="./assets/strategic-career-positioning.js" defer></script>
+    <script src="./assets/ai-content-enhancement.js" defer></script>
     
     <!-- Intelligence Integration -->
     <script>

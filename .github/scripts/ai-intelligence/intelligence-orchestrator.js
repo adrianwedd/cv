@@ -19,12 +19,16 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const PersonaAnalyzer = require('./persona-analyzer');
-const MarketIntelligenceEngine = require('./market-intelligence-engine');
-const DynamicContentOptimizer = require('./dynamic-content-optimizer');
-const ContentGuardian = require('../content-guardian');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import PersonaAnalyzer from './persona-analyzer.js';
+import MarketIntelligenceEngine from './market-intelligence-engine.js';
+import DynamicContentOptimizer from './dynamic-content-optimizer.js';
+import ContentGuardian from '../content-guardian.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class IntelligenceOrchestrator {
     constructor(config = {}) {
@@ -646,9 +650,9 @@ async function main() {
 }
 
 // Export for integration
-module.exports = IntelligenceOrchestrator;
+export default IntelligenceOrchestrator;
 
 // CLI execution
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

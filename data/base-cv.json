@@ -1,30 +1,52 @@
 {
+  "$schema": "https://adrianwedd.github.io/cv/schemas/cv-schema.json",
   "metadata": {
-    "version": "3.0.0",
-    "last_updated": "2025-08-03T16:40:00Z",
+    "version": "4.0.0",
+    "last_updated": "2025-08-08T00:00:00Z",
+    "schema_version": "4.0.0",
     "data_source": "Verified Employment and GitHub Activity",
     "verification_status": "COMPLETE",
     "content_protection": {
       "enabled": true,
-      "guardian_version": "2.0.0",
-      "last_validation": "2025-08-03T16:40:00Z",
+      "guardian_version": "2.1.0",
+      "last_validation": "2025-08-08T00:00:00Z",
       "protection_level": "maximum"
     },
-    "migration_applied": "2025-08-03T17-00-38-494Z"
+    "data_integrity": {
+      "checksum": null,
+      "validation_errors": [],
+      "last_validated": "2025-08-08T00:00:00Z"
+    },
+    "frontend_optimization": {
+      "payload_size_kb": null,
+      "mobile_optimized": true,
+      "progressive_loading_enabled": true
+    }
   },
-  "personal_info": {
-    "name": "Adrian Wedd",
-    "title": "Systems Analyst & Technology Professional",
-    "location": "Tasmania, Australia",
-    "email": "adrian@adrianwedd.com",
-    "website": "https://adrianwedd.github.io/cv",
-    "github": "https://github.com/adrianwedd",
-    "linkedin": "https://linkedin.com/in/adrianwedd",
-    "tagline": "Bridging technology and social impact through thoughtful system design",
-    "availability": "Open to opportunities"
+  "profile": {
+    "personal": {
+      "name": "Adrian Wedd",
+      "title": "Systems Analyst & Technology Professional",
+      "tagline": "Bridging technology and social impact through thoughtful system design",
+      "location": "Tasmania, Australia",
+      "availability": "Open to opportunities"
+    },
+    "contact": {
+      "email": "adrian@adrianwedd.com",
+      "website": "https://adrianwedd.github.io/cv",
+      "github": "https://github.com/adrianwedd",
+      "linkedin": "https://linkedin.com/in/adrianwedd"
+    },
+    "branding": {
+      "primary_color": "#2563eb",
+      "accent_color": "#7c3aed",
+      "avatar_url": "https://github.com/adrianwedd.png",
+      "theme_preference": "dark"
+    }
   },
-  "professional_summary": "Experienced Systems Analyst with 7+ years transforming government housing systems at Homes Tasmania. I specialize in API integration, cybersecurity enhancement, and pioneering practical AI adoption in the public sector. My diverse background includes environmental technology roles at Greenpeace and The Wilderness Society, digital marketing expertise, and comprehensive IT support experience. I bring a unique perspective combining technical capability with social impact, focusing on delivering tangible improvements to government services through robust system integration and thoughtful automation.",
-  "experience": [
+  "career": {
+    "summary": "Experienced Systems Analyst with 7+ years transforming government housing systems at Homes Tasmania. I specialize in API integration, cybersecurity enhancement, and pioneering practical AI adoption in the public sector. My diverse background includes environmental technology roles at Greenpeace and The Wilderness Society, digital marketing expertise, and comprehensive IT support experience. I bring a unique perspective combining technical capability with social impact, focusing on delivering tangible improvements to government services through robust system integration and thoughtful automation.",
+    "positions": [
     {
       "position": "Systems Analyst / Acting Senior Change Analyst",
       "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
@@ -135,8 +157,10 @@
       ],
       "verified": true
     }
-  ],
-  "projects": [
+    ]
+  },
+  "portfolio": {
+    "featured_projects": [
     {
       "name": "CV Enhancement System",
       "subtitle": "AI-Powered Professional Profile",
@@ -197,8 +221,16 @@
       "verified": true,
       "note": "Confidential government project"
     }
-  ],
-  "skills": [
+    ],
+    "project_categories": [
+      "Government Systems",
+      "Open Source Tools",
+      "AI & Automation",
+      "Security & Compliance"
+    ]
+  },
+  "expertise": {
+    "technical_skills": [
     {
       "name": "Python",
       "category": "Programming",
@@ -295,8 +327,28 @@
       "proficiency": "Advanced",
       "verified": true
     }
-  ],
-  "achievements": [
+    ],
+    "skill_categories": {
+      "Programming": 3,
+      "Architecture": 1,
+      "Integration": 1,
+      "Security": 1,
+      "Operations": 1,
+      "Infrastructure": 1,
+      "Automation": 1,
+      "Marketing": 1,
+      "Communication": 1,
+      "DevOps": 1
+    },
+    "proficiency_levels": {
+      "Expert": 2,
+      "Advanced": 10,
+      "Intermediate": 0,
+      "Beginner": 0
+    }
+  },
+  "recognition": {
+    "achievements": [
     {
       "icon": "🏛️",
       "title": "Systems Integration Excellence",
@@ -345,8 +397,19 @@
       "category": "Efficiency",
       "verified": true
     }
-  ],
-  "education": [
+    ],
+    "achievement_categories": {
+      "Technical Achievement": 1,
+      "Security Achievement": 1,
+      "Innovation": 1,
+      "Social Impact": 1,
+      "Professional Development": 1,
+      "Efficiency": 1
+    },
+    "total_achievements": 6
+  },
+  "credentials": {
+    "education": [
     {
       "degree": "Self-Directed Technology Education",
       "institution": "Continuous Learning",
@@ -361,8 +424,8 @@
         "AI/ML Fundamentals"
       ]
     }
-  ],
-  "certifications": [
+    ],
+    "certifications": [
     {
       "name": "Google Analytics Individual Qualification",
       "issuer": "Google",
@@ -381,14 +444,16 @@
       "date": "2015",
       "verified": true
     }
-  ],
-  "languages": [
+    ]
+  },
+  "additional_info": {
+    "languages": [
     {
       "language": "English",
       "proficiency": "Native"
     }
-  ],
-  "interests": [
+    ],
+    "interests": [
     "Practical AI Implementation",
     "Government Technology Innovation",
     "Environmental Technology",
@@ -397,5 +462,6 @@
     "Open Source Contribution",
     "Digital Accessibility",
     "Sustainable Technology"
-  ]
+    ]
+  }
 }

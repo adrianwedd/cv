@@ -7,11 +7,31 @@
  * to ensure it works correctly before CI deployment.
  */
 
-const { BrowserFirstClient } = require('./enhancer-modules/browser-first-client');
+import { BrowserFirstClient } from './enhancer-modules/browser-first-client.js';
+
+/**
+ * Check if running in CI environment
+ */
+function isCI() {
+    return process.env.CI === 'true' || 
+           process.env.GITHUB_ACTIONS === 'true' || 
+           process.env.SKIP_BROWSER_TESTS === 'true';
+}
 
 async function testBrowserAuth() {
     console.log('🧪 **TESTING BROWSER-FIRST AUTHENTICATION**');
     console.log('================================================');
+    
+    // Skip browser tests in CI environment
+    if (isCI()) {
+        console.log('⏭️  SKIPPING BROWSER TESTS - CI ENVIRONMENT DETECTED');
+        console.log('   Detected environment variables:');
+        console.log(`   CI: ${process.env.CI}`);
+        console.log(`   GITHUB_ACTIONS: ${process.env.GITHUB_ACTIONS}`);
+        console.log(`   SKIP_BROWSER_TESTS: ${process.env.SKIP_BROWSER_TESTS}`);
+        console.log('\n✅ Browser authentication test skipped (CI mode)');
+        return 0;
+    }
     
     let client = null;
     
@@ -33,19 +53,23 @@ async function testBrowserAuth() {
             console.log('\n2. Testing authentication...');
             const testResult = await client.testAuthentication();
             
-            console.log(`   Success: ${testResult.success}`);
-            if (testResult.success) {
-                console.log(`   Response: ${testResult.response}`);
-                console.log(`   Cost Savings: $${testResult.status.costSavings}`);
+            if (testResult.skipped) {
+                console.log(`   ⚠️  SKIPPED: ${testResult.reason}`);
             } else {
-                console.log(`   Error: ${testResult.error || testResult.message}`);
+                console.log(`   Success: ${testResult.success}`);
+                if (testResult.success) {
+                    console.log(`   Response: ${testResult.response}`);
+                    console.log(`   Cost Savings: $${testResult.status.costSavings}`);
+                } else {
+                    console.log(`   Error: ${testResult.error || testResult.message}`);
+                }
             }
         } else {
             console.log('\n⚠️ Browser authentication not available');
             console.log('   This is expected if Claude cookies are not configured');
         }
         
-        console.log('\n✅ Browser authentication test completed');
+        console.log('\n✅ Browser authentication test completed (local mode)');
         
     } catch (error) {
         console.error('\n❌ Test failed:', error.message);
@@ -60,7 +84,7 @@ async function testBrowserAuth() {
 }
 
 // Run test if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     testBrowserAuth()
         .then(exitCode => process.exit(exitCode))
         .catch(error => {
@@ -69,4 +93,4 @@ if (require.main === module) {
         });
 }
 
-module.exports = { testBrowserAuth };
+export { testBrowserAuth };

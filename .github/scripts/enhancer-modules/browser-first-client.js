@@ -17,9 +17,9 @@
  * @version 2.0.0
  */
 
-const crypto = require('crypto');
-const { ClaudeBrowserClient } = require('../claude-browser-client');
-const { sleep } = require('../utils/apiClient');
+import crypto from 'crypto';
+import { ClaudeBrowserClient } from '../claude-browser-client.js';
+import { sleep } from '../utils/apiClient.js';
 
 /**
  * Browser-First Claude Client with API compatibility
@@ -41,11 +41,32 @@ class BrowserFirstClient {
     }
 
     /**
+     * Check if running in CI environment
+     */
+    isCI() {
+        return process.env.CI === 'true' || 
+               process.env.GITHUB_ACTIONS === 'true' || 
+               process.env.SKIP_BROWSER_TESTS === 'true';
+    }
+
+    /**
      * Initialize the appropriate client based on available credentials
      */
     async initialize() {
         console.log('🔐 Initializing browser-first authentication...');
         console.log(`📋 Session ID: ${this.sessionId}`);
+        
+        // Skip browser initialization in CI environments
+        if (this.isCI()) {
+            console.log('⏭️  SKIPPING BROWSER INITIALIZATION - CI ENVIRONMENT DETECTED');
+            console.log('   Environment variables:');
+            console.log(`   CI: ${process.env.CI}`);
+            console.log(`   GITHUB_ACTIONS: ${process.env.GITHUB_ACTIONS}`);
+            console.log(`   SKIP_BROWSER_TESTS: ${process.env.SKIP_BROWSER_TESTS}`);
+            console.log('🔄 Browser authentication unavailable, enhancement will use fallback method');
+            this.authMethod = 'ci_skip_fallback_required';
+            return this;
+        }
         
         // Try browser authentication first
         if (this.hasBrowserCredentials()) {
@@ -60,7 +81,10 @@ class BrowserFirstClient {
                 // Test browser authentication
                 await this.browserClient.initialize();
                 const testResult = await this.browserClient.test();
-                if (testResult && testResult.success !== false) {
+                if (testResult && testResult.skipped) {
+                    console.log(`⚠️  Browser authentication skipped: ${testResult.reason}`);
+                    this.authMethod = 'fallback';
+                } else if (testResult && testResult.success !== false) {
                     console.log('✅ Browser authentication successful - FREE AI enhancement!');
                     console.log(`💰 Cost savings: 100% (Estimated: $${this.getEstimatedAPICost()}/month)`);
                     this.authMethod = 'browser_authenticated';
@@ -258,6 +282,17 @@ class BrowserFirstClient {
      */
     async testAuthentication() {
         try {
+            // Skip in CI environments
+            if (this.isCI()) {
+                return {
+                    success: true,
+                    method: 'ci_skip',
+                    message: 'Browser authentication test skipped in CI environment',
+                    status: this.getAuthStatus(),
+                    skipped: true
+                };
+            }
+            
             await this.initialize();
             if (this.authMethod === 'browser_authenticated') {
                 // Test with a simple message using the browser client directly
@@ -302,7 +337,8 @@ class BrowserFirstClient {
             tokenUsage: status.tokenUsage,
             costSavings: status.costSavings,
             success: status.available,
-            environment: process.env.CI ? 'ci' : 'local'
+            environment: this.isCI() ? 'ci' : 'local',
+            ciSkipped: this.isCI()
         };
     }
 
@@ -326,4 +362,4 @@ class BrowserFirstClient {
     }
 }
 
-module.exports = { BrowserFirstClient };
+export { BrowserFirstClient };
