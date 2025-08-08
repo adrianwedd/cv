@@ -38,7 +38,7 @@ class CVApplication {
     constructor() {
         this.currentSection = 'about';
         this.cache = new Map();
-        // Single dark mode - no theme switching needed
+        this.themePreference = 'dark'; // Force dark theme only
         this.isLoading = true;
         this.loadingStartTime = Date.now();
         
@@ -52,7 +52,8 @@ class CVApplication {
         console.log('🚀 Initializing CV Application...');
         
         try {
-            // Dark mode is set via CSS - no theme application needed
+            // Apply dark theme immediately
+            this.applyTheme(this.themePreference);
             
             // Initialize core systems
             this.setupEventListeners();
@@ -1070,6 +1071,14 @@ class CVApplication {
     }
 
     /**
+     * Apply theme to document - dark mode only
+     */
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        console.log(`🎨 Theme applied: ${theme}`);
+    }
+
+    /**
      * Handle initialization errors
      */
     handleInitializationError(error) {
@@ -1731,7 +1740,7 @@ class ProgressiveDisclosure {
 
 // Initialize application when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new CVApplication();
+    window.cvApp = new CVApplication();
     new ExternalLinkMonitor();
     new InteractiveMetrics();
     new ProgressiveDisclosure();
