@@ -677,8 +677,9 @@ class CVApplication {
     initializeAboutSection() {
         const summaryElement = document.getElementById('professional-summary');
         if (summaryElement) {
+            // Fixed: Use correct path for career summary
             let enhancedSummary = this.aiEnhancements?.professional_summary?.enhanced ||
-                                 this.cvData?.professional_summary ||
+                                 this.cvData?.career?.summary ||
                                  summaryElement.textContent;
             
             // Clean up AI-generated content that contains explanation text
