@@ -1,13 +1,13 @@
 {
   "status": "operational",
-  "lastCheck": "2025-08-08T04:11:20.462Z",
+  "lastCheck": "2025-08-08T06:26:39.984Z",
   "uptime": 0,
   "checks": {
     "website_availability": {
       "success": false,
-      "responseTime": 2,
+      "responseTime": 71,
       "message": "Request failed: getaddrinfo ENOTFOUND cv.adrianwedd.dev",
-      "timestamp": "2025-08-08T04:11:20.464Z",
+      "timestamp": "2025-08-08T06:26:40.059Z",
       "checkName": "Website Availability",
       "type": "http",
       "critical": true
@@ -15,7 +15,7 @@
     "github_api_rate": {
       "success": false,
       "message": "No GitHub token configured",
-      "timestamp": "2025-08-08T04:11:20.464Z",
+      "timestamp": "2025-08-08T06:26:40.059Z",
       "checkName": "GitHub API Rate Limit",
       "type": "api",
       "critical": false
@@ -36,7 +36,7 @@
         }
       },
       "message": "Data integrity verified",
-      "timestamp": "2025-08-08T04:11:20.464Z",
+      "timestamp": "2025-08-08T06:26:40.061Z",
       "checkName": "Data Integrity",
       "type": "data",
       "critical": true
@@ -47,7 +47,7 @@
       "totalWorkflows": 16,
       "issues": [],
       "message": "16/16 workflows healthy",
-      "timestamp": "2025-08-08T04:11:20.466Z",
+      "timestamp": "2025-08-08T06:26:40.068Z",
       "checkName": "GitHub Workflows Health",
       "type": "workflow",
       "critical": false
@@ -61,17 +61,17 @@
         "Browser session not configured"
       ],
       "message": "No authentication configured",
-      "timestamp": "2025-08-08T04:11:20.466Z",
+      "timestamp": "2025-08-08T06:26:40.068Z",
       "checkName": "Authentication Health",
       "type": "auth",
       "critical": true
     },
     "system_resources": {
       "success": true,
-      "dataDirectorySize": "63.33 MB",
-      "lastModified": "2025-08-08T04:11:20.463Z",
-      "message": "Data directory: 63.33 MB",
-      "timestamp": "2025-08-08T04:11:20.474Z",
+      "dataDirectorySize": "91.21 MB",
+      "lastModified": "2025-08-08T06:26:39.984Z",
+      "message": "Data directory: 91.21 MB",
+      "timestamp": "2025-08-08T06:26:40.083Z",
       "checkName": "System Resources",
       "type": "system",
       "critical": false
@@ -80,7 +80,7 @@
   "alerts": [],
   "incidents": [],
   "startTime": 1754618838354,
-  "lastCheckDuration": 12,
+  "lastCheckDuration": 99,
   "systemHealth": {
     "percentage": 44,
     "status": "critical",
