@@ -1,6 +1,6 @@
 {
   "overall": "excellent",
-  "timestamp": "2025-08-08T04:13:32.520Z",
+  "timestamp": "2025-08-08T06:27:32.820Z",
   "tests": {
     "accessibility": {
       "status": "passed",
@@ -34,12 +34,12 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 174.59900000000002,
+          "value": 0.68,
           "threshold": "< 2000ms"
         },
         "contentSize": {
           "passed": false,
-          "value": 64578,
+          "value": 63773,
           "threshold": "< 50KB"
         },
         "imageOptimization": {
@@ -54,10 +54,10 @@
         }
       },
       "metrics": {
-        "loadTime": 174.59900000000002,
-        "contentSize": 64578,
-        "dnsTime": 1.916,
-        "connectTime": 29.500999999999998,
+        "loadTime": 0.68,
+        "contentSize": 63773,
+        "dnsTime": 0.012,
+        "connectTime": 0.206,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
@@ -102,7 +102,7 @@
         },
         "navigation": {
           "passed": true,
-          "message": "21 navigation elements found"
+          "message": "22 navigation elements found"
         },
         "responsiveLayout": {
           "passed": true,
@@ -151,7 +151,7 @@
     },
     "security": {
       "status": "passed",
-      "score": 100,
+      "score": 75,
       "details": {
         "contentTypeNosniff": {
           "passed": true,
@@ -162,7 +162,7 @@
           "message": "X-Frame-Options header"
         },
         "httpsRedirect": {
-          "passed": true,
+          "passed": false,
           "message": "HTTPS redirect working"
         },
         "csp": {
@@ -195,7 +195,7 @@
     }
   },
   "metrics": {
-    "overallScore": 96
+    "overallScore": 93
   },
   "issues": [
     {
@@ -205,12 +205,12 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 174.59900000000002,
+          "value": 0.68,
           "threshold": "< 2000ms"
         },
         "contentSize": {
           "passed": false,
-          "value": 64578,
+          "value": 63773,
           "threshold": "< 50KB"
         },
         "imageOptimization": {
