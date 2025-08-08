@@ -1055,44 +1055,18 @@ class CVApplication {
     }
 
     /**
-     * Complete loading sequence
+     * Complete loading sequence - immediately hide loading screen
      */
     completeLoadingSequence() {
-        const loadingTime = Date.now() - this.loadingStartTime;
-        const minLoadingTime = 1500; // Minimum loading time for UX
-        const maxLoadingTime = 3000; // Maximum loading time - fail safe
-        
-        // Ensure loading screen is removed within 3 seconds maximum
-        const timeoutId = setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                console.warn('⚠️ Loading screen timeout - forcing removal');
-                loadingScreen.classList.add('hidden');
-                setTimeout(() => {
-                    if (loadingScreen.parentNode) {
-                        loadingScreen.remove();
-                    }
-                }, CONFIG.ANIMATION_DURATION);
-            }
-        }, maxLoadingTime);
-        
-        setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                clearTimeout(timeoutId); // Clear the failsafe timeout
-                loadingScreen.classList.add('hidden');
-                
-                // Remove loading screen after animation
-                setTimeout(() => {
-                    if (loadingScreen.parentNode) {
-                        loadingScreen.remove();
-                    }
-                }, CONFIG.ANIMATION_DURATION);
-            }
-            
-            this.isLoading = false;
-            console.log(`✅ Loading completed in ${loadingTime}ms`);
-        }, Math.max(0, minLoadingTime - loadingTime));
+        const loadingScreen = document.getElementById('loading-screen') || document.querySelector('.loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            loadingScreen.style.display = 'none';
+            loadingScreen.style.visibility = 'hidden';
+            loadingScreen.style.opacity = '0';
+        }
+        this.isLoading = false;
+        console.log('✅ Loading screen hidden immediately');
     }
 
     /**
