@@ -35,6 +35,9 @@ export default [
                 FormData: 'readonly',
                 XMLHttpRequest: 'readonly',
                 WebSocket: 'readonly',
+                AbortSignal: 'readonly',
+                PerformanceObserver: 'readonly',
+                performance: 'readonly',
                 
                 // Common test globals
                 test: 'readonly',
