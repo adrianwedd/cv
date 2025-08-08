@@ -9,8 +9,8 @@
  * This is the primary interface for all git operations in CI workflows.
  */
 
-const SafeGitOperations = require('./safe-git-operations');
-const WorkflowCoordinator = require('./workflow-coordinator');
+import SafeGitOperations from './safe-git-operations.js';
+import WorkflowCoordinator from './workflow-coordinator.js';
 
 class CoordinatedGitOperations {
   constructor(options = {}) {
@@ -196,4 +196,4 @@ if (require.main === module) {
   runCommand();
 }
 
-module.exports = CoordinatedGitOperations;
+export default CoordinatedGitOperations;

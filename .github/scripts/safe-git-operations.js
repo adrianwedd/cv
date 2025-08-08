@@ -14,9 +14,9 @@
  * - Workflow coordination via lock files
  */
 
-const { execSync, exec } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync, exec } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 class SafeGitOperations {
   constructor(options = {}) {
@@ -498,4 +498,4 @@ if (require.main === module) {
   runCommand();
 }
 
-module.exports = SafeGitOperations;
+export default SafeGitOperations;

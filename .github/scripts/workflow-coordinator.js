@@ -14,9 +14,9 @@
  * - Emergency coordination override
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 
 class WorkflowCoordinator {
   constructor(options = {}) {
@@ -351,4 +351,4 @@ if (require.main === module) {
   runCommand();
 }
 
-module.exports = WorkflowCoordinator;
+export default WorkflowCoordinator;
