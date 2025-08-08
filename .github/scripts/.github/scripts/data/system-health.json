@@ -1,0 +1,248 @@
+{
+  "timestamp": "2025-08-08T04:13:17.253Z",
+  "overall_status": "critical",
+  "systems": {
+    "oauth": {
+      "operational": false,
+      "status": "degraded",
+      "health_score": 0,
+      "issues": [
+        "OAuth client file missing",
+        "Auth manager missing",
+        "Usage monitor missing",
+        "No authentication configured"
+      ],
+      "details": {
+        "oauth_configured": false,
+        "api_key_available": false,
+        "browser_auth_available": false,
+        "files_present": {
+          "oauth_client": false,
+          "auth_manager": false,
+          "usage_monitor": false
+        }
+      },
+      "response_time": 0,
+      "critical": true
+    },
+    "content_guardian": {
+      "operational": false,
+      "status": "degraded",
+      "health_score": 30,
+      "issues": [
+        "Content Guardian missing",
+        "Protected content registry missing"
+      ],
+      "details": {
+        "guardian_present": false,
+        "protected_registry_present": false,
+        "validation_reports_present": true
+      },
+      "response_time": 0,
+      "critical": true
+    },
+    "cv_generator": {
+      "operational": false,
+      "status": "degraded",
+      "health_score": 0,
+      "issues": [
+        "CV Generator missing",
+        "Base CV data missing",
+        "Generated website missing"
+      ],
+      "details": {
+        "generator_present": false,
+        "base_data_present": false,
+        "website_present": false
+      },
+      "response_time": 0,
+      "critical": true
+    },
+    "analytics": {
+      "operational": false,
+      "status": "degraded",
+      "health_score": 0,
+      "issues": [
+        "Activity Analyzer missing",
+        "Usage Monitor missing",
+        "Activity summary missing",
+        "Usage tracking missing"
+      ],
+      "details": {
+        "analyzer_present": false,
+        "usage_monitor_present": false,
+        "activity_summary_present": false,
+        "usage_tracking_present": false
+      },
+      "response_time": 0,
+      "critical": true
+    },
+    "historical_verification": {
+      "operational": false,
+      "status": "degraded",
+      "health_score": 0,
+      "issues": [
+        "Historical verifier missing",
+        "Claim verifier missing",
+        "Verification data directory missing"
+      ],
+      "details": {
+        "historical_verifier_present": false,
+        "claim_verifier_present": false,
+        "verification_data_available": false
+      },
+      "response_time": 0,
+      "critical": true
+    },
+    "elite_agents": {
+      "operational": false,
+      "status": "degraded",
+      "health_score": 0,
+      "issues": [
+        "Elite agents directory missing",
+        "AI Intelligence Orchestrator missing",
+        "Intelligence data directory missing"
+      ],
+      "details": {
+        "agents_directory_present": false,
+        "orchestrator_present": false,
+        "intelligence_data_present": false
+      },
+      "response_time": 0,
+      "critical": true
+    }
+  },
+  "performance_metrics": {
+    "total_check_time": 1,
+    "systems_checked": 6,
+    "operational_systems": 0,
+    "operational_percentage": 0,
+    "critical_percentage": 0
+  },
+  "alerts": [
+    {
+      "severity": "critical",
+      "system": "oauth",
+      "message": "Critical system oauth is not operational",
+      "issues": [
+        "OAuth client file missing",
+        "Auth manager missing",
+        "Usage monitor missing",
+        "No authentication configured"
+      ]
+    },
+    {
+      "severity": "critical",
+      "system": "content_guardian",
+      "message": "Critical system content_guardian is not operational",
+      "issues": [
+        "Content Guardian missing",
+        "Protected content registry missing"
+      ]
+    },
+    {
+      "severity": "critical",
+      "system": "cv_generator",
+      "message": "Critical system cv_generator is not operational",
+      "issues": [
+        "CV Generator missing",
+        "Base CV data missing",
+        "Generated website missing"
+      ]
+    },
+    {
+      "severity": "critical",
+      "system": "analytics",
+      "message": "Critical system analytics is not operational",
+      "issues": [
+        "Activity Analyzer missing",
+        "Usage Monitor missing",
+        "Activity summary missing",
+        "Usage tracking missing"
+      ]
+    },
+    {
+      "severity": "critical",
+      "system": "historical_verification",
+      "message": "Critical system historical_verification is not operational",
+      "issues": [
+        "Historical verifier missing",
+        "Claim verifier missing",
+        "Verification data directory missing"
+      ]
+    },
+    {
+      "severity": "critical",
+      "system": "elite_agents",
+      "message": "Critical system elite_agents is not operational",
+      "issues": [
+        "Elite agents directory missing",
+        "AI Intelligence Orchestrator missing",
+        "Intelligence data directory missing"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "system": "oauth",
+      "action": "Restore oauth system to operational status",
+      "details": [
+        "OAuth client file missing",
+        "Auth manager missing",
+        "Usage monitor missing",
+        "No authentication configured"
+      ]
+    },
+    {
+      "priority": "high",
+      "system": "content_guardian",
+      "action": "Restore content_guardian system to operational status",
+      "details": [
+        "Content Guardian missing",
+        "Protected content registry missing"
+      ]
+    },
+    {
+      "priority": "high",
+      "system": "cv_generator",
+      "action": "Restore cv_generator system to operational status",
+      "details": [
+        "CV Generator missing",
+        "Base CV data missing",
+        "Generated website missing"
+      ]
+    },
+    {
+      "priority": "high",
+      "system": "analytics",
+      "action": "Restore analytics system to operational status",
+      "details": [
+        "Activity Analyzer missing",
+        "Usage Monitor missing",
+        "Activity summary missing",
+        "Usage tracking missing"
+      ]
+    },
+    {
+      "priority": "high",
+      "system": "historical_verification",
+      "action": "Restore historical_verification system to operational status",
+      "details": [
+        "Historical verifier missing",
+        "Claim verifier missing",
+        "Verification data directory missing"
+      ]
+    },
+    {
+      "priority": "high",
+      "system": "elite_agents",
+      "action": "Restore elite_agents system to operational status",
+      "details": [
+        "Elite agents directory missing",
+        "AI Intelligence Orchestrator missing",
+        "Intelligence data directory missing"
+      ]
+    }
+  ]
+}
