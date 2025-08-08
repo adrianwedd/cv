@@ -30,6 +30,13 @@ on:
         default: false
         type: boolean
 
+# 🔒 WORKFLOW CONCURRENCY CONTROL
+# Prevents concurrent continuous enhancement workflows and coordinates
+# with the main CV enhancement pipeline to avoid git conflicts
+concurrency:
+  group: continuous-enhancement-${{ github.ref }}
+  cancel-in-progress: true  # Cancel older continuous runs for efficiency
+
 env:
   NODE_VERSION: '20'
   PIPELINE_VERSION: 'v3.0-continuous'
@@ -507,14 +514,11 @@ jobs:
             echo "⏰ Data timestamp: $TIMESTAMP"
             echo "🔄 Data freshness: $DATA_FRESHNESS"
             
-            # Commit updated data if file exists and has been modified
-            cd ../..
-            git config --local user.email "watch-me-work@adrianwedd.com"
-            git config --local user.name "adrianwedd(watch-me-work)"
+            # Safely commit updated data if file exists and has been modified
+            cd .github/scripts
             
-            git add data/watch-me-work-data.json
-            
-            if ! git diff --cached --quiet; then
+            # Check if data file exists and has content
+            if [ -f "../../data/watch-me-work-data.json" ]; then
               COMMIT_MSG="🎬 Update Watch Me Work dashboard data ($DATA_STATUS)
 
               📊 Fresh activity data generated at $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')
@@ -525,23 +529,26 @@ jobs:
               
               Co-Authored-By: Claude <noreply@anthropic.com>"
               
-              git commit -m "$COMMIT_MSG"
-              git push
-              echo "✅ Watch Me Work data committed and pushed"
-            else
-              echo "📝 No changes to Watch Me Work data"
+              # Use safe git operations for Watch Me Work data
+              if node safe-git-operations.js commit-push "$COMMIT_MSG"; then
+                echo "✅ Watch Me Work data safely committed and pushed"
+              else
+                echo "⚠️ Watch Me Work commit failed, data will be cached for next run"
+              fi
             fi
           else
             echo "❌ No data file generated - creating placeholder for dashboard availability"
-            cd ../..
-            mkdir -p data
-            echo '{"metadata":{"generated_at":"'$(date -Iseconds)'","data_freshness":"error","error":"No data file generated"},"activities":[],"repositories":[]}' > data/watch-me-work-data.json
+            cd .github/scripts
+            mkdir -p ../../data
+            echo '{"metadata":{"generated_at":"'$(date -Iseconds)'","data_freshness":"error","error":"No data file generated"},"activities":[],"repositories":[]}' > ../../data/watch-me-work-data.json
             
-            git config --local user.email "watch-me-work@adrianwedd.com"
-            git config --local user.name "adrianwedd(watch-me-work)"
-            git add data/watch-me-work-data.json
-            git commit -m "🎬 Watch Me Work placeholder data (processing failed)"
-            git push
+            # Use safe git operations for placeholder data
+            PLACEHOLDER_MSG="🎬 Watch Me Work placeholder data (processing failed)"
+            if node safe-git-operations.js commit-push "$PLACEHOLDER_MSG"; then
+              echo "✅ Placeholder data safely committed"
+            else
+              echo "⚠️ Could not commit placeholder data"
+            fi
           fi
           
           # Always succeed - data issues are warnings, not failures

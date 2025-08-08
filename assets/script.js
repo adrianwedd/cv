@@ -23,7 +23,6 @@ const CONFIG = {
     },
     CACHE_DURATION: 300000, // 5 minutes
     ANIMATION_DURATION: 300,
-    THEME_KEY: 'cv-theme',
     USERNAME: 'adrianwedd',
     PERFORMANCE_BUDGET: {
         MAX_LOAD_TIME: 2000, // 2 seconds
@@ -39,7 +38,7 @@ class CVApplication {
     constructor() {
         this.currentSection = 'about';
         this.cache = new Map();
-        this.themePreference = localStorage.getItem(CONFIG.THEME_KEY) || 'light';
+        // Single dark mode - no theme switching needed
         this.isLoading = true;
         this.loadingStartTime = Date.now();
         
@@ -53,13 +52,12 @@ class CVApplication {
         console.log('🚀 Initializing CV Application...');
         
         try {
-            // Set initial theme
-            this.applyTheme(this.themePreference);
+            // Dark mode is set via CSS - no theme application needed
             
             // Initialize core systems
             this.setupEventListeners();
             this.setupNavigationSystem();
-            this.setupThemeToggle();
+            // Theme toggle removed for single dark mode
             
             // Load data concurrently
             await this.loadApplicationData();
@@ -424,23 +422,9 @@ class CVApplication {
     }
 
     /**
-     * Setup theme toggle functionality
+     * Setup removed - single dark mode only
      */
-    setupThemeToggle() {
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = themeToggle?.querySelector('.theme-icon');
-        
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                this.toggleTheme();
-            });
-
-            // Update icon based on current theme
-            if (themeIcon) {
-                themeIcon.textContent = this.themePreference === 'dark' ? '☀️' : '🌙';
-            }
-        }
-    }
+    // Theme toggle functionality removed for clean single dark mode design
 
     /**
      * Load application data from various sources
@@ -1019,31 +1003,9 @@ class CVApplication {
     }
 
     /**
-     * Toggle theme between dark and light
+     * Theme functions removed - Single stunning dark mode only
+     * All styling handled via CSS custom properties
      */
-    toggleTheme() {
-        const themeOrder = ['light', 'dark', 'auto'];
-        const currentIndex = themeOrder.indexOf(this.themePreference);
-        const nextIndex = (currentIndex + 1) % themeOrder.length;
-        this.themePreference = themeOrder[nextIndex];
-        this.applyTheme(this.themePreference);
-        
-        // Save preference
-        localStorage.setItem(CONFIG.THEME_KEY, this.themePreference);
-        
-        // Update theme toggle icon
-        const themeIcon = document.querySelector('.theme-icon');
-        if (themeIcon) {
-            themeIcon.textContent = this.themePreference === 'dark' ? '☀️' : '🌙';
-        }
-    }
-
-    /**
-     * Apply theme to document
-     */
-    applyTheme(theme) {
-        // Prevent transition flicker\n        document.documentElement.classList.add('theme-transitioning');\n        \n        // Apply theme\n        document.documentElement.setAttribute('data-theme', theme);\n        \n        // Detect system preference if auto mode\n        if (theme === 'auto') {\n            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;\n            document.documentElement.setAttribute('data-theme', systemPrefersDark ? 'dark' : 'light');\n        }\n        \n        // Remove transition class after short delay\n        setTimeout(() => {\n            document.documentElement.classList.remove('theme-transitioning');\n        }, 50);\n        \n        // Update meta theme-color for mobile browsers\n        this.updateThemeColor(theme);
-    }
 
     /**
      * Handle initial route from URL hash
@@ -1098,15 +1060,33 @@ class CVApplication {
     completeLoadingSequence() {
         const loadingTime = Date.now() - this.loadingStartTime;
         const minLoadingTime = 1500; // Minimum loading time for UX
+        const maxLoadingTime = 3000; // Maximum loading time - fail safe
+        
+        // Ensure loading screen is removed within 3 seconds maximum
+        const timeoutId = setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                console.warn('⚠️ Loading screen timeout - forcing removal');
+                loadingScreen.classList.add('hidden');
+                setTimeout(() => {
+                    if (loadingScreen.parentNode) {
+                        loadingScreen.remove();
+                    }
+                }, CONFIG.ANIMATION_DURATION);
+            }
+        }, maxLoadingTime);
         
         setTimeout(() => {
             const loadingScreen = document.getElementById('loading-screen');
             if (loadingScreen) {
+                clearTimeout(timeoutId); // Clear the failsafe timeout
                 loadingScreen.classList.add('hidden');
                 
                 // Remove loading screen after animation
                 setTimeout(() => {
-                    loadingScreen.remove();
+                    if (loadingScreen.parentNode) {
+                        loadingScreen.remove();
+                    }
                 }, CONFIG.ANIMATION_DURATION);
             }
             

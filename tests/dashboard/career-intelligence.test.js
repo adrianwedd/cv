@@ -27,10 +27,8 @@ describe('Career Intelligence Dashboard', () => {
       const newPage = await browser.newPage();
       await newPage.setViewport({ width: 1280, height: 720 });
       
-      // Set up error handling
-      newPage.on('pageerror', error => {
-        console.warn('Page error in dashboard test:', error.message);
-      });
+      // Set up enhanced error handling
+      await global.testUtils.setupPageErrorHandling(newPage);
       
       return newPage;
     }, 3, 1000);
@@ -158,7 +156,7 @@ describe('Career Intelligence Dashboard', () => {
 
     test('should animate counters from 0', async () => {
       // Wait for animation to start
-      await page.waitForTimeout(500);
+      await new Promise(resolve => setTimeout(resolve, 500));
       
       const firstValue = await page.$eval(
         '.metric-card:first-child .metric-number', 
@@ -166,7 +164,7 @@ describe('Career Intelligence Dashboard', () => {
       );
       
       // Wait for animation to progress
-      await page.waitForTimeout(1000);
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       const secondValue = await page.$eval(
         '.metric-card:first-child .metric-number', 
@@ -270,7 +268,7 @@ describe('Career Intelligence Dashboard', () => {
       
       if (themeToggle) {
         await themeToggle.click();
-        await page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         const newBodyClass = await page.$eval('body', el => el.className);
         expect(newBodyClass).toMatch(/theme-(light|dark)/);

@@ -15,6 +15,7 @@ name: 🚀 Production CV Enhancement Pipeline
 # - AI hallucination detection
 # - Performance monitoring and optimization
 # - Comprehensive deployment to GitHub Pages
+# - Safe git operations with conflict resolution
 #
 # 📋 **PRODUCTION PIPELINE**:
 # 1. Quality gates and pre-deployment validation
@@ -58,6 +59,13 @@ on:
           - balanced
           - creative
           - innovative
+
+# 🔒 WORKFLOW CONCURRENCY CONTROL
+# Prevents multiple CV enhancement workflows from running simultaneously
+# and causing git push conflicts. Only one enhancement can run at a time.
+concurrency:
+  group: cv-enhancement-${{ github.ref }}
+  cancel-in-progress: false  # Don't cancel running workflows, queue them
 
 env:
   CV_SYSTEM_VERSION: "v2.0"
@@ -405,43 +413,61 @@ jobs:
           MINING_DEPTH: comprehensive
           LOOKBACK_DAYS: 90
 
-      - name: 🤖 Claude AI Content Enhancement
+      - name: 🧠 Advanced AI Content Intelligence
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
         run: |
-          echo "🤖 **INITIATING CLAUDE AI CONTENT ENHANCEMENT**"
+          echo "🧠 **INITIATING ADVANCED AI CONTENT INTELLIGENCE**"
           echo "💰 Available budget: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
           echo "🎨 Creativity level: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
+          echo "🎯 Multi-persona analysis, market intelligence & content optimization"
           echo ""
           
-          # Execute AI enhancement with comprehensive error handling
+          # Execute Advanced AI Intelligence Pipeline
           AI_BUDGET="${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
           CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
           ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
           
           cd .github/scripts
           
-          # Verify claude-enhancer.js exists before running
-          if [ ! -f "claude-enhancer.js" ]; then
-            echo "❌ claude-enhancer.js not found, skipping AI enhancement"
-            cd ../..
-            exit 0
-          fi
-          
-          # Run with timeout and error handling
-          timeout 600 node claude-enhancer.js
-          ENHANCEMENT_EXIT_CODE=$?
-          
-          if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
-            echo "✅ Claude AI enhancement completed successfully"
-          elif [ $ENHANCEMENT_EXIT_CODE -eq 124 ]; then
-            echo "⚠️ Claude AI enhancement timed out after 10 minutes, continuing with existing content"
+          # Run AI-Enhanced Orchestrator with comprehensive intelligence
+          if [ -f "ai-enhanced-orchestrator.js" ]; then
+            echo "🚀 Running Advanced AI Intelligence Pipeline..."
+            timeout 900 node ai-enhanced-orchestrator.js --intelligence-first --headless
+            INTELLIGENCE_EXIT_CODE=$?
+            
+            if [ $INTELLIGENCE_EXIT_CODE -eq 0 ]; then
+              echo "✅ Advanced AI Intelligence completed successfully"
+              echo "🎭 Multi-persona analysis: Complete"
+              echo "📊 Market intelligence: Complete" 
+              echo "🎯 Content optimization: Complete"
+            elif [ $INTELLIGENCE_EXIT_CODE -eq 124 ]; then
+              echo "⚠️ AI Intelligence timed out after 15 minutes, falling back to legacy enhancement"
+              timeout 600 node claude-enhancer.js || echo "⚠️ Legacy enhancement also failed"
+            else
+              echo "⚠️ AI Intelligence failed (exit code: $INTELLIGENCE_EXIT_CODE), trying legacy enhancement"
+              timeout 600 node claude-enhancer.js || echo "⚠️ Legacy enhancement also failed"
+            fi
           else
-            echo "⚠️ Claude AI enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
+            echo "⚠️ AI-Enhanced Orchestrator not found, using legacy claude-enhancer.js"
+            if [ -f "claude-enhancer.js" ]; then
+              timeout 600 node claude-enhancer.js
+              ENHANCEMENT_EXIT_CODE=$?
+              
+              if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
+                echo "✅ Legacy Claude AI enhancement completed successfully"
+              elif [ $ENHANCEMENT_EXIT_CODE -eq 124 ]; then
+                echo "⚠️ Legacy enhancement timed out after 10 minutes, continuing with existing content"
+              else
+                echo "⚠️ Legacy enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
+              fi
+            else
+              echo "❌ No AI enhancement system found, skipping AI optimization"
+            fi
           fi
           
           cd ../..
         env:
-          # Browser-based authentication (free alternative)
+          # Browser-based authentication (maximizes Claude subscription value)
           CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
           CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
           CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
@@ -451,7 +477,7 @@ jobs:
           CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
           # API key fallback (for 24-hour fallback scenarios)
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Authentication strategy (browser_first for free usage)
+          # Authentication strategy (browser_first maximizes subscription value)
           AUTH_STRATEGY: browser_first
           # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -827,53 +853,61 @@ jobs:
           echo "  - Session Time: $SESSION_TIME"
           echo ""
 
-      - name: 🚀 Commit Enhanced CV Data
+      - name: 🚀 Safe Commit Enhanced CV Data
         run: |
-          echo "🚀 **COMMITTING CV ENHANCEMENT UPDATES**"
+          echo "🚀 **SAFE COMMIT CV ENHANCEMENT UPDATES**"
           
-          git config --local user.email "cv-enhancement@adrianwedd.com"
-          git config --local user.name "adrianwedd(cv-enhancer)"
+          cd .github/scripts
           
           # Ensure intelligence and narrative data is included
-          if [ -d "data/intelligence" ]; then
+          if [ -d "../../data/intelligence" ]; then
             echo "📊 Including intelligence data in commit"
-            ls -la data/intelligence/
+            ls -la ../../data/intelligence/
           fi
           
-          if [ -d "data/narratives" ]; then
+          if [ -d "../../data/narratives" ]; then
             echo "📖 Including narrative data in commit"
-            ls -la data/narratives/
+            ls -la ../../data/narratives/
           fi
           
-          git add .
+          # Create intelligent commit message
+          ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
+          STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
+          MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
           
-          if ! git diff --cached --quiet; then
-            # Create intelligent commit message
-            ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-            STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
-            MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-            
-            git commit -m "🚀 CV Enhancement Update $(date +'%Y%m%d-%H%M')
+          COMMIT_MESSAGE="🚀 CV Enhancement Update $(date +'%Y%m%d-%H%M')
 
-            📊 Activity Score: $ACTIVITY_SCORE/100
-            🎯 Strategy: $STRATEGY  
-            🔄 Mode: $MODE
-            🤖 System: CV Auto-Enhancement Pipeline ${{ env.CV_SYSTEM_VERSION }}
-            
-            🎨 Enhanced with Claude AI content optimization
-            📈 Updated with latest GitHub activity metrics
-            🌐 Regenerated responsive CV website
-            
-            🔗 Live CV: https://adrianwedd.github.io/cv
-            
-            🤖 Generated with [Claude Code](https://claude.ai/code)
-            
-            Co-Authored-By: Claude <noreply@anthropic.com>"
-            
-            git push
-            echo "✅ CV enhancement updates committed and deployed"
+          📊 Activity Score: $ACTIVITY_SCORE/100
+          🎯 Strategy: $STRATEGY  
+          🔄 Mode: $MODE
+          🤖 System: CV Auto-Enhancement Pipeline ${{ env.CV_SYSTEM_VERSION }}
+          
+          🎨 Enhanced with Claude AI content optimization
+          📈 Updated with latest GitHub activity metrics
+          🌐 Regenerated responsive CV website
+          
+          🔗 Live CV: https://adrianwedd.github.io/cv
+          
+          🤖 Generated with [Claude Code](https://claude.ai/code)
+          
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          
+          # Use safe git operations with retry logic and conflict resolution
+          if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
+            echo "✅ CV enhancement updates safely committed and deployed"
           else
-            echo "📝 No changes to commit"
+            echo "⚠️ Safe commit failed, attempting emergency cleanup and retry..."
+            
+            # Emergency cleanup and retry once
+            node safe-git-operations.js cleanup
+            sleep 5
+            
+            if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
+              echo "✅ CV enhancement updates committed after cleanup"
+            else
+              echo "❌ Failed to commit after cleanup - manual intervention may be required"
+              exit 1
+            fi
           fi
 
       - name: 🎯 Enhancement Summary
@@ -895,7 +929,7 @@ jobs:
           echo ""
           echo "🚀 **Deliverables**"
           echo "  - ✅ GitHub activity analysis completed"
-          echo "  - ✅ AI content enhancement applied"
+          echo "  - ✅ Advanced AI Intelligence applied (multi-persona + market intelligence)"
           echo "  - ✅ Professional metrics calculated"
           echo "  - ✅ Dynamic CV website generated"
           echo "  - ✅ GitHub Pages deployment successful"
@@ -923,7 +957,7 @@ jobs:
           | Component | Status | Details |
           |-----------|--------|---------|
           | 📊 Activity Analysis | ✅ Complete | GitHub metrics collected and processed |
-          | 🤖 AI Enhancement | ✅ Complete | Claude AI content optimization applied |
+          | 🧠 AI Intelligence | ✅ Complete | Multi-persona analysis + market intelligence applied |
           | 📈 Metrics Calculation | ✅ Complete | Professional development scores updated |
           | 🎨 Website Generation | ✅ Complete | Responsive CV website built |
           | 🚀 Deployment | ✅ Complete | GitHub Pages updated |

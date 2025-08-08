@@ -17,8 +17,8 @@
  * @version 2.1.0
  */
 
-const { AdvancedXMLPromptConstructor } = require('./enhancer-modules/advanced-xml-prompt-constructor');
-const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
+import { AdvancedXMLPromptConstructor } from './enhancer-modules/advanced-xml-prompt-constructor.js';
+import { XMLFewShotIntegrator } from './enhancer-modules/xml-few-shot-integrator.js';
 
 /**
  * Test suite for XML prompt engineering integration

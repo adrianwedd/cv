@@ -789,7 +789,18 @@ class DeploymentVerifier {
  */
 async function main() {
     const args = process.argv.slice(2);
-    const siteUrl = args[0];
+    
+    // Parse command line arguments properly
+    let siteUrl = null;
+    let quickCheck = false;
+    
+    for (const arg of args) {
+        if (arg === '--quick-check') {
+            quickCheck = true;
+        } else if (arg.startsWith('https://') || arg.startsWith('http://')) {
+            siteUrl = arg;
+        }
+    }
     
     try {
         const verifier = new DeploymentVerifier();

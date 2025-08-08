@@ -237,7 +237,7 @@ describe('Core Web Vitals Performance', () => {
         window.scrollTo(0, document.body.scrollHeight / 2);
       });
       
-      await page.waitForTimeout(2000); // Wait for animations
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for animations
       
       const afterMetrics = await page.metrics();
       

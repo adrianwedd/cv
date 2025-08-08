@@ -78,23 +78,27 @@ class CVGenerator {
     }
 
     /**
-     * Generate complete CV website
+     * Generate complete CV website with performance optimization
      */
     async generate() {
         console.log('🎨 **CV WEBSITE GENERATOR INITIATED**');
         console.log(`📁 Output directory: ${CONFIG.OUTPUT_DIR}`);
+        console.log(`⚡ Performance Mode: ENABLED`);
         console.log('');
 
         try {
             // Prepare output directory
             await this.prepareOutputDirectory();
 
-            // Load all data sources
+            // Run data pipeline optimization first
+            await this.optimizeDataPipeline();
+
+            // Load all data sources (optimized versions when available)
             await this.loadDataSources();
 
             // Generate website components
-            await this.generateHTML();
-            await this.copyAssets();
+            await this.generateOptimizedHTML();
+            await this.copyOptimizedAssets();
             await this.copyNetworkingDashboard();
             await this.generatePDF();
             await this.generateATSCV();
@@ -102,19 +106,39 @@ class CVGenerator {
             await this.generateLaTeXCV(); // New call for LaTeX CV
             await this.generateSitemap();
             await this.generateRobotsTxt();
-            await this.generateManifest();
+            await this.generateOptimizedManifest();
 
             // Generate additional files for GitHub Pages
             await this.generateGitHubPagesFiles();
+
+            // Generate performance monitoring
+            await this.generatePerformanceAssets();
 
             const generationTime = ((Date.now() - this.generationStartTime) / 1000).toFixed(2);
             console.log(`✅ CV website generated in ${generationTime}s`);
             console.log(`🌐 Website ready at: ${CONFIG.OUTPUT_DIR}/`);
             console.log(`🚀 Deploy to: ${CONFIG.SITE_URL}`);
+            console.log(`⚡ Performance optimizations: ACTIVE`);
 
         } catch (genError) {
             console.error('❌ Website generation failed:', genError.message);
             throw genError;
+        }
+    }
+
+    /**
+     * Run data pipeline optimization
+     */
+    async optimizeDataPipeline() {
+        console.log('⚡ Running data pipeline optimization...');
+        
+        try {
+            const { DataPipelineOptimizer } = await import('./data-pipeline-optimizer.js');
+            const optimizer = new DataPipelineOptimizer();
+            await optimizer.optimize();
+            console.log('✅ Data pipeline optimization complete');
+        } catch (error) {
+            console.warn('⚠️ Data pipeline optimization failed, continuing with standard generation:', error.message);
         }
     }
 
@@ -128,8 +152,11 @@ class CVGenerator {
             // Remove existing directory
             await fs.rm(CONFIG.OUTPUT_DIR, { recursive: true, force: true });
             
-            // Create fresh directory
+            // Create fresh directory structure
             await fs.mkdir(CONFIG.OUTPUT_DIR, { recursive: true });
+            await fs.mkdir(path.join(CONFIG.OUTPUT_DIR, 'data'), { recursive: true });
+            await fs.mkdir(path.join(CONFIG.OUTPUT_DIR, 'data', 'optimized'), { recursive: true });
+            await fs.mkdir(path.join(CONFIG.OUTPUT_DIR, 'assets'), { recursive: true });
             
             console.log(`✅ Output directory prepared: ${CONFIG.OUTPUT_DIR}`);
         } catch (error) {
@@ -207,10 +234,13 @@ class CVGenerator {
             console.warn('⚠️ Missing or invalid projects array in CV data');
             this.cvData.projects = [];
         }
+
+        // Log validation results for debugging
+        console.log(`✅ CV Data validation: Personal info: ${!!this.cvData.personal_info}, Skills: ${this.cvData.skills.length}, Projects: ${this.cvData.projects.length}, Experience: ${(this.cvData.experience || []).length}`);
     }
 
     /**
-     * Validate activity data and sanitize metrics
+     * Validate activity data and sanitize metrics with comprehensive data integrity checks
      */
     validateActivityData() {
         // Ensure summary object exists
@@ -221,23 +251,37 @@ class CVGenerator {
 
         const summary = this.activityData.summary;
 
-        // Validate and sanitize commit count
-        if (typeof summary.total_commits !== 'number' || summary.total_commits < 0) {
-            console.warn(`⚠️ Invalid commit count: ${summary.total_commits}, setting to 0`);
-            summary.total_commits = 0;
+        // Normalize field names and validate commit data
+        const commitFields = ['total_commits', 'commit_count'];
+        let commitCount = 0;
+        for (const field of commitFields) {
+            if (typeof summary[field] === 'number' && summary[field] >= 0) {
+                commitCount = Math.max(commitCount, summary[field]);
+            }
         }
+        summary.total_commits = commitCount;
+        summary.commit_count = commitCount; // Ensure both fields exist
 
-        // Validate and sanitize lines contributed
-        if (typeof summary.net_lines_contributed !== 'number' || summary.net_lines_contributed < 0) {
-            console.warn(`⚠️ Invalid lines contributed: ${summary.net_lines_contributed}, setting to 0`);
-            summary.net_lines_contributed = 0;
+        // Normalize field names and validate lines contributed
+        const linesFields = ['net_lines_contributed', 'lines_contributed'];
+        let linesContributed = 0;
+        for (const field of linesFields) {
+            if (typeof summary[field] === 'number' && summary[field] >= 0) {
+                linesContributed = Math.max(linesContributed, summary[field]);
+            }
         }
+        summary.net_lines_contributed = linesContributed;
+        summary.lines_contributed = linesContributed; // Ensure both fields exist
 
         // Validate active days
-        if (typeof summary.active_days !== 'number' || summary.active_days < 0) {
-            console.warn(`⚠️ Invalid active days: ${summary.active_days}, setting to 0`);
-            summary.active_days = 0;
+        const activeDaysFields = ['active_days'];
+        let activeDays = 0;
+        for (const field of activeDaysFields) {
+            if (typeof summary[field] === 'number' && summary[field] >= 0) {
+                activeDays = Math.max(activeDays, summary[field]);
+            }
         }
+        summary.active_days = activeDays;
 
         // Ensure reasonable limits (data integrity check)
         const maxReasonableCommits = 1000; // 1000 commits in 30 days is extremely high but possible
@@ -246,12 +290,23 @@ class CVGenerator {
         if (summary.total_commits > maxReasonableCommits) {
             console.warn(`⚠️ Unrealistic commit count: ${summary.total_commits}, capping at ${maxReasonableCommits}`);
             summary.total_commits = maxReasonableCommits;
+            summary.commit_count = maxReasonableCommits;
         }
 
         if (summary.net_lines_contributed > maxReasonableLines) {
             console.warn(`⚠️ Unrealistic lines contributed: ${summary.net_lines_contributed}, capping at ${maxReasonableLines}`);
             summary.net_lines_contributed = maxReasonableLines;
+            summary.lines_contributed = maxReasonableLines;
         }
+
+        // Add missing fields with sensible defaults
+        if (!summary.tracking_status) summary.tracking_status = 'active';
+        if (!summary.repositories_active) summary.repositories_active = 0;
+        if (!summary.issues_opened) summary.issues_opened = 0;
+        if (!summary.prs_opened) summary.prs_opened = 0;
+        if (!summary.last_commit_date) summary.last_commit_date = new Date().toISOString();
+
+        console.log(`✅ Activity data validation: Commits: ${summary.total_commits}, Lines: ${summary.net_lines_contributed}, Active days: ${summary.active_days}, Repos: ${summary.repositories_active}`);
     }
 
     /**
@@ -300,7 +355,43 @@ class CVGenerator {
     }
 
     /**
-     * Generate HTML file with dynamic content
+     * Generate optimized HTML file with performance enhancements
+     */
+    async generateOptimizedHTML() {
+        console.log('🎨 Generating optimized HTML...');
+
+        try {
+            // Read template HTML
+            const templatePath = path.join(CONFIG.INPUT_DIR, CONFIG.TEMPLATE_FILE);
+            let htmlContent = await fs.readFile(templatePath, 'utf8');
+
+            // Process template with optimized data
+            htmlContent = await this.processOptimizedHTMLTemplate(htmlContent);
+
+            // Inject critical CSS inline
+            htmlContent = await this.injectCriticalCSS(htmlContent);
+
+            // Add performance monitoring
+            htmlContent = await this.injectPerformanceMonitoring(htmlContent);
+
+            // Optimize HTML structure
+            htmlContent = this.optimizeHTMLStructure(htmlContent);
+
+            // Write processed HTML
+            const outputPath = path.join(CONFIG.OUTPUT_DIR, 'index.html');
+            await fs.writeFile(outputPath, htmlContent, 'utf8');
+
+            console.log('✅ Optimized HTML generated successfully');
+
+        } catch (error) {
+            console.error('❌ Optimized HTML generation failed:', error.message);
+            // Fallback to standard generation
+            await this.generateHTML();
+        }
+    }
+
+    /**
+     * Generate HTML file with dynamic content (fallback method)
      */
     async generateHTML() {
         console.log('🎨 Generating HTML...');
@@ -443,7 +534,32 @@ class CVGenerator {
     }
 
     /**
-     * Copy assets to output directory
+     * Copy optimized assets to output directory
+     */
+    async copyOptimizedAssets() {
+        console.log('📦 Copying optimized assets...');
+
+        try {
+            const assetsOutputDir = path.join(CONFIG.OUTPUT_DIR, 'assets');
+            await fs.mkdir(assetsOutputDir, { recursive: true });
+
+            // Copy optimized assets if available, fallback to originals
+            await this.copyOptimizedAsset('styles.css', 'styles.min.css', assetsOutputDir);
+            await this.copyOptimizedAsset('script.js', 'script.min.js', assetsOutputDir);
+
+            // Copy optimized data structures
+            await this.copyOptimizedData();
+
+            console.log('✅ Optimized assets copied successfully');
+
+        } catch (error) {
+            console.error('❌ Optimized asset copying failed, falling back to standard assets:', error.message);
+            await this.copyAssets();
+        }
+    }
+
+    /**
+     * Copy assets to output directory (fallback method)
      */
     async copyAssets() {
         console.log('📦 Copying assets...');
@@ -1180,6 +1296,332 @@ ${personalInfo.email || ''} | ${personalInfo.linkedin || ''} | ${personalInfo.gi
         
         // Normalize whitespace
         return cleaned.trim().replace(/\n{3,}/g, '\n\n');
+    }
+
+    /**
+     * Process optimized HTML template with lazy loading support
+     */
+    async processOptimizedHTMLTemplate(htmlContent) {
+        // Register Handlebars helpers for optimized rendering
+        Handlebars.registerHelper('json', function(context) {
+            return JSON.stringify(context, null, 2);
+        });
+
+        Handlebars.registerHelper('lazyLoad', function(section) {
+            return `<div class="lazy-section" data-section="${section}" data-endpoint="data/optimized/chunks/${section}.json">
+                <div class="loading-placeholder">Loading ${section}...</div>
+            </div>`;
+        });
+
+        const template = Handlebars.compile(htmlContent);
+
+        // Load critical data only
+        const criticalData = await this.loadCriticalData();
+        
+        return template(criticalData);
+    }
+
+    /**
+     * Load critical data for initial page render
+     */
+    async loadCriticalData() {
+        try {
+            const criticalPath = path.join(CONFIG.DATA_DIR, 'optimized', 'chunks', 'critical.json');
+            const criticalContent = await fs.readFile(criticalPath, 'utf8');
+            return JSON.parse(criticalContent);
+        } catch (error) {
+            console.warn('⚠️ Critical data not found, using fallback');
+            return this.getFallbackCriticalData();
+        }
+    }
+
+    /**
+     * Get fallback critical data
+     */
+    getFallbackCriticalData() {
+        const personalInfo = this.cvData.personal_info || {};
+        return {
+            personalInfo: {
+                name: personalInfo.name || 'Adrian Wedd',
+                title: personalInfo.title || 'Systems Analyst & Technology Professional',
+                location: personalInfo.location || 'Tasmania, Australia',
+                email: personalInfo.email || 'adrian@adrianwedd.com'
+            },
+            professionalSummary: (this.cvData.professional_summary || '').substring(0, 300) + '...',
+            lastUpdated: new Date().toLocaleDateString(),
+            siteUrl: CONFIG.SITE_URL
+        };
+    }
+
+    /**
+     * Inject critical CSS inline for performance
+     */
+    async injectCriticalCSS(htmlContent) {
+        try {
+            const criticalCSSPath = path.join(CONFIG.DATA_DIR, 'optimized', 'assets', 'critical.css');
+            const criticalCSS = await fs.readFile(criticalCSSPath, 'utf8');
+            
+            const criticalStyle = `<style>${criticalCSS}</style>`;
+            return htmlContent.replace('</head>', `    ${criticalStyle}\n</head>`);
+        } catch (error) {
+            console.warn('⚠️ Critical CSS not found, skipping inline injection');
+            return htmlContent;
+        }
+    }
+
+    /**
+     * Inject performance monitoring scripts
+     */
+    async injectPerformanceMonitoring(htmlContent) {
+        const performanceScript = `
+        <script>
+            // Performance monitoring for Core Web Vitals
+            (function() {
+                const CONFIG = {
+                    TARGET_FCP: 1500, // 1.5s
+                    TARGET_LCP: 2500, // 2.5s
+                    TARGET_CLS: 0.1   // 0.1
+                };
+
+                const metrics = {};
+
+                // First Contentful Paint
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        if (entry.name === 'first-contentful-paint') {
+                            metrics.fcp = entry.startTime;
+                            const status = entry.startTime <= CONFIG.TARGET_FCP ? '✅' : '❌';
+                            console.log(\`\${status} FCP: \${entry.startTime.toFixed(2)}ms (target: \${CONFIG.TARGET_FCP}ms)\`);
+                        }
+                    }
+                }).observe({ entryTypes: ['paint'] });
+
+                // Largest Contentful Paint
+                new PerformanceObserver((entryList) => {
+                    const entries = entryList.getEntries();
+                    const lastEntry = entries[entries.length - 1];
+                    metrics.lcp = lastEntry.startTime;
+                    const status = lastEntry.startTime <= CONFIG.TARGET_LCP ? '✅' : '❌';
+                    console.log(\`\${status} LCP: \${lastEntry.startTime.toFixed(2)}ms (target: \${CONFIG.TARGET_LCP}ms)\`);
+                }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+                // Cumulative Layout Shift
+                new PerformanceObserver((entryList) => {
+                    for (const entry of entryList.getEntries()) {
+                        if (!entry.hadRecentInput) {
+                            metrics.cls = (metrics.cls || 0) + entry.value;
+                        }
+                    }
+                    if (metrics.cls !== undefined) {
+                        const status = metrics.cls <= CONFIG.TARGET_CLS ? '✅' : '❌';
+                        console.log(\`\${status} CLS: \${metrics.cls.toFixed(4)} (target: \${CONFIG.TARGET_CLS})\`);
+                    }
+                }).observe({ entryTypes: ['layout-shift'] });
+
+                // Report final metrics
+                window.addEventListener('load', () => {
+                    setTimeout(() => {
+                        console.log('📊 Final Performance Metrics:', metrics);
+                    }, 5000);
+                });
+            })();
+        </script>`;
+
+        return htmlContent.replace('</head>', `    ${performanceScript}\n</head>`);
+    }
+
+    /**
+     * Optimize HTML structure for performance
+     */
+    optimizeHTMLStructure(htmlContent) {
+        // Add preload hints for critical resources
+        const preloadHints = `
+        <link rel="preload" href="data/optimized/chunks/critical.json" as="fetch" crossorigin>
+        <link rel="preload" href="assets/styles.min.css" as="style">
+        <link rel="preconnect" href="https://api.github.com">`;
+
+        // Add resource hints before closing head
+        htmlContent = htmlContent.replace('</head>', `    ${preloadHints}\n</head>`);
+
+        // Add lazy loading attributes to images
+        htmlContent = htmlContent.replace(/<img([^>]*src="[^"]*"[^>]*)>/g, '<img$1 loading="lazy">');
+
+        return htmlContent;
+    }
+
+    /**
+     * Copy single optimized asset with fallback
+     */
+    async copyOptimizedAsset(originalName, optimizedName, outputDir) {
+        const optimizedPath = path.join(CONFIG.DATA_DIR, 'optimized', 'assets', optimizedName);
+        const originalPath = path.join(CONFIG.ASSETS_DIR, originalName);
+        const targetPath = path.join(outputDir, originalName);
+
+        try {
+            // Try optimized version first
+            await fs.access(optimizedPath);
+            await fs.copyFile(optimizedPath, targetPath);
+            console.log(`  ✅ ${optimizedName} → ${originalName}`);
+        } catch (error) {
+            // Fallback to original
+            try {
+                await fs.copyFile(originalPath, targetPath);
+                console.log(`  ⚠️ ${originalName} (fallback)`);
+            } catch (fallbackError) {
+                console.warn(`  ❌ Failed to copy ${originalName}:`, fallbackError.message);
+            }
+        }
+    }
+
+    /**
+     * Copy optimized data structures
+     */
+    async copyOptimizedData() {
+        const dataOutputDir = path.join(CONFIG.OUTPUT_DIR, 'data');
+        
+        try {
+            // Copy optimized data structure
+            const optimizedDir = path.join(CONFIG.DATA_DIR, 'optimized');
+            const targetOptimizedDir = path.join(dataOutputDir, 'optimized');
+            
+            // Check if optimized data exists
+            await fs.access(optimizedDir);
+            
+            // Copy entire optimized directory
+            await this.copyDirectoryRecursive(optimizedDir, targetOptimizedDir);
+            
+            console.log('  ✅ Optimized data structures copied');
+        } catch (error) {
+            console.warn('  ⚠️ Optimized data not found, copying original data');
+            
+            // Fallback to copying original data files
+            const dataFiles = ['base-cv.json', 'activity-summary.json', 'ai-enhancements.json'];
+            
+            for (const file of dataFiles) {
+                try {
+                    const sourcePath = path.join(CONFIG.DATA_DIR, file);
+                    const targetPath = path.join(dataOutputDir, file);
+                    await fs.copyFile(sourcePath, targetPath);
+                } catch (fileError) {
+                    console.warn(`    ⚠️ Could not copy ${file}:`, fileError.message);
+                }
+            }
+        }
+    }
+
+    /**
+     * Copy directory recursively
+     */
+    async copyDirectoryRecursive(source, target) {
+        await fs.mkdir(target, { recursive: true });
+        
+        const entries = await fs.readdir(source, { withFileTypes: true });
+        
+        for (const entry of entries) {
+            const sourcePath = path.join(source, entry.name);
+            const targetPath = path.join(target, entry.name);
+            
+            if (entry.isDirectory()) {
+                await this.copyDirectoryRecursive(sourcePath, targetPath);
+            } else {
+                await fs.copyFile(sourcePath, targetPath);
+            }
+        }
+    }
+
+    /**
+     * Generate optimized web manifest with performance hints
+     */
+    async generateOptimizedManifest() {
+        console.log('📱 Generating optimized web manifest...');
+
+        const personalInfo = this.cvData.personal_info || {};
+        
+        const manifest = {
+            name: `${personalInfo.name || 'Adrian Wedd'} - Professional CV`,
+            short_name: personalInfo.name || 'Adrian Wedd',
+            description: this.cvData.professional_summary || 'Systems Analyst & Technology Professional',
+            start_url: '/',
+            display: 'standalone',
+            background_color: '#0a0a0a',
+            theme_color: '#3b82f6',
+            orientation: 'portrait-primary',
+            categories: ['productivity', 'business'],
+            lang: 'en',
+            scope: '/',
+            icons: [
+                {
+                    src: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🤖</text></svg>',
+                    sizes: '192x192',
+                    type: 'image/svg+xml',
+                    purpose: 'any maskable'
+                }
+            ],
+            // Performance optimizations
+            prefer_related_applications: false,
+            shortcuts: [
+                {
+                    name: 'Experience',
+                    url: '/#experience',
+                    description: 'View professional experience'
+                },
+                {
+                    name: 'Projects',
+                    url: '/#projects',
+                    description: 'Explore technical projects'
+                }
+            ],
+            // Cache optimization hints
+            cache_urls: [
+                '/',
+                '/data/optimized/chunks/critical.json',
+                '/assets/styles.min.css'
+            ]
+        };
+
+        const manifestPath = path.join(CONFIG.OUTPUT_DIR, 'manifest.json');
+        await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
+
+        console.log('✅ Optimized web manifest generated');
+    }
+
+    /**
+     * Generate performance monitoring assets
+     */
+    async generatePerformanceAssets() {
+        console.log('📊 Generating performance assets...');
+        
+        try {
+            const perfMonitorPath = path.join(CONFIG.DATA_DIR, 'optimized', 'performance-monitor.js');
+            const targetPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'performance-monitor.js');
+            
+            await fs.access(perfMonitorPath);
+            await fs.copyFile(perfMonitorPath, targetPath);
+            
+            // Generate service worker if config exists
+            await this.generateServiceWorker();
+            
+            console.log('✅ Performance assets generated');
+        } catch (error) {
+            console.warn('⚠️ Performance assets not found, skipping');
+        }
+    }
+
+    /**
+     * Generate service worker for caching
+     */
+    async generateServiceWorker() {
+        try {
+            const swConfigPath = path.join(CONFIG.DATA_DIR, 'optimized', 'sw-config.js');
+            const swTargetPath = path.join(CONFIG.OUTPUT_DIR, 'sw.js');
+            
+            await fs.access(swConfigPath);
+            await fs.copyFile(swConfigPath, swTargetPath);
+            
+            console.log('  ✅ Service worker generated');
+        } catch (error) {
+            console.warn('  ⚠️ Service worker config not found');
+        }
     }
 }
 

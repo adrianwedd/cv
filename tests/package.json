@@ -37,10 +37,12 @@
     "prettier": "^3.3.0"
   },
   "jest": {
-    "testEnvironment": "node",
+    "preset": "jest-puppeteer",
+    "testEnvironment": "jest-environment-puppeteer",
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.js"
     ],
+    "transform": {},
     "testMatch": [
       "**/*.test.js"
     ],
@@ -66,7 +68,7 @@
         "statements": 75
       }
     },
-    "testTimeout": 60000,
+    "testTimeout": 30000,
     "maxWorkers": 1,
     "bail": 0,
     "verbose": true,

@@ -380,34 +380,59 @@ jobs:
       - name: 🔐 Authentication Setup
         id: auth
         run: |
-          echo "🔐 **CONFIGURING OAUTH-FIRST AUTHENTICATION**"
+          echo "🔐 **CONFIGURING BROWSER-FIRST AUTHENTICATION**"
           cd .github/scripts
           
-          # Test authentication status
-          node claude-auth-manager.js status || {
-            echo "⚠️ Authentication status check failed, using fallback"
-          }
-          
-          # Determine active auth method
-          if [ -n "${{ secrets.CLAUDE_OAUTH_TOKEN }}" ]; then
+          # Determine active auth method priority: Browser > OAuth > API Key
+          if [ -n "${{ secrets.CLAUDE_SESSION_KEY }}" ] && [ -n "${{ secrets.CLAUDE_ORG_ID }}" ]; then
+            AUTH_METHOD="browser_first"
+            AUTH_STRATEGY="browser_first"
+            echo "✅ Browser authentication configured - FREE Claude AI!"
+            echo "🍪 Session Key: Available"
+            echo "🏢 Organization ID: Available"
+            echo "👤 User ID: ${CLAUDE_USER_ID:+Available}"
+          elif [ -n "${{ secrets.CLAUDE_OAUTH_TOKEN }}" ]; then
             AUTH_METHOD="oauth_max"
+            AUTH_STRATEGY="oauth_first"
             echo "✅ Claude Max OAuth configured"
           elif [ -n "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
             AUTH_METHOD="api_key"
+            AUTH_STRATEGY="api_key_first"
             echo "✅ API key fallback configured"
           else
             AUTH_METHOD="none"
+            AUTH_STRATEGY="activity_only"
             echo "⚠️ No authentication available - using activity-only mode"
           fi
           
           echo "auth_method=$AUTH_METHOD" >> $GITHUB_OUTPUT
-          echo "::notice title=Authentication::Using $AUTH_METHOD method"
+          echo "auth_strategy=$AUTH_STRATEGY" >> $GITHUB_OUTPUT
+          echo "::notice title=Authentication::Using $AUTH_METHOD method with $AUTH_STRATEGY strategy"
+        env:
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
 
       - name: 🤖 AI Enhancement Execution
         id: enhancement
         run: |
           echo "🤖 **EXECUTING AI CONTENT ENHANCEMENT**"
           cd .github/scripts
+          
+          # Install Chrome for browser authentication if using browser_first
+          if [ "${{ steps.auth.outputs.auth_strategy }}" = "browser_first" ]; then
+            echo "🌐 Installing Chrome for browser authentication..."
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq wget gnupg
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq google-chrome-stable
+            
+            # Verify Chrome installation
+            google-chrome-stable --version
+            echo "✅ Chrome installed and ready for browser authentication"
+          fi
           
           # Execute enhancement with timeout and error handling
           START_TIME=$(date +%s)
@@ -451,11 +476,22 @@ jobs:
           echo "duration=$DURATION" >> $GITHUB_OUTPUT
           echo "::notice title=AI Enhancement::$STATUS - $TOKENS tokens, \$$(printf "%.4f" $ACTUAL_COST), ${DURATION}s"
         env:
-          # OAuth-first authentication
+          # Browser-first authentication (FREE Claude AI)
+          CLAUDE_SESSION_KEY: ${{ secrets.CLAUDE_SESSION_KEY }}
+          CLAUDE_ORG_ID: ${{ secrets.CLAUDE_ORG_ID }}
+          CLAUDE_USER_ID: ${{ secrets.CLAUDE_USER_ID }}
+          AUTH_STRATEGY: ${{ steps.auth.outputs.auth_strategy }}
+          
+          # Fallback authentication methods
           CLAUDE_OAUTH_TOKEN: ${{ secrets.CLAUDE_OAUTH_TOKEN }}
           CLAUDE_SUBSCRIPTION_TIER: ${{ secrets.CLAUDE_SUBSCRIPTION_TIER || 'max_5x' }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          AUTH_STRATEGY: oauth_first
+          
+          # CI environment configuration for headless browser
+          CI: true
+          DISPLAY: :99
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome-stable
           
           # Enhancement configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

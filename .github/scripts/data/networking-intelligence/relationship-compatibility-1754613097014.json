@@ -1,0 +1,62 @@
+{
+  "session_id": "advanced-networking-1754613052004",
+  "timestamp": "2025-08-08T00:30:52.004Z",
+  "profiles_analyzed": 1,
+  "compatibility_matrix": [
+    {
+      "profile_id": "test-profile-1",
+      "profile_name": "Jane Smith",
+      "analysis_timestamp": "2025-08-08T00:30:52.004Z",
+      "overall_score": 85,
+      "dimension_scores": {
+        "industry_alignment": 90,
+        "career_stage_compatibility": 80,
+        "skill_complementarity": 85,
+        "geographic_proximity": 70,
+        "mutual_value_potential": 88,
+        "network_expansion_value": 82
+      },
+      "success_probability": 75,
+      "recommended_approach": "Direct professional outreach with focus on technical collaboration"
+    }
+  ],
+  "strategic_recommendations": [
+    {
+      "profile_id": "test-profile-1",
+      "compatibility_score": 85,
+      "strategy_timestamp": "2025-08-08T00:30:52.004Z",
+      "overall_score": 85,
+      "dimension_scores": {
+        "industry_alignment": 90,
+        "career_stage_compatibility": 80,
+        "skill_complementarity": 85,
+        "geographic_proximity": 70,
+        "mutual_value_potential": 88,
+        "network_expansion_value": 82
+      },
+      "success_probability": 75,
+      "recommended_approach": "Direct professional outreach with focus on technical collaboration"
+    }
+  ],
+  "networking_insights": [
+    {
+      "type": "overall_effectiveness",
+      "metric": 85,
+      "description": "Average networking compatibility score: 85%",
+      "recommendation": "Strong networking potential - pursue active engagement"
+    },
+    {
+      "type": "high_potential_connections",
+      "count": 1,
+      "profiles": [
+        "Jane Smith"
+      ],
+      "recommendation": "Priority networking: 1 high-compatibility connections identified"
+    },
+    {
+      "type": "skill_synergy",
+      "count": 1,
+      "recommendation": "Strong skill complementarity detected - ideal for knowledge exchange"
+    }
+  ]
+}

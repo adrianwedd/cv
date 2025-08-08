@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-08-02T16:29:09.289Z",
+  "environment": "local",
+  "cookies": {
+    "sessionKey": {
+      "name": "sessionKey",
+      "envName": "CLAUDE_SESSION_KEY",
+      "present": false,
+      "length": 0,
+      "format": "unknown",
+      "estimated_expiry": null,
+      "health": "missing"
+    },
+    "lastActiveOrg": {
+      "name": "lastActiveOrg",
+      "envName": "CLAUDE_ORG_ID",
+      "present": false,
+      "length": 0,
+      "format": "unknown",
+      "estimated_expiry": null,
+      "health": "missing"
+    },
+    "ajs_user_id": {
+      "name": "ajs_user_id",
+      "envName": "CLAUDE_USER_ID",
+      "present": false,
+      "length": 0,
+      "format": "unknown",
+      "estimated_expiry": null,
+      "health": "missing"
+    }
+  },
+  "health": {
+    "overall": "critical",
+    "validationScore": 0,
+    "issues": [
+      "Missing sessionKey",
+      "Missing lastActiveOrg",
+      "Missing ajs_user_id"
+    ],
+    "expires": null,
+    "daysUntilExpiration": null,
+    "expirationStatus": "unknown",
+    "renewalUrgency": "none"
+  },
+  "secrets": {
+    "githubConfigured": false,
+    "allSecretsPresent": false,
+    "secretsStatus": {
+      "CLAUDE_SESSION_KEY": {
+        "present": false,
+        "length": 0
+      },
+      "CLAUDE_ORG_ID": {
+        "present": false,
+        "length": 0
+      },
+      "CLAUDE_USER_ID": {
+        "present": false,
+        "length": 0
+      }
+    },
+    "missingSecrets": [
+      "CLAUDE_SESSION_KEY",
+      "CLAUDE_ORG_ID",
+      "CLAUDE_USER_ID"
+    ],
+    "configurationGuide": [
+      "To configure GitHub secrets for browser authentication:",
+      "1. Go to your repository Settings > Secrets and variables > Actions",
+      "2. Add the following repository secrets:",
+      "   - CLAUDE_SESSION_KEY: Your Claude.ai session key (sk-ant-sid01-...)",
+      "   - CLAUDE_ORG_ID: Your Claude.ai organization ID (UUID format)",
+      "   - CLAUDE_USER_ID: Your Claude.ai user ID (UUID format)",
+      "3. Extract these values from your browser cookies while logged into Claude.ai"
+    ]
+  },
+  "recommendations": [
+    "Extract fresh cookies from an active Claude.ai browser session",
+    "Configure missing GitHub secrets for CI/CD browser authentication",
+    "To configure GitHub secrets for browser authentication:",
+    "1. Go to your repository Settings > Secrets and variables > Actions",
+    "2. Add the following repository secrets:",
+    "   - CLAUDE_SESSION_KEY: Your Claude.ai session key (sk-ant-sid01-...)",
+    "   - CLAUDE_ORG_ID: Your Claude.ai organization ID (UUID format)",
+    "   - CLAUDE_USER_ID: Your Claude.ai user ID (UUID format)",
+    "3. Extract these values from your browser cookies while logged into Claude.ai",
+    "Set up automated cookie health monitoring for proactive management"
+  ],
+  "alerts": [
+    {
+      "severity": "critical",
+      "message": "Multiple cookies missing or invalid - browser authentication will fail",
+      "action": "Update all Claude.ai session cookies immediately"
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "config": {
+    "configFile": "/Users/adrian/repos/cv/tests/playwright.config.js",
+    "rootDir": "/Users/adrian/repos/cv/tests/cross-browser",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "test-results/results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/adrian/repos/cv/tests/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/adrian/repos/cv/tests/cross-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/adrian/repos/cv/tests/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/Users/adrian/repos/cv/tests/cross-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/adrian/repos/cv/tests/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/adrian/repos/cv/tests/cross-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/adrian/repos/cv/tests/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-chrome",
+        "name": "mobile-chrome",
+        "testDir": "/Users/adrian/repos/cv/tests/cross-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/adrian/repos/cv/tests/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "mobile-safari",
+        "name": "mobile-safari",
+        "testDir": "/Users/adrian/repos/cv/tests/cross-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/Users/adrian/repos/cv/tests/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "tablet",
+        "name": "tablet",
+        "testDir": "/Users/adrian/repos/cv/tests/cross-browser",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 4,
+    "webServer": {
+      "command": "cd .. && python3 -m http.server 8000",
+      "port": 8000,
+      "timeout": 20000,
+      "reuseExistingServer": true,
+      "stdout": "pipe",
+      "stderr": "pipe",
+      "env": {
+        "NVM_INC": "/Users/adrian/.nvm/versions/node/v22.17.1/include/node",
+        "CLAUDE_CODE_ENTRYPOINT": "cli",
+        "TERM_PROGRAM": "tmux",
+        "NODE": "/Users/adrian/.nvm/versions/node/v22.17.1/bin/node",
+        "INIT_CWD": "/Users/adrian/repos/cv/tests",
+        "NVM_CD_FLAGS": "-q",
+        "PYENV_ROOT": "/Users/adrian/.pyenv",
+        "TERM": "screen-256color",
+        "SHELL": "/bin/zsh",
+        "HOMEBREW_REPOSITORY": "/opt/homebrew",
+        "TMPDIR": "/var/folders/2k/m8d0b0r51yl54459b47bvp4c0000gp/T/",
+        "npm_config_global_prefix": "/Users/adrian/.nvm/versions/node/v22.17.1",
+        "TERM_PROGRAM_VERSION": "3.5a",
+        "COLOR": "0",
+        "TERM_SESSION_ID": "w0t0p0:4364896C-A005-4D15-B76D-82D5D5C33EC6",
+        "npm_config_noproxy": "",
+        "npm_config_local_prefix": "/Users/adrian/repos/cv/tests",
+        "ZSH": "/Users/adrian/.oh-my-zsh",
+        "GIT_EDITOR": "true",
+        "NVM_DIR": "/Users/adrian/.nvm",
+        "USER": "adrian",
+        "LS_COLORS": "di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43",
+        "COMMAND_MODE": "unix2003",
+        "npm_config_globalconfig": "/Users/adrian/.nvm/versions/node/v22.17.1/etc/npmrc",
+        "SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.8L7ohQioFX/Listeners",
+        "__CF_USER_TEXT_ENCODING": "0x1F6:0:15",
+        "npm_execpath": "/Users/adrian/.nvm/versions/node/v22.17.1/lib/node_modules/npm/bin/npm-cli.js",
+        "TERM_FEATURES": "T3CwLrMSc7UUw9Ts3BFGsSyHNoSxF",
+        "FZF_DEFAULT_OPTS": "--height 40% --layout=reverse --border",
+        "PAGER": "less",
+        "TMUX": "/private/tmp/tmux-502/default,8993,7",
+        "LSCOLORS": "Gxfxcxdxbxegedabagacad",
+        "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+        "PATH": "/Users/adrian/repos/cv/tests/node_modules/.bin:/Users/adrian/repos/cv/tests/node_modules/.bin:/Users/adrian/repos/cv/node_modules/.bin:/Users/adrian/repos/node_modules/.bin:/Users/adrian/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/Users/adrian/.nvm/versions/node/v22.17.1/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/Users/adrian/.codeium/windsurf/bin:/Users/adrian/.nvm/versions/node/v22.17.1/bin:/Users/adrian/.pyenv/shims:/Users/adrian/godmode/exos/bin:/opt/homebrew/bin:/Users/adrian/godmode/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin:/Users/adrian/godmode/exos/bin:/Applications/iTerm.app/Contents/Resources/utilities",
+        "TERMINFO_DIRS": "/Applications/iTerm.app/Contents/Resources/terminfo:/usr/share/terminfo",
+        "npm_package_json": "/Users/adrian/repos/cv/tests/package.json",
+        "_": "/Users/adrian/repos/cv/tests/node_modules/.bin/playwright",
+        "LaunchInstanceID": "3A2D2835-3690-4FB2-8E55-3AFA9C5289C7",
+        "npm_config_userconfig": "/Users/adrian/.npmrc",
+        "npm_config_init_module": "/Users/adrian/.npm-init.js",
+        "__CFBundleIdentifier": "com.googlecode.iterm2",
+        "npm_command": "exec",
+        "PWD": "/Users/adrian/repos/cv/tests",
+        "npm_lifecycle_event": "npx",
+        "EDITOR": "vi",
+        "OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE": "delta",
+        "npm_package_name": "cv-system-tests",
+        "LANG": "en_AU.UTF-8",
+        "ITERM_PROFILE": "Default",
+        "npm_config_npm_version": "10.9.2",
+        "TMUX_PANE": "%9",
+        "XPC_FLAGS": "0x0",
+        "npm_config_node_gyp": "/Users/adrian/.nvm/versions/node/v22.17.1/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js",
+        "npm_package_version": "1.0.0",
+        "XPC_SERVICE_NAME": "0",
+        "PYENV_SHELL": "zsh",
+        "SHLVL": "7",
+        "HOME": "/Users/adrian",
+        "COLORFGBG": "15;0",
+        "LC_TERMINAL_VERSION": "3.5.14",
+        "HOMEBREW_PREFIX": "/opt/homebrew",
+        "ITERM_SESSION_ID": "w0t0p0:4364896C-A005-4D15-B76D-82D5D5C33EC6",
+        "npm_config_cache": "/Users/adrian/.npm",
+        "LOGNAME": "adrian",
+        "LESS": "-R",
+        "npm_lifecycle_script": "playwright",
+        "COREPACK_ENABLE_AUTO_PIN": "0",
+        "FZF_DEFAULT_COMMAND": "rg --files --hidden --follow --glob \"!.git/*\"",
+        "NVM_BIN": "/Users/adrian/.nvm/versions/node/v22.17.1/bin",
+        "npm_config_user_agent": "npm/10.9.2 node/v22.17.1 darwin arm64 workspaces/false",
+        "INFOPATH": "/opt/homebrew/share/info:",
+        "HOMEBREW_CELLAR": "/opt/homebrew/Cellar",
+        "LC_TERMINAL": "iTerm2",
+        "CLAUDECODE": "1",
+        "SECURITYSESSIONID": "186a3",
+        "npm_node_execpath": "/Users/adrian/.nvm/versions/node/v22.17.1/bin/node",
+        "npm_config_prefix": "/Users/adrian/.nvm/versions/node/v22.17.1",
+        "COLORTERM": "truecolor"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "browser-compatibility.spec.js",
+      "file": "browser-compatibility.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Cross-Browser Compatibility",
+          "file": "browser-compatibility.spec.js",
+          "line": 8,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Core Functionality",
+              "file": "browser-compatibility.spec.js",
+              "line": 10,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "should load main CV page across all browsers",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 30000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 1467,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-06T11:09:31.929Z",
+                          "annotations": [],
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "6b678d98a71d40d7c30a-a082076d6e7d81ef1711",
+                  "file": "browser-compatibility.spec.js",
+                  "line": 11,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-06T11:09:31.210Z",
+    "duration": 5108.759,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

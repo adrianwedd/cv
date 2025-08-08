@@ -10,14 +10,14 @@
  * @version 1.0.0
  */
 
-const { EnhancementOrchestrator } = require('./enhancer-modules/enhancement-orchestrator');
-const { ClaudeMaxOAuthClient } = require('./claude-oauth-client');
-const { UsageMonitor } = require('./usage-monitor');
-const { 
+import { EnhancementOrchestrator } from './enhancer-modules/enhancement-orchestrator.js';
+import { ClaudeMaxOAuthClient } from './claude-oauth-client.js';
+import { UsageMonitor } from './usage-monitor.js';
+import { 
     QuotaExhaustedError, 
     RateLimitExceededError, 
     AuthenticationError 
-} = require('./enhancer-modules/claude-api-client');
+} from './enhancer-modules/claude-api-client.js';
 
 /**
  * Integration Test Suite
@@ -394,8 +394,8 @@ async function main() {
     }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
 
-module.exports = { CompleteIntegrationTest };
+export { CompleteIntegrationTest };

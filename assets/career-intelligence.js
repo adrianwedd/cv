@@ -16,10 +16,10 @@
 // Configuration
 const CONFIG = {
     DATA_ENDPOINTS: {
-        METRICS: 'data/metrics/',
-        TRENDS: 'data/trends/',
-        ACTIVITY: 'data/activity/',
-        INTELLIGENCE: 'data/intelligence/',
+        METRICS: 'data/metrics/professional-development-20250806-1007.json',
+        TRENDS: 'data/trends/activity-trends-20250806-1007.json', 
+        ACTIVITY: 'data/activity/github-activity-20250806-1007.json',
+        INTELLIGENCE: 'data/intelligence/intelligence-summary.json',
         BASE_CV: 'data/base-cv.json'
     },
     CHART_COLORS: {

@@ -52,8 +52,8 @@ describe('Advanced AI Features Integration Tests', () => {
                 }
             ];
             
-            // Mock the Gemini client response
-            intelligence.geminiClient.generateResponse = async () => {
+            // Mock the Claude client response
+            intelligence.claudeClient.sendMessage = async () => {
                 return JSON.stringify({
                     overall_score: 85,
                     dimension_scores: {
@@ -98,8 +98,8 @@ describe('Advanced AI Features Integration Tests', () => {
                 ]
             };
             
-            // Mock the Gemini client responses
-            intelligence.geminiClient.generateResponse = async (prompt) => {
+            // Mock the Claude client responses
+            intelligence.claudeClient.sendMessage = async (prompt) => {
                 if (prompt.includes('market positioning')) {
                     return JSON.stringify({
                         current_position: {
@@ -192,7 +192,7 @@ describe('Advanced AI Features Integration Tests', () => {
             });
             
             // Mock API failure
-            intelligence.geminiClient.generateResponse = async () => {
+            intelligence.claudeClient.sendMessage = async () => {
                 throw new Error('API rate limit exceeded');
             };
             
@@ -369,7 +369,7 @@ describe('Advanced AI Features Integration Tests', () => {
             });
             
             // Mock successful intelligence analysis
-            intelligence.geminiClient.generateResponse = async () => {
+            intelligence.claudeClient.sendMessage = async () => {
                 return JSON.stringify({
                     overall_score: 80,
                     success_probability: 70,
@@ -443,7 +443,7 @@ describe('Advanced AI Features Integration Tests', () => {
             });
             
             let apiCalls = 0;
-            intelligence.geminiClient.generateResponse = async () => {
+            intelligence.claudeClient.sendMessage = async () => {
                 apiCalls++;
                 if (apiCalls > 2) {
                     throw new Error('Rate limit exceeded');
