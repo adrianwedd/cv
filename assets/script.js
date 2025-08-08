@@ -1753,9 +1753,10 @@ if (typeof module !== 'undefined' && module.exports) {
 }
 
 /**
- * Accessibility Controls Manager
- * Provides neurotype-aware design controls and theme management
+ * Accessibility Controls Manager - REMOVED PER USER REQUEST
+ * Commenting out entire class
  */
+/* REMOVED - Accessibility Controls
 class AccessibilityControls {
     constructor() {
         this.isVisible = false;
@@ -2089,6 +2090,7 @@ class AccessibilityControls {
         return this.preferences.reducedMotion;
     }
 }
+END OF REMOVED AccessibilityControls */
 
 /**
  * Advanced Animation System - Premium Micro-Interactions
@@ -2563,11 +2565,11 @@ class AnimatedSkillBars {
 
 // Initialize animation systems when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize accessibility controls first
-    setTimeout(() => {
-        new AccessibilityControls();
-        console.log('♿ Accessibility controls initialized');
-    }, 1000);
+    // Accessibility controls removed per user request
+    // setTimeout(() => {
+    //     new AccessibilityControls();
+    //     console.log('♿ Accessibility controls initialized');
+    // }, 1000);
 
     // Initialize advanced animations after accessibility is set up
     setTimeout(() => {
