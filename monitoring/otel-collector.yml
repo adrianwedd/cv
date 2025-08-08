@@ -1,0 +1,111 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Health check receiver
+  prometheus/internal:
+    config:
+      scrape_configs:
+        - job_name: 'otel-collector'
+          scrape_interval: 10s
+          static_configs:
+            - targets: ['0.0.0.0:8888']
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+
+  # Add custom attributes
+  attributes:
+    actions:
+      - key: service.instance.id
+        action: insert
+        value: "claude-code-collector-1"
+      - key: deployment.environment
+        action: insert
+        value: "production"
+
+  # Filter sensitive data
+  filter/logs:
+    logs:
+      log_record:
+        - 'attributes["prompt"] == nil'
+
+  # Resource detection
+  resourcedetection:
+    detectors: [env, system, docker]
+    timeout: 5s
+
+exporters:
+  # Prometheus metrics export
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: claude_code
+    const_labels:
+      deployment: production
+
+  # Loki logs export
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    labels:
+      resource:
+        service.name: "service_name"
+        service.instance.id: "service_instance_id"
+      attributes:
+        session.id: "session_id"
+        user.account_uuid: "user_id"
+
+  # LangSmith integration
+  otlphttp/langsmith:
+    endpoint: http://langsmith-proxy:8080/v1/traces
+    headers:
+      x-api-key: ${LANGSMITH_API_KEY}
+
+  # Console output for debugging
+  logging:
+    loglevel: debug
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+  # File export for backup
+  file/metrics:
+    path: /var/log/otel/metrics.json
+  
+  file/logs:
+    path: /var/log/otel/logs.json
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    # Metrics pipeline
+    metrics:
+      receivers: [otlp, prometheus/internal]
+      processors: [resourcedetection, attributes, batch]
+      exporters: [prometheus, file/metrics, logging]
+
+    # Logs pipeline  
+    logs:
+      receivers: [otlp]
+      processors: [resourcedetection, attributes, filter/logs, batch]
+      exporters: [loki, file/logs, logging]
+
+    # Traces pipeline (for LangSmith)
+    traces:
+      receivers: [otlp]
+      processors: [resourcedetection, attributes, batch]
+      exporters: [otlphttp/langsmith, logging]
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  
+  pprof:
+    endpoint: 0.0.0.0:1888
+  
+  zpages:
+    endpoint: 0.0.0.0:55679
