@@ -611,12 +611,19 @@ body {
 
 .section {
   margin-bottom: 4rem;
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: translateY(0);
   transition: all 600ms ease;
 }
 
-.section.visible {
+/* Sections are visible by default, animations enhance them */
+.section.scroll-animate {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.section.scroll-animate.visible,
+.section.scroll-animate.in-view {
   opacity: 1;
   transform: translateY(0);
 }
