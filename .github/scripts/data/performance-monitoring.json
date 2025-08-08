@@ -1,0 +1,170 @@
+{
+  "timestamp": "2025-08-08T04:16:13.100Z",
+  "monitoring_session_id": "perf-1754626573101-wnvxq1cmz",
+  "target_url": "https://adrianwedd.github.io/cv",
+  "metrics": {
+    "production": {
+      "url": "https://adrianwedd.github.io/cv",
+      "status_code": 200,
+      "response_time": 727,
+      "headers_size": 650,
+      "accessible": true,
+      "redirect_count": 1
+    },
+    "local": {
+      "url": "http://localhost:8000",
+      "status_code": 200,
+      "response_time": 7,
+      "headers_size": 170,
+      "accessible": true,
+      "redirect_count": 0
+    },
+    "measurement_time": 735
+  },
+  "core_web_vitals": {
+    "ttfb": {
+      "value": 727,
+      "rating": "needs-improvement"
+    },
+    "fcp": {
+      "value": 1818,
+      "rating": "needs-improvement"
+    },
+    "lcp": {
+      "value": 2908,
+      "rating": "needs-improvement"
+    },
+    "cls": {
+      "value": 0.05,
+      "rating": "good"
+    },
+    "fid": {
+      "value": 218,
+      "rating": "needs-improvement"
+    },
+    "speed_index": {
+      "value": 4362,
+      "rating": "needs-improvement"
+    },
+    "total_blocking_time": {
+      "value": 364,
+      "rating": "needs-improvement"
+    }
+  },
+  "performance_budget": {
+    "status": "over_budget",
+    "metrics_within_budget": 1,
+    "total_metrics": 7,
+    "budget_compliance": 14,
+    "violations": [
+      {
+        "metric": "ttfb",
+        "current_value": 727,
+        "budget_good": 600,
+        "budget_limit": 1500,
+        "rating": "needs-improvement",
+        "severity": "medium"
+      },
+      {
+        "metric": "fcp",
+        "current_value": 1818,
+        "budget_good": 1800,
+        "budget_limit": 3000,
+        "rating": "needs-improvement",
+        "severity": "medium"
+      },
+      {
+        "metric": "lcp",
+        "current_value": 2908,
+        "budget_good": 2500,
+        "budget_limit": 4000,
+        "rating": "needs-improvement",
+        "severity": "medium"
+      },
+      {
+        "metric": "fid",
+        "current_value": 218,
+        "budget_good": 100,
+        "budget_limit": 300,
+        "rating": "needs-improvement",
+        "severity": "medium"
+      },
+      {
+        "metric": "speed_index",
+        "current_value": 4362,
+        "budget_good": 3400,
+        "budget_limit": 5800,
+        "rating": "needs-improvement",
+        "severity": "medium"
+      },
+      {
+        "metric": "total_blocking_time",
+        "current_value": 364,
+        "budget_good": 200,
+        "budget_limit": 600,
+        "rating": "needs-improvement",
+        "severity": "medium"
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "severity": "info",
+      "type": "performance_budget",
+      "message": "TTFB exceeds performance budget",
+      "details": "Current: 727, Budget: 600"
+    },
+    {
+      "severity": "info",
+      "type": "performance_budget",
+      "message": "FCP exceeds performance budget",
+      "details": "Current: 1818, Budget: 1800"
+    },
+    {
+      "severity": "info",
+      "type": "performance_budget",
+      "message": "LCP exceeds performance budget",
+      "details": "Current: 2908, Budget: 2500"
+    },
+    {
+      "severity": "info",
+      "type": "performance_budget",
+      "message": "FID exceeds performance budget",
+      "details": "Current: 218, Budget: 100"
+    },
+    {
+      "severity": "info",
+      "type": "performance_budget",
+      "message": "SPEED_INDEX exceeds performance budget",
+      "details": "Current: 4362, Budget: 3400"
+    },
+    {
+      "severity": "info",
+      "type": "performance_budget",
+      "message": "TOTAL_BLOCKING_TIME exceeds performance budget",
+      "details": "Current: 364, Budget: 200"
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "lcp",
+      "action": "Optimize Largest Contentful Paint",
+      "details": [
+        "Optimize images",
+        "Reduce server response time",
+        "Minimize render-blocking resources"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "fcp",
+      "action": "Improve First Contentful Paint",
+      "details": [
+        "Minimize critical resource size",
+        "Remove unused code",
+        "Enable text compression"
+      ]
+    }
+  ]
+}
