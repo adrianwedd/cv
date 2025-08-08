@@ -1,0 +1,116 @@
+{
+  "incident_details": {
+    "id": "INC-1754626651382-f7s7o8",
+    "timestamp": "2025-08-08T04:17:31.382Z",
+    "status": "partially_resolved",
+    "severity": "medium",
+    "resolution_time": "2025-08-08T04:17:31.388Z"
+  },
+  "affected_systems": [
+    {
+      "name": "content_guardian",
+      "health_score": 30,
+      "issues": [
+        "Content Guardian missing",
+        "Protected content registry missing"
+      ]
+    },
+    {
+      "name": "cv_generator",
+      "health_score": 0,
+      "issues": [
+        "CV Generator missing",
+        "Base CV data missing",
+        "Generated website missing"
+      ]
+    },
+    {
+      "name": "analytics",
+      "health_score": 0,
+      "issues": [
+        "Activity Analyzer missing",
+        "Usage Monitor missing",
+        "Activity summary missing",
+        "Usage tracking missing"
+      ]
+    },
+    {
+      "name": "historical_verification",
+      "health_score": 0,
+      "issues": [
+        "Historical verifier missing",
+        "Claim verifier missing",
+        "Verification data directory missing"
+      ]
+    },
+    {
+      "name": "elite_agents",
+      "health_score": 0,
+      "issues": [
+        "Elite agents directory missing",
+        "AI Intelligence Orchestrator missing",
+        "Intelligence data directory missing"
+      ]
+    }
+  ],
+  "recovery_actions": [
+    {
+      "name": "Clear CDN cache",
+      "status": "completed",
+      "timestamp": "2025-08-08T04:17:31.386Z"
+    },
+    {
+      "name": "Optimize critical assets",
+      "status": "completed",
+      "timestamp": "2025-08-08T04:17:31.386Z"
+    },
+    {
+      "name": "Enable performance monitoring",
+      "status": "completed",
+      "timestamp": "2025-08-08T04:17:31.386Z"
+    },
+    {
+      "name": "Scale resources if needed",
+      "status": "completed",
+      "timestamp": "2025-08-08T04:17:31.386Z"
+    }
+  ],
+  "timeline": [
+    {
+      "timestamp": "2025-08-08T04:17:31.383Z",
+      "message": "Incident response initiated",
+      "type": "system"
+    },
+    {
+      "timestamp": "2025-08-08T04:17:31.383Z",
+      "message": "Starting incident assessment",
+      "type": "investigation"
+    },
+    {
+      "timestamp": "2025-08-08T04:17:31.386Z",
+      "message": "Incident severity assessed: medium",
+      "type": "assessment"
+    },
+    {
+      "timestamp": "2025-08-08T04:17:31.386Z",
+      "message": "Starting performance_degraded recovery procedure",
+      "type": "recovery"
+    },
+    {
+      "timestamp": "2025-08-08T04:17:31.386Z",
+      "message": "Starting recovery verification",
+      "type": "verification"
+    },
+    {
+      "timestamp": "2025-08-08T04:17:31.387Z",
+      "message": "Recovery verification completed: partially_resolved",
+      "type": "verification"
+    }
+  ],
+  "summary": {
+    "total_recovery_actions": 4,
+    "successful_actions": 4,
+    "failed_actions": 0,
+    "final_status": "partially_resolved"
+  }
+}

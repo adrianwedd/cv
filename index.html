@@ -56,15 +56,15 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="dns-prefetch" href="https://api.github.com">
     <link rel="dns-prefetch" href="https://github.com">
-    <link rel="modulepreload" href="assets/script.js">
+    <link rel="modulepreload" href="assets/script.min.js">
     
     <!-- Fonts with optimized loading and performance -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" crossorigin="anonymous" media="print" id="font-loader">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="assets/styles.css" as="style">
-    <link rel="preload" href="assets/script.js" as="script">
+    <link rel="preload" href="assets/styles.min.css" as="style">
+    <link rel="preload" href="assets/script.min.js" as="script">
     
     <!-- Icons and PWA Manifest -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
@@ -74,8 +74,8 @@
     <!-- Critical CSS (Inlined for Performance) -->
     <style>:root{--color-primary:#2563eb;--color-background:#fff;--color-text-primary:#0f172a;--color-text-secondary:#475569;--font-family-primary:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--font-size-base:1rem;--font-weight-normal:400;--space-4:1rem;--space-6:1.5rem;--transition-normal:200ms ease}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font-family-primary);font-size:var(--font-size-base);color:var(--color-text-primary);background:var(--color-background);line-height:1.5}.loading-screen{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,var(--color-primary) 0%,#10b981 100%);display:flex;align-items:center;justify-content:center;z-index:1040}.container{max-width:1280px;margin:0 auto;padding:0 var(--space-6)}.header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2e8f0}</style>
     <!-- Full Styles (Async Load) -->
-    <link rel="preload" href="assets/styles.css" as="style">
-    <noscript><link rel="stylesheet" href="assets/styles.css"></noscript>
+    <link rel="preload" href="assets/styles.min.css" as="style">
+    <noscript><link rel="stylesheet" href="assets/styles.min.css"></noscript>
     
     <!-- PWA Mobile Styles -->
     <link rel="preload" href="assets/pwa-mobile.css" as="style">
@@ -761,7 +761,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
     <script src="assets/performance-monitor.min.js" defer></script>
     <script src="assets/pwa-enhancements.js" defer></script>
-    <script src="assets/script.js" defer></script>
+    <script src="assets/script.min.js" defer></script>
     
     <!-- Performance & Analytics -->
     <script>
