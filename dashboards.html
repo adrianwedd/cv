@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboards Hub - Adrian Wedd</title>
+    <link rel="stylesheet" href="assets/styles.min.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .dashboard-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-card);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-elevated);
+            border-color: var(--color-primary-light);
+        }
+        
+        .dashboard-card:hover:before {
+            opacity: 1;
+        }
+        
+        .dashboard-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .dashboard-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .dashboard-description {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 1.5rem;
+        }
+        
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--color-primary);
+            color: var(--color-text-primary);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--font-size-sm);
+            transition: all var(--transition-normal);
+        }
+        
+        .dashboard-link:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        <div class="profile-placeholder">AW</div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="name">Adrian Wedd</h1>
+                        <h2 class="title">Dashboards Hub</h2>
+                        <p class="tagline">Professional Analytics & Monitoring Platform</p>
+                    </div>
+                </div>
+                
+                <div class="contact-links">
+                    <a href="index.html" class="contact-link">
+                        <span class="link-icon">← Back to CV</span>
+                    </a>
+                    <a href="watch-me-work.html" class="contact-link">
+                        <span class="link-icon">Watch Me Work</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Analytics Dashboards</h2>
+                    <p class="section-subtitle">Comprehensive monitoring and intelligence platform</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <!-- Mobile Dashboards -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">📱</span>
+                        <h3 class="dashboard-title">Mobile Dashboard Hub</h3>
+                        <p class="dashboard-description">Unified mobile dashboard collection with touch-optimized interface and responsive design.</p>
+                        <a href="mobile-dashboard-hub.html" class="dashboard-link">
+                            Open Mobile Hub →
+                        </a>
+                    </div>
+                    
+                    <!-- Activity Monitoring -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">📊</span>
+                        <h3 class="dashboard-title">Activity Dashboard</h3>
+                        <p class="dashboard-description">Real-time GitHub activity monitoring with commit tracking and productivity metrics.</p>
+                        <a href="mobile-activity-dashboard.html" class="dashboard-link">
+                            View Activity →
+                        </a>
+                    </div>
+                    
+                    <!-- Skills Analytics -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">🔧</span>
+                        <h3 class="dashboard-title">Skills Dashboard</h3>
+                        <p class="dashboard-description">Technical skills assessment and progress tracking with proficiency analytics.</p>
+                        <a href="mobile-skills-dashboard.html" class="dashboard-link">
+                            Analyze Skills →
+                        </a>
+                    </div>
+                    
+                    <!-- Projects Showcase -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">🚀</span>
+                        <h3 class="dashboard-title">Projects Dashboard</h3>
+                        <p class="dashboard-description">Interactive project portfolio with technical details and achievement metrics.</p>
+                        <a href="mobile-projects-dashboard.html" class="dashboard-link">
+                            Explore Projects →
+                        </a>
+                    </div>
+                    
+                    <!-- CV Analytics -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">📄</span>
+                        <h3 class="dashboard-title">CV Dashboard</h3>
+                        <p class="dashboard-description">Professional CV analytics and content optimization with AI-powered insights.</p>
+                        <a href="mobile-cv-dashboard.html" class="dashboard-link">
+                            View CV Analytics →
+                        </a>
+                    </div>
+                    
+                    <!-- Analytics Platform -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">📈</span>
+                        <h3 class="dashboard-title">Analytics Dashboard</h3>
+                        <p class="dashboard-description">Comprehensive analytics platform with performance metrics and data visualization.</p>
+                        <a href="mobile-analytics-dashboard.html" class="dashboard-link">
+                            Open Analytics →
+                        </a>
+                    </div>
+                    
+                    <!-- OAuth Usage -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">🔐</span>
+                        <h3 class="dashboard-title">OAuth Usage Dashboard</h3>
+                        <p class="dashboard-description">Authentication usage tracking with cost optimization and quota management.</p>
+                        <a href="oauth-usage-dashboard.html" class="dashboard-link">
+                            Monitor Usage →
+                        </a>
+                    </div>
+                    
+                    <!-- Networking Dashboard -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">🌐</span>
+                        <h3 class="dashboard-title">Networking Dashboard</h3>
+                        <p class="dashboard-description">Professional networking analytics with LinkedIn integration and relationship mapping.</p>
+                        <a href="networking-dashboard.html" class="dashboard-link">
+                            View Network →
+                        </a>
+                    </div>
+                    
+                    <!-- Roadmap Dashboard -->
+                    <div class="dashboard-card">
+                        <span class="dashboard-icon">🗺️</span>
+                        <h3 class="dashboard-title">Roadmap Dashboard</h3>
+                        <p class="dashboard-description">Strategic roadmap visualization with milestone tracking and progress indicators.</p>
+                        <a href="roadmap-dashboard.html" class="dashboard-link">
+                            View Roadmap →
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-text">
+                        <span class="footer-name">Adrian Wedd</span>
+                        <span class="footer-separator">•</span>
+                        <span>AI Engineer & Software Architect</span>
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">← Back to CV</a>
+                    <a href="watch-me-work.html" class="footer-link">Watch Me Work</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
