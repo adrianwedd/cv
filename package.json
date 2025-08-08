@@ -40,6 +40,8 @@
     "serve": "^14.2.0"
   },
   "dependencies": {
+    "dotenv": "^17.2.1",
+    "langsmith": "^0.3.55",
     "puppeteer": "^24.16.0"
   }
 }
