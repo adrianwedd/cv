@@ -34,7 +34,7 @@ class GitHubActionsAnalytics {
      * Initialize analytics system
      */
     init() {
-        console.log('📊 Initializing GitHub Actions Analytics...');
+        
         this.setupPerformanceTracking();
     }
     
@@ -62,7 +62,7 @@ class GitHubActionsAnalytics {
             this.renderEnhancedMetrics(runs);
         };
         
-        console.log('🔧 Visualizer extended with analytics capabilities');
+        
     }
     
     /**

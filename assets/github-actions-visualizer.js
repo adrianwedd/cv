@@ -37,7 +37,7 @@ class GitHubActionsVisualizer {
      * Initialize the visualizer
      */
     async init() {
-        console.log('🔄 Initializing GitHub Actions Visualizer...');
+        
         
         try {
             this.createToggleButton();
@@ -50,7 +50,7 @@ class GitHubActionsVisualizer {
             // Initial data load
             await this.loadWorkflowData();
             
-            console.log('✅ GitHub Actions Visualizer initialized successfully');
+            
         } catch (error) {
             console.error('❌ Failed to initialize GitHub Actions Visualizer:', error);
             this.showError('Failed to initialize workflow visualization');
@@ -64,16 +64,16 @@ class GitHubActionsVisualizer {
         try {
             if (typeof GitHubActionsAnalytics !== 'undefined') {
                 this.analytics = new GitHubActionsAnalytics(this);
-                console.log('📊 GitHub Actions Analytics extension loaded');
+                
             } else {
-                console.log('ℹ️ GitHub Actions Analytics extension not available');
+                
             }
             
             if (typeof GitHubActionsDrillDown !== 'undefined') {
                 this.drillDown = new GitHubActionsDrillDown(this);
-                console.log('🔍 GitHub Actions Drill-Down extension loaded');
+                
             } else {
-                console.log('ℹ️ GitHub Actions Drill-Down extension not available');
+                
             }
         } catch (error) {
             console.warn('⚠️ Failed to initialize extensions:', error);
@@ -1221,8 +1221,8 @@ class GitHubActionsVisualizer {
             selectedItem.style.background = 'rgba(40, 167, 69, 0.1)';
         }
         
-        console.log('🔍 Show details for run:', runId);
-        // TODO: Implement job-level details view
+        
+        
     }
     
     /**
@@ -1337,7 +1337,7 @@ class GitHubActionsVisualizer {
         if (button) button.remove();
         if (dashboard) dashboard.remove();
         
-        console.log('🗑️ GitHub Actions Visualizer destroyed');
+        
     }
 }
 

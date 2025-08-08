@@ -4,174 +4,146 @@
 
 /* Fix header - STABLE LAYOUT */
 .header {
-  position: relative !important; /* Changed from sticky to prevent flakiness */
+  position: relative !important;
+  /* Changed from sticky to prevent flakiness */
   top: 0;
   transform: none !important;
   z-index: 1000;
-  padding: 3rem 2rem !important; /* Balanced padding */
-  min-height: 200px !important; /* Reasonable height */
-  background: rgba(10, 10, 10, 0.95) !important; /* More opaque for stability */
-  backdrop-filter: blur(10px) !important; /* Reduced blur for performance */
+  padding: 3rem 2rem !important;
+  /* Balanced padding */
+  min-height: 200px !important;
+  /* Reasonable height */
+  background: rgba(10, 10, 10, 0.95) !important;
+  /* More opaque for stability */
+  backdrop-filter: blur(10px) !important;
+  /* Reduced blur for performance */
   -webkit-backdrop-filter: blur(10px) !important;
   overflow: visible !important;
-  display: block !important; /* Changed from flex to prevent layout shifts */
-}
-
-/* Fix container to not clip */
+  display: block !important;
+}/* Fix container to not clip */
 .container {
   overflow: visible !important;
   position: relative;
   z-index: 1;
-}
-
-/* Fix profile section height */
+}/* Fix profile section height */
 .profile-section {
   min-height: 150px !important;
   padding: 1rem 0 !important;
   overflow: visible !important;
   position: relative;
   z-index: 10;
-}
-
-/* STABLE NAME DISPLAY */
+}/* STABLE NAME DISPLAY */
 .name {
-  font-size: 2rem !important; /* Reliable size */
-  line-height: 1.4 !important; /* Standard line height */
-  margin: 0.5rem 0 !important; /* Balanced margins */
-  display: inline-block !important; /* Better than block for text */
+  font-size: 2rem !important;
+  /* Reliable size */
+  line-height: 1.4 !important;
+  /* Standard line height */
+  margin: 0.5rem 0 !important;
+  /* Balanced margins */
+  display: inline-block !important;
+  /* Better than block for text */
   overflow: visible !important;
   position: relative !important;
   z-index: 100 !important;
   white-space: nowrap !important;
-  padding: 0.5rem 0 !important; /* Moderate padding */
-  color: #ffffff !important; /* Solid white instead of gradient for stability */
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* Subtle shadow */
-  letter-spacing: 0.01em !important; /* Subtle letter spacing */
-  font-weight: 700 !important; /* Bold for visibility */
-}
-
-/* Ensure profile info doesn't clip */
+  padding: 0.5rem 0 !important;
+  /* Moderate padding */
+  color: #ffffff !important;
+  /* Solid white instead of gradient for stability */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  /* Subtle shadow */
+  letter-spacing: 0.01em !important;
+  /* Subtle letter spacing */
+  font-weight: 700 !important;
+}/* Ensure profile info doesn't clip */
 .profile-info {
   overflow: visible !important;
   position: relative;
   z-index: 10;
   padding-top: 0.5rem !important;
-}
-
-/* TRUE GLASSMORPHISM for cards */
+}/* TRUE GLASSMORPHISM for cards */
 .section-content {
-  background: rgba(255, 255, 255, 0.05) !important; /* More visible glass */
+  background: rgba(255, 255, 255, 0.05) !important;
+  /* More visible glass */
   backdrop-filter: blur(15px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  box-shadow: 
-    0 8px 32px rgba(31, 38, 135, 0.2),
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2),
     inset 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
   position: relative;
   overflow: hidden;
-}
-
-/* Glass effect for stat items */
+}/* Glass effect for stat items */
 .stat-item {
   background: rgba(255, 255, 255, 0.03) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.1),
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1),
     inset 0 0 20px rgba(255, 255, 255, 0.05) !important;
-}
-
-/* Glass effect for navigation */
+}/* Glass effect for navigation */
 .navigation {
   background: rgba(10, 10, 10, 0.6) !important;
   backdrop-filter: blur(20px) saturate(200%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Glass effect for contact links */
+}/* Glass effect for contact links */
 .contact-link {
   background: rgba(255, 255, 255, 0.05) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 
-    0 4px 15px rgba(0, 0, 0, 0.1),
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-}
-
-.contact-link:hover {
+}.contact-link:hover {
   background: rgba(255, 255, 255, 0.08) !important;
   border-color: rgba(102, 126, 234, 0.5) !important;
-  box-shadow: 
-    0 8px 25px rgba(102, 126, 234, 0.3),
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-}
-
-/* Glass effect for project cards */
+}/* Glass effect for project cards */
 .project-card {
   background: rgba(255, 255, 255, 0.04) !important;
   backdrop-filter: blur(12px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.12),
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
-}
-
-/* Glass effect for timeline items */
+}/* Glass effect for timeline items */
 .timeline-content {
   background: rgba(255, 255, 255, 0.04) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 
-    0 4px 20px rgba(0, 0, 0, 0.1),
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-}
-
-/* Ensure header content is visible */
+}/* Ensure header content is visible */
 .header-content {
   position: relative;
   z-index: 10;
   padding-top: 1rem !important;
-}
-
-/* Mobile responsive fixes */
+}/* Mobile responsive fixes */
 @media (max-width: 768px) {
   .header {
     padding: 2rem 0 1.5rem 0 !important;
-    min-height: auto !important;
-  }
-  
-  .name {
-    font-size: 2rem !important;
-    white-space: normal !important;
-    text-align: center;
-    padding-top: 0.5rem !important;
-  }
-  
-  .profile-section {
-    min-height: auto !important;
-  }
+  min-height: auto !important;
+}.name {
+  font-size: 2rem !important;
+  white-space: normal !important;
+  text-align: center;
+  padding-top: 0.5rem !important;
+}.profile-section {
+  min-height: auto !important;
 }
-
-/* Override any conflicting styles */
+}/* Override any conflicting styles */
 .header[style*="transform"] {
   transform: none !important;
-}
-
-/* Ensure navigation doesn't overlap */
+}/* Ensure navigation doesn't overlap */
 .navigation {
   position: sticky;
   top: auto;
   margin-top: 0;
   z-index: 999;
-}
-
-/* Add subtle glow to glass elements */
+}/* Add subtle glow to glass elements */
 .section-content::before {
   content: '';
   position: absolute;
@@ -185,17 +157,13 @@
     transparent 70%
   );
   pointer-events: none;
-}
-
-/* Ensure all text is readable on glass */
+}/* Ensure all text is readable on glass */
 .section-content,
 .stat-item,
 .project-card,
 .timeline-content {
   color: var(--color-text-primary) !important;
-}
-
-/* Add frosted glass shine effect */
+}/* Add frosted glass shine effect */
 .section-content::after {
   content: '';
   position: absolute;

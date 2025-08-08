@@ -22,4 +22,4 @@ function updateConn(){const o=navigator.onLine;const i=d.getElementById('conn-st
 w.addEventListener('online',updateConn);w.addEventListener('offline',updateConn);updateConn();
 
 // Performance monitoring (ultra minimal)
-if('PerformanceObserver'in w){const o=new PerformanceObserver(l=>{for(const e of l.getEntries()){if(e.entryType==='largest-contentful-paint')console.log('LCP:',Math.round(e.startTime)+'ms')}});o.observe({entryTypes:['largest-contentful-paint']})}
+if('PerformanceObserver'in w){const o=new PerformanceObserver(l=>{for(const e of l.getEntries()){if(e.entryType==='largest-contentful-paint')+'ms')}});o.observe({entryTypes:['largest-contentful-paint']})}

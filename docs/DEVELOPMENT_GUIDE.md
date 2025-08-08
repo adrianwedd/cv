@@ -34,7 +34,7 @@ ls -la dist/assets/adrian-wedd-cv.pdf
 file dist/assets/adrian-wedd-cv.pdf
 
 # Test data file references
-node -e "const s=require('./data/activity-summary.json'); console.log('Files:', s.data_files);"
+node -e "const s=require('./data/activity-summary.json'); "
 ```
 
 ### Local Development

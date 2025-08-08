@@ -52,11 +52,11 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
         .analyze();
       
       if (results.violations.length > 0) {
-        console.log('\n🚨 Accessibility violations found:');
+        
         results.violations.forEach(violation => {
-          console.log(`\n❌ ${violation.id}: ${violation.description}`);
-          console.log(`   Impact: ${violation.impact}`);
-          console.log(`   Elements: ${violation.nodes.length}`);
+          
+          
+          
         });
       }
       
@@ -72,7 +72,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
         }))
       );
       
-      console.log('📝 Found headings:', headings.length);
+      
       
       // Should have at least one heading
       expect(headings.length).toBeGreaterThan(0);
@@ -93,7 +93,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
         })
       );
       
-      console.log('🏗️ Found landmarks:', landmarks);
+      
       
       // Should have at least one landmark
       expect(landmarks.length).toBeGreaterThan(0);
@@ -107,11 +107,11 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
       const focusableElements = await page.$$('a[href], button, input, select, textarea');
       
       if (focusableElements.length === 0) {
-        console.log('ℹ️ No focusable elements found - skipping test');
+        
         return;
       }
       
-      console.log('🎯 Found focusable elements:', focusableElements.length);
+      
       
       // Test first focusable element
       try {
@@ -134,7 +134,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
           focusStyles.boxShadow !== 'none';
         
         expect(hasFocusIndicator).toBeTruthy();
-        console.log('✅ Focus indicator present');
+        
       } catch (error) {
         console.warn('⚠️ Focus test failed:', error.message);
         // Don't fail test for focus issues
@@ -148,7 +148,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
         const firstFocused = await page.evaluate(() => document.activeElement.tagName);
         
         if (['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(firstFocused)) {
-          console.log('✅ Tab navigation working:', firstFocused);
+          
           
           await page.keyboard.press('Tab');
           const secondFocused = await page.evaluate(() => document.activeElement.tagName);
@@ -156,7 +156,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
           // Should be able to tab to another element
           expect(['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'BODY']).toContain(secondFocused);
         } else {
-          console.log('ℹ️ No immediate focusable elements via tab');
+          
         }
       } catch (error) {
         console.warn('⚠️ Keyboard navigation test failed:', error.message);
@@ -190,8 +190,8 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
       expect(results.violations.length).toBeLessThanOrEqual(3);
       
       if (results.violations.length > 0) {
-        console.log('📱 Mobile violations (≤3 allowed):');
-        results.violations.forEach(v => console.log(`  - ${v.id}: ${v.impact}`));
+        :');
+        results.violations.forEach(v => );
       }
     }, 15000);
 
@@ -199,7 +199,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
       const touchTargets = await page.$$('button, a[href]');
       
       if (touchTargets.length === 0) {
-        console.log('ℹ️ No touch targets found');
+        
         return;
       }
       
@@ -218,7 +218,7 @@ describe('WCAG 2.1 AA Accessibility Compliance - Simplified', () => {
         }
       }
       
-      console.log(`📱 Touch targets tested: ${maxTests}, adequate: ${goodTargets}`);
+      
       
       // At least half should be adequate size
       expect(goodTargets).toBeGreaterThanOrEqual(Math.floor(maxTests / 2));

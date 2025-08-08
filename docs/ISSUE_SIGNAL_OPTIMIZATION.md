@@ -195,7 +195,7 @@ const issue = await fetchIssueData(issueNumber);
 const score = analyzer.calculateSignalScore(issue);
 const classification = analyzer.classifyIssue(issue);
 
-console.log(`Issue #${issueNumber}: ${score} points (${classification})`);
+`);
 ```
 
 **Manual Crisis Activation**:
@@ -377,8 +377,8 @@ node -e "
 const { IssueSignalAnalyzer } = require('./issue-signal-optimizer.js');
 const analyzer = new IssueSignalAnalyzer(75);
 const issue = { title: 'Authentication failure', labels: [{ name: 'P0: Critical' }] };
-console.log('Score:', analyzer.calculateSignalScore(issue));
-console.log('Classification:', analyzer.classifyIssue(issue));
+);
+);
 "
 ```
 

@@ -5,106 +5,76 @@
   color: #000000;
   font-weight: normal;
   font-style: normal;
-}
-
-/* string content */
+}/* string content */
 .str {
   color: #006400;
   font-weight: normal;
   font-style: normal;
-}
-
-/* a keyword */
+}/* a keyword */
 .kwd {
   color: #000000;
   font-weight: bold;
   font-style: normal;
-}
-
-/* a comment */
+}/* a comment */
 .com {
   font-weight: normal;
   font-style: italic;
-}
-
-/* a type name */
+}/* a type name */
 .typ {
   color: #000000;
   font-weight: normal;
   font-style: normal;
-}
-
-/* a literal value */
+}/* a literal value */
 .lit {
   color: #006400;
   font-weight: normal;
   font-style: normal;
-}
-
-/* punctuation */
+}/* punctuation */
 .pun {
   color: #000000;
   font-weight: bold;
   font-style: normal;
-}
-
-/* lisp open bracket */
+}/* lisp open bracket */
 .opn {
   color: #000000;
   font-weight: bold;
   font-style: normal;
-}
-
-/* lisp close bracket */
+}/* lisp close bracket */
 .clo {
   color: #000000;
   font-weight: bold;
   font-style: normal;
-}
-
-/* a markup tag name */
+}/* a markup tag name */
 .tag {
   color: #006400;
   font-weight: normal;
   font-style: normal;
-}
-
-/* a markup attribute name */
+}/* a markup attribute name */
 .atn {
   color: #006400;
   font-weight: normal;
   font-style: normal;
-}
-
-/* a markup attribute value */
+}/* a markup attribute value */
 .atv {
   color: #006400;
   font-weight: normal;
   font-style: normal;
-}
-
-/* a declaration */
+}/* a declaration */
 .dec {
   color: #000000;
   font-weight: bold;
   font-style: normal;
-}
-
-/* a variable name */
+}/* a variable name */
 .var {
   color: #000000;
   font-weight: normal;
   font-style: normal;
-}
-
-/* a function name */
+}/* a function name */
 .fun {
   color: #000000;
   font-weight: bold;
   font-style: normal;
-}
-
-/* Specify class=linenums on a pre to get line numbering */
+}/* Specify class=linenums on a pre to get line numbering */
 ol.linenums {
   margin-top: 0;
   margin-bottom: 0;

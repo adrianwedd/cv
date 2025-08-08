@@ -5,7 +5,7 @@
 
 window.MarketIntelligenceEngine = {
   init() {
-    console.log('Market Intelligence Engine initialized');
+    
   },
   
   analyze() {

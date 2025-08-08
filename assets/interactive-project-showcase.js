@@ -38,7 +38,7 @@ class InteractiveProjectShowcase {
      * Initialize the showcase system
      */
     async init() {
-        console.log('🚀 Initializing Interactive Project Showcase...');
+        
         
         try {
             await this.loadProjectData();
@@ -47,7 +47,7 @@ class InteractiveProjectShowcase {
             this.renderProjects();
             
             this.isInitialized = true;
-            console.log('✅ Interactive Project Showcase initialized successfully');
+            
             
         } catch (error) {
             console.error('❌ Project Showcase initialization failed:', error);

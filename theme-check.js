@@ -27,13 +27,13 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('Theme Status:');
-    console.log('  data-theme attribute:', themeStatus.dataTheme);
-    console.log('  HTML attributes:', themeStatus.htmlAttributes);
-    console.log('  Body background:', themeStatus.bodyBg);
-    console.log('  CSS variables:', themeStatus.cssCustomProperties);
-    console.log('  CVApp exists:', themeStatus.cvAppExists);
-    console.log('  CVApp theme preference:', themeStatus.cvAppTheme);
+    
+    
+    
+    
+    
+    
+    
     
     // Check if dark styles are actually being applied
     const darkModeCheck = await page.evaluate(() => {
@@ -62,7 +62,7 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('Dark mode CSS check:', darkModeCheck);
+    
     
     await browser.close();
 })();

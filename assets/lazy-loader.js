@@ -40,7 +40,7 @@ class CVLazyLoader {
      * Initialize lazy loading system
      */
     init() {
-        console.log('⚡ Initializing CV Lazy Loading System...');
+        
         
         // Setup intersection observer
         this.setupIntersectionObserver();
@@ -54,7 +54,7 @@ class CVLazyLoader {
         // Setup event listeners
         this.setupEventListeners();
         
-        console.log('✅ Lazy loading system initialized');
+        
     }
 
     /**
@@ -132,12 +132,12 @@ class CVLazyLoader {
     async preloadCriticalChunks() {
         const criticalChunks = ['critical', 'experience'];
         
-        console.log('🚀 Preloading critical chunks...');
+        
         
         for (const chunkName of criticalChunks) {
             try {
                 await this.loadChunk(chunkName, true); // Skip UI updates for preload
-                console.log(`  ✅ ${chunkName} preloaded`);
+                
             } catch (error) {
                 console.warn(`  ⚠️ Failed to preload ${chunkName}:`, error.message);
             }
@@ -241,7 +241,7 @@ class CVLazyLoader {
             this.performanceMetrics.totalLoadTime += loadTime;
             
             if (!skipUI) {
-                console.log(`📦 Chunk ${chunkName} loaded in ${loadTime.toFixed(2)}ms`);
+                }ms`);
             }
             
             return data;
@@ -321,7 +321,7 @@ class CVLazyLoader {
      * Priority load chunk (for user interactions)
      */
     async priorityLoadChunk(chunkName) {
-        console.log(`🎯 Priority loading chunk: ${chunkName}`);
+        
         
         try {
             const data = await this.loadChunk(chunkName);
@@ -584,7 +584,7 @@ class CVLazyLoader {
             entryList.getEntries().forEach(entry => {
                 if (entry.name.includes('/chunks/') || entry.name.includes('/data/')) {
                     const chunkName = entry.name.split('/').pop().replace('.json', '');
-                    console.log(`📊 Chunk ${chunkName}: ${entry.duration.toFixed(2)}ms`);
+                    }ms`);
                 }
             });
         }).observe({ entryTypes: ['resource'] });
@@ -599,9 +599,7 @@ class CVLazyLoader {
             ? (this.performanceMetrics.cacheHitRate / this.performanceMetrics.chunksLoaded * 100).toFixed(1)
             : 0;
 
-        console.log('📊 Lazy Loading Performance:', {
-            chunksLoaded: this.performanceMetrics.chunksLoaded,
-            averageLoadTime: avgLoadTime.toFixed(2) + 'ms',
+         + 'ms',
             cacheHitRate: cacheHitRate + '%',
             failedLoads: this.performanceMetrics.failedLoads
         });

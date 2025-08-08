@@ -43,7 +43,7 @@ class CVLangSmithTracker {
                     version: process.env.PROJECT_VERSION || '2.0.0'
                 }
             });
-            console.log(`✅ Tracked page view: ${page}`);
+            
         } catch (error) {
             console.error('Error tracking page view:', error);
         }
@@ -76,7 +76,7 @@ class CVLangSmithTracker {
                     session_id: metadata.sessionId
                 }
             });
-            console.log(`✅ Tracked interaction: ${action} on ${element}`);
+            
         } catch (error) {
             console.error('Error tracking interaction:', error);
         }
@@ -109,7 +109,7 @@ class CVLangSmithTracker {
                     fid: metrics.fid
                 }
             });
-            console.log('✅ Tracked performance metrics');
+            
         } catch (error) {
             console.error('Error tracking performance:', error);
         }
@@ -143,7 +143,7 @@ class CVLangSmithTracker {
                     session_id: metadata.sessionId
                 }
             });
-            console.log(`✅ Tracked CV download: ${format}`);
+            
         } catch (error) {
             console.error('Error tracking download:', error);
         }
@@ -177,7 +177,7 @@ class CVLangSmithTracker {
                     link_category: linkType
                 }
             });
-            console.log(`✅ Tracked external link: ${linkType} -> ${url}`);
+            
         } catch (error) {
             console.error('Error tracking external link:', error);
         }
@@ -209,7 +209,7 @@ class CVLangSmithTracker {
                 tags: ['cv', 'session', 'analytics'],
                 extra: sessionData
             });
-            console.log(`✅ Tracked session: ${sessionData.sessionId}`);
+            
         } catch (error) {
             console.error('Error tracking session:', error);
         }
@@ -316,20 +316,20 @@ module.exports = {
 if (require.main === module) {
     const tracker = new CVLangSmithTracker();
     
-    console.log('🔍 LangSmith CV Tracker Initialized');
-    console.log('==================================');
-    console.log(`Project: ${tracker.projectName}`);
-    console.log(`Tracing: ${tracker.tracingEnabled ? 'Enabled' : 'Disabled'}`);
-    console.log(`Endpoint: ${process.env.LANGSMITH_ENDPOINT}`);
-    console.log('');
-    console.log('📊 Available tracking methods:');
-    console.log('  - trackPageView(page, metadata)');
-    console.log('  - trackInteraction(action, element, metadata)');
-    console.log('  - trackPerformance(metrics)');
-    console.log('  - trackDownload(format, metadata)');
-    console.log('  - trackExternalLink(url, linkType, metadata)');
-    console.log('  - trackSession(sessionData)');
-    console.log('');
-    console.log('💡 Add browser tracking to your HTML:');
-    console.log('  Copy the browserTracking script to your index.html');
+    
+    
+    
+    
+    
+    
+    
+    ');
+    ');
+    ');
+    ');
+    ');
+    ');
+    
+    
+    
 }

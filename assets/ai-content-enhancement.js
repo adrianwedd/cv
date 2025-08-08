@@ -5,7 +5,7 @@
 
 window.AIContentEnhancement = {
   init() {
-    console.log('AI Content Enhancement initialized');
+    
   },
   
   enhance(content) {

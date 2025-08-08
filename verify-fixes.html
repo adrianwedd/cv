@@ -14,6 +14,10 @@
             min-height: 200vh; /* For scroll testing */
         }
     </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
     <div class="bg-animation">
@@ -70,8 +74,8 @@
     </div>
 
     <script>
-        console.log('🔍 Testing Fixes:');
-        console.log('================');
+        
+        
         
         const header = document.querySelector('.header');
         const name = document.querySelector('.name');
@@ -81,19 +85,19 @@
         const nameStyles = window.getComputedStyle(name);
         const sectionStyles = window.getComputedStyle(section);
         
-        console.log('📐 Header Height:', header.offsetHeight + 'px');
-        console.log('📝 Name Font Size:', nameStyles.fontSize);
-        console.log('📏 Name Height:', name.offsetHeight + 'px');
-        console.log('📍 Name Position:', name.getBoundingClientRect());
-        console.log('💎 Glass Backdrop:', sectionStyles.backdropFilter);
-        console.log('🌫️ Glass Background:', sectionStyles.background);
+        
+        
+        
+        );
+        
+        
         
         // Check if name is cut off
         const nameRect = name.getBoundingClientRect();
         const headerRect = header.getBoundingClientRect();
         const isNameVisible = nameRect.top >= headerRect.top && nameRect.bottom <= headerRect.bottom;
         
-        console.log(isNameVisible ? '✅ Name is fully visible!' : '❌ Name is cut off!');
+        
     </script>
 </body>
 </html>

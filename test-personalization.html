@@ -158,6 +158,10 @@
   to { transform: rotate(360deg); }
 }
 </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
 
@@ -296,14 +300,14 @@
     <!-- Debug Information -->
     <script>
         // Debug logging for testing
-        console.log('🧪 Personalization Test Page Loaded');
+        
         
         // Check if personalization system initializes
         setTimeout(() => {
             const statusDiv = document.getElementById('system-status');
             
             if (window.intelligentPersonalization && window.intelligentPersonalization.isInitialized) {
-                console.log('✅ Intelligent CV Personalization initialized successfully');
+                
                 statusDiv.innerHTML = `
                     <div style="text-align: center; color: var(--color-success, #10b981); padding: 2rem;">
                         <div style="font-size: 2rem; margin-bottom: 1rem;">✅</div>
@@ -337,12 +341,7 @@
         // Monitor personalization system initialization
         const checkInterval = setInterval(() => {
             if (window.intelligentPersonalization) {
-                console.log('📊 Personalization system found:', {
-                    initialized: window.intelligentPersonalization.isInitialized,
-                    cvData: !!window.intelligentPersonalization.cvData,
-                    skillsDatabase: window.intelligentPersonalization.skillsDatabase.size,
-                    industryProfiles: window.intelligentPersonalization.industryProfiles.size
-                });
+                
                 
                 if (window.intelligentPersonalization.isInitialized) {
                     clearInterval(checkInterval);

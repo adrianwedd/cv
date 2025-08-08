@@ -69,7 +69,7 @@ class CVExportSystem {
      * Initialize the export system
      */
     async init() {
-        console.log('🚀 Initializing CV Export System...');
+        
         
         try {
             await this.loadCVData();
@@ -77,7 +77,7 @@ class CVExportSystem {
             this.initializePreviewSystem();
             this.setupEventListeners();
             
-            console.log('✅ CV Export System initialized successfully');
+            
         } catch (error) {
             console.error('❌ Export system initialization failed:', error);
             this.handleError(error);
@@ -101,7 +101,7 @@ class CVExportSystem {
                 throw new Error('Invalid CV data structure');
             }
             
-            console.log('📄 CV data loaded successfully');
+            
         } catch (error) {
             console.error('Failed to load CV data:', error);
             
@@ -1817,7 +1817,7 @@ ${edu.key_areas ? `Key Areas: ${edu.key_areas.join(', ')}` : ''}
         // Store in localStorage for persistence
         localStorage.setItem('cv-export-history', JSON.stringify(this.exportHistory));
         
-        console.log(`📊 Export tracked: ${format}`);
+        
     }
 
     /**

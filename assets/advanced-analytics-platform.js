@@ -43,7 +43,7 @@ class AdvancedAnalyticsPlatform {
      * Initialize the analytics platform
      */
     async init() {
-        console.log('📊 Initializing Advanced Analytics & Insights Platform...');
+        
         
         try {
             await this.loadHistoricalData();
@@ -52,7 +52,7 @@ class AdvancedAnalyticsPlatform {
             await this.setupAnalyticsDashboard();
             
             this.isInitialized = true;
-            console.log('✅ Advanced Analytics Platform initialized successfully');
+            
             
             // Start periodic market updates
             this.startMarketIntelligenceUpdates();
@@ -66,7 +66,7 @@ class AdvancedAnalyticsPlatform {
      * Load historical career and performance data
      */
     async loadHistoricalData() {
-        console.log('📈 Loading historical career data...');
+        
         
         try {
             // Load CV data
@@ -90,7 +90,7 @@ class AdvancedAnalyticsPlatform {
             };
             
             this.analyticsData.set('historical', historicalAnalysis);
-            console.log('✅ Historical data loaded and processed');
+            
             
         } catch (error) {
             console.warn('⚠️ Some historical data unavailable, using synthetic data');
@@ -102,7 +102,7 @@ class AdvancedAnalyticsPlatform {
      * Load comprehensive market intelligence
      */
     async loadMarketIntelligence() {
-        console.log('🌍 Loading market intelligence data...');
+        
         
         const marketData = {
             industries: {
@@ -208,14 +208,14 @@ class AdvancedAnalyticsPlatform {
             this.marketIntelligence.set(category, data);
         }
         
-        console.log('✅ Market intelligence loaded');
+        
     }
 
     /**
      * Initialize predictive career models
      */
     async initializeCareerModels() {
-        console.log('🎯 Initializing predictive career models...');
+        
         
         const models = {
             trajectory: {
@@ -258,14 +258,14 @@ class AdvancedAnalyticsPlatform {
             });
         }
         
-        console.log('✅ Career models initialized');
+        
     }
 
     /**
      * Setup the main analytics dashboard interface
      */
     async setupAnalyticsDashboard() {
-        console.log('🖥️ Setting up analytics dashboard...');
+        
         
         // Create dashboard toggle button
         const toggleButton = document.createElement('button');
@@ -290,14 +290,14 @@ class AdvancedAnalyticsPlatform {
         // Append to page
         document.body.appendChild(toggleButton);
         
-        console.log('✅ Analytics dashboard interface ready');
+        
     }
 
     /**
      * Open the main analytics dashboard
      */
     async openAnalyticsDashboard() {
-        console.log('📊 Opening Advanced Analytics Dashboard...');
+        
         
         // Create modal structure
         const modal = document.createElement('div');
@@ -812,7 +812,7 @@ class AdvancedAnalyticsPlatform {
     }
 
     async updateMarketIntelligence() {
-        console.log('🔄 Updating market intelligence...');
+        
         // Implementation for periodic market data updates
     }
 
@@ -846,12 +846,12 @@ class AdvancedAnalyticsPlatform {
 
     initializeCharts(container) {
         // Implementation for chart initialization using Chart.js
-        console.log('📊 Initializing interactive charts...');
+        
     }
 
     setupInteractiveElements(container) {
         // Setup interactive elements like hover effects, filters, etc.
-        console.log('⚡ Setting up interactive elements...');
+        
     }
 
     // More methods for market analysis, predictions, recommendations views...
@@ -868,7 +868,7 @@ class AdvancedAnalyticsPlatform {
     }
 
     implementRecommendation(id) {
-        console.log(`🎯 Implementing recommendation: ${id}`);
+        
         // Implementation for applying recommendations
     }
 }

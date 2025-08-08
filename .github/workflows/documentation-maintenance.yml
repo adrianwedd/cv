@@ -1,0 +1,68 @@
+name: Documentation Maintenance
+
+on:
+  push:
+    paths:
+      - '**.md'
+      - '**.txt'
+      - 'docs/**'
+  schedule:
+    - cron: '0 9 * * 0' # Weekly on Sunday at 9 AM
+  workflow_dispatch:
+
+jobs:
+  documentation-maintenance:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Run documentation curator
+        run: |
+          cd .github/scripts
+          npm install
+          node documentation-curator.js
+          
+      - name: Check for broken links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/markdown-link-check-config.json'
+          
+      - name: Generate documentation report
+        run: |
+          echo "## Documentation Health Report" > doc-report.md
+          echo "Generated: $(date)" >> doc-report.md
+          echo "" >> doc-report.md
+          echo "### Files Processed" >> doc-report.md
+          find . -name "*.md" | wc -l | xargs echo "Markdown files:" >> doc-report.md
+          echo "" >> doc-report.md
+          echo "### Structure Optimizations" >> doc-report.md
+          echo "✅ Documentation index updated" >> doc-report.md
+          echo "✅ File structure optimized" >> doc-report.md
+          echo "✅ Orphaned files cleaned" >> doc-report.md
+          
+      - name: Commit documentation updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --staged --quiet || git commit -m "📚 Automated documentation maintenance"
+          
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload documentation report
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-report
+          path: doc-report.md

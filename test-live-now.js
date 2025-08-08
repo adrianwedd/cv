@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-    console.log('Testing LIVE site right now...\n');
+    
     
     const browser = await puppeteer.launch({ 
         headless: false,  // Show browser
@@ -12,14 +12,14 @@ const puppeteer = require('puppeteer');
     
     // Log all console messages
     page.on('console', msg => {
-        console.log('Browser console:', msg.text());
+        );
     });
     
     page.on('error', err => {
         console.error('Page error:', err);
     });
     
-    console.log('Opening https://adrianwedd.github.io/cv/ ...');
+    
     await page.goto('https://adrianwedd.github.io/cv/', { 
         waitUntil: 'networkidle2',
         timeout: 30000 
@@ -33,7 +33,7 @@ const puppeteer = require('puppeteer');
         path: 'live-site-screenshot.png',
         fullPage: true 
     });
-    console.log('Screenshot saved as live-site-screenshot.png');
+    
     
     // Check what's actually visible
     const status = await page.evaluate(() => {
@@ -61,15 +61,15 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('\n=== CURRENT STATUS ===');
-    console.log('Loading Screen:', status.loadingScreen);
-    console.log('Main Content:', status.mainContent);
-    console.log('Theme:', status.theme);
-    console.log('Title:', status.title);
-    console.log('H1:', status.h1Text);
-    console.log('Body BG:', status.bodyBg);
     
-    console.log('\nKeeping browser open for 10 seconds so you can see...');
+    
+    
+    
+    
+    
+    
+    
+    
     await new Promise(r => setTimeout(r, 10000));
     
     await browser.close();

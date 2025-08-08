@@ -11,6 +11,10 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 
 <body>
@@ -77,9 +81,9 @@ class CVGenerator {
      * Generate complete CV website
      */
     async generate() {
-        console.log('🎨 **CV WEBSITE GENERATOR INITIATED**');
-        console.log(`📁 Output directory: ${CONFIG.OUTPUT_DIR}`);
-        console.log('');
+        
+        
+        
 
         try {
             // Prepare output directory
@@ -100,9 +104,9 @@ class CVGenerator {
             await this.generateGitHubPagesFiles();
 
             const generationTime = ((Date.now() - this.generationStartTime) / 1000).toFixed(2);
-            console.log(`✅ CV website generated in ${generationTime}s`);
-            console.log(`🌐 Website ready at: ${CONFIG.OUTPUT_DIR}/`);
-            console.log(`🚀 Deploy to: ${CONFIG.SITE_URL}`);
+            
+            
+            
 
         } catch (error) {
             console.error('❌ Website generation failed:', error.message);
@@ -114,7 +118,7 @@ class CVGenerator {
      * Prepare output directory
      */
     async prepareOutputDirectory() {
-        console.log('📁 Preparing output directory...');
+        
         
         try {
             // Remove existing directory
@@ -123,7 +127,7 @@ class CVGenerator {
             // Create fresh directory
             await fs.mkdir(CONFIG.OUTPUT_DIR, { recursive: true });
             
-            console.log(`✅ Output directory prepared: ${CONFIG.OUTPUT_DIR}`);
+            
         } catch (error) {
             console.error('❌ Failed to prepare output directory:', error.message);
             throw error;
@@ -134,7 +138,7 @@ class CVGenerator {
      * Load all data sources
      */
     async loadDataSources() {
-        console.log('📊 Loading data sources...');
+        
 
         try {
             // Load base CV data
@@ -142,7 +146,7 @@ class CVGenerator {
                 const cvDataPath = path.join(CONFIG.DATA_DIR, 'base-cv.json');
                 const cvDataContent = await fs.readFile(cvDataPath, 'utf8');
                 this.cvData = JSON.parse(cvDataContent);
-                console.log('✅ Base CV data loaded');
+                
             } catch (error) {
                 console.warn('⚠️ Base CV data not found, using defaults');
                 this.cvData = this.getDefaultCVData();
@@ -153,7 +157,7 @@ class CVGenerator {
                 const activityPath = path.join(CONFIG.DATA_DIR, 'activity-summary.json');
                 const activityContent = await fs.readFile(activityPath, 'utf8');
                 this.activityData = JSON.parse(activityContent);
-                console.log('✅ Activity data loaded');
+                
             } catch (error) {
                 console.warn('⚠️ Activity data not found');
                 this.activityData = {};
@@ -164,7 +168,7 @@ class CVGenerator {
                 const aiPath = path.join(CONFIG.DATA_DIR, 'ai-enhancements.json');
                 const aiContent = await fs.readFile(aiPath, 'utf8');
                 this.aiEnhancements = JSON.parse(aiContent);
-                console.log('✅ AI enhancements loaded');
+                
             } catch (error) {
                 console.warn('⚠️ AI enhancements not found');
                 this.aiEnhancements = {};
@@ -180,7 +184,7 @@ class CVGenerator {
      * Generate HTML file with dynamic content
      */
     async generateHTML() {
-        console.log('🎨 Generating HTML...');
+        
 
         try {
             // Read template HTML
@@ -194,7 +198,7 @@ class CVGenerator {
             const outputPath = path.join(CONFIG.OUTPUT_DIR, 'index.html');
             await fs.writeFile(outputPath, htmlContent, 'utf8');
 
-            console.log('✅ HTML generated successfully');
+            
 
         } catch (error) {
             console.error('❌ HTML generation failed:', error.message);
@@ -324,7 +328,7 @@ class CVGenerator {
      * Copy assets to output directory
      */
     async copyAssets() {
-        console.log('📦 Copying assets...');
+        
 
         try {
             const assetsOutputDir = path.join(CONFIG.OUTPUT_DIR, 'assets');
@@ -357,7 +361,7 @@ class CVGenerator {
                 }
             }
 
-            console.log('✅ Assets copied successfully');
+            
 
         } catch (error) {
             console.error('❌ Asset copying failed:', error.message);
@@ -369,7 +373,7 @@ class CVGenerator {
      * Generate sitemap.xml
      */
     async generateSitemap() {
-        console.log('🗺️ Generating sitemap...');
+        
 
         const sitemap = `&lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -414,14 +418,14 @@ class CVGenerator {
         const sitemapPath = path.join(CONFIG.OUTPUT_DIR, 'sitemap.xml');
         await fs.writeFile(sitemapPath, sitemap, 'utf8');
 
-        console.log('✅ Sitemap generated');
+        
     }
 
     /**
      * Generate robots.txt
      */
     async generateRobotsTxt() {
-        console.log('🤖 Generating robots.txt...');
+        
 
         const robots = `User-agent: *
 Allow: /
@@ -435,14 +439,14 @@ Disallow: /data/
         const robotsPath = path.join(CONFIG.OUTPUT_DIR, 'robots.txt');
         await fs.writeFile(robotsPath, robots, 'utf8');
 
-        console.log('✅ Robots.txt generated');
+        
     }
 
     /**
      * Generate web manifest
      */
     async generateManifest() {
-        console.log('📱 Generating web manifest...');
+        
 
         const personalInfo = this.cvData.personal_info || {};
         
@@ -467,26 +471,26 @@ Disallow: /data/
         const manifestPath = path.join(CONFIG.OUTPUT_DIR, 'manifest.json');
         await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
 
-        console.log('✅ Web manifest generated');
+        
     }
 
     /**
      * Generate GitHub Pages specific files
      */
     async generateGitHubPagesFiles() {
-        console.log('📄 Generating GitHub Pages files...');
+        
 
         // Generate CNAME file if custom domain is specified
         if (process.env.CUSTOM_DOMAIN) {
             const cnamePath = path.join(CONFIG.OUTPUT_DIR, 'CNAME');
             await fs.writeFile(cnamePath, process.env.CUSTOM_DOMAIN, 'utf8');
-            console.log(`✅ CNAME file generated for ${process.env.CUSTOM_DOMAIN}`);
+            
         }
 
         // Generate .nojekyll to bypass Jekyll processing
         const nojekyllPath = path.join(CONFIG.OUTPUT_DIR, '.nojekyll');
         await fs.writeFile(nojekyllPath, '', 'utf8');
-        console.log('✅ .nojekyll file generated');
+        
 
         // Generate 404.html
         const notFoundHtml = `&lt;!DOCTYPE html>
@@ -546,14 +550,14 @@ Disallow: /data/
 
         const notFoundPath = path.join(CONFIG.OUTPUT_DIR, '404.html');
         await fs.writeFile(notFoundPath, notFoundHtml, 'utf8');
-        console.log('✅ 404.html generated');
+        
     }
 
     /**
      * Generates a high-quality PDF from the generated HTML.
      */
     async generatePDF() {
-        console.log('📄 Generating PDF version of the CV...');
+        
         const browser = await puppeteer.launch({ args: ['--no-sandbox'] }); // --no-sandbox is crucial for running in GitHub Actions
         const page = await browser.newPage();
         
@@ -579,7 +583,7 @@ Disallow: /data/
         });
 
         await browser.close();
-        console.log(`✅ PDF generated successfully at: ${pdfPath}`);
+        
     }
 
     /**
@@ -611,9 +615,9 @@ async function main() {
         const generator = new CVGenerator();
         await generator.generate();
         
-        console.log('\n🎉 **CV WEBSITE GENERATION COMPLETE**');
-        console.log(`🌐 Website ready for deployment at: ${CONFIG.OUTPUT_DIR}/`);
-        console.log(`🚀 Target URL: ${CONFIG.SITE_URL}`);
+        
+        
+        
         
     } catch (error) {
         console.error('❌ Generation failed:', error.message);

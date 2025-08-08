@@ -18,7 +18,7 @@
     // Utilities
     function log(...args) {
         if (CONFIG.debug) {
-            console.log('[LangSmith Tracking]', ...args);
+            
         }
     }
     

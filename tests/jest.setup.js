@@ -204,7 +204,7 @@ global.testUtils = {
       
       server.on('error', (err) => {
         if (err.code === 'EADDRINUSE') {
-          console.log(`Port ${port} in use, server likely already running`);
+          
           resolve(server);
         } else {
           reject(err);
@@ -212,7 +212,7 @@ global.testUtils = {
       });
       
       server.listen(port, () => {
-        console.log(`✅ Test server started on port ${port}`);
+        
         resolve(server);
       });
     });

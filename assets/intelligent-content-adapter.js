@@ -5,7 +5,7 @@
 
 window.IntelligentContentAdapter = {
   init() {
-    console.log('Intelligent Content Adapter initialized');
+    
   },
   
   adapt(content, context) {

@@ -51,9 +51,9 @@ class ProgressiveLoader {
      * Initialize progressive loading system
      */
     init() {
-        console.log('🚀 Initializing Progressive Loading System...');
-        console.log(`📱 Device: ${this.deviceCapabilities.type}, Network: ${this.networkInfo.effectiveType}`);
-        console.log(`⚡ Strategy: ${this.loadingStrategy}`);
+        
+        
+        
         
         // Initialize core systems
         this.setupCriticalPathOptimization();
@@ -65,7 +65,7 @@ class ProgressiveLoader {
         // Register service worker if available
         this.registerServiceWorker();
         
-        console.log('✅ Progressive loading system initialized');
+        
     }
 
     /**
@@ -152,7 +152,7 @@ class ProgressiveLoader {
      * Setup critical rendering path optimization
      */
     setupCriticalPathOptimization() {
-        console.log('⚡ Setting up critical path optimization...');
+        
 
         // Prioritize above-the-fold content
         this.prioritizeCriticalContent();
@@ -205,7 +205,7 @@ class ProgressiveLoader {
                 loadTime
             );
             
-            console.log(`⚡ Critical content loaded in ${loadTime.toFixed(2)}ms`);
+            }ms`);
             
         } catch (error) {
             console.error('❌ Critical content loading failed:', error);
@@ -217,7 +217,7 @@ class ProgressiveLoader {
      * Setup progressive enhancement layers
      */
     setupProgressiveEnhancement() {
-        console.log('🔄 Setting up progressive enhancement...');
+        
 
         // Layer 1: Basic HTML content (no-JS fallback)
         this.enhanceBasicContent();
@@ -279,7 +279,7 @@ class ProgressiveLoader {
     setupMobileOptimizations() {
         if (this.deviceCapabilities.type !== 'mobile') return;
         
-        console.log('📱 Applying mobile optimizations...');
+        
 
         // Reduce image quality for mobile
         this.optimizeMobileImages();
@@ -348,7 +348,7 @@ class ProgressiveLoader {
      * Setup network-aware loading
      */
     setupNetworkAwareLoading() {
-        console.log('🌐 Setting up network-aware loading...');
+        
 
         // Listen for network changes
         if (navigator.connection) {
@@ -369,7 +369,7 @@ class ProgressiveLoader {
         const newStrategy = this.determineLoadingStrategy();
         
         if (newStrategy !== this.loadingStrategy) {
-            console.log(`📶 Network changed, switching to ${newStrategy} strategy`);
+            
             this.loadingStrategy = newStrategy;
             
             // Adjust ongoing loading operations
@@ -398,7 +398,7 @@ class ProgressiveLoader {
      * Implement minimal loading for data saver mode
      */
     implementMinimalLoading() {
-        console.log('💾 Implementing minimal loading strategy...');
+        
         
         // Disable autoplay
         document.querySelectorAll('video[autoplay]').forEach(video => {
@@ -421,7 +421,7 @@ class ProgressiveLoader {
      * Setup performance monitoring for progressive loading
      */
     setupPerformanceMonitoring() {
-        console.log('📊 Setting up performance monitoring...');
+        
 
         // Monitor Core Web Vitals
         this.monitorCoreWebVitals();
@@ -442,12 +442,12 @@ class ProgressiveLoader {
             for (const entry of entryList.getEntries()) {
                 if (entry.name === 'first-contentful-paint') {
                     const fcp = entry.startTime;
-                    console.log(`🎨 FCP: ${fcp.toFixed(2)}ms`);
+                    }ms`);
                     
                     // Adjust strategy if FCP is slow
                     if (fcp > 2000 && this.loadingStrategy === 'aggressive') {
                         this.loadingStrategy = 'balanced';
-                        console.log('⚠️ FCP slow, switching to balanced strategy');
+                        
                     }
                 }
             }
@@ -459,7 +459,7 @@ class ProgressiveLoader {
             const lastEntry = entries[entries.length - 1];
             const lcp = lastEntry.startTime;
             
-            console.log(`🖼️ LCP: ${lcp.toFixed(2)}ms`);
+            }ms`);
             
             // Optimize LCP if needed
             if (lcp > 2500) {
@@ -491,7 +491,7 @@ class ProgressiveLoader {
         navigator.getBattery().then(battery => {
             const applyBatteryOptimizations = () => {
                 if (battery.level < this.config.lowBatteryThreshold) {
-                    console.log('🔋 Low battery detected, applying optimizations...');
+                    
                     this.implementBatteryConservation();
                 }
                 
@@ -535,7 +535,7 @@ class ProgressiveLoader {
         
         try {
             const registration = await navigator.serviceWorker.register('/sw.js');
-            console.log('✅ Service worker registered:', registration.scope);
+            
             
             // Setup service worker messaging for progressive loading
             this.setupServiceWorkerMessaging(registration);
@@ -568,18 +568,18 @@ class ProgressiveLoader {
 
     // Utility methods for loading strategies
     implementConservativeLoading() {
-        console.log('🐢 Implementing conservative loading strategy...');
+        
         this.config.mobilePrefetchLimit = 2;
         this.config.mobileChunkSize = 10000; // 10KB chunks
     }
 
     implementBalancedLoading() {
-        console.log('⚖️ Implementing balanced loading strategy...');
+        
         // Use default configuration
     }
 
     implementAggressiveLoading() {
-        console.log('🚀 Implementing aggressive loading strategy...');
+        
         this.config.mobilePrefetchLimit = 5;
         this.config.mobileChunkSize = 25000; // 25KB chunks
         
@@ -622,7 +622,7 @@ class ProgressiveLoader {
 
     // Performance optimization methods
     optimizeLCP() {
-        console.log('🖼️ Optimizing LCP...');
+        
         
         // Preload LCP element if it's an image
         const lcpCandidates = document.querySelectorAll('img, video, [data-lcp]');
@@ -634,7 +634,7 @@ class ProgressiveLoader {
     }
 
     reduceCLS() {
-        console.log('📐 Reducing CLS...');
+        
         
         // Add explicit dimensions to images
         document.querySelectorAll('img:not([width]):not([height])').forEach(img => {
@@ -773,7 +773,7 @@ class ProgressiveLoader {
     trackProgressiveMetrics() {
         // Track metrics specific to progressive loading
         setInterval(() => {
-            console.log('📊 Progressive Loading Metrics:', this.performanceMetrics);
+            
         }, 30000);
     }
 
@@ -806,7 +806,7 @@ class ProgressiveLoader {
 
     cancelNonEssentialRequests() {
         // Implementation for canceling non-essential network requests
-        console.log('⏹️ Canceling non-essential requests for minimal loading');
+        
     }
 }
 

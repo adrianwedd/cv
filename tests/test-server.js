@@ -25,7 +25,7 @@ class TestServer {
   // Start server with bulletproof error handling
   async start() {
     if (this.isRunning) {
-      console.log(`✅ Server already running on port ${this.port}`);
+      
       return;
     }
 
@@ -44,7 +44,7 @@ class TestServer {
 
     // Wait for server to be ready
     await this.waitForReady();
-    console.log(`✅ Test server running on http://localhost:${this.port}`);
+    
   }
 
   // Start Node.js HTTP server (preferred method)
@@ -225,7 +225,7 @@ class TestServer {
       }
 
       this.isRunning = false;
-      console.log(`✅ Test server stopped`);
+      
     } catch (error) {
       console.warn(`⚠️ Error stopping server: ${error.message}`);
     }

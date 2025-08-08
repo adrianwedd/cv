@@ -117,13 +117,13 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('DEEP INSPECTION RESULTS:');
-    console.log('Issues found:', deepCheck.issues.length);
+    
+    
     deepCheck.issues.forEach((issue, i) => {
-        console.log(`${i + 1}. ${issue}`);
+        
     });
     
-    console.log('\nStats:', deepCheck.stats);
+    
     
     await browser.close();
     

@@ -15,17 +15,17 @@ describe('Quick Accessibility Setup Test', () => {
       // Basic page validation
       const title = await page.title();
       expect(title).toBeTruthy();
-      console.log('✅ Page title:', title);
+      
       
       // Check for main element
       const main = await page.$('main');
       expect(main).toBeTruthy();
-      console.log('✅ Main element found');
+      
       
       // Get page content
       const content = await page.$eval('body', el => el.textContent.substring(0, 100));
       expect(content.length).toBeGreaterThan(0);
-      console.log('✅ Page content loaded:', content.length, 'characters');
+      
       
     } finally {
       await page.close();

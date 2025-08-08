@@ -82,7 +82,7 @@ describe('Dashboard Functionality - Bulletproof Tests', () => {
       const response = await fetch(`${server.getUrl()}${assetPath}`);
       
       if (response.ok) {
-        console.log(`✅ Asset found: ${assetPath}`);
+        
         expect(response.ok).toBe(true);
       } else {
         console.warn(`⚠️ Asset not found: ${assetPath} (acceptable if not implemented)`);
@@ -106,6 +106,6 @@ describe('Dashboard Functionality - Bulletproof Tests', () => {
       expect(implemented).toBe(true);
     });
 
-    console.log('✅ Dashboard testing infrastructure: Enterprise ready');
+    
   });
 });

@@ -30,7 +30,7 @@ class CrossBrowserValidator {
       debug: '🔍'
     };
     
-    console.log(`${emoji[level]} [${timestamp}] ${message}${details ? '\n   ' + details : ''}`);
+    
   }
 
   async validateDependencies() {
@@ -189,14 +189,14 @@ class CrossBrowserValidator {
     const totalExecutions = Object.keys(this.results.testExecution).length;
     const validExecutions = Object.values(this.results.testExecution).filter(Boolean).length;
 
-    console.log('\n📋 Cross-Browser Testing Validation Report');
-    console.log('=' .repeat(50));
     
-    console.log(`\n🔧 Dependencies: ${this.results.dependencies ? '✅ PASS' : '❌ FAIL'}`);
-    console.log(`🌐 Browsers: ${validBrowsers}/${totalBrowsers} (${this.results.browsers.chromium ? '✅' : '❌'} Chrome, ${this.results.browsers.firefox ? '✅' : '❌'} Firefox, ${this.results.browsers.webkit ? '✅' : '❌'} Safari)`);
-    console.log(`🏗️ Test Server: ${this.results.testServer ? '✅ PASS' : '❌ FAIL'}`);
-    console.log(`🧪 Test Execution: ${validExecutions}/${totalExecutions} (${this.results.testExecution.chromium ? '✅' : '❌'} Chrome, ${this.results.testExecution.firefox ? '✅' : '❌'} Firefox, ${this.results.testExecution.webkit ? '✅' : '❌'} Safari)`);
-    console.log(`📁 Artifacts: ${this.results.artifacts ? '✅ PASS' : '❌ FAIL'}`);
+    );
+    
+    
+    `);
+    
+    `);
+    
     
     const overallScore = [
       this.results.dependencies,
@@ -206,17 +206,17 @@ class CrossBrowserValidator {
       this.results.artifacts
     ].filter(Boolean).length;
     
-    console.log(`\n🎯 Overall Score: ${overallScore}/5`);
+    
     
     if (overallScore >= 4) {
-      console.log('🚀 Status: READY FOR CI/CD');
-      console.log('✅ Cross-browser testing is properly configured for production deployment');
+      
+      
     } else if (overallScore >= 3) {
-      console.log('⚠️ Status: PARTIAL READINESS');
-      console.log('🔧 Some browsers may fail in CI, but core functionality should work');
+      
+      
     } else {
-      console.log('❌ Status: NOT READY');
-      console.log('🛠️ Significant issues need to be resolved before CI deployment');
+      
+      
     }
     
     return overallScore >= 3;

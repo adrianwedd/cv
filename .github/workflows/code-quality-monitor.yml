@@ -1,0 +1,61 @@
+name: Code Quality Monitor
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 8 * * *' # Daily at 8 AM
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Run quality enforcer
+        run: |
+          cd .github/scripts
+          npm install
+          node code-quality-enforcer.js
+          
+      - name: Upload quality report
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-quality-report
+          path: |
+            code-quality-dashboard.html
+            data/code-quality-report.json
+            
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('data/code-quality-report.json')) {
+              const report = JSON.parse(fs.readFileSync('data/code-quality-report.json'));
+              const comment = `## Code Quality Report
+              
+**Quality Score**: ${report.qualityScore}/100
+**Issues Found**: ${report.totalIssues}
+**Dead Code**: ${report.deadCodeCount} instances
+**Suggestions**: ${report.refactoringSuggestions}
+
+[View Full Report](../../../actions)
+`;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }

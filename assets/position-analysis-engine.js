@@ -39,7 +39,7 @@ class PositionAnalysisEngine {
      * Initialize the position analysis engine
      */
     async init() {
-        console.log('🔍 Initializing Position Analysis Engine...');
+        
         
         try {
             await this.loadMarketData();
@@ -47,7 +47,7 @@ class PositionAnalysisEngine {
             await this.loadCompanyProfiles();
             
             this.isInitialized = true;
-            console.log('✅ Position Analysis Engine initialized successfully');
+            
             
         } catch (error) {
             console.error('❌ Position Analysis Engine initialization failed:', error);
@@ -107,7 +107,7 @@ class PositionAnalysisEngine {
             this.marketData.set(role, data);
         }
         
-        console.log('📊 Market intelligence data loaded');
+        
     }
 
     /**
@@ -139,7 +139,7 @@ class PositionAnalysisEngine {
             this.salaryDatabase.set(industry, levels);
         }
         
-        console.log('💰 Salary database loaded');
+        
     }
 
     /**
@@ -174,14 +174,14 @@ class PositionAnalysisEngine {
             this.companyProfiles.set(type, profile);
         }
         
-        console.log('🏢 Company profiles loaded');
+        
     }
 
     /**
      * Perform comprehensive position analysis
      */
     async analyzePosition(jobDescription, options = {}) {
-        console.log('🔍 Starting comprehensive position analysis...');
+        
         
         const startTime = Date.now();
         const analysisId = this.generateAnalysisId(jobDescription);
@@ -190,7 +190,7 @@ class PositionAnalysisEngine {
         if (this.analysisHistory.has(analysisId) && !options.forceRefresh) {
             const cached = this.analysisHistory.get(analysisId);
             if (Date.now() - cached.timestamp < this.config.cacheExpiration) {
-                console.log('📋 Using cached analysis');
+                
                 return cached.analysis;
             }
         }
@@ -234,7 +234,7 @@ class PositionAnalysisEngine {
                 analysis: analysis
             });
 
-            console.log(`✅ Position analysis completed in ${analysis.processingTime}ms`);
+            
             return analysis;
             
         } catch (error) {

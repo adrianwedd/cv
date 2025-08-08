@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-    console.log('🕵️ BRUTAL REALITY CHECK - Testing like an actual user\n');
+    
     
     const browser = await puppeteer.launch({ 
         headless: false,  // Show what user actually sees
@@ -12,14 +12,14 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
     
     // Test like a real user would
-    console.log('1. Loading site with fresh cache...');
+    
     await page.goto('https://adrianwedd.github.io/cv/', { 
         waitUntil: 'networkidle0',
         timeout: 30000 
     });
     
     // Wait and observe like a user would
-    console.log('2. Waiting 10 seconds to see what user actually sees...');
+    
     await new Promise(r => setTimeout(r, 10000));
     
     // Take screenshot of what user actually sees
@@ -29,13 +29,13 @@ const puppeteer = require('puppeteer');
     });
     
     // Test actual user interactions
-    console.log('3. Testing navigation clicks like a user...');
+    
     const navItems = await page.$$('.nav-item');
     
     for (let i = 0; i < navItems.length; i++) {
         const item = navItems[i];
         const text = await item.evaluate(el => el.textContent.trim());
-        console.log(`   Clicking: ${text}`);
+        
         
         await item.click();
         await new Promise(r => setTimeout(r, 1000));
@@ -50,11 +50,11 @@ const puppeteer = require('puppeteer');
             };
         });
         
-        console.log(`   Result: nav="${activeSection.activeNav}", section="${activeSection.visibleSection}"`);
+        
     }
     
     // Check for any visual problems
-    console.log('4. Checking for visual problems...');
+    
     const visualIssues = await page.evaluate(() => {
         const issues = [];
         
@@ -106,17 +106,17 @@ const puppeteer = require('puppeteer');
         return issues;
     });
     
-    console.log('5. Visual Issues Found:');
+    
     if (visualIssues.length === 0) {
-        console.log('   ✅ No visual issues detected');
+        
     } else {
         visualIssues.forEach(issue => {
-            console.log(`   ❌ ${issue}`);
+            
         });
     }
     
     // Test responsiveness
-    console.log('6. Testing mobile responsiveness...');
+    
     await page.setViewport({ width: 375, height: 667 }); // iPhone size
     await new Promise(r => setTimeout(r, 2000));
     
@@ -138,32 +138,32 @@ const puppeteer = require('puppeteer');
     });
     
     if (mobileIssues.length === 0) {
-        console.log('   ✅ Mobile responsive');
+        
     } else {
         mobileIssues.forEach(issue => {
-            console.log(`   ❌ ${issue}`);
+            
         });
     }
     
     // Final brutal assessment
     const allIssues = [...visualIssues, ...mobileIssues];
     
-    console.log('\n' + '═'.repeat(50));
-    console.log('           BRUTAL REALITY CHECK RESULTS');
-    console.log('═'.repeat(50));
+    );
+    
+    );
     
     if (allIssues.length === 0) {
-        console.log('🎉 SITE APPEARS TO BE ACTUALLY WORKING');
-        console.log('📸 Screenshot saved as brutal-reality-check.png');
+        
+        
     } else {
-        console.log('❌ SITE HAS REAL PROBLEMS:');
+        
         allIssues.forEach((issue, i) => {
-            console.log(`${i + 1}. ${issue}`);
+            
         });
-        console.log('📸 Screenshot of problems saved as brutal-reality-check.png');
+        
     }
     
-    console.log('\n👀 Browser kept open for 10 seconds for visual inspection...');
+    
     await new Promise(r => setTimeout(r, 10000));
     
     await browser.close();

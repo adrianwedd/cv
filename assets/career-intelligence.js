@@ -132,7 +132,7 @@ class CareerIntelligenceDashboard {
                 
                 // Recreate charts if mobile state changed
                 if (wasMobile !== this.isMobile && Object.keys(this.charts).length > 0) {
-                    console.log('📱 Device orientation changed, recreating charts...');
+                    
                     this.recreateCharts();
                 }
             }, 250);
@@ -249,7 +249,7 @@ class CareerIntelligenceDashboard {
      */
     async init() {
         try {
-            console.log(`🎯 Initializing Career Intelligence Dashboard... (${this.isMobile ? 'Mobile' : 'Desktop'} mode)`);
+            `);
             
             // Set up theme handling
             this.initializeTheme();
@@ -271,7 +271,7 @@ class CareerIntelligenceDashboard {
             
             // Track performance
             const loadTime = performance.now() - this.performanceStart;
-            console.log(`📊 Dashboard loaded in ${Math.round(loadTime)}ms`);
+            }ms`);
             
             // Set up auto-refresh
             this.setupAutoRefresh();
@@ -286,12 +286,12 @@ class CareerIntelligenceDashboard {
      * Load data with mobile-first performance optimization
      */
     async loadData() {
-        console.log(`📡 Loading career data... (${this.isMobile ? 'Mobile' : 'Desktop'} mode)`);
+        `);
         
         try {
             if (this.isMobile) {
                 // Mobile: Sequential loading for performance
-                console.log('📱 Mobile optimization: Loading critical data first');
+                
                 
                 // 1. Load essential trends data (most important for charts)
                 const latestTrends = await this.getLatestFile('trends');
@@ -328,7 +328,7 @@ class CareerIntelligenceDashboard {
                 
             } else {
                 // Desktop: Parallel loading for full experience
-                console.log('🖥️ Desktop: Loading full dataset in parallel');
+                
                 
                 const [metricsFile, trendsFile] = await Promise.allSettled([
                     this.getLatestFile('metrics'),
@@ -353,7 +353,7 @@ class CareerIntelligenceDashboard {
                 if (activitySummary.status === 'fulfilled' && activitySummary.value) this.data.activitySummary = activitySummary.value;
             }
             
-            console.log('✅ Critical data loaded successfully');
+            
             
         } catch (error) {
             console.error('❌ Data loading failed:', error);
@@ -376,7 +376,7 @@ class CareerIntelligenceDashboard {
                         // Verify the file exists
                         const response = await fetch(`data/${type}/${filename}`);
                         if (response.ok) {
-                            console.log(`📄 Using indexed file: ${filename}`);
+                            
                             return filename;
                         }
                     }
@@ -387,7 +387,7 @@ class CareerIntelligenceDashboard {
                         try {
                             const response = await fetch(`data/${type}/${fallback}`);
                             if (response.ok) {
-                                console.log(`📄 Using fallback file: ${fallback}`);
+                                
                                 return fallback;
                             }
                         } catch (e) {
@@ -414,7 +414,7 @@ class CareerIntelligenceDashboard {
                 try {
                     const response = await fetch(`data/${type}/${pattern}`);
                     if (response.ok) {
-                        console.log(`📄 Using pattern file: ${pattern}`);
+                        
                         return pattern;
                     }
                 } catch (e) {
@@ -468,7 +468,7 @@ class CareerIntelligenceDashboard {
      * Initialize UI components
      */
     initializeUI() {
-        console.log('🎨 Initializing UI components...');
+        
         
         // Update status indicator
         this.updateStatus('live', 'Data updated');
@@ -588,7 +588,7 @@ class CareerIntelligenceDashboard {
      * Initialize charts
      */
     initializeCharts() {
-        console.log('📈 Initializing charts...');
+        
         
         // Activity trends chart
         this.createActivityChart();
@@ -743,7 +743,7 @@ class CareerIntelligenceDashboard {
      * Update components that depend on secondary data (mobile optimization)
      */
     updateSecondaryComponents() {
-        console.log('🔄 Updating secondary components with new data...');
+        
         
         // Update market intelligence if needed
         if (this.data.metrics || this.data.activitySummary) {
@@ -958,7 +958,7 @@ class CareerIntelligenceDashboard {
      */
     updateChartPeriod(period) {
         // In a real implementation, this would fetch different data
-        console.log(`📊 Updating charts for period: ${period}`);
+        
         
         // For now, just add some visual feedback
         const chart = this.charts.activity;
@@ -971,7 +971,7 @@ class CareerIntelligenceDashboard {
      * Update market intelligence section
      */
     updateMarketIntelligence() {
-        console.log('🎯 Updating market intelligence...');
+        
         
         // Update market positioning
         this.updateMarketPositioning();
@@ -1122,7 +1122,7 @@ class CareerIntelligenceDashboard {
      */
     setupAutoRefresh() {
         setInterval(() => {
-            console.log('🔄 Auto-refreshing career data...');
+            
             this.loadData().then(() => {
                 this.updateMetricsCards();
                 this.updateMarketIntelligence();
@@ -1184,7 +1184,7 @@ class CareerIntelligenceDashboard {
      */
     async loadBasicData() {
         try {
-            console.log('📊 Loading basic CV data as fallback...');
+            
             
             // Load at least the base CV data
             this.data.cv = await this.fetchJSON('data/base-cv.json');
@@ -1308,15 +1308,15 @@ class CareerIntelligenceDashboard {
 
 // Initialize dashboard when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🎯 Career Intelligence Dashboard Starting...');
+    
     new CareerIntelligenceDashboard();
 });
 
 // Handle visibility change for performance
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        console.log('📊 Dashboard hidden - pausing updates');
+        
     } else {
-        console.log('📊 Dashboard visible - resuming updates');
+        
     }
 });

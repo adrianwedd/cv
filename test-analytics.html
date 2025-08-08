@@ -178,6 +178,10 @@
   to { transform: rotate(360deg); }
 }
 </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
 
@@ -334,14 +338,14 @@
     <!-- Debug Information -->
     <script>
         // Debug logging for testing
-        console.log('🧪 Advanced Analytics Test Page Loaded');
+        
         
         // Check if analytics platform initializes
         setTimeout(() => {
             const statusDiv = document.getElementById('system-status');
             
             if (window.advancedAnalytics && window.advancedAnalytics.isInitialized) {
-                console.log('✅ Advanced Analytics Platform initialized successfully');
+                
                 statusDiv.innerHTML = `
                     <div style="text-align: center; color: var(--color-success, #10b981); padding: 2rem;">
                         <div style="font-size: 2rem; margin-bottom: 1rem;">✅</div>
@@ -391,12 +395,7 @@
         // Monitor analytics platform initialization
         const checkInterval = setInterval(() => {
             if (window.advancedAnalytics) {
-                console.log('📊 Analytics platform found:', {
-                    initialized: window.advancedAnalytics.isInitialized,
-                    analyticsData: window.advancedAnalytics.analyticsData.size,
-                    careerModels: window.advancedAnalytics.careerModels.size,
-                    marketIntelligence: window.advancedAnalytics.marketIntelligence.size
-                });
+                
                 
                 if (window.advancedAnalytics.isInitialized) {
                     clearInterval(checkInterval);
@@ -410,7 +409,7 @@
         // Add sample data visualization
         document.addEventListener('DOMContentLoaded', () => {
             // Add some interactive elements for demonstration
-            console.log('🎯 Advanced Analytics test environment ready');
+            
         });
     </script>
 

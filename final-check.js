@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     
-    console.log('🔍 Final Production Check...\n');
+    
     
     await page.goto('https://adrianwedd.github.io/cv/', { 
         waitUntil: 'networkidle2',
@@ -49,21 +49,21 @@ const puppeteer = require('puppeteer');
         results.navigation.itemCount === 5 &&
         results.content.visible;
     
-    console.log('✅ Dark Mode:', results.darkMode.active ? 'YES ✓' : 'NO ✗');
-    console.log('✅ Loading Hidden:', results.loadingScreen.hidden ? 'YES ✓' : 'NO ✗');
-    console.log('✅ Navigation Visible:', results.navigation.visible ? 'YES ✓' : 'NO ✗');
-    console.log('✅ Navigation Height:', results.navigation.height + 'px');
-    console.log('✅ Navigation Items:', results.navigation.itemCount);
+    
+    
+    
+    
+    
     
     if (results.navigation.items.length > 0) {
-        console.log('\nNavigation Items:');
+        
         results.navigation.items.forEach(item => {
-            console.log(`  - ${item.text}: ${item.visible ? '✓' : '✗'} (${item.color})`);
+            `);
         });
     }
     
-    console.log('\n' + '='.repeat(40));
-    console.log(allGood ? '🎉 SITE IS FIXED!' : '⚠️ ISSUES REMAIN');
+    );
+    
     
     await browser.close();
 })();

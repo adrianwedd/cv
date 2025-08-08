@@ -65,9 +65,9 @@ class CVPerformanceMonitor {
      * Initialize performance monitoring system
      */
     init() {
-        console.log('📊 **CV PERFORMANCE MONITOR INITIATED**');
-        console.log(`🆔 Session ID: ${this.sessionId}`);
-        console.log(`🎯 Monitoring Core Web Vitals + Custom CV Metrics`);
+        
+        
+        
         
         // Initialize core monitoring systems
         this.initializeCoreWebVitalsMonitoring();
@@ -88,14 +88,14 @@ class CVPerformanceMonitor {
         // Start performance data collection
         this.startDataCollection();
         
-        console.log('✅ Performance monitoring system initialized');
+        
     }
 
     /**
      * Initialize Core Web Vitals monitoring
      */
     initializeCoreWebVitalsMonitoring() {
-        console.log('⚡ Initializing Core Web Vitals monitoring...');
+        
 
         // First Contentful Paint (FCP)
         this.observePaintMetrics();
@@ -124,7 +124,7 @@ class CVPerformanceMonitor {
                 if (entry.name === 'first-contentful-paint') {
                     this.recordMetric('FCP', entry.startTime, 'ms');
                     this.evaluateMetric('FCP', entry.startTime);
-                    console.log(`🎨 FCP: ${entry.startTime.toFixed(2)}ms ${this.getPerformanceGrade('FCP', entry.startTime)}`);
+                    }ms ${this.getPerformanceGrade('FCP', entry.startTime)}`);
                 }
             }
         });
@@ -149,7 +149,7 @@ class CVPerformanceMonitor {
             // Identify LCP element for optimization opportunities
             this.identifyLCPElement(lastEntry);
             
-            console.log(`🖼️ LCP: ${lastEntry.startTime.toFixed(2)}ms ${this.getPerformanceGrade('LCP', lastEntry.startTime)}`);
+            }ms ${this.getPerformanceGrade('LCP', lastEntry.startTime)}`);
         });
         
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
@@ -175,7 +175,7 @@ class CVPerformanceMonitor {
             
             this.recordMetric('CLS', clsValue, 'score');
             this.evaluateMetric('CLS', clsValue);
-            console.log(`📐 CLS: ${clsValue.toFixed(4)} ${this.getPerformanceGrade('CLS', clsValue)}`);
+            } ${this.getPerformanceGrade('CLS', clsValue)}`);
         });
         
         clsObserver.observe({ entryTypes: ['layout-shift'] });
@@ -194,7 +194,7 @@ class CVPerformanceMonitor {
                 const fid = entry.processingStart - entry.startTime;
                 this.recordMetric('FID', fid, 'ms');
                 this.evaluateMetric('FID', fid);
-                console.log(`⚡ FID: ${fid.toFixed(2)}ms ${this.getPerformanceGrade('FID', fid)}`);
+                }ms ${this.getPerformanceGrade('FID', fid)}`);
             }
         });
         
@@ -233,7 +233,7 @@ class CVPerformanceMonitor {
             if (interactions.length >= 10) {
                 const inp = this.calculateINP(interactions);
                 this.recordMetric('INP', inp, 'ms');
-                console.log(`🎯 INP: ${inp.toFixed(2)}ms`);
+                }ms`);
             }
         });
         
@@ -254,7 +254,7 @@ class CVPerformanceMonitor {
             const ttfb = navigationEntry.responseStart - navigationEntry.requestStart;
             this.recordMetric('TTFB', ttfb, 'ms');
             this.evaluateMetric('TTFB', ttfb);
-            console.log(`⚡ TTFB: ${ttfb.toFixed(2)}ms ${this.getPerformanceGrade('TTFB', ttfb)}`);
+            }ms ${this.getPerformanceGrade('TTFB', ttfb)}`);
         }
     }
 
@@ -262,7 +262,7 @@ class CVPerformanceMonitor {
      * Initialize custom CV-specific metrics monitoring
      */
     initializeCustomMetricsMonitoring() {
-        console.log('🔧 Initializing custom CV metrics monitoring...');
+        
 
         // Monitor lazy chunk loading performance
         this.monitorLazyChunkLoading();
@@ -302,7 +302,7 @@ class CVPerformanceMonitor {
                     this.recordMetric(`chunk_load_${chunkName}`, loadTime, 'ms');
                     this.evaluateCustomMetric('lazyChunkLoad', loadTime);
                     
-                    console.log(`📦 Chunk ${chunkName} loaded in ${loadTime.toFixed(2)}ms`);
+                    }ms`);
                     
                     return response;
                 } catch (error) {
@@ -333,7 +333,7 @@ class CVPerformanceMonitor {
                             this.recordMetric('critical_data_load', criticalLoadTime, 'ms');
                             this.evaluateCustomMetric('criticalDataLoad', criticalLoadTime);
                             
-                            console.log(`⚡ Critical data loaded in ${criticalLoadTime.toFixed(2)}ms`);
+                            }ms`);
                             observer.disconnect();
                         }
                     });
@@ -396,7 +396,7 @@ class CVPerformanceMonitor {
                     if (targetElement && targetElement.classList.contains('loaded')) {
                         const navTime = performance.now() - navStartTime;
                         this.recordMetric(`navigation_${section}`, navTime, 'ms');
-                        console.log(`🧭 Navigation to ${section}: ${navTime.toFixed(2)}ms`);
+                        }ms`);
                     } else {
                         setTimeout(checkNavigation, 100);
                     }
@@ -411,7 +411,7 @@ class CVPerformanceMonitor {
      * Monitor mobile-specific metrics
      */
     monitorMobileSpecificMetrics() {
-        console.log('📱 Initializing mobile-specific metrics...');
+        
 
         // Touch response time
         let touchStartTime = 0;
@@ -437,7 +437,7 @@ class CVPerformanceMonitor {
      * Initialize network monitoring
      */
     initializeNetworkMonitoring() {
-        console.log('🌐 Initializing network monitoring...');
+        
 
         // Monitor connection changes
         if (navigator.connection) {
@@ -455,7 +455,7 @@ class CVPerformanceMonitor {
                     timestamp: performance.now()
                 }, 'object');
                 
-                console.log(`📶 Network changed: ${connection.effectiveType}`);
+                
             });
         }
 
@@ -493,7 +493,7 @@ class CVPerformanceMonitor {
      * Initialize performance budget monitoring
      */
     initializePerformanceBudgetMonitoring() {
-        console.log('💰 Initializing performance budget monitoring...');
+        
 
         setInterval(() => {
             this.checkPerformanceBudgets();
@@ -560,14 +560,14 @@ class CVPerformanceMonitor {
         this.recordMetric('ab_test_variant', variant, 'string');
         document.body.dataset.abVariant = variant;
         
-        console.log(`🧪 A/B Test Variant: ${variant}`);
+        
     }
 
     /**
      * Initialize reporting system
      */
     initializeReporting() {
-        console.log('📊 Initializing reporting system...');
+        
 
         this.reportingBatch = [];
         this.lastReportTime = performance.now();
@@ -594,7 +594,7 @@ class CVPerformanceMonitor {
      * Start continuous data collection
      */
     startDataCollection() {
-        console.log('🔄 Starting continuous data collection...');
+        
 
         // Collect memory usage if available
         if (performance.memory) {
@@ -804,7 +804,7 @@ class CVPerformanceMonitor {
             navigator.sendBeacon('/analytics/performance', JSON.stringify(report));
         }
         
-        console.log('📊 Performance report sent:', report);
+        
     }
 
     reportBudgetViolations(violations) {
@@ -894,11 +894,11 @@ class CVPerformanceMonitor {
 
     logPerformanceSummary() {
         const summary = this.generatePerformanceSummary();
-        console.log('📊 **PERFORMANCE SUMMARY**');
+        
         Object.entries(summary).forEach(([metric, data]) => {
-            console.log(`  ${metric}: ${data.value.toFixed(2)}ms ${this.getPerformanceGrade(metric, data.value)}`);
+            }ms ${this.getPerformanceGrade(metric, data.value)}`);
         });
-        console.log(`  Overall Grade: ${this.calculateOverallPerformanceGrade()}`);
+        }`);
     }
 }
 

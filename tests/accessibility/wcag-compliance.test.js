@@ -60,11 +60,11 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
       expect(results.violations).toHaveLength(0);
       
       if (results.violations.length > 0) {
-        console.log('\n🚨 Accessibility violations found:');
+        
         results.violations.forEach(violation => {
-          console.log(`\n❌ ${violation.id}: ${violation.description}`);
-          console.log(`   Impact: ${violation.impact}`);
-          console.log(`   Elements: ${violation.nodes.length}`);
+          
+          
+          
         });
       }
     }, 25000);
