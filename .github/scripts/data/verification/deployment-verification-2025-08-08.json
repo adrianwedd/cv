@@ -1,6 +1,6 @@
 {
   "overall": "excellent",
-  "timestamp": "2025-08-08T02:25:17.063Z",
+  "timestamp": "2025-08-08T04:13:32.520Z",
   "tests": {
     "accessibility": {
       "status": "passed",
@@ -34,7 +34,7 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 205.214,
+          "value": 174.59900000000002,
           "threshold": "< 2000ms"
         },
         "contentSize": {
@@ -54,10 +54,10 @@
         }
       },
       "metrics": {
-        "loadTime": 205.214,
+        "loadTime": 174.59900000000002,
         "contentSize": 64578,
-        "dnsTime": 1.6,
-        "connectTime": 30.365,
+        "dnsTime": 1.916,
+        "connectTime": 29.500999999999998,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
@@ -205,7 +205,7 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 205.214,
+          "value": 174.59900000000002,
           "threshold": "< 2000ms"
         },
         "contentSize": {
