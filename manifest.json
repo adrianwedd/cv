@@ -1,17 +1,42 @@
 {
   "name": "Adrian Wedd - Professional CV",
   "short_name": "Adrian Wedd",
-  "description": "Experienced Systems Analyst with 7+ years transforming government housing systems at Homes Tasmania. I specialize in API integration, cybersecurity enhancement, and pioneering practical AI adoption in the public sector. My diverse background includes environmental technology roles at Greenpeace and The Wilderness Society, digital marketing expertise, and comprehensive IT support experience. I bring a unique perspective combining technical capability with social impact, focusing on delivering tangible improvements to government services through robust system integration and thoughtful automation.",
+  "description": "Systems Analyst & Technology Professional",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "background_color": "#0a0a0a",
+  "theme_color": "#3b82f6",
   "orientation": "portrait-primary",
+  "categories": [
+    "productivity",
+    "business"
+  ],
+  "lang": "en",
+  "scope": "/",
   "icons": [
     {
       "src": "data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><text y=\".9em\" font-size=\"90\">🤖</text></svg>",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
+  ],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Experience",
+      "url": "/#experience",
+      "description": "View professional experience"
+    },
+    {
+      "name": "Projects",
+      "url": "/#projects",
+      "description": "Explore technical projects"
+    }
+  ],
+  "cache_urls": [
+    "/",
+    "/data/optimized/chunks/critical.json",
+    "/assets/styles.min.css"
   ]
 }
