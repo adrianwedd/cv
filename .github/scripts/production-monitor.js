@@ -217,7 +217,8 @@ class ProductionMonitor {
             critical: true,
             check: async () => {
                 try {
-                    const baseCvPath = path.join(this.config.dataDir, 'base-cv.json');
+                    // Look for data files in both local data dir and repo root data dir
+                    const baseCvPath = path.join(path.dirname(path.dirname(process.cwd())), 'data', 'base-cv.json');
                     const activitySummaryPath = path.join(this.config.dataDir, 'activity-summary.json');
                     
                     const results = {};
@@ -882,8 +883,20 @@ async function main() {
     const command = process.argv[2];
     const subcommand = process.argv[3];
     
+    // Silent mode for JSON output
+    const isSilentMode = command === 'dashboard' && subcommand === 'json';
+    
     const monitor = new ProductionMonitor();
-    await monitor.initialize();
+    
+    // Suppress console output in silent mode
+    if (isSilentMode) {
+        const originalConsoleLog = console.log;
+        console.log = () => {};
+        await monitor.initialize();
+        console.log = originalConsoleLog;
+    } else {
+        await monitor.initialize();
+    }
     
     switch (command) {
         case 'check':
@@ -896,10 +909,16 @@ async function main() {
             break;
             
         case 'dashboard':
-            const dashboard = await monitor.generateStatusDashboard();
+            let dashboard;
             if (subcommand === 'json') {
-                console.log(JSON.stringify(dashboard, null, 2));
+                // Suppress all console output for pure JSON mode
+                const originalConsoleLog = console.log;
+                console.log = () => {};
+                dashboard = await monitor.generateStatusDashboard();
+                console.log = originalConsoleLog;
+                process.stdout.write(JSON.stringify(dashboard, null, 2));
             } else {
+                dashboard = await monitor.generateStatusDashboard();
                 console.log('🚀 **PRODUCTION STATUS DASHBOARD**\n');
                 console.log(`📊 System Health: ${dashboard.system.health}% (${dashboard.system.status.toUpperCase()})`);
                 console.log(`🔍 Health Checks: ${dashboard.checks.filter(c => c.status === 'healthy').length}/${dashboard.checks.length} passing`);
