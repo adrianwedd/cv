@@ -51,11 +51,11 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad192' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232563eb;stop-opacity:1' /><stop offset='100%' style='stop-color:%2310b981;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' rx='38' fill='url(%23grad192)'/><text x='96' y='125' font-family='system-ui, sans-serif' font-size='86' font-weight='600' text-anchor='middle' fill='white'>AW</text><circle cx='144' cy='48' r='15' fill='%2310b981' opacity='0.8'/></svg>">
     
-    <!-- Optimized CSS -->
-    <link rel="stylesheet" href="assets/styles.min.css">
-    <link rel="stylesheet" href="assets/styles-beautiful.min.css">
-    <link rel="stylesheet" href="assets/header-fixes.css">
-    <link rel="stylesheet" href="assets/critical-fixes.css">
+    <!-- Optimized CSS with cache busting -->
+    <link rel="stylesheet" href="assets/styles.min.css?v=20250808-2">
+    <link rel="stylesheet" href="assets/styles-beautiful.min.css?v=20250808-2">
+    <link rel="stylesheet" href="assets/header-fixes.css?v=20250808-2">
+    <link rel="stylesheet" href="assets/critical-fixes.css?v=20250808-2">
     
     <!-- Mobile styles included in main CSS -->
     
@@ -716,9 +716,10 @@
         </footer>
     </div>
 
-    <!-- Ultra-optimized Scripts -->
-    <script src="assets/script.min.js" defer></script>
-    <script src="assets/beautiful-enhancements.min.js" defer></script>
+    <!-- Ultra-optimized Scripts with cache busting -->
+    <script src="assets/script.min.js?v=20250808-2" defer></script>
+    <script src="assets/beautiful-enhancements.min.js?v=20250808-2" defer></script>
+    <script src="assets/cache-buster.js?v=20250808-2"></script>
     
     <!-- Ultra-optimized service worker and performance monitoring -->
     <script>

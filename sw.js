@@ -9,7 +9,7 @@
  * - Performance monitoring and optimization
  */
 
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5-nocache-' + Date.now(); // Force new cache
 const CACHE_NAMES = {
     static: `cv-static-${CACHE_VERSION}`,
     dynamic: `cv-dynamic-${CACHE_VERSION}`,
