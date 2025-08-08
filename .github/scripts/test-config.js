@@ -11,9 +11,11 @@ const TEST_CONFIG = {
   // Mock authentication responses
   MOCK_AUTH_SUCCESS: true,
   
-  // Test timeouts (in milliseconds)
-  DEFAULT_TIMEOUT: 30000,
-  API_TIMEOUT: 5000,
+  // Test timeouts (in milliseconds) - Aggressive timeouts to prevent hanging
+  UNIT_TEST_TIMEOUT: 5000,      // 5 seconds for unit tests
+  INTEGRATION_TIMEOUT: 15000,   // 15 seconds for integration tests
+  E2E_TIMEOUT: 60000,          // 60 seconds for E2E tests (manual only)
+  API_TIMEOUT: 2000,           // 2 seconds for mocked API calls
   
   // Test data paths
   TEST_DATA_DIR: './test-data',
@@ -25,7 +27,12 @@ const TEST_CONFIG = {
     branches: 80,
     functions: 80,
     lines: 80
-  }
+  },
+  
+  // Test execution control
+  FAST_TESTS_ONLY: process.env.TEST_MODE === 'unit',
+  DISABLE_BROWSER_TESTS: process.env.DISABLE_BROWSER === 'true',
+  DISABLE_NETWORK_TESTS: process.env.DISABLE_NETWORK === 'true'
 };
 
 // Environment setup for tests

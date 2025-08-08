@@ -1,0 +1,13 @@
+{
+  "calculationTimestamp": "2025-08-08T15:38:01.673Z",
+  "analysisPeriodDays": 30,
+  "scores": {},
+  "rawData": {
+    "commits": 0,
+    "activeDays": 0,
+    "repositories": 0,
+    "starsReceived": 0
+  },
+  "skillAnalysis": {},
+  "professionalMetrics": {}
+}

@@ -25,11 +25,21 @@ const logger = winston.createLogger({
   ]
 });
 
-// Initialize LangSmith client
-const langsmithClient = new Client({
-  apiKey: process.env.LANGSMITH_API_KEY,
-  apiUrl: process.env.LANGSMITH_ENDPOINT || process.env.LANGSMITH_API_URL || 'https://api.smith.langchain.com'
-});
+// Initialize LangSmith client with error handling
+let langsmithClient;
+try {
+  if (!process.env.LANGSMITH_API_KEY) {
+    throw new Error('LANGSMITH_API_KEY not found');
+  }
+  langsmithClient = new Client({
+    apiKey: process.env.LANGSMITH_API_KEY,
+    apiUrl: process.env.LANGSMITH_ENDPOINT || process.env.LANGSMITH_API_URL || 'https://api.smith.langchain.com'
+  });
+  logger.info('LangSmith client initialized successfully');
+} catch (error) {
+  logger.error('Failed to initialize LangSmith client:', error);
+  langsmithClient = null;
+}
 
 const projectName = process.env.LANGSMITH_PROJECT || 'adrianwedd-cv';
 const tracingEnabled = process.env.LANGSMITH_TRACING === 'true';
@@ -127,6 +137,11 @@ app.post('/v1/traces', async (req, res) => {
 });
 
 async function processMetricForLangSmith(metric, resource) {
+  if (!langsmithClient) {
+    logger.warn('LangSmith client not available, skipping metric processing');
+    return;
+  }
+
   try {
     const { name, unit, description, sum, gauge } = metric;
     const resourceAttributes = resource?.attributes || {};
@@ -168,10 +183,20 @@ async function processMetricForLangSmith(metric, resource) {
     
   } catch (error) {
     logger.error(`Error processing metric ${metric.name}:`, error);
+    // Circuit breaker: disable client on repeated failures
+    if (error.message.includes('Unauthorized') || error.message.includes('403')) {
+      logger.error('LangSmith authentication failed, disabling client');
+      langsmithClient = null;
+    }
   }
 }
 
 async function processLogForLangSmith(logRecord, resource) {
+  if (!langsmithClient) {
+    logger.warn('LangSmith client not available, skipping log processing');
+    return;
+  }
+
   try {
     const { attributes, body, timeUnixNano } = logRecord;
     const resourceAttributes = resource?.attributes || {};
@@ -240,6 +265,11 @@ async function processLogForLangSmith(logRecord, resource) {
 }
 
 async function processSpanForLangSmith(span, resource) {
+  if (!langsmithClient) {
+    logger.warn('LangSmith client not available, skipping span processing');
+    return;
+  }
+
   try {
     const { name, startTimeUnixNano, endTimeUnixNano, attributes, events } = span;
     
@@ -285,8 +315,233 @@ function getRunTypeFromEvent(eventName) {
   }
 }
 
+// Browser tracking endpoints
+app.post('/track/pageview', async (req, res) => {
+  if (!langsmithClient) {
+    return res.status(503).json({ error: 'LangSmith client not available' });
+  }
+  
+  try {
+    const { page, title, referrer, userAgent, viewport, sessionId } = req.body;
+    
+    await langsmithClient.createRun({
+      project_name: projectName,
+      name: 'page_view',
+      run_type: 'chain',
+      start_time: new Date().toISOString(),
+      end_time: new Date().toISOString(),
+      inputs: {
+        page,
+        title,
+        referrer,
+        user_agent: userAgent,
+        viewport
+      },
+      outputs: {
+        tracked: true
+      },
+      tags: ['cv', 'pageview', 'browser'],
+      extra: {
+        session_id: sessionId,
+        timestamp: new Date().toISOString()
+      }
+    });
+    
+    res.json({ success: true });
+    logger.info(`Tracked page view: ${page}`);
+  } catch (error) {
+    logger.error('Error tracking page view:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/track/interaction', async (req, res) => {
+  if (!langsmithClient) {
+    return res.status(503).json({ error: 'LangSmith client not available' });
+  }
+  
+  try {
+    const { action, element, id, className, text, href, sessionId } = req.body;
+    
+    await langsmithClient.createRun({
+      project_name: projectName,
+      name: 'user_interaction',
+      run_type: 'tool',
+      start_time: new Date().toISOString(),
+      end_time: new Date().toISOString(),
+      inputs: {
+        action,
+        element,
+        element_id: id,
+        element_class: className,
+        element_text: text,
+        href
+      },
+      outputs: {
+        tracked: true
+      },
+      tags: ['cv', 'interaction', action],
+      extra: {
+        session_id: sessionId
+      }
+    });
+    
+    res.json({ success: true });
+    logger.info(`Tracked interaction: ${action} on ${element}`);
+  } catch (error) {
+    logger.error('Error tracking interaction:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/track/performance', async (req, res) => {
+  if (!langsmithClient) {
+    return res.status(503).json({ error: 'LangSmith client not available' });
+  }
+  
+  try {
+    const { metrics, sessionId } = req.body;
+    
+    await langsmithClient.createRun({
+      project_name: projectName,
+      name: 'performance_metrics',
+      run_type: 'llm',
+      start_time: new Date().toISOString(),
+      end_time: new Date().toISOString(),
+      inputs: {
+        metrics_type: 'web_performance'
+      },
+      outputs: metrics,
+      tags: ['cv', 'performance', 'browser'],
+      extra: {
+        session_id: sessionId,
+        ...metrics
+      }
+    });
+    
+    res.json({ success: true });
+    logger.info('Tracked performance metrics');
+  } catch (error) {
+    logger.error('Error tracking performance:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/track/external-link', async (req, res) => {
+  if (!langsmithClient) {
+    return res.status(503).json({ error: 'LangSmith client not available' });
+  }
+  
+  try {
+    const { url, text, type, sessionId } = req.body;
+    
+    await langsmithClient.createRun({
+      project_name: projectName,
+      name: 'external_link_click',
+      run_type: 'tool',
+      start_time: new Date().toISOString(),
+      end_time: new Date().toISOString(),
+      inputs: {
+        url,
+        link_text: text,
+        link_type: type
+      },
+      outputs: {
+        clicked: true
+      },
+      tags: ['cv', 'external-link', type],
+      extra: {
+        session_id: sessionId,
+        destination: url
+      }
+    });
+    
+    res.json({ success: true });
+    logger.info(`Tracked external link: ${type} -> ${url}`);
+  } catch (error) {
+    logger.error('Error tracking external link:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/track/download', async (req, res) => {
+  if (!langsmithClient) {
+    return res.status(503).json({ error: 'LangSmith client not available' });
+  }
+  
+  try {
+    const { format, url, filename, sessionId } = req.body;
+    
+    await langsmithClient.createRun({
+      project_name: projectName,
+      name: 'file_download',
+      run_type: 'chain',
+      start_time: new Date().toISOString(),
+      end_time: new Date().toISOString(),
+      inputs: {
+        format,
+        url,
+        filename
+      },
+      outputs: {
+        downloaded: true
+      },
+      tags: ['cv', 'download', format],
+      extra: {
+        session_id: sessionId
+      }
+    });
+    
+    res.json({ success: true });
+    logger.info(`Tracked download: ${format} - ${filename}`);
+  } catch (error) {
+    logger.error('Error tracking download:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/track/session-end', async (req, res) => {
+  if (!langsmithClient) {
+    return res.status(503).json({ error: 'LangSmith client not available' });
+  }
+  
+  try {
+    const { sessionId, startTime, endTime, duration, maxScrollDepth, interactions } = req.body;
+    
+    await langsmithClient.createRun({
+      project_name: projectName,
+      name: 'session_analytics',
+      run_type: 'chain',
+      start_time: startTime,
+      end_time: endTime,
+      inputs: {
+        session_id: sessionId
+      },
+      outputs: {
+        duration_ms: duration,
+        max_scroll_depth: maxScrollDepth,
+        interaction_count: interactions
+      },
+      tags: ['cv', 'session', 'analytics'],
+      extra: {
+        session_id: sessionId,
+        duration_seconds: Math.round(duration / 1000),
+        engagement_score: Math.min(100, (maxScrollDepth + interactions * 5))
+      }
+    });
+    
+    res.json({ success: true });
+    logger.info(`Tracked session end: ${sessionId} (${Math.round(duration / 1000)}s)`);
+  } catch (error) {
+    logger.error('Error tracking session end:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.listen(port, () => {
   logger.info(`LangSmith proxy server running on port ${port}`);
   logger.info(`Project: ${projectName}`);
   logger.info(`LangSmith API Key: ${process.env.LANGSMITH_API_KEY ? 'Set' : 'Not set'}`);
+  logger.info(`Tracing enabled: ${tracingEnabled}`);
+  logger.info(`LangSmith client: ${langsmithClient ? 'Ready' : 'Not available'}`);
 });

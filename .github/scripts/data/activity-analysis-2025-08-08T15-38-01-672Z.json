@@ -1,0 +1,56 @@
+{
+  "metadata": {
+    "analysis_timestamp": "2025-08-08T15:37:57.809Z",
+    "analysis_depth": "local-only",
+    "lookback_days": 30,
+    "target_user": "adrianwedd",
+    "analyzer_version": "2.1.0"
+  },
+  "local_repository_metrics": {
+    "analysis_period": {
+      "lookback_days": 30,
+      "since_date": "2025-07-09",
+      "analysis_date": "2025-08-08"
+    },
+    "commit_activity": {
+      "total_commits": 504,
+      "commits_by_author": 30,
+      "avg_commits_per_day": 16.8
+    },
+    "line_contributions": {
+      "lines_contributed": 60000,
+      "lines_added": 120000,
+      "lines_deleted": 89325,
+      "files_modified": 1000,
+      "binary_files_filtered": 390
+    },
+    "file_analysis": {
+      "total_files": 535,
+      "file_types": {
+        ".json": 343,
+        ".js": 153,
+        ".md": 30,
+        ".html": 3,
+        ".template": 1,
+        ".example": 1,
+        ".csv": 1,
+        ".info": 1,
+        ".txt": 1
+      }
+    },
+    "repository_health": {
+      "score": 80,
+      "max_score": 100,
+      "checks": {
+        "has_readme": false,
+        "has_gitignore": true,
+        "has_package_json": true,
+        "has_tests": true,
+        "recent_commits": true
+      }
+    }
+  },
+  "summary": {
+    "note": "Limited analysis due to GitHub API authentication failure"
+  }
+}

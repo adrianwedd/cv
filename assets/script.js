@@ -702,7 +702,7 @@ class CVApplication {
         const timeline = document.getElementById('experience-timeline');
         if (!timeline) return;
 
-        const experiences = this.cvData?.experience || this.getDefaultExperience();
+        const experiences = this.cvData?.career?.positions || this.getDefaultExperience();
         
         timeline.innerHTML = experiences.map(exp => `
             <div class="timeline-item">
@@ -727,7 +727,7 @@ class CVApplication {
                     </div>
                     ${exp.technologies ? `
                         <div class="tech-tags">
-                            ${exp.technologies.map(tech => 
+                            ${(exp.technologies || []).map(tech => 
                                 `<span class="tech-tag">${tech}</span>`
                             ).join('')}
                         </div>
@@ -744,22 +744,22 @@ class CVApplication {
         const grid = document.getElementById('projects-grid');
         if (!grid) return;
 
-        const projects = this.cvData?.projects || this.getDefaultProjects();
+        const projects = this.cvData?.portfolio?.featured_projects || this.getDefaultProjects();
         
         grid.innerHTML = projects.map(project => `
             <div class="project-card">
                 <div class="project-header">
                     <h3 class="project-title">${project.name}</h3>
                     <div class="project-links">
-                        ${project.github ? `
-                            <a href="${project.github}" target="_blank" rel="noopener" class="project-link">
-                                <span>🔗</span>
+                        ${(project.github || project.url) ? `
+                            <a href="${project.github || project.url}" target="_blank" rel="noopener" class="project-link">
+                                <span>→</span>
                                 <span>GitHub</span>
                             </a>
                         ` : ''}
-                        ${project.demo ? `
-                            <a href="${project.demo}" target="_blank" rel="noopener" class="project-link">
-                                <span>🚀</span>
+                        ${(project.demo || project.live_url) ? `
+                            <a href="${project.demo || project.live_url}" target="_blank" rel="noopener" class="project-link">
+                                <span>↗</span>
                                 <span>Demo</span>
                             </a>
                         ` : ''}
@@ -769,13 +769,13 @@ class CVApplication {
                     <p>${project.description}</p>
                 </div>
                 <div class="project-tech">
-                    ${project.technologies.map(tech => 
+                    ${(project.technologies || []).map(tech => 
                         `<span class="tech-badge">${tech}</span>`
                     ).join('')}
                 </div>
                 ${project.metrics ? `
                     <div class="project-metrics">
-                        ${project.metrics.map(metric => 
+                        ${(project.metrics || []).map(metric => 
                             `<div class="metric-item">
                                 <span class="metric-value">${metric.value}</span>
                                 <span class="metric-label">${metric.label}</span>
@@ -794,7 +794,7 @@ class CVApplication {
         const container = document.getElementById('skills-container');
         if (!container) return;
 
-        const skills = this.cvData?.skills || this.getDefaultSkills();
+        const skills = this.cvData?.expertise?.technical_skills || this.getDefaultSkills();
         const skillProficiency = this.activityData?.skill_analysis?.skill_proficiency || {};
 
         const skillCategories = this.groupSkillsByCategory(skills);
@@ -839,7 +839,7 @@ class CVApplication {
         const grid = document.getElementById('achievements-grid');
         if (!grid) return;
 
-        const achievements = this.cvData?.achievements || this.getDefaultAchievements();
+        const achievements = this.cvData?.recognition?.achievements || this.getDefaultAchievements();
         
         grid.innerHTML = achievements.map(achievement => `
             <div class="achievement-card">

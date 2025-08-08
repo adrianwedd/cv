@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-08-08T08:12:33.772Z",
+  "timestamp": "2025-08-08T15:22:49.212Z",
   "type": "authentication_failure",
   "severity": "high",
   "message": "Browser authentication refresh failed",
   "details": {
     "lastSuccessfulRefresh": null,
     "consecutiveFailures": 0,
-    "nextCheck": "2025-08-08T08:13:17.400Z"
+    "nextCheck": "2025-08-08T15:23:23.913Z"
   },
   "recommendedActions": [
     "Extract fresh cookies from claude.ai manually",
