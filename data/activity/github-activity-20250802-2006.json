@@ -1,0 +1,661 @@
+{
+  "collectionTimestamp": "2025-08-03T03:47:44.036Z",
+  "analysisPeriodDays": 30,
+  "userProfile": {
+    "status": "compressed"
+  },
+  "repositories": {
+    "data": [
+      {
+        "name": "cv",
+        "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+        "language": "JavaScript",
+        "stars": 0,
+        "updated": "2025-08-02T19:19:39Z",
+        "size": 11041,
+        "topics": [
+          "ai-automation",
+          "ai-powered",
+          "automation",
+          "claude-ai",
+          "cv-generator"
+        ],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "adrianwedd",
+        "description": "🧠 Adrian Wedd's AI-augmented portfolio & mission log. Recursive systems architect, off-grid permanaut, LLM wrangler.",
+        "language": "JavaScript",
+        "stars": 0,
+        "updated": "2025-08-02T18:07:02Z",
+        "size": 19793,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "AgentSociety",
+        "description": "AgentSociety: Large-scale Social Simulation to Understand Human Behaviors and Society through LLM-driven Agents",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-08-02T07:33:59Z",
+        "size": 273803,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "Claude-Code-Usage-Monitor",
+        "description": "Real-time Claude Code usage monitor with predictions and warnings",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-08-02T00:07:47Z",
+        "size": 833,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "lunar_tools_prototypes",
+        "description": null,
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-08-01T15:15:58Z",
+        "size": 73,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "lunar_tools",
+        "description": "toolkit for interactive exhibitions",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-08-01T15:10:36Z",
+        "size": 378,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "Agentic-Index",
+        "description": "Agentic Index, the definitive, developer-focused catalogue of autonomous AI tooling. Here you’ll find scored and curated repositories that power LLM agents, multi-agent systems, RAG pipelines, devtool",
+        "language": "Python",
+        "stars": 1,
+        "updated": "2025-08-01T10:41:47Z",
+        "size": 2395,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "emdr-agent",
+        "description": null,
+        "language": "TypeScript",
+        "stars": 0,
+        "updated": "2025-08-01T02:13:36Z",
+        "size": 373,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "claude-code-sub-agents",
+        "description": "Collection of specialized AI subagents for Claude Code for personal use.",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-31T06:49:35Z",
+        "size": 7095,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "ordr.fm",
+        "description": "Methodical Music Sorting. A precision-engineered CLI tool for intelligent music library organization — powered by EXIF metadata, lossless prioritization, and zero-overwrite safety. Sorts chaos",
+        "language": "Shell",
+        "stars": 0,
+        "updated": "2025-07-30T09:53:04Z",
+        "size": 22,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "qwen-code",
+        "description": "qwen-code is a coding agent that lives in digital world.",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-30T04:48:51Z",
+        "size": 4205,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "home-assistant-obsidian",
+        "description": "Obsidian running in a docker container on your Home Assistant instance",
+        "language": "Shell",
+        "stars": 0,
+        "updated": "2025-07-29T14:00:13Z",
+        "size": 1690,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "ModelAtlas",
+        "description": "A dynamic, enriched intelligence system mapping the foundation model landscape. Trust. Trace. Transform.",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-29T14:00:13Z",
+        "size": 2289,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "TEL3SIS",
+        "description": "Telephony-Linked Embedded LLM System for Interactive Support",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-28T09:34:27Z",
+        "size": 1047,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "SWE-agent",
+        "description": "SWE-agent takes a GitHub issue and tries to automatically fix it, using your LM of choice. It can also be employed for offensive cybersecurity or competitive coding challenges. [NeurIPS 2024] ",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-28T00:02:08Z",
+        "size": 55441,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "claude-code",
+        "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows ",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-27T07:15:16Z",
+        "size": 15637,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "personal-intelligence-node",
+        "description": "adrianwedd.com",
+        "language": "JavaScript",
+        "stars": 1,
+        "updated": "2025-07-25T03:39:36Z",
+        "size": 1590,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "agentic-research-engine",
+        "description": "The agentic-research-engine is a next-generation multi-agent research system designed to transcend the limitations of current agentic paradigms. Our mission is to build a system capable of genuine lea",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-25T03:17:41Z",
+        "size": 1874,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "agent-task-management-system",
+        "description": "How my agents roll in my prototypes",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-24T01:54:14Z",
+        "size": 288,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "AI-SWA",
+        "description": null,
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-23T09:30:41Z",
+        "size": 1676,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "Dx0",
+        "description": null,
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-23T05:54:08Z",
+        "size": 1151,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "personal-agentic-operating-system",
+        "description": null,
+        "language": "Python",
+        "stars": 1,
+        "updated": "2025-07-23T05:35:22Z",
+        "size": 293,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "ticketsmith",
+        "description": "⚙️ TICKETSMITH — An ecosystem-aware AI automation platform for Jira and Confluence. Includes CLI tools, Forge app, React UI, API backend, Docker orchestration, and CI/CD workflows.",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-14T14:19:37Z",
+        "size": 625,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "AustLII-Legal-Case-Report",
+        "description": "Australian Legal Cases from Federal Court of Australia",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-13T08:23:01Z",
+        "size": 218671,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "genai-processors",
+        "description": "GenAI Processors is a lightweight Python library that enables efficient, parallel content processing.",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-11T03:53:52Z",
+        "size": 419,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "latent-self",
+        "description": null,
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-09T16:51:43Z",
+        "size": 847,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "excel-sheet-unlocker",
+        "description": "A Python program that unlocks cells and dropdowns in an Excel sheet and applies password protection",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-07T15:00:29Z",
+        "size": 18,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "stable-diffusion-webui",
+        "description": "Stable Diffusion web UI",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-07T15:00:26Z",
+        "size": 31130,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "space-weather",
+        "description": "A comprehensive web application for monitoring and visualizing various space weather indices and phenomena. Integrates backend data retrieval and processing with a user-friendly frontend.",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-07T15:00:20Z",
+        "size": 174,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "chatgpt-retrieval-plugin",
+        "description": "The ChatGPT Retrieval Plugin lets you easily search and find personal or work documents by asking questions in everyday language.",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-07T15:00:09Z",
+        "size": 1204,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "pippin",
+        "description": "The Digital Being Framework for Autonomous Agents",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-07-07T15:00:03Z",
+        "size": 267,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "gemini-cli",
+        "description": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
+        "language": "TypeScript",
+        "stars": 0,
+        "updated": "2025-07-07T14:58:36Z",
+        "size": 7282,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "vocode-core",
+        "description": "🤖 Build voice-based LLM agents. Modular + open source.",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-07-07T14:58:26Z",
+        "size": 18840,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "OpenDeepResearcher",
+        "description": null,
+        "language": "Jupyter Notebook",
+        "stars": 0,
+        "updated": "2025-07-07T06:09:15Z",
+        "size": 9,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "chucknorris",
+        "description": "⚡ C̷h̷u̷c̷k̷N̷o̷r̷r̷i̷s̷ MCP server: Helping LLMs break limits. Provides enhancement prompts inspired by elder-plinius' L1B3RT4S",
+        "language": "JavaScript",
+        "stars": 0,
+        "updated": "2025-07-01T15:44:00Z",
+        "size": 3073,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "echo_chamber",
+        "description": "A Finetuned Phi-2 Based Toxic Chatroom @ ICL",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-25T06:02:10Z",
+        "size": 3871,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "nano-vllm",
+        "description": "Nano vLLM",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-24T22:00:09Z",
+        "size": 36,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "project-terrawatt",
+        "description": null,
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-06-23T02:55:34Z",
+        "size": 268,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "obsidian-sample-plugin",
+        "description": null,
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-22T07:53:24Z",
+        "size": 53,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "master"
+      },
+      {
+        "name": "addons-example",
+        "description": "Example Home Assistant add-on repository",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-22T07:50:28Z",
+        "size": 297,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "system",
+        "description": null,
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-20T18:29:10Z",
+        "size": 0,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "null",
+        "description": null,
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-06-19T18:39:40Z",
+        "size": 257,
+        "topics": [],
+        "private": false,
+        "fork": false,
+        "default_branch": "main"
+      },
+      {
+        "name": "continuous-thought-machines",
+        "description": "Continuous Thought Machines, because thought takes time and reasoning is a process.",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-06-19T09:48:11Z",
+        "size": 12968,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "L1B3RT45",
+        "description": "JAILBREAK PROMPTS FOR ALL MAJOR AI MODELS",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-06-19T06:10:29Z",
+        "size": 990,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "codex",
+        "description": "Lightweight coding agent that runs in your terminal",
+        "language": "Rust",
+        "stars": 0,
+        "updated": "2025-06-19T00:39:54Z",
+        "size": 22062,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "CL4R1T4S",
+        "description": "SYSTEM PROMPT TRANSPARENCY FOR ALL - CHATGPT, GEMINI, GROK, CLAUDE, PERPLEXITY, CURSOR, WINDSURF, DEVIN, REPLIT, AND MORE!",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-17T07:32:23Z",
+        "size": 328,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "gemini-fullstack-langgraph-quickstart",
+        "description": "Get started with building Fullstack Agents using Gemini 2.5 and LangGraph. W00t!",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-11T10:52:30Z",
+        "size": 272,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "microsoft-teams-chat-extractor",
+        "description": "A Chrome extension to extract chats from Microsoft Teams Web",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-04T03:27:52Z",
+        "size": 34,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "csm",
+        "description": "A Conversational Speech Generation Model",
+        "language": null,
+        "stars": 0,
+        "updated": "2025-06-02T05:27:00Z",
+        "size": 29,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "main"
+      },
+      {
+        "name": "LangChain-Coder",
+        "description": "Web Application that can generate code and fix bugs and run them from GPT-3, CodexAI",
+        "language": "Python",
+        "stars": 0,
+        "updated": "2025-05-30T05:40:23Z",
+        "size": 6203,
+        "topics": [],
+        "private": false,
+        "fork": true,
+        "default_branch": "master"
+      }
+    ],
+    "summary": {
+      "total_count": 100,
+      "total_stars": 5,
+      "total_forks": 4,
+      "languages": [
+        {
+          "language": "Python",
+          "count": 34
+        },
+        {
+          "language": "JavaScript",
+          "count": 5
+        },
+        {
+          "language": "TypeScript",
+          "count": 3
+        },
+        {
+          "language": "Shell",
+          "count": 3
+        },
+        {
+          "language": "Jupyter Notebook",
+          "count": 3
+        },
+        {
+          "language": "Rust",
+          "count": 1
+        },
+        {
+          "language": "MDX",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "localRepositoryMetrics": {
+    "line_contributions": {},
+    "commit_frequency": {}
+  },
+  "languageAnalysis": {
+    "primary_languages": [],
+    "language_distribution": []
+  },
+  "compressionNote": "Compressed by emergency data compression tool"
+}
