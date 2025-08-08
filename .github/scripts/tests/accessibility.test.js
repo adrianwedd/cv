@@ -1,8 +1,12 @@
-const assert = require('assert');
-const { test, suite, beforeEach, afterEach } = require('node:test');
-const puppeteer = require('puppeteer');
-const fs = require('fs').promises;
-const path = require('path');
+import assert from 'assert';
+import { test, suite, beforeEach, afterEach } from 'node:test';
+import puppeteer from 'puppeteer';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 suite('Accessibility Tests (WCAG 2.1 AA)', () => {
     let browser;

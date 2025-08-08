@@ -5,12 +5,18 @@
 
 const CACHE_NAME = 'cv-cache-v1';
 const STATIC_ASSETS = [
-    '/cv/',
-    '/cv/index.html',
-    '/cv/assets/styles.css',
-    '/cv/assets/script.js',
-    '/cv/data/base-cv.json',
-    '/cv/assets/favicon.ico'
+    '/',
+    '/index.html',
+    '/career-intelligence.html',
+    '/watch-me-work.html',
+    '/assets/styles.css',
+    '/assets/pwa-mobile.css',
+    '/assets/script.js',
+    '/assets/career-intelligence.js',
+    '/assets/pwa-enhancements.js',
+    '/data/base-cv.json',
+    '/data/activity-summary.json',
+    '/manifest.json'
 ];
 
 // Install event - cache static assets
@@ -46,7 +52,7 @@ self.addEventListener('fetch', (event) => {
                 return response || fetch(event.request).catch(() => {
                     // Fallback for offline scenarios
                     if (event.request.destination === 'document') {
-                        return caches.match('/cv/index.html');
+                        return caches.match('/index.html');
                     }
                 });
             })

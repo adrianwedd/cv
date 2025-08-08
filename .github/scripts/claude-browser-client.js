@@ -109,9 +109,25 @@ class ClaudeBrowserClient {
     }
 
     /**
+     * Check if running in CI environment
+     */
+    isCI() {
+        return process.env.CI === 'true' || 
+               process.env.GITHUB_ACTIONS === 'true' || 
+               process.env.SKIP_BROWSER_TESTS === 'true';
+    }
+
+    /**
      * Initialize browser and set up Claude session
      */
     async initialize() {
+        // Skip browser in CI environments
+        if (this.isCI()) {
+            console.warn('⚠️  WARNING: Skipping browser client in CI environment');
+            this.skipReason = 'CI environment detected';
+            return;
+        }
+        
         console.log('🚀 Launching Chromium browser...');
         
         this.browser = await puppeteer.launch({
@@ -238,6 +254,12 @@ class ClaudeBrowserClient {
      * Send message to Claude and get response
      */
     async sendMessage(message, options = {}) {
+        // Check if we skipped initialization due to CI
+        if (this.skipReason) {
+            console.warn(`⚠️  WARNING: Cannot send message - ${this.skipReason}`);
+            return { success: false, skipped: true, reason: this.skipReason };
+        }
+        
         if (!this.page) {
             throw new Error('Browser not initialized. Call initialize() first.');
         }
@@ -410,6 +432,12 @@ class ClaudeBrowserClient {
      * Test the browser client
      */
     async test() {
+        // Skip in CI environments
+        if (this.isCI()) {
+            console.warn('⚠️  WARNING: Skipping browser test in CI environment');
+            return { success: false, skipped: true, reason: 'CI environment detected' };
+        }
+        
         try {
             console.log('🧪 Testing Claude browser client...');
             
@@ -449,6 +477,19 @@ class ClaudeBrowserClient {
  */
 async function main() {
     const command = process.argv[2];
+    
+    // Check CI environment first
+    const isCI = process.env.CI === 'true' || 
+                 process.env.GITHUB_ACTIONS === 'true' || 
+                 process.env.SKIP_BROWSER_TESTS === 'true';
+    
+    if (isCI && ['test', 'message'].includes(command)) {
+        console.log('⏭️  SKIPPING BROWSER CLIENT - CI ENVIRONMENT DETECTED');
+        console.log('   Browser client requires GUI environment not available in CI');
+        console.log('   Set SKIP_BROWSER_TESTS=true to acknowledge this limitation');
+        process.exit(0);
+    }
+    
     const client = new ClaudeBrowserClient({
         headless: !process.argv.includes('--visible')
     });

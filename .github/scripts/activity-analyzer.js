@@ -250,6 +250,44 @@ class ActivityAnalyzer {
     }
 
     /**
+     * Get all repositories with manual pagination
+     */
+    async getAllRepositories() {
+        console.log('📂 Fetching all repositories with pagination...');
+        const allRepos = [];
+        let page = 1;
+        const perPage = 100;
+        
+        while (true) {
+            try {
+                const repos = await this.client.request(`/users/${CONFIG.GITHUB_USERNAME}/repos?per_page=${perPage}&page=${page}&sort=updated`);
+                
+                if (repos.length === 0) {
+                    break; // No more repos
+                }
+                
+                allRepos.push(...repos);
+                console.log(`   📄 Fetched page ${page}: ${repos.length} repositories`);
+                
+                if (repos.length < perPage) {
+                    break; // Last page
+                }
+                
+                page++;
+                
+                // Rate limiting protection
+                await sleep(100);
+            } catch (error) {
+                console.warn(`⚠️ Failed to fetch repositories page ${page}:`, error.message);
+                break;
+            }
+        }
+        
+        console.log(`✅ Total repositories fetched: ${allRepos.length}`);
+        return allRepos;
+    }
+
+    /**
      * Analyze user repositories with detailed metrics
      */
     async analyzeRepositories() {
@@ -321,8 +359,8 @@ class ActivityAnalyzer {
         console.log('🔍 Analyzing cross-repository activity...');
         
         try {
-            // Get all repos with pagination
-            const allRepos = await this.client.paginate(`/users/${CONFIG.GITHUB_USERNAME}/repos?per_page=100&sort=updated`);
+            // Get all repos (manual pagination since paginate method doesn't exist)
+            const allRepos = await this.getAllRepositories();
             const since = new Date(Date.now() - CONFIG.LOOKBACK_DAYS * 24 * 60 * 60 * 1000).toISOString();
             
             // Filter to only recently active, non-fork repos to avoid API limits and noise
@@ -1033,20 +1071,26 @@ class ActivityAnalyzer {
         
         // Save summary for quick access including cross-repo activity
         const summaryPath = path.join(CONFIG.OUTPUT_DIR, 'activity-summary.json');
+        const totalCommits = results.cross_repo_activity?.summary?.total_commits || 0;
+        const activeDays = Math.min(CONFIG.LOOKBACK_DAYS, results.cross_repo_activity?.summary?.repositories_active || 0);
+        const netLines = results.local_repository_metrics?.line_contributions?.lines_contributed || 0;
+        
         await fs.writeFile(summaryPath, JSON.stringify({
             lastUpdated: new Date().toISOString(),
             trackerVersion: 'v1.6',
             analysisDepth: CONFIG.ANALYSIS_DEPTH,
             lookbackPeriodDays: CONFIG.LOOKBACK_DAYS,
             summary: {
-                totalCommits: results.cross_repo_activity?.summary?.total_commits || 0,
-                activeDays: Math.min(CONFIG.LOOKBACK_DAYS, results.repositories?.summary?.recently_active || 0),
-                netLinesContributed: results.local_repository_metrics?.line_contributions?.lines_contributed || 0,
-                trackingStatus: 'active',
-                lastCommitDate: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
-                repositoriesActive: results.cross_repo_activity?.summary?.repositories_active || 0,
-                issuesOpened: results.cross_repo_activity?.summary?.total_issues_opened || 0,
-                prsOpened: results.cross_repo_activity?.summary?.total_prs_opened || 0
+                total_commits: totalCommits,
+                commit_count: totalCommits, // Alternative field name for compatibility
+                active_days: activeDays,
+                net_lines_contributed: netLines,
+                lines_contributed: netLines, // Alternative field name for compatibility
+                tracking_status: 'active',
+                last_commit_date: new Date().toLocaleString('en-AU', { timeZone: 'Australia/Tasmania' }),
+                repositories_active: results.cross_repo_activity?.summary?.repositories_active || 0,
+                issues_opened: results.cross_repo_activity?.summary?.total_issues_opened || 0,
+                prs_opened: results.cross_repo_activity?.summary?.total_prs_opened || 0
             },
             dataFiles: {
                 latestActivity: activityFileName,
@@ -1398,12 +1442,12 @@ class ActivityAnalyzer {
 }
 
 /**
- * Main execution function
+ * Main execution function with enhanced error handling
  */
 async function main() {
     if (!CONFIG.GITHUB_TOKEN) {
-        console.error('❌ GITHUB_TOKEN environment variable is required');
-        process.exit(1);
+        console.warn('⚠️ GITHUB_TOKEN not available - will use local repository data only');
+        console.log('💡 To get full GitHub metrics, ensure GITHUB_TOKEN is set in environment variables');
     }
 
     await loadSkillConfig(); // Load skill configuration before analysis
@@ -1420,7 +1464,37 @@ async function main() {
         return results;
     } catch (error) {
         console.error('❌ Analysis failed:', error.message);
-        process.exit(1);
+        
+        // If GitHub API fails, try to recover with local data only
+        if (error.message.includes('401') || error.message.includes('Bad credentials')) {
+            console.log('🔄 Attempting recovery with local repository data only...');
+            try {
+                const analyzer = new ActivityAnalyzer();
+                // Only run local analysis
+                const localResults = {
+                    metadata: {
+                        analysis_timestamp: new Date().toISOString(),
+                        analysis_depth: 'local-only',
+                        lookback_days: CONFIG.LOOKBACK_DAYS,
+                        target_user: CONFIG.GITHUB_USERNAME,
+                        analyzer_version: '2.1.0'
+                    },
+                    local_repository_metrics: await analyzer.analyzeLocalRepository(),
+                    summary: {
+                        note: 'Limited analysis due to GitHub API authentication failure'
+                    }
+                };
+                
+                await analyzer.saveAnalysisResults(localResults);
+                console.log('✅ Local analysis completed successfully');
+                return localResults;
+            } catch (recoveryError) {
+                console.error('❌ Recovery failed:', recoveryError.message);
+                process.exit(1);
+            }
+        } else {
+            process.exit(1);
+        }
     }
 }
 

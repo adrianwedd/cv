@@ -7,8 +7,8 @@
  * and few-shot prompting (Issue #96) integration.
  */
 
-const { CVContentEnhancer } = require('./claude-enhancer');
-const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
+import { CVContentEnhancer } from './claude-enhancer.js';
+import { XMLFewShotIntegrator } from './enhancer-modules/xml-few-shot-integrator.js';
 
 async function testXMLIntegration() {
     console.log('🧪 **TESTING XML INTEGRATION COMPLETE IMPLEMENTATION**\n');

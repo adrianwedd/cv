@@ -5,10 +5,14 @@
  * Ensures all CV data meets quality standards and is verified
  */
 
-const fs = require('fs');
-const path = require('path');
-const Ajv = require('ajv');
-const addFormats = require('ajv-formats');
+import fs from 'fs';
+import path from 'path';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class DataValidator {
   constructor() {
@@ -329,4 +333,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = DataValidator;
+export default DataValidator;

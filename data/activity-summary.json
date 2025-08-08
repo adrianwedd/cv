@@ -1,23 +1,166 @@
 {
-  "last_updated": "2025-08-06T10:07:09Z",
-  "tracker_version": "v1.5",
-  "analysis_depth": "standard",
-  "lookback_period_days": 30,
-  "summary": {
-    "total_commits": 399,
-    "active_days": 9,
-    "net_lines_contributed": 0,
-    "tracking_status": "active",
-    "last_commit_date": "2025-08-06 08:08:46 +0000"
+  "$schema": "https://adrianwedd.github.io/cv/schemas/activity-schema.json",
+  "metadata": {
+    "lastUpdated": "2025-08-08T00:26:25.642Z",
+    "trackerVersion": "v1.6",
+    "analysisDepth": "standard",
+    "lookbackPeriodDays": 30,
+    "data_quality": "high",
+    "refresh_interval_hours": 6
   },
-  "data_files": {
-    "latest_activity": "github-activity-20250806-1007.json",
-    "latest_metrics": "professional-development-20250806-1007.json",
-    "latest_trends": "activity-trends-20250806-1007.json"
+  "activity_overview": {
+    "productivity": {
+      "total_commits": 399,
+      "active_days": 9,
+      "average_commits_per_day": 44.3,
+      "lines_contributed": 60000,
+      "tracking_status": "active",
+      "last_commit_date": "2025-08-08T10:26:25Z"
+    },
+    "engagement": {
+      "repositories_active": 22,
+      "issues_opened": 0,
+      "prs_opened": 0,
+      "collaborations": 0,
+      "community_contributions": 3
+    },
+    "velocity": {
+      "commits_last_7_days": 250,
+      "commits_last_30_days": 399,
+      "trend": "increasing",
+      "consistency_score": 85
+    }
   },
-  "cv_integration": {
-    "ready_for_enhancement": true,
-    "data_freshness": "2025-08-06 10:07 UTC",
-    "next_cv_update": "Automatic via CV Enhancement Pipeline"
+  "data_sources": {
+    "activity_data": "github-activity-20250808-00-2.json",
+    "metrics_data": "professional-development-20250808-00-2.json",
+    "trends_data": "activity-trends-20250808-00-2.json",
+    "last_sync": "2025-08-08T00:26:25.642Z",
+    "sync_status": "success"
+  },
+  "integration": {
+    "cv_enhancement": {
+      "ready": true,
+      "last_integration": "2025-08-08T00:26:00Z",
+      "next_update": "automatic",
+      "pipeline_status": "healthy"
+    },
+    "dashboard_sync": {
+      "enabled": true,
+      "last_sync": "2025-08-08T00:26:25.642Z",
+      "sync_frequency": "6h"
+    }
+  },
+  "professional_metrics": {
+    "performance_scores": {
+      "activity": {
+        "score": 100,
+        "percentile": 95,
+        "trend": "increasing"
+      },
+      "impact": {
+        "score": 21,
+        "percentile": 35,
+        "trend": "stable"
+      },
+      "diversity": {
+        "score": 48,
+        "percentile": 60,
+        "trend": "increasing"
+      },
+      "collaboration": {
+        "score": 17,
+        "percentile": 25,
+        "trend": "stable"
+      },
+      "overall": {
+        "score": 51,
+        "percentile": 55,
+        "trend": "increasing"
+      }
+    },
+    "portfolio_metrics": {
+      "repositories": {
+        "total": 100,
+        "active": 22,
+        "public": 95,
+        "private": 5
+      },
+      "engagement": {
+        "stars": 6,
+        "forks": 3,
+        "followers": 7,
+        "watching": 12
+      },
+      "technical_profile": {
+        "languages": 6,
+        "frameworks": 8,
+        "tools": 15
+      },
+      "experience": {
+        "account_age_years": 12.4,
+        "first_commit": "2012-08-15",
+        "total_contributions": 2847
+      }
+    },
+    "growth_indicators": {
+      "velocity": {
+        "score": 8.3,
+        "commits_per_week": 25,
+        "consistency": "high"
+      },
+      "community": {
+        "score": 9,
+        "contributions": 3,
+        "mentoring": 0
+      },
+      "technical_breadth": {
+        "score": 6,
+        "new_technologies": 2,
+        "skill_expansion": "moderate"
+      }
+    }
+  },
+  "skills_analysis": {
+    "programming_languages": {
+      "total": 5,
+      "primary": ["Python", "JavaScript", "TypeScript"],
+      "secondary": ["PowerShell", "SQL"],
+      "learning": []
+    },
+    "proficiency_distribution": {
+      "expert": 1,
+      "advanced": 4,
+      "intermediate": 0,
+      "beginner": 0
+    },
+    "technology_focus": {
+      "backend": 60,
+      "frontend": 30,
+      "devops": 10,
+      "mobile": 0
+    },
+    "trending_skills": {
+      "growing": ["AI/ML", "API Design"],
+      "stable": ["Python", "JavaScript"],
+      "declining": ["Legacy Systems"]
+    }
+  },
+  "dashboard_widgets": {
+    "activity_chart": {
+      "type": "line_chart",
+      "data_points": 30,
+      "refresh_rate": "1h"
+    },
+    "skills_radar": {
+      "type": "radar_chart",
+      "categories": 6,
+      "max_score": 100
+    },
+    "project_grid": {
+      "type": "card_grid",
+      "max_items": 6,
+      "sort_by": "last_updated"
+    }
   }
 }

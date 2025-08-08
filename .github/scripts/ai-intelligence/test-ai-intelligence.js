@@ -19,20 +19,23 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const assert = require('assert');
+import { promises as fs } from 'fs';
+import path from 'path';
+import assert from 'assert';
+
+// For ES modules, get current directory
+const currentDir = path.dirname(new URL(import.meta.url).pathname);
 
 // Import components to test
-const PersonaAnalyzer = require('./persona-analyzer');
-const MarketIntelligenceEngine = require('./market-intelligence-engine');
-const DynamicContentOptimizer = require('./dynamic-content-optimizer');
-const IntelligenceOrchestrator = require('./intelligence-orchestrator');
-const ContentGuardian = require('../content-guardian');
+import PersonaAnalyzer from './persona-analyzer.js';
+import MarketIntelligenceEngine from './market-intelligence-engine.js';
+import DynamicContentOptimizer from './dynamic-content-optimizer.js';
+import IntelligenceOrchestrator from './intelligence-orchestrator.js';
+import ContentGuardian from '../content-guardian.js';
 
 class AIIntelligenceTestSuite {
     constructor(config = {}) {
-        this.dataDir = path.resolve(__dirname, '../../../data');
+        this.dataDir = path.resolve(currentDir, '../../../data');
         this.testOutputDir = path.join(this.dataDir, 'test-results');
         this.config = {
             runIntegrationTests: config.runIntegrationTests !== false,
@@ -210,7 +213,12 @@ class AIIntelligenceTestSuite {
                 error: error.message,
                 timestamp: new Date().toISOString()
             });
-            console.log(`    ❌ FAIL: ${error.message}`);
+            // Check if this is a CI skip rather than a real failure
+            if (error.message && error.message.includes('CI environment')) {
+                console.log(`    ⚠️  SKIPPED: Browser tests skipped in CI environment`);
+            } else {
+                console.log(`    ❌ FAIL: ${error.message}`);
+            }
         }
     }
 
@@ -653,9 +661,9 @@ async function main() {
 }
 
 // Export for integration
-module.exports = AIIntelligenceTestSuite;
+export default AIIntelligenceTestSuite;
 
 // CLI execution
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

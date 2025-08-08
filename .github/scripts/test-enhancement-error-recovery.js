@@ -9,14 +9,14 @@
  * @version 1.0.0
  */
 
-const { EnhancementOrchestrator } = require('./enhancer-modules/enhancement-orchestrator');
-const { 
+import { EnhancementOrchestrator } from './enhancer-modules/enhancement-orchestrator.js';
+import { 
     QuotaExhaustedError, 
     RateLimitExceededError, 
     AuthenticationError,
     ServerError,
     NetworkError
-} = require('./enhancer-modules/claude-api-client');
+} from './enhancer-modules/claude-api-client.js';
 
 /**
  * Test configuration with different error scenarios

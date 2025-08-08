@@ -1,0 +1,338 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adrianwedd.github.io/cv/schemas/activity-schema.json",
+  "title": "Activity Summary Data Schema v2.0",
+  "description": "Professional activity and performance metrics schema for dashboard integration",
+  "type": "object",
+  "required": ["$schema", "metadata", "activity_overview", "professional_metrics", "skills_analysis"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "const": "https://adrianwedd.github.io/cv/schemas/activity-schema.json"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["lastUpdated", "trackerVersion", "data_quality"],
+      "properties": {
+        "lastUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "trackerVersion": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+$"
+        },
+        "analysisDepth": {
+          "type": "string",
+          "enum": ["basic", "standard", "comprehensive"]
+        },
+        "lookbackPeriodDays": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365
+        },
+        "data_quality": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "excellent"]
+        },
+        "refresh_interval_hours": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 168
+        }
+      }
+    },
+    "activity_overview": {
+      "type": "object",
+      "required": ["productivity", "engagement", "velocity"],
+      "properties": {
+        "productivity": {
+          "type": "object",
+          "required": ["total_commits", "active_days", "tracking_status"],
+          "properties": {
+            "total_commits": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "active_days": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "average_commits_per_day": {
+              "type": "number",
+              "minimum": 0
+            },
+            "lines_contributed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "tracking_status": {
+              "type": "string",
+              "enum": ["active", "idle", "inactive"]
+            },
+            "last_commit_date": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "engagement": {
+          "type": "object",
+          "properties": {
+            "repositories_active": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "issues_opened": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "prs_opened": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "collaborations": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "community_contributions": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "velocity": {
+          "type": "object",
+          "properties": {
+            "commits_last_7_days": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "commits_last_30_days": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "trend": {
+              "type": "string",
+              "enum": ["increasing", "stable", "decreasing"]
+            },
+            "consistency_score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        }
+      }
+    },
+    "professional_metrics": {
+      "type": "object",
+      "required": ["performance_scores", "portfolio_metrics"],
+      "properties": {
+        "performance_scores": {
+          "type": "object",
+          "properties": {
+            "activity": {
+              "$ref": "#/$defs/scoreObject"
+            },
+            "impact": {
+              "$ref": "#/$defs/scoreObject"
+            },
+            "diversity": {
+              "$ref": "#/$defs/scoreObject"
+            },
+            "collaboration": {
+              "$ref": "#/$defs/scoreObject"
+            },
+            "overall": {
+              "$ref": "#/$defs/scoreObject"
+            }
+          }
+        },
+        "portfolio_metrics": {
+          "type": "object",
+          "properties": {
+            "repositories": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "active": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "public": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "private": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "engagement": {
+              "type": "object",
+              "properties": {
+                "stars": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "forks": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "followers": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "watching": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "skills_analysis": {
+      "type": "object",
+      "required": ["programming_languages", "proficiency_distribution"],
+      "properties": {
+        "programming_languages": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "primary": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 5
+            },
+            "secondary": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "proficiency_distribution": {
+          "type": "object",
+          "properties": {
+            "expert": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "advanced": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "intermediate": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "beginner": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "technology_focus": {
+          "type": "object",
+          "properties": {
+            "backend": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "frontend": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "devops": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "mobile": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        }
+      }
+    },
+    "dashboard_widgets": {
+      "type": "object",
+      "properties": {
+        "activity_chart": {
+          "$ref": "#/$defs/widgetConfig"
+        },
+        "skills_radar": {
+          "$ref": "#/$defs/widgetConfig"
+        },
+        "project_grid": {
+          "$ref": "#/$defs/widgetConfig"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "scoreObject": {
+      "type": "object",
+      "required": ["score"],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "percentile": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "trend": {
+          "type": "string",
+          "enum": ["increasing", "stable", "decreasing"]
+        }
+      }
+    },
+    "widgetConfig": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["line_chart", "bar_chart", "radar_chart", "card_grid", "pie_chart"]
+        },
+        "data_points": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "refresh_rate": {
+          "type": "string",
+          "pattern": "^[0-9]+[mhd]$"
+        },
+        "max_items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sort_by": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

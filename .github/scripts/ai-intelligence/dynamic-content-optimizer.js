@@ -20,10 +20,14 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-const { ClaudeBrowserClient } = require('../claude-browser-client');
-const ContentGuardian = require('../content-guardian');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { ClaudeBrowserClient } from '../claude-browser-client.js';
+import ContentGuardian from '../content-guardian.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class DynamicContentOptimizer {
     constructor(config = {}) {
@@ -690,9 +694,9 @@ async function main() {
 }
 
 // Export for integration
-module.exports = DynamicContentOptimizer;
+export default DynamicContentOptimizer;
 
 // CLI execution
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }
