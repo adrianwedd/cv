@@ -1,0 +1,61 @@
+{
+  "history": [
+    [
+      "production",
+      [
+        {
+          "id": "health-1754641472637",
+          "timestamp": "2025-08-08T08:24:32.760Z",
+          "success": false,
+          "responseTime": 104,
+          "httpStatus": "301",
+          "environment": "production",
+          "details": {
+            "url": "https://adrianwedd.github.io/cv",
+            "method": "GET",
+            "timeout": 30000
+          }
+        }
+      ]
+    ],
+    [
+      "staging",
+      [
+        {
+          "id": "health-1754641472763",
+          "timestamp": "2025-08-08T08:24:33.163Z",
+          "success": false,
+          "responseTime": 384,
+          "httpStatus": "404",
+          "environment": "staging",
+          "details": {
+            "url": "https://adrianwedd.github.io/cv-staging",
+            "method": "GET",
+            "timeout": 30000
+          }
+        }
+      ]
+    ]
+  ],
+  "alerts": [
+    [
+      "production-health",
+      {
+        "consecutiveFailures": 1,
+        "consecutiveSuccesses": 0,
+        "isAlerting": false,
+        "lastAlert": null
+      }
+    ],
+    [
+      "staging-health",
+      {
+        "consecutiveFailures": 1,
+        "consecutiveSuccesses": 0,
+        "isAlerting": false,
+        "lastAlert": null
+      }
+    ]
+  ],
+  "lastUpdated": "2025-08-08T08:24:33.163Z"
+}

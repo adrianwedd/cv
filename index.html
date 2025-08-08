@@ -18,7 +18,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Strict-Transport-Security" content="max-age=63072000; includeSubDomains; preload">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-Aa9XyV3oxZ3sp+N8ea+HfzNXLpmIEug4hVE0hoSi1sM=' 'sha256-l74R7GW8JAh+jJBqG4s7nmjvWdVqeCnXjqQriOOstTI=' 'sha256-7KCGaAJYKxwU/sROMBtgC529vHiFKcoulEYHsvZL2us=' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     
@@ -34,7 +34,7 @@
     
     <!-- Essential resource hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="modulepreload" href="assets/script.ultra.js">
+    <link rel="modulepreload" href="assets/script.min.js">
     
     <!-- Optimized font loading with critical path -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,17 +42,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Preload ultra-optimized resources -->
-    <link rel="preload" href="assets/script.ultra.js" as="script">
+    <!-- Preload optimized resources -->
+    <link rel="preload" href="assets/styles.min.css" as="style">
+    <link rel="preload" href="assets/script.min.js" as="script">
     
     <!-- Icons and PWA Manifest -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad192' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232563eb;stop-opacity:1' /><stop offset='100%' style='stop-color:%2310b981;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' rx='38' fill='url(%23grad192)'/><text x='96' y='125' font-family='system-ui, sans-serif' font-size='86' font-weight='600' text-anchor='middle' fill='white'>AW</text><circle cx='144' cy='48' r='15' fill='%2310b981' opacity='0.8'/></svg>">
     
-    <!-- Micro-optimized Critical CSS -->
-    <link rel="preload" href="assets/styles.micro.css" as="style">
-    <link rel="stylesheet" href="assets/styles.micro.css">
+    <!-- Optimized CSS -->
+    <link rel="stylesheet" href="assets/styles.min.css">
     
     <!-- Mobile styles included in main CSS -->
     
@@ -708,11 +708,11 @@
     </div>
 
     <!-- Ultra-optimized Scripts -->
-    <script src="assets/script.ultra.js" defer></script>
+    <script src="assets/script.min.js" defer></script>
     
     <!-- Ultra-optimized service worker and performance monitoring -->
     <script>
-        if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.ultra.js').then(r=>console.log('SW registered')).catch(()=>{});
+        if('serviceWorker'in navigator)navigator.serviceWorker.register('/cv/sw.js').then(r=>console.log('SW registered')).catch(()=>{});
         if('PerformanceObserver'in window){new PerformanceObserver(l=>l.getEntries().forEach(e=>e.entryType==='largest-contentful-paint'&&console.log('LCP:',Math.round(e.startTime)+'ms'))).observe({entryTypes:['largest-contentful-paint']});}
     </script>
 

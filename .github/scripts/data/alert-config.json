@@ -1,0 +1,20 @@
+{
+  "emailNotifications": false,
+  "webhookUrl": null,
+  "slackChannel": null,
+  "alertLevels": {
+    "critical": {
+      "enabled": true,
+      "cooldown": 900
+    },
+    "warning": {
+      "enabled": true,
+      "cooldown": 1800
+    },
+    "info": {
+      "enabled": false,
+      "cooldown": 3600
+    }
+  },
+  "lastUpdated": "2025-08-08T07:37:31.668Z"
+}

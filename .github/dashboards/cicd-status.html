@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Status Dashboard</title>
+    <style>
+        :root {
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --critical: #dc2626;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --border: #4b5563;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--info), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .status-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .status-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--info);
+        }
+        
+        .status-card.healthy::before { background: var(--success); }
+        .status-card.degraded::before { background: var(--warning); }
+        .status-card.critical::before { background: var(--critical); }
+        
+        .status-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .status-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .environment-item, .workflow-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .environment-item:last-child, .workflow-item:last-child {
+            border-bottom: none;
+        }
+        
+        .environment-name, .workflow-name {
+            font-weight: 500;
+        }
+        
+        .environment-status, .workflow-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .status-healthy { background: var(--success); }
+        .status-degraded { background: var(--warning); }
+        .status-critical { background: var(--error); }
+        
+        .incidents-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .incident-item {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--error);
+        }
+        
+        .incident-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .incident-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .incident-details {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .auto-refresh {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--info);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <button class="auto-refresh" onclick="location.reload()">🔄 Refresh</button>
+        
+        <div class="header">
+            <h1>🚀 CI/CD Status Dashboard</h1>
+            <p>Real-time infrastructure and deployment monitoring</p>
+            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 8px;">
+                Last updated: 08/08/2025, 6:24:32 pm
+            </p>
+        </div>
+        
+        <div class="status-overview">
+            <div class="status-card critical">
+                <div class="status-value">CRITICAL</div>
+                <div class="status-label">Overall Status</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-value" style="color: var(--success)">0/3</div>
+                <div class="status-label">Environments</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-value" style="color: var(--info)">5/5</div>
+                <div class="status-label">Workflows</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-value" style="color: var(--success)">85/100</div>
+                <div class="status-label">Security Score</div>
+            </div>
+            
+            <div class="status-card">
+                <div class="status-value" style="color: var(--success)">98/100</div>
+                <div class="status-label">Performance</div>
+            </div>
+            
+            <div class="status-card critical">
+                <div class="status-value" style="color: var(--error)">3</div>
+                <div class="status-label">Open Incidents</div>
+            </div>
+        </div>
+        
+        <div class="main-grid">
+            <div class="section">
+                <h3 class="section-title">🌍 Environments</h3>
+                
+                    <div class="environment-item">
+                        <div>
+                            <div class="environment-name">production</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                85.0% uptime • 104ms
+                            </div>
+                        </div>
+                        <div class="environment-status">
+                            <div class="status-indicator status-critical"></div>
+                            Unhealthy
+                        </div>
+                    </div>
+                
+                    <div class="environment-item">
+                        <div>
+                            <div class="environment-name">staging</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                85.0% uptime • 384ms
+                            </div>
+                        </div>
+                        <div class="environment-status">
+                            <div class="status-indicator status-critical"></div>
+                            Unhealthy
+                        </div>
+                    </div>
+                
+                    <div class="environment-item">
+                        <div>
+                            <div class="environment-name">canary</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                0.0% uptime • 0ms
+                            </div>
+                        </div>
+                        <div class="environment-status">
+                            <div class="status-indicator status-critical"></div>
+                            Unhealthy
+                        </div>
+                    </div>
+                
+            </div>
+            
+            <div class="section">
+                <h3 class="section-title">⚙️ Workflows</h3>
+                
+                    <div class="workflow-item">
+                        <div>
+                            <div class="workflow-name">production-deployment</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                137 jobs • Score: 95/100
+                            </div>
+                        </div>
+                        <div class="workflow-status">
+                            <div class="status-indicator status-healthy"></div>
+                            available
+                        </div>
+                    </div>
+                
+                    <div class="workflow-item">
+                        <div>
+                            <div class="workflow-name">staging-deployment</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                68 jobs • Score: 95/100
+                            </div>
+                        </div>
+                        <div class="workflow-status">
+                            <div class="status-indicator status-healthy"></div>
+                            available
+                        </div>
+                    </div>
+                
+                    <div class="workflow-item">
+                        <div>
+                            <div class="workflow-name">canary-deployment</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                102 jobs • Score: 95/100
+                            </div>
+                        </div>
+                        <div class="workflow-status">
+                            <div class="status-indicator status-healthy"></div>
+                            available
+                        </div>
+                    </div>
+                
+                    <div class="workflow-item">
+                        <div>
+                            <div class="workflow-name">security-hardening</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                84 jobs • Score: 95/100
+                            </div>
+                        </div>
+                        <div class="workflow-status">
+                            <div class="status-indicator status-healthy"></div>
+                            available
+                        </div>
+                    </div>
+                
+                    <div class="workflow-item">
+                        <div>
+                            <div class="workflow-name">cv-enhancement</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                126 jobs • Score: 95/100
+                            </div>
+                        </div>
+                        <div class="workflow-status">
+                            <div class="status-indicator status-healthy"></div>
+                            available
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="incidents-section">
+            <h3 class="section-title">🚨 Active Incidents</h3>
+            
+                <div class="incident-item">
+                    <div class="incident-title">production environment is unhealthy</div>
+                    <div class="incident-details">
+                        HTTP 301, Response: 104ms • production • critical
+                    </div>
+                </div>
+            
+                <div class="incident-item">
+                    <div class="incident-title">staging environment is unhealthy</div>
+                    <div class="incident-details">
+                        HTTP 404, Response: 384ms • staging • high
+                    </div>
+                </div>
+            
+                <div class="incident-item">
+                    <div class="incident-title">canary environment is unhealthy</div>
+                    <div class="incident-details">
+                        HTTP ERROR, Response: 0ms • canary • high
+                    </div>
+                </div>
+            
+        </div>
+        
+        
+        <div class="metrics-grid">
+            <div class="section">
+                <h3 class="section-title">🔒 Security Metrics</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 8px;">Vulnerabilities</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            Critical: 0<br>
+                            High: 2<br>
+                            Medium: 5
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 8px;">Dependencies</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            Total: 45<br>
+                            Vulnerable: 7<br>
+                            Outdated: 12
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3 class="section-title">⚡ Performance Metrics</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 8px;">Core Web Vitals</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            Load Time: 0.5s<br>
+                            FCP: 0.3s<br>
+                            LCP: 1.8s
+                        </div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 8px;">Asset Sizes</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                            Total: 45KB<br>
+                            JS: 12KB<br>
+                            CSS: 8KB
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-refresh every 5 minutes
+        setTimeout(() => location.reload(), 300000);
+        
+        // Update timestamp in title
+        setInterval(() => {
+            const now = new Date().toLocaleTimeString();
+            document.title = `CI/CD Dashboard - ${now}`;
+        }, 1000);
+    </script>
+</body>
+</html>

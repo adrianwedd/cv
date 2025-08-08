@@ -1,0 +1,18 @@
+{
+  "authenticationFailure": {
+    "threshold": 3,
+    "timeout": 300000,
+    "fallbackAction": "use_activity_only_mode"
+  },
+  "apiRateLimit": {
+    "threshold": 2,
+    "timeout": 3600000,
+    "fallbackAction": "queue_requests"
+  },
+  "networkFailure": {
+    "threshold": 5,
+    "timeout": 180000,
+    "fallbackAction": "use_cached_data"
+  },
+  "lastUpdated": "2025-08-08T07:37:31.669Z"
+}

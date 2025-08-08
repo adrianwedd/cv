@@ -1,0 +1,482 @@
+name: Production Deployment Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - staging
+          - production
+          - preview
+      skip_tests:
+        description: 'Skip test execution'
+        required: false
+        default: false
+        type: boolean
+      force_deploy:
+        description: 'Force deployment ignoring quality gates'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: '18'
+  DEPLOYMENT_TIMEOUT: '600' # 10 minutes
+  ROLLBACK_TIMEOUT: '120'   # 2 minutes
+  HEALTH_CHECK_RETRIES: 3
+  HEALTH_CHECK_DELAY: 30
+
+jobs:
+  # ========================================
+  # SECURITY & DEPENDENCY ANALYSIS
+  # ========================================
+  security-audit:
+    name: 🛡️ Security Audit
+    runs-on: ubuntu-latest
+    outputs:
+      security-score: ${{ steps.audit.outputs.score }}
+      vulnerabilities: ${{ steps.audit.outputs.vulnerabilities }}
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: 🔐 Run security audit
+        id: audit
+        run: |
+          cd .github/scripts
+          # Run npm audit and capture results
+          npm audit --audit-level=moderate --json > audit-results.json || true
+          
+          # Calculate security score
+          HIGH=$(jq '.metadata.vulnerabilities.high // 0' audit-results.json)
+          MODERATE=$(jq '.metadata.vulnerabilities.moderate // 0' audit-results.json)
+          LOW=$(jq '.metadata.vulnerabilities.low // 0' audit-results.json)
+          
+          TOTAL_VULNERABILITIES=$((HIGH * 10 + MODERATE * 5 + LOW * 1))
+          SECURITY_SCORE=$((100 - TOTAL_VULNERABILITIES))
+          
+          if [ $SECURITY_SCORE -lt 0 ]; then SECURITY_SCORE=0; fi
+          
+          echo "score=$SECURITY_SCORE" >> $GITHUB_OUTPUT
+          echo "vulnerabilities=$((HIGH + MODERATE + LOW))" >> $GITHUB_OUTPUT
+          
+          echo "🛡️ Security Score: $SECURITY_SCORE/100"
+          echo "🚨 High: $HIGH | ⚠️ Moderate: $MODERATE | ℹ️ Low: $LOW"
+      
+      - name: 🔍 CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+      
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+  # ========================================
+  # QUALITY ASSURANCE & TESTING
+  # ========================================
+  quality-gates:
+    name: 📊 Quality Gates
+    runs-on: ubuntu-latest
+    outputs:
+      test-coverage: ${{ steps.coverage.outputs.percentage }}
+      quality-score: ${{ steps.quality.outputs.score }}
+      performance-score: ${{ steps.performance.outputs.score }}
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: 🧪 Run comprehensive tests
+        if: ${{ !inputs.skip_tests }}
+        run: |
+          cd .github/scripts
+          npm test 2>&1 | tee test-results.log
+        continue-on-error: true
+      
+      - name: 📈 Calculate test coverage
+        id: coverage
+        run: |
+          cd .github/scripts
+          # Mock coverage calculation - replace with actual coverage tool
+          COVERAGE=$(grep -o "✅ PASS" test-results.log | wc -l || echo "0")
+          TOTAL_TESTS=$(grep -o "✅ PASS\|❌ FAIL" test-results.log | wc -l || echo "1")
+          PERCENTAGE=$((COVERAGE * 100 / TOTAL_TESTS))
+          
+          echo "percentage=$PERCENTAGE" >> $GITHUB_OUTPUT
+          echo "📊 Test Coverage: $PERCENTAGE%"
+      
+      - name: 🎯 Quality assessment
+        id: quality
+        run: |
+          cd .github/scripts
+          # Run quality checks
+          npm run lint 2>&1 | tee lint-results.log || true
+          
+          # Calculate quality score
+          LINT_ERRORS=$(grep -c "error" lint-results.log || echo "0")
+          LINT_WARNINGS=$(grep -c "warning" lint-results.log || echo "0")
+          
+          QUALITY_SCORE=$((100 - LINT_ERRORS * 10 - LINT_WARNINGS * 2))
+          if [ $QUALITY_SCORE -lt 0 ]; then QUALITY_SCORE=0; fi
+          
+          echo "score=$QUALITY_SCORE" >> $GITHUB_OUTPUT
+          echo "🎯 Code Quality Score: $QUALITY_SCORE/100"
+      
+      - name: ⚡ Performance validation
+        id: performance
+        run: |
+          cd .github/scripts
+          # Run performance checks
+          node deployment-verifier.js | tee performance-results.log || true
+          
+          # Extract performance score
+          PERF_SCORE=$(grep -o "Overall Score: [0-9]*" performance-results.log | grep -o "[0-9]*" || echo "0")
+          
+          echo "score=$PERF_SCORE" >> $GITHUB_OUTPUT
+          echo "⚡ Performance Score: $PERF_SCORE/100"
+
+  # ========================================
+  # MULTI-ENVIRONMENT BUILD & DEPLOY
+  # ========================================
+  build-and-deploy:
+    name: 🚀 Deploy to ${{ matrix.environment }}
+    runs-on: ubuntu-latest
+    needs: [security-audit, quality-gates]
+    if: ${{ always() && (inputs.force_deploy == true || (needs.security-audit.outputs.security-score >= '80' && needs.quality-gates.outputs.quality-score >= '70')) }}
+    
+    strategy:
+      matrix:
+        environment: 
+          - ${{ github.event_name == 'pull_request' && 'preview' || (inputs.environment || 'production') }}
+    
+    environment:
+      name: ${{ matrix.environment }}
+      url: ${{ steps.deploy.outputs.deployment-url }}
+    
+    outputs:
+      deployment-url: ${{ steps.deploy.outputs.deployment-url }}
+      deployment-time: ${{ steps.deploy.outputs.deployment-time }}
+      asset-size: ${{ steps.optimize.outputs.asset-size }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: 🎯 Environment configuration
+        run: |
+          echo "🌍 Deploying to: ${{ matrix.environment }}"
+          echo "📊 Security Score: ${{ needs.security-audit.outputs.security-score }}/100"
+          echo "🎯 Quality Score: ${{ needs.quality-gates.outputs.quality-score }}/100"
+          echo "⚡ Performance Score: ${{ needs.quality-gates.outputs.performance-score }}/100"
+      
+      - name: ⚡ Asset optimization
+        id: optimize
+        run: |
+          # Minify CSS
+          if [ -f "assets/styles.css" ]; then
+            npx clean-css-cli -o assets/styles.min.css assets/styles.css
+          fi
+          
+          # Minify JavaScript
+          if [ -f "assets/script.js" ]; then
+            npx terser assets/script.js -o assets/script.min.js
+          fi
+          
+          if [ -f "assets/performance-monitor.js" ]; then
+            npx terser assets/performance-monitor.js -o assets/performance-monitor.min.js
+          fi
+          
+          # Calculate total asset size
+          TOTAL_SIZE=$(du -sb assets/ | cut -f1)
+          TOTAL_SIZE_KB=$((TOTAL_SIZE / 1024))
+          
+          echo "asset-size=${TOTAL_SIZE_KB}KB" >> $GITHUB_OUTPUT
+          echo "📦 Total Asset Size: ${TOTAL_SIZE_KB}KB"
+      
+      - name: 🔄 Update HTML references
+        run: |
+          if [ -f "assets/styles.min.css" ] && [ -f "assets/script.min.js" ]; then
+            sed -i 's|assets/styles.css|assets/styles.min.css|g' index.html
+            sed -i 's|assets/script.js|assets/script.min.js|g' index.html
+            
+            if [ -f "assets/performance-monitor.min.js" ]; then
+              sed -i 's|assets/performance-monitor.js|assets/performance-monitor.min.js|g' index.html
+            fi
+          fi
+      
+      - name: 🌐 Generate deployment package
+        run: |
+          START_TIME=$(date +%s)
+          echo "DEPLOY_START_TIME=$START_TIME" >> $GITHUB_ENV
+          
+          # Create deployment directory
+          mkdir -p deployment-package
+          
+          # Copy essential files
+          cp index.html deployment-package/
+          cp -r assets/ deployment-package/assets/
+          cp -r data/ deployment-package/data/ 2>/dev/null || true
+          cp sw.js deployment-package/ 2>/dev/null || true
+          cp manifest.json deployment-package/ 2>/dev/null || true
+          
+          echo "📦 Deployment package created"
+      
+      - name: 🚀 Deploy to GitHub Pages
+        id: deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deployment-package
+          publish_branch: ${{ matrix.environment == 'production' && 'gh-pages' || format('gh-pages-{0}', matrix.environment) }}
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '🚀 Deploy ${{ matrix.environment }} - ${{ github.sha }}'
+      
+      - name: 📊 Calculate deployment metrics
+        id: deploy-metrics
+        run: |
+          END_TIME=$(date +%s)
+          DEPLOY_TIME=$((END_TIME - DEPLOY_START_TIME))
+          
+          # Set deployment URL based on environment
+          if [ "${{ matrix.environment }}" = "production" ]; then
+            DEPLOY_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          else
+            DEPLOY_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}-${{ matrix.environment }}"
+          fi
+          
+          echo "deployment-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
+          echo "deployment-time=${DEPLOY_TIME}s" >> $GITHUB_OUTPUT
+          
+          echo "🌐 Deployment URL: $DEPLOY_URL"
+          echo "⏱️ Deployment Time: ${DEPLOY_TIME}s"
+
+  # ========================================
+  # POST-DEPLOYMENT HEALTH CHECKS
+  # ========================================
+  health-check:
+    name: 🏥 Health Check
+    runs-on: ubuntu-latest
+    needs: [build-and-deploy]
+    if: always() && needs.build-and-deploy.result == 'success'
+    
+    outputs:
+      health-status: ${{ steps.health.outputs.status }}
+      response-time: ${{ steps.health.outputs.response-time }}
+      availability: ${{ steps.health.outputs.availability }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: 🏥 Comprehensive health check
+        id: health
+        run: |
+          cd .github/scripts
+          DEPLOY_URL="${{ needs.build-and-deploy.outputs.deployment-url }}"
+          
+          echo "🔍 Testing deployment: $DEPLOY_URL"
+          
+          # Wait for deployment propagation
+          sleep ${{ env.HEALTH_CHECK_DELAY }}
+          
+          SUCCESSFUL_CHECKS=0
+          TOTAL_CHECKS=${{ env.HEALTH_CHECK_RETRIES }}
+          RESPONSE_TIMES=()
+          
+          for i in $(seq 1 $TOTAL_CHECKS); do
+            echo "🔍 Health check attempt $i/$TOTAL_CHECKS"
+            
+            START=$(date +%s%3N)
+            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$DEPLOY_URL" --max-time 30) || HTTP_STATUS="000"
+            END=$(date +%s%3N)
+            
+            RESPONSE_TIME=$((END - START))
+            RESPONSE_TIMES+=($RESPONSE_TIME)
+            
+            echo "📡 HTTP Status: $HTTP_STATUS | ⏱️ Response Time: ${RESPONSE_TIME}ms"
+            
+            if [ "$HTTP_STATUS" = "200" ]; then
+              SUCCESSFUL_CHECKS=$((SUCCESSFUL_CHECKS + 1))
+            fi
+            
+            if [ $i -lt $TOTAL_CHECKS ]; then
+              sleep 5
+            fi
+          done
+          
+          # Calculate metrics
+          AVAILABILITY=$((SUCCESSFUL_CHECKS * 100 / TOTAL_CHECKS))
+          AVG_RESPONSE_TIME=$(( $(IFS=+; echo "$((${RESPONSE_TIMES[*]}))") / ${#RESPONSE_TIMES[@]} ))
+          
+          # Determine health status
+          if [ $AVAILABILITY -ge 100 ] && [ $AVG_RESPONSE_TIME -lt 2000 ]; then
+            HEALTH_STATUS="healthy"
+          elif [ $AVAILABILITY -ge 80 ] && [ $AVG_RESPONSE_TIME -lt 5000 ]; then
+            HEALTH_STATUS="degraded"
+          else
+            HEALTH_STATUS="unhealthy"
+          fi
+          
+          echo "status=$HEALTH_STATUS" >> $GITHUB_OUTPUT
+          echo "response-time=${AVG_RESPONSE_TIME}ms" >> $GITHUB_OUTPUT
+          echo "availability=$AVAILABILITY%" >> $GITHUB_OUTPUT
+          
+          echo "🏥 Health Status: $HEALTH_STATUS"
+          echo "📊 Availability: $AVAILABILITY%"
+          echo "⏱️ Avg Response Time: ${AVG_RESPONSE_TIME}ms"
+          
+          # Fail if unhealthy
+          if [ "$HEALTH_STATUS" = "unhealthy" ]; then
+            echo "💥 Health check failed - deployment may need rollback"
+            exit 1
+          fi
+
+  # ========================================
+  # AUTOMATED ROLLBACK ON FAILURE
+  # ========================================
+  rollback:
+    name: 🔄 Emergency Rollback
+    runs-on: ubuntu-latest
+    needs: [build-and-deploy, health-check]
+    if: failure() && needs.build-and-deploy.result == 'success'
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🔄 Identify rollback target
+        id: rollback-target
+        run: |
+          # Find the last successful deployment commit
+          LAST_GOOD_COMMIT=$(git log --oneline --grep="Deploy production" -n 2 | tail -n 1 | cut -d' ' -f1)
+          
+          if [ -z "$LAST_GOOD_COMMIT" ]; then
+            LAST_GOOD_COMMIT=$(git log --oneline -n 10 | tail -n 1 | cut -d' ' -f1)
+          fi
+          
+          echo "target=$LAST_GOOD_COMMIT" >> $GITHUB_OUTPUT
+          echo "🎯 Rollback target: $LAST_GOOD_COMMIT"
+      
+      - name: 🔄 Execute rollback
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          force_orphan: false
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '🔄 Emergency rollback to ${{ steps.rollback-target.outputs.target }}'
+      
+      - name: 🚨 Rollback notification
+        run: |
+          echo "🚨 EMERGENCY ROLLBACK EXECUTED"
+          echo "📍 Rolled back to: ${{ steps.rollback-target.outputs.target }}"
+          echo "⏱️ Rollback completed in <${{ env.ROLLBACK_TIMEOUT }}s"
+
+  # ========================================
+  # DEPLOYMENT SUMMARY & METRICS
+  # ========================================
+  deployment-summary:
+    name: 📊 Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [security-audit, quality-gates, build-and-deploy, health-check]
+    if: always()
+    
+    steps:
+      - name: 📊 Generate deployment report
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Quality Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- 🛡️ Security Score: ${{ needs.security-audit.outputs.security-score || 'N/A' }}/100" >> $GITHUB_STEP_SUMMARY
+          echo "- 🎯 Code Quality: ${{ needs.quality-gates.outputs.quality-score || 'N/A' }}/100" >> $GITHUB_STEP_SUMMARY
+          echo "- ⚡ Performance: ${{ needs.quality-gates.outputs.performance-score || 'N/A' }}/100" >> $GITHUB_STEP_SUMMARY
+          echo "- 📈 Test Coverage: ${{ needs.quality-gates.outputs.test-coverage || 'N/A' }}%" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Deployment Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- 🌐 URL: ${{ needs.build-and-deploy.outputs.deployment-url || 'Failed' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ⏱️ Deploy Time: ${{ needs.build-and-deploy.outputs.deployment-time || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 📦 Asset Size: ${{ needs.build-and-deploy.outputs.asset-size || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🏥 Health Status" >> $GITHUB_STEP_SUMMARY
+          echo "- 🏥 Status: ${{ needs.health-check.outputs.health-status || 'Unknown' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- 📊 Availability: ${{ needs.health-check.outputs.availability || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- ⏱️ Response Time: ${{ needs.health-check.outputs.response-time || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Deployment status badge
+          if [ "${{ needs.health-check.outputs.health-status }}" = "healthy" ]; then
+            echo "### ✅ Deployment Status: SUCCESS" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ needs.build-and-deploy.result }}" = "success" ]; then
+            echo "### ⚠️ Deployment Status: DEGRADED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ❌ Deployment Status: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi

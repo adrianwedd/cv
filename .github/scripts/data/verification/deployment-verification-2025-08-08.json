@@ -1,6 +1,6 @@
 {
   "overall": "excellent",
-  "timestamp": "2025-08-08T06:27:32.820Z",
+  "timestamp": "2025-08-08T08:09:51.117Z",
   "tests": {
     "accessibility": {
       "status": "passed",
@@ -34,12 +34,12 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 0.68,
+          "value": 173.934,
           "threshold": "< 2000ms"
         },
         "contentSize": {
           "passed": false,
-          "value": 63773,
+          "value": 50651,
           "threshold": "< 50KB"
         },
         "imageOptimization": {
@@ -54,10 +54,10 @@
         }
       },
       "metrics": {
-        "loadTime": 0.68,
-        "contentSize": 63773,
-        "dnsTime": 0.012,
-        "connectTime": 0.206,
+        "loadTime": 173.934,
+        "contentSize": 50651,
+        "dnsTime": 2.3080000000000003,
+        "connectTime": 29.888,
         "unoptimizedImages": 0,
         "cacheHeaders": true
       }
@@ -76,7 +76,7 @@
         },
         "projectLinksWorking": {
           "passed": true,
-          "message": "6 GitHub project links found"
+          "message": "5 GitHub project links found"
         },
         "skillsAccurate": {
           "passed": true,
@@ -102,20 +102,20 @@
         },
         "navigation": {
           "passed": true,
-          "message": "22 navigation elements found"
+          "message": "21 navigation elements found"
         },
         "responsiveLayout": {
           "passed": true,
-          "message": "Responsive design: 83% (5/6 indicators)",
+          "message": "Responsive design: 50% (3/6 indicators)",
           "details": {
             "mediaQueries": false,
             "viewportMeta": true,
             "responsiveKeywords": true,
-            "flexboxGrid": true,
+            "flexboxGrid": false,
             "responsiveUnits": true,
-            "breakpoints": true
+            "breakpoints": false
           },
-          "score": 83
+          "score": 50
         },
         "errorHandling": {
           "passed": true,
@@ -151,7 +151,7 @@
     },
     "security": {
       "status": "passed",
-      "score": 75,
+      "score": 100,
       "details": {
         "contentTypeNosniff": {
           "passed": true,
@@ -162,7 +162,7 @@
           "message": "X-Frame-Options header"
         },
         "httpsRedirect": {
-          "passed": false,
+          "passed": true,
           "message": "HTTPS redirect working"
         },
         "csp": {
@@ -195,7 +195,7 @@
     }
   },
   "metrics": {
-    "overallScore": 93
+    "overallScore": 96
   },
   "issues": [
     {
@@ -205,12 +205,12 @@
       "details": {
         "loadTime": {
           "passed": true,
-          "value": 0.68,
+          "value": 173.934,
           "threshold": "< 2000ms"
         },
         "contentSize": {
           "passed": false,
-          "value": 63773,
+          "value": 50651,
           "threshold": "< 50KB"
         },
         "imageOptimization": {

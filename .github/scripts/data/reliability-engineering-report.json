@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-08-08T07:37:29.870Z",
+  "currentHealth": 80,
+  "targetHealth": 80,
+  "systems": {
+    "auth": {
+      "healthy": true,
+      "score": 33,
+      "workingMethods": 1,
+      "issues": []
+    },
+    "dns": {
+      "healthy": true,
+      "score": 67,
+      "workingDomains": 2,
+      "issues": [
+        "cv.adrianwedd.dev: Command failed: nslookup cv.adrianwedd.dev"
+      ]
+    },
+    "website": {
+      "healthy": true,
+      "score": 100,
+      "availableEndpoints": 3,
+      "issues": []
+    },
+    "data": {
+      "healthy": true,
+      "score": 100,
+      "intactFiles": 4,
+      "issues": []
+    },
+    "workflows": {
+      "healthy": true,
+      "score": 100,
+      "workflows": 17,
+      "issues": []
+    }
+  },
+  "recoveryActions": [],
+  "monitoring": {
+    "dashboard": "deployed",
+    "alerts": "configured",
+    "performance": "deployed"
+  },
+  "slaMetrics": {
+    "systemAvailability": {
+      "target": "99.5%",
+      "measurement": "monthly",
+      "current": "98.2%"
+    },
+    "systemHealth": {
+      "target": "85%",
+      "measurement": "daily_average",
+      "current": "80%"
+    },
+    "responseTime": {
+      "target": "<200ms",
+      "measurement": "p95",
+      "current": "250ms"
+    },
+    "recoveryTime": {
+      "target": "<15min",
+      "measurement": "mttr",
+      "current": "measuring"
+    },
+    "dataIntegrity": {
+      "target": "100%",
+      "measurement": "continuous",
+      "current": "100%"
+    }
+  },
+  "finalHealth": 80,
+  "improvement": 63,
+  "targetAchieved": true,
+  "generatedAt": "2025-08-08T07:37:32.431Z"
+}

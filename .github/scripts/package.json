@@ -4,7 +4,11 @@
   "type": "module",
   "description": "AI-powered CV enhancement scripts with GitHub activity integration",
   "main": "cv-generator.js",
+  "bin": {
+    "devx": "./devx-cli.js"
+  },
   "scripts": {
+    "devx": "node devx-cli.js",
     "analyze": "node activity-analyzer.js",
     "enhance": "node claude-enhancer.js",
     "generate": "node cv-generator.js",
@@ -14,6 +18,8 @@
     "test:cross-browser": "node --test tests/cross-browser.test.js",
     "test:linkedin": "node --test tests/linkedin-integration.test.js",
     "test:integration": "node --test tests/",
+    "dev:watch": "nodemon --watch . --ext js,json --exec 'npm test'",
+    "test:watch": "node --test --watch",
     "lint": "eslint *.js",
     "format": "prettier --write *.js",
     "template:validate": "node template-validator.js ../../dist/index.html",
@@ -60,6 +66,7 @@
     "clean-css-cli": "^5.6.3",
     "eslint": "^9.32.0",
     "jsdom": "^26.1.0",
+    "nodemon": "^3.1.7",
     "playwright": "^1.54.2",
     "prettier": "^3.3.0",
     "terser": "^5.43.1"

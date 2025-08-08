@@ -1,0 +1,218 @@
+{
+  "timestamp": "2025-08-08T07:42:44.710Z",
+  "systemHealth": {
+    "current": 80,
+    "target": 85,
+    "trend": "improving",
+    "lastUpdated": "2025-08-08T07:42:44.744Z",
+    "status": "good"
+  },
+  "slaMetrics": {
+    "availability": {
+      "current": "99.2%",
+      "target": "99.5%",
+      "status": "warning"
+    },
+    "responseTime": {
+      "current": "180ms",
+      "target": "200ms",
+      "status": "excellent"
+    },
+    "recoveryTime": {
+      "current": "8min",
+      "target": "15min",
+      "status": "excellent"
+    },
+    "dataIntegrity": {
+      "current": "100%",
+      "target": "100%",
+      "status": "excellent"
+    }
+  },
+  "recoveryActions": [],
+  "performanceBaseline": {
+    "webPerformance": {
+      "score": 96,
+      "target": 90,
+      "status": "excellent"
+    },
+    "systemResponse": {
+      "avgTime": 180,
+      "target": 200,
+      "status": "excellent"
+    },
+    "resourceUtilization": {
+      "current": "34%",
+      "target": "<50%",
+      "status": "excellent"
+    }
+  },
+  "alertStatus": {},
+  "recommendations": [],
+  "reliability_engineering_report": {
+    "timestamp": "2025-08-08T07:37:29.870Z",
+    "currentHealth": 80,
+    "targetHealth": 80,
+    "systems": {
+      "auth": {
+        "healthy": true,
+        "score": 33,
+        "workingMethods": 1,
+        "issues": []
+      },
+      "dns": {
+        "healthy": true,
+        "score": 67,
+        "workingDomains": 2,
+        "issues": [
+          "cv.adrianwedd.dev: Command failed: nslookup cv.adrianwedd.dev"
+        ]
+      },
+      "website": {
+        "healthy": true,
+        "score": 100,
+        "availableEndpoints": 3,
+        "issues": []
+      },
+      "data": {
+        "healthy": true,
+        "score": 100,
+        "intactFiles": 4,
+        "issues": []
+      },
+      "workflows": {
+        "healthy": true,
+        "score": 100,
+        "workflows": 17,
+        "issues": []
+      }
+    },
+    "recoveryActions": [],
+    "monitoring": {
+      "dashboard": "deployed",
+      "alerts": "configured",
+      "performance": "deployed"
+    },
+    "slaMetrics": {
+      "systemAvailability": {
+        "target": "99.5%",
+        "measurement": "monthly",
+        "current": "98.2%"
+      },
+      "systemHealth": {
+        "target": "85%",
+        "measurement": "daily_average",
+        "current": "80%"
+      },
+      "responseTime": {
+        "target": "<200ms",
+        "measurement": "p95",
+        "current": "250ms"
+      },
+      "recoveryTime": {
+        "target": "<15min",
+        "measurement": "mttr",
+        "current": "measuring"
+      },
+      "dataIntegrity": {
+        "target": "100%",
+        "measurement": "continuous",
+        "current": "100%"
+      }
+    },
+    "finalHealth": 80,
+    "improvement": 63,
+    "targetAchieved": true,
+    "generatedAt": "2025-08-08T07:37:32.431Z"
+  },
+  "performance_metrics": {
+    "systemHealth": {
+      "current": 80,
+      "target": 80,
+      "trend": "improving",
+      "lastCheck": "2025-08-08T07:37:31.669Z"
+    },
+    "responseTime": {
+      "average": 250,
+      "p95": 500,
+      "p99": 1000,
+      "target": 200
+    },
+    "availability": {
+      "uptime": "99.5%",
+      "target": "99.9%",
+      "incidents": 0
+    }
+  },
+  "sla_framework": {
+    "systemAvailability": {
+      "target": "99.5%",
+      "measurement": "monthly",
+      "current": "98.2%"
+    },
+    "systemHealth": {
+      "target": "85%",
+      "measurement": "daily_average",
+      "current": "80%"
+    },
+    "responseTime": {
+      "target": "<200ms",
+      "measurement": "p95",
+      "current": "250ms"
+    },
+    "recoveryTime": {
+      "target": "<15min",
+      "measurement": "mttr",
+      "current": "measuring"
+    },
+    "dataIntegrity": {
+      "target": "100%",
+      "measurement": "continuous",
+      "current": "100%"
+    }
+  },
+  "monitoring_dashboard_config": {
+    "refreshInterval": 300000,
+    "alertThresholds": {
+      "critical": 30,
+      "warning": 60,
+      "healthy": 80
+    },
+    "monitoredSystems": [
+      {
+        "id": "auth",
+        "name": "Authentication System",
+        "priority": 1
+      },
+      {
+        "id": "dns",
+        "name": "DNS Resolution",
+        "priority": 1
+      },
+      {
+        "id": "website",
+        "name": "Website Availability",
+        "priority": 1
+      },
+      {
+        "id": "data_integrity",
+        "name": "Data Integrity",
+        "priority": 2
+      },
+      {
+        "id": "workflows",
+        "name": "Workflow Health",
+        "priority": 2
+      },
+      {
+        "id": "monitoring",
+        "name": "Health Monitoring",
+        "priority": 3
+      }
+    ],
+    "lastUpdated": "2025-08-08T07:37:31.667Z"
+  },
+  "exportedAt": "2025-08-08T07:42:44.745Z",
+  "format": "reliability-dashboard-export",
+  "version": "1.0.0"
+}
