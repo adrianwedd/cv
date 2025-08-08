@@ -31,4 +31,4 @@ Your Claude.ai session cookies have expired. Please refresh them manually:
 4. **Run:** node browser-auth-refresh.js test
 5. **Update GitHub secrets:** node setup-claude-cookies.js
 
-⏰ **Next check:** 2025-08-08T07:11:03.874Z
+⏰ **Next check:** 2025-08-08T08:13:17.400Z

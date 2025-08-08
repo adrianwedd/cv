@@ -1,0 +1,5 @@
+Metric,Current,Target,Status,LastUpdated
+System Health,80%,85%,good,2025-08-08T07:42:44.744Z
+Availability,99.2%,99.5%,warning,2025-08-08T07:42:44.746Z
+Response Time,180ms,200ms,excellent,2025-08-08T07:42:44.746Z
+Data Integrity,100%,100%,excellent,2025-08-08T07:42:44.746Z

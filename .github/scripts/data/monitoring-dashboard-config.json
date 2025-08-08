@@ -1,0 +1,41 @@
+{
+  "refreshInterval": 300000,
+  "alertThresholds": {
+    "critical": 30,
+    "warning": 60,
+    "healthy": 80
+  },
+  "monitoredSystems": [
+    {
+      "id": "auth",
+      "name": "Authentication System",
+      "priority": 1
+    },
+    {
+      "id": "dns",
+      "name": "DNS Resolution",
+      "priority": 1
+    },
+    {
+      "id": "website",
+      "name": "Website Availability",
+      "priority": 1
+    },
+    {
+      "id": "data_integrity",
+      "name": "Data Integrity",
+      "priority": 2
+    },
+    {
+      "id": "workflows",
+      "name": "Workflow Health",
+      "priority": 2
+    },
+    {
+      "id": "monitoring",
+      "name": "Health Monitoring",
+      "priority": 3
+    }
+  ],
+  "lastUpdated": "2025-08-08T07:37:31.667Z"
+}

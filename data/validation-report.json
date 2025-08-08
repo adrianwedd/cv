@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-08-08T08:32:57.890Z",
+  "schemas_validated": [
+    {
+      "schema": "CV Data",
+      "file": "base-cv.json",
+      "timestamp": "2025-08-08T08:32:57.890Z",
+      "valid": false,
+      "errors": [
+        "Missing required field: experience",
+        "Missing required field: skills",
+        "Missing required field: career.positions[0]title",
+        "Missing required field: career.positions[0]start_date",
+        "Missing required field: career.positions[1]title",
+        "Missing required field: career.positions[1]start_date",
+        "Missing required field: career.positions[2]title",
+        "Missing required field: career.positions[2]start_date",
+        "Missing required field: career.positions[3]title",
+        "Missing required field: career.positions[3]start_date",
+        "Missing required field: career.positions[4]title",
+        "Missing required field: career.positions[4]start_date"
+      ],
+      "warnings": []
+    },
+    {
+      "schema": "Activity Data",
+      "file": "activity-summary.json",
+      "timestamp": "2025-08-08T08:32:57.892Z",
+      "valid": true,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "total_errors": 12,
+  "total_warnings": 0,
+  "validation_details": []
+}

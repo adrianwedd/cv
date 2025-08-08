@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-08-08T08:22:12.197Z",
+  "metrics": {
+    "totalDeployments": 0,
+    "successfulDeployments": 0,
+    "failedDeployments": 0,
+    "averageDeployTime": 0,
+    "uptimePercentage": 0,
+    "lastHealthCheck": "2025-08-08T08:22:12.187Z",
+    "averageResponseTime": 358
+  },
+  "environments": {
+    "production": {
+      "url": "https://adrianwedd.github.io/cv",
+      "slaTarget": 99.9,
+      "currentHealth": {
+        "id": "health-1754641331790",
+        "timestamp": "2025-08-08T08:22:12.187Z",
+        "success": false,
+        "responseTime": 358,
+        "httpStatus": "301",
+        "environment": "production",
+        "details": {
+          "url": "https://adrianwedd.github.io/cv",
+          "method": "GET",
+          "timeout": 30000
+        }
+      },
+      "uptimePercentage": 0,
+      "averageResponseTime": 358,
+      "healthTrend": [
+        {
+          "timestamp": "2025-08-08T08:22:12.187Z",
+          "success": false,
+          "responseTime": 358
+        }
+      ],
+      "lastDeployment": null
+    },
+    "staging": {
+      "url": "https://adrianwedd.github.io/cv-staging",
+      "slaTarget": 95,
+      "currentHealth": null,
+      "uptimePercentage": 0,
+      "averageResponseTime": 0,
+      "healthTrend": [],
+      "lastDeployment": null
+    },
+    "preview": {
+      "url": "https://adrianwedd.github.io/cv-preview",
+      "slaTarget": 90,
+      "currentHealth": null,
+      "uptimePercentage": 0,
+      "averageResponseTime": 0,
+      "healthTrend": [],
+      "lastDeployment": null
+    }
+  },
+  "recentDeployments": [],
+  "alerts": [
+    {
+      "environment": "production-health",
+      "consecutiveFailures": 1,
+      "consecutiveSuccesses": 0,
+      "isAlerting": false,
+      "lastAlert": null
+    }
+  ]
+}

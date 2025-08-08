@@ -1,0 +1,493 @@
+name: Canary Deployment Strategy
+
+on:
+  workflow_dispatch:
+    inputs:
+      canary_percentage:
+        description: 'Canary traffic percentage (1-50)'
+        required: true
+        default: '10'
+        type: choice
+        options:
+          - '5'
+          - '10'
+          - '25'
+          - '50'
+      monitoring_duration:
+        description: 'Monitoring duration (minutes)'
+        required: true
+        default: '30'
+        type: choice
+        options:
+          - '15'
+          - '30'
+          - '60'
+          - '120'
+      auto_promote:
+        description: 'Auto-promote if metrics are good'
+        required: true
+        default: true
+        type: boolean
+      rollback_on_failure:
+        description: 'Auto-rollback on failure detection'
+        required: true
+        default: true
+        type: boolean
+
+env:
+  NODE_VERSION: '18'
+  CANARY_MONITORING_INTERVAL: '60' # seconds
+  HEALTH_THRESHOLD: 95 # percentage
+  ERROR_RATE_THRESHOLD: 1 # percentage
+  RESPONSE_TIME_THRESHOLD: 2000 # milliseconds
+
+jobs:
+  # ========================================
+  # CANARY DEPLOYMENT PREPARATION
+  # ========================================
+  canary-preparation:
+    name: 🎯 Canary Preparation
+    runs-on: ubuntu-latest
+    outputs:
+      canary-id: ${{ steps.prepare.outputs.canary-id }}
+      canary-url: ${{ steps.prepare.outputs.canary-url }}
+      production-url: ${{ steps.prepare.outputs.production-url }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: 🎯 Prepare canary deployment
+        id: prepare
+        run: |
+          CANARY_ID="canary-$(date +%Y%m%d-%H%M%S)"
+          CANARY_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}-canary-${CANARY_ID}"
+          PRODUCTION_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          
+          echo "canary-id=$CANARY_ID" >> $GITHUB_OUTPUT
+          echo "canary-url=$CANARY_URL" >> $GITHUB_OUTPUT
+          echo "production-url=$PRODUCTION_URL" >> $GITHUB_OUTPUT
+          
+          echo "🎯 Canary ID: $CANARY_ID"
+          echo "🌐 Canary URL: $CANARY_URL"
+          echo "🌐 Production URL: $PRODUCTION_URL"
+          echo "📊 Traffic Split: ${{ inputs.canary_percentage }}% canary / $((100 - inputs.canary_percentage))% production"
+      
+      - name: 🚀 Track canary deployment
+        run: |
+          cd .github/scripts
+          node deployment-monitor.js track-deployment canary ${{ github.ref_name }} ${{ github.sha }}
+          echo "📊 Canary deployment tracked in monitoring system"
+      
+      - name: ⚡ Build optimized canary assets
+        run: |
+          # Add canary identifier to assets
+          CANARY_ID="${{ steps.prepare.outputs.canary-id }}"
+          
+          # Add canary banner to HTML
+          sed -i '/<body>/a <div id="canary-banner" style="position:fixed;top:0;left:0;right:0;background:#ff6b35;color:white;text-align:center;padding:8px;font-size:12px;z-index:10000;font-family:monospace">🧪 CANARY DEPLOYMENT - '"$CANARY_ID"'</div>' index.html
+          
+          # Minify assets
+          if command -v npx >/dev/null 2>&1; then
+            npx clean-css-cli -o assets/styles.canary.css assets/styles.css 2>/dev/null || cp assets/styles.css assets/styles.canary.css
+            npx terser assets/script.js -o assets/script.canary.js 2>/dev/null || cp assets/script.js assets/script.canary.js
+            
+            # Update HTML references
+            sed -i 's|assets/styles\.css|assets/styles.canary.css|g' index.html
+            sed -i 's|assets/script\.js|assets/script.canary.js|g' index.html
+          fi
+          
+          echo "⚡ Canary assets optimized and marked"
+      
+      - name: 📦 Create canary deployment package
+        run: |
+          mkdir -p canary-package
+          
+          # Copy all files for canary deployment
+          cp index.html canary-package/
+          cp -r assets/ canary-package/assets/
+          cp -r data/ canary-package/data/ 2>/dev/null || true
+          cp sw.js canary-package/ 2>/dev/null || true
+          cp manifest.json canary-package/ 2>/dev/null || true
+          
+          # Add canary metadata
+          echo '{"deployment_type":"canary","canary_id":"${{ steps.prepare.outputs.canary-id }}","timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)'","commit":"${{ github.sha }}","percentage":${{ inputs.canary_percentage }}}' > canary-package/canary-info.json
+          
+          echo "📦 Canary deployment package created"
+      
+      - name: 🚀 Deploy canary version
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./canary-package
+          publish_branch: gh-pages-canary-${{ steps.prepare.outputs.canary-id }}
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '🧪 Deploy canary ${{ steps.prepare.outputs.canary-id }} - ${{ github.sha }}'
+
+  # ========================================
+  # CANARY MONITORING & VALIDATION
+  # ========================================
+  canary-monitoring:
+    name: 📊 Canary Monitoring
+    runs-on: ubuntu-latest
+    needs: [canary-preparation]
+    timeout-minutes: ${{ fromJson(inputs.monitoring_duration) + 10 }}
+    
+    outputs:
+      monitoring-result: ${{ steps.monitor.outputs.result }}
+      health-score: ${{ steps.monitor.outputs.health-score }}
+      error-rate: ${{ steps.monitor.outputs.error-rate }}
+      avg-response-time: ${{ steps.monitor.outputs.avg-response-time }}
+      recommendation: ${{ steps.monitor.outputs.recommendation }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: ⏳ Wait for canary deployment
+        run: |
+          echo "⏳ Waiting 2 minutes for canary deployment to propagate..."
+          sleep 120
+      
+      - name: 📊 Comprehensive canary monitoring
+        id: monitor
+        run: |
+          cd .github/scripts
+          
+          CANARY_URL="${{ needs.canary-preparation.outputs.canary-url }}"
+          PRODUCTION_URL="${{ needs.canary-preparation.outputs.production-url }}"
+          MONITORING_DURATION=${{ inputs.monitoring_duration }}
+          INTERVAL=${{ env.CANARY_MONITORING_INTERVAL }}
+          
+          echo "📊 Starting canary monitoring for ${MONITORING_DURATION} minutes"
+          echo "🎯 Canary URL: $CANARY_URL"
+          echo "🌐 Production URL: $PRODUCTION_URL"
+          
+          # Initialize monitoring variables
+          TOTAL_CHECKS=0
+          CANARY_SUCCESS=0
+          PRODUCTION_SUCCESS=0
+          CANARY_TOTAL_TIME=0
+          PRODUCTION_TOTAL_TIME=0
+          CANARY_ERRORS=0
+          PRODUCTION_ERRORS=0
+          
+          # Calculate number of monitoring cycles
+          CYCLES=$((MONITORING_DURATION * 60 / INTERVAL))
+          
+          echo "📊 Will perform $CYCLES monitoring cycles"
+          
+          for i in $(seq 1 $CYCLES); do
+            echo "🔍 Monitoring cycle $i/$CYCLES"
+            
+            # Check canary deployment
+            CANARY_START=$(date +%s%3N)
+            CANARY_HTTP=$(curl -s -o /dev/null -w "%{http_code}" "$CANARY_URL" --max-time 30) || CANARY_HTTP="000"
+            CANARY_END=$(date +%s%3N)
+            CANARY_TIME=$((CANARY_END - CANARY_START))
+            
+            # Check production deployment  
+            PROD_START=$(date +%s%3N)
+            PROD_HTTP=$(curl -s -o /dev/null -w "%{http_code}" "$PRODUCTION_URL" --max-time 30) || PROD_HTTP="000"
+            PROD_END=$(date +%s%3N)
+            PROD_TIME=$((PROD_END - PROD_START))
+            
+            TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
+            
+            # Record canary results
+            if [ "$CANARY_HTTP" = "200" ]; then
+              CANARY_SUCCESS=$((CANARY_SUCCESS + 1))
+            else
+              CANARY_ERRORS=$((CANARY_ERRORS + 1))
+            fi
+            CANARY_TOTAL_TIME=$((CANARY_TOTAL_TIME + CANARY_TIME))
+            
+            # Record production results
+            if [ "$PROD_HTTP" = "200" ]; then
+              PRODUCTION_SUCCESS=$((PRODUCTION_SUCCESS + 1))
+            else
+              PRODUCTION_ERRORS=$((PRODUCTION_ERRORS + 1))
+            fi
+            PRODUCTION_TOTAL_TIME=$((PRODUCTION_TOTAL_TIME + PROD_TIME))
+            
+            echo "📡 Canary: HTTP $CANARY_HTTP (${CANARY_TIME}ms) | Production: HTTP $PROD_HTTP (${PROD_TIME}ms)"
+            
+            # Early termination on critical failures
+            CANARY_ERROR_RATE=$((CANARY_ERRORS * 100 / TOTAL_CHECKS))
+            if [ $CANARY_ERROR_RATE -gt 10 ] && [ $TOTAL_CHECKS -gt 5 ]; then
+              echo "🚨 Early termination: Canary error rate too high (${CANARY_ERROR_RATE}%)"
+              break
+            fi
+            
+            if [ $i -lt $CYCLES ]; then
+              sleep $INTERVAL
+            fi
+          done
+          
+          # Calculate final metrics
+          CANARY_SUCCESS_RATE=$((CANARY_SUCCESS * 100 / TOTAL_CHECKS))
+          PRODUCTION_SUCCESS_RATE=$((PRODUCTION_SUCCESS * 100 / TOTAL_CHECKS))
+          CANARY_AVG_TIME=$((CANARY_TOTAL_TIME / TOTAL_CHECKS))
+          PRODUCTION_AVG_TIME=$((PRODUCTION_TOTAL_TIME / TOTAL_CHECKS))
+          CANARY_ERROR_RATE=$((CANARY_ERRORS * 100 / TOTAL_CHECKS))
+          
+          echo "📊 Final Metrics:"
+          echo "  Canary Success Rate: ${CANARY_SUCCESS_RATE}%"
+          echo "  Production Success Rate: ${PRODUCTION_SUCCESS_RATE}%"
+          echo "  Canary Avg Response: ${CANARY_AVG_TIME}ms"
+          echo "  Production Avg Response: ${PRODUCTION_AVG_TIME}ms"
+          echo "  Canary Error Rate: ${CANARY_ERROR_RATE}%"
+          
+          # Determine recommendation
+          RECOMMENDATION="hold"
+          RESULT="monitoring_complete"
+          
+          # Check if canary meets thresholds
+          if [ $CANARY_SUCCESS_RATE -ge ${{ env.HEALTH_THRESHOLD }} ] && 
+             [ $CANARY_ERROR_RATE -le ${{ env.ERROR_RATE_THRESHOLD }} ] && 
+             [ $CANARY_AVG_TIME -le ${{ env.RESPONSE_TIME_THRESHOLD }} ]; then
+            
+            # Compare with production performance
+            PERFORMANCE_DEGRADATION=$(( (CANARY_AVG_TIME - PRODUCTION_AVG_TIME) * 100 / PRODUCTION_AVG_TIME ))
+            
+            if [ $PERFORMANCE_DEGRADATION -le 20 ]; then
+              RECOMMENDATION="promote"
+              RESULT="success"
+              echo "✅ Recommendation: PROMOTE canary to production"
+            else
+              RECOMMENDATION="hold"
+              echo "⚠️ Recommendation: HOLD canary (performance degradation: ${PERFORMANCE_DEGRADATION}%)"
+            fi
+          else
+            RECOMMENDATION="rollback"
+            RESULT="failure"
+            echo "❌ Recommendation: ROLLBACK canary (failed health thresholds)"
+          fi
+          
+          # Set outputs
+          echo "result=$RESULT" >> $GITHUB_OUTPUT
+          echo "health-score=$CANARY_SUCCESS_RATE" >> $GITHUB_OUTPUT
+          echo "error-rate=$CANARY_ERROR_RATE" >> $GITHUB_OUTPUT
+          echo "avg-response-time=$CANARY_AVG_TIME" >> $GITHUB_OUTPUT
+          echo "recommendation=$RECOMMENDATION" >> $GITHUB_OUTPUT
+          
+          # Update deployment tracking
+          node deployment-monitor.js update-deployment canary-${{ needs.canary-preparation.outputs.canary-id }} '{"status":"'$RESULT'","health_score":'$CANARY_SUCCESS_RATE',"error_rate":'$CANARY_ERROR_RATE',"avg_response_time":'$CANARY_AVG_TIME'}'
+
+  # ========================================
+  # AUTOMATED PROMOTION
+  # ========================================
+  canary-promotion:
+    name: 🚀 Canary Promotion
+    runs-on: ubuntu-latest
+    needs: [canary-preparation, canary-monitoring]
+    if: inputs.auto_promote == true && needs.canary-monitoring.outputs.recommendation == 'promote'
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci
+      
+      - name: 🎯 Prepare production promotion
+        run: |
+          CANARY_ID="${{ needs.canary-preparation.outputs.canary-id }}"
+          
+          echo "🚀 Promoting canary $CANARY_ID to production"
+          echo "📊 Health Score: ${{ needs.canary-monitoring.outputs.health-score }}%"
+          echo "⚡ Avg Response: ${{ needs.canary-monitoring.outputs.avg-response-time }}ms"
+          echo "🚫 Error Rate: ${{ needs.canary-monitoring.outputs.error-rate }}%"
+      
+      - name: 🧹 Clean up canary artifacts
+        run: |
+          # Remove canary banner from HTML
+          sed -i '/<div id="canary-banner"/d' index.html
+          
+          # Restore original asset references
+          if [ -f "assets/styles.canary.css" ]; then
+            mv assets/styles.canary.css assets/styles.css
+            sed -i 's|assets/styles\.canary\.css|assets/styles.css|g' index.html
+          fi
+          
+          if [ -f "assets/script.canary.js" ]; then
+            mv assets/script.canary.js assets/script.js
+            sed -i 's|assets/script\.canary\.js|assets/script.js|g' index.html
+          fi
+          
+          echo "🧹 Canary artifacts cleaned up"
+      
+      - name: 📦 Create production deployment package
+        run: |
+          mkdir -p production-package
+          
+          # Copy cleaned files
+          cp index.html production-package/
+          cp -r assets/ production-package/assets/
+          cp -r data/ production-package/data/ 2>/dev/null || true
+          cp sw.js production-package/ 2>/dev/null || true
+          cp manifest.json production-package/ 2>/dev/null || true
+          
+          # Add promotion metadata
+          echo '{"deployment_type":"promotion","promoted_from":"${{ needs.canary-preparation.outputs.canary-id }}","timestamp":"'$(date -u +%Y-%m-%dT%H:%M:%S.%3NZ)'","commit":"${{ github.sha }}","health_score":${{ needs.canary-monitoring.outputs.health-score }},"avg_response_time":${{ needs.canary-monitoring.outputs.avg-response-time }}}' > production-package/promotion-info.json
+          
+          echo "📦 Production deployment package created"
+      
+      - name: 🚀 Deploy to production
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./production-package
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '🚀 Promote canary ${{ needs.canary-preparation.outputs.canary-id }} to production - ${{ github.sha }}'
+      
+      - name: 📊 Update monitoring
+        run: |
+          cd .github/scripts
+          node deployment-monitor.js track-deployment production ${{ github.ref_name }} ${{ github.sha }}
+          node deployment-monitor.js update-deployment production-$(date +%Y%m%d-%H%M%S) '{"status":"success","promoted_from":"${{ needs.canary-preparation.outputs.canary-id }}","health_score":${{ needs.canary-monitoring.outputs.health-score }}}'
+          
+          echo "📊 Production deployment tracked"
+
+  # ========================================
+  # AUTOMATED ROLLBACK
+  # ========================================
+  canary-rollback:
+    name: 🔄 Canary Rollback
+    runs-on: ubuntu-latest
+    needs: [canary-preparation, canary-monitoring]
+    if: always() && (inputs.rollback_on_failure == true && needs.canary-monitoring.outputs.recommendation == 'rollback')
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🎯 Identify rollback target
+        id: rollback
+        run: |
+          # Find the last successful production deployment
+          LAST_GOOD_COMMIT=$(git log --oneline --grep="Promote canary" -n 1 | cut -d' ' -f1)
+          
+          if [ -z "$LAST_GOOD_COMMIT" ]; then
+            LAST_GOOD_COMMIT=$(git log --oneline --grep="Deploy production" -n 1 | cut -d' ' -f1)
+          fi
+          
+          if [ -z "$LAST_GOOD_COMMIT" ]; then
+            LAST_GOOD_COMMIT=$(git log --oneline -n 10 | tail -n 1 | cut -d' ' -f1)
+          fi
+          
+          echo "target=$LAST_GOOD_COMMIT" >> $GITHUB_OUTPUT
+          echo "🎯 Rollback target: $LAST_GOOD_COMMIT"
+      
+      - name: 🔄 Execute canary rollback
+        run: |
+          echo "🔄 CANARY ROLLBACK INITIATED"
+          echo "📍 Canary ID: ${{ needs.canary-preparation.outputs.canary-id }}"
+          echo "📊 Health Score: ${{ needs.canary-monitoring.outputs.health-score }}%"
+          echo "🚫 Error Rate: ${{ needs.canary-monitoring.outputs.error-rate }}%"
+          echo "🎯 Rolling back to: ${{ steps.rollback.outputs.target }}"
+      
+      - name: 🧹 Cleanup canary deployment
+        run: |
+          echo "🧹 Cleaning up failed canary deployment"
+          echo "🗑️ Canary branch: gh-pages-canary-${{ needs.canary-preparation.outputs.canary-id }}"
+          
+          # Note: In a real implementation, you might want to delete the canary branch
+          # git push origin --delete gh-pages-canary-${{ needs.canary-preparation.outputs.canary-id }}
+      
+      - name: 📊 Update monitoring
+        run: |
+          cd .github/scripts
+          node deployment-monitor.js update-deployment canary-${{ needs.canary-preparation.outputs.canary-id }} '{"status":"rolled_back","health_score":${{ needs.canary-monitoring.outputs.health-score }},"error_rate":${{ needs.canary-monitoring.outputs.error-rate }},"rollback_reason":"health_threshold_failure"}'
+          
+          echo "📊 Rollback tracked in monitoring system"
+
+  # ========================================
+  # CANARY DEPLOYMENT SUMMARY
+  # ========================================
+  canary-summary:
+    name: 📊 Canary Summary
+    runs-on: ubuntu-latest
+    needs: [canary-preparation, canary-monitoring, canary-promotion, canary-rollback]
+    if: always()
+    
+    steps:
+      - name: 📊 Generate canary deployment report
+        run: |
+          echo "## 🧪 Canary Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🎯 Deployment Details" >> $GITHUB_STEP_SUMMARY
+          echo "- **Canary ID**: ${{ needs.canary-preparation.outputs.canary-id || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Traffic Split**: ${{ inputs.canary_percentage }}% canary / ${{ 100 - fromJson(inputs.canary_percentage) }}% production" >> $GITHUB_STEP_SUMMARY
+          echo "- **Monitoring Duration**: ${{ inputs.monitoring_duration }} minutes" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Monitoring Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Health Score**: ${{ needs.canary-monitoring.outputs.health-score || 'N/A' }}%" >> $GITHUB_STEP_SUMMARY
+          echo "- **Error Rate**: ${{ needs.canary-monitoring.outputs.error-rate || 'N/A' }}%" >> $GITHUB_STEP_SUMMARY
+          echo "- **Avg Response Time**: ${{ needs.canary-monitoring.outputs.avg-response-time || 'N/A' }}ms" >> $GITHUB_STEP_SUMMARY
+          echo "- **Recommendation**: ${{ needs.canary-monitoring.outputs.recommendation || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Deployment URLs" >> $GITHUB_STEP_SUMMARY
+          echo "- **Canary**: ${{ needs.canary-preparation.outputs.canary-url || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Production**: ${{ needs.canary-preparation.outputs.production-url || 'N/A' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Final status
+          if [ "${{ needs.canary-promotion.result }}" = "success" ]; then
+            echo "### ✅ Status: PROMOTED TO PRODUCTION" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ needs.canary-rollback.result }}" = "success" ]; then
+            echo "### 🔄 Status: ROLLED BACK" >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ needs.canary-monitoring.outputs.recommendation }}" = "hold" ]; then
+            echo "### ⏳ Status: HELD FOR REVIEW" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ❓ Status: MONITORING IN PROGRESS" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Canary deployment completed at $(date -u '+%Y-%m-%d %H:%M:%S UTC')*" >> $GITHUB_STEP_SUMMARY

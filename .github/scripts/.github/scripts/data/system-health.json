@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-08T04:39:19.020Z",
+  "timestamp": "2025-08-08T07:39:33.932Z",
   "overall_status": "critical",
   "systems": {
     "oauth": {
@@ -110,7 +110,7 @@
     }
   },
   "performance_metrics": {
-    "total_check_time": 1,
+    "total_check_time": 2,
     "systems_checked": 6,
     "operational_systems": 1,
     "operational_percentage": 17,

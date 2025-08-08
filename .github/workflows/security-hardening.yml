@@ -1,0 +1,468 @@
+name: Security Hardening & Vulnerability Management
+
+on:
+  schedule:
+    - cron: '0 2 * * 1' # Weekly on Monday at 2 AM
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      scan_type:
+        description: 'Security scan type'
+        required: true
+        default: 'comprehensive'
+        type: choice
+        options:
+          - quick
+          - comprehensive
+          - deep
+      remediation_mode:
+        description: 'Automatic remediation'
+        required: true
+        default: 'safe'
+        type: choice
+        options:
+          - none
+          - safe
+          - aggressive
+
+env:
+  NODE_VERSION: '18'
+  SECURITY_SCAN_TIMEOUT: '600' # 10 minutes
+
+jobs:
+  # ========================================
+  # DEPENDENCY VULNERABILITY SCANNING
+  # ========================================
+  dependency-scan:
+    name: 🔍 Dependency Security Scan
+    runs-on: ubuntu-latest
+    outputs:
+      vulnerability-count: ${{ steps.audit.outputs.vulnerability-count }}
+      critical-count: ${{ steps.audit.outputs.critical-count }}
+      high-count: ${{ steps.audit.outputs.high-count }}
+      security-score: ${{ steps.audit.outputs.security-score }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '.github/scripts/package-lock.json'
+      
+      - name: 📥 Install dependencies
+        run: |
+          cd .github/scripts
+          npm ci --audit=false
+      
+      - name: 🔐 npm audit scan
+        id: audit
+        run: |
+          cd .github/scripts
+          
+          echo "🔍 Running npm security audit..."
+          
+          # Run npm audit and capture JSON output
+          npm audit --json > audit-results.json || true
+          
+          # Parse results
+          if [ -f audit-results.json ]; then
+            CRITICAL=$(jq '.metadata.vulnerabilities.critical // 0' audit-results.json)
+            HIGH=$(jq '.metadata.vulnerabilities.high // 0' audit-results.json)
+            MODERATE=$(jq '.metadata.vulnerabilities.moderate // 0' audit-results.json)
+            LOW=$(jq '.metadata.vulnerabilities.low // 0' audit-results.json)
+            INFO=$(jq '.metadata.vulnerabilities.info // 0' audit-results.json)
+          else
+            CRITICAL=0; HIGH=0; MODERATE=0; LOW=0; INFO=0
+          fi
+          
+          TOTAL_VULNERABILITIES=$((CRITICAL + HIGH + MODERATE + LOW + INFO))
+          
+          # Calculate security score (weighted by severity)
+          WEIGHTED_SCORE=$((CRITICAL * 100 + HIGH * 50 + MODERATE * 10 + LOW * 2 + INFO * 1))
+          SECURITY_SCORE=$((100 - WEIGHTED_SCORE))
+          
+          if [ $SECURITY_SCORE -lt 0 ]; then SECURITY_SCORE=0; fi
+          
+          echo "vulnerability-count=$TOTAL_VULNERABILITIES" >> $GITHUB_OUTPUT
+          echo "critical-count=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high-count=$HIGH" >> $GITHUB_OUTPUT
+          echo "security-score=$SECURITY_SCORE" >> $GITHUB_OUTPUT
+          
+          echo "🔐 Security Audit Results:"
+          echo "  Critical: $CRITICAL"
+          echo "  High: $HIGH"
+          echo "  Moderate: $MODERATE"
+          echo "  Low: $LOW"
+          echo "  Info: $INFO"
+          echo "  Total: $TOTAL_VULNERABILITIES"
+          echo "  Security Score: $SECURITY_SCORE/100"
+          
+          # Generate detailed report
+          if [ -f audit-results.json ] && [ $TOTAL_VULNERABILITIES -gt 0 ]; then
+            echo "📊 Generating detailed vulnerability report..."
+            jq -r '.vulnerabilities | to_entries[] | "\(.key): \(.value.severity) - \(.value.title)"' audit-results.json > vulnerability-details.txt 2>/dev/null || true
+            
+            if [ -f vulnerability-details.txt ]; then
+              echo "🚨 Vulnerability Details:"
+              head -20 vulnerability-details.txt
+            fi
+          fi
+      
+      - name: 🔧 Automatic dependency updates (safe mode)
+        if: inputs.remediation_mode == 'safe' || inputs.remediation_mode == 'aggressive'
+        run: |
+          cd .github/scripts
+          
+          echo "🔧 Attempting safe dependency updates..."
+          
+          # Update to latest patch versions only (safe updates)
+          if [ "${{ inputs.remediation_mode }}" = "safe" ]; then
+            npm update --save 2>/dev/null || true
+            echo "✅ Safe dependency updates applied"
+          fi
+          
+          # More aggressive updates including minor versions
+          if [ "${{ inputs.remediation_mode }}" = "aggressive" ]; then
+            npm update --save 2>/dev/null || true
+            # Use npm-check-updates if available for minor version updates
+            npx npm-check-updates -u --target minor 2>/dev/null || true
+            npm install 2>/dev/null || true
+            echo "⚠️ Aggressive dependency updates applied"
+          fi
+      
+      - name: 🔄 Re-scan after updates
+        if: inputs.remediation_mode == 'safe' || inputs.remediation_mode == 'aggressive'
+        run: |
+          cd .github/scripts
+          
+          echo "🔄 Re-scanning after dependency updates..."
+          npm audit --json > audit-results-after.json || true
+          
+          if [ -f audit-results-after.json ]; then
+            AFTER_CRITICAL=$(jq '.metadata.vulnerabilities.critical // 0' audit-results-after.json)
+            AFTER_HIGH=$(jq '.metadata.vulnerabilities.high // 0' audit-results-after.json)
+            AFTER_TOTAL=$((AFTER_CRITICAL + AFTER_HIGH))
+            
+            echo "📊 After updates:"
+            echo "  Critical: $AFTER_CRITICAL"
+            echo "  High: $AFTER_HIGH"
+            echo "  Total Critical+High: $AFTER_TOTAL"
+          fi
+      
+      - name: 📊 Upload audit results
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-results
+          path: |
+            .github/scripts/audit-results.json
+            .github/scripts/audit-results-after.json
+            .github/scripts/vulnerability-details.txt
+          retention-days: 30
+
+  # ========================================
+  # CODE SECURITY ANALYSIS
+  # ========================================
+  codeql-analysis:
+    name: 🔍 CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['javascript']
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🔍 Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: +security-and-quality
+      
+      - name: 🏗️ Autobuild
+        uses: github/codeql-action/autobuild@v3
+      
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+  # ========================================
+  # SECRETS SCANNING
+  # ========================================
+  secrets-scan:
+    name: 🔐 Secrets Detection
+    runs-on: ubuntu-latest
+    outputs:
+      secrets-found: ${{ steps.secrets.outputs.found }}
+      secrets-count: ${{ steps.secrets.outputs.count }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🔐 Scan for secrets
+        id: secrets
+        run: |
+          echo "🔐 Scanning for potential secrets and sensitive data..."
+          
+          SECRETS_FOUND=0
+          
+          # Common secret patterns
+          SECRET_PATTERNS=(
+            "api[_-]?key['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9_-]{20,}"
+            "secret['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9_-]{20,}"
+            "token['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9_-]{20,}"
+            "password['\"]?\s*[:=]\s*['\"]?[a-zA-Z0-9_@#$%^&*-]{8,}"
+            "private[_-]?key"
+            "-----BEGIN [A-Z ]+-----"
+            "github[_-]?token"
+            "slack[_-]?webhook"
+            "discord[_-]?webhook"
+            "AKIA[0-9A-Z]{16}" # AWS Access Key
+            "ghp_[a-zA-Z0-9]{36}" # GitHub Personal Access Token
+            "ghs_[a-zA-Z0-9]{36}" # GitHub App token
+          )
+          
+          # Files to scan
+          SCAN_FILES=$(find . -type f \( -name "*.js" -o -name "*.json" -o -name "*.yml" -o -name "*.yaml" -o -name "*.env*" -o -name "*.config*" \) ! -path "./.git/*" ! -path "./node_modules/*")
+          
+          echo "📁 Scanning files for secrets..."
+          
+          for pattern in "${SECRET_PATTERNS[@]}"; do
+            if echo "$SCAN_FILES" | xargs grep -l -i -E "$pattern" 2>/dev/null; then
+              SECRETS_FOUND=$((SECRETS_FOUND + 1))
+              echo "🚨 Potential secret pattern found: $pattern"
+            fi
+          done
+          
+          # Additional checks for common secret locations
+          if [ -f ".env" ] && [ -s ".env" ]; then
+            echo "⚠️ .env file detected - verify no secrets are committed"
+            SECRETS_FOUND=$((SECRETS_FOUND + 1))
+          fi
+          
+          if grep -r "process\.env\." . --include="*.js" 2>/dev/null | grep -v node_modules | grep -q .; then
+            echo "ℹ️ Environment variable usage detected - verify proper secret handling"
+          fi
+          
+          echo "found=$SECRETS_FOUND" >> $GITHUB_OUTPUT
+          echo "count=$SECRETS_FOUND" >> $GITHUB_OUTPUT
+          
+          if [ $SECRETS_FOUND -gt 0 ]; then
+            echo "🚨 $SECRETS_FOUND potential secrets or sensitive patterns detected"
+          else
+            echo "✅ No obvious secrets detected"
+          fi
+
+  # ========================================
+  # GITHUB ACTIONS SECURITY
+  # ========================================
+  actions-security:
+    name: 🔧 GitHub Actions Security
+    runs-on: ubuntu-latest
+    outputs:
+      workflow-issues: ${{ steps.workflow-audit.outputs.issues }}
+      security-score: ${{ steps.workflow-audit.outputs.score }}
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 🔧 Audit workflow security
+        id: workflow-audit
+        run: |
+          echo "🔧 Auditing GitHub Actions workflow security..."
+          
+          ISSUES_FOUND=0
+          SECURITY_SCORE=100
+          
+          # Check for pinned action versions
+          UNPINNED_ACTIONS=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -l "uses:.*@[^v]" 2>/dev/null || true)
+          if [ -n "$UNPINNED_ACTIONS" ]; then
+            echo "⚠️ Unpinned action versions found (security risk)"
+            echo "$UNPINNED_ACTIONS" | head -5
+            ISSUES_FOUND=$((ISSUES_FOUND + 1))
+            SECURITY_SCORE=$((SECURITY_SCORE - 10))
+          fi
+          
+          # Check for excessive permissions
+          BROAD_PERMISSIONS=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -l "permissions:.*write-all\|contents: write" 2>/dev/null || true)
+          if [ -n "$BROAD_PERMISSIONS" ]; then
+            echo "⚠️ Broad permissions detected"
+            ISSUES_FOUND=$((ISSUES_FOUND + 1))
+            SECURITY_SCORE=$((SECURITY_SCORE - 5))
+          fi
+          
+          # Check for shell injection risks
+          SHELL_RISKS=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -l "\${{" 2>/dev/null | xargs grep -l "run:" 2>/dev/null || true)
+          if [ -n "$SHELL_RISKS" ]; then
+            echo "⚠️ Potential shell injection risks in workflows"
+            ISSUES_FOUND=$((ISSUES_FOUND + 1))
+            SECURITY_SCORE=$((SECURITY_SCORE - 15))
+          fi
+          
+          # Check for hardcoded secrets in workflows
+          HARDCODED_SECRETS=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -i -E "(api[_-]?key|token|password|secret).*['\"]?[a-zA-Z0-9]{10,}" 2>/dev/null || true)
+          if [ -n "$HARDCODED_SECRETS" ]; then
+            echo "🚨 Potential hardcoded secrets in workflows"
+            ISSUES_FOUND=$((ISSUES_FOUND + 3))
+            SECURITY_SCORE=$((SECURITY_SCORE - 30))
+          fi
+          
+          # Check for proper secret usage
+          SECRET_USAGE=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | xargs grep -c "secrets\." 2>/dev/null | awk -F: '{sum+=$2} END {print sum}' || echo "0")
+          echo "ℹ️ Secrets usage count: $SECRET_USAGE"
+          
+          echo "issues=$ISSUES_FOUND" >> $GITHUB_OUTPUT
+          echo "score=$SECURITY_SCORE" >> $GITHUB_OUTPUT
+          
+          echo "🔧 Workflow security audit complete:"
+          echo "  Issues found: $ISSUES_FOUND"
+          echo "  Security score: $SECURITY_SCORE/100"
+      
+      - name: 🔒 Generate security recommendations
+        run: |
+          echo "🔒 Security Recommendations:"
+          echo ""
+          echo "1. Pin all GitHub Actions to specific SHA commits"
+          echo "   Example: uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6"
+          echo ""
+          echo "2. Use minimal required permissions"
+          echo "   Example:"
+          echo "   permissions:"
+          echo "     contents: read"
+          echo "     security-events: write"
+          echo ""
+          echo "3. Validate inputs and avoid shell injection"
+          echo "   Use: \${{ inputs.value }}"
+          echo "   Avoid: \$(echo \${{ github.event.issue.title }})"
+          echo ""
+          echo "4. Store sensitive data in GitHub Secrets"
+          echo "   Use: \${{ secrets.API_KEY }}"
+          echo "   Never: hardcoded values"
+          echo ""
+          echo "5. Regular security audits and updates"
+          echo "   Schedule: weekly security scans"
+          echo "   Update: dependencies and actions regularly"
+
+  # ========================================
+  # SECURITY REPORT GENERATION
+  # ========================================
+  security-report:
+    name: 📊 Security Report
+    runs-on: ubuntu-latest
+    needs: [dependency-scan, secrets-scan, actions-security]
+    if: always()
+    
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v4
+      
+      - name: 📊 Generate comprehensive security report
+        run: |
+          echo "## 🛡️ Security Assessment Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Overall Security Metrics" >> $GITHUB_STEP_SUMMARY
+          
+          # Calculate overall security score
+          DEP_SCORE=${{ needs.dependency-scan.outputs.security-score || '100' }}
+          ACTIONS_SCORE=${{ needs.actions-security.outputs.security-score || '100' }}
+          SECRETS_FOUND=${{ needs.secrets-scan.outputs.secrets-found || '0' }}
+          
+          SECRETS_PENALTY=$((SECRETS_FOUND * 20))
+          OVERALL_SCORE=$(( (DEP_SCORE + ACTIONS_SCORE) / 2 - SECRETS_PENALTY ))
+          
+          if [ $OVERALL_SCORE -lt 0 ]; then OVERALL_SCORE=0; fi
+          
+          echo "- **Overall Security Score**: $OVERALL_SCORE/100" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dependency Security**: $DEP_SCORE/100" >> $GITHUB_STEP_SUMMARY
+          echo "- **Workflow Security**: $ACTIONS_SCORE/100" >> $GITHUB_STEP_SUMMARY
+          echo "- **Secrets Detection**: ${{ needs.secrets-scan.outputs.secrets-found || '0' }} potential issues" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "### 🔍 Vulnerability Breakdown" >> $GITHUB_STEP_SUMMARY
+          echo "- **Critical Vulnerabilities**: ${{ needs.dependency-scan.outputs.critical-count || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **High Vulnerabilities**: ${{ needs.dependency-scan.outputs.high-count || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Vulnerabilities**: ${{ needs.dependency-scan.outputs.vulnerability-count || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Workflow Issues**: ${{ needs.actions-security.outputs.workflow-issues || '0' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Security status badge
+          if [ $OVERALL_SCORE -ge 90 ]; then
+            echo "### ✅ Security Status: EXCELLENT" >> $GITHUB_STEP_SUMMARY
+          elif [ $OVERALL_SCORE -ge 70 ]; then
+            echo "### ⚠️ Security Status: GOOD" >> $GITHUB_STEP_SUMMARY
+          elif [ $OVERALL_SCORE -ge 50 ]; then
+            echo "### 🟡 Security Status: NEEDS ATTENTION" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### 🚨 Security Status: CRITICAL ISSUES" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔧 Recommended Actions" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.dependency-scan.outputs.critical-count || '0' }}" -gt 0 ]; then
+            echo "- 🚨 **URGENT**: Address ${{ needs.dependency-scan.outputs.critical-count }} critical vulnerabilities" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.dependency-scan.outputs.high-count || '0' }}" -gt 0 ]; then
+            echo "- ⚠️ **HIGH**: Resolve ${{ needs.dependency-scan.outputs.high-count }} high-severity vulnerabilities" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.secrets-scan.outputs.secrets-found || '0' }}" -gt 0 ]; then
+            echo "- 🔐 **REVIEW**: Investigate ${{ needs.secrets-scan.outputs.secrets-found }} potential secret exposures" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.actions-security.outputs.workflow-issues || '0' }}" -gt 0 ]; then
+            echo "- 🔧 **IMPROVE**: Fix ${{ needs.actions-security.outputs.workflow-issues }} workflow security issues" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ $OVERALL_SCORE -ge 90 ]; then
+            echo "- ✅ **MAINTAIN**: Continue regular security monitoring" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Security assessment completed at $(date -u '+%Y-%m-%d %H:%M:%S UTC')*" >> $GITHUB_STEP_SUMMARY
+          echo "*Scan type: ${{ inputs.scan_type || 'comprehensive' }} | Remediation: ${{ inputs.remediation_mode || 'safe' }}*" >> $GITHUB_STEP_SUMMARY
+      
+      - name: 🚨 Security alert thresholds
+        run: |
+          CRITICAL_COUNT=${{ needs.dependency-scan.outputs.critical-count || '0' }}
+          HIGH_COUNT=${{ needs.dependency-scan.outputs.high-count || '0' }}
+          OVERALL_SCORE=$(( (${{ needs.dependency-scan.outputs.security-score || '100' }} + ${{ needs.actions-security.outputs.security-score || '100' }}) / 2 ))
+          
+          if [ $CRITICAL_COUNT -gt 0 ]; then
+            echo "🚨 SECURITY ALERT: $CRITICAL_COUNT critical vulnerabilities detected"
+            # In production, this could trigger notifications, create issues, etc.
+          fi
+          
+          if [ $HIGH_COUNT -gt 5 ]; then
+            echo "⚠️ SECURITY WARNING: $HIGH_COUNT high-severity vulnerabilities detected"
+          fi
+          
+          if [ $OVERALL_SCORE -lt 70 ]; then
+            echo "🟡 SECURITY NOTICE: Overall security score below threshold ($OVERALL_SCORE/100)"
+          fi
+          
+          echo "📊 Security assessment complete. Overall score: $OVERALL_SCORE/100"

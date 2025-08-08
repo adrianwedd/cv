@@ -1,0 +1,27 @@
+{
+  "systemAvailability": {
+    "target": "99.5%",
+    "measurement": "monthly",
+    "current": "98.2%"
+  },
+  "systemHealth": {
+    "target": "85%",
+    "measurement": "daily_average",
+    "current": "80%"
+  },
+  "responseTime": {
+    "target": "<200ms",
+    "measurement": "p95",
+    "current": "250ms"
+  },
+  "recoveryTime": {
+    "target": "<15min",
+    "measurement": "mttr",
+    "current": "measuring"
+  },
+  "dataIntegrity": {
+    "target": "100%",
+    "measurement": "continuous",
+    "current": "100%"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "last_updated": "2025-07-31T13:47:59.053Z",
+  "version": "1.0.0",
+  "protection_level": "high",
+  "verified_content": {
+    "experience": [
+      {
+        "position": "Systems Analyst / Acting Senior Change Analyst",
+        "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
+        "period": "2018 - Present",
+        "verified": true,
+        "source": "employment_records",
+        "protection_reason": "Current verified employment"
+      },
+      {
+        "position": "ITS Client Services Officer",
+        "company": "University of Tasmania",
+        "period": "2015 - 2018",
+        "verified": true,
+        "source": "employment_records",
+        "protection_reason": "Verified previous employment"
+      },
+      {
+        "position": "Director",
+        "company": "Digital Agency PTY LTD",
+        "period": "2015 - 2018",
+        "verified": true,
+        "source": "business_records",
+        "protection_reason": "Verified business ownership"
+      },
+      {
+        "position": "Second Level IT Support Engineer",
+        "company": "The Wilderness Society Inc.",
+        "period": "2012 - 2015",
+        "verified": true,
+        "source": "employment_records",
+        "protection_reason": "Verified NGO employment"
+      },
+      {
+        "position": "Communications and Logistics Coordinator",
+        "company": "Greenpeace Australia Pacific",
+        "period": "2010 - 2012",
+        "verified": true,
+        "source": "employment_records",
+        "protection_reason": "Verified environmental advocacy role"
+      }
+    ],
+    "achievements": [
+      {
+        "title": "Systems Integration Excellence",
+        "verified": true,
+        "source": "work_portfolio",
+        "protection_reason": "Verified technical work at Homes Tasmania"
+      },
+      {
+        "title": "Cybersecurity Leadership",
+        "verified": true,
+        "source": "work_portfolio",
+        "protection_reason": "Verified security initiatives"
+      },
+      {
+        "title": "AI Innovation Pioneer",
+        "verified": true,
+        "source": "work_portfolio",
+        "protection_reason": "Verified AI implementation in public sector"
+      },
+      {
+        "title": "Environmental Campaign Technology Leadership",
+        "verified": true,
+        "source": "employment_records",
+        "protection_reason": "Verified NGO technical leadership"
+      },
+      {
+        "title": "Professional Certification Excellence",
+        "verified": true,
+        "source": "certification_records",
+        "protection_reason": "Verified Google/Bing certifications"
+      },
+      {
+        "title": "Automation & Process Improvement",
+        "verified": true,
+        "source": "work_portfolio",
+        "protection_reason": "Verified automation development"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Google Analytics Individual Qualification",
+        "verified": true,
+        "source": "google_records"
+      },
+      {
+        "name": "Google AdWords Certification",
+        "verified": true,
+        "source": "google_records"
+      },
+      {
+        "name": "Bing Ads Accredited Professional",
+        "verified": true,
+        "source": "microsoft_records"
+      }
+    ]
+  },
+  "forbidden_claims": [
+    "AI Innovation Excellence Award",
+    "15+ AI-powered autonomous systems",
+    "99.5% average system reliability",
+    "Published research on autonomous agent coordination",
+    "Filed 3 patents for innovative AI system architectures",
+    "Keynote speaker at major AI and technology conferences",
+    "Mentored 20+ junior developers and AI engineers",
+    "500+ stars and are used by enterprises worldwide",
+    "10,000+ developers",
+    "1M+ daily active users"
+  ]
+}

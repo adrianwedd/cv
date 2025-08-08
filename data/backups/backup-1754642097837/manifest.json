@@ -1,0 +1,28 @@
+{
+  "id": "backup-1754642097837",
+  "timestamp": "2025-08-08T08:34:57.837Z",
+  "files": [
+    {
+      "name": "base-cv.json",
+      "size": 14400,
+      "checksum": "05aaf000103a0fecd60c1b5d76b80c61b9ebfdb7528a443727098b0aea52c3d4"
+    },
+    {
+      "name": "activity-summary.json",
+      "size": 287,
+      "checksum": "c322faa58eb8364acd88365c95316fa8a9951252e93ec948c32f687bafc5da0b"
+    },
+    {
+      "name": "protected-content.json",
+      "size": 3739,
+      "checksum": "dcaec3a2494912016490d4d9751a94c6a81d789ff0c464627e488719177528b5"
+    },
+    {
+      "name": "ai-enhancements.json",
+      "size": 6408,
+      "checksum": "a3a1741c854f73d00784ea23a84bb7b8b4568abd4abc0e7b46091d4b64905489"
+    }
+  ],
+  "checksum": "aec7bad5d837f93434c10359386e8574a80ee31d1a36006e4c6c0fffb4add8a8",
+  "size_mb": 0.023683547973632812
+}

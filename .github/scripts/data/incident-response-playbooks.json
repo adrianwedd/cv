@@ -1,0 +1,42 @@
+{
+  "authenticationFailure": {
+    "severity": "high",
+    "responseTime": "5min",
+    "escalation": [
+      "check_browser_cookies",
+      "fallback_to_api",
+      "activity_only_mode"
+    ],
+    "contacts": []
+  },
+  "systemHealthCritical": {
+    "severity": "critical",
+    "responseTime": "2min",
+    "escalation": [
+      "run_diagnostics",
+      "execute_recovery",
+      "notify_stakeholders"
+    ],
+    "contacts": []
+  },
+  "websiteUnavailable": {
+    "severity": "high",
+    "responseTime": "10min",
+    "escalation": [
+      "check_dns",
+      "verify_deployment",
+      "fallback_endpoint"
+    ],
+    "contacts": []
+  },
+  "dataCorruption": {
+    "severity": "critical",
+    "responseTime": "1min",
+    "escalation": [
+      "stop_processing",
+      "restore_backup",
+      "verify_integrity"
+    ],
+    "contacts": []
+  }
+}
