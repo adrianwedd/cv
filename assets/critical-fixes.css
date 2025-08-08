@@ -2,18 +2,20 @@
    CRITICAL FIXES - Name & Glassmorphism
    ======================================== */
 
-/* Fix header container height and spacing */
+/* Fix header container height and spacing - MAXIMUM SPACE */
 .header {
   position: sticky !important;
   top: 0;
   transform: none !important;
   z-index: 1000;
-  padding: 3rem 0 2rem 0 !important; /* More top padding */
-  min-height: 200px !important; /* Ensure minimum height */
+  padding: 4rem 0 3rem 0 !important; /* Maximum padding for name */
+  min-height: 240px !important; /* Increased minimum height */
   background: rgba(10, 10, 10, 0.7) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 /* Fix container to not clip */
@@ -32,22 +34,24 @@
   z-index: 10;
 }
 
-/* CRITICAL: Fix name to not be cut off */
+/* CRITICAL: Fix name to not be cut off - AGGRESSIVE FIX */
 .name {
-  font-size: 2.5rem !important; /* Fixed size that works */
-  line-height: 1.4 !important; /* More line height */
-  margin-bottom: 0.75rem !important;
-  margin-top: 0.5rem !important; /* Add top margin */
+  font-size: 2.25rem !important; /* Slightly smaller to ensure fit */
+  line-height: 1.6 !important; /* More generous line height */
+  margin-bottom: 1rem !important;
+  margin-top: 1rem !important; /* More top margin */
   display: block !important;
   overflow: visible !important;
   position: relative !important;
   z-index: 100 !important;
   white-space: nowrap !important;
-  padding-top: 0.5rem !important; /* Internal padding */
+  padding: 1rem 0 !important; /* More internal padding */
   background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: none !important; /* Remove any shadows that might clip */
+  letter-spacing: 0.02em !important; /* Slight letter spacing for clarity */
 }
 
 /* Ensure profile info doesn't clip */
