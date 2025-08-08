@@ -16,8 +16,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Import our coordination modules (will need to create ES module versions)
-// For now, we'll test the core functionality without the modules
+// Import our coordination modules
+import SafeGitOperations from './safe-git-operations.js';
+import WorkflowCoordinator from './workflow-coordinator.js';
+import CoordinatedGitOperations from './coordinated-git-operations.js';
 
 class WorkflowCoordinationTester {
   constructor() {
