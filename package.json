@@ -24,7 +24,7 @@
   },
   "keywords": [
     "cv",
-    "resume", 
+    "resume",
     "ai",
     "github-actions",
     "automation"
@@ -38,5 +38,8 @@
   "homepage": "https://adrianwedd.github.io/cv",
   "devDependencies": {
     "serve": "^14.2.0"
+  },
+  "dependencies": {
+    "puppeteer": "^24.16.0"
   }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dark Mode Test</title>
+    <link rel="stylesheet" href="assets/styles.min.css">
+</head>
+<body>
+    <div class="main">
+        <h1>Dark Mode Test</h1>
+        <p>This should be in dark mode if the CSS is working correctly.</p>
+        <div class="card">
+            <h2 class="card-title">Test Card</h2>
+            <p class="card-content">This is a test card to verify dark mode styling.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Test 1: Apply dark theme immediately
+        document.documentElement.setAttribute('data-theme', 'dark');
+        console.log('Dark theme applied to:', document.documentElement);
+        
+        // Test 2: Check computed styles
+        setTimeout(() => {
+            const styles = window.getComputedStyle(document.body);
+            console.log('Background color:', styles.backgroundColor);
+            console.log('Text color:', styles.color);
+            
+            // Display results on page
+            const result = document.createElement('div');
+            result.style.position = 'fixed';
+            result.style.top = '10px';
+            result.style.right = '10px';
+            result.style.padding = '10px';
+            result.style.border = '2px solid #10b981';
+            result.style.borderRadius = '5px';
+            result.innerHTML = `
+                <strong>Dark Mode Status:</strong><br>
+                Theme: ${document.documentElement.getAttribute('data-theme')}<br>
+                Background: ${styles.backgroundColor}<br>
+                Text: ${styles.color}
+            `;
+            document.body.appendChild(result);
+        }, 100);
+    </script>
+</body>
+</html>
