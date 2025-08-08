@@ -1,0 +1,18 @@
+{
+  "history": [
+    {
+      "timestamp": "2025-08-02T16:27:37.489Z",
+      "currentMethod": "browser",
+      "browserSavings": 2.25,
+      "apiKeyCost": 0,
+      "efficiency": 100,
+      "monthlyProjection": {
+        "browserCost": 0,
+        "apiKeyCost": 0,
+        "totalSavings": 2.25,
+        "currency": "USD"
+      },
+      "recommendations": []
+    }
+  ]
+}

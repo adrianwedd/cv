@@ -1,7 +1,11 @@
-const assert = require('assert');
-const { test, suite, beforeEach, afterEach } = require('node:test');
-const { chromium, firefox, webkit } = require('playwright');
-const path = require('path');
+import assert from 'assert';
+import { test, suite, beforeEach, afterEach } from 'node:test';
+import { chromium, firefox, webkit } from 'playwright';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 suite('Cross-Browser Compatibility Tests', () => {
     const testUrl = `file://${path.join(__dirname, '..', '..', '..', 'index.html')}`;

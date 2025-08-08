@@ -1,0 +1,294 @@
+/* Enhanced Navigation System - 2025 Professional UI */
+
+/* Navigation Container */
+.navigation {
+  position: sticky;
+  top: 80px;
+  z-index: var(--z-sticky);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  margin: var(--space-6) 0 var(--space-8);
+  padding: var(--space-2);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+}
+
+[data-theme="dark"] .navigation {
+  background: rgba(31, 41, 55, 0.95);
+  border-color: rgba(75, 85, 99, 0.3);
+}
+
+/* Navigation Items Container */
+.nav-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  position: relative;
+}
+
+/* Individual Navigation Items */
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-5);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-xl);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 44px; /* Touch target optimization */
+}
+
+/* Hover States */
+.nav-item:hover {
+  color: var(--color-text-primary);
+  background: var(--color-background-alt);
+  transform: translateY(-1px);
+}
+
+/* Active State */
+.nav-item.active {
+  color: var(--color-primary);
+  background: var(--color-primary-bg);
+  font-weight: var(--font-weight-semibold);
+  box-shadow: inset 0 1px 0 rgba(59, 130, 246, 0.1);
+}
+
+/* Active Indicator */
+.nav-active-indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-normal);
+}
+
+.nav-active-indicator.active {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Click Animation */
+.nav-item.nav-clicked {
+  transform: scale(0.95);
+  transition: transform var(--duration-instant);
+}
+
+/* Progress Bar */
+.nav-progress-container {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-border);
+  border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
+  overflow: hidden;
+}
+
+.nav-progress-bar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.nav-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-fast);
+  position: relative;
+}
+
+.nav-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4));
+  animation: progressShimmer 2s ease-in-out infinite;
+}
+
+@keyframes progressShimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* Keyboard Shortcut Feedback */
+.shortcut-feedback {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-modal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  opacity: 0;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(20px);
+}
+
+.shortcut-feedback.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.shortcut-key {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+.shortcut-section {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 768px) {
+  .navigation {
+    position: fixed;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    top: auto;
+    margin: 0;
+    z-index: var(--z-fixed);
+  }
+  
+  .nav-items {
+    justify-content: space-around;
+  }
+  
+  .nav-item {
+    flex: 1;
+    padding: var(--space-3) var(--space-2);
+    min-height: 48px; /* Larger touch targets on mobile */
+  }
+  
+  .nav-text {
+    font-size: var(--font-size-xs);
+  }
+  
+  /* Add icons for mobile */
+  .nav-item[data-section="about"]::before { content: "👤"; }
+  .nav-item[data-section="experience"]::before { content: "💼"; }
+  .nav-item[data-section="projects"]::before { content: "🚀"; }
+  .nav-item[data-section="skills"]::before { content: "⚡"; }
+  .nav-item[data-section="achievements"]::before { content: "🏆"; }
+  
+  .nav-item::before {
+    display: block;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-1);
+  }
+  
+  /* Mobile progress bar */
+  .nav-progress-container {
+    bottom: -2px;
+    height: 3px;
+  }
+}
+
+/* Tablet Breakpoint */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navigation {
+    margin: var(--space-4) 0 var(--space-6);
+  }
+  
+  .nav-item {
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* Large Screen Enhancements */
+@media (min-width: 1200px) {
+  .navigation {
+    margin: var(--space-8) 0 var(--space-10);
+  }
+  
+  .nav-items {
+    gap: var(--space-2);
+  }
+  
+  .nav-item {
+    padding: var(--space-4) var(--space-6);
+    font-size: var(--font-size-base);
+  }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .nav-item,
+  .nav-active-indicator,
+  .nav-progress-fill,
+  .shortcut-feedback {
+    transition: none;
+  }
+  
+  .nav-item:hover {
+    transform: none;
+  }
+  
+  @keyframes progressShimmer {
+    0%, 100% { opacity: 0; }
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .navigation {
+    border: 2px solid var(--color-text-primary);
+    background: var(--color-background);
+  }
+  
+  .nav-item.active {
+    background: var(--color-text-primary);
+    color: var(--color-background);
+  }
+  
+  .nav-progress-fill {
+    background: var(--color-text-primary);
+  }
+}
+
+/* Print Styles */
+@media print {
+  .navigation,
+  .nav-progress-container,
+  .shortcut-feedback {
+    display: none;
+  }
+}

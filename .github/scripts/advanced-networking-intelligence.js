@@ -201,6 +201,54 @@ Ensure all recommendations are ethical, authentic, and focused on mutual value c
     }
 
     /**
+     * Generate networking insights from compatibility matrix
+     */
+    async generateNetworkingInsights(compatibilityMatrix) {
+        if (!compatibilityMatrix || compatibilityMatrix.length === 0) {
+            return [];
+        }
+
+        const insights = [];
+        
+        // Overall networking effectiveness
+        const avgCompatibility = compatibilityMatrix.reduce((sum, profile) => 
+            sum + (profile.overall_score || 50), 0) / compatibilityMatrix.length;
+        
+        insights.push({
+            type: 'overall_effectiveness',
+            metric: avgCompatibility,
+            description: `Average networking compatibility score: ${Math.round(avgCompatibility)}%`,
+            recommendation: avgCompatibility > 70 ? 
+                'Strong networking potential - pursue active engagement' :
+                'Mixed networking potential - focus on highest-scoring connections'
+        });
+
+        // High-potential connections
+        const highPotential = compatibilityMatrix.filter(p => (p.overall_score || 0) > 75);
+        if (highPotential.length > 0) {
+            insights.push({
+                type: 'high_potential_connections',
+                count: highPotential.length,
+                profiles: highPotential.map(p => p.profile_name).filter(Boolean),
+                recommendation: `Priority networking: ${highPotential.length} high-compatibility connections identified`
+            });
+        }
+
+        // Skill complementarity insights
+        const skillMatches = compatibilityMatrix.filter(p => 
+            p.dimension_scores && p.dimension_scores.skill_complementarity > 80);
+        if (skillMatches.length > 0) {
+            insights.push({
+                type: 'skill_synergy',
+                count: skillMatches.length,
+                recommendation: 'Strong skill complementarity detected - ideal for knowledge exchange'
+            });
+        }
+
+        return insights;
+    }
+
+    /**
      * Market Intelligence Integration for Career Positioning
      */
     async generateMarketIntelligence(userProfile) {

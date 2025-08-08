@@ -206,10 +206,13 @@ class WatchMeWorkDashboard {
             // Process loaded data
             this.processDashboardData(dashboardData);
             
-            // Update UI
+            // Update UI with data
             this.updateMetrics();
             this.updateActivityTimeline();
             this.updateRepositoryGrid();
+            
+            // Force UI update to show data is loaded
+            this.markDataLoaded();
             
             this.lastRefresh = new Date(dashboardData.metadata?.generated_at || new Date());
             this.updateFooterTimestamp();
@@ -1200,11 +1203,49 @@ class WatchMeWorkDashboard {
             description: this.soundEnabled ? 'You will hear sounds for new activities' : 'Sound notifications are now muted'
         });
     }
+    
+    /**
+     * Mark data as loaded and update UI indicators
+     */
+    markDataLoaded() {
+        // Remove loading states
+        const loadingElements = document.querySelectorAll('.loading, [data-loading="true"]');
+        loadingElements.forEach(el => {
+            el.classList.remove('loading');
+            el.removeAttribute('data-loading');
+        });
+        
+        // Update loading text elements
+        const loadingTexts = document.querySelectorAll('.loading-text');
+        loadingTexts.forEach(el => {
+            if (el.textContent.includes('Loading')) {
+                el.textContent = el.textContent.replace('Loading', 'Loaded');
+            }
+        });
+        
+        // Show data sections
+        const dataSections = document.querySelectorAll('.activity-stream, .repository-grid, .metrics-grid');
+        dataSections.forEach(section => {
+            section.style.display = 'block';
+            section.classList.add('data-loaded');
+        });
+        
+        console.log('✅ Dashboard marked as loaded with data');
+    }
 }
 
 // Initialize dashboard when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new WatchMeWorkDashboard();
+    try {
+        console.log('🚀 Initializing WatchMeWorkDashboard...');
+        window.dashboard = new WatchMeWorkDashboard();
+        console.log('✅ WatchMeWorkDashboard initialized successfully');
+    } catch (error) {
+        console.error('❌ Failed to initialize WatchMeWorkDashboard:', error);
+        if (typeof showErrorFallback === 'function') {
+            showErrorFallback('Dashboard initialization failed: ' + error.message);
+        }
+    }
 });
 
 // Export for potential module usage

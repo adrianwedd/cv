@@ -3,10 +3,15 @@
  * Handles server lifecycle with proper cleanup and error recovery
  */
 
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const { spawn } = require('child_process');
+import http from 'http';
+import fs from 'fs';
+import path from 'path';
+import { spawn } from 'child_process';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 class TestServer {
   constructor(port = 8000, rootDir = null) {
@@ -114,7 +119,7 @@ class TestServer {
           this.stop();
           reject(new Error('Server startup timeout'));
         }
-      }, 10000);
+      }, 5000);
     });
   }
 
@@ -147,7 +152,7 @@ class TestServer {
   }
 
   // Wait for server to be ready
-  async waitForReady(timeout = 30000) {
+  async waitForReady(timeout = 15000) {
     const startTime = Date.now();
     
     while (Date.now() - startTime < timeout) {
@@ -159,7 +164,7 @@ class TestServer {
       } catch (error) {
         // Server not ready yet
       }
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 250));
     }
     
     throw new Error(`Server not ready after ${timeout}ms`);
@@ -168,13 +173,12 @@ class TestServer {
   // Health check with bulletproof error handling
   async checkHealth() {
     try {
-      const fetch = require('node-fetch');
+      const fetch = await import('node-fetch').then(mod => mod.default);
       return await fetch(`http://localhost:${this.port}/`, {
         timeout: 2000
       });
     } catch (error) {
       // If node-fetch import fails, use curl fallback
-      const { spawn } = require('child_process');
       return new Promise((resolve) => {
         const curl = spawn('curl', ['-f', `http://localhost:${this.port}/`], {
           stdio: 'ignore'
@@ -234,4 +238,4 @@ class TestServer {
 }
 
 // Export for use in tests
-module.exports = TestServer;
+export default TestServer;

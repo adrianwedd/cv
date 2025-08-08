@@ -10,16 +10,20 @@
  * Usage: node test-market-trends-integration.js [--verbose] [--market-only] [--context-only]
  */
 
-const fs = require('fs').promises;
-const path = require('path');
-require('dotenv').config();
+import { promises as fs } from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Test the market trends analyzer
 async function testMarketTrendsAnalyzer() {
     console.log('🧪 Testing Market Trends Analyzer...');
     
     try {
-        const { MarketTrendsAnalyzer } = require('./market-trends-analyzer');
+        // Dynamic import with proper syntax
+        const module = await import('./market-trends-analyzer.js');
+        const MarketTrendsAnalyzer = module.MarketTrendsAnalyzer || module.default;
         const analyzer = new MarketTrendsAnalyzer();
         
         console.log('  ✓ Initializing analyzer...');
@@ -61,7 +65,9 @@ async function testMarketContextIntegrator() {
     console.log('\n🧪 Testing Market Context Integrator...');
     
     try {
-        const { MarketContextIntegrator } = require('./enhancer-modules/market-context-integrator');
+        // Dynamic import with proper syntax
+        const module = await import('./enhancer-modules/market-context-integrator.js');
+        const MarketContextIntegrator = module.MarketContextIntegrator || module.default;
         const integrator = new MarketContextIntegrator();
         
         console.log('  ✓ Initializing integrator...');
@@ -98,11 +104,11 @@ async function testActivityAnalyzerIntegration() {
     
     try {
         // Check if we can load the updated activity analyzer
-        const path = require('path');
-        const activityAnalyzerPath = path.join(__dirname, 'activity-analyzer.js');
+        const pathModule = await import('path');
+        const activityAnalyzerPath = pathModule.join(__dirname, 'activity-analyzer.js');
         
         // Load the module and find the class
-        const activityModule = require('./activity-analyzer');
+        const activityModule = await import('./activity-analyzer.js');
         console.log('  ✓ Activity analyzer module loaded successfully');
         
         // Use the exported ActivityAnalyzer class
@@ -146,11 +152,11 @@ async function testEnhancementPipelineIntegration() {
     }
     
     try {
-        const enhancerPath = './claude-enhancer';
+        const enhancerPath = './claude-enhancer.js';
         
         // Just test that the enhanced module can be loaded
         console.log('  ✓ Loading enhanced Claude enhancer...');
-        const enhancerModule = require(enhancerPath);
+        const enhancerModule = await import(enhancerPath);
         
         // Use the exported CVContentEnhancer class
         const { CVContentEnhancer } = enhancerModule;

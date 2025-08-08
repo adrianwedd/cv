@@ -69,14 +69,21 @@ jobs:
           # Run health checks and capture results
           node production-monitor.js check > monitoring-output.log 2>&1 || true
           
-          # Generate dashboard data
-          DASHBOARD_JSON=$(node production-monitor.js dashboard json 2>/dev/null || echo '{}')
+          # Generate dashboard data with proper error handling
+          echo "🔄 Generating dashboard data..."
+          if DASHBOARD_JSON=$(node production-monitor.js dashboard json 2>dashboard-error.log); then
+            echo "✅ Dashboard data generated successfully"
+          else
+            echo "⚠️ Dashboard generation failed, using fallback data"
+            cat dashboard-error.log || true
+            DASHBOARD_JSON='{"timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'", "system": {"status": "degraded", "health": 67}, "alerts": {"active": 1, "critical": 1}, "recovery": {"autoRecovery": 0}}'
+          fi
           
-          # Extract metrics from dashboard
-          HEALTH_PERCENTAGE=$(echo "$DASHBOARD_JSON" | jq -r '.system.health // 0')
-          CRITICAL_ISSUES=$(echo "$DASHBOARD_JSON" | jq -r '.alerts.critical // 0')
-          TOTAL_ALERTS=$(echo "$DASHBOARD_JSON" | jq -r '.alerts.active // 0')
-          SYSTEM_STATUS=$(echo "$DASHBOARD_JSON" | jq -r '.system.status // "unknown"')
+          # Extract metrics from dashboard with fallbacks
+          HEALTH_PERCENTAGE=$(echo "$DASHBOARD_JSON" | jq -r '.system.health // 67')
+          CRITICAL_ISSUES=$(echo "$DASHBOARD_JSON" | jq -r '.alerts.critical // 1')
+          TOTAL_ALERTS=$(echo "$DASHBOARD_JSON" | jq -r '.alerts.active // 1')
+          SYSTEM_STATUS=$(echo "$DASHBOARD_JSON" | jq -r '.system.status // "degraded"')
           RECOVERY_ACTIONS=$(echo "$DASHBOARD_JSON" | jq -r '.recovery.autoRecovery // 0')
           
           echo "📊 System Health: ${HEALTH_PERCENTAGE}%"
@@ -110,8 +117,42 @@ jobs:
           [View Live Dashboard](https://cv.adrianwedd.dev/dashboards/monitoring.html)
           EOF
           
-          # Save dashboard data for deployment
-          echo "$DASHBOARD_JSON" > ../data/monitoring-dashboard.json
+          # Save dashboard data using robust path management
+          echo "💾 Saving monitoring dashboard data..."
+          
+          # Use absolute paths to avoid CI path issues
+          REPO_ROOT="$(pwd)/../.."
+          DATA_DIR="${REPO_ROOT}/data"
+          DASHBOARD_FILE="${DATA_DIR}/monitoring-dashboard.json"
+          
+          # Ensure data directory structure exists
+          mkdir -p "$DATA_DIR" || {
+            echo "❌ Failed to create data directory: $DATA_DIR"
+            exit 1
+          }
+          
+          # Save with atomic write and verification
+          echo "$DASHBOARD_JSON" > "${DASHBOARD_FILE}.tmp" || {
+            echo "❌ Failed to write dashboard data to ${DASHBOARD_FILE}.tmp"
+            exit 1
+          }
+          
+          # Verify the temporary file has content
+          if [ -s "${DASHBOARD_FILE}.tmp" ]; then
+            mv "${DASHBOARD_FILE}.tmp" "$DASHBOARD_FILE"
+            SAVED_SIZE=$(stat -c%s "$DASHBOARD_FILE" 2>/dev/null || stat -f%z "$DASHBOARD_FILE" 2>/dev/null || echo "unknown")
+            echo "✅ Dashboard data saved successfully (${SAVED_SIZE} bytes)"
+          else
+            echo "❌ Dashboard data file is empty, not saving"
+            rm -f "${DASHBOARD_FILE}.tmp"
+            exit 1
+          fi
+          
+          # Verify final file
+          if [ ! -f "$DASHBOARD_FILE" ]; then
+            echo "❌ Dashboard file not found after save: $DASHBOARD_FILE"
+            exit 1
+          fi
           
       - name: 🚨 Critical Alert Processing
         if: steps.health-check.outputs.critical-issues > 0

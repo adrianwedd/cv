@@ -11,8 +11,13 @@
  * @version 1.0.0
  */
 
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ES module __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Workflow Status Dashboard Generator
@@ -686,8 +691,8 @@ async function main() {
     }
 }
 
-module.exports = { WorkflowStatusDashboard };
+export { WorkflowStatusDashboard };
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

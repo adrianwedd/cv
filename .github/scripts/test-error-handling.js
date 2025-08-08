@@ -10,7 +10,7 @@
  * @version 1.0.0
  */
 
-const { ClaudeApiClient } = require('./enhancer-modules/claude-api-client');
+import { ClaudeApiClient } from './enhancer-modules/claude-api-client.js';
 
 /**
  * Mock HTTP responses for testing different error scenarios
@@ -514,7 +514,7 @@ async function main() {
 }
 
 // Export for testing
-module.exports = {
+export {
     EnhancedClaudeApiClient,
     ErrorHandlingTestSuite,
     QuotaExhaustedError,
@@ -524,6 +524,6 @@ module.exports = {
     NetworkError
 };
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     main().catch(console.error);
 }

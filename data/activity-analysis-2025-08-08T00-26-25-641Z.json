@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "analysis_timestamp": "2025-08-08T00:26:19.277Z",
+    "analysis_depth": "standard",
+    "lookback_days": 30,
+    "target_user": "adrianwedd",
+    "analyzer_version": "2.1.0"
+  },
+  "user_profile": {
+    "basic_info": {
+      "login": "adrianwedd",
+      "name": "Adrian Wedd",
+      "bio": null,
+      "location": "Cygnet, Tasmania, Australia",
+      "company": "@HomesTasmania ",
+      "blog": "https://adrianwedd.com",
+      "email": "adrian@adrianwedd.com",
+      "hireable": true,
+      "created_at": "2013-02-28T09:23:19Z",
+      "updated_at": "2025-08-07T15:51:25Z"
+    },
+    "statistics": {
+      "public_repos": 192,
+      "public_gists": 0,
+      "followers": 7,
+      "following": 37,
+      "account_age_days": 4543,
+      "followers_ratio": 5.286
+    },
+    "profile_strength": {
+      "has_bio": false,
+      "has_location": true,
+      "has_company": true,
+      "has_blog": true,
+      "is_hireable": true,
+      "completeness_score": 80
+    }
+  },
+  "repositories": {
+    "total_count": 100,
+    "statistics": {
+      "total_stars": 3,
+      "total_forks": 4,
+      "total_watchers": 3,
+      "total_size_kb": 2598302,
+      "avg_size_kb": 25983
+    },
+    "languages": [
+      [
+        "Python",
+        32
+      ],
+      [
+        "JavaScript",
+        5
+      ],
+      [
+        "TypeScript",
+        4
+      ],
+      [
+        "Shell",
+        4
+      ],
+      [
+        "HTML",
+        1
+      ],
+      [
+        "Jupyter Notebook",
+        1
+      ],
+      [
+        "Rust",
+        1
+      ]
+    ],
+    "visibility": {
+      "public": 100,
+      "private": 0,
+      "forks": 58,
+      "original": 42
+    },
+    "activity_indicators": {
+      "recently_updated": 49,
+      "has_issues": 43,
+      "has_wiki": 80,
+      "has_pages": 4
+    },
+    "top_repositories": [
+      {
+        "name": "Agentic-Index",
+        "full_name": "adrianwedd/Agentic-Index",
+        "description": "Agentic Index, the definitive, developer-focused catalogue of autonomous AI tooling. Here you’ll find scored and curated repositories that power LLM agents, multi-agent systems, RAG pipelines, devtools, and more",
+        "language": "Python",
+        "stars": 1,
+        "forks": 0,
+        "updated_at": "2025-08-05T07:10:00Z",
+        "html_url": "https://github.com/adrianwedd/Agentic-Index"
+      },
+      {
+        "name": "personal-agentic-operating-system",
+        "full_name": "adrianwedd/personal-agentic-operating-system",
+        "description": "Personal Agentic Operating System - Local-first LLM agents orchestrated with LangGraph, powered by Qdrant & Neo4j, observable via Langfuse",
+        "language": "Python",
+        "stars": 1,
+        "forks": 0,
+        "updated_at": "2025-08-03T05:39:11Z",
+        "html_url": "https://github.com/adrianwedd/personal-agentic-operating-system"
+      },
+      {
+        "name": "AI-SWA",
+        "full_name": "adrianwedd/AI-SWA",
+        "description": "SelfArchitectAI - A self-evolving software architect agent that reasons about its own design, builds modular components, and continually refines its architecture",
+        "language": "Python",
+        "stars": 0,
+        "forks": 1,
+        "updated_at": "2025-08-03T05:38:33Z",
+        "html_url": "https://github.com/adrianwedd/AI-SWA"
+      },
+      {
+        "name": "excel-sheet-unlocker",
+        "full_name": "adrianwedd/excel-sheet-unlocker",
+        "description": "A Python program that unlocks cells and dropdowns in an Excel sheet and applies password protection",
+        "language": "Python",
+        "stars": 0,
+        "forks": 1,
+        "updated_at": "2025-07-07T15:00:29Z",
+        "html_url": "https://github.com/adrianwedd/excel-sheet-unlocker"
+      },
+      {
+        "name": "adrianwedd",
+        "full_name": "adrianwedd/adrianwedd",
+        "description": "🧠 Adrian Wedd's AI-augmented portfolio & mission log. Recursive systems architect, off-grid permanaut, LLM wrangler.",
+        "language": "JavaScript",
+        "stars": 0,
+        "forks": 0,
+        "updated_at": "2025-08-08T00:26:13Z",
+        "html_url": "https://github.com/adrianwedd/adrianwedd"
+      }
+    ]
+  },
+  "activity_patterns": {
+    "event_summary": {
+      "total_events": 100
+    },
+    "temporal_patterns": {},
+    "contribution_types": {},
+    "consistency_metrics": {}
+  },
+  "cross_repo_activity": {
+    "summary": {
+      "note": "Limited by GitHub API rate limits or permissions"
+    },
+    "repository_breakdown": []
+  },
+  "professional_metrics": {
+    "scores": {
+      "activity_score": 100,
+      "impact_score": 21,
+      "diversity_score": 48,
+      "collaboration_score": 17,
+      "overall_professional_score": 51
+    },
+    "raw_metrics": {
+      "total_repositories": 100,
+      "total_stars": 6,
+      "total_forks": 3,
+      "unique_languages": 6,
+      "recently_active_repos": 22,
+      "followers": 7,
+      "account_age_years": 12.4
+    },
+    "growth_indicators": {
+      "development_velocity": 8.3,
+      "community_engagement": 9,
+      "technical_breadth": 6,
+      "collaboration_index": 0.03
+    }
+  },
+  "skill_analysis": {
+    "skill_proficiency": {
+      "Python": {
+        "proficiency_score": 86,
+        "proficiency_level": "Expert",
+        "category": "Backend/AI/ML",
+        "metrics": {
+          "repository_count": 24,
+          "total_size_kb": 6632949,
+          "community_recognition": 7,
+          "recent_activity_projects": 10
+        },
+        "weight_multiplier": 1.2
+      },
+      "TypeScript": {
+        "proficiency_score": 34,
+        "proficiency_level": "Beginner",
+        "category": "Frontend/Backend",
+        "metrics": {
+          "repository_count": 5,
+          "total_size_kb": 28052,
+          "community_recognition": 0,
+          "recent_activity_projects": 3
+        },
+        "weight_multiplier": 1.1
+      },
+      "JavaScript": {
+        "proficiency_score": 31,
+        "proficiency_level": "Beginner",
+        "category": "Frontend/Backend",
+        "metrics": {
+          "repository_count": 3,
+          "total_size_kb": 37313,
+          "community_recognition": 0,
+          "recent_activity_projects": 3
+        },
+        "weight_multiplier": 1
+      },
+      "Rust": {
+        "proficiency_score": 11,
+        "proficiency_level": "Novice",
+        "category": "Systems/Performance",
+        "metrics": {
+          "repository_count": 1,
+          "total_size_kb": 22062,
+          "community_recognition": 0,
+          "recent_activity_projects": 1
+        },
+        "weight_multiplier": 1.1
+      },
+      "Shell": {
+        "proficiency_score": 11,
+        "proficiency_level": "Novice",
+        "category": "DevOps/Automation",
+        "metrics": {
+          "repository_count": 2,
+          "total_size_kb": 1699,
+          "community_recognition": 0,
+          "recent_activity_projects": 1
+        },
+        "weight_multiplier": 0.7
+      }
+    },
+    "summary": {
+      "total_languages": 5,
+      "expert_level": 1,
+      "advanced_level": 0,
+      "intermediate_level": 0,
+      "top_3_skills": [
+        "Python",
+        "TypeScript",
+        "JavaScript"
+      ]
+    }
+  },
+  "local_repository_metrics": {
+    "analysis_period": {
+      "lookback_days": 30,
+      "since_date": "2025-07-09",
+      "analysis_date": "2025-08-08"
+    },
+    "commit_activity": {
+      "total_commits": 428,
+      "commits_by_author": 256,
+      "avg_commits_per_day": 14.3
+    },
+    "line_contributions": {
+      "lines_contributed": 60000,
+      "lines_added": 120000,
+      "lines_deleted": 60950,
+      "files_modified": 776,
+      "binary_files_filtered": 138
+    },
+    "file_analysis": {
+      "total_files": 675,
+      "file_types": {
+        ".json": 248,
+        ".md": 164,
+        ".js": 57,
+        ".html": 49,
+        ".py": 34,
+        ".pyc": 30,
+        ".css": 21,
+        ".txt": 11,
+        ".xml": 8,
+        ".pdf": 7
+      }
+    },
+    "repository_health": {
+      "score": 100,
+      "max_score": 100,
+      "checks": {
+        "has_readme": true,
+        "has_gitignore": true,
+        "has_package_json": true,
+        "has_tests": true,
+        "recent_commits": true
+      }
+    }
+  },
+  "summary": {
+    "professional_standing": {
+      "overall_score": 51,
+      "strengths": [
+        "High Development Activity"
+      ],
+      "growth_areas": [
+        "Community Engagement",
+        "Project Visibility"
+      ],
+      "market_position": "Mid Level"
+    },
+    "key_insights": {
+      "top_programming_languages": [
+        "Python",
+        "TypeScript",
+        "JavaScript"
+      ],
+      "primary_expertise_areas": [
+        "Python (Backend/AI/ML)"
+      ],
+      "collaboration_style": "Independent Contributor",
+      "innovation_level": "Moderate"
+    },
+    "recommendations": {
+      "skill_development": [],
+      "career_advancement": [],
+      "portfolio_optimization": []
+    }
+  }
+}
