@@ -180,11 +180,8 @@ class BeautifulUI {
         const updateParallax = () => {
             const scrolled = window.pageYOffset;
             
-            // Parallax for hero section
-            const hero = document.querySelector('.header');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+            // Don't apply parallax to header - it should stay fixed
+            // Header has position:sticky, so parallax breaks it
             
             // Parallax for background orbs
             const orbs = document.querySelectorAll('.gradient-orb');

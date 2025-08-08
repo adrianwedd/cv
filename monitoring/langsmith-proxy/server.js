@@ -28,10 +28,11 @@ const logger = winston.createLogger({
 // Initialize LangSmith client
 const langsmithClient = new Client({
   apiKey: process.env.LANGSMITH_API_KEY,
-  apiUrl: process.env.LANGSMITH_API_URL || 'https://api.smith.langchain.com'
+  apiUrl: process.env.LANGSMITH_ENDPOINT || process.env.LANGSMITH_API_URL || 'https://api.smith.langchain.com'
 });
 
-const projectName = process.env.LANGSMITH_PROJECT || 'claude-code-monitoring';
+const projectName = process.env.LANGSMITH_PROJECT || 'adrianwedd-cv';
+const tracingEnabled = process.env.LANGSMITH_TRACING === 'true';
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
