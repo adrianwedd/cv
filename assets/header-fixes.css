@@ -6,25 +6,24 @@
 .header {
   position: sticky !important;
   top: 0;
-  transform: none !important; /* Disable parallax transform */
+  transform: none !important;
+  /* Disable parallax transform */
   z-index: 1000;
   padding: 2rem 0;
   min-height: auto;
   overflow: visible !important;
-}
-
-/* Ensure profile section has enough space */
+}/* Ensure profile section has enough space */
 .profile-section {
   display: flex;
   align-items: center;
   gap: 2rem;
-  min-height: 120px; /* Ensure minimum height */
+  min-height: 120px;
+  /* Ensure minimum height */
   overflow: visible !important;
-}
-
-/* Fix name display to prevent cutoff */
+}/* Fix name display to prevent cutoff */
 .name {
-  font-size: clamp(2rem, 5vw, 3rem); /* Responsive font size */
+  font-size: clamp(2rem, 5vw, 3rem);
+  /* Responsive font size */
   line-height: 1.2;
   margin-bottom: 0.5rem;
   overflow: visible !important;
@@ -34,57 +33,43 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-/* Ensure profile info has enough space */
+}/* Ensure profile info has enough space */
 .profile-info {
   flex: 1;
   min-width: 0;
   overflow: visible !important;
-}
-
-/* Fix header content container */
+}/* Fix header content container */
 .header-content {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   overflow: visible !important;
-}
-
-/* Ensure container doesn't cut off content */
+}/* Ensure container doesn't cut off content */
 .container {
   overflow: visible !important;
-}
-
-/* Mobile responsive fixes */
+}/* Mobile responsive fixes */
 @media (max-width: 768px) {
   .name {
     font-size: clamp(1.75rem, 7vw, 2.5rem);
-    white-space: normal; /* Allow wrapping on mobile */
+  white-space: normal;
+  /* Allow wrapping on mobile */
     text-align: center;
-  }
-  
-  .profile-section {
-    flex-direction: column;
-    text-align: center;
-    min-height: auto;
-  }
-  
-  .header {
-    padding: 1.5rem 0;
-  }
+}.profile-section {
+  flex-direction: column;
+  text-align: center;
+  min-height: auto;
+}.header {
+  padding: 1.5rem 0;
 }
-
-/* Disable any transform on scroll for header */
+}/* Disable any transform on scroll for header */
 .header.parallax,
 .header[style*="transform"] {
   transform: none !important;
-}
-
-/* Ensure navigation stays below header */
+}/* Ensure navigation stays below header */
 .navigation {
   position: sticky;
-  top: auto; /* Don't stick to top when header is sticky */
+  top: auto;
+  /* Don't stick to top when header is sticky */
   z-index: 999;
   margin-top: 0;
 }

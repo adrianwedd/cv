@@ -22,19 +22,19 @@ class PWAManager {
     
     async registerServiceWorker() {
         try {
-            console.log('🔧 Registering Service Worker...');
+            
             
             this.registration = await navigator.serviceWorker.register('/cv/sw.js');
-            console.log('✅ SW registered:', this.registration);
+            
             
             // Handle updates
             this.registration.addEventListener('updatefound', () => {
-                console.log('🔄 SW update found');
+                
                 const newWorker = this.registration.installing;
                 
                 newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        console.log('🆕 New SW installed, update available');
+                        
                         this.handleUpdate();
                     }
                 });
@@ -149,14 +149,14 @@ class PWAManager {
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             this.deferredPrompt = e;
-            console.log('📱 PWA install prompt ready');
+            
             
             // Could show custom install button here
             this.showInstallButton();
         });
         
         window.addEventListener('appinstalled', () => {
-            console.log('🎉 PWA installed successfully');
+            
             this.deferredPrompt = null;
             this.hideInstallButton();
         });
@@ -195,7 +195,7 @@ class PWAManager {
         if (this.deferredPrompt) {
             this.deferredPrompt.prompt();
             const result = await this.deferredPrompt.userChoice;
-            console.log(`PWA install prompt result: ${result.outcome}`);
+            
             this.deferredPrompt = null;
         }
     }
@@ -207,12 +207,12 @@ class PWAManager {
     
     setupConnectivityHandling() {
         window.addEventListener('online', () => {
-            console.log('🌐 Back online');
+            
             this.showConnectivityStatus('online');
         });
         
         window.addEventListener('offline', () => {
-            console.log('📴 Gone offline');
+            
             this.showConnectivityStatus('offline');
         });
     }
@@ -270,7 +270,7 @@ class PWAManager {
         return new Promise((resolve) => {
             messageChannel.port1.onmessage = (event) => {
                 if (event.data.type === 'CACHE_STATS_RESPONSE') {
-                    console.log(`📊 Cache Stats: ${event.data.cacheSize} items in ${event.data.cacheName}`);
+                    
                     resolve(event.data);
                 }
             };

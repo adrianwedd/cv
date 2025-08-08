@@ -1,0 +1,75 @@
+
+/**
+ * Data Visualizer - Lazy Loaded Chunk
+ * Charts, graphs, and visual analytics
+ */
+
+export class DataVisualizer {
+    constructor() {
+        this.charts = new Map();
+        this.init();
+    }
+
+    async init() {
+        
+        
+        this.setupChartContainers();
+        await this.createSkillsChart();
+        await this.createActivityChart();
+    }
+
+    setupChartContainers() {
+        // Create chart containers if they don't exist
+        const chartsContainer = document.querySelector('.charts-container');
+        if (chartsContainer) {
+            chartsContainer.style.display = 'block';
+        }
+    }
+
+    async createSkillsChart() {
+        // Simple skills visualization without heavy dependencies
+        const skillsData = [
+            { name: 'JavaScript', level: 95 },
+            { name: 'Python', level: 90 },
+            { name: 'Node.js', level: 88 },
+            { name: 'React', level: 85 },
+            { name: 'AI/ML', level: 80 }
+        ];
+
+        const skillsContainer = document.querySelector('.skills-chart');
+        if (skillsContainer) {
+            skillsContainer.innerHTML = skillsData.map(skill => `
+                <div class="skill-bar">
+                    <span class="skill-name">${skill.name}</span>
+                    <div class="skill-progress">
+                        <div class="skill-fill" style="width: ${skill.level}%"></div>
+                    </div>
+                    <span class="skill-level">${skill.level}%</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    async createActivityChart() {
+        // Simple activity visualization
+        const activityContainer = document.querySelector('.activity-chart');
+        if (activityContainer) {
+            activityContainer.innerHTML = `
+                <div class="activity-summary">
+                    <div class="activity-item">
+                        <span class="activity-label">Commits (30d)</span>
+                        <span class="activity-value">47</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-label">PRs</span>
+                        <span class="activity-value">12</span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-label">Issues</span>
+                        <span class="activity-value">8</span>
+                    </div>
+                </div>
+            `;
+        }
+    }
+}

@@ -66,6 +66,10 @@
   to { transform: rotate(360deg); }
 }
 </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
 
@@ -191,7 +195,7 @@
             const resultsContent = document.getElementById('results-content');
             const timestamp = new Date().toLocaleTimeString();
             resultsContent.innerHTML += `<div>[${timestamp}] ${message}</div>`;
-            console.log(message);
+            
         }
 
         function testExportSystem() {

@@ -17,7 +17,7 @@ class MobileDashboardManager {
         this.setupOfflineHandling();
         this.loadDashboardData();
         
-        console.log('📱 Mobile Dashboard initialized');
+        
     }
     
     getCurrentTab() {
@@ -176,26 +176,26 @@ class MobileDashboardManager {
     
     async loadActivityData() {
         // Load activity timeline data
-        console.log('Loading activity data...');
+        
     }
     
     async loadSkillsData() {
         // Load skills and proficiency data
-        console.log('Loading skills data...');
+        
     }
     
     async loadProjectsData() {
         // Load projects portfolio data
-        console.log('Loading projects data...');
+        
     }
     
     async loadAnalyticsData() {
         // Load career analytics data
-        console.log('Loading analytics data...');
+        
     }
     
     refreshData() {
-        console.log('🔄 Refreshing dashboard data...');
+        
         this.loadDashboardData();
     }
     

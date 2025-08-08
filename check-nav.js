@@ -42,7 +42,7 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('Navigation Status:', JSON.stringify(navStatus, null, 2));
+    );
     
     await browser.close();
 })();

@@ -53,8 +53,8 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('CONTENT DEBUG RESULTS:');
-    console.log(JSON.stringify(contentDebug, null, 2));
+    
+    );
     
     await browser.close();
 })();

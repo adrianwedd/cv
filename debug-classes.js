@@ -24,13 +24,13 @@ const puppeteer = require('puppeteer');
         }));
     });
     
-    console.log('SECTION CLASSES DEBUG:');
+    
     classDebug.forEach(section => {
-        console.log(`\n${section.id}:`);
-        console.log(`  Classes: ${section.classList.join(', ')}`);
-        console.log(`  Visible: ${section.hasVisible}, Active: ${section.hasActive}`);
-        console.log(`  Scroll Animate: ${section.hasScrollAnimate}, In View: ${section.hasInView}`);
-        console.log(`  Opacity: ${section.computedOpacity}, Transform: ${section.computedTransform}`);
+        
+        }`);
+        
+        
+        
     });
     
     await browser.close();

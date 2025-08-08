@@ -23,7 +23,7 @@ class EnhancedNavigation {
         this.setupNavAnimation();
         this.setupMobileNavigation();
         
-        console.log('🧭 Enhanced Navigation System initialized');
+        
     }
 
     createProgressBar() {

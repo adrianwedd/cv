@@ -73,6 +73,10 @@
   to { transform: rotate(360deg); }
 }
 </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
 
@@ -280,7 +284,7 @@
 <script>
 // Enhanced initialization and error handling
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Watch Me Work dashboard loading...');
+    
     
     // Add timeout to catch initialization failures
     setTimeout(() => {

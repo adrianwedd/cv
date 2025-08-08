@@ -183,7 +183,7 @@ const atsContent = templateEngine.generateCV('ats-text', {
 // Perform ATS analysis
 const analyzer = new ATSAnalyzer();
 const analysis = analyzer.analyzeCV(cvData, 'pdf');
-console.log('ATS Score:', analysis.overall_score);
+
 ```
 
 ### Custom Templates
@@ -203,11 +203,11 @@ class CustomTemplateEngine extends CVTemplateEngine {
 ```javascript
 // Listen for export events
 document.addEventListener('cv-export-complete', (event) => {
-    console.log('Export completed:', event.detail);
+    
 });
 
 document.addEventListener('ats-score-updated', (event) => {
-    console.log('New ATS score:', event.detail.score);
+    
 });
 ```
 
@@ -273,9 +273,9 @@ Enable debug logging:
 window.CV_EXPORT_DEBUG = true;
 
 // Check system status
-console.log('Export System:', window.cvExportSystem);
-console.log('Template Engine:', window.CVTemplateEngine);
-console.log('ATS Analyzer:', window.ATSAnalyzer);
+
+
+
 ```
 
 ## 🔒 Security & Privacy

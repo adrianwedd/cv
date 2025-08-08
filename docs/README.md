@@ -1,89 +1,216 @@
-# CV System Documentation
+# Documentation Index
 
-Comprehensive documentation for the AI-Enhanced CV System.
+*Generated automatically on 2025-08-08T17:06:59.215Z*
 
-## Quick Start Guides
+This directory contains all project documentation organized by category.
 
-### 🎯 **Essential Reading (New Claude Sessions)**
-- **[CLAUDE.md](../CLAUDE.md)** - Main project guidance and quick start checklist
-- **[AUTHENTICATION_SETUP.md](AUTHENTICATION_SETUP.md)** - Complete authentication setup (browser, OAuth, API)
-- **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** - Commands, debugging, and best practices
+## 📚 Available Documentation
 
-### 📊 **Strategic Planning**
-- **[NEXT_SESSION_PLAN.md](../NEXT_SESSION_PLAN.md)** - Current priorities and objectives
-- **[SESSION_WRAPUP.md](../SESSION_WRAPUP.md)** - Session closure template
-- **[PREVIOUS_SESSION_WRAPUPS.md](../PREVIOUS_SESSION_WRAPUPS.md)** - Historical achievements
+### Core Documentation
 
-## Architecture & Technical Guides
+### Core
 
-### 🏠 **Core System**
-- **[architecture.md](architecture.md)** - System architecture overview
-- **[data_models.md](data_models.md)** - Data structures and schemas
-- **[workflows.md](workflows.md)** - GitHub Actions workflows
+- [Changelog](../CHANGELOG.md)
+- [Contributing](../CONTRIBUTING.md)
+- [License](../LICENSE)
+- [Readme](../README.md)
+- [Readme](../docs/README.md)
+- [Contributing](../docs/contributing.md)
+- [Apache License 2.0](../docs/jsdoc_output/scripts/prettify/Apache-License-2.0.txt)
+- [Readme](../docs/research/README.md)
+- [Readme](../monitoring/README.md)
+- [Readme](../prompts/claude/v2.0/README.md)
+- [Readme](../src/python/api_wrappers/README.md)
+- [Readme](../src/python/config_manager/README.md)
+- [Readme](../src/python/data_validation/README.md)
+- [Readme](../src/python/utils/README.md)
+- [Readme](../src/python/web_scraping/README.md)
+- [Readme](../tests/README.md)
 
-### 🔌 **Integration & APIs**
-- **[api_integrations.md](api_integrations.md)** - API integration patterns
-- **[deployment.md](deployment.md)** - Deployment strategies
-- **[gh-cli.md](gh-cli.md)** - GitHub CLI usage
+### Development
 
-### 📊 **Analytics & Monitoring**
-- **[script_reference.md](script_reference.md)** - Script documentation
-- **[export-system-guide.md](export-system-guide.md)** - Data export system
-- **[prompt_construction.md](prompt_construction.md)** - AI prompt engineering
+- [Data Architecture Implementation Summary](../DATA_ARCHITECTURE_IMPLEMENTATION_SUMMARY.md)
+- [Development Intelligence Dashboard](../DEVELOPMENT_INTELLIGENCE_DASHBOARD.md)
+- [Enterprise Testing Framework](../ENTERPRISE_TESTING_FRAMEWORK.md)
+- [Data Architecture Summary](../data/DATA_ARCHITECTURE_SUMMARY.md)
+- [Development Guide](../docs/DEVELOPMENT_GUIDE.md)
+- [Api Integrations](../docs/api_integrations.md)
+- [Architecture](../docs/architecture.md)
+- [Claudeapiclient](../docs/jsdoc_output/ClaudeApiClient.html)
+- [Githubapiclient](../docs/jsdoc_output/GitHubApiClient.html)
+- [Web Scraping Playbook Restructured](../docs/research/web-scraping-playbook-restructured.md)
+- [Web Scraping Playbook](../docs/research/web-scraping-playbook.md)
+- [Testing](../docs/testing.md)
+- [Data Architecture Resolution](../temp/data_architecture_resolution.md)
 
-## Quality & Testing
+### Deployment
 
-### ✅ **Quality Assurance**
-- **[testing.md](testing.md)** - Testing strategies and frameworks
-- **[contributing.md](contributing.md)** - Contribution guidelines
-- **UAT review process.pdf** - User acceptance testing process
-- **UAT review task.pdf** - UAT task specifications
+- [Bulletproof Infrastructure Summary](../BULLETPROOF_INFRASTRUCTURE_SUMMARY.md)
+- [Deployment Commander Implementation](../DEPLOYMENT_COMMANDER_IMPLEMENTATION.md)
+- [Deployment](../docs/deployment.md)
+- [Infrastructure Epic](../temp/infrastructure_epic.md)
+- [Oauth Deployment Issue](../temp/oauth_deployment_issue.md)
 
-### 📊 **Analysis & Research**
-- **[SYSTEM_INSIGHTS.md](SYSTEM_INSIGHTS.md)** - Critical system learnings
-- **content-analysis.pdf** - Content analysis methodology
-- **[research/](research/)** - Advanced research documentation
+### User Guides
 
-## Generated Documentation
+- [Development Guide](../docs/DEVELOPMENT_GUIDE.md)
+- [Export System Guide](../docs/export-system-guide.md)
+- [Pr Workflow Guide](../temp/PR_WORKFLOW_GUIDE.md)
 
-### 💻 **API Documentation**
-- **[jsdoc_output/](jsdoc_output/)** - Generated JSDoc API documentation
-  - Activity Analyzer, CV Generator, Claude API Client
-  - GitHub API Client, CV Application components
-  - Interactive HTML documentation with search
+### Technical
 
-### 🔍 **Research Archive**
-- **[research/autonomous-career-agent-plan.md](research/autonomous-career-agent-plan.md)** - Career automation strategy
-- **[research/claude-prompt-engineering-framework.md](research/claude-prompt-engineering-framework.md)** - Prompt optimization
-- **[research/ethical-automation-manifest.md](research/ethical-automation-manifest.md)** - Ethical guidelines
-- **[research/web-scraping-playbook.md](research/web-scraping-playbook.md)** - Web scraping patterns
+- [Security](../SECURITY.md)
+- [System Insights](../docs/SYSTEM_INSIGHTS.md)
+- [Export System Guide](../docs/export-system-guide.md)
+- [Security Remediation Comment](../temp/security_remediation_comment.md)
 
-## Navigation Tips
+### Other Documentation
 
-### 🚀 **For New Claude Sessions**
-1. Start with **[CLAUDE.md](../CLAUDE.md)** for project context
-2. Check **[NEXT_SESSION_PLAN.md](../NEXT_SESSION_PLAN.md)** for current priorities
-3. Review **[AUTHENTICATION_SETUP.md](AUTHENTICATION_SETUP.md)** if auth issues arise
-4. Use **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** for commands and debugging
+- [Anthropic Agent Standards](../ANTHROPIC_AGENT_STANDARDS.md)
+- [Claude](../CLAUDE.md)
+- [Code Of Conduct](../CODE_OF_CONDUCT.md)
+- [Data Recovery Plan](../DATA_RECOVERY_PLAN.md)
+- [Dependency Report](../DEPENDENCY_REPORT.md)
+- [Feature Roadmap](../FEATURE-ROADMAP.md)
+- [Gemini](../GEMINI.md)
+- [Implementation Summary](../IMPLEMENTATION_SUMMARY.md)
+- [Naming Conventions](../NAMING_CONVENTIONS.md)
+- [Next Session Plan](../NEXT_SESSION_PLAN.md)
+- [Previous Session Wrapups](../PREVIOUS_SESSION_WRAPUPS.md)
+- [Quality Validation Summary](../QUALITY_VALIDATION_SUMMARY.md)
+- [Repository Enhancement Plan](../REPOSITORY_ENHANCEMENT_PLAN.md)
+- [Repository Surgery Report](../REPOSITORY_SURGERY_REPORT.md)
+- [Session Wrapup](../SESSION_WRAPUP.md)
+- [Signal Optimization Implementation](../SIGNAL_OPTIMIZATION_IMPLEMENTATION.md)
+- [Uat Review Prompt](../UAT_REVIEW_PROMPT.md)
+- [Adrian Wedd Cv](../assets/adrian-wedd-cv.pdf)
+- [Temp Issue Body](../cv/temp_issue_body.txt)
+- [.ds Store](../docs/.DS_Store)
+- [Authentication Setup](../docs/AUTHENTICATION_SETUP.md)
+- [Issue Signal Optimization](../docs/ISSUE_SIGNAL_OPTIMIZATION.md)
+- [Uat Review Process](../docs/UAT review process.pdf)
+- [Uat Review Task](../docs/UAT review task.pdf)
+- [Content Analysis](../docs/content-analysis.pdf)
+- [Data Models](../docs/data_models.md)
+- [Gh Cli](../docs/gh-cli.md)
+- [Index](../docs/index.md)
+- [Activityanalyzer](../docs/jsdoc_output/ActivityAnalyzer.html)
+- [Cvapplication](../docs/jsdoc_output/CVApplication.html)
+- [Cvcontentenhancer](../docs/jsdoc_output/CVContentEnhancer.html)
+- [Cvgenerator](../docs/jsdoc_output/CVGenerator.html)
+- [Assets Script.js](../docs/jsdoc_output/assets_script.js.html)
+- [Opensans Bold Webfont](../docs/jsdoc_output/fonts/OpenSans-Bold-webfont.eot)
+- [Opensans Bold Webfont](../docs/jsdoc_output/fonts/OpenSans-Bold-webfont.svg)
+- [Opensans Bold Webfont](../docs/jsdoc_output/fonts/OpenSans-Bold-webfont.woff)
+- [Opensans Bolditalic Webfont](../docs/jsdoc_output/fonts/OpenSans-BoldItalic-webfont.eot)
+- [Opensans Bolditalic Webfont](../docs/jsdoc_output/fonts/OpenSans-BoldItalic-webfont.svg)
+- [Opensans Bolditalic Webfont](../docs/jsdoc_output/fonts/OpenSans-BoldItalic-webfont.woff)
+- [Opensans Italic Webfont](../docs/jsdoc_output/fonts/OpenSans-Italic-webfont.eot)
+- [Opensans Italic Webfont](../docs/jsdoc_output/fonts/OpenSans-Italic-webfont.svg)
+- [Opensans Italic Webfont](../docs/jsdoc_output/fonts/OpenSans-Italic-webfont.woff)
+- [Opensans Light Webfont](../docs/jsdoc_output/fonts/OpenSans-Light-webfont.eot)
+- [Opensans Light Webfont](../docs/jsdoc_output/fonts/OpenSans-Light-webfont.svg)
+- [Opensans Light Webfont](../docs/jsdoc_output/fonts/OpenSans-Light-webfont.woff)
+- [Opensans Lightitalic Webfont](../docs/jsdoc_output/fonts/OpenSans-LightItalic-webfont.eot)
+- [Opensans Lightitalic Webfont](../docs/jsdoc_output/fonts/OpenSans-LightItalic-webfont.svg)
+- [Opensans Lightitalic Webfont](../docs/jsdoc_output/fonts/OpenSans-LightItalic-webfont.woff)
+- [Opensans Regular Webfont](../docs/jsdoc_output/fonts/OpenSans-Regular-webfont.eot)
+- [Opensans Regular Webfont](../docs/jsdoc_output/fonts/OpenSans-Regular-webfont.svg)
+- [Opensans Regular Webfont](../docs/jsdoc_output/fonts/OpenSans-Regular-webfont.woff)
+- [Github Scripts Activity Analyzer.js](../docs/jsdoc_output/github_scripts_activity-analyzer.js.html)
+- [Github Scripts Claude Enhancer.js](../docs/jsdoc_output/github_scripts_claude-enhancer.js.html)
+- [Github Scripts Cv Generator.js](../docs/jsdoc_output/github_scripts_cv-generator.js.html)
+- [Global](../docs/jsdoc_output/global.html)
+- [Index](../docs/jsdoc_output/index.html)
+- [Linenumber](../docs/jsdoc_output/scripts/linenumber.js)
+- [Lang Css](../docs/jsdoc_output/scripts/prettify/lang-css.js)
+- [Prettify](../docs/jsdoc_output/scripts/prettify/prettify.js)
+- [Jsdoc Default](../docs/jsdoc_output/styles/jsdoc-default.css)
+- [Prettify Jsdoc](../docs/jsdoc_output/styles/prettify-jsdoc.css)
+- [Prettify Tomorrow](../docs/jsdoc_output/styles/prettify-tomorrow.css)
+- [Prompt Construction](../docs/prompt_construction.md)
+- [Autonomous Career Agent Plan](../docs/research/autonomous-career-agent-plan.md)
+- [Claude Prompt Engineering Framework](../docs/research/claude-prompt-engineering-framework.md)
+- [Ethical Automation Manifest](../docs/research/ethical-automation-manifest.md)
+- [Rclone Integration Research](../docs/research/rclone-integration-research.md)
+- [Script Reference](../docs/script_reference.md)
+- [Workflows](../docs/workflows.md)
+- [Grooming Assessment](../grooming-assessment.md)
+- [Browser Tracking Setup](../monitoring/BROWSER_TRACKING_SETUP.md)
+- [Langsmith Fixes Summary](../monitoring/LANGSMITH_FIXES_SUMMARY.md)
+- [Professional Summary Examples](../prompts/claude/v2.0/examples/professional-summary-examples.md)
+- [Repository Health Report](../repository-health-report.md)
+- [Robots](../robots.txt)
+- [Requirements](../src/python/requirements.txt)
+- [Uat2025 08 01](../temp/UAT2025-08-01.md)
+- [Claude Ai Epic](../temp/claude_ai_epic.md)
+- [Claude Optimizer Issue Body](../temp/claude_optimizer_issue_body.md)
+- [Doc Linter Issue Body](../temp/doc_linter_issue_body.md)
+- [Documentation Audit Issue Body](../temp/documentation_audit_issue_body.md)
+- [Es Module Migration Issue](../temp/es_module_migration_issue.md)
+- [Frontend Epic](../temp/frontend_epic.md)
+- [Issue 142 Comment](../temp/issue_142_comment.md)
+- [Issue 142 Groomed](../temp/issue_142_groomed.md)
+- [Issue 199 Comment](../temp/issue_199_comment.md)
+- [Issue 199 Groomed](../temp/issue_199_groomed.md)
+- [Issue 201 Comment](../temp/issue_201_comment.md)
+- [Issue 201 Groomed](../temp/issue_201_groomed.md)
+- [Issue 203 Comment](../temp/issue_203_comment.md)
+- [Issue 203 Groomed](../temp/issue_203_groomed.md)
+- [Issue 204 Comment](../temp/issue_204_comment.md)
+- [Issue 204 Groomed](../temp/issue_204_groomed.md)
+- [Issue 208 Comment](../temp/issue_208_comment.md)
+- [Issue 208 Groomed](../temp/issue_208_groomed.md)
+- [Issue 209 Comment](../temp/issue_209_comment.md)
+- [Issue 209 Groomed](../temp/issue_209_groomed.md)
+- [Issue 210 Comment](../temp/issue_210_comment.md)
+- [Issue 210 Groomed](../temp/issue_210_groomed.md)
+- [Issue 212 Comment](../temp/issue_212_comment.md)
+- [Issue 212 Groomed](../temp/issue_212_groomed.md)
+- [Issue 217 Comment](../temp/issue_217_comment.md)
+- [Issue 217 Groomed](../temp/issue_217_groomed.md)
+- [Issue 224 Comment](../temp/issue_224_comment.md)
+- [Issue 224 Groomed](../temp/issue_224_groomed.md)
+- [Issue 227 Comment](../temp/issue_227_comment.md)
+- [Issue 227 Groomed](../temp/issue_227_groomed.md)
+- [Issue 228 Comment](../temp/issue_228_comment.md)
+- [Issue 228 Groomed](../temp/issue_228_groomed.md)
+- [Issue 240 Comment](../temp/issue_240_comment.md)
+- [Issue 240 Groomed](../temp/issue_240_groomed.md)
+- [Issue 241 Comment](../temp/issue_241_comment.md)
+- [Issue 241 Groomed](../temp/issue_241_groomed.md)
+- [Issue 242 Comment](../temp/issue_242_comment.md)
+- [Issue 242 Groomed](../temp/issue_242_groomed.md)
+- [Issue 245 Comment](../temp/issue_245_comment.md)
+- [Issue 245 Groomed](../temp/issue_245_groomed.md)
+- [Issue 246 Comment](../temp/issue_246_comment.md)
+- [Issue 246 Groomed](../temp/issue_246_groomed.md)
+- [Issues 200 201 Comment](../temp/issues_200_201_comment.md)
+- [Naming Conventions Issue Body](../temp/naming_conventions_issue_body.md)
+- [Adrian Wedd Cv](../temp/rclone_downloads/Adrian Wedd CV.pdf)
+- [Adrian Wedd Current Cv](../temp/rclone_downloads/Adrian Wedd Current CV.pdf)
+- [Adrian Wedd Cv](../temp/rclone_downloads/Adrian_Wedd_CV.txt)
+- [Temp Ci Fixes Issue Body](../temp/temp_ci_fixes_issue_body.md)
+- [Temp Commit Message](../temp/temp_commit_message.txt)
+- [Temp Cv Export Issue Body](../temp/temp_cv_export_issue_body.md)
+- [Temp Diagnostics Issue Body](../temp/temp_diagnostics_issue_body.md)
+- [Temp Issue Body](../temp/temp_issue_body.txt)
+- [Test Write](../temp/test_write.txt)
+- [Unstructured Ingestion Issue](../temp/unstructured_ingestion_issue.md)
+- [Watch Me Work Issue Body](../temp/watch_me_work_issue_body.md)
 
-### 🔧 **For Development Work**
-1. **[DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)** - Essential commands and workflows
-2. **[architecture.md](architecture.md)** - Understand system structure
-3. **[testing.md](testing.md)** - Quality assurance processes
-4. **[SYSTEM_INSIGHTS.md](SYSTEM_INSIGHTS.md)** - Learn from past experiences
+## 📊 Documentation Statistics
 
-### 📊 **For System Analysis**
-1. **[SYSTEM_INSIGHTS.md](SYSTEM_INSIGHTS.md)** - Critical patterns and learnings
-2. **[jsdoc_output/](jsdoc_output/)** - Generated API documentation
-3. **[research/](research/)** - Advanced research and planning
-4. **content-analysis.pdf** - Methodology and analysis frameworks
+- **Total Files**: 171
+- **Categories**: 5
+- **Last Updated**: 2025-08-08T17:06:59.215Z
 
-## Documentation Standards
+## 🔍 Quick Links
 
-- **Essential guides** are kept concise and actionable
-- **Technical details** are extracted to specialized documents
-- **Historical insights** are preserved for learning
-- **Generated docs** provide comprehensive API reference
-- **Research docs** explore advanced concepts and future directions
+- [Project README](../README.md)
+- [Development Guide](../DEVELOPMENT_GUIDE.md)
+- [API Documentation](../docs/api.md)
+- [Changelog](../CHANGELOG.md)
 
-This documentation system supports efficient Claude Code collaboration through structured knowledge management and clear navigation paths.
+---
+*This index is automatically maintained by the Documentation Curator system.*

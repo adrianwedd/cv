@@ -11,6 +11,10 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 
 <body>
@@ -103,7 +107,7 @@ class ClaudeApiClient {
         const cachedResponse = await this.getCachedResponse(cacheKey);
         
         if (cachedResponse &amp;&amp; !options.skipCache) {
-            console.log('📦 Cache hit for Claude request');
+            
             this.cacheHits++;
             return cachedResponse;
         }
@@ -119,7 +123,7 @@ class ClaudeApiClient {
         };
 
         try {
-            console.log('🤖 Making Claude API request...');
+            
             this.requestCount++;
             
             const response = await this.httpRequest(this.baseUrl, {
@@ -296,11 +300,11 @@ class CVContentEnhancer {
      * Run comprehensive CV content enhancement
      */
     async enhance() {
-        console.log('🤖 **CLAUDE AI CONTENT ENHANCEMENT INITIATED**');
-        console.log(`🎨 Creativity level: ${CONFIG.CREATIVITY_LEVEL}`);
-        console.log(`💰 AI budget: ${CONFIG.AI_BUDGET}`);
-        console.log(`📊 Activity score: ${CONFIG.ACTIVITY_SCORE}/100`);
-        console.log('');
+        
+        
+        
+        
+        
 
         try {
             // Ensure output directory exists
@@ -321,20 +325,20 @@ class CVContentEnhancer {
             };
 
             // Multi-stage enhancement pipeline
-            console.log('📝 Stage 1: Professional Summary Enhancement');
+            
             enhancementPlan.professional_summary = await this.enhanceProfessionalSummary(currentCVData, activityMetrics);
 
-            console.log('⚡ Stage 2: Skills Analysis &amp; Optimization');
+            
             enhancementPlan.skills_enhancement = await this.enhanceSkillsSection(currentCVData, activityMetrics);
 
-            console.log('🎯 Stage 3: Experience Description Optimization');
+            
             enhancementPlan.experience_enhancement = await this.enhanceExperience(currentCVData, activityMetrics);
 
-            console.log('🚀 Stage 4: Project Impact Analysis');
+            
             enhancementPlan.project_enhancement = await this.enhanceProjects(currentCVData, activityMetrics);
 
             if (CONFIG.AI_BUDGET !== 'insufficient' &amp;&amp; (CONFIG.CREATIVITY_LEVEL === 'creative' || CONFIG.CREATIVITY_LEVEL === 'innovative')) {
-                console.log('🔮 Stage 5: Strategic Career Insights');
+                
                 enhancementPlan.strategic_insights = await this.generateStrategicInsights(currentCVData, activityMetrics);
             }
 
@@ -347,9 +351,9 @@ class CVContentEnhancer {
             const enhancementTime = ((Date.now() - this.enhancementStartTime) / 1000).toFixed(2);
             const usageStats = this.client.getUsageStats();
             
-            console.log(`✅ Enhancement completed in ${enhancementTime}s`);
-            console.log(`📊 Token usage: ${usageStats.total_tokens} total (${usageStats.cache_efficiency_percent}% cache efficiency)`);
-            console.log(`📁 Results saved to ${CONFIG.OUTPUT_DIR}/`);
+            
+            `);
+            
 
             return enhancementPlan;
 
@@ -973,7 +977,7 @@ PROVIDE COMPREHENSIVE STRATEGIC ANALYSIS AS JSON:
             const cvData = await fs.readFile(cvDataPath, 'utf8');
             return JSON.parse(cvData);
         } catch (error) {
-            console.log('📝 No existing CV data found, using defaults');
+            
             return {
                 professional_summary: "AI Engineer and Software Architect specializing in autonomous systems and machine learning.",
                 skills: [],
@@ -1001,7 +1005,7 @@ PROVIDE COMPREHENSIVE STRATEGIC ANALYSIS AS JSON:
                 development_velocity: parsedData.summary?.raw_data?.repositories || 0
             };
         } catch (error) {
-            console.log('📊 No activity metrics found, using defaults');
+            
             return {
                 total_repos: 0,
                 total_stars: 0,
@@ -1068,9 +1072,9 @@ PROVIDE COMPREHENSIVE STRATEGIC ANALYSIS AS JSON:
             enhancement_summary: enhancementPlan.enhancement_summary
         }, null, 2), 'utf8');
 
-        console.log(`💾 Enhancement results saved:`);
-        console.log(`  🤖 Comprehensive: ${enhancementPath}`);
-        console.log(`  📋 Current: ${currentPath}`);
+        
+        
+        
     }
 
     /**
@@ -1132,11 +1136,11 @@ async function main() {
         
         const usageStats = enhancer.client.getUsageStats();
         
-        console.log('\n🎉 **ENHANCEMENT COMPLETE**');
-        console.log(`🤖 Stages completed: ${results.enhancement_summary?.enhancement_overview?.total_stages_completed || 'N/A'}`);
-        console.log(`📊 Token usage: ${usageStats.total_tokens} (${usageStats.cache_efficiency_percent}% cached)`);
-        console.log(`🎨 Creativity level: ${CONFIG.CREATIVITY_LEVEL}`);
-        console.log(`⚡ Activity score: ${CONFIG.ACTIVITY_SCORE}/100`);
+        
+        
+        `);
+        
+        
         
         return results;
     } catch (error) {

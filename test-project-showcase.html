@@ -130,6 +130,10 @@
   to { transform: rotate(360deg); }
 }
 </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
 
@@ -207,15 +211,15 @@
     <!-- Debug Information -->
     <script>
         // Debug logging for testing
-        console.log('🧪 Project Showcase Test Page Loaded');
+        
         
         // Check if showcase initializes
         setTimeout(() => {
             if (window.projectShowcase && window.projectShowcase.isInitialized) {
-                console.log('✅ Interactive Project Showcase initialized successfully');
+                
             } else {
                 console.warn('⚠️ Interactive Project Showcase may not have initialized properly');
-                console.log('Available on window:', !!window.projectShowcase);
+                
             }
         }, 2000);
         
@@ -227,10 +231,10 @@
         // Monitor fetch requests
         const originalFetch = window.fetch;
         window.fetch = function(...args) {
-            console.log('🌐 Fetch request:', args[0]);
+            
             return originalFetch.apply(this, args)
                 .then(response => {
-                    console.log('✅ Fetch response:', response.status, args[0]);
+                    
                     return response;
                 })
                 .catch(error => {

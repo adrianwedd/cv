@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-    console.log('🔍 ABSOLUTE VERIFICATION - Opening visible browser...\n');
+    
     
     const browser = await puppeteer.launch({ 
         headless: false,  // VISIBLE browser
@@ -12,12 +12,12 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
     
     // Log everything
-    page.on('console', msg => console.log('Console:', msg.text()));
+    page.on('console', msg => ));
     page.on('error', err => console.error('Error:', err));
     page.on('pageerror', err => console.error('Page Error:', err));
     
-    console.log('Loading https://adrianwedd.github.io/cv/');
-    console.log('You should see the site in a browser window...\n');
+    
+    
     
     await page.goto('https://adrianwedd.github.io/cv/', { 
         waitUntil: 'networkidle2',
@@ -88,17 +88,17 @@ const puppeteer = require('puppeteer');
         return checks;
     });
     
-    console.log('='.repeat(50));
-    console.log('COMPREHENSIVE STATUS REPORT:');
-    console.log('='.repeat(50));
-    console.log(JSON.stringify(status, null, 2));
-    console.log('='.repeat(50));
+    );
     
-    console.log('\n📸 Screenshot saved as absolute-proof.png');
-    console.log('👀 Keeping browser open for 15 seconds for visual inspection...');
+    );
+    );
+    );
+    
+    
+    
     
     await new Promise(r => setTimeout(r, 15000));
     
     await browser.close();
-    console.log('\n✅ Verification complete.');
+    
 })();

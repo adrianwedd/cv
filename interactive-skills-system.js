@@ -15,7 +15,7 @@ class InteractiveSkillsSystem {
     }
 
     async init() {
-        console.log('🎯 Initializing Interactive Skills System...');
+        
         
         await this.loadSkillsData();
         this.createSkillsInterface();
@@ -24,7 +24,7 @@ class InteractiveSkillsSystem {
         this.createRadarChart();
         this.setupTooltipSystem();
         
-        console.log('✅ Interactive Skills System initialized');
+        
     }
 
     async loadSkillsData() {

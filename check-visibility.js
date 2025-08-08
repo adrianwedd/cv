@@ -48,16 +48,16 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('Container visibility:');
+    
     Object.entries(visibility.containers).forEach(([selector, status]) => {
         if (status.exists) {
-            console.log(`  ${selector}: display=${status.display}, height=${status.height}px, hasContent=${status.hasContent}`);
+            
         }
     });
     
-    console.log('\nBody text preview:', visibility.bodyText);
-    console.log('Adrian Wedd visible?', visibility.anyVisible);
-    console.log('Total page height:', visibility.totalHeight, 'px');
+    
+    
+    
     
     await browser.close();
 })();

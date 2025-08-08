@@ -58,6 +58,10 @@
             transform: scale(1.05);
         }
     </style>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 <body>
     <div class="container">
@@ -72,17 +76,17 @@
             const status = document.getElementById('status');
             const continueBtn = document.getElementById('continueBtn');
             
-            console.log('🧹 Starting aggressive cache clear...');
+            
             
             // Step 1: Clear all caches
             status.textContent = 'Clearing browser caches...';
             if ('caches' in window) {
                 const cacheNames = await caches.keys();
-                console.log('Found caches:', cacheNames);
+                
                 
                 for (const name of cacheNames) {
                     await caches.delete(name);
-                    console.log(`✅ Deleted cache: ${name}`);
+                    
                 }
             }
             
@@ -90,11 +94,11 @@
             status.textContent = 'Removing service workers...';
             if ('serviceWorker' in navigator) {
                 const registrations = await navigator.serviceWorker.getRegistrations();
-                console.log('Found service workers:', registrations.length);
+                
                 
                 for (const registration of registrations) {
                     await registration.unregister();
-                    console.log('✅ Unregistered service worker');
+                    
                 }
             }
             
@@ -103,9 +107,9 @@
             try {
                 localStorage.clear();
                 sessionStorage.clear();
-                console.log('✅ Cleared local storage');
+                
             } catch (e) {
-                console.log('Could not clear storage:', e);
+                
             }
             
             // Step 4: Clear IndexedDB
@@ -114,13 +118,13 @@
                 const databases = await indexedDB.databases();
                 for (const db of databases) {
                     indexedDB.deleteDatabase(db.name);
-                    console.log(`✅ Deleted database: ${db.name}`);
+                    
                 }
             }
             
             // Step 5: Success!
             status.textContent = '✅ All caches cleared successfully!';
-            console.log('🎉 Complete cache clear finished!');
+            
             
             // Show continue button
             continueBtn.style.display = 'inline-block';

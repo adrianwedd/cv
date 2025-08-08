@@ -52,7 +52,7 @@ class IntelligentCVPersonalization {
             }
         };
         
-        console.log('🎯 Intelligent CV Personalization v2.0 initialized');
+        
         this.init();
     }
 
@@ -62,7 +62,7 @@ class IntelligentCVPersonalization {
     async init() {
         if (this.isInitialized) return;
 
-        console.log('🧠 Initializing Intelligent CV Personalization Engine v2.0...');
+        
         
         try {
             // Load CV and activity data
@@ -75,7 +75,7 @@ class IntelligentCVPersonalization {
             this.setupEventListeners();
             
             this.isInitialized = true;
-            console.log('✅ Intelligent CV Personalization Engine v2.0 initialized successfully');
+            
             
         } catch (error) {
             console.error('❌ Personalization Engine initialization failed:', error);
@@ -92,7 +92,7 @@ class IntelligentCVPersonalization {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             
             this.cvData = await response.json();
-            console.log('📄 CV data loaded for personalization');
+            
             
         } catch (error) {
             console.error('Error loading CV data:', error);
@@ -141,7 +141,7 @@ class IntelligentCVPersonalization {
             this.skillsDatabase.set(skill, data);
         }
         
-        console.log('🎯 Skills database loaded with market intelligence');
+        
     }
 
     /**
@@ -176,14 +176,14 @@ class IntelligentCVPersonalization {
             this.industryProfiles.set(industry, profile);
         }
         
-        console.log('🏢 Industry profiles loaded with cultural intelligence');
+        
     }
 
     /**
      * Analyze job description and extract requirements
      */
     async analyzeJobDescription(jobDescription) {
-        console.log('🔍 Analyzing job description for personalization opportunities...');
+        
         
         const analysis = {
             extractedSkills: this.extractSkills(jobDescription),
@@ -203,7 +203,7 @@ class IntelligentCVPersonalization {
         analysis.recommendations = this.generatePersonalizationRecommendations(analysis);
         
         this.jobAnalysis = analysis;
-        console.log('✅ Job analysis completed:', analysis);
+        
         
         return analysis;
     }
@@ -440,7 +440,7 @@ class IntelligentCVPersonalization {
      * Create personalized CV version
      */
     async createPersonalizedCV(jobAnalysis, recommendations) {
-        console.log('🎨 Creating personalized CV version...');
+        
         
         const personalizedCV = JSON.parse(JSON.stringify(this.cvData)); // Deep clone
         
@@ -470,7 +470,7 @@ class IntelligentCVPersonalization {
             version: 'personalized'
         };
         
-        console.log('✅ Personalized CV created with compatibility score:', jobAnalysis.compatibilityScore);
+        
         return personalizedCV;
     }
 
@@ -1156,33 +1156,33 @@ class IntelligentCVPersonalization {
      * Perform comprehensive job description analysis
      */
     async performJobAnalysis(jobDescription) {
-        console.log('🔍 Starting comprehensive job analysis...');
+        
         
         // 1. Extract job requirements and context
         const jobContext = this.extractJobContext(jobDescription);
-        console.log('📋 Job context extracted:', jobContext);
+        
         
         // 2. Analyze skills and requirements
         const skillsAnalysis = this.analyzeSkillsRequirements(jobDescription, jobContext);
-        console.log('⚡ Skills analysis completed:', skillsAnalysis);
+        
         
         // 3. Determine cultural fit
         const culturalAnalysis = this.analyzeCulturalFit(jobDescription, jobContext);
-        console.log('🤝 Cultural analysis completed:', culturalAnalysis);
+        
         
         // 4. Calculate compatibility scores
         const compatibilityScores = this.calculateCompatibilityScores(skillsAnalysis, culturalAnalysis);
-        console.log('📊 Compatibility scores calculated:', compatibilityScores);
+        
         
         // 5. Generate personalization recommendations
         const recommendations = this.generatePersonalizationRecommendations(
             jobContext, skillsAnalysis, culturalAnalysis, compatibilityScores
         );
-        console.log('💡 Recommendations generated:', recommendations);
+        
         
         // 6. Market intelligence and positioning
         const marketIntelligence = this.generateMarketIntelligence(jobContext, skillsAnalysis);
-        console.log('🎯 Market intelligence generated:', marketIntelligence);
+        
         
         return {
             jobContext,
@@ -1507,8 +1507,8 @@ class IntelligentCVPersonalization {
     renderRecommendations(recs) { return '<div>Recommendations will be displayed here</div>'; }
     renderSkillsAnalysis(skills) { return '<div>Skills analysis will be displayed here</div>'; }
     renderMarketIntelligence(market) { return '<div>Market intelligence will be displayed here</div>'; }
-    setupTabSwitching() { console.log('Tab switching setup complete'); }
-    animateScoreCircle() { console.log('Score circle animation complete'); }
+    setupTabSwitching() {  }
+    animateScoreCircle() {  }
 
     /**
      * Get fallback CV data
@@ -1590,8 +1590,8 @@ class IntelligentCVPersonalization {
     analyzeCompensationLevel(jobDescription) { return {}; }
     extractExperienceRequirements(jobDescription) { return []; }
     extractPreferredQualifications(jobDescription) { return []; }
-    handleRecommendationAction(action, element) { console.log('Action:', action); }
-    showSkillLearningPath(skill) { console.log('Learning path for:', skill); }
+    handleRecommendationAction(action, element) {  }
+    showSkillLearningPath(skill) {  }
     clearJobDescription() { 
         const input = document.getElementById('job-description-input') || document.getElementById('jobDescription');
         if (input) input.value = ''; 

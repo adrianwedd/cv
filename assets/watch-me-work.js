@@ -60,7 +60,7 @@ class WatchMeWorkDashboard {
      * Initialize the dashboard
      */
     async init() {
-        console.log('🎬 Initializing Watch Me Work Dashboard...');
+        
         
         try {
             // Setup event listeners
@@ -79,7 +79,7 @@ class WatchMeWorkDashboard {
             // Update status
             this.updateLiveStatus('live');
             
-            console.log('✅ Dashboard initialized successfully');
+            
         } catch (error) {
             console.error('❌ Dashboard initialization failed:', error);
             this.updateLiveStatus('error');
@@ -188,7 +188,7 @@ class WatchMeWorkDashboard {
      * Load initial dashboard data from pre-processed static file
      */
     async loadInitialData() {
-        console.log('📊 Loading initial dashboard data from static source...');
+        
         
         try {
             // Load pre-processed data from static JSON file
@@ -198,10 +198,10 @@ class WatchMeWorkDashboard {
                 throw new Error('No dashboard data available');
             }
             
-            console.log('✅ Loaded pre-processed dashboard data');
-            console.log(`📊 Data generated: ${dashboardData.metadata?.generated_at || 'unknown'}`);
-            console.log(`📈 Activities: ${dashboardData.activities?.length || 0}`);
-            console.log(`📦 Repositories: ${dashboardData.repositories?.length || 0}`);
+            
+            
+            
+            
             
             // Process loaded data
             this.processDashboardData(dashboardData);
@@ -232,7 +232,7 @@ class WatchMeWorkDashboard {
      */
     async loadStaticDashboardData() {
         try {
-            console.log('📁 Loading static dashboard data...');
+            
             
             const response = await fetch('data/watch-me-work-data.json');
             if (!response.ok) {
@@ -240,7 +240,7 @@ class WatchMeWorkDashboard {
             }
             
             const data = await response.json();
-            console.log(`📊 Loaded dashboard data (generated: ${data.metadata?.generated_at || 'unknown'})`);
+            `);
             
             return data;
         } catch (error) {
@@ -254,11 +254,11 @@ class WatchMeWorkDashboard {
             
             for (const url of fallbackUrls) {
                 try {
-                    console.log(`🔄 Trying fallback location: ${url}`);
+                    
                     const response = await fetch(url);
                     if (response.ok) {
                         const data = await response.json();
-                        console.log(`✅ Loaded from fallback: ${url}`);
+                        
                         return data;
                     }
                 } catch (fallbackError) {
@@ -291,7 +291,7 @@ class WatchMeWorkDashboard {
             });
         }
         
-        console.log(`✅ Processed dashboard data: ${this.activities.length} activities, ${this.repositories.size} repositories`);
+        
     }
 
     /**
@@ -380,7 +380,7 @@ class WatchMeWorkDashboard {
         this.updateElement('velocity-score', velocityScore);
         this.updateElement('focus-time', `${focusTime}h`);
         
-        console.log(`📊 Updated metrics: ${commitsThisWeek} commits this week, ${streakDays} day streak, ${velocityScore} velocity`);
+        
     }
 
     /**
@@ -515,7 +515,7 @@ class WatchMeWorkDashboard {
             });
         });
         
-        console.log(`🕐 Updated activity timeline with ${filteredActivities.length} items`);
+        
     }
 
     /**
@@ -590,7 +590,7 @@ class WatchMeWorkDashboard {
             });
         });
         
-        console.log(`📦 Updated repository grid with ${repoArray.length} repositories`);
+        
     }
 
     /**
@@ -707,7 +707,7 @@ class WatchMeWorkDashboard {
         this.updateLiveStatus('refreshing');
         
         try {
-            console.log('🔄 Refreshing dashboard data...');
+            
             
             // Load both static data and live GitHub activity
             await Promise.all([
@@ -717,7 +717,7 @@ class WatchMeWorkDashboard {
             
             this.updateLiveStatus('live');
             this.lastRefresh = new Date();
-            console.log('✅ Dashboard data refreshed successfully');
+            
         } catch (error) {
             console.error('❌ Refresh failed:', error);
             this.updateLiveStatus('error');
@@ -756,7 +756,7 @@ class WatchMeWorkDashboard {
                 this.renderActivityStream();
                 this.updateMetrics();
                 
-                console.log(`📡 Added ${newActivities.length} new live activities`);
+                
             }
             
         } catch (error) {
@@ -1230,16 +1230,16 @@ class WatchMeWorkDashboard {
             section.classList.add('data-loaded');
         });
         
-        console.log('✅ Dashboard marked as loaded with data');
+        
     }
 }
 
 // Initialize dashboard when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        console.log('🚀 Initializing WatchMeWorkDashboard...');
+        
         window.dashboard = new WatchMeWorkDashboard();
-        console.log('✅ WatchMeWorkDashboard initialized successfully');
+        
     } catch (error) {
         console.error('❌ Failed to initialize WatchMeWorkDashboard:', error);
         if (typeof showErrorFallback === 'function') {

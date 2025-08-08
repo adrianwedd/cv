@@ -26,21 +26,21 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('🔗 DASHBOARD LINKS VERIFICATION:');
-    console.log('===============================================');
-    console.log('✅ Dashboards link present:', dashboardLinks.dashboardsExists);
-    console.log('✅ Watch Me Work link present:', dashboardLinks.watchMeWorkExists);
-    console.log('📄 Dashboards text:', dashboardLinks.dashboardsText);
-    console.log('🎬 Watch Me Work text:', dashboardLinks.watchMeWorkText);
-    console.log('🔗 Dashboards URL:', dashboardLinks.dashboardsHref);
-    console.log('🎬 Watch Me Work URL:', dashboardLinks.watchMeWorkHref);
-    console.log('📊 Total contact links:', dashboardLinks.totalContactLinks);
-    console.log('===============================================');
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     if (dashboardLinks.dashboardsExists && dashboardLinks.watchMeWorkExists) {
-        console.log('🎉 PERFECT! Both dashboard links are present and working!');
+        
     } else {
-        console.log('❌ MISSING LINKS - Still need to be fixed');
+        
     }
     
     await browser.close();

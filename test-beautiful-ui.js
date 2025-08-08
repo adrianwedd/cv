@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-    console.log('🎨 Testing Beautiful UI Enhancements\n');
-    console.log('=====================================');
+    
+    
     
     const browser = await puppeteer.launch({ 
         headless: false,
@@ -12,7 +12,7 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
     
     // Test local version first
-    console.log('📍 Loading local version...');
+    
     await page.goto('file://' + __dirname + '/index.html', {
         waitUntil: 'networkidle0'
     });
@@ -60,19 +60,19 @@ const puppeteer = require('puppeteer');
         return checks;
     });
     
-    console.log('\n✨ Beautiful UI Features:');
-    console.log('========================');
-    console.log(`Beautiful CSS: ${beautyCheck.beautifulCSS ? '✅' : '❌'}`);
-    console.log(`Background Animation: ${beautyCheck.bgAnimation ? '✅' : '❌'}`);
-    console.log(`Gradient Orbs: ${beautyCheck.gradientOrbs} orbs`);
-    console.log(`Particle System: ${beautyCheck.particles ? '✅' : '❌'} (${beautyCheck.particleCount} particles)`);
-    console.log(`Custom Cursor: ${beautyCheck.customCursor ? '✅' : '❌'}`);
-    console.log(`Glassmorphism: ${beautyCheck.glassmorphism ? '✅' : '❌'}`);
-    console.log(`Animated Elements: ${beautyCheck.animatedElements}`);
-    console.log(`Gradient Text: ${beautyCheck.gradientText ? '✅' : '❌'}`);
+    
+    
+    
+    
+    
+    `);
+    
+    
+    
+    
     
     // Test animations
-    console.log('\n🎬 Testing Animations...');
+    
     
     // Trigger scroll animations
     await page.evaluate(() => {
@@ -86,7 +86,7 @@ const puppeteer = require('puppeteer');
     await new Promise(r => setTimeout(r, 1000));
     
     // Test hover effects
-    console.log('🖱️ Testing hover effects...');
+    
     const button = await page.$('.contact-link');
     if (button) {
         await button.hover();
@@ -98,7 +98,7 @@ const puppeteer = require('puppeteer');
         path: 'beautiful-ui-test.png',
         fullPage: false
     });
-    console.log('\n📸 Screenshot saved as beautiful-ui-test.png');
+    
     
     // Performance check
     const performance = await page.evaluate(() => {
@@ -110,14 +110,14 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('\n⚡ Performance Metrics:');
-    console.log('======================');
-    console.log(`DOM Content Loaded: ${performance.domContentLoaded}ms`);
-    console.log(`Load Complete: ${performance.loadComplete}ms`);
-    console.log(`Total Time: ${performance.totalTime}ms`);
+    
+    
+    
+    
+    
     
     // Test production URL
-    console.log('\n🌐 Testing production site...');
+    
     await page.goto('https://adrianwedd.github.io/cv/', {
         waitUntil: 'networkidle0',
         timeout: 60000
@@ -133,22 +133,22 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('\n🚀 Production Status:');
-    console.log('====================');
-    console.log(`Beautiful CSS: ${productionCheck.beautifulCSS ? '✅ Deployed' : '⏳ Deploying...'}`);
-    console.log(`Animations: ${productionCheck.bgAnimation ? '✅ Active' : '⏳ Loading...'}`);
-    console.log(`Particles: ${productionCheck.particles ? '✅ Visible' : '⏳ Initializing...'}`);
+    
+    
+    
+    
+    
     
     await page.screenshot({ 
         path: 'beautiful-ui-production.png',
         fullPage: false
     });
-    console.log('\n📸 Production screenshot saved as beautiful-ui-production.png');
     
-    console.log('\n🎉 Beautiful UI test complete!');
-    console.log('The site now features stunning visual effects and animations!');
+    
+    
+    
     
     // Keep browser open for manual inspection
-    console.log('\n👀 Browser will stay open for manual inspection...');
-    console.log('Close the browser window when done.');
+    
+    
 })();

@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     
-    console.log('Checking theme application timing...\n');
+    
     
     // Track theme changes over time
     let themeHistory = [];
@@ -34,24 +34,24 @@ const puppeteer = require('puppeteer');
             const curr = themeHistory[i];
             
             if (prev.dataTheme !== curr.dataTheme) {
-                console.log(`🎨 Theme changed: ${prev.dataTheme} → ${curr.dataTheme} at ${i * 0.5}s`);
+                
             }
             
             if (prev.bodyBg !== curr.bodyBg) {
-                console.log(`🎨 Background changed: ${prev.bodyBg} → ${curr.bodyBg} at ${i * 0.5}s`);
+                
             }
             
             if (prev.cvAppExists !== curr.cvAppExists) {
-                console.log(`⚙️ CVApp loaded at ${i * 0.5}s`);
+                
             }
         }
     }
     
-    console.log('\n=== FINAL STATUS ===');
+    
     const final = themeHistory[themeHistory.length - 1];
-    console.log('data-theme:', final.dataTheme);
-    console.log('Background:', final.bodyBg);
-    console.log('CVApp exists:', final.cvAppExists);
+    
+    
+    
     
     // Check if theme is being applied through CSS only
     const cssCheck = await page.evaluate(() => {
@@ -65,10 +65,10 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('\n=== CSS APPLICATION ===');
-    console.log('Applied background:', cssCheck.appliedBg);
-    console.log('Applied text color:', cssCheck.appliedColor);
-    console.log('Has data-theme attribute:', cssCheck.hasThemeAttribute);
+    
+    
+    
+    
     
     await browser.close();
 })();

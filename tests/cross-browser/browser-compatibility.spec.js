@@ -64,7 +64,7 @@ test.describe('Cross-Browser Compatibility', () => {
         await expect(page.locator('main')).toBeVisible();
       } catch (error) {
         // Dashboard page might not exist - that's ok for this test
-        console.log('Dashboard page not available:', error.message);
+        
       }
     });
   });
@@ -165,7 +165,7 @@ test.describe('Cross-Browser Compatibility', () => {
           await expect(page.locator('.dashboard-container, main')).toBeVisible({ timeout: 5000 });
         }
       } catch (error) {
-        console.log('Dashboard navigation skipped:', error.message);
+        
       }
       
       // Wait for potential JS execution
@@ -200,7 +200,7 @@ test.describe('Cross-Browser Compatibility', () => {
           expect(cardCount).toBeGreaterThanOrEqual(0); // Graceful degradation - any count is acceptable
         }
       } catch (error) {
-        console.log('Dashboard test skipped - page not available:', error.message);
+        
         // If dashboard doesn't exist, test still passes (graceful degradation)
       }
     });
@@ -247,7 +247,7 @@ test.describe('Cross-Browser Compatibility', () => {
         }
       } catch (error) {
         // Fall back to testing grid/flex on main page
-        console.log('Dashboard CSS test skipped, testing main page:', error.message);
+        
         await page.goto('/');
         const mainSections = page.locator('section, .section, main > div');
         const count = await mainSections.count();
@@ -421,7 +421,7 @@ test.describe('Cross-Browser Compatibility', () => {
         }
       } catch (error) {
         // Test browser navigation with available pages only
-        console.log('Dashboard navigation test skipped, testing basic navigation:', error.message);
+        
         
         // Test basic back/forward with same page
         await page.reload();

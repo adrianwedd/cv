@@ -1,0 +1,29 @@
+{
+  "critical": {
+    "priority": "high",
+    "resources": [
+      "assets/script.critical.min.js",
+      "assets/micro-critical.min.css",
+      "data/base-cv.json"
+    ],
+    "strategy": "preload"
+  },
+  "important": {
+    "priority": "medium",
+    "resources": [
+      "assets/chunks/performance-monitor.min.js",
+      "assets/chunks/github-integration.min.js",
+      "assets/styles-beautiful.min.css"
+    ],
+    "strategy": "modulepreload"
+  },
+  "deferred": {
+    "priority": "low",
+    "resources": [
+      "assets/chunks/export-system.min.js",
+      "assets/chunks/data-visualizer.min.js",
+      "data/activity-summary.json"
+    ],
+    "strategy": "prefetch"
+  }
+}

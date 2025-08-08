@@ -18,7 +18,7 @@ class OAuthUsageDashboard {
      * Initialize dashboard
      */
     async init() {
-        console.log('🚀 Initializing OAuth Usage Dashboard');
+        
         
         try {
             // Setup event listeners
@@ -33,7 +33,7 @@ class OAuthUsageDashboard {
             // Initialize charts
             this.initializeCharts();
             
-            console.log('✅ Dashboard initialized successfully');
+            
             
         } catch (error) {
             console.error('❌ Failed to initialize dashboard:', error);
@@ -92,7 +92,7 @@ class OAuthUsageDashboard {
         this.setRefreshButtonLoading(true);
         
         try {
-            console.log('🔄 Refreshing usage data...');
+            
             
             // Simulate API call (replace with actual data fetching)
             const usageData = await this.fetchUsageData();
@@ -109,7 +109,7 @@ class OAuthUsageDashboard {
             // Update timestamp
             document.getElementById('last-updated').textContent = new Date().toLocaleString();
             
-            console.log('✅ Data refreshed successfully');
+            
             
         } catch (error) {
             console.error('❌ Failed to refresh data:', error);
@@ -394,7 +394,7 @@ class OAuthUsageDashboard {
             }
         }, this.dataRefreshInterval);
         
-        console.log(`🔄 Auto-refresh started (every ${this.dataRefreshInterval/1000}s)`);
+        `);
     }
 
     /**
@@ -404,7 +404,7 @@ class OAuthUsageDashboard {
         if (this.refreshTimer) {
             clearInterval(this.refreshTimer);
             this.refreshTimer = null;
-            console.log('⏹️ Auto-refresh stopped');
+            
         }
     }
 
@@ -449,7 +449,7 @@ class OAuthUsageDashboard {
         });
         
         // Update cost display based on period
-        console.log(`Switched to ${period} view`);
+        
     }
 
     /**
@@ -461,7 +461,7 @@ class OAuthUsageDashboard {
         });
         
         // Update chart data based on range
-        console.log(`Switched chart to ${range} range`);
+        
     }
 
     /**
@@ -472,7 +472,7 @@ class OAuthUsageDashboard {
             const config = this.gatherConfiguration();
             
             // Save configuration (implement actual saving)
-            console.log('💾 Saving configuration:', config);
+            
             
             // Show success message
             alert('Configuration saved successfully!');
@@ -498,7 +498,7 @@ class OAuthUsageDashboard {
                 input.value = defaults[index] || 0;
             });
             
-            console.log('🔄 Configuration reset to defaults');
+            
         }
     }
 
@@ -523,7 +523,7 @@ class OAuthUsageDashboard {
      * Update tier selection
      */
     updateTierSelection(tier) {
-        console.log(`Tier updated to: ${tier}`);
+        
         
         // Update quota limits and costs based on tier
         // This would typically trigger a data refresh
@@ -542,7 +542,7 @@ class OAuthUsageDashboard {
             }
         });
         
-        console.log('🧹 Dashboard cleaned up');
+        
     }
 }
 

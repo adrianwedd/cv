@@ -50,7 +50,7 @@ describe('Mobile & Responsive Design - Bulletproof Tests', () => {
       });
 
       expect(foundFeatures).toBeGreaterThan(0);
-      console.log(`✅ Found ${foundFeatures} responsive design features in CSS`);
+      
     } else {
       console.warn('⚠️ CSS file not found - basic styling may not be responsive');
       expect(response.status).toBe(404);
@@ -77,7 +77,7 @@ describe('Mobile & Responsive Design - Bulletproof Tests', () => {
     expect(mobileFeatures.viewport || mobileFeatures.responsive).toBe(true);
     
     const foundFeatures = Object.values(mobileFeatures).filter(Boolean).length;
-    console.log(`✅ ${testDevice} compatibility: ${foundFeatures}/4 mobile features detected`);
+    
   });
 
   test('should handle touch-friendly navigation', async () => {
@@ -103,7 +103,7 @@ describe('Mobile & Responsive Design - Bulletproof Tests', () => {
         }
       });
 
-      console.log(`✅ Touch-friendly elements: ${touchElements} detected`);
+      
       // Accept any number - the test is about infrastructure readiness
       expect(touchElements).toBeGreaterThanOrEqual(0);
     }
@@ -122,6 +122,6 @@ describe('Mobile & Responsive Design - Bulletproof Tests', () => {
       expect(implemented).toBe(true);
     });
 
-    console.log(`✅ Mobile testing infrastructure (${testDevice}): Enterprise ready`);
+    : Enterprise ready`);
   });
 });

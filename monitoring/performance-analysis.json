@@ -1,0 +1,452 @@
+{
+  "timestamp": "2025-08-08T16:09:37.823Z",
+  "baseline": {
+    "totalSize": 2147974,
+    "jsSize": 930553,
+    "cssSize": 637462,
+    "imageSize": 0,
+    "fileCount": 66,
+    "criticalResources": [
+      {
+        "name": "advanced-analytics-styles.css",
+        "size": 17076,
+        "type": "css",
+        "critical": true
+      },
+      {
+        "name": "cv-export-styles.css",
+        "size": 28920,
+        "type": "css",
+        "critical": true
+      },
+      {
+        "name": "personalization-styles.css",
+        "size": 14848,
+        "type": "css",
+        "critical": true
+      },
+      {
+        "name": "project-showcase-styles.css",
+        "size": 18828,
+        "type": "css",
+        "critical": true
+      },
+      {
+        "name": "script.critical.js",
+        "size": 7712,
+        "type": "js",
+        "critical": true
+      },
+      {
+        "name": "script.critical.min.js",
+        "size": 4469,
+        "type": "js",
+        "critical": true
+      },
+      {
+        "name": "script.js",
+        "size": 91669,
+        "type": "js",
+        "critical": true
+      },
+      {
+        "name": "script.min.js",
+        "size": 91669,
+        "type": "js",
+        "critical": true
+      },
+      {
+        "name": "styles.css",
+        "size": 34624,
+        "type": "css",
+        "critical": true
+      },
+      {
+        "name": "styles.min.css",
+        "size": 24170,
+        "type": "css",
+        "critical": true
+      }
+    ],
+    "nonCriticalResources": [
+      {
+        "name": "advanced-analytics-platform.js",
+        "size": 37901,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "ai-content-enhancement.js",
+        "size": 500,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "ats-analyzer.js",
+        "size": 26715,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "beautiful-enhancements.js",
+        "size": 12827,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "beautiful-enhancements.min.js",
+        "size": 6606,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "cache-buster.js",
+        "size": 1565,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "career-intelligence.css",
+        "size": 14381,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "career-intelligence.js",
+        "size": 47154,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "content-remediation-system.js",
+        "size": 22350,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "core-web-vitals-tracker.js",
+        "size": 4065,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "critical-fixes.css",
+        "size": 5887,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "critical.min.css",
+        "size": 143798,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "css-lazy-loader.js",
+        "size": 2801,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "cv-export-system.js",
+        "size": 70573,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "cv-template-engine.js",
+        "size": 36602,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "development-intelligence-dashboard.js",
+        "size": 66066,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "dynamic-loader.js",
+        "size": 2567,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "github-actions-analytics.js",
+        "size": 19134,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "github-actions-drill-down.js",
+        "size": 18028,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "github-actions-visualizer.js",
+        "size": 44321,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "header-fixes.css",
+        "size": 2019,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "intelligent-content-adapter.js",
+        "size": 531,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "intelligent-cv-personalization.js",
+        "size": 68349,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "interactive-project-showcase.js",
+        "size": 28638,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "lazy-loader.js",
+        "size": 21791,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "market-intelligence-engine.js",
+        "size": 585,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "micro-critical.min.css",
+        "size": 4425,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "mobile-dashboard.css",
+        "size": 5297,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "mobile-dashboard.js",
+        "size": 7696,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "non-critical.min.css",
+        "size": 155887,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "oauth-usage-dashboard.css",
+        "size": 12542,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "oauth-usage-dashboard.js",
+        "size": 18946,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "performance-dashboard.css",
+        "size": 7090,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "performance-dashboard.js",
+        "size": 12756,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "performance-data-collector.js",
+        "size": 3134,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "performance-monitor.js",
+        "size": 32082,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "performance-monitor.min.js",
+        "size": 2006,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "position-analysis-engine.js",
+        "size": 21199,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "progressive-loader.js",
+        "size": 27454,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "pwa-enhancements.js",
+        "size": 9523,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "pwa-mobile.css",
+        "size": 7132,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "resource-monitor.js",
+        "size": 3106,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "script.ultra.js",
+        "size": 2611,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "smart-preloader.js",
+        "size": 7723,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "strategic-career-positioning.js",
+        "size": 625,
+        "type": "js",
+        "critical": false
+      },
+      {
+        "name": "styles-beautiful.css",
+        "size": 11411,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "styles-beautiful.min.css",
+        "size": 8785,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "styles-old.css",
+        "size": 73188,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "styles.micro.css",
+        "size": 6938,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "styles.ultra.css",
+        "size": 8334,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "watch-me-work.css",
+        "size": 31882,
+        "type": "css",
+        "critical": false
+      },
+      {
+        "name": "watch-me-work.js",
+        "size": 46504,
+        "type": "js",
+        "critical": false
+      }
+    ]
+  },
+  "budgets": {
+    "maxTotalSize": 500000,
+    "maxJSSize": 150000,
+    "maxCSSSize": 50000,
+    "maxImageSize": 200000,
+    "maxCriticalCSS": 15000
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "bundle-size",
+      "issue": "Total bundle size (2097.63KB) exceeds budget (488.28KB)",
+      "solution": "Implement code splitting and tree shaking",
+      "impact": "high",
+      "effort": "medium",
+      "savings": "1609.35KB potential reduction"
+    },
+    {
+      "priority": "high",
+      "category": "javascript-optimization",
+      "issue": "JavaScript size (908.74KB) exceeds budget (146.48KB)",
+      "solution": "Split JavaScript into critical and non-critical chunks",
+      "impact": "high",
+      "effort": "medium",
+      "savings": "762.26KB potential reduction"
+    },
+    {
+      "priority": "medium",
+      "category": "css-optimization",
+      "issue": "CSS size (622.52KB) exceeds budget (48.83KB)",
+      "solution": "Implement critical CSS inlining and lazy load non-critical styles",
+      "impact": "medium",
+      "effort": "low",
+      "savings": "573.69KB potential reduction"
+    },
+    {
+      "priority": "high",
+      "category": "text-compression",
+      "issue": "Text resources not optimally compressed for GitHub Pages",
+      "solution": "Implement gzip/brotli simulation through minification and smart caching",
+      "impact": "high",
+      "effort": "low",
+      "savings": "~1200ms load time improvement"
+    },
+    {
+      "priority": "medium",
+      "category": "resource-hints",
+      "issue": "Missing optimal resource hints for critical resources",
+      "solution": "Add preload, prefetch, and preconnect hints for critical resources",
+      "impact": "medium",
+      "effort": "low",
+      "savings": "~300ms FCP improvement"
+    }
+  ],
+  "summary": {
+    "totalSizeKB": 2098,
+    "jsSizeKB": 909,
+    "cssSizeKB": 623,
+    "imageSizeKB": 0,
+    "fileCount": 66,
+    "budgetStatus": {
+      "totalSize": "fail",
+      "jsSize": "fail",
+      "cssSize": "fail"
+    }
+  }
+}

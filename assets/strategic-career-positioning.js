@@ -5,7 +5,7 @@
 
 window.StrategicCareerPositioning = {
   init() {
-    console.log('Strategic Career Positioning initialized');
+    
   },
   
   analyze() {

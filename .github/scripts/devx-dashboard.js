@@ -693,7 +693,7 @@ class DevXDashboard {
 
         // Send initial data
         this.collectSystemStatus().then(status => {
-            res.write(\`data: \${JSON.stringify(status)}\\n\\n\`);
+            res.write(`data: ${JSON.stringify(status)}\n\n`);
         });
     }
 
@@ -729,7 +729,7 @@ class DevXDashboard {
             case 'deploy':
                 return await execAsync('node devx-cli.js deploy', { cwd: __dirname });
             default:
-                throw new Error(\`Unknown action: \${action}\`);
+                throw new Error(`Unknown action: ${action}`);
         }
     }
 
@@ -742,7 +742,7 @@ class DevXDashboard {
                 // Broadcast to all connected clients
                 this.clients.forEach(client => {
                     try {
-                        client.write(\`data: \${JSON.stringify(status)}\\n\\n\`);
+                        client.write(`data: ${JSON.stringify(status)}\n\n`);
                     } catch (error) {
                         this.clients.delete(client);
                     }
@@ -779,7 +779,7 @@ class DevXDashboard {
 }
 
 // CLI Entry Point
-if (import.meta.url === \`file://\${process.argv[1]}\`) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     const dashboard = new DevXDashboard({
         port: process.argv[2] || 3333,
         refreshInterval: 5000

@@ -11,6 +11,10 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/assets/versioned/styles-consolidated.min.css" as="style">
+  <link rel="preload" href="/assets/versioned/script-consolidated.min.js" as="script">
 </head>
 
 <body>
@@ -73,7 +77,7 @@ class CVApplication {
      * Initialize the application
      */
     async init() {
-        console.log('🚀 Initializing CV Application...');
+        
         
         try {
             // Set initial theme
@@ -97,7 +101,7 @@ class CVApplication {
             // Complete loading sequence
             this.completeLoadingSequence();
             
-            console.log('✅ CV Application initialized successfully');
+            
             
         } catch (error) {
             console.error('❌ Application initialization failed:', error);
@@ -189,7 +193,7 @@ class CVApplication {
      * Load application data from various sources
      */
     async loadApplicationData() {
-        console.log('📊 Loading application data...');
+        
         
         const dataPromises = [
             this.loadCVData(),
@@ -206,7 +210,7 @@ class CVApplication {
             this.aiEnhancements = aiData.status === 'fulfilled' ? aiData.value : {};
             this.githubStats = githubStats.status === 'fulfilled' ? githubStats.value : {};
             
-            console.log('✅ Application data loaded successfully');
+            
             
         } catch (error) {
             console.warn('⚠️ Some data failed to load:', error);
@@ -625,7 +629,7 @@ class CVApplication {
      */
     handleWindowResize() {
         // Update any responsive calculations if needed
-        console.log('Window resized');
+        
     }
 
     /**
@@ -660,7 +664,7 @@ class CVApplication {
             }
             
             this.isLoading = false;
-            console.log(`✅ Loading completed in ${loadingTime}ms`);
+            
         }, Math.max(0, minLoadingTime - loadingTime));
     }
 

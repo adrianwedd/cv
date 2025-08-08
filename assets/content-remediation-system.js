@@ -21,7 +21,7 @@ class ContentRemediationSystem {
      * Initialize the remediation system
      */
     async init() {
-        console.log('🛠️ Initializing Content Remediation System...');
+        
         
         try {
             this.setupRemediationRules();
@@ -29,7 +29,7 @@ class ContentRemediationSystem {
             await this.loadContentSources();
             
             this.isInitialized = true;
-            console.log('✅ Content Remediation System initialized successfully');
+            
             
         } catch (error) {
             console.error('❌ Content Remediation System initialization failed:', error);

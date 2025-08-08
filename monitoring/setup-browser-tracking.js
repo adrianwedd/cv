@@ -15,19 +15,19 @@ class BrowserTrackingSetup {
     }
 
     async setup() {
-        console.log('🔧 Setting up LangSmith Browser Tracking');
-        console.log('=======================================\n');
+        
+        
 
         await this.checkFiles();
         await this.backupIndex();
         await this.injectTrackingScript();
         await this.generateInstructions();
         
-        console.log('✅ Browser tracking setup completed!');
+        
     }
 
     async checkFiles() {
-        console.log('1️⃣ Checking required files...');
+        
         
         if (!fs.existsSync(this.indexPath)) {
             throw new Error(`index.html not found at: ${this.indexPath}`);
@@ -37,27 +37,27 @@ class BrowserTrackingSetup {
             throw new Error(`browser-tracking.js not found at: ${this.trackingScriptPath}`);
         }
         
-        console.log('   ✅ index.html found');
-        console.log('   ✅ browser-tracking.js found');
+        
+        
     }
 
     async backupIndex() {
-        console.log('\\n2️⃣ Creating backup...');
+        
         
         const backupPath = `${this.indexPath}.backup.${Date.now()}`;
         fs.copyFileSync(this.indexPath, backupPath);
         
-        console.log(`   ✅ Backup created: ${path.basename(backupPath)}`);
+        }`);
     }
 
     async injectTrackingScript() {
-        console.log('\\n3️⃣ Injecting tracking script...');
+        
         
         let html = fs.readFileSync(this.indexPath, 'utf8');
         
         // Check if tracking is already injected
         if (html.includes('LangSmith Tracking')) {
-            console.log('   ⚠️  Tracking script already present');
+            
             return;
         }
         
@@ -83,11 +83,11 @@ ${trackingScript}
         // Write updated HTML
         fs.writeFileSync(this.indexPath, html);
         
-        console.log('   ✅ Tracking script injected into index.html');
+        
     }
 
     async generateInstructions() {
-        console.log('\\n4️⃣ Generating setup instructions...');
+        
         
         const instructions = `
 # LangSmith Browser Tracking - Setup Complete
@@ -168,7 +168,7 @@ Created: ${new Date().toISOString()}
         const instructionsPath = path.join(__dirname, 'BROWSER_TRACKING_SETUP.md');
         fs.writeFileSync(instructionsPath, instructions.trim());
         
-        console.log('   ✅ Instructions saved to BROWSER_TRACKING_SETUP.md');
+        
     }
 }
 

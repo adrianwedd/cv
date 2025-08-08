@@ -25,10 +25,10 @@ class SecurityMonitoringSystem {
     }
 
     async runSecurityScan() {
-        console.log('🛡️ **CV SYSTEM SECURITY MONITORING INITIATED**');
-        console.log('===========================================');
-        console.log(`📅 Scan Time: ${this.timestamp}`);
-        console.log('');
+        
+        
+        
+        
 
         try {
             // Core security checks
@@ -53,7 +53,7 @@ class SecurityMonitoringSystem {
     }
 
     async checkAuthenticationSecurity() {
-        console.log('🔐 **AUTHENTICATION SECURITY ASSESSMENT**');
+        
         
         const authMethods = {
             browser: { configured: false, secure: false },
@@ -71,9 +71,9 @@ class SecurityMonitoringSystem {
         for (const envVar of envVars) {
             if (process.env[envVar]) {
                 configuredSecrets++;
-                console.log(`   ✅ ${envVar}: Configured`);
+                
             } else {
-                console.log(`   ❌ ${envVar}: Missing`);
+                
             }
         }
 
@@ -91,12 +91,12 @@ class SecurityMonitoringSystem {
         // Check for hardcoded credentials in source code
         await this.scanForHardcodedCredentials();
         
-        console.log(`   📊 Authentication Score: ${this.calculateAuthScore(configuredSecrets)}/100`);
-        console.log('');
+        }/100`);
+        
     }
 
     async scanForHardcodedCredentials() {
-        console.log('   🔍 Scanning for hardcoded credentials...');
+        
         
         const dangerousPatterns = [
             /api_key\s*=\s*["'][^"']{10,}["']/gi,
@@ -139,15 +139,15 @@ class SecurityMonitoringSystem {
                         }
                     }
                 } catch (error) {
-                    console.log(`     ⚠️ Could not scan ${file}: ${error.message}`);
+                    
                 }
             }
 
             if (credentialIssues === 0) {
-                console.log('     ✅ No hardcoded credentials detected');
+                
                 this.addFinding('info', 'Clean credential scanning', 'No hardcoded credentials found in source code.');
             } else {
-                console.log(`     ⚠️ ${credentialIssues} potential credential issues found`);
+                
             }
 
         } catch (error) {
@@ -156,7 +156,7 @@ class SecurityMonitoringSystem {
     }
 
     async checkDependencyVulnerabilities() {
-        console.log('📦 **DEPENDENCY VULNERABILITY SCAN**');
+        
         
         try {
             // Run npm audit
@@ -170,11 +170,11 @@ class SecurityMonitoringSystem {
                 low: auditData.metadata?.vulnerabilities?.low || 0
             };
 
-            console.log(`   🔍 Vulnerabilities found:`);
-            console.log(`     Critical: ${vulnCounts.critical}`);
-            console.log(`     High: ${vulnCounts.high}`);
-            console.log(`     Moderate: ${vulnCounts.moderate}`);
-            console.log(`     Low: ${vulnCounts.low}`);
+            
+            
+            
+            
+            
 
             if (vulnCounts.critical > 0) {
                 this.addFinding('critical', 'Critical dependency vulnerabilities', 
@@ -196,19 +196,19 @@ class SecurityMonitoringSystem {
         } catch (error) {
             if (error.status === 1) {
                 // npm audit returns exit code 1 when vulnerabilities are found
-                console.log('   ⚠️ Vulnerabilities detected (see npm audit output)');
+                ');
                 this.addFinding('medium', 'Dependency vulnerabilities present', 'Run npm audit for details.');
             } else {
-                console.log(`   ❌ Dependency scan failed: ${error.message}`);
+                
                 this.addFinding('medium', 'Dependency scan failed', `Could not complete npm audit: ${error.message}`);
             }
         }
 
-        console.log('');
+        
     }
 
     async checkSecretsExposure() {
-        console.log('🔒 **SECRETS EXPOSURE ASSESSMENT**');
+        
         
         // Check git history for accidentally committed secrets
         try {
@@ -221,11 +221,11 @@ class SecurityMonitoringSystem {
             );
 
             if (suspiciousCommits.length > 0) {
-                console.log(`   ⚠️ Found ${suspiciousCommits.length} commits with credential-related keywords`);
+                
                 this.addFinding('medium', 'Suspicious commit messages', 
                     `${suspiciousCommits.length} commits contain credential-related keywords. Manual review recommended.`);
             } else {
-                console.log('   ✅ No suspicious commit messages found');
+                
             }
 
             // Check for .env files that might be tracked
@@ -235,22 +235,22 @@ class SecurityMonitoringSystem {
             );
 
             if (envFiles.length > 0) {
-                console.log(`   ⚠️ Found ${envFiles.length} .env files in git tracking`);
+                
                 this.addFinding('high', 'Environment files tracked', 
                     'Environment files should not be committed to version control.');
             } else {
-                console.log('   ✅ No environment files tracked in git');
+                
             }
 
         } catch (error) {
             this.addFinding('low', 'Git history scan failed', `Could not scan git history: ${error.message}`);
         }
 
-        console.log('');
+        
     }
 
     async checkFilePermissions() {
-        console.log('📂 **FILE PERMISSIONS AUDIT**');
+        
         
         try {
             const sensitiveFiles = [
@@ -272,17 +272,17 @@ class SecurityMonitoringSystem {
                 }
             }
 
-            console.log('   ✅ File permissions audit completed');
+            
 
         } catch (error) {
             this.addFinding('low', 'File permissions audit failed', error.message);
         }
 
-        console.log('');
+        
     }
 
     async checkWebsiteSecurityHeaders() {
-        console.log('🌐 **WEBSITE SECURITY HEADERS ASSESSMENT**');
+        
         
         // Check if security headers are implemented in HTML
         try {
@@ -300,9 +300,9 @@ class SecurityMonitoringSystem {
             for (const header of securityHeaders) {
                 if (indexHtml.includes(header)) {
                     implementedHeaders++;
-                    console.log(`   ✅ ${header}: Implemented`);
+                    
                 } else {
-                    console.log(`   ❌ ${header}: Missing`);
+                    
                 }
             }
 
@@ -314,17 +314,17 @@ class SecurityMonitoringSystem {
                     `${securityHeaders.length - implementedHeaders} security headers missing from website.`);
             }
 
-            console.log(`   📊 Security Headers Score: ${Math.round((implementedHeaders/securityHeaders.length) * 100)}/100`);
+             * 100)}/100`);
 
         } catch (error) {
             this.addFinding('medium', 'Security headers check failed', `Could not analyze HTML: ${error.message}`);
         }
 
-        console.log('');
+        
     }
 
     async checkGitSecurityHygiene() {
-        console.log('📝 **GIT SECURITY HYGIENE CHECK**');
+        
         
         try {
             // Check for .gitignore completeness
@@ -353,17 +353,17 @@ class SecurityMonitoringSystem {
                 this.addFinding('info', 'Recent security commits', 'Security fixes detected in recent commits.');
             }
 
-            console.log('   ✅ Git security hygiene check completed');
+            
 
         } catch (error) {
             this.addFinding('low', 'Git hygiene check failed', error.message);
         }
 
-        console.log('');
+        
     }
 
     async generateSecurityReport() {
-        console.log('📋 **GENERATING COMPREHENSIVE SECURITY REPORT**');
+        
         
         const report = {
             timestamp: this.timestamp,
@@ -385,9 +385,9 @@ class SecurityMonitoringSystem {
         await fs.mkdir('data', { recursive: true });
         await fs.writeFile('data/security-report.json', JSON.stringify(report, null, 2));
         
-        console.log(`   📄 Security report saved: data/security-report.json`);
-        console.log(`   🎯 Security Score: ${report.score.overall}/100`);
-        console.log('');
+        
+        
+        
 
         return report;
     }
@@ -404,7 +404,7 @@ class SecurityMonitoringSystem {
         };
 
         await fs.writeFile('data/security-metrics.json', JSON.stringify(metrics, null, 2));
-        console.log('📊 Security metrics updated: data/security-metrics.json');
+        
     }
 
     // Helper methods
@@ -572,18 +572,18 @@ async function main() {
         const monitor = new SecurityMonitoringSystem();
         const result = await monitor.runSecurityScan();
         
-        console.log('🛡️ **SECURITY MONITORING SUMMARY**');
-        console.log('================================');
-        console.log(`Overall Score: ${result.overall}/100 (${result.status})`);
-        console.log(`Risk Level: ${monitor.getRiskLevel()}`);
-        console.log('');
+        
+        
+        `);
+        }`);
+        
         
         // Exit with appropriate code
         process.exit(result.overall < 60 ? 1 : 0);
     }
     
-    console.log('🛡️ CV System Security Monitoring Tool');
-    console.log('Usage: node security-monitoring-system.js monitor');
+    
+    
 }
 
 // Execute if run directly

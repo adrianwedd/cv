@@ -25,7 +25,7 @@ const puppeteer = require('puppeteer');
         }
     });
     
-    console.log('Loading page and checking for JS errors...\n');
+    
     
     await page.goto('https://adrianwedd.github.io/cv/', { 
         waitUntil: 'networkidle0',
@@ -34,25 +34,25 @@ const puppeteer = require('puppeteer');
     
     await new Promise(r => setTimeout(r, 5000));
     
-    console.log('=== ERRORS ===');
+    
     if (errors.length > 0) {
-        errors.forEach(error => console.log('❌', error));
+        errors.forEach(error => );
     } else {
-        console.log('✅ No JavaScript errors detected');
+        
     }
     
-    console.log('\n=== CONSOLE MESSAGES ===');
+    
     consoleMessages.forEach(msg => {
         if (msg.includes('error') || msg.includes('Error') || msg.includes('failed')) {
-            console.log('🔥', msg);
+            
         } else if (msg.includes('warn')) {
-            console.log('⚠️', msg);
+            
         } else {
-            console.log('📝', msg);
+            
         }
     });
     
-    console.log('\n=== SCRIPT LOADING CHECK ===');
+    
     const scriptCheck = await page.evaluate(() => {
         const scripts = Array.from(document.querySelectorAll('script[src]'));
         return {
@@ -66,10 +66,10 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('Scripts:', scriptCheck.scripts);
-    console.log('CVApplication in window:', scriptCheck.cvAppInWindow);
-    console.log('CONFIG in window:', scriptCheck.configInWindow);
-    console.log('DOM ready state:', scriptCheck.domContentLoaded);
+    
+    
+    
+    
     
     await browser.close();
 })();

@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
     await page.setViewport({ width: 1400, height: 900 });
     
-    console.log('🎨 Verifying Beautiful UI on Production...\n');
+    
     
     await page.goto('https://adrianwedd.github.io/cv/', {
         waitUntil: 'networkidle0',
@@ -39,15 +39,15 @@ const puppeteer = require('puppeteer');
         };
     });
     
-    console.log('✨ BEAUTIFUL UI STATUS:');
-    console.log('========================');
-    console.log(`✅ Beautiful CSS Loaded: ${beautyStatus.beautifulCSS}`);
-    console.log(`✅ Background Animation: ${beautyStatus.bgAnimation}`);
-    console.log(`✅ Gradient Orbs: ${beautyStatus.gradientOrbs}`);
-    console.log(`✅ Particles: ${beautyStatus.particles}`);
-    console.log(`✅ Custom Cursor: ${beautyStatus.customCursor}`);
-    console.log(`✅ Glassmorphism: ${beautyStatus.glassmorphismCards}`);
-    console.log(`✅ Gradient Text: ${beautyStatus.gradientName}`);
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // Take beautiful screenshot
     await page.screenshot({
@@ -55,8 +55,8 @@ const puppeteer = require('puppeteer');
         fullPage: false
     });
     
-    console.log('\n📸 Beautiful UI screenshot saved!');
-    console.log('🎉 The CV site is now BEAUTIFUL with premium animations!');
+    
+    
     
     await browser.close();
 })();

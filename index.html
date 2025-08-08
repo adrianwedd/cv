@@ -3,6 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+
+    <!-- Enhanced Resource Hints for Performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://api.github.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Critical Resource Preloading -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link rel="preload" href="assets/script.critical.min.js" as="script">
+    <link rel="preload" href="assets/dynamic-loader.js" as="script">
+    <link rel="preload" href="data/base-cv.json" as="fetch" crossorigin>
+    <link rel="modulepreload" href="assets/chunks/performance-monitor.min.js">
+    <link rel="modulepreload" href="assets/chunks/github-integration.min.js">
+    <link rel="modulepreload" href="assets/chunks/data-visualizer.min.js">
+
+    <!-- Prefetch for Likely Next Resources -->
+    <link rel="prefetch" href="assets/chunks/export-system.min.js">
+    <link rel="prefetch" href="data/activity-summary.json">
+    <link rel="prefetch" href="data/ai-enhancements.json">
+
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -34,7 +57,10 @@
     
     <!-- Essential resource hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="modulepreload" href="assets/script.min.js">
+    <link rel="modulepreload" href="assets/script.critical.min.js">
+    <link rel="modulepreload" href="assets/chunks/performance-monitor.min.js">
+    <link rel="modulepreload" href="assets/chunks/github-integration.min.js">
+    <link rel="modulepreload" href="assets/chunks/data-visualizer.min.js">
     
     <!-- Optimized font loading with critical path -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +70,7 @@
     
     <!-- Preload optimized resources -->
     <link rel="preload" href="assets/styles.min.css" as="style">
-    <link rel="preload" href="assets/script.min.js" as="script">
+    <link rel="preload" href="assets/script.critical.min.js" as="script">
     
     <!-- Icons and PWA Manifest -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
@@ -52,10 +78,19 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad192' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%232563eb;stop-opacity:1' /><stop offset='100%' style='stop-color:%2310b981;stop-opacity:1' /></linearGradient></defs><rect width='192' height='192' rx='38' fill='url(%23grad192)'/><text x='96' y='125' font-family='system-ui, sans-serif' font-size='86' font-weight='600' text-anchor='middle' fill='white'>AW</text><circle cx='144' cy='48' r='15' fill='%2310b981' opacity='0.8'/></svg>">
     
     <!-- Optimized CSS with cache busting -->
-    <link rel="stylesheet" href="assets/styles.min.css?v=20250808-5">
-    <link rel="stylesheet" href="assets/styles-beautiful.min.css?v=20250808-5">
-    <link rel="stylesheet" href="assets/header-fixes.css?v=20250808-5">
-    <link rel="stylesheet" href="assets/critical-fixes.css?v=20250808-5">
+    
+    
+    
+
+        <!-- Micro Critical CSS (ultra-minimal, <15KB) -->
+    <style>:root{--color-primary:#2563eb;--color-secondary:#10b981;--color-background:#0a0a0b;--color-surface:#1a1a1b;--color-text-primary:#fff;--color-text-secondary:#a3a3a3;--color-accent:#f59e0b;--font-family:'Inter',sans-serif;--radius-sm:.375rem;--shadow-lg:0 10px 15px -3px rgba(0,0,0,.1);--transition-base:all .2s ease-in-out}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{font-size:16px;line-height:1.5;scroll-behavior:smooth}body{font-family:var(--font-family);background:var(--color-background);color:var(--color-text-primary);min-height:100vh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}[data-theme="dark"]{--color-background:#0a0a0b;--color-surface:#1a1a1b;--color-text-primary:#fff;--color-text-secondary:#a3a3a3}.container{max-width:1200px;margin:0 auto;padding:0 1rem}.loading-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--color-background);display:flex;align-items:center;justify-content:center;z-index:9999}.loading-content{text-align:center}.loading-spinner{width:2rem;height:2rem;border:2px solid var(--color-primary);border-top:2px solid transparent;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1rem}@keyframes spin{to{transform:rotate(360deg)}}.loading-text{color:var(--color-text-secondary);font-size:.875rem;margin-bottom:1rem}.loading-progress{width:200px;height:2px;background:var(--color-surface);border-radius:1px;overflow:hidden;margin:0 auto}.loading-bar{height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-secondary));width:0%;animation:loadingProgress 2s ease-in-out infinite}@keyframes loadingProgress{0%{width:0%}50%{width:70%}100%{width:100%}}.header{position:relative;padding:2rem 0;background:linear-gradient(135deg,var(--color-background) 0%,var(--color-surface) 100%);border-bottom:1px solid rgba(255,255,255,.1)}.header-content{display:flex;flex-wrap:wrap;gap:2rem;align-items:center}.profile-section{display:flex;align-items:center;gap:1.5rem}.profile-image{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));display:flex;align-items:center;justify-content:center}.profile-placeholder{font-size:1.5rem;font-weight:600;color:white}.name{font-size:2rem;font-weight:700;margin-bottom:.25rem}.title{font-size:1.125rem;color:var(--color-primary);font-weight:500;margin-bottom:.5rem}.tagline{color:var(--color-text-secondary);margin-bottom:.5rem}.location{color:var(--color-text-secondary);font-size:.875rem}.navigation{background:var(--color-surface);border-radius:var(--radius-sm);padding:.5rem;margin-bottom:2rem;border:1px solid rgba(255,255,255,.1)}.nav-items{display:flex;gap:.25rem;flex-wrap:wrap}.nav-item{color:var(--color-text-secondary);text-decoration:none;padding:.75rem 1rem;border-radius:calc(var(--radius-sm) - 2px);transition:var(--transition-base);font-weight:500}.nav-item:hover,.nav-item.active{background:var(--color-primary);color:white}.main-content{opacity:0;visibility:hidden;transition:opacity .3s ease-in-out}.main-content.loaded{opacity:1;visibility:visible}.section{display:none;padding:2rem 0}.section.active{display:block}.section-header{margin-bottom:2rem;text-align:center}.section-title{font-size:2.5rem;font-weight:700;margin-bottom:.5rem;background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}.section-subtitle{color:var(--color-text-secondary);font-size:1.125rem}.sr-only,.skip-link{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}.skip-link:focus{position:fixed;top:1rem;left:1rem;background:var(--color-primary);color:white;padding:.5rem 1rem;border-radius:var(--radius-sm);z-index:10000;width:auto;height:auto;margin:0;overflow:visible;clip:auto;white-space:normal}@media (max-width:768px){.container{padding:0 .75rem}.header-content{flex-direction:column;text-align:center}.profile-section{flex-direction:column}.nav-items{justify-content:center}.section-title{font-size:2rem}}@media (max-width:480px){.container{padding:0 .5rem}.profile-image{width:60px;height:60px}.name{font-size:1.5rem}.title{font-size:1rem}.nav-item{padding:.5rem .75rem;font-size:.875rem}.section-title{font-size:1.75rem}}</style>
+
+    <link rel="preload" href="assets/styles-beautiful.min.css?v=20250808-5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="assets/styles-beautiful.min.css?v=20250808-5"></noscript>
+    <link rel="preload" href="assets/header-fixes.css?v=20250808-5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="assets/header-fixes.css?v=20250808-5"></noscript>
+    <link rel="preload" href="assets/critical-fixes.css?v=20250808-5" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="assets/critical-fixes.css?v=20250808-5"></noscript>
+    <!-- Non-critical CSS (lazy loaded) -->
+    <link rel="preload" href="assets/non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="preload" href="assets/non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="assets/non-critical.min.css"></noscript></noscript>
     
     <!-- Mobile styles included in main CSS -->
     
@@ -717,14 +752,17 @@
     </div>
 
     <!-- Ultra-optimized Scripts with cache busting -->
-    <script src="assets/script.min.js?v=20250808-5" defer></script>
+        <script src="assets/smart-preloader.js" defer></script>
+    <script src="assets/script.critical.min.js?v=20250808-5" defer></script>
+    <script src="assets/dynamic-loader.js" defer></script>
+    <script src="assets/css-lazy-loader.js" defer></script>
     <script src="assets/beautiful-enhancements.min.js?v=20250808-2" defer></script>
     <script src="assets/cache-buster.js?v=20250808-2"></script>
     
     <!-- Ultra-optimized service worker and performance monitoring -->
     <script>
-        if('serviceWorker'in navigator)navigator.serviceWorker.register('/cv/sw.js').then(r=>console.log('SW registered')).catch(()=>{});
-        if('PerformanceObserver'in window){new PerformanceObserver(l=>l.getEntries().forEach(e=>e.entryType==='largest-contentful-paint'&&console.log('LCP:',Math.round(e.startTime)+'ms'))).observe({entryTypes:['largest-contentful-paint']});}
+        if('serviceWorker'in navigator)navigator.serviceWorker.register('/cv/sw.js').then(r=>).catch(()=>{});
+        if('PerformanceObserver'in window){new PerformanceObserver(l=>l.getEntries().forEach(e=>e.entryType==='largest-contentful-paint'&&+'ms'))).observe({entryTypes:['largest-contentful-paint']});}
     </script>
 
     <!-- Intelligence systems loaded lazily via main script -->
@@ -755,7 +793,7 @@
     // Utilities
     function log(...args) {
         if (CONFIG.debug) {
-            console.log('[LangSmith Tracking]', ...args);
+            
         }
     }
     

@@ -27,7 +27,7 @@ class GitHubActionsDrillDown {
      * Initialize drill-down functionality
      */
     init() {
-        console.log('🔍 Initializing GitHub Actions Drill-Down...');
+        
         this.enhanceTimelineWithDrillDown();
     }
     
@@ -43,7 +43,7 @@ class GitHubActionsDrillDown {
             await this.showDetailedRunAnalysis(runId);
         };
         
-        console.log('🔧 Timeline enhanced with drill-down capabilities');
+        
     }
     
     /**

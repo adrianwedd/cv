@@ -43,7 +43,7 @@ class DevelopmentIntelligenceDashboard {
      * Initialize the dashboard
      */
     async init() {
-        console.log('🚀 Initializing Real-Time Development Intelligence Dashboard...');
+        
         
         try {
             // Create dashboard components
@@ -57,7 +57,7 @@ class DevelopmentIntelligenceDashboard {
             // Load initial data
             await this.loadDashboardData();
             
-            console.log('✅ Development Intelligence Dashboard initialized successfully');
+            
         } catch (error) {
             console.error('❌ Failed to initialize Development Intelligence Dashboard:', error);
             this.showError('Failed to initialize development intelligence dashboard');
@@ -75,7 +75,7 @@ class DevelopmentIntelligenceDashboard {
                 repo: this.config.repo,
                 refreshInterval: this.config.refreshInterval
             });
-            console.log('🔄 GitHub Actions Visualizer integration initialized');
+            
         }
         
         // Load activity data
@@ -83,7 +83,7 @@ class DevelopmentIntelligenceDashboard {
             const activityResponse = await fetch('/data/activity-summary.json');
             if (activityResponse.ok) {
                 this.activityData = await activityResponse.json();
-                console.log('📊 Activity data integration initialized');
+                
             }
         } catch (error) {
             console.warn('⚠️ Activity data not available:', error);
@@ -1797,7 +1797,7 @@ class DevelopmentIntelligenceDashboard {
         if (button) button.remove();
         if (dashboard) dashboard.remove();
         
-        console.log('🗑️ Development Intelligence Dashboard destroyed');
+        
     }
 }
 
