@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-08-08T07:10:14.412Z",
+  "type": "authentication_failure",
+  "severity": "high",
+  "message": "Browser authentication refresh failed",
+  "details": {
+    "lastSuccessfulRefresh": null,
+    "consecutiveFailures": 0,
+    "nextCheck": "2025-08-08T07:11:03.874Z"
+  },
+  "recommendedActions": [
+    "Extract fresh cookies from claude.ai manually",
+    "Update .env file with new cookie values",
+    "Run browser-auth-refresh.js test to verify",
+    "Update GitHub secrets if needed"
+  ]
+}

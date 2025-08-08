@@ -40,13 +40,13 @@
       "sessions": 2
     },
     "2025-08-08": {
-      "requests": 19,
-      "input_tokens": 19000,
-      "output_tokens": 9500,
+      "requests": 21,
+      "input_tokens": 21000,
+      "output_tokens": 10500,
       "cache_creation_tokens": 0,
       "cache_read_tokens": 0,
-      "estimated_cost": 0.19950000000000004,
-      "sessions": 19,
+      "estimated_cost": 0.22050000000000006,
+      "sessions": 21,
       "token_alerts_sent": [
         50
       ]
@@ -54,13 +54,13 @@
   },
   "monthly": {
     "2025-08": {
-      "requests": 39,
-      "input_tokens": 172800,
-      "output_tokens": 74100,
+      "requests": 41,
+      "input_tokens": 174800,
+      "output_tokens": 75100,
       "cache_creation_tokens": 0,
       "cache_read_tokens": 0,
-      "estimated_cost": 1.6001999999999992,
-      "sessions": 39
+      "estimated_cost": 1.621199999999999,
+      "sessions": 41
     },
     "2025-07": {
       "requests": 3,
@@ -660,16 +660,44 @@
       "enhancement_mode": "unknown",
       "success": true,
       "estimated_cost": 0.010499999999999999
+    },
+    {
+      "timestamp": "2025-08-08T06:43:07.236Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 1000,
+      "output_tokens": 500,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "unknown",
+      "success": true,
+      "estimated_cost": 0.010499999999999999
+    },
+    {
+      "timestamp": "2025-08-08T06:46:44.781Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 1000,
+      "output_tokens": 500,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "unknown",
+      "success": true,
+      "estimated_cost": 0.010499999999999999
     }
   ],
   "totals": {
-    "requests": 42,
-    "input_tokens": 198100,
-    "output_tokens": 84700,
+    "requests": 44,
+    "input_tokens": 200100,
+    "output_tokens": 85700,
     "cache_tokens": 0,
-    "estimated_cost": 1.8301499999999993,
+    "estimated_cost": 1.8511499999999992,
     "cache_creation_tokens": 0,
     "cache_read_tokens": 0,
-    "sessions": 42
+    "sessions": 44
   }
 }

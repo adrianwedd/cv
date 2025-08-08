@@ -1,0 +1,434 @@
+name: 🎯 Issue Signal Optimization
+
+on:
+  schedule:
+    # Run every 6 hours to maintain issue hygiene
+    - cron: '0 */6 * * *'
+  issues:
+    types: [opened, edited, labeled, unlabeled]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Optimization mode'
+        required: false
+        default: 'analyze'
+        type: choice
+        options:
+          - analyze
+          - crisis
+          - quality
+          - cleanup
+      dry_run:
+        description: 'Dry run (no actual changes)'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # System Health Assessment
+  system-health:
+    name: 📊 System Health Assessment
+    runs-on: ubuntu-latest
+    outputs:
+      health-percentage: ${{ steps.health.outputs.percentage }}
+      crisis-mode: ${{ steps.health.outputs.crisis }}
+      emergency-mode: ${{ steps.health.outputs.emergency }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: .github/scripts
+        run: npm install
+        
+      - name: Run system health check
+        id: health
+        working-directory: .github/scripts
+        run: |
+          echo "🔍 Assessing system health..."
+          
+          # Run production monitoring to get current health
+          node production-monitor.js --mode=health-only || echo "Health check completed with warnings"
+          
+          # Extract health percentage from monitoring data
+          if [ -f "../../data/production-monitoring.json" ]; then
+            HEALTH=$(node -p "JSON.parse(require('fs').readFileSync('../../data/production-monitoring.json', 'utf8')).systemHealth?.percentage || 50")
+            echo "System health: ${HEALTH}%"
+          else
+            HEALTH=50
+            echo "⚠️ No health data found, defaulting to 50%"
+          fi
+          
+          echo "percentage=${HEALTH}" >> $GITHUB_OUTPUT
+          
+          # Determine crisis modes
+          if (( HEALTH < 50 )); then
+            echo "emergency=true" >> $GITHUB_OUTPUT
+            echo "crisis=true" >> $GITHUB_OUTPUT
+            echo "🚨 EMERGENCY MODE: Health ${HEALTH}%"
+          elif (( HEALTH < 80 )); then
+            echo "emergency=false" >> $GITHUB_OUTPUT
+            echo "crisis=true" >> $GITHUB_OUTPUT
+            echo "⚠️ CRISIS MODE: Health ${HEALTH}%"
+          else
+            echo "emergency=false" >> $GITHUB_OUTPUT
+            echo "crisis=false" >> $GITHUB_OUTPUT
+            echo "✅ NORMAL MODE: Health ${HEALTH}%"
+          fi
+
+  # Signal Analysis
+  signal-analysis:
+    name: 🎯 Signal-to-Noise Analysis
+    runs-on: ubuntu-latest
+    needs: system-health
+    outputs:
+      signal-ratio: ${{ steps.analysis.outputs.ratio }}
+      recommendations-count: ${{ steps.analysis.outputs.recommendations }}
+      deferred-count: ${{ steps.analysis.outputs.deferred }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: .github/scripts
+        run: npm install
+        
+      - name: Configure GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth status
+          
+      - name: Run signal analysis
+        id: analysis
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: .github/scripts
+        run: |
+          echo "🔍 Running signal-to-noise analysis..."
+          echo "System Health: ${{ needs.system-health.outputs.health-percentage }}%"
+          echo "Crisis Mode: ${{ needs.system-health.outputs.crisis-mode }}"
+          
+          # Run the signal optimizer
+          node issue-signal-optimizer.js analyze > analysis-output.txt 2>&1
+          
+          # Extract key metrics from output
+          cat analysis-output.txt
+          
+          # Parse results (simplified - in production would use JSON output)
+          SIGNAL_COUNT=$(cat analysis-output.txt | grep -oP 'Signal Ratio: \K\d+(?=%)' | head -1 || echo "0")
+          RECOMMENDATIONS=$(cat analysis-output.txt | grep -c "SYSTEM RECOMMENDATIONS:" || echo "0")
+          DEFERRED=$(cat analysis-output.txt | grep -c "DEFERRED ISSUES" || echo "0")
+          
+          echo "ratio=${SIGNAL_COUNT}" >> $GITHUB_OUTPUT
+          echo "recommendations=${RECOMMENDATIONS}" >> $GITHUB_OUTPUT
+          echo "deferred=${DEFERRED}" >> $GITHUB_OUTPUT
+          
+          # Upload analysis results as artifact
+          mkdir -p ../artifacts
+          cp analysis-output.txt ../artifacts/signal-analysis.txt
+
+      - name: Upload analysis results
+        uses: actions/upload-artifact@v4
+        with:
+          name: signal-analysis-results
+          path: artifacts/
+          retention-days: 30
+
+  # Crisis Protocol Activation
+  crisis-protocol:
+    name: 🚨 Crisis Protocol Activation
+    runs-on: ubuntu-latest
+    needs: [system-health, signal-analysis]
+    if: needs.system-health.outputs.crisis-mode == 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: .github/scripts
+        run: npm install
+        
+      - name: Configure GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          
+      - name: Execute crisis protocol
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: .github/scripts
+        run: |
+          echo "🚨 CRISIS MODE DETECTED - Activating protocol"
+          echo "System Health: ${{ needs.system-health.outputs.health-percentage }}%"
+          echo "Emergency Mode: ${{ needs.system-health.outputs.emergency-mode }}"
+          
+          # Skip if dry run
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            echo "🧪 DRY RUN - Would activate crisis protocol"
+            node issue-signal-optimizer.js crisis --dry-run
+          else
+            echo "⚡ Executing crisis protocol..."
+            node issue-signal-optimizer.js crisis
+          fi
+          
+      - name: Create crisis status badge
+        run: |
+          mkdir -p assets/badges
+          MODE="${{ needs.system-health.outputs.emergency-mode == 'true' && 'EMERGENCY' || 'CRISIS' }}"
+          HEALTH="${{ needs.system-health.outputs.health-percentage }}%"
+          
+          # Create dynamic badge URL
+          BADGE_URL="https://img.shields.io/badge/System-${MODE}%20${HEALTH}-critical?style=for-the-badge&logo=alert&logoColor=white"
+          echo "${BADGE_URL}" > assets/badges/system-status.url
+          
+      - name: Commit crisis status
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "🚨 Crisis protocol activated - System health ${{ needs.system-health.outputs.health-percentage }}%
+
+            🔧 Generated with [Claude Code](https://claude.ai/code)
+            
+            Co-Authored-By: Claude <noreply@anthropic.com>"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+  # Quality Gates Assessment
+  quality-gates:
+    name: 📊 Quality Gates Assessment
+    runs-on: ubuntu-latest
+    needs: system-health
+    outputs:
+      quality-score: ${{ steps.quality.outputs.score }}
+      stale-issues: ${{ steps.quality.outputs.stale }}
+      unlabeled-issues: ${{ steps.quality.outputs.unlabeled }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: .github/scripts
+        run: npm install
+        
+      - name: Configure GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          
+      - name: Run quality assessment
+        id: quality
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: .github/scripts
+        run: |
+          echo "📊 Running quality gates assessment..."
+          
+          node issue-signal-optimizer.js quality > quality-output.txt 2>&1
+          cat quality-output.txt
+          
+          # Extract metrics
+          SCORE=$(cat quality-output.txt | grep -oP 'Quality Score: \K\d+' | head -1 || echo "50")
+          STALE=$(cat quality-output.txt | grep -oP 'Stale Issues: \K\d+' | head -1 || echo "0")
+          UNLABELED=$(cat quality-output.txt | grep -oP 'Unlabeled High-Impact: \K\d+' | head -1 || echo "0")
+          
+          echo "score=${SCORE}" >> $GITHUB_OUTPUT
+          echo "stale=${STALE}" >> $GITHUB_OUTPUT
+          echo "unlabeled=${UNLABELED}" >> $GITHUB_OUTPUT
+          
+          # Save quality report
+          mkdir -p ../artifacts
+          cp quality-output.txt ../artifacts/quality-assessment.txt
+          
+          if [ -f "../../data/issue-quality-report.json" ]; then
+            cp ../../data/issue-quality-report.json ../artifacts/
+          fi
+
+      - name: Upload quality results
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-assessment-results
+          path: artifacts/
+          retention-days: 30
+
+  # Automated Cleanup
+  automated-cleanup:
+    name: 🧹 Automated Issue Cleanup
+    runs-on: ubuntu-latest
+    needs: [system-health, quality-gates]
+    if: |
+      (github.event.inputs.mode == 'cleanup' || 
+       (github.event_name == 'schedule' && needs.quality-gates.outputs.quality-score < '70')) &&
+      github.event.inputs.dry_run != 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: Install dependencies
+        working-directory: .github/scripts
+        run: npm install
+        
+      - name: Configure GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          
+      - name: Close stale low-priority issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🧹 Cleaning up stale low-priority issues..."
+          
+          # Get stale issues (>45 days, P3 or unlabeled, no recent activity)
+          STALE_ISSUES=$(gh issue list \
+            --search "updated:<$(date -d '45 days ago' --iso-8601) label:\"P3: Low\"" \
+            --state open \
+            --json number,title,updatedAt \
+            --jq '.[] | select(.updatedAt < "'$(date -d '45 days ago' --iso-8601)'") | .number')
+            
+          for issue in $STALE_ISSUES; do
+            echo "Closing stale issue #${issue}"
+            gh issue close $issue --reason "not planned" --comment "🧹 Automatically closed due to inactivity (>45 days, low priority).
+
+If this issue is still relevant, please reopen with updated context and priority.
+
+🔧 Generated with [Claude Code](https://claude.ai/code)"
+          done
+          
+      - name: Add priority labels to high-signal issues
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🏷️ Adding priority labels to unlabeled high-impact issues..."
+          
+          # This would typically involve running the signal analyzer to identify
+          # high-scoring issues without priority labels, then adding appropriate labels
+          # For now, we'll just report the count
+          echo "High-impact unlabeled issues: ${{ needs.quality-gates.outputs.unlabeled-issues }}"
+
+  # Results Summary
+  optimization-summary:
+    name: 📋 Optimization Summary
+    runs-on: ubuntu-latest
+    needs: [system-health, signal-analysis, quality-gates]
+    if: always()
+    steps:
+      - name: Generate summary
+        run: |
+          echo "# 🎯 Issue Signal Optimization Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp**: $(date -u '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "**Trigger**: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "## 📊 System Status" >> $GITHUB_STEP_SUMMARY
+          echo "- **System Health**: ${{ needs.system-health.outputs.health-percentage }}%" >> $GITHUB_STEP_SUMMARY
+          echo "- **Mode**: ${{ needs.system-health.outputs.crisis-mode == 'true' && '🚨 Crisis' || '✅ Normal' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Quality Score**: ${{ needs.quality-gates.outputs.quality-score }}/100" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "## 🎯 Signal Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- **Signal Ratio**: ${{ needs.signal-analysis.outputs.signal-ratio }}%" >> $GITHUB_STEP_SUMMARY
+          echo "- **Recommendations**: ${{ needs.signal-analysis.outputs.recommendations-count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deferred Issues**: ${{ needs.signal-analysis.outputs.deferred-count }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "## 🧹 Quality Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "- **Stale Issues**: ${{ needs.quality-gates.outputs.stale-issues }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Unlabeled High-Impact**: ${{ needs.quality-gates.outputs.unlabeled-issues }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.system-health.outputs.crisis-mode }}" = "true" ]; then
+            echo "## 🚨 Crisis Protocol Status" >> $GITHUB_STEP_SUMMARY
+            echo "Crisis mode is **ACTIVE** due to system health below 80%" >> $GITHUB_STEP_SUMMARY
+            echo "- Non-critical issues are being deferred" >> $GITHUB_STEP_SUMMARY
+            echo "- Focus restricted to P0/P1 infrastructure issues" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "## 📈 Next Steps" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ needs.system-health.outputs.crisis-mode }}" = "true" ]; then
+            echo "1. **Priority**: Resolve critical infrastructure issues" >> $GITHUB_STEP_SUMMARY
+            echo "2. **Target**: Restore system health above 80%" >> $GITHUB_STEP_SUMMARY
+            echo "3. **Focus**: Authentication, website, CI/CD, ES modules" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "1. Address ${{ needs.quality-gates.outputs.stale-issues }} stale issues" >> $GITHUB_STEP_SUMMARY
+            echo "2. Label ${{ needs.quality-gates.outputs.unlabeled-issues }} high-impact issues" >> $GITHUB_STEP_SUMMARY
+            echo "3. Maintain signal-to-noise ratio above 60%" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Create status badge
+        run: |
+          mkdir -p badge-data
+          
+          # System health badge
+          HEALTH="${{ needs.system-health.outputs.health-percentage }}"
+          if (( HEALTH >= 80 )); then
+            COLOR="success"
+            STATUS="Healthy"
+          elif (( HEALTH >= 50 )); then
+            COLOR="critical"
+            STATUS="Crisis"
+          else
+            COLOR="critical" 
+            STATUS="Emergency"
+          fi
+          
+          echo "https://img.shields.io/badge/System%20Health-${HEALTH}%25%20${STATUS}-${COLOR}?style=for-the-badge" > badge-data/system-health.url
+          
+          # Quality score badge
+          QUALITY="${{ needs.quality-gates.outputs.quality-score }}"
+          if (( QUALITY >= 80 )); then
+            QCOLOR="success"
+          elif (( QUALITY >= 60 )); then
+            QCOLOR="orange"
+          else
+            QCOLOR="red"
+          fi
+          
+          echo "https://img.shields.io/badge/Issue%20Quality-${QUALITY}%2F100-${QCOLOR}?style=for-the-badge" > badge-data/issue-quality.url
+          
+      - name: Upload badge data
+        uses: actions/upload-artifact@v4
+        with:
+          name: status-badges
+          path: badge-data/
+          retention-days: 7
