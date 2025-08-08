@@ -15,6 +15,7 @@ name: 📊 GitHub Activity Intelligence Tracker
 # - Project complexity scoring and impact assessment
 # - Collaboration metrics and community engagement
 # - Professional development trend analysis
+# - Safe git operations with conflict resolution
 #
 # 📋 **WORKFLOW STAGES**:
 # 1. Repository activity scanning and data collection
@@ -52,6 +53,12 @@ on:
         required: false
         default: true
         type: boolean
+
+# 🔒 WORKFLOW CONCURRENCY CONTROL
+# Coordinates with other workflows to prevent git push conflicts
+concurrency:
+  group: activity-tracker-${{ github.ref }}
+  cancel-in-progress: true  # Cancel older runs for efficiency
 
 env:
   TRACKER_VERSION: "v1.5"
@@ -426,40 +433,38 @@ jobs:
           echo "  - CV Integration: Ready"
           echo ""
 
-      - name: 🚀 Commit Activity Data
+      - name: 🚀 Safe Commit Activity Data
         run: |
-          echo "🚀 **COMMITTING ACTIVITY TRACKING DATA**"
+          echo "🚀 **SAFE COMMIT ACTIVITY TRACKING DATA**"
           
-          git config --local user.email "activity-tracker@adrianwedd.com"
-          git config --local user.name "adrianwedd(activity-tracker)"
+          cd .github/scripts
           
-          git add data/
+          # Create activity tracking commit message
+          LOOKBACK_DAYS="${{ github.event.inputs.lookback_period || '30' }}"
+          ANALYSIS_DEPTH="${{ github.event.inputs.analysis_depth || 'standard' }}"
           
-          if ! git diff --cached --quiet; then
-            # Create activity tracking commit message
-            LOOKBACK_DAYS="${{ github.event.inputs.lookback_period || '30' }}"
-            ANALYSIS_DEPTH="${{ github.event.inputs.analysis_depth || 'standard' }}"
-            
-            git commit -m "📊 Activity Intelligence Update $(date +'%Y%m%d-%H%M')
+          COMMIT_MESSAGE="📊 Activity Intelligence Update $(date +'%Y%m%d-%H%M')
 
-            📈 GitHub Activity Tracking Session Complete
-            🔍 Analysis Depth: $ANALYSIS_DEPTH
-            📅 Lookback Period: $LOOKBACK_DAYS days
-            📊 Commits Analyzed: $COMMITS_COUNT
-            🎯 Active Days: $ACTIVE_DAYS/$LOOKBACK_DAYS
-            📝 Net Lines: $NET_LINES
-            
-            🤖 Automated tracking via Activity Intelligence Tracker ${{ env.TRACKER_VERSION }}
-            🔗 Integration ready for CV Enhancement Pipeline
-            
-            🤖 Generated with [Claude Code](https://claude.ai/code)
-            
-            Co-Authored-By: Claude <noreply@anthropic.com>"
-            
-            git push
-            echo "✅ Activity tracking data committed successfully"
+          📈 GitHub Activity Tracking Session Complete
+          🔍 Analysis Depth: $ANALYSIS_DEPTH
+          📅 Lookback Period: $LOOKBACK_DAYS days
+          📊 Commits Analyzed: $COMMITS_COUNT
+          🎯 Active Days: $ACTIVE_DAYS/$LOOKBACK_DAYS
+          📝 Net Lines: $NET_LINES
+          
+          🤖 Automated tracking via Activity Intelligence Tracker ${{ env.TRACKER_VERSION }}
+          🔗 Integration ready for CV Enhancement Pipeline
+          
+          🤖 Generated with [Claude Code](https://claude.ai/code)
+          
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          
+          # Use safe git operations with specialized handling for activity data
+          if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
+            echo "✅ Activity tracking data safely committed"
           else
-            echo "📝 No new activity data to commit"
+            echo "⚠️ Activity commit failed, data will be cached for next tracking cycle"
+            echo "🔄 Activity tracking will retry on next scheduled run"
           fi
 
       - name: 📊 Activity Tracking Summary

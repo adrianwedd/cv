@@ -1,13 +1,13 @@
 {
   "status": "operational",
-  "lastCheck": "2025-08-08T02:06:28.656Z",
+  "lastCheck": "2025-08-08T02:10:30.918Z",
   "uptime": 0,
   "checks": {
     "website_availability": {
       "success": false,
-      "responseTime": 66,
+      "responseTime": 3,
       "message": "Request failed: getaddrinfo ENOTFOUND cv.adrianwedd.dev",
-      "timestamp": "2025-08-08T02:06:28.723Z",
+      "timestamp": "2025-08-08T02:10:30.921Z",
       "checkName": "Website Availability",
       "type": "http",
       "critical": true
@@ -15,33 +15,39 @@
     "github_api_rate": {
       "success": false,
       "message": "No GitHub token configured",
-      "timestamp": "2025-08-08T02:06:28.723Z",
+      "timestamp": "2025-08-08T02:10:30.921Z",
       "checkName": "GitHub API Rate Limit",
       "type": "api",
       "critical": false
     },
     "data_integrity": {
-      "success": false,
+      "success": true,
       "results": {
         "baseCv": {
-          "exists": false,
-          "error": "ENOENT: no such file or directory, open '/Users/adrian/repos/cv/.github/scripts/data/base-cv.json'"
+          "exists": true,
+          "size": 14384,
+          "hasRequiredFields": false,
+          "lastUpdated": "2025-08-08T00:00:00Z"
         },
         "activitySummary": {
-          "exists": false,
-          "error": "ENOENT: no such file or directory, open '/Users/adrian/repos/cv/.github/scripts/data/activity-summary.json'"
+          "exists": true,
+          "size": 3932,
+          "hasMetrics": false
         }
       },
-      "message": "Data integrity issues detected",
-      "timestamp": "2025-08-08T02:06:28.725Z",
+      "message": "Data integrity verified",
+      "timestamp": "2025-08-08T02:10:31.011Z",
       "checkName": "Data Integrity",
       "type": "data",
       "critical": true
     },
     "workflow_health": {
-      "success": false,
-      "message": "Workflow health check failed: ENOENT: no such file or directory, scandir '/Users/adrian/repos/cv/.github/scripts/.github/workflows'",
-      "timestamp": "2025-08-08T02:06:28.725Z",
+      "success": true,
+      "healthyWorkflows": 15,
+      "totalWorkflows": 15,
+      "issues": [],
+      "message": "15/15 workflows healthy",
+      "timestamp": "2025-08-08T02:10:31.153Z",
       "checkName": "GitHub Workflows Health",
       "type": "workflow",
       "critical": false
@@ -55,17 +61,17 @@
         "Browser session not configured"
       ],
       "message": "No authentication configured",
-      "timestamp": "2025-08-08T02:06:28.725Z",
+      "timestamp": "2025-08-08T02:10:31.153Z",
       "checkName": "Authentication Health",
       "type": "auth",
       "critical": true
     },
     "system_resources": {
       "success": true,
-      "dataDirectorySize": "4.68 MB",
-      "lastModified": "2025-08-08T02:06:28.657Z",
-      "message": "Data directory: 4.68 MB",
-      "timestamp": "2025-08-08T02:06:28.730Z",
+      "dataDirectorySize": "63.12 MB",
+      "lastModified": "2025-08-08T02:10:30.918Z",
+      "message": "Data directory: 63.12 MB",
+      "timestamp": "2025-08-08T02:10:31.293Z",
       "checkName": "System Resources",
       "type": "system",
       "critical": false
@@ -73,14 +79,14 @@
   },
   "alerts": [],
   "incidents": [],
-  "startTime": 1754447428437,
-  "lastCheckDuration": 74,
+  "startTime": 1754618838354,
+  "lastCheckDuration": 375,
   "systemHealth": {
-    "percentage": 11,
+    "percentage": 44,
     "status": "critical",
-    "criticalIssues": 3,
-    "warnings": 2,
-    "successfulChecks": 1,
+    "criticalIssues": 2,
+    "warnings": 1,
+    "successfulChecks": 3,
     "totalChecks": 6
   }
 }

@@ -15,6 +15,7 @@ name: 🚀 Production CV Enhancement Pipeline
 # - AI hallucination detection
 # - Performance monitoring and optimization
 # - Comprehensive deployment to GitHub Pages
+# - Safe git operations with conflict resolution
 #
 # 📋 **PRODUCTION PIPELINE**:
 # 1. Quality gates and pre-deployment validation
@@ -58,6 +59,13 @@ on:
           - balanced
           - creative
           - innovative
+
+# 🔒 WORKFLOW CONCURRENCY CONTROL
+# Prevents multiple CV enhancement workflows from running simultaneously
+# and causing git push conflicts. Only one enhancement can run at a time.
+concurrency:
+  group: cv-enhancement-${{ github.ref }}
+  cancel-in-progress: false  # Don't cancel running workflows, queue them
 
 env:
   CV_SYSTEM_VERSION: "v2.0"
@@ -845,53 +853,61 @@ jobs:
           echo "  - Session Time: $SESSION_TIME"
           echo ""
 
-      - name: 🚀 Commit Enhanced CV Data
+      - name: 🚀 Safe Commit Enhanced CV Data
         run: |
-          echo "🚀 **COMMITTING CV ENHANCEMENT UPDATES**"
+          echo "🚀 **SAFE COMMIT CV ENHANCEMENT UPDATES**"
           
-          git config --local user.email "cv-enhancement@adrianwedd.com"
-          git config --local user.name "adrianwedd(cv-enhancer)"
+          cd .github/scripts
           
           # Ensure intelligence and narrative data is included
-          if [ -d "data/intelligence" ]; then
+          if [ -d "../../data/intelligence" ]; then
             echo "📊 Including intelligence data in commit"
-            ls -la data/intelligence/
+            ls -la ../../data/intelligence/
           fi
           
-          if [ -d "data/narratives" ]; then
+          if [ -d "../../data/narratives" ]; then
             echo "📖 Including narrative data in commit"
-            ls -la data/narratives/
+            ls -la ../../data/narratives/
           fi
           
-          git add .
+          # Create intelligent commit message
+          ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
+          STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
+          MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
           
-          if ! git diff --cached --quiet; then
-            # Create intelligent commit message
-            ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-            STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
-            MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-            
-            git commit -m "🚀 CV Enhancement Update $(date +'%Y%m%d-%H%M')
+          COMMIT_MESSAGE="🚀 CV Enhancement Update $(date +'%Y%m%d-%H%M')
 
-            📊 Activity Score: $ACTIVITY_SCORE/100
-            🎯 Strategy: $STRATEGY  
-            🔄 Mode: $MODE
-            🤖 System: CV Auto-Enhancement Pipeline ${{ env.CV_SYSTEM_VERSION }}
-            
-            🎨 Enhanced with Claude AI content optimization
-            📈 Updated with latest GitHub activity metrics
-            🌐 Regenerated responsive CV website
-            
-            🔗 Live CV: https://adrianwedd.github.io/cv
-            
-            🤖 Generated with [Claude Code](https://claude.ai/code)
-            
-            Co-Authored-By: Claude <noreply@anthropic.com>"
-            
-            git push
-            echo "✅ CV enhancement updates committed and deployed"
+          📊 Activity Score: $ACTIVITY_SCORE/100
+          🎯 Strategy: $STRATEGY  
+          🔄 Mode: $MODE
+          🤖 System: CV Auto-Enhancement Pipeline ${{ env.CV_SYSTEM_VERSION }}
+          
+          🎨 Enhanced with Claude AI content optimization
+          📈 Updated with latest GitHub activity metrics
+          🌐 Regenerated responsive CV website
+          
+          🔗 Live CV: https://adrianwedd.github.io/cv
+          
+          🤖 Generated with [Claude Code](https://claude.ai/code)
+          
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+          
+          # Use safe git operations with retry logic and conflict resolution
+          if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
+            echo "✅ CV enhancement updates safely committed and deployed"
           else
-            echo "📝 No changes to commit"
+            echo "⚠️ Safe commit failed, attempting emergency cleanup and retry..."
+            
+            # Emergency cleanup and retry once
+            node safe-git-operations.js cleanup
+            sleep 5
+            
+            if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
+              echo "✅ CV enhancement updates committed after cleanup"
+            else
+              echo "❌ Failed to commit after cleanup - manual intervention may be required"
+              exit 1
+            fi
           fi
 
       - name: 🎯 Enhancement Summary

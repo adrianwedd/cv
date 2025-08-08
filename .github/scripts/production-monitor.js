@@ -20,8 +20,48 @@ import { UsageMonitor } from './usage-monitor.js';
  */
 class ProductionMonitor {
     constructor(config = {}) {
+        // Determine proper data directory path for CI/local environments
+        let dataDir;
+        if (config.dataDir) {
+            dataDir = config.dataDir;
+        } else {
+            // Always use repo root data directory
+            // Find the root by looking for specific indicators
+            let currentDir = process.cwd();
+            let rootDir = null;
+            
+            // Go up directories until we find a reliable root indicator
+            while (currentDir !== path.dirname(currentDir)) {
+                try {
+                    const packagePath = path.join(currentDir, 'package.json');
+                    const gitPath = path.join(currentDir, '.git');
+                    const claudePath = path.join(currentDir, 'CLAUDE.md');
+                    
+                    if (require('fs').existsSync(packagePath) || 
+                        require('fs').existsSync(gitPath) ||
+                        require('fs').existsSync(claudePath)) {
+                        rootDir = currentDir;
+                        break;
+                    }
+                } catch (e) {}
+                currentDir = path.dirname(currentDir);
+            }
+            
+            // Fallback if root detection fails
+            if (!rootDir) {
+                // If we're in .github/scripts, go up two levels
+                if (process.cwd().endsWith('.github/scripts')) {
+                    rootDir = path.join(process.cwd(), '..', '..');
+                } else {
+                    rootDir = process.cwd();
+                }
+            }
+            
+            dataDir = path.resolve(rootDir, 'data');
+        }
+        
         this.config = {
-            dataDir: config.dataDir || path.join(process.cwd(), 'data'),
+            dataDir,
             monitoringFile: config.monitoringFile || 'production-monitoring.json',
             alertsFile: config.alertsFile || 'production-alerts.json',
             rulebooksFile: config.rulebooksFile || 'operational-runbooks.json',
@@ -230,7 +270,37 @@ class ProductionMonitor {
             critical: false,
             check: async () => {
                 try {
-                    const workflowsPath = path.join(process.cwd(), '.github', 'workflows');
+                    // Use the same root directory logic to find workflows
+                    let currentDir = process.cwd();
+                    let rootDir = null;
+                    
+                    // Go up directories until we find a reliable root indicator
+                    while (currentDir !== path.dirname(currentDir)) {
+                        try {
+                            const packagePath = path.join(currentDir, 'package.json');
+                            const gitPath = path.join(currentDir, '.git');
+                            const claudePath = path.join(currentDir, 'CLAUDE.md');
+                            
+                            if (require('fs').existsSync(packagePath) || 
+                                require('fs').existsSync(gitPath) ||
+                                require('fs').existsSync(claudePath)) {
+                                rootDir = currentDir;
+                                break;
+                            }
+                        } catch (e) {}
+                        currentDir = path.dirname(currentDir);
+                    }
+                    
+                    // Fallback if root detection fails
+                    if (!rootDir) {
+                        if (process.cwd().endsWith('.github/scripts')) {
+                            rootDir = path.join(process.cwd(), '..', '..');
+                        } else {
+                            rootDir = process.cwd();
+                        }
+                    }
+                    
+                    const workflowsPath = path.resolve(rootDir, '.github', 'workflows');
                     const files = await fs.readdir(workflowsPath);
                     const ymlFiles = files.filter(f => f.endsWith('.yml') || f.endsWith('.yaml'));
                     
@@ -508,10 +578,26 @@ class ProductionMonitor {
         this.monitoringData.checks = results;
         this.monitoringData.lastCheckDuration = Date.now() - checkStart;
         
-        // Calculate overall system health
+        // Calculate overall system health with weighted scoring
         const totalChecks = this.healthChecks.size;
         const successfulChecks = Object.values(results).filter(r => r.success).length;
-        const healthPercentage = Math.round((successfulChecks / totalChecks) * 100);
+        
+        // Weight critical checks more heavily
+        let weightedScore = 0;
+        let totalWeight = 0;
+        
+        for (const result of Object.values(results)) {
+            const weight = result.critical ? 2 : 1; // Critical checks count double
+            totalWeight += weight;
+            if (result.success) {
+                weightedScore += weight;
+            }
+        }
+        
+        const healthPercentage = totalWeight > 0 ? Math.round((weightedScore / totalWeight) * 100) : 0;
+        
+        // Log detailed health analysis for debugging
+        console.log(`🔍 Health Analysis: ${successfulChecks}/${totalChecks} checks passed (weighted: ${weightedScore}/${totalWeight})`);
         
         this.monitoringData.systemHealth = {
             percentage: healthPercentage,
@@ -524,10 +610,29 @@ class ProductionMonitor {
         
         await this.saveMonitoringData();
         
-        // Generate health summary
+        // Generate detailed health summary
         console.log(`📊 Health check complete: ${healthPercentage}% (${successfulChecks}/${totalChecks} checks passed)`);
         if (criticalIssues > 0) console.log(`🚨 Critical issues: ${criticalIssues}`);
         if (warnings > 0) console.log(`⚠️ Warnings: ${warnings}`);
+        
+        // Log failed checks for debugging
+        const failedChecks = Object.entries(results).filter(([key, result]) => !result.success);
+        if (failedChecks.length > 0) {
+            console.log(`\n💥 Failed Checks:`);
+            for (const [key, result] of failedChecks) {
+                const severity = result.critical ? '🚨 CRITICAL' : '⚠️ WARNING';
+                console.log(`  ${severity}: ${result.checkName} - ${result.message || result.error}`);
+            }
+        }
+        
+        // Log successful checks for confirmation
+        const passedChecks = Object.entries(results).filter(([key, result]) => result.success);
+        if (passedChecks.length > 0) {
+            console.log(`\n✅ Passed Checks:`);
+            for (const [key, result] of passedChecks) {
+                console.log(`  ✅ ${result.checkName}`);
+            }
+        }
         
         return results;
     }
@@ -741,10 +846,31 @@ class ProductionMonitor {
     async saveMonitoringData() {
         try {
             const monitoringFile = path.join(this.config.dataDir, this.config.monitoringFile);
+            
+            // Ensure directory exists with full permissions
             await fs.mkdir(this.config.dataDir, { recursive: true });
-            await fs.writeFile(monitoringFile, JSON.stringify(this.monitoringData, null, 2));
+            
+            // Atomic write with verification
+            const tempFile = `${monitoringFile}.tmp`;
+            const data = JSON.stringify(this.monitoringData, null, 2);
+            
+            await fs.writeFile(tempFile, data);
+            
+            // Verify the file was written correctly
+            const savedData = await fs.readFile(tempFile, 'utf8');
+            if (savedData.length === 0) {
+                throw new Error('Saved file is empty');
+            }
+            
+            // Atomic rename to final file
+            await fs.rename(tempFile, monitoringFile);
+            
+            console.log(`📁 Monitoring data saved to ${monitoringFile} (${data.length} bytes)`);
         } catch (error) {
             console.warn('⚠️ Failed to save monitoring data:', error.message);
+            
+            // Don't fail the entire monitoring process for save failures
+            // This allows the monitoring to continue even if data persistence fails
         }
     }
 }
