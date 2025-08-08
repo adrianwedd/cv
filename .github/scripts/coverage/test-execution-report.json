@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-08-08T15:41:08.951Z",
+  "summary": {
+    "unit": {
+      "passed": 0,
+      "failed": 0,
+      "duration": 258
+    },
+    "integration": {
+      "passed": 0,
+      "failed": 0,
+      "duration": 0
+    },
+    "e2e": {
+      "passed": 0,
+      "failed": 0,
+      "duration": 0
+    }
+  },
+  "recommendations": [
+    "Unit tests should complete in < 10 seconds",
+    "Integration tests should complete in < 30 seconds",
+    "E2E tests should be run separately with proper resource allocation"
+  ]
+}

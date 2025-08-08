@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-08-08T08:32:57.890Z",
+  "timestamp": "2025-08-08T15:37:35.905Z",
   "schemas_validated": [
     {
       "schema": "CV Data",
       "file": "base-cv.json",
-      "timestamp": "2025-08-08T08:32:57.890Z",
+      "timestamp": "2025-08-08T15:37:35.909Z",
       "valid": false,
       "errors": [
         "Missing required field: experience",
@@ -25,7 +25,7 @@
     {
       "schema": "Activity Data",
       "file": "activity-summary.json",
-      "timestamp": "2025-08-08T08:32:57.892Z",
+      "timestamp": "2025-08-08T15:37:35.910Z",
       "valid": true,
       "errors": [],
       "warnings": []
