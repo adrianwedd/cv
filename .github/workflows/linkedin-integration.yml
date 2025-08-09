@@ -415,7 +415,7 @@ jobs:
           # Execute AI networking agent with comprehensive analysis
           START_TIME=$(date +%s)
           
-          if timeout 300 node ai-networking-agent.js analyze "${{ secrets.LINKEDIN_PROFILE_URL }}" --comprehensive; then
+          if timeout 300 node ai-networking-agent-simple.js analyze "${{ secrets.LINKEDIN_PROFILE_URL }}" --comprehensive; then
             ANALYSIS_STATUS="success"
             echo "✅ AI networking analysis completed successfully"
           else
