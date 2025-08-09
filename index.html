@@ -14,12 +14,10 @@
     <!-- Critical Resource Preloading -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="preload" href="assets/script.critical.min.js" as="script">
+    <link rel="preload" href="assets/script.js" as="script">
     <link rel="preload" href="assets/dynamic-loader.js" as="script">
     <link rel="preload" href="data/base-cv.json" as="fetch" crossorigin>
-    <link rel="modulepreload" href="assets/chunks/performance-monitor.min.js">
-    <link rel="modulepreload" href="assets/chunks/github-integration.min.js">
-    <link rel="modulepreload" href="assets/chunks/data-visualizer.min.js">
+    <!-- Chunk preloading disabled - files don't exist -->
 
     <!-- Prefetch for Likely Next Resources -->
     <link rel="prefetch" href="assets/chunks/export-system.min.js">
@@ -41,7 +39,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Strict-Transport-Security" content="max-age=63072000; includeSubDomains; preload">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' localhost:8080 api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     
@@ -57,10 +55,8 @@
     
     <!-- Essential resource hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="modulepreload" href="assets/script.critical.min.js">
-    <link rel="modulepreload" href="assets/chunks/performance-monitor.min.js">
-    <link rel="modulepreload" href="assets/chunks/github-integration.min.js">
-    <link rel="modulepreload" href="assets/chunks/data-visualizer.min.js">
+    <link rel="modulepreload" href="assets/script.js">
+    <!-- Chunk preloading disabled - files don't exist -->
     
     <!-- Optimized font loading with critical path -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,8 +65,8 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
     <!-- Preload optimized resources -->
-    <link rel="preload" href="assets/styles.min.css" as="style">
-    <link rel="preload" href="assets/script.critical.min.js" as="script">
+    <link rel="preload" href="assets/styles.css" as="style">
+    <link rel="preload" href="assets/script.js" as="script">
     
     <!-- Icons and PWA Manifest -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
@@ -812,8 +808,8 @@
     
     <!-- Ultra-optimized service worker and performance monitoring -->
     <script>
-        if('serviceWorker'in navigator)navigator.serviceWorker.register('/cv/sw.js').then(r=>).catch(()=>{});
-        if('PerformanceObserver'in window){new PerformanceObserver(l=>l.getEntries().forEach(e=>e.entryType==='largest-contentful-paint'&&+'ms'))).observe({entryTypes:['largest-contentful-paint']});}
+        if('serviceWorker'in navigator)navigator.serviceWorker.register('/cv/sw.js').then(r=>console.log('SW registered')).catch(()=>{});
+        if('PerformanceObserver'in window){new PerformanceObserver(l=>l.getEntries().forEach(e=>e.entryType==='largest-contentful-paint'&&console.log(e.startTime+'ms'))).observe({entryTypes:['largest-contentful-paint']});}
     </script>
 
     <!-- Intelligence systems loaded lazily via main script -->
