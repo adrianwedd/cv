@@ -1,37 +1,37 @@
 {
-  "timestamp": "2025-08-08T04:16:13.100Z",
-  "monitoring_session_id": "perf-1754626573101-wnvxq1cmz",
+  "timestamp": "2025-08-08T23:33:21.050Z",
+  "monitoring_session_id": "perf-1754696001050-tqtz4ugrq",
   "target_url": "https://adrianwedd.github.io/cv",
   "metrics": {
     "production": {
       "url": "https://adrianwedd.github.io/cv",
       "status_code": 200,
-      "response_time": 727,
-      "headers_size": 650,
+      "response_time": 755,
+      "headers_size": 670,
       "accessible": true,
       "redirect_count": 1
     },
     "local": {
       "url": "http://localhost:8000",
       "status_code": 200,
-      "response_time": 7,
+      "response_time": 16,
       "headers_size": 170,
       "accessible": true,
       "redirect_count": 0
     },
-    "measurement_time": 735
+    "measurement_time": 771
   },
   "core_web_vitals": {
     "ttfb": {
-      "value": 727,
+      "value": 755,
       "rating": "needs-improvement"
     },
     "fcp": {
-      "value": 1818,
+      "value": 1888,
       "rating": "needs-improvement"
     },
     "lcp": {
-      "value": 2908,
+      "value": 3020,
       "rating": "needs-improvement"
     },
     "cls": {
@@ -39,15 +39,15 @@
       "rating": "good"
     },
     "fid": {
-      "value": 218,
+      "value": 227,
       "rating": "needs-improvement"
     },
     "speed_index": {
-      "value": 4362,
+      "value": 4530,
       "rating": "needs-improvement"
     },
     "total_blocking_time": {
-      "value": 364,
+      "value": 378,
       "rating": "needs-improvement"
     }
   },
@@ -59,7 +59,7 @@
     "violations": [
       {
         "metric": "ttfb",
-        "current_value": 727,
+        "current_value": 755,
         "budget_good": 600,
         "budget_limit": 1500,
         "rating": "needs-improvement",
@@ -67,7 +67,7 @@
       },
       {
         "metric": "fcp",
-        "current_value": 1818,
+        "current_value": 1888,
         "budget_good": 1800,
         "budget_limit": 3000,
         "rating": "needs-improvement",
@@ -75,7 +75,7 @@
       },
       {
         "metric": "lcp",
-        "current_value": 2908,
+        "current_value": 3020,
         "budget_good": 2500,
         "budget_limit": 4000,
         "rating": "needs-improvement",
@@ -83,7 +83,7 @@
       },
       {
         "metric": "fid",
-        "current_value": 218,
+        "current_value": 227,
         "budget_good": 100,
         "budget_limit": 300,
         "rating": "needs-improvement",
@@ -91,7 +91,7 @@
       },
       {
         "metric": "speed_index",
-        "current_value": 4362,
+        "current_value": 4530,
         "budget_good": 3400,
         "budget_limit": 5800,
         "rating": "needs-improvement",
@@ -99,7 +99,7 @@
       },
       {
         "metric": "total_blocking_time",
-        "current_value": 364,
+        "current_value": 378,
         "budget_good": 200,
         "budget_limit": 600,
         "rating": "needs-improvement",
@@ -112,37 +112,37 @@
       "severity": "info",
       "type": "performance_budget",
       "message": "TTFB exceeds performance budget",
-      "details": "Current: 727, Budget: 600"
+      "details": "Current: 755, Budget: 600"
     },
     {
       "severity": "info",
       "type": "performance_budget",
       "message": "FCP exceeds performance budget",
-      "details": "Current: 1818, Budget: 1800"
+      "details": "Current: 1888, Budget: 1800"
     },
     {
       "severity": "info",
       "type": "performance_budget",
       "message": "LCP exceeds performance budget",
-      "details": "Current: 2908, Budget: 2500"
+      "details": "Current: 3020, Budget: 2500"
     },
     {
       "severity": "info",
       "type": "performance_budget",
       "message": "FID exceeds performance budget",
-      "details": "Current: 218, Budget: 100"
+      "details": "Current: 227, Budget: 100"
     },
     {
       "severity": "info",
       "type": "performance_budget",
       "message": "SPEED_INDEX exceeds performance budget",
-      "details": "Current: 4362, Budget: 3400"
+      "details": "Current: 4530, Budget: 3400"
     },
     {
       "severity": "info",
       "type": "performance_budget",
       "message": "TOTAL_BLOCKING_TIME exceeds performance budget",
-      "details": "Current: 364, Budget: 200"
+      "details": "Current: 378, Budget: 200"
     }
   ],
   "recommendations": [

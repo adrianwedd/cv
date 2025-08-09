@@ -1,0 +1,649 @@
+{
+  "timestamp": "2025-08-08T23:33:21.040Z",
+  "reporting_period": "hourly",
+  "kpi_summary": {
+    "operational_excellence": {
+      "system_uptime": {
+        "kpi_name": "system_uptime",
+        "current_value": 17,
+        "target_value": 99.9,
+        "variance_percent": -82.98298298298299,
+        "score": 17,
+        "unit": "%",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "response_time": {
+        "kpi_name": "response_time",
+        "current_value": 0,
+        "target_value": 2000,
+        "variance_percent": -100,
+        "score": 100,
+        "unit": "ms",
+        "status": "excellent",
+        "target_met": true,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "error_rate": {
+        "kpi_name": "error_rate",
+        "current_value": 0.3,
+        "target_value": 0.1,
+        "variance_percent": 199.99999999999997,
+        "score": 0,
+        "unit": "%",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "incident_resolution_time": {
+        "kpi_name": "incident_resolution_time",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 100,
+        "unit": "minutes",
+        "status": "excellent",
+        "target_met": true,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "_category_score": {
+        "score": 54.25,
+        "status": "needs_improvement",
+        "target_met": false
+      }
+    },
+    "cost_efficiency": {
+      "infrastructure_cost": {
+        "kpi_name": "infrastructure_cost",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 100,
+        "unit": "$",
+        "status": "excellent",
+        "target_met": true,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "operational_cost": {
+        "kpi_name": "operational_cost",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 100,
+        "unit": "$",
+        "status": "excellent",
+        "target_met": true,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "cost_per_user": {
+        "kpi_name": "cost_per_user",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 100,
+        "unit": "$",
+        "status": "excellent",
+        "target_met": true,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "roi_percentage": {
+        "kpi_name": "roi_percentage",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "_category_score": {
+        "score": 75,
+        "status": "acceptable",
+        "target_met": false
+      }
+    },
+    "security_governance": {
+      "security_score": {
+        "kpi_name": "security_score",
+        "current_value": 50,
+        "target_value": 95,
+        "variance_percent": -47.368421052631575,
+        "score": 53,
+        "unit": "score",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "compliance_percentage": {
+        "kpi_name": "compliance_percentage",
+        "current_value": 50,
+        "target_value": 100,
+        "variance_percent": -50,
+        "score": 50,
+        "unit": "%",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "vulnerability_count": {
+        "kpi_name": "vulnerability_count",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "incident_count": {
+        "kpi_name": "incident_count",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "_category_score": {
+        "score": 25.75,
+        "status": "needs_improvement",
+        "target_met": false
+      }
+    },
+    "user_experience": {
+      "user_satisfaction": {
+        "kpi_name": "user_satisfaction",
+        "current_value": 0,
+        "target_value": 90,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "%",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "performance_score": {
+        "kpi_name": "performance_score",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "availability_percentage": {
+        "kpi_name": "availability_percentage",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "feature_adoption": {
+        "kpi_name": "feature_adoption",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "_category_score": {
+        "score": 0,
+        "status": "needs_improvement",
+        "target_met": false
+      }
+    },
+    "business_growth": {
+      "user_engagement": {
+        "kpi_name": "user_engagement",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "system_usage": {
+        "kpi_name": "system_usage",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "feature_usage": {
+        "kpi_name": "feature_usage",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "business_value": {
+        "kpi_name": "business_value",
+        "current_value": 0,
+        "target_value": 100,
+        "variance_percent": -100,
+        "score": 0,
+        "unit": "",
+        "status": "needs_improvement",
+        "target_met": false,
+        "trend": {
+          "direction": "stable",
+          "change_percent": 0,
+          "confidence": "low"
+        }
+      },
+      "_category_score": {
+        "score": 0,
+        "status": "needs_improvement",
+        "target_met": false
+      }
+    }
+  },
+  "business_impact": {
+    "overall_score": 43.2,
+    "grade": "F",
+    "components": {
+      "revenue_impact": {
+        "score": 0,
+        "factors": [
+          "83.0% downtime impact"
+        ],
+        "estimated_revenue_at_risk": 83000
+      },
+      "cost_impact": {
+        "score": 85,
+        "factors": [
+          "3 incidents"
+        ],
+        "cost_efficiency": "efficient",
+        "monthly_savings_opportunity": 0
+      },
+      "risk_assessment": {
+        "score": 0,
+        "risk_level": "critical",
+        "risk_factors": [
+          "3 security incidents",
+          "40% compliance gap"
+        ],
+        "mitigation_required": true
+      },
+      "operational_efficiency": {
+        "score": 100,
+        "factors": [],
+        "efficiency_grade": "excellent"
+      },
+      "customer_impact": {
+        "score": 31,
+        "factors": [
+          "90% satisfaction gap",
+          "80% performance gap"
+        ],
+        "customer_experience": "poor"
+      }
+    }
+  },
+  "cost_analysis": {
+    "current_costs": {
+      "infrastructure_cost": 0,
+      "operational_cost": 0,
+      "total_cost": 0,
+      "cost_per_user": 0,
+      "cost_trend": "stable"
+    },
+    "cost_breakdown": {
+      "infrastructure": {
+        "amount": 0,
+        "percentage": 0
+      },
+      "operational": {
+        "amount": 0,
+        "percentage": 0
+      },
+      "total": 0
+    },
+    "cost_trends": {
+      "monthly_change": 0,
+      "quarterly_projection": 0,
+      "yearly_projection": 0,
+      "trend_direction": "stable"
+    },
+    "cost_optimization": [
+      {
+        "category": "operational",
+        "opportunity": "Incident reduction through automation",
+        "estimated_savings": 150,
+        "effort": "high"
+      }
+    ],
+    "roi_analysis": {
+      "total_investment": 0,
+      "system_value": 436,
+      "roi_percentage": 0,
+      "roi_status": "poor"
+    }
+  },
+  "trend_analysis": {
+    "kpi_trends": {
+      "operational_excellence": {
+        "direction": "stable",
+        "strength": "weak",
+        "confidence": "low",
+        "forecast": "stable"
+      },
+      "cost_efficiency": {
+        "direction": "stable",
+        "strength": "weak",
+        "confidence": "low",
+        "forecast": "stable"
+      },
+      "security_governance": {
+        "direction": "stable",
+        "strength": "weak",
+        "confidence": "low",
+        "forecast": "stable"
+      },
+      "user_experience": {
+        "direction": "stable",
+        "strength": "weak",
+        "confidence": "low",
+        "forecast": "stable"
+      },
+      "business_growth": {
+        "direction": "stable",
+        "strength": "weak",
+        "confidence": "low",
+        "forecast": "stable"
+      }
+    },
+    "business_trends": {
+      "business_impact": {
+        "direction": "improving",
+        "strength": "medium",
+        "drivers": [
+          "system_stability",
+          "performance_optimization"
+        ]
+      },
+      "cost_efficiency": {
+        "direction": "stable",
+        "strength": "weak",
+        "opportunities": [
+          "resource_optimization",
+          "automation"
+        ]
+      }
+    },
+    "cost_trends": {
+      "infrastructure": {
+        "direction": "stable",
+        "monthly_change": 0,
+        "optimization_potential": "20%"
+      },
+      "operational": {
+        "direction": "stable",
+        "monthly_change": 0,
+        "automation_savings": "15%"
+      }
+    },
+    "performance_trends": {
+      "response_time": {
+        "direction": "stable",
+        "average_change": "0%",
+        "target_adherence": "100%"
+      },
+      "uptime": {
+        "direction": "stable",
+        "reliability_trend": "consistent",
+        "sla_compliance": "99%"
+      }
+    }
+  },
+  "forecasts": {
+    "next_month": {
+      "expected_costs": 0,
+      "expected_incidents": 2,
+      "expected_uptime": 17.5,
+      "confidence": "medium"
+    },
+    "next_quarter": {
+      "cost_projection": 0,
+      "performance_projection": "stable",
+      "risk_level": "medium",
+      "investment_needs": [
+        {
+          "area": "security_enhancement",
+          "priority": "high",
+          "estimated_cost": 1000,
+          "expected_benefit": "compliance_improvement"
+        }
+      ]
+    },
+    "risk_projections": {
+      "security_risk": "low",
+      "operational_risk": "medium",
+      "cost_risk": "low",
+      "mitigation_timeline": "30 days"
+    },
+    "optimization_projections": {
+      "cost_savings_potential": 0,
+      "performance_improvement_potential": "10%",
+      "efficiency_gains": "20%",
+      "implementation_timeline": "90 days"
+    }
+  },
+  "sla_compliance": {
+    "overall_compliance": 79.25,
+    "status": "breach",
+    "individual_slas": {
+      "uptime": {
+        "sla_name": "uptime",
+        "target_value": 99.9,
+        "current_value": 17,
+        "compliance_percentage": 17,
+        "status": "breach",
+        "breach_severity": "critical"
+      },
+      "response_time": {
+        "sla_name": "response_time",
+        "target_value": 2000,
+        "current_value": 0,
+        "compliance_percentage": 100,
+        "status": "compliant",
+        "breach_severity": "none"
+      },
+      "incident_resolution": {
+        "sla_name": "incident_resolution",
+        "target_value": 240,
+        "current_value": 0,
+        "compliance_percentage": 100,
+        "status": "compliant",
+        "breach_severity": "none"
+      },
+      "security_response": {
+        "sla_name": "security_response",
+        "target_value": 60,
+        "current_value": 30,
+        "compliance_percentage": 100,
+        "status": "compliant",
+        "breach_severity": "none"
+      }
+    },
+    "breach_count": 1
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "cost_optimization",
+      "title": "Implement Cost Optimization Initiatives",
+      "description": "Potential savings: $150",
+      "actions": [
+        "Incident reduction through automation"
+      ],
+      "expected_impact": "cost_reduction",
+      "timeline": "90 days"
+    },
+    {
+      "priority": "high",
+      "category": "performance",
+      "title": "Address Performance KPI Gaps",
+      "description": "2 KPIs below target",
+      "actions": [
+        "Improve system_uptime",
+        "Improve error_rate"
+      ],
+      "expected_impact": "performance_improvement",
+      "timeline": "60 days"
+    },
+    {
+      "priority": "critical",
+      "category": "security",
+      "title": "Address Security Risk Factors",
+      "description": "Risk level: critical",
+      "actions": [
+        "Implement additional security controls",
+        "Enhance monitoring",
+        "Update incident response"
+      ],
+      "expected_impact": "risk_reduction",
+      "timeline": "30 days"
+    },
+    {
+      "priority": "high",
+      "category": "sla_compliance",
+      "title": "Address SLA Breaches",
+      "description": "1 SLA breaches detected",
+      "actions": [
+        "Review SLA targets",
+        "Implement corrective measures",
+        "Enhance monitoring"
+      ],
+      "expected_impact": "compliance_improvement",
+      "timeline": "45 days"
+    }
+  ],
+  "executive_summary": {
+    "overall_health": {
+      "score": 0,
+      "grade": "F",
+      "status": "needs_attention"
+    },
+    "key_metrics": {
+      "system_uptime": "17%",
+      "response_time": "0ms",
+      "monthly_cost": "$0",
+      "security_grade": "F",
+      "incidents_count": 3
+    },
+    "business_impact": {
+      "grade": "F",
+      "revenue_at_risk": "$83000",
+      "cost_efficiency": "efficient"
+    },
+    "top_priorities": [
+      "Implement Cost Optimization Initiatives",
+      "Address Performance KPI Gaps",
+      "Address Security Risk Factors"
+    ],
+    "sla_compliance": "79%",
+    "next_review_date": "2025-08-15"
+  }
+}

@@ -1,0 +1,402 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Analytics Intelligence Schema",
+  "description": "Comprehensive schema for analytics data validation and integrity",
+  "version": "1.0.0",
+  "type": "object",
+  
+  "definitions": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp"
+    },
+    
+    "percentage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Percentage value between 0 and 1"
+    },
+    
+    "positiveNumber": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Non-negative number"
+    },
+    
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence score between 0 and 1"
+    },
+    
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "warning", "info"],
+      "description": "Alert severity level"
+    },
+    
+    "metric": {
+      "type": "object",
+      "required": ["value", "timestamp"],
+      "properties": {
+        "value": { "$ref": "#/definitions/positiveNumber" },
+        "timestamp": { "$ref": "#/definitions/timestamp" },
+        "change": { "type": "number" },
+        "trend": {
+          "type": "string",
+          "enum": ["increasing", "decreasing", "stable"]
+        }
+      }
+    },
+    
+    "userSession": {
+      "type": "object",
+      "required": ["id", "startTime", "pageViews"],
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "startTime": { "$ref": "#/definitions/timestamp" },
+        "endTime": { "$ref": "#/definitions/timestamp" },
+        "duration": { "$ref": "#/definitions/positiveNumber" },
+        "pageViews": { "type": "integer", "minimum": 0 },
+        "events": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/analyticsEvent" }
+        },
+        "device": { "$ref": "#/definitions/deviceInfo" },
+        "location": { "$ref": "#/definitions/geoLocation" },
+        "referrer": { "type": "string" },
+        "converted": { "type": "boolean" }
+      }
+    },
+    
+    "analyticsEvent": {
+      "type": "object",
+      "required": ["type", "timestamp"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["pageview", "click", "scroll", "form", "download", "external"]
+        },
+        "timestamp": { "$ref": "#/definitions/timestamp" },
+        "target": { "type": "string" },
+        "value": { "type": ["string", "number", "boolean", "null"] },
+        "metadata": { "type": "object" }
+      }
+    },
+    
+    "deviceInfo": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["desktop", "mobile", "tablet"]
+        },
+        "browser": { "type": "string" },
+        "os": { "type": "string" },
+        "viewport": {
+          "type": "object",
+          "properties": {
+            "width": { "type": "integer", "minimum": 0 },
+            "height": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    
+    "geoLocation": {
+      "type": "object",
+      "properties": {
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "region": { "type": "string" },
+        "city": { "type": "string" },
+        "timezone": { "type": "string" }
+      }
+    },
+    
+    "prediction": {
+      "type": "object",
+      "required": ["type", "value", "confidence", "timestamp"],
+      "properties": {
+        "type": { "type": "string" },
+        "value": { "type": ["number", "string", "array", "object"] },
+        "confidence": { "$ref": "#/definitions/confidence" },
+        "timestamp": { "$ref": "#/definitions/timestamp" },
+        "factors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "weight": { "type": "number" },
+              "impact": {
+                "type": "string",
+                "enum": ["positive", "negative", "neutral"]
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    "alert": {
+      "type": "object",
+      "required": ["id", "type", "severity", "timestamp"],
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "type": { "type": "string" },
+        "severity": { "$ref": "#/definitions/severity" },
+        "timestamp": { "$ref": "#/definitions/timestamp" },
+        "message": { "type": "string" },
+        "data": { "type": "object" },
+        "resolved": { "type": "boolean", "default": false },
+        "resolvedAt": { "$ref": "#/definitions/timestamp" }
+      }
+    },
+    
+    "recommendation": {
+      "type": "object",
+      "required": ["category", "recommendation", "impact", "effort"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["performance", "conversion", "engagement", "seo", "security", "accessibility"]
+        },
+        "recommendation": { "type": "string" },
+        "impact": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "effort": {
+          "type": "string",
+          "enum": ["high", "medium", "low"]
+        },
+        "priority": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "estimatedGain": { "$ref": "#/definitions/percentage" }
+      }
+    }
+  },
+  
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["version", "generated", "dataRange"],
+      "properties": {
+        "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "generated": { "$ref": "#/definitions/timestamp" },
+        "dataRange": {
+          "type": "object",
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "$ref": "#/definitions/timestamp" },
+            "end": { "$ref": "#/definitions/timestamp" }
+          }
+        },
+        "accuracy": { "$ref": "#/definitions/percentage" },
+        "completeness": { "$ref": "#/definitions/percentage" }
+      }
+    },
+    
+    "realTimeMetrics": {
+      "type": "object",
+      "required": ["activeUsers", "pageViews", "avgSessionDuration", "bounceRate", "conversionRate"],
+      "properties": {
+        "activeUsers": { "type": "integer", "minimum": 0 },
+        "pageViews": { "type": "integer", "minimum": 0 },
+        "avgSessionDuration": { "$ref": "#/definitions/positiveNumber" },
+        "bounceRate": { "$ref": "#/definitions/percentage" },
+        "conversionRate": { "$ref": "#/definitions/percentage" },
+        "engagementRate": { "$ref": "#/definitions/percentage" },
+        "exitRate": { "$ref": "#/definitions/percentage" }
+      }
+    },
+    
+    "performanceMetrics": {
+      "type": "object",
+      "required": ["avgLoadTime", "serverResponseTime", "errorRate", "uptime"],
+      "properties": {
+        "avgLoadTime": { "$ref": "#/definitions/positiveNumber" },
+        "serverResponseTime": { "$ref": "#/definitions/positiveNumber" },
+        "clientRenderTime": { "$ref": "#/definitions/positiveNumber" },
+        "timeToInteractive": { "$ref": "#/definitions/positiveNumber" },
+        "firstContentfulPaint": { "$ref": "#/definitions/positiveNumber" },
+        "errorRate": { "$ref": "#/definitions/percentage" },
+        "uptime": { "$ref": "#/definitions/percentage" },
+        "cacheHitRate": { "$ref": "#/definitions/percentage" }
+      }
+    },
+    
+    "userBehavior": {
+      "type": "object",
+      "properties": {
+        "topPages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["page", "views", "avgTime"],
+            "properties": {
+              "page": { "type": "string" },
+              "views": { "type": "integer", "minimum": 0 },
+              "avgTime": { "$ref": "#/definitions/positiveNumber" },
+              "bounceRate": { "$ref": "#/definitions/percentage" }
+            }
+          }
+        },
+        "userFlow": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": { "$ref": "#/definitions/percentage" }
+          }
+        },
+        "engagementMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "clicks": { "type": "integer", "minimum": 0 },
+              "hover": { "type": "integer", "minimum": 0 },
+              "scroll": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        "deviceBreakdown": {
+          "type": "object",
+          "properties": {
+            "desktop": { "$ref": "#/definitions/percentage" },
+            "mobile": { "$ref": "#/definitions/percentage" },
+            "tablet": { "$ref": "#/definitions/percentage" }
+          }
+        }
+      }
+    },
+    
+    "predictions": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/prediction" }
+        },
+        "journeys": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/prediction" }
+        },
+        "conversions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/prediction" }
+        },
+        "trends": {
+          "type": "object",
+          "properties": {
+            "traffic": { "$ref": "#/definitions/prediction" },
+            "engagement": { "$ref": "#/definitions/prediction" },
+            "conversion": { "$ref": "#/definitions/prediction" },
+            "performance": { "$ref": "#/definitions/prediction" }
+          }
+        }
+      }
+    },
+    
+    "businessMetrics": {
+      "type": "object",
+      "properties": {
+        "kpis": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "goals": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "target": { "type": "number" },
+              "actual": { "type": "number" },
+              "progress": { "$ref": "#/definitions/percentage" }
+            }
+          }
+        },
+        "roi": {
+          "type": "object",
+          "properties": {
+            "investment": { "$ref": "#/definitions/positiveNumber" },
+            "returns": { "$ref": "#/definitions/positiveNumber" },
+            "percentage": { "type": "number" },
+            "timeToValue": { "$ref": "#/definitions/positiveNumber" }
+          }
+        },
+        "growth": {
+          "type": "object",
+          "properties": {
+            "daily": { "type": "number" },
+            "weekly": { "type": "number" },
+            "monthly": { "type": "number" },
+            "quarterly": { "type": "number" },
+            "yearly": { "type": "number" }
+          }
+        }
+      }
+    },
+    
+    "alerts": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/alert" }
+    },
+    
+    "recommendations": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/recommendation" }
+    },
+    
+    "sessions": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/userSession" }
+    },
+    
+    "validationRules": {
+      "type": "object",
+      "properties": {
+        "dataQuality": {
+          "type": "object",
+          "properties": {
+            "minCompleteness": { "$ref": "#/definitions/percentage" },
+            "maxNullRate": { "$ref": "#/definitions/percentage" },
+            "outlierThreshold": { "type": "number" }
+          }
+        },
+        "businessRules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule": { "type": "string" },
+              "field": { "type": "string" },
+              "condition": { "type": "string" },
+              "value": { "type": ["string", "number", "boolean"] }
+            }
+          }
+        },
+        "integrityChecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": { "type": "string" },
+              "fields": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "relationship": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  
+  "required": ["metadata", "realTimeMetrics", "performanceMetrics"],
+  
+  "additionalProperties": false
+}

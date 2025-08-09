@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-08T07:39:33.932Z",
+  "timestamp": "2025-08-08T23:33:21.034Z",
   "overall_status": "critical",
   "systems": {
     "oauth": {
@@ -19,7 +19,7 @@
           "usage_monitor": true
         }
       },
-      "response_time": 0,
+      "response_time": 1,
       "critical": true
     },
     "content_guardian": {
@@ -35,7 +35,7 @@
         "protected_registry_present": false,
         "validation_reports_present": true
       },
-      "response_time": 0,
+      "response_time": 1,
       "critical": true
     },
     "cv_generator": {
@@ -58,17 +58,16 @@
     "analytics": {
       "operational": false,
       "status": "degraded",
-      "health_score": 0,
+      "health_score": 25,
       "issues": [
         "Activity Analyzer missing",
         "Usage Monitor missing",
-        "Activity summary missing",
         "Usage tracking missing"
       ],
       "details": {
         "analyzer_present": false,
         "usage_monitor_present": false,
-        "activity_summary_present": false,
+        "activity_summary_present": true,
         "usage_tracking_present": false
       },
       "response_time": 0,
@@ -110,7 +109,7 @@
     }
   },
   "performance_metrics": {
-    "total_check_time": 2,
+    "total_check_time": 4,
     "systems_checked": 6,
     "operational_systems": 1,
     "operational_percentage": 17,
@@ -143,7 +142,6 @@
       "issues": [
         "Activity Analyzer missing",
         "Usage Monitor missing",
-        "Activity summary missing",
         "Usage tracking missing"
       ]
     },
@@ -195,7 +193,6 @@
       "details": [
         "Activity Analyzer missing",
         "Usage Monitor missing",
-        "Activity summary missing",
         "Usage tracking missing"
       ]
     },

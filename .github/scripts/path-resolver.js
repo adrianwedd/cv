@@ -39,7 +39,7 @@ class PathResolver {
   isProjectRoot(dir) {
     try {
       const packageJsonPath = path.join(dir, 'package.json');
-      const claudeMdPath = path.join(dir, 'CLAUDE.md');
+      const claudeMdPath = path.join(dir, 'docs/CLAUDE.md');
       const githubDir = path.join(dir, '.github');
       
       return fs.existsSync(packageJsonPath) && 

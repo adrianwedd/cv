@@ -1,0 +1,316 @@
+{
+  "timestamp": "2025-08-08T23:33:21.039Z",
+  "security_status": "unknown",
+  "threats_detected": [
+    {
+      "event_id": "f74bcc01b092",
+      "type": "brute_force",
+      "confidence": 0.7999999999999999,
+      "severity": "high",
+      "original_event": {
+        "timestamp": "2025-08-08T23:33:21.041Z",
+        "source": "workflow_logs",
+        "type": "authentication",
+        "severity": "medium",
+        "message": "Multiple failed authentication attempts detected",
+        "details": {
+          "attempts": 5,
+          "source_ip": "192.168.1.100",
+          "user_agent": "automated"
+        }
+      },
+      "detected_at": "2025-08-08T23:33:21.043Z",
+      "threat_indicators": [
+        {
+          "type": "user_agent",
+          "value": "automated"
+        }
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "INC-COMP-1754696001046-SOC2",
+      "type": "compliance_violation",
+      "severity": "high",
+      "status": "open",
+      "created_at": "2025-08-08T23:33:21.046Z",
+      "compliance_details": {
+        "framework": "SOC2",
+        "compliance_percentage": 0,
+        "compliant_requirements": 0,
+        "total_requirements": 5,
+        "violations": [
+          "access_controls",
+          "system_monitoring",
+          "data_encryption",
+          "incident_response",
+          "change_management"
+        ],
+        "status": "non_compliant"
+      },
+      "impact_assessment": {
+        "business_impact": "high",
+        "regulatory_risk": "high",
+        "financial_exposure": "moderate"
+      },
+      "recommended_playbook": "compliance_remediation"
+    },
+    {
+      "id": "INC-COMP-1754696001046-ISO27001",
+      "type": "compliance_violation",
+      "severity": "high",
+      "status": "open",
+      "created_at": "2025-08-08T23:33:21.046Z",
+      "compliance_details": {
+        "framework": "ISO27001",
+        "compliance_percentage": 0,
+        "compliant_requirements": 0,
+        "total_requirements": 6,
+        "violations": [
+          "information_security_policy",
+          "risk_management",
+          "access_control",
+          "cryptography",
+          "incident_management",
+          "security_monitoring"
+        ],
+        "status": "non_compliant"
+      },
+      "impact_assessment": {
+        "business_impact": "high",
+        "regulatory_risk": "high",
+        "financial_exposure": "moderate"
+      },
+      "recommended_playbook": "compliance_remediation"
+    },
+    {
+      "id": "INC-COMP-1754696001046-NIST",
+      "type": "compliance_violation",
+      "severity": "high",
+      "status": "open",
+      "created_at": "2025-08-08T23:33:21.046Z",
+      "compliance_details": {
+        "framework": "NIST",
+        "compliance_percentage": 20,
+        "compliant_requirements": 1,
+        "total_requirements": 5,
+        "violations": [
+          "identify_assets",
+          "protect_data",
+          "respond_incidents",
+          "recover_operations"
+        ],
+        "status": "non_compliant"
+      },
+      "impact_assessment": {
+        "business_impact": "high",
+        "regulatory_risk": "high",
+        "financial_exposure": "moderate"
+      },
+      "recommended_playbook": "compliance_remediation"
+    }
+  ],
+  "responses_triggered": [],
+  "compliance_status": {
+    "SOC2": {
+      "framework": "SOC2",
+      "compliance_percentage": 0,
+      "compliant_requirements": 0,
+      "total_requirements": 5,
+      "violations": [
+        "access_controls",
+        "system_monitoring",
+        "data_encryption",
+        "incident_response",
+        "change_management"
+      ],
+      "status": "non_compliant"
+    },
+    "ISO27001": {
+      "framework": "ISO27001",
+      "compliance_percentage": 0,
+      "compliant_requirements": 0,
+      "total_requirements": 6,
+      "violations": [
+        "information_security_policy",
+        "risk_management",
+        "access_control",
+        "cryptography",
+        "incident_management",
+        "security_monitoring"
+      ],
+      "status": "non_compliant"
+    },
+    "NIST": {
+      "framework": "NIST",
+      "compliance_percentage": 20,
+      "compliant_requirements": 1,
+      "total_requirements": 5,
+      "violations": [
+        "identify_assets",
+        "protect_data",
+        "respond_incidents",
+        "recover_operations"
+      ],
+      "status": "non_compliant"
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "threat_response",
+      "title": "Implement Enhanced Threat Monitoring",
+      "description": "1 threats detected",
+      "actions": [
+        "Deploy advanced threat detection rules",
+        "Implement real-time alerting",
+        "Enhance incident response procedures"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "security_posture",
+      "title": "Improve Security Posture",
+      "description": "Current security grade: F",
+      "actions": [
+        "Address authentication health issues",
+        "Enhance data protection measures",
+        "Improve access controls",
+        "Expand monitoring coverage"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "compliance",
+      "title": "Address SOC2 Compliance Gaps",
+      "description": "0% compliant",
+      "actions": [
+        "Implement access_controls controls",
+        "Implement system_monitoring controls",
+        "Implement data_encryption controls",
+        "Implement incident_response controls",
+        "Implement change_management controls"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "compliance",
+      "title": "Address ISO27001 Compliance Gaps",
+      "description": "0% compliant",
+      "actions": [
+        "Implement information_security_policy controls",
+        "Implement risk_management controls",
+        "Implement access_control controls",
+        "Implement cryptography controls",
+        "Implement incident_management controls",
+        "Implement security_monitoring controls"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "compliance",
+      "title": "Address NIST Compliance Gaps",
+      "description": "20% compliant",
+      "actions": [
+        "Implement identify_assets controls",
+        "Implement protect_data controls",
+        "Implement respond_incidents controls",
+        "Implement recover_operations controls"
+      ]
+    }
+  ],
+  "threat_landscape": {
+    "brute_force": {
+      "count": 1,
+      "severity_distribution": {
+        "critical": 0,
+        "high": 1,
+        "medium": 0,
+        "low": 0
+      },
+      "confidence_average": 0.7999999999999999,
+      "time_pattern": {
+        "peak_hour": 9,
+        "distribution": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "is_clustered": true
+      },
+      "indicators": {
+        "user_agent": [
+          "automated"
+        ]
+      }
+    }
+  },
+  "attack_campaigns": [],
+  "security_posture": {
+    "overall_score": 55,
+    "grade": "F",
+    "components": {
+      "authentication_health": {
+        "score": 60,
+        "status": "concerning",
+        "issues": [
+          "No authentication methods configured"
+        ]
+      },
+      "data_protection": {
+        "score": 50,
+        "status": "exposed",
+        "issues": [
+          "Content Guardian not deployed",
+          "Protected content registry missing"
+        ]
+      },
+      "access_controls": {
+        "score": 100,
+        "status": "secure",
+        "issues": []
+      },
+      "monitoring_coverage": {
+        "score": 40,
+        "status": "insufficient",
+        "issues": [
+          "Missing monitoring component: system-health-monitor.js",
+          "Missing monitoring component: performance-monitor.js",
+          "Missing monitoring component: monitoring-dashboard.js"
+        ]
+      },
+      "incident_readiness": {
+        "score": 25,
+        "status": "unprepared",
+        "issues": [
+          "Incident response playbooks missing",
+          "Missing response component: incident-response-system.js",
+          "Missing response component: recovery-system.js",
+          "Missing response component: self-healing-system.js"
+        ]
+      }
+    }
+  }
+}

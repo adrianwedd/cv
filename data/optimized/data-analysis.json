@@ -14,17 +14,17 @@
     }
   },
   "activity-summary.json": {
-    "size": 3932,
+    "size": 287,
     "structure": {
-      "depth": 5,
-      "keys": 8,
-      "arrays": 6,
-      "objects": 35
+      "depth": 3,
+      "keys": 4,
+      "arrays": 1,
+      "objects": 4
     },
     "compressionPotential": {
-      "original": 3932,
-      "compressed": 1341,
-      "ratio": "34.1%"
+      "original": 287,
+      "compressed": 180,
+      "ratio": "62.7%"
     }
   },
   "ai-enhancements.json": {
