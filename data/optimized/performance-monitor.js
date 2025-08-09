@@ -20,7 +20,7 @@ class CVPerformanceMonitor {
             for (const entry of entryList.getEntries()) {
                 if (entry.name === 'first-contentful-paint') {
                     this.metrics.fcp = entry.startTime;
-                     + 'ms');
+                    console.log('🎨 FCP:', entry.startTime.toFixed(2) + 'ms');
                 }
             }
         }).observe({ entryTypes: ['paint'] });
@@ -30,7 +30,7 @@ class CVPerformanceMonitor {
             const entries = entryList.getEntries();
             const lastEntry = entries[entries.length - 1];
             this.metrics.lcp = lastEntry.startTime;
-             + 'ms');
+            console.log('🖼️ LCP:', lastEntry.startTime.toFixed(2) + 'ms');
         }).observe({ entryTypes: ['largest-contentful-paint'] });
 
         // Cumulative Layout Shift
@@ -40,7 +40,7 @@ class CVPerformanceMonitor {
                     this.metrics.cls = (this.metrics.cls || 0) + entry.value;
                 }
             }
-            );
+            console.log('📐 CLS:', this.metrics.cls?.toFixed(4));
         }).observe({ entryTypes: ['layout-shift'] });
     }
 
@@ -58,7 +58,7 @@ class CVPerformanceMonitor {
                 if (entry.name.includes('chunks/')) {
                     const chunkName = entry.name.split('/').pop().replace('.json', '');
                     this.metrics[`chunk_${chunkName}`] = entry.duration;
-                     + 'ms');
+                    console.log(`📦 Chunk ${chunkName}:`, entry.duration.toFixed(2) + 'ms');
                 }
             }
         });
@@ -72,7 +72,7 @@ class CVPerformanceMonitor {
             if (firstInteraction) {
                 this.metrics.first_interaction = performance.now();
                 firstInteraction = false;
-                 + 'ms');
+                console.log('👆 First Interaction:', this.metrics.first_interaction.toFixed(2) + 'ms');
             }
         });
     }
@@ -94,7 +94,7 @@ class CVPerformanceMonitor {
             performance_grade: this.calculateGrade()
         };
 
-        
+        console.log('📊 Performance Report:', report);
         
         // Send to analytics (if configured)
         if (window.gtag) {

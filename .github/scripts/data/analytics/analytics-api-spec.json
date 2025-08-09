@@ -1,0 +1,256 @@
+{
+  "version": "1.0.0",
+  "endpoints": {
+    "/metrics/realtime": {
+      "method": "GET",
+      "description": "Get real-time metrics",
+      "response": {
+        "activeUsers": 0,
+        "pageViews": 637,
+        "events": 154
+      }
+    },
+    "/metrics/historical": {
+      "method": "GET",
+      "params": [
+        "start_date",
+        "end_date",
+        "metric"
+      ],
+      "description": "Get historical metrics",
+      "response": {
+        "data": [
+          {
+            "date": "2025-08-08",
+            "value": 765.6182265973177
+          },
+          {
+            "date": "2025-08-07",
+            "value": 524.4876199068362
+          },
+          {
+            "date": "2025-08-06",
+            "value": 606.4247929131811
+          },
+          {
+            "date": "2025-08-05",
+            "value": 470.717119974452
+          },
+          {
+            "date": "2025-08-04",
+            "value": 581.325825041804
+          },
+          {
+            "date": "2025-08-03",
+            "value": 445.0494785553123
+          },
+          {
+            "date": "2025-08-02",
+            "value": 81.70484836943137
+          },
+          {
+            "date": "2025-08-01",
+            "value": 862.256732639602
+          },
+          {
+            "date": "2025-07-31",
+            "value": 411.54499400937385
+          },
+          {
+            "date": "2025-07-30",
+            "value": 511.7723005314523
+          },
+          {
+            "date": "2025-07-29",
+            "value": 53.76313981037062
+          },
+          {
+            "date": "2025-07-28",
+            "value": 771.4031095274714
+          },
+          {
+            "date": "2025-07-27",
+            "value": 999.2698689048136
+          },
+          {
+            "date": "2025-07-26",
+            "value": 437.682186546958
+          },
+          {
+            "date": "2025-07-25",
+            "value": 400.2580538742595
+          },
+          {
+            "date": "2025-07-24",
+            "value": 60.93574776201871
+          },
+          {
+            "date": "2025-07-23",
+            "value": 920.364083000067
+          },
+          {
+            "date": "2025-07-22",
+            "value": 81.70878185621366
+          },
+          {
+            "date": "2025-07-21",
+            "value": 587.719012522211
+          },
+          {
+            "date": "2025-07-20",
+            "value": 241.8119606904776
+          },
+          {
+            "date": "2025-07-19",
+            "value": 690.1153452791983
+          },
+          {
+            "date": "2025-07-18",
+            "value": 889.3576184649638
+          },
+          {
+            "date": "2025-07-17",
+            "value": 279.86658580432413
+          },
+          {
+            "date": "2025-07-16",
+            "value": 718.2691189983128
+          },
+          {
+            "date": "2025-07-15",
+            "value": 835.4947742330856
+          },
+          {
+            "date": "2025-07-14",
+            "value": 355.5544880349484
+          },
+          {
+            "date": "2025-07-13",
+            "value": 959.1446497609415
+          },
+          {
+            "date": "2025-07-12",
+            "value": 862.3035485809758
+          },
+          {
+            "date": "2025-07-11",
+            "value": 21.71196636404371
+          },
+          {
+            "date": "2025-07-10",
+            "value": 34.313776518754224
+          }
+        ]
+      }
+    },
+    "/predictions/:type": {
+      "method": "GET",
+      "params": [
+        "type"
+      ],
+      "description": "Get predictions by type",
+      "response": {}
+    },
+    "/segments": {
+      "method": "GET",
+      "description": "Get user segments",
+      "response": [
+        {
+          "name": "new_visitors",
+          "size": 100,
+          "characteristics": [
+            "first_time",
+            "exploratory"
+          ]
+        },
+        {
+          "name": "returning_visitors",
+          "size": 50,
+          "characteristics": [
+            "engaged",
+            "familiar"
+          ]
+        },
+        {
+          "name": "recruiters",
+          "size": 30,
+          "characteristics": [
+            "professional",
+            "targeted"
+          ]
+        },
+        {
+          "name": "developers",
+          "size": 20,
+          "characteristics": [
+            "technical",
+            "detailed"
+          ]
+        }
+      ]
+    },
+    "/recommendations/:segment": {
+      "method": "GET",
+      "params": [
+        "segment"
+      ],
+      "description": "Get recommendations for segment",
+      "response": [
+        {
+          "category": "performance",
+          "recommendation": "Implement lazy loading for images",
+          "impact": "high",
+          "effort": "low"
+        },
+        {
+          "category": "conversion",
+          "recommendation": "Add testimonials section",
+          "impact": "medium",
+          "effort": "medium"
+        },
+        {
+          "category": "engagement",
+          "recommendation": "Create interactive skill chart",
+          "impact": "high",
+          "effort": "medium"
+        },
+        {
+          "category": "seo",
+          "recommendation": "Optimize meta descriptions",
+          "impact": "medium",
+          "effort": "low"
+        }
+      ]
+    },
+    "/alerts": {
+      "method": "GET",
+      "description": "Get active alerts",
+      "response": []
+    },
+    "/export": {
+      "method": "POST",
+      "params": [
+        "format",
+        "date_range",
+        "metrics"
+      ],
+      "description": "Export analytics data",
+      "response": {
+        "format": "json",
+        "data": {
+          "metrics": {},
+          "predictions": {},
+          "alerts": []
+        }
+      }
+    }
+  },
+  "authentication": {
+    "type": "API_KEY",
+    "header": "X-Analytics-Key"
+  },
+  "rateLimit": {
+    "requests": 1000,
+    "window": 3600000
+  }
+}

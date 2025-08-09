@@ -23,7 +23,7 @@ setupTestEnvironment();
 describe('Foundation Test Suite - Project Structure', () => {
   test('should locate project root correctly', () => {
     assert.ok(pathResolver.projectRoot, 'Project root should be identified');
-    assert.ok(fs.existsSync(pathResolver.resolve('CLAUDE.md')), 'CLAUDE.md should exist');
+    assert.ok(fs.existsSync(pathResolver.resolve('docs/CLAUDE.md')), 'docs/CLAUDE.md should exist');
     assert.ok(fs.existsSync(pathResolver.resolve('package.json')), 'package.json should exist');
   });
 
@@ -146,7 +146,7 @@ describe('Foundation Test Suite - System Health Check', () => {
     const healthCheck = {
       projectRoot: !!pathResolver.projectRoot,
       testEnvironment: process.env.NODE_ENV === 'test',
-      pathResolution: pathResolver.exists('CLAUDE.md'),
+      pathResolution: pathResolver.exists('docs/CLAUDE.md'),
       mockData: !!MOCK_RESPONSES.claude,
       testIsolation: process.env.DISABLE_NETWORK === 'true'
     };

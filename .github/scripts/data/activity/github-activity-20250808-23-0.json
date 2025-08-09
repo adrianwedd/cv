@@ -1,0 +1,25 @@
+{
+  "collectionTimestamp": "2025-08-08T23:08:52.676Z",
+  "analysisPeriodDays": 30,
+  "userProfile": {
+    "status": "compressed"
+  },
+  "repositories": {
+    "data": [],
+    "summary": {}
+  },
+  "localRepositoryMetrics": {
+    "line_contributions": {
+      "lines_contributed": 60000,
+      "lines_added": 120000,
+      "lines_deleted": 103324,
+      "files_modified": 1000,
+      "binary_files_filtered": 394
+    },
+    "commit_frequency": {}
+  },
+  "languageAnalysis": {
+    "primary_languages": [],
+    "language_distribution": []
+  }
+}

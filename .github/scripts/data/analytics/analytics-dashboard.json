@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "generated": "2025-08-08T23:13:12.620Z",
+    "version": "1.0.0",
+    "accuracy": 0
+  },
+  "realTimeMetrics": {
+    "activeUsers": 0,
+    "pageViews": 146,
+    "avgSessionDuration": 168,
+    "bounceRate": 0.1086464111015577,
+    "conversionRate": 0.0971972414872496
+  },
+  "performance": {
+    "avgLoadTime": 2300.3693008842047,
+    "serverResponseTime": 148.54305689340043,
+    "errorRate": 0.004199008881965174,
+    "uptime": 0.9955259208437176
+  },
+  "userBehavior": {
+    "topPages": [
+      {
+        "page": "/",
+        "views": 500,
+        "avgTime": 120
+      },
+      {
+        "page": "/experience",
+        "views": 300,
+        "avgTime": 180
+      },
+      {
+        "page": "/projects",
+        "views": 250,
+        "avgTime": 150
+      },
+      {
+        "page": "/skills",
+        "views": 200,
+        "avgTime": 90
+      },
+      {
+        "page": "/contact",
+        "views": 150,
+        "avgTime": 60
+      }
+    ],
+    "userFlow": {
+      "landing": {
+        "about": 0.4,
+        "experience": 0.3,
+        "projects": 0.2,
+        "bounce": 0.1
+      },
+      "about": {
+        "experience": 0.5,
+        "projects": 0.3,
+        "skills": 0.2
+      },
+      "experience": {
+        "projects": 0.4,
+        "skills": 0.3,
+        "contact": 0.3
+      },
+      "projects": {
+        "skills": 0.5,
+        "contact": 0.3,
+        "experience": 0.2
+      },
+      "skills": {
+        "contact": 0.6,
+        "projects": 0.2,
+        "experience": 0.2
+      },
+      "contact": {
+        "exit": 0.8,
+        "about": 0.2
+      }
+    },
+    "engagementMap": {
+      "hero": {
+        "clicks": 50,
+        "hover": 200,
+        "scroll": 300
+      },
+      "navigation": {
+        "clicks": 150,
+        "hover": 400,
+        "scroll": 100
+      },
+      "experience": {
+        "clicks": 80,
+        "hover": 250,
+        "scroll": 350
+      },
+      "projects": {
+        "clicks": 100,
+        "hover": 300,
+        "scroll": 400
+      },
+      "skills": {
+        "clicks": 60,
+        "hover": 200,
+        "scroll": 250
+      },
+      "contact": {
+        "clicks": 120,
+        "hover": 150,
+        "scroll": 200
+      }
+    },
+    "deviceBreakdown": {
+      "desktop": 0.55,
+      "mobile": 0.35,
+      "tablet": 0.1
+    }
+  },
+  "predictions": {},
+  "businessMetrics": {
+    "kpis": {
+      "viewsToContact": 0.15,
+      "profileCompleteness": 0.95,
+      "engagementScore": 0.75,
+      "professionalReach": 850
+    },
+    "goals": {
+      "contactFormSubmissions": 25,
+      "documentDownloads": 45,
+      "projectViews": 120,
+      "socialLinks": 35
+    },
+    "roi": {
+      "investment": 1000,
+      "returns": 5000,
+      "roi": 400,
+      "timeToValue": 30
+    },
+    "growth": {
+      "monthlyGrowth": 0.15,
+      "quarterlyGrowth": 0.45,
+      "yearlyGrowth": 2.5,
+      "projectedGrowth": 3.2
+    }
+  },
+  "alerts": [],
+  "recommendations": [
+    {
+      "category": "performance",
+      "recommendation": "Implement lazy loading for images",
+      "impact": "high",
+      "effort": "low"
+    },
+    {
+      "category": "conversion",
+      "recommendation": "Add testimonials section",
+      "impact": "medium",
+      "effort": "medium"
+    },
+    {
+      "category": "engagement",
+      "recommendation": "Create interactive skill chart",
+      "impact": "high",
+      "effort": "medium"
+    },
+    {
+      "category": "seo",
+      "recommendation": "Optimize meta descriptions",
+      "impact": "medium",
+      "effort": "low"
+    }
+  ]
+}

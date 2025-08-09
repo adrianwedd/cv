@@ -1,0 +1,47 @@
+{
+  "id": "e2f84240ad70",
+  "name": "optimization_test_skills",
+  "description": "Test optimization: Add quantified achievements",
+  "content_type": "skills",
+  "variants": {
+    "control": {
+      "id": "control",
+      "name": "Current Version",
+      "content": "Current CV content",
+      "optimizations": []
+    },
+    "variant": {
+      "id": "variant",
+      "name": "Optimized Version",
+      "content": "Optimized CV content",
+      "optimizations": []
+    }
+  },
+  "metrics": [
+    "engagement_rate",
+    "conversion_rate",
+    "time_on_page"
+  ],
+  "start_date": "2025-08-08T23:10:12.220Z",
+  "end_date": "2025-09-07T23:10:12.220Z",
+  "status": "active",
+  "traffic_split": {
+    "control": 50,
+    "variant": 50
+  },
+  "statistical_power": 0.8,
+  "expected_effect_size": 0.15,
+  "participants": {},
+  "results": {
+    "control": {
+      "impressions": 0,
+      "conversions": 0,
+      "metrics": {}
+    },
+    "variant": {
+      "impressions": 0,
+      "conversions": 0,
+      "metrics": {}
+    }
+  }
+}

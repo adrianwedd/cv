@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-08-08T16:55:59.833Z",
+  "timestamp": "2025-08-08T23:33:36.463Z",
   "summary": {
     "unit": {
       "passed": 0,
       "failed": 0,
-      "duration": 0
+      "duration": 257
     },
     "integration": {
       "passed": 0,

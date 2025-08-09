@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-08-08T23:33:21.035Z",
+  "summary": {
+    "predictions_count": 0,
+    "high_confidence_predictions": 0,
+    "anomalies_count": 0,
+    "critical_anomalies": 0,
+    "trends_count": 0,
+    "significant_trends": 0,
+    "alerts_count": 0,
+    "critical_alerts": 0
+  },
+  "next_analysis": "2025-08-09T00:33:21.048Z"
+}

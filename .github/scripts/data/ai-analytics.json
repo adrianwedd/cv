@@ -2,7 +2,7 @@
   "system_overview": {
     "total_systems": 13,
     "operational_systems": 13,
-    "initialization_time": "2025-08-08T17:40:35.963Z",
+    "initialization_time": "2025-08-08T23:10:12.208Z",
     "configuration": {
       "ENHANCEMENT_MODE": "comprehensive",
       "CREATIVITY_LEVEL": "balanced",
@@ -90,7 +90,7 @@
       "healthy_monitors": 5,
       "warning_monitors": 0,
       "critical_monitors": 0,
-      "last_updated": "2025-08-08T17:40:35.985Z",
+      "last_updated": "2025-08-08T23:10:12.222Z",
       "overall_health": "healthy"
     },
     "active_alerts": {
@@ -149,25 +149,25 @@
   "prediction_analytics": {
     "total_predictions": 1,
     "average_confidence": 82,
-    "prediction_accuracy": 89,
+    "prediction_accuracy": 76,
     "model_performance": {
       "career_advancement": {
-        "accuracy": 76,
+        "accuracy": 80,
         "usage_count": 0,
         "confidence_trend": "stable"
       },
       "salary_progression": {
-        "accuracy": 85,
+        "accuracy": 86,
         "usage_count": 0,
         "confidence_trend": "stable"
       },
       "skill_demand_forecast": {
-        "accuracy": 92,
+        "accuracy": 77,
         "usage_count": 0,
         "confidence_trend": "stable"
       },
       "career_transition": {
-        "accuracy": 79,
+        "accuracy": 78,
         "usage_count": 0,
         "confidence_trend": "stable"
       }
