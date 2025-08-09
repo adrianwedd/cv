@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://adrianwedd.github.io/cv/sitemap.xml
-
-# Disallow crawler access to data files for privacy
-Disallow: /data/
