@@ -6,10 +6,8 @@ name: 📊 High-Frequency Data Refresh Pipeline
 
 on:
   schedule:
-    # Every 30 minutes during business hours (9 AM - 6 PM AEST)
-    - cron: '*/30 23,0,1,2,3,4,5,6,7 * * 1-5'  # Mon-Fri business hours
-    # Every 2 hours on evenings and weekends  
-    - cron: '0 */2 * * *'  # Always, but business hours override
+    # Every 6 hours to reduce CI costs (was every 30 minutes)
+    - cron: '0 */6 * * *'  # 4 times per day
   push:
     branches: [ develop, main ]
     paths: 
