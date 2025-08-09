@@ -25,7 +25,7 @@ const CRITICAL_RESOURCES = [
     '/',
     '/cv/',
     '/cv/index.html',
-    '/cv/assets/script.critical.min.js',
+    '/cv/assets/script.js',
     '/cv/assets/styles.min.css',
     '/cv/assets/dynamic-loader.js',
     '/cv/manifest.json'
