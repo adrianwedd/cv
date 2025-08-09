@@ -1,0 +1,332 @@
+[
+  {
+    "timestamp": "2025-08-09T08:25:23.214Z",
+    "coreWebVitals": {
+      "fcp": 1298.0729300208443,
+      "lcp": 2661.1650146307866,
+      "cls": 0.09998596429521843,
+      "fid": 98.84438703909599,
+      "score": 100
+    },
+    "accessibility": {
+      "score": 94.10078694132874,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 66,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 96.05571778168255,
+      "loadTime": 1326.8687157833665,
+      "resourceSize": 1408717.571684994,
+      "cacheHitRatio": 0.7244104206988815,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.7326599676052462
+      }
+    },
+    "userExperience": {
+      "score": 96.36303831426164,
+      "navigationClarity": 98.44211395990048,
+      "contentReadability": 91.77189426584096,
+      "visualHierarchy": 91.05737761326975,
+      "mobileExperience": 89.64603246414072,
+      "interactionFeedback": 99.70666405489398
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:25:54.026Z",
+    "coreWebVitals": {
+      "fcp": 2281.715698179796,
+      "lcp": 2382.1451912467014,
+      "cls": 0.08287911706119928,
+      "fid": 59.820883500795816,
+      "score": 100
+    },
+    "accessibility": {
+      "score": 90.11699014254984,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 50,
+      "keyboardNavigation": false
+    },
+    "performance": {
+      "score": 86.35919885051133,
+      "loadTime": 1475.2138044127703,
+      "resourceSize": 815969.2860261418,
+      "cacheHitRatio": 0.7203175004666895,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6633500743275879
+      }
+    },
+    "userExperience": {
+      "score": 96.57094466743222,
+      "navigationClarity": 96.37915522490833,
+      "contentReadability": 88.62826010081027,
+      "visualHierarchy": 91.04494106384314,
+      "mobileExperience": 93.5195085438837,
+      "interactionFeedback": 92.02055923256238
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:26:25.035Z",
+    "coreWebVitals": {
+      "fcp": 2640.613970988097,
+      "lcp": 5965.104232558275,
+      "cls": 0.15830020277224222,
+      "fid": 106.26748387310636,
+      "score": 25
+    },
+    "accessibility": {
+      "score": 92.74257196406661,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 71,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 87.25271951044665,
+      "loadTime": 1110.20881620782,
+      "resourceSize": 1482526.281819169,
+      "cacheHitRatio": 0.822021220276324,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.7793922200641091
+      }
+    },
+    "userExperience": {
+      "score": 81.77637316022984,
+      "navigationClarity": 94.02800429942884,
+      "contentReadability": 93.87583681661766,
+      "visualHierarchy": 96.11602031754136,
+      "mobileExperience": 94.25799256416227,
+      "interactionFeedback": 98.70840258508254
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:26:56.047Z",
+    "coreWebVitals": {
+      "fcp": 1929.9859027904658,
+      "lcp": 5010.6231292810835,
+      "cls": 0.1365551025839312,
+      "fid": 101.44866620271253,
+      "score": 45
+    },
+    "accessibility": {
+      "score": 96.85217917935702,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 55,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 95.88018248108861,
+      "loadTime": 2786.881035556202,
+      "resourceSize": 742701.5766318513,
+      "cacheHitRatio": 0.943497446177326,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6573275597313888
+      }
+    },
+    "userExperience": {
+      "score": 86.85252585061184,
+      "navigationClarity": 90.31722120598698,
+      "contentReadability": 86.62592503792807,
+      "visualHierarchy": 94.32772135388646,
+      "mobileExperience": 85.63755305376266,
+      "interactionFeedback": 91.00462162247703
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:27:26.657Z",
+    "coreWebVitals": {
+      "fcp": 3599.8454595178155,
+      "lcp": 5537.747930790223,
+      "cls": 0.001294809402447017,
+      "fid": 137.03253553538536,
+      "score": 50
+    },
+    "accessibility": {
+      "score": 97.56822600427112,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 56,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 95.4286294905858,
+      "loadTime": 1777.5363803437392,
+      "resourceSize": 1209243.8228069586,
+      "cacheHitRatio": 0.9317883876897229,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.8862017339632728
+      }
+    },
+    "userExperience": {
+      "score": 95.4377697818984,
+      "navigationClarity": 93.8806239654483,
+      "contentReadability": 91.00602536933708,
+      "visualHierarchy": 88.79285613649364,
+      "mobileExperience": 97.26820653021873,
+      "interactionFeedback": 99.88319065506485
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:27:57.663Z",
+    "coreWebVitals": {
+      "fcp": 1475.6175348864272,
+      "lcp": 3604.417181070512,
+      "cls": 0.18523105710061027,
+      "fid": 65.73957968450124,
+      "score": 75
+    },
+    "accessibility": {
+      "score": 94.98738256746448,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 62,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 94.96398253969038,
+      "loadTime": 2640.8570459693137,
+      "resourceSize": 1205779.8861771328,
+      "cacheHitRatio": 0.8610011316538128,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6364901710667682
+      }
+    },
+    "userExperience": {
+      "score": 92.86041783973172,
+      "navigationClarity": 98.24074198158492,
+      "contentReadability": 94.03784700301618,
+      "visualHierarchy": 89.7104853614209,
+      "mobileExperience": 87.6288811137634,
+      "interactionFeedback": 93.42110194499787
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:28:28.273Z",
+    "coreWebVitals": {
+      "fcp": 2896.266646591742,
+      "lcp": 5253.802848006169,
+      "cls": 0.15357336304007038,
+      "fid": 67.27258230592753,
+      "score": 25
+    },
+    "accessibility": {
+      "score": 95.75066981638511,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 67,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 90.43188379716382,
+      "loadTime": 2717.790811951196,
+      "resourceSize": 1491109.9052659578,
+      "cacheHitRatio": 0.8287937866166702,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6263855526483553
+      }
+    },
+    "userExperience": {
+      "score": 86.12200071335823,
+      "navigationClarity": 94.91473095974608,
+      "contentReadability": 91.01019819415872,
+      "visualHierarchy": 95.26851030310823,
+      "mobileExperience": 85.31163898264869,
+      "interactionFeedback": 99.8674181282736
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:28:59.281Z",
+    "coreWebVitals": {
+      "fcp": 3986.9494538148606,
+      "lcp": 5874.124984317756,
+      "cls": 0.027725628989865927,
+      "fid": 109.05763226271819,
+      "score": 50
+    },
+    "accessibility": {
+      "score": 98.40584443645525,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 94,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 96.75737556061164,
+      "loadTime": 2877.5429406840085,
+      "resourceSize": 1231879.2956211767,
+      "cacheHitRatio": 0.7138386716400912,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.7635546031048984
+      }
+    },
+    "userExperience": {
+      "score": 80.45604114915673,
+      "navigationClarity": 91.42751058003833,
+      "contentReadability": 88.72387110273593,
+      "visualHierarchy": 96.65104633690558,
+      "mobileExperience": 89.55589260826888,
+      "interactionFeedback": 94.30895328043216
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:29:30.296Z",
+    "coreWebVitals": {
+      "fcp": 2459.1529505072813,
+      "lcp": 4101.5746971584995,
+      "cls": 0.050760262737093956,
+      "fid": 137.4667894829054,
+      "score": 70
+    },
+    "accessibility": {
+      "score": 94.50811019391418,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 54,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 89.60743989550443,
+      "loadTime": 2642.810707752942,
+      "resourceSize": 969639.6462962495,
+      "cacheHitRatio": 0.7792620270330406,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.8103432131331505
+      }
+    },
+    "userExperience": {
+      "score": 81.46019908067035,
+      "navigationClarity": 98.27255302126522,
+      "contentReadability": 86.82102791924865,
+      "visualHierarchy": 91.75546290297241,
+      "mobileExperience": 90.16091899012568,
+      "interactionFeedback": 90.490914828387
+    }
+  }
+]

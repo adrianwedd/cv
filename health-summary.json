@@ -1,15 +1,15 @@
 {
-  "lastCheck": 1754728027087,
+  "lastCheck": 1754728201763,
   "healthScore": 80,
   "status": "good",
   "alerts": [],
-  "uptime": 3454810,
-  "repositorySize": "359.4MB",
+  "uptime": 184880,
+  "repositorySize": "360.0MB",
   "jsonFiles": 1909,
   "dataIntegrity": "100%",
   "performance": {
-    "responseTime": "8ms",
-    "throughput": "1042 files/sec",
+    "responseTime": "7ms",
+    "throughput": "1075 files/sec",
     "compressionRatio": "43.6%"
   }
 }
