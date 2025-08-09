@@ -9,10 +9,10 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    # Every hour during business hours (9 AM - 6 PM AEST)
-    - cron: '0 23,0,1,2,3,4,5,6,7 * * 1-5'  # Mon-Fri 9AM-6PM AEST
-    # Every 3 hours on weekends
-    - cron: '0 */3 * * 0,6'  # Sat-Sun every 3h
+    # Twice daily during business hours (9 AM and 3 PM AEST) to reduce CI costs
+    - cron: '0 23,5 * * 1-5'  # Mon-Fri 9AM and 3PM AEST
+    # Once daily on weekends
+    - cron: '0 2 * * 0,6'  # Sat-Sun at 12PM AEST
   workflow_dispatch:
     inputs:
       enhancement_intensity:

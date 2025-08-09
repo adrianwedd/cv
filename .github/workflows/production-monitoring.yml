@@ -2,8 +2,8 @@ name: 🚀 Production Monitoring & Alerting
 
 on:
   schedule:
-    # Run every 5 minutes for critical monitoring
-    - cron: '*/5 * * * *'
+    # Run every 6 hours for monitoring (reduced from every 5 minutes to save CI costs)
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       monitoring_level:

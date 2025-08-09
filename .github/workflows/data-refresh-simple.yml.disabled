@@ -1,0 +1,2 @@
+# DISABLED TO REDUCE CI COSTS - Functionality covered by data-refresh-pipeline.yml
+# To re-enable, rename this file back to .yml extension
