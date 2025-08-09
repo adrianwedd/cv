@@ -3,10 +3,22 @@
 temp/
 temp_issue_body.txt
 
-# Dependencies
+# Dependencies - All node_modules directories
 node_modules/
+*/node_modules/
+**/node_modules/
 .github/scripts/node_modules/
+monitoring/node_modules/
+monitoring/*/node_modules/
 # package-lock.json - keep this for CI caching
+
+# Build outputs and temporary files
+dist/
+build/
+.cache/
+.tmp/
+tmp/
+temp/
 
 # Security - Authentication credentials
 *.cookies.json

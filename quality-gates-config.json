@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "framework": "Quality Assurance Pipeline",
+  "gates": {
+    "pre_deployment": {
+      "repository_size": {
+        "enabled": true,
+        "threshold": "120MB",
+        "action": "block",
+        "message": "Repository size exceeds 120MB threshold"
+      },
+      "quality_score": {
+        "enabled": true,
+        "minimum": 85,
+        "action": "block",
+        "message": "Quality score below 85/100 minimum"
+      },
+      "test_coverage": {
+        "enabled": true,
+        "minimum": 90,
+        "action": "warn",
+        "message": "Test coverage below 90% target"
+      },
+      "performance_regression": {
+        "enabled": true,
+        "threshold": -5,
+        "action": "block",
+        "message": "Performance regression exceeds -5 points"
+      },
+      "security_scan": {
+        "enabled": true,
+        "severity": "medium",
+        "action": "block",
+        "message": "Security vulnerabilities detected"
+      }
+    },
+    "post_deployment": {
+      "health_score": {
+        "enabled": true,
+        "minimum": 80,
+        "action": "rollback",
+        "message": "Health score dropped below 80/100"
+      },
+      "core_web_vitals": {
+        "enabled": true,
+        "thresholds": {
+          "fcp": 2500,
+          "lcp": 2500,
+          "cls": 0.1,
+          "fid": 100
+        },
+        "action": "alert",
+        "message": "Core Web Vitals threshold exceeded"
+      },
+      "accessibility": {
+        "enabled": true,
+        "minimum": 90,
+        "action": "alert",
+        "message": "Accessibility score below 90/100"
+      }
+    }
+  },
+  "thresholds": {
+    "critical": {
+      "repository_size": "150MB",
+      "quality_score": 80,
+      "performance_regression": -10,
+      "health_score": 70
+    },
+    "warning": {
+      "repository_size": "120MB",
+      "quality_score": 85,
+      "performance_regression": -5,
+      "health_score": 80
+    },
+    "target": {
+      "repository_size": "100MB",
+      "quality_score": 95,
+      "performance_regression": 0,
+      "health_score": 90
+    }
+  },
+  "actions": {
+    "block": "Prevent deployment/merge",
+    "warn": "Show warning but allow",
+    "alert": "Notify team but continue",
+    "rollback": "Automatic rollback to previous state"
+  },
+  "monitoring": {
+    "interval": "5 minutes",
+    "retention": "30 days",
+    "alerts": {
+      "email": false,
+      "webhook": false,
+      "github_issue": true
+    }
+  }
+}
