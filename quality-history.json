@@ -1,0 +1,221 @@
+[
+  {
+    "timestamp": "2025-08-09T08:25:23.214Z",
+    "coreWebVitals": {
+      "fcp": 1298.0729300208443,
+      "lcp": 2661.1650146307866,
+      "cls": 0.09998596429521843,
+      "fid": 98.84438703909599,
+      "score": 100
+    },
+    "accessibility": {
+      "score": 94.10078694132874,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 66,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 96.05571778168255,
+      "loadTime": 1326.8687157833665,
+      "resourceSize": 1408717.571684994,
+      "cacheHitRatio": 0.7244104206988815,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.7326599676052462
+      }
+    },
+    "userExperience": {
+      "score": 96.36303831426164,
+      "navigationClarity": 98.44211395990048,
+      "contentReadability": 91.77189426584096,
+      "visualHierarchy": 91.05737761326975,
+      "mobileExperience": 89.64603246414072,
+      "interactionFeedback": 99.70666405489398
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:25:54.026Z",
+    "coreWebVitals": {
+      "fcp": 2281.715698179796,
+      "lcp": 2382.1451912467014,
+      "cls": 0.08287911706119928,
+      "fid": 59.820883500795816,
+      "score": 100
+    },
+    "accessibility": {
+      "score": 90.11699014254984,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 50,
+      "keyboardNavigation": false
+    },
+    "performance": {
+      "score": 86.35919885051133,
+      "loadTime": 1475.2138044127703,
+      "resourceSize": 815969.2860261418,
+      "cacheHitRatio": 0.7203175004666895,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6633500743275879
+      }
+    },
+    "userExperience": {
+      "score": 96.57094466743222,
+      "navigationClarity": 96.37915522490833,
+      "contentReadability": 88.62826010081027,
+      "visualHierarchy": 91.04494106384314,
+      "mobileExperience": 93.5195085438837,
+      "interactionFeedback": 92.02055923256238
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:26:25.035Z",
+    "coreWebVitals": {
+      "fcp": 2640.613970988097,
+      "lcp": 5965.104232558275,
+      "cls": 0.15830020277224222,
+      "fid": 106.26748387310636,
+      "score": 25
+    },
+    "accessibility": {
+      "score": 92.74257196406661,
+      "wcagCompliance": "A",
+      "issues": [
+        "Color contrast",
+        "Alt text"
+      ],
+      "ariaLabels": 71,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 87.25271951044665,
+      "loadTime": 1110.20881620782,
+      "resourceSize": 1482526.281819169,
+      "cacheHitRatio": 0.822021220276324,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.7793922200641091
+      }
+    },
+    "userExperience": {
+      "score": 81.77637316022984,
+      "navigationClarity": 94.02800429942884,
+      "contentReadability": 93.87583681661766,
+      "visualHierarchy": 96.11602031754136,
+      "mobileExperience": 94.25799256416227,
+      "interactionFeedback": 98.70840258508254
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:26:56.047Z",
+    "coreWebVitals": {
+      "fcp": 1929.9859027904658,
+      "lcp": 5010.6231292810835,
+      "cls": 0.1365551025839312,
+      "fid": 101.44866620271253,
+      "score": 45
+    },
+    "accessibility": {
+      "score": 96.85217917935702,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 55,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 95.88018248108861,
+      "loadTime": 2786.881035556202,
+      "resourceSize": 742701.5766318513,
+      "cacheHitRatio": 0.943497446177326,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6573275597313888
+      }
+    },
+    "userExperience": {
+      "score": 86.85252585061184,
+      "navigationClarity": 90.31722120598698,
+      "contentReadability": 86.62592503792807,
+      "visualHierarchy": 94.32772135388646,
+      "mobileExperience": 85.63755305376266,
+      "interactionFeedback": 91.00462162247703
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:26:56.875Z",
+    "coreWebVitals": {
+      "fcp": 1261.4514448922932,
+      "lcp": 2894.627270522448,
+      "cls": 0.026649881626635397,
+      "fid": 127.85938810790236,
+      "score": 100
+    },
+    "accessibility": {
+      "score": 99.81083168832761,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 86,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 98.06400584900967,
+      "loadTime": 1448.734845431797,
+      "resourceSize": 1211131.1338547133,
+      "cacheHitRatio": 0.7489847416088369,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.6291896770463844
+      }
+    },
+    "userExperience": {
+      "score": 81.05184849653124,
+      "navigationClarity": 94.15332853702105,
+      "contentReadability": 94.50212070901843,
+      "visualHierarchy": 91.54402275596036,
+      "mobileExperience": 96.33350147347804,
+      "interactionFeedback": 93.92806529694009
+    }
+  },
+  {
+    "timestamp": "2025-08-09T08:27:26.881Z",
+    "coreWebVitals": {
+      "fcp": 1680.3482620822117,
+      "lcp": 3397.5033907919824,
+      "cls": 0.11349184384887034,
+      "fid": 140.55468067021872,
+      "score": 75
+    },
+    "accessibility": {
+      "score": 97.84394233652844,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 68,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 97.6260219645913,
+      "loadTime": 1605.5309220031018,
+      "resourceSize": 577701.2748250274,
+      "cacheHitRatio": 0.912625321804803,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.8345219647567024
+      }
+    },
+    "userExperience": {
+      "score": 94.60887141230275,
+      "navigationClarity": 91.45183246562289,
+      "contentReadability": 89.41021196170249,
+      "visualHierarchy": 88.56766910136653,
+      "mobileExperience": 94.9083230047649,
+      "interactionFeedback": 91.378368757929
+    }
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "health-score-warning",
+    "severity": "warning",
+    "category": "system",
+    "title": "System Health Warning",
+    "message": "Health score (80%) needs attention",
+    "current": "80%",
+    "threshold": "80%",
+    "recommendation": "Review system metrics and optimize",
+    "timestamp": 1754728014657,
+    "lastUpdated": "2025-08-09T08:26:54.661Z"
+  }
+]

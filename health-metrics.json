@@ -1,0 +1,71 @@
+{
+  "timestamp": 1754728027087,
+  "system": {
+    "uptime": 3454810,
+    "memory": {
+      "rss": 16482304,
+      "heapTotal": 13336576,
+      "heapUsed": 11761264,
+      "external": 2496892,
+      "arrayBuffers": 629548
+    },
+    "platform": "darwin",
+    "nodeVersion": "v22.17.1",
+    "diskUsage": {
+      "total": 490214391808,
+      "used": 400437100544,
+      "available": 6277177344,
+      "percentage": 99
+    }
+  },
+  "repository": {
+    "size": 376893440,
+    "jsonFiles": 1909,
+    "gitStatus": {
+      "clean": false,
+      "modifiedFiles": 47
+    },
+    "lastModified": 1754728021000,
+    "branches": {
+      "current": "main",
+      "total": 6
+    }
+  },
+  "dataIntegrity": {
+    "criticalFiles": {
+      "allPresent": true,
+      "missing": [],
+      "present": [
+        "package.json",
+        "index.html",
+        "data/base-cv.json",
+        "assets/script.js",
+        "assets/styles.css"
+      ]
+    },
+    "jsonValidation": {
+      "validCount": 3,
+      "invalidCount": 0,
+      "totalSize": 16300,
+      "errors": []
+    },
+    "backupStatus": {
+      "hasBackups": true,
+      "backupCount": 3,
+      "totalSize": 672,
+      "lastBackup": "2025-08-08T08:35:11.071Z"
+    },
+    "consistency": 100
+  },
+  "performance": {
+    "responseTime": 8,
+    "throughput": 1042,
+    "optimization": {
+      "compressionRatio": 0.436,
+      "cacheHitRate": 0.85,
+      "loadTime": 2
+    }
+  },
+  "alerts": [],
+  "healthScore": 80
+}

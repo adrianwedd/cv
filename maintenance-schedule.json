@@ -1,0 +1,24 @@
+[
+  {
+    "scheduledFor": "2025-08-10T08:26:56.877Z",
+    "type": "routine",
+    "priority": "low",
+    "title": "Daily system health check",
+    "actions": [
+      "Check all monitoring systems",
+      "Verify backup systems",
+      "Review error logs"
+    ]
+  },
+  {
+    "scheduledFor": "2025-08-16T08:26:56.877Z",
+    "type": "routine",
+    "priority": "normal",
+    "title": "Weekly optimization review",
+    "actions": [
+      "Analyze performance trends",
+      "Update prediction models",
+      "Review system resources"
+    ]
+  }
+]

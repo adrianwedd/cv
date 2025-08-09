@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "maxSize": 26214400,
+  "ttl": {
+    "high": 300000,
+    "medium": 900000,
+    "low": 3600000
+  },
+  "preload": [
+    "base-cv.json",
+    "activity-summary.json",
+    "ai-enhancements.json"
+  ],
+  "compression": {
+    "enabled": true,
+    "threshold": 10240,
+    "level": 6
+  }
+}

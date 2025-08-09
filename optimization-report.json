@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-08-09T07:25:18.041Z",
+  "before": {
+    "size": 666677248,
+    "formatted": "635.8MB"
+  },
+  "after": {
+    "size": 376061952,
+    "formatted": "358.6MB"
+  },
+  "reduction": {
+    "bytes": 290615296,
+    "formatted": "277.2MB",
+    "percentage": "43.6"
+  },
+  "optimizations": 86,
+  "targetMet": true,
+  "target": "400MB"
+}

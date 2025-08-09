@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-08-09T08:27:27.659Z",
+  "overview": {
+    "overallScore": 82,
+    "measurementCount": 5,
+    "monitoringDuration": "2 minutes"
+  },
+  "currentMetrics": {
+    "timestamp": "2025-08-09T08:27:26.657Z",
+    "coreWebVitals": {
+      "fcp": 3599.8454595178155,
+      "lcp": 5537.747930790223,
+      "cls": 0.001294809402447017,
+      "fid": 137.03253553538536,
+      "score": 50
+    },
+    "accessibility": {
+      "score": 97.56822600427112,
+      "wcagCompliance": "AA",
+      "issues": [],
+      "ariaLabels": 56,
+      "keyboardNavigation": true
+    },
+    "performance": {
+      "score": 95.4286294905858,
+      "loadTime": 1777.5363803437392,
+      "resourceSize": 1209243.8228069586,
+      "cacheHitRatio": 0.9317883876897229,
+      "compression": {
+        "enabled": true,
+        "ratio": 0.8862017339632728
+      }
+    },
+    "userExperience": {
+      "score": 95.4377697818984,
+      "navigationClarity": 93.8806239654483,
+      "contentReadability": 91.00602536933708,
+      "visualHierarchy": 88.79285613649364,
+      "mobileExperience": 97.26820653021873,
+      "interactionFeedback": 99.88319065506485
+    }
+  },
+  "trends": {
+    "coreWebVitals": {
+      "direction": "declining",
+      "change": "-50.00"
+    },
+    "accessibility": {
+      "direction": "improving",
+      "change": "3.68"
+    },
+    "performance": {
+      "direction": "stable",
+      "change": "-0.65"
+    },
+    "userExperience": {
+      "direction": "stable",
+      "change": "-0.96"
+    }
+  },
+  "recommendations": [
+    {
+      "type": "performance",
+      "priority": "high",
+      "description": "Optimize First Contentful Paint - consider preloading critical resources",
+      "expectedImprovement": "15-20% FCP reduction",
+      "implementation": "Add critical CSS inlining, optimize font loading"
+    }
+  ],
+  "nextActions": [
+    {
+      "type": "performance",
+      "priority": "high",
+      "description": "Optimize First Contentful Paint - consider preloading critical resources",
+      "expectedImprovement": "15-20% FCP reduction",
+      "implementation": "Add critical CSS inlining, optimize font loading"
+    }
+  ]
+}
