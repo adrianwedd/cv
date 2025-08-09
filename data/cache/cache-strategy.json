@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "cache_policies": {
+    "static_assets": {
+      "max_age": 31536000,
+      "strategy": "cache-first",
+      "files": [
+        "*.css",
+        "*.js",
+        "*.png",
+        "*.jpg",
+        "*.svg"
+      ]
+    },
+    "data_chunks": {
+      "max_age": 3600,
+      "strategy": "stale-while-revalidate",
+      "files": [
+        "chunks/*.json"
+      ]
+    },
+    "api_responses": {
+      "max_age": 300,
+      "strategy": "network-first",
+      "fallback_cache": true
+    }
+  },
+  "service_worker": {
+    "enabled": true,
+    "precache": [
+      "chunks/critical.json",
+      "assets/critical.css"
+    ],
+    "runtime_cache": [
+      {
+        "url_pattern": "/data/optimized/chunks/",
+        "strategy": "stale-while-revalidate"
+      }
+    ]
+  }
+}
