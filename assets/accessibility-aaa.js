@@ -95,9 +95,9 @@ class AccessibilityAAA {
             
             if (url.startsWith('mailto:')) {
                 link.setAttribute('aria-label', `Send email: ${linkText}`);
-            } else if (url.includes('github.com')) {
+            } else if (this.isValidDomain(url, 'github.com')) {
                 link.setAttribute('aria-label', `View GitHub profile: ${linkText}`);
-            } else if (url.includes('linkedin.com')) {
+            } else if (this.isValidDomain(url, 'linkedin.com')) {
                 link.setAttribute('aria-label', `View LinkedIn profile: ${linkText}`);
             } else if (link.hasAttribute('download')) {
                 link.setAttribute('aria-label', `Download CV as PDF: ${linkText}`);
@@ -663,6 +663,23 @@ class AccessibilityAAA {
         const aside = document.querySelector('aside, .sidebar');
         if (aside && !aside.getAttribute('role')) {
             aside.setAttribute('role', 'complementary');
+        }
+    }
+
+    /**
+     * Secure URL domain validation to prevent bypass attacks
+     */
+    isValidDomain(url, expectedDomain) {
+        try {
+            const urlObj = new URL(url);
+            const hostname = urlObj.hostname.toLowerCase();
+            const domain = expectedDomain.toLowerCase();
+            
+            // Exact match or subdomain match
+            return hostname === domain || hostname.endsWith('.' + domain);
+        } catch (error) {
+            // Invalid URL format
+            return false;
         }
     }
 

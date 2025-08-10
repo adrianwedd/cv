@@ -92,7 +92,9 @@ async function quickOptimization() {
         
         for (const pattern of tempPatterns) {
             try {
-                const { stdout } = await execAsync(`find ${pattern.replace('*', '')} -type f 2>/dev/null || true`);
+                // Safely escape the pattern for shell execution
+                const safePath = pattern.replace('*', '').replace(/[;&|`$(){}[\]\\]/g, '\\$&');
+                const { stdout } = await execAsync(`find "${safePath}" -type f 2>/dev/null || true`);
                 const files = stdout.split('\n').filter(f => f.trim());
                 
                 for (const file of files) {

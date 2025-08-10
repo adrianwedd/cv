@@ -190,8 +190,8 @@ class ContinuousImprovementMonitor {
         // Clean old log files
         await execAsync('find . -name "*.log" -mtime +3 -delete 2>/dev/null || true');
         
-        // Compress large JSON files
-        await execAsync('find . -name "*.json" -size +100k -exec node -e "const fs=require(\'fs\');const f=process.argv[1];const d=JSON.parse(fs.readFileSync(f));fs.writeFileSync(f,JSON.stringify(d))" {} \\; 2>/dev/null || true');
+        // Compress large JSON files (using secure node execution)
+        await execAsync('find . -name "*.json" -size +100k -exec node -e "const fs=require(\'fs\');const f=process.argv[1];try{const d=JSON.parse(fs.readFileSync(f,\'utf8\'));fs.writeFileSync(f,JSON.stringify(d));}catch(e){console.error(\'Error processing:\',f,e.message);}" {} \\; 2>/dev/null || true');
         
         console.log('✅ Aggressive cleanup completed');
     }
@@ -203,9 +203,10 @@ class ContinuousImprovementMonitor {
         const archiveDir = path.join(__dirname, 'data', 'archives', new Date().toISOString().split('T')[0]);
         await fs.mkdir(archiveDir, { recursive: true });
         
-        // Move old JSON files to archive
-        await execAsync(`find . -name "*-history.json" -mtime +7 -exec mv {} ${archiveDir}/ \\; 2>/dev/null || true`);
-        await execAsync(`find . -name "*-metrics.json" -mtime +7 -exec mv {} ${archiveDir}/ \\; 2>/dev/null || true`);
+        // Move old JSON files to archive (using safe shell escaping)
+        const safeArchiveDir = archiveDir.replace(/[;&|`$(){}[\]\\]/g, '\\$&');
+        await execAsync(`find . -name "*-history.json" -mtime +7 -exec mv {} "${safeArchiveDir}/" \\; 2>/dev/null || true`);
+        await execAsync(`find . -name "*-metrics.json" -mtime +7 -exec mv {} "${safeArchiveDir}/" \\; 2>/dev/null || true`);
         
         console.log('✅ Data archival completed');
     }
