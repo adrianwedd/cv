@@ -61,6 +61,12 @@ env:
 # - Real-time dashboard updates with professional analytics
 # - Complete audit trails and professional compliance
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: read
+
 jobs:
   # 🔍 LINKEDIN PROFILE ANALYSIS & STRATEGY
   linkedin-intelligence:

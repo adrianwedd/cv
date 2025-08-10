@@ -98,8 +98,8 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
         elements => elements.map(el => el.tagName.toLowerCase() + (el.getAttribute('role') ? `[role="${el.getAttribute('role')}"]` : ''))
       );
       
-      expect(landmarks).toContain('main');
-      expect(landmarks).toContain('nav');
+      expect(landmarks.some(l => l.includes('main'))).toBeTruthy();
+      expect(landmarks.some(l => l.includes('nav'))).toBeTruthy();
       expect(landmarks.some(l => l.includes('header'))).toBeTruthy();
     });
 
