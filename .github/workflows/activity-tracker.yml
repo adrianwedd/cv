@@ -26,11 +26,8 @@ name: 📊 GitHub Activity Intelligence Tracker
 
 on:
   schedule:
-    # 🕐 Enhanced schedule: hourly during business hours, every 2 hours otherwise
-    # Business hours (9AM-6PM AEST): Mon-Fri hourly updates
-    - cron: '0 23,0,1,2,3,4,5,6,7 * * 1-5'  # Mon-Fri 9AM-6PM AEST hourly
-    # Off hours: Every 2 hours for continuous monitoring
-    - cron: '0 */2 * * *'
+    # Cost-optimized schedule: twice daily for essential activity tracking
+    - cron: '0 6,18 * * *'  # 6AM and 6PM UTC daily (major cost reduction from hourly)
   workflow_dispatch:
     inputs:
       analysis_depth:

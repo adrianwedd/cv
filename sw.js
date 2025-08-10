@@ -10,7 +10,7 @@
  * - Code-split resource handling
  */
 
-const CACHE_VERSION = 'v6-optimized-' + '20250808';
+const CACHE_VERSION = 'v7-optimized-' + '20250810';
 const CACHE_NAMES = {
     critical: `cv-critical-${CACHE_VERSION}`,
     chunks: `cv-chunks-${CACHE_VERSION}`,
@@ -25,7 +25,7 @@ const CRITICAL_RESOURCES = [
     '/',
     '/cv/',
     '/cv/index.html',
-    '/cv/assets/script.js',
+    '/cv/assets/script.min.js',
     '/cv/assets/styles.min.css',
     '/cv/assets/dynamic-loader.js',
     '/cv/manifest.json'
