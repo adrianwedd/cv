@@ -44,3 +44,5 @@ __pycache__/
 
 # Claude logs
 .claude/
+.env*
+*.env
