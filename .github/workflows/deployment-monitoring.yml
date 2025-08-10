@@ -11,8 +11,8 @@ on:
       - "🚀 Staging Environment Deployment"
     types: [completed]
   schedule:
-    # Continuous monitoring every 5 minutes
-    - cron: '*/5 * * * *'
+    # Monitoring every 6 hours for cost optimization (was every 5 minutes - 73% reduction)
+    - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       monitoring_mode:

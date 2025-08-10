@@ -87,15 +87,8 @@ jobs:
           echo "🛡️ Security Score: $SECURITY_SCORE/100"
           echo "🚨 High: $HIGH | ⚠️ Moderate: $MODERATE | ℹ️ Low: $LOW"
       
-      - name: 🔍 CodeQL Analysis
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript
-      
-      - name: 🔍 Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:javascript"
+      # CodeQL Analysis is handled by GitHub's default setup
+      # Removed to avoid conflicts with default CodeQL configuration
 
   # ========================================
   # QUALITY ASSURANCE & TESTING

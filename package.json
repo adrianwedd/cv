@@ -37,7 +37,7 @@
   },
   "homepage": "https://adrianwedd.github.io/cv",
   "devDependencies": {
-    "serve": "^14.2.0"
+    "serve": "^10.0.2"
   },
   "dependencies": {
     "dotenv": "^17.2.1",
