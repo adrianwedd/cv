@@ -39,7 +39,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta http-equiv="Strict-Transport-Security" content="max-age=63072000; includeSubDomains; preload">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' localhost:8080 api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src 'self' fonts.gstatic.com; img-src 'self' data: *.githubusercontent.com; connect-src 'self' localhost:8080 api.github.com fonts.googleapis.com fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), interest-cohort=()">
     
@@ -768,54 +768,9 @@
     <script src="assets/beautiful-enhancements.min.js?v=20250808-2" defer></script>
     <script src="assets/cache-buster.js?v=20250808-2"></script>
     
-    <!-- Initialize UX Systems -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize UX optimization systems
-        setTimeout(() => {
-            window.personalizationEngine = new PersonalizationEngine();
-            window.accessibilityEnhancer = new AccessibilityEnhancer();
-            window.advancedInteractions = new AdvancedInteractionSystem();
-            
-            console.log('🎯 Advanced UX Systems Initialized:');
-            console.log('  ✅ A/B Testing Framework with Statistical Analysis');
-            console.log('  ✅ User Journey Analytics & Conversion Tracking');  
-            console.log('  ✅ Real-time Engagement Metrics Dashboard');
-            console.log('  ✅ AI-Powered Personalization Engine');
-            console.log('  ✅ WCAG 2.1 AAA Accessibility Compliance');
-            console.log('  ✅ Voice Navigation & Screen Reader Support');
-            console.log('  ✅ Advanced Keyboard Navigation Patterns');
-            console.log('  ✅ Mobile-First Responsive Design System');
-            console.log('  ✅ Performance-Optimized Micro-Interactions');
-            console.log('  ✅ Touch Gesture Recognition & Feedback');
-            console.log('  ✅ Progressive Enhancement & Error Handling');
-            console.log('  ✅ Comprehensive User Onboarding System');
-            
-            // Export for debugging and external integrations
-            window.uxSystems = {
-                abTesting: window.uxOptimization?.abTesting,
-                analytics: window.uxOptimization?.analytics,
-                engagement: window.uxOptimization?.engagement,
-                personalization: window.personalizationEngine,
-                accessibility: window.accessibilityEnhancer,
-                interactions: window.advancedInteractions
-            };
-            
-            console.log('🚀 UX Optimization Complete - Target Metrics:');
-            console.log('  📈 User Engagement: +50% increase target');
-            console.log('  🎯 Conversion Rate: +30% improvement target');
-            console.log('  ♿ Accessibility Score: AAA compliance achieved');
-            console.log('  📱 Mobile Usability: 100/100 score target');
-            console.log('  😊 User Satisfaction: 95%+ rating target');
-        }, 1500);
-    });
-    </script>
-    
-    <!-- Ultra-optimized service worker and performance monitoring -->
-    <script>
-        if('serviceWorker'in navigator)navigator.serviceWorker.register('/cv/sw.js').then(r=>console.log('SW registered')).catch(()=>{});
-        if('PerformanceObserver'in window){new PerformanceObserver(l=>l.getEntries().forEach(e=>e.entryType==='largest-contentful-paint'&&console.log(e.startTime+'ms'))).observe({entryTypes:['largest-contentful-paint']});}
-    </script>
+    <!-- Initialize UX Systems (CSP compliant external scripts) -->
+    <script src="assets/ux-systems-init.js" defer></script>
+    <script src="assets/sw-performance-init.js" defer></script>
 
     <!-- Intelligence systems loaded lazily via main script -->
 
@@ -823,12 +778,10 @@
 
     <!-- Connection status handled by main script -->
 
-<!-- LangSmith Tracking Integration -->
-<script>
-/**
- * Browser-side LangSmith tracking integration for CV website
- * Automatically tracks page views, interactions, and performance
- */
+<!-- LangSmith Tracking Integration (CSP compliant external script) -->
+<script src="assets/langsmith-tracking.js" defer></script>
+<!-- Original inline LangSmith script extracted for CSP compliance -->
+<!-- LangSmith inline script removed for CSP compliance -->
 
 (function(window, document) {
     'use strict';
@@ -1087,8 +1040,6 @@
         config: CONFIG
     };
     
-})(window, document);
-</script>
 <!-- End LangSmith Tracking -->
 </body>
 </html>
