@@ -185,7 +185,7 @@ describe('Theme Switching and Persistence', () => {
         
         // Navigate to another page
         await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-        await page.waitForSelector('.dashboard-container', { timeout: 10000 });
+        await page.waitForSelector('.dashboard-main', { timeout: 10000 });
         
         // Check if theme is preserved
         const persistedTheme = await page.$eval('body', el => {
@@ -371,7 +371,7 @@ describe('Theme Switching and Persistence', () => {
   describe('Dashboard Theme Integration', () => {
     beforeEach(async () => {
       await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-      await page.waitForSelector('.dashboard-container', { timeout: 10000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 10000 });
     });
 
     test('should update chart themes when switching', async () => {

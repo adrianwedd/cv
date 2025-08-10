@@ -26,7 +26,7 @@ test.describe('Cross-Browser Compatibility', () => {
       await page.goto('/career-intelligence.html', { waitUntil: 'domcontentloaded' });
       
       // Try multiple selectors for dashboard content
-      const dashboardSelectors = ['.dashboard-container', 'main', '.container', '#dashboard'];
+      const dashboardSelectors = ['.dashboard-main', 'main', '.container', '#dashboard'];
       let foundDashboard = false;
       
       for (const selector of dashboardSelectors) {

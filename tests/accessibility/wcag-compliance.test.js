@@ -188,7 +188,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
         });
         
         // Try to find dashboard content with fallback selectors
-        const selectors = ['.dashboard-container', 'main', '.container', '#dashboard', 'body'];
+        const selectors = ['.dashboard-main', 'main', '.container', '#dashboard', 'body'];
         let found = false;
         
         for (const selector of selectors) {
@@ -460,7 +460,7 @@ describe('WCAG 2.1 AA Accessibility Compliance', () => {
       ]);
       
       await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-      await page.waitForSelector('.dashboard-container', { timeout: 10000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 10000 });
       
       // Check that animations are disabled or reduced
       const hasReducedMotion = await page.evaluate(() => {

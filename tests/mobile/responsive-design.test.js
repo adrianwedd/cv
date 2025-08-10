@@ -313,7 +313,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
     beforeEach(async () => {
       await page.setViewport(viewports.mobile);
       await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-      await page.waitForSelector('.dashboard-container', { timeout: 10000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 10000 });
     });
 
     test('should adapt dashboard layout for mobile', async () => {
@@ -468,7 +468,7 @@ describe('Mobile Responsiveness and Touch Interactions', () => {
     test('should scroll smoothly on mobile', async () => {
       await page.setViewport(viewports.mobile);
       await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-      await page.waitForSelector('.dashboard-container', { timeout: 5000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 5000 });
       
       const scrollStart = await page.evaluate(() => window.pageYOffset);
       

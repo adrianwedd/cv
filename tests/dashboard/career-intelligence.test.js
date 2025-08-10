@@ -98,7 +98,7 @@ describe('Career Intelligence Dashboard', () => {
       
       // Try multiple selectors for dashboard container
       try {
-        await page.waitForSelector('.dashboard-container', { timeout: 8000 });
+        await page.waitForSelector('.dashboard-main', { timeout: 8000 });
       } catch (error) {
         // Fallback selectors
         const dashboardExists = await page.$('main') || await page.$('.container') || await page.$('#dashboard');
@@ -281,7 +281,7 @@ describe('Career Intelligence Dashboard', () => {
       const startTime = Date.now();
       
       await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-      await page.waitForSelector('.dashboard-container', { timeout: 2000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 2000 });
       
       const loadTime = Date.now() - startTime;
       expect(loadTime).toBeLessThan(2000);
@@ -296,7 +296,7 @@ describe('Career Intelligence Dashboard', () => {
       });
       
       await page.goto(`${global.APP_BASE_URL}/career-intelligence.html`);
-      await page.waitForSelector('.dashboard-container', { timeout: 5000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 5000 });
       
       // Filter out known non-critical errors
       const criticalErrors = consoleErrors.filter(error => 
@@ -313,9 +313,9 @@ describe('Career Intelligence Dashboard', () => {
     test('should adapt to mobile viewport', async () => {
       await page.setViewport({ width: 375, height: 667 });
       await page.reload();
-      await page.waitForSelector('.dashboard-container', { timeout: 5000 });
+      await page.waitForSelector('.dashboard-main', { timeout: 5000 });
       
-      const containerWidth = await page.$eval('.dashboard-container', 
+      const containerWidth = await page.$eval('.dashboard-main', 
         el => window.getComputedStyle(el).width
       );
       
@@ -361,7 +361,7 @@ describe('Career Intelligence Dashboard', () => {
       await page.reload();
       
       // Should still render with fallback data
-      const dashboardExists = await page.$('.dashboard-container');
+      const dashboardExists = await page.$('.dashboard-main');
       expect(dashboardExists).toBeTruthy();
     });
   });
