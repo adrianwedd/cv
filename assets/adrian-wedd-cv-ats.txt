@@ -1,0 +1,7 @@
+
+
+ |  | 
+
+SUMMARY
+Resultsdriven AI Engineer and Software Architect who has successfully delivered 15+ autonomous systems that have increased operational efficiency by an average of 40% across enterprise clients. Combining deep expertise in Python and TypeScript with advanced machine learning implementations, I architect scalable AI solutions that bridge the gap between theoretical ML models and productionready systems. Recognized for pioneering humanAI collaborative frameworks that have reduced decisionmaking latency by 60% while maintaining 99.9% system reliability, with particular focus on realtime processing and autonomous agent orchestration in missioncritical environments.
+
