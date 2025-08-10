@@ -1,0 +1,101 @@
+name: 🚀 Essential CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # Basic validation - fast and essential
+  validate:
+    name: 🔍 Basic Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'tests/package-lock.json'
+
+      - name: 🔧 Install Dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: 🧪 Run Foundation Tests
+        working-directory: tests
+        run: npm run test:foundation
+
+      - name: 🔒 Security Audit
+        run: |
+          npm audit --omit=dev || true
+          echo "✅ Security audit completed"
+
+  # Simple smoke test - verify site loads
+  smoke-test:
+    name: 🚬 Smoke Test
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🌐 Start Test Server
+        run: |
+          python3 -m http.server 8000 &
+          echo $! > server.pid
+          sleep 3
+
+      - name: ✅ Test Basic Pages Load
+        run: |
+          curl -f http://localhost:8000/ || exit 1
+          curl -f http://localhost:8000/career-intelligence.html || exit 1
+          echo "✅ Basic pages accessible"
+
+      - name: 🧹 Cleanup
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill $(cat server.pid) || true
+            rm -f server.pid
+          fi
+
+  # Build and deployment check
+  build-check:
+    name: 🏗️ Build Validation
+    runs-on: ubuntu-latest
+    needs: smoke-test
+    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ✅ Validate Structure
+        run: |
+          # Check essential files exist
+          test -f index.html || exit 1
+          test -f career-intelligence.html || exit 1
+          test -f manifest.json || exit 1
+          test -d assets/ || exit 1
+          echo "✅ Project structure validated"
+
+      - name: 📋 Summary
+        run: |
+          echo "## ✅ CI Pipeline Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Foundation Tests**: Passed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Security Audit**: Completed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Smoke Test**: Pages load successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Check**: Structure validated" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🎉 **Status**: Ready for deployment" >> $GITHUB_STEP_SUMMARY

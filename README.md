@@ -270,6 +270,43 @@ npm test
 npm run build
 ```
 
+### **Testing**
+The project uses a streamlined testing approach optimized for local development:
+
+**Quick Local Testing:**
+```bash
+# Run comprehensive local test suite
+./test-local.sh
+```
+
+**Manual Testing:**
+```bash
+# Start development server
+python3 -m http.server 8000
+
+# Open in browser: http://localhost:8000
+```
+
+**CI Pipeline:**
+- ✅ Essential CI with basic validation, smoke tests, and security audits
+- ⚡ Lightweight and fast - focuses on deployment readiness
+- 🏠 Complex testing moved to local development for faster feedback
+
+**Advanced Testing (Optional):**
+```bash
+# Install testing tools
+npm install -g @axe-core/cli lighthouse
+
+# Run accessibility tests
+axe http://localhost:8000/
+
+# Run performance tests  
+lighthouse http://localhost:8000/
+
+# Run full test suite
+cd tests && npx playwright test
+```
+
 ### **Workflow Testing**
 ```bash
 # Test AI enhancement locally
