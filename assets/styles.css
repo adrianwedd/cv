@@ -27,7 +27,7 @@
   --color-surface: #1e1e1e;
   --color-surface-hover: #333333;
   /* High Contrast Text - WCAG AAA Compliant (7: 1 ratio) */
-  --color-text-primary;
+  --color-text-primary: #ffffff;
   --color-text-secondary: #e2e8f0;
   --color-text-muted: #cbd5e1;
   --color-text-inverse: #0f172a;
