@@ -1,0 +1,27 @@
+{
+  "subscriptionTier": "max_5x",
+  "budgetAlerts": {
+    "enabled": true,
+    "thresholds": [
+      50,
+      75,
+      90,
+      95
+    ],
+    "recipients": [
+      "system"
+    ]
+  },
+  "optimization": {
+    "enabled": true,
+    "fallbackToApiKey": true,
+    "fallbackThreshold": 90,
+    "costThreshold": 150
+  },
+  "monitoring": {
+    "trackUsage": true,
+    "generateReports": true,
+    "reportFrequency": "daily",
+    "retentionDays": 90
+  }
+}
