@@ -10,6 +10,7 @@
     "test:ci": "jest --ci --coverage --watchAll=false",
     "test:e2e": "cypress run",
     "test:e2e:open": "cypress open",
+    "test:foundation": "jest basic-setup.test.js",
     "test:accessibility": "jest --testPathPattern=accessibility",
     "test:performance": "jest --testPathPattern=performance",
     "test:dashboard": "jest --testPathPattern=dashboard",
