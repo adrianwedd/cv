@@ -1,0 +1,20 @@
+{
+  "generated_at": "2025-07-31T15:28:14.535Z",
+  "mining_depth": "comprehensive",
+  "lookback_days": 90,
+  "summary_metrics": {
+    "issues_analyzed": 772,
+    "commits_analyzed": 577,
+    "prs_analyzed": 48,
+    "technical_depth_score": 86,
+    "collaboration_score": 83
+  },
+  "data_sources": {
+    "issues_intelligence": true,
+    "commits_intelligence": true,
+    "prs_intelligence": true,
+    "collaboration_patterns": true,
+    "technical_expertise": true,
+    "professional_narratives": true
+  }
+}
