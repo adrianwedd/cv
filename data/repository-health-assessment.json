@@ -1,1 +1,72 @@
-{"timestamp":"2025-08-08T17:00:43.137Z","beforeSurgery":{"totalSize":"680M","assetCount":74,"dataStructure":{"activity":{"fileCount":127,"totalSize":"8.3M"},"ai-cache":{"fileCount":4,"totalSize":" 16K"},"ai-intelligence":{"fileCount":1,"totalSize":"4.0K"},"archive":{"fileCount":0,"totalSize":"  0B"},"backups":{"fileCount":15,"totalSize":"108K"},"cache":{"fileCount":2,"totalSize":"8.0K"},"cost-reports":{"fileCount":1,"totalSize":"4.0K"},"intelligence":{"fileCount":4,"totalSize":"176K"},"intelligence-reports":{"fileCount":1,"totalSize":" 24K"},"market-intelligence":{"fileCount":0,"totalSize":"  0B"},"metrics":{"fileCount":120,"totalSize":"480K"},"narratives":{"fileCount":3,"totalSize":" 48K"},"optimizations":{"fileCount":1,"totalSize":" 20K"},"optimized":{"fileCount":27,"totalSize":"184K"},"positions":{"fileCount":1,"totalSize":"4.0K"},"roadmaps":{"fileCount":2,"totalSize":" 28K"},"targeting":{"fileCount":2,"totalSize":"8.0K"},"test-results":{"fileCount":8,"totalSize":" 32K"},"trends":{"fileCount":120,"totalSize":"480K"}}},"duplicateAnalysis":{"gmtvc1":["/Users/adrian/repos/cv/assets/script.js","/Users/adrian/repos/cv/assets/script.min.js"]},"technicalDebt":{"score":70,"details":{"fileCount":59741,"sizeKB":696592,"duplicates":0,"oldDataFiles":0}},"recommendations":[]}
+{
+  "timestamp": "2025-08-11T02:49:52.230Z",
+  "beforeSurgery": {
+    "totalSize": "234M",
+    "assetCount": 140,
+    "dataStructure": {
+      "activity": {
+        "fileCount": 108,
+        "totalSize": "8.0M"
+      },
+      "ai-cache": {
+        "fileCount": 4,
+        "totalSize": "20K"
+      },
+      "ai-intelligence": {
+        "fileCount": 1,
+        "totalSize": "8.0K"
+      },
+      "cache": {
+        "fileCount": 2,
+        "totalSize": "16K"
+      },
+      "cost-reports": {
+        "fileCount": 1,
+        "totalSize": "8.0K"
+      },
+      "intelligence": {
+        "fileCount": 4,
+        "totalSize": "180K"
+      },
+      "narratives": {
+        "fileCount": 3,
+        "totalSize": "52K"
+      },
+      "optimizations": {
+        "fileCount": 1,
+        "totalSize": "24K"
+      },
+      "optimized": {
+        "fileCount": 27,
+        "totalSize": "204K"
+      },
+      "positions": {
+        "fileCount": 1,
+        "totalSize": "8.0K"
+      },
+      "roadmaps": {
+        "fileCount": 2,
+        "totalSize": "32K"
+      },
+      "targeting": {
+        "fileCount": 2,
+        "totalSize": "12K"
+      },
+      "test-results": {
+        "fileCount": 8,
+        "totalSize": "36K"
+      }
+    }
+  },
+  "duplicateAnalysis": {},
+  "technicalDebt": {
+    "score": 60,
+    "details": {
+      "fileCount": 18597,
+      "sizeKB": 239308,
+      "duplicates": 0,
+      "oldDataFiles": 0
+    }
+  },
+  "recommendations": []
+}
