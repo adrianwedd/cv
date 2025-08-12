@@ -1,0 +1,49 @@
+{
+  "test_suite": "AI Intelligence System",
+  "execution_date": "2025-08-08T00:53:13.809Z",
+  "configuration": {
+    "runIntegrationTests": true,
+    "runPerformanceTests": true,
+    "runE2ETests": true,
+    "headless": true,
+    "timeout": 30000
+  },
+  "results": {
+    "total_tests": 20,
+    "passed": 16,
+    "failed": 4,
+    "skipped": 0,
+    "success_rate": "80%",
+    "execution_time": 25
+  },
+  "performance_metrics": {
+    "initialization_time": 0,
+    "memory_increase": 43840,
+    "concurrent_init_time": 0
+  },
+  "errors": [
+    {
+      "test": "anonymous_test",
+      "error": "Should extract key changes",
+      "timestamp": "2025-08-08T00:53:13.794Z"
+    },
+    {
+      "test": "anonymous_test",
+      "error": "Browser client cannot run in CI environment. Use process.env.SKIP_BROWSER_TESTS=true to bypass.",
+      "timestamp": "2025-08-08T00:53:13.806Z"
+    },
+    {
+      "test": "anonymous_test",
+      "error": "Browser client cannot run in CI environment. Use process.env.SKIP_BROWSER_TESTS=true to bypass.",
+      "timestamp": "2025-08-08T00:53:13.806Z"
+    },
+    {
+      "test": "anonymous_test",
+      "error": "Pipeline initialization failed: Browser client cannot run in CI environment. Use process.env.SKIP_BROWSER_TESTS=true to bypass.",
+      "timestamp": "2025-08-08T00:53:13.809Z"
+    }
+  ],
+  "recommendations": [
+    "Review failed tests and address underlying issues"
+  ]
+}
