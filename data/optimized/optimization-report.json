@@ -1,0 +1,25 @@
+{
+  "generated": "2025-08-14T02:40:52.799Z",
+  "optimization_duration": "0.02s",
+  "metrics": {
+    "originalSize": 21558,
+    "optimizedSize": 0,
+    "compressionRatio": 0,
+    "chunkCount": 6,
+    "cacheHitRatio": 0,
+    "performanceGain": "100.0%"
+  },
+  "recommendations": [
+    "Implement HTTP/2 server push for critical resources",
+    "Enable Brotli compression for even better compression ratios",
+    "Consider implementing a CDN for global asset delivery",
+    "Monitor Core Web Vitals regularly for performance regression",
+    "Implement progressive image loading for visual content"
+  ],
+  "next_steps": [
+    "Deploy optimized assets to production",
+    "Configure server-side caching headers",
+    "Implement service worker for offline functionality",
+    "Set up performance budgets in CI/CD pipeline"
+  ]
+}
