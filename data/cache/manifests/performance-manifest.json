@@ -1,0 +1,58 @@
+{
+  "version": "1.0.0",
+  "generated": "2025-08-14T08:04:35.148Z",
+  "performance_budget": {
+    "MAX_CRITICAL_PATH": 14400,
+    "MAX_JSON_SIZE": 50000,
+    "TARGET_GZIP_RATIO": 0.7,
+    "MAX_ASSET_SIZE": 200000
+  },
+  "chunks": {
+    "critical": {
+      "path": "chunks/critical.json",
+      "priority": "high",
+      "preload": true
+    },
+    "experience": {
+      "path": "chunks/experience.json",
+      "priority": "medium",
+      "lazy": true
+    },
+    "projects": {
+      "path": "chunks/projects.json",
+      "priority": "medium",
+      "lazy": true
+    },
+    "skills": {
+      "path": "chunks/skills.json",
+      "priority": "low",
+      "lazy": true
+    },
+    "achievements": {
+      "path": "chunks/achievements.json",
+      "priority": "low",
+      "lazy": true
+    }
+  },
+  "assets": {
+    "critical_css": {
+      "path": "assets/critical.css",
+      "inline": true
+    },
+    "main_css": {
+      "path": "assets/styles.min.css",
+      "preload": true
+    },
+    "main_js": {
+      "path": "assets/script.min.js",
+      "defer": true
+    }
+  },
+  "optimization_metrics": {
+    "originalSize": 21558,
+    "optimizedSize": 0,
+    "compressionRatio": 0,
+    "chunkCount": 6,
+    "cacheHitRatio": 0
+  }
+}
