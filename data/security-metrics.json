@@ -1,9 +1,0 @@
-{
-  "timestamp": "2025-08-08T07:29:36.883Z",
-  "authentication_health": 0,
-  "dependency_security": 100,
-  "secrets_hygiene": 100,
-  "website_security": 100,
-  "overall_score": 70,
-  "risk_level": "critical"
-}
