@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-03T17-00-38-494Z",
+  "action": "Applied verified data",
+  "changes": {
+    "removed_unverified_skills": 12,
+    "removed_unverified_projects": 3,
+    "updated_professional_summary": true,
+    "fixed_date_formats": true,
+    "removed_hyperbolic_claims": true
+  },
+  "backup_file": "base-cv-backup-2025-08-03T17-00-38-494Z.json",
+  "status": "SUCCESS"
+}
