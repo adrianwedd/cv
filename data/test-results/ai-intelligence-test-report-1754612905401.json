@@ -1,0 +1,30 @@
+{
+  "test_suite": "AI Intelligence System",
+  "execution_date": "2025-08-08T00:28:25.401Z",
+  "configuration": {
+    "runIntegrationTests": false,
+    "runPerformanceTests": false,
+    "runE2ETests": true,
+    "headless": true,
+    "timeout": 30000
+  },
+  "results": {
+    "total_tests": 8,
+    "passed": 7,
+    "failed": 1,
+    "skipped": 3,
+    "success_rate": "88%",
+    "execution_time": 27
+  },
+  "performance_metrics": {},
+  "errors": [
+    {
+      "test": "anonymous_test",
+      "error": "Should extract key changes",
+      "timestamp": "2025-08-08T00:28:25.401Z"
+    }
+  ],
+  "recommendations": [
+    "Review failed tests and address underlying issues"
+  ]
+}
