@@ -33,7 +33,7 @@ jobs:
 
       - name: 🧪 Run Foundation Tests
         working-directory: .github/scripts
-        run: npm test
+        run: npm run test:ci
 
       - name: 🔒 Security Audit
         working-directory: .github/scripts

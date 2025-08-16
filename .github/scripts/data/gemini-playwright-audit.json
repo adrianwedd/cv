@@ -4,13 +4,13 @@
   "userConsent": true,
   "operations": [
     {
-      "timestamp": "2025-08-08T04:11:20.326Z",
+      "timestamp": "2025-08-16T12:35:01.835Z",
       "operation": "User consent verified for profile analysis",
       "data": null,
       "requestCount": 0
     },
     {
-      "timestamp": "2025-08-08T04:11:21.228Z",
+      "timestamp": "2025-08-16T12:35:02.507Z",
       "operation": "Navigating to profile page",
       "data": {
         "url": "https://linkedin.com/in/test-profile-1"
@@ -18,7 +18,7 @@
       "requestCount": 0
     },
     {
-      "timestamp": "2025-08-08T04:11:21.464Z",
+      "timestamp": "2025-08-16T12:35:02.583Z",
       "operation": "Profile data extracted",
       "data": {
         "headline": "Mock LinkedIn Profile",
@@ -31,7 +31,7 @@
       "requestCount": 0
     },
     {
-      "timestamp": "2025-08-08T04:11:22.475Z",
+      "timestamp": "2025-08-16T12:35:03.583Z",
       "operation": "AI analysis completed",
       "data": {
         "analysisLength": 78
@@ -39,7 +39,7 @@
       "requestCount": 1
     },
     {
-      "timestamp": "2025-08-08T04:11:23.503Z",
+      "timestamp": "2025-08-16T12:35:03.873Z",
       "operation": "Navigating to profile page",
       "data": {
         "url": "https://linkedin.com/in/test-profile-2"
@@ -47,7 +47,7 @@
       "requestCount": 1
     },
     {
-      "timestamp": "2025-08-08T04:11:23.682Z",
+      "timestamp": "2025-08-16T12:35:03.905Z",
       "operation": "Profile data extracted",
       "data": {
         "headline": "Mock LinkedIn Profile",
@@ -60,7 +60,7 @@
       "requestCount": 1
     },
     {
-      "timestamp": "2025-08-08T04:11:24.683Z",
+      "timestamp": "2025-08-16T12:35:04.906Z",
       "operation": "AI analysis completed",
       "data": {
         "analysisLength": 78
@@ -68,13 +68,13 @@
       "requestCount": 2
     },
     {
-      "timestamp": "2025-08-08T04:11:25.185Z",
+      "timestamp": "2025-08-16T12:35:04.946Z",
       "operation": "User consent verified for profile analysis",
       "data": null,
       "requestCount": 2
     },
     {
-      "timestamp": "2025-08-08T04:11:25.603Z",
+      "timestamp": "2025-08-16T12:35:05.204Z",
       "operation": "Navigating to profile page",
       "data": {
         "url": "https://linkedin.com/in/user-own-profile"
@@ -82,7 +82,7 @@
       "requestCount": 2
     },
     {
-      "timestamp": "2025-08-08T04:11:25.635Z",
+      "timestamp": "2025-08-16T12:35:05.222Z",
       "operation": "Profile data extracted",
       "data": {
         "headline": "Mock LinkedIn Profile",
@@ -95,7 +95,7 @@
       "requestCount": 2
     },
     {
-      "timestamp": "2025-08-08T04:11:26.722Z",
+      "timestamp": "2025-08-16T12:35:06.227Z",
       "operation": "AI analysis completed",
       "data": {
         "analysisLength": 78
@@ -103,7 +103,7 @@
       "requestCount": 3
     },
     {
-      "timestamp": "2025-08-08T04:11:28.133Z",
+      "timestamp": "2025-08-16T12:35:21.852Z",
       "operation": "User consent verified for profile analysis",
       "data": null,
       "requestCount": 3

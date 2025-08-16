@@ -50,17 +50,26 @@
       "token_alerts_sent": [
         50
       ]
+    },
+    "2025-08-16": {
+      "requests": 1,
+      "input_tokens": 1000,
+      "output_tokens": 500,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "estimated_cost": 0.010499999999999999,
+      "sessions": 1
     }
   },
   "monthly": {
     "2025-08": {
-      "requests": 39,
-      "input_tokens": 172800,
-      "output_tokens": 74100,
+      "requests": 40,
+      "input_tokens": 173800,
+      "output_tokens": 74600,
       "cache_creation_tokens": 0,
       "cache_read_tokens": 0,
-      "estimated_cost": 1.6001999999999992,
-      "sessions": 39
+      "estimated_cost": 1.6106999999999991,
+      "sessions": 40
     },
     "2025-07": {
       "requests": 3,
@@ -660,16 +669,30 @@
       "enhancement_mode": "unknown",
       "success": true,
       "estimated_cost": 0.010499999999999999
+    },
+    {
+      "timestamp": "2025-08-16T12:35:02.262Z",
+      "model": "claude-3-5-sonnet-20241022",
+      "requests": 1,
+      "input_tokens": 1000,
+      "output_tokens": 500,
+      "cache_creation_tokens": 0,
+      "cache_read_tokens": 0,
+      "auth_method": "api_key",
+      "session_type": "test",
+      "enhancement_mode": "unknown",
+      "success": true,
+      "estimated_cost": 0.010499999999999999
     }
   ],
   "totals": {
-    "requests": 42,
-    "input_tokens": 198100,
-    "output_tokens": 84700,
+    "requests": 43,
+    "input_tokens": 199100,
+    "output_tokens": 85200,
     "cache_tokens": 0,
-    "estimated_cost": 1.8301499999999993,
+    "estimated_cost": 1.8406499999999992,
     "cache_creation_tokens": 0,
     "cache_read_tokens": 0,
-    "sessions": 42
+    "sessions": 43
   }
 }
