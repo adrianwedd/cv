@@ -6,13 +6,14 @@
 (function(window, document) {
     'use strict';
     
-    // Configuration
+    // Configuration - Only enable in development
     const CONFIG = {
         endpoint: 'http://localhost:8080', // LangSmith proxy endpoint
         project: 'adrianwedd-cv',
         sessionId: Math.random().toString(36).substring(7),
         startTime: new Date().toISOString(),
-        debug: false
+        debug: false,
+        enabled: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     };
     
     // Utilities
@@ -23,6 +24,9 @@
     }
     
     function sendEvent(endpoint, data) {
+        if (!CONFIG.enabled) {
+            return; // Skip tracking in production
+        }
         try {
             fetch(`${CONFIG.endpoint}${endpoint}`, {
                 method: 'POST',
