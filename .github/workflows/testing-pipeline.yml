@@ -385,7 +385,6 @@ jobs:
           npx playwright test \
             --project=${{ matrix.browser }} \
             --reporter=html,junit,json \
-            --output-dir=test-results \
             --timeout=60000 \
             --retries=2 \
             --workers=1
