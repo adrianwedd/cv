@@ -724,8 +724,8 @@ class AccessibilityAAA {
 }
 
 // Add required CSS for accessibility enhancements
-const style = document.createElement('style');
-style.textContent = `
+const accessibilityStyle = document.createElement('style');
+accessibilityStyle.textContent = `
     /* Enhanced focus indicators */
     .keyboard-focus *:focus,
     .keyboard-navigation *:focus {
@@ -823,7 +823,7 @@ style.textContent = `
         }
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(accessibilityStyle);
 
 // Initialize when DOM is loaded
 if (document.readyState === 'loading') {

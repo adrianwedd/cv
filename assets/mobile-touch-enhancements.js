@@ -541,8 +541,8 @@ class MobileTouchEnhancements {
 }
 
 // Add required CSS animations
-const style = document.createElement('style');
-style.textContent = `
+const touchStyle = document.createElement('style');
+touchStyle.textContent = `
     @keyframes swipeFeedback {
         0% { transform: translateY(-50%) scale(0.5); opacity: 0; }
         50% { transform: translateY(-50%) scale(1.1); opacity: 1; }
@@ -580,7 +580,7 @@ style.textContent = `
         outline-offset: 2px !important;
     }
 `;
-document.head.appendChild(style);
+document.head.appendChild(touchStyle);
 
 // Initialize when DOM is loaded
 if (document.readyState === 'loading') {

@@ -125,11 +125,11 @@ class SmartResourcePreloader {
         link.href = href;
         
         link.onload = () => {
-            
+            console.log('Preloaded: ' + href);
         };
         
         link.onerror = () => {
-            console.warn(`❌ Failed to preload: ${href}`);
+            console.warn('Failed to preload: ' + href);
         };
         
         document.head.appendChild(link);
@@ -198,7 +198,7 @@ class SmartResourcePreloader {
                         (entry.name.includes('preload') || entry.name.includes('modulepreload'))) {
                         
                         const loadTime = entry.responseEnd - entry.requestStart;
-                        }ms)`);
+                        console.log('Preload timing: ' + entry.name + ' (' + loadTime + 'ms)');
                     }
                 }
             });
