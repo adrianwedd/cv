@@ -1129,6 +1129,25 @@ class AccessibilityEnhancer {
             }
         }
     }
+
+    setupColorAccessibility() {
+        // Setup color accessibility features
+        console.log('Setting up color accessibility features');
+        // Add high contrast mode support if not already available
+        if (!document.body.classList.contains('high-contrast-available')) {
+            document.body.classList.add('high-contrast-available');
+        }
+    }
+
+    handleTextScaling() {
+        // Handle text scaling for accessibility
+        const currentScale = parseFloat(document.documentElement.style.fontSize) || 16;
+        console.log('Handling text scaling, current scale:', currentScale);
+        // Ensure minimum readable size
+        if (currentScale < 14) {
+            document.documentElement.style.fontSize = '14px';
+        }
+    }
 }
 
 // Add accessibility styles

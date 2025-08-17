@@ -840,6 +840,11 @@ class PersonalizationEngine {
             }
         }
     }
+
+    suggestNewContent() {
+        // Suggest new content based on user behavior
+        console.log('Suggesting new content based on user behavior');
+    }
 }
 
 // Add personalization styles
