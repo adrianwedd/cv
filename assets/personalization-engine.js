@@ -824,6 +824,22 @@ class PersonalizationEngine {
         
         return optimizations;
     }
+
+    addContentRecommendations() {
+        // Add content recommendations based on user behavior
+        console.log('Adding content recommendations');
+    }
+
+    restorePreviousSection() {
+        // Restore user's previous section or scroll position
+        const lastSection = localStorage.getItem('cv_last_section');
+        if (lastSection) {
+            const section = document.getElementById(lastSection);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
 }
 
 // Add personalization styles
