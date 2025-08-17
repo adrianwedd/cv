@@ -1622,7 +1622,7 @@ class ProgressiveDisclosure {
         if (this.isUnlocked) return;
         
         this.engagementScore += points;
-         - Total: ${this.engagementScore.toFixed(1)}`);
+        console.log(`📊 Engagement +${points} (${reason}) - Total: ${this.engagementScore.toFixed(1)}`);
         
         this.updateEngagementIndicator();
         

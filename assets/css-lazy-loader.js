@@ -49,7 +49,7 @@ class CSSLazyLoader {
         const css = this.loadQueue[this.loadedCount];
         this.loadCSS(css.href).then(() => {
             this.loadedCount++;
-            : ${css.href}`);
+            console.log(`✅ CSS loaded: ${css.href}`);
             
             // Load next with small delay for smooth progression
             setTimeout(() => this.loadNext(), 50);

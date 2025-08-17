@@ -1,3 +1,4 @@
+/**
  * Browser-side LangSmith tracking integration for CV website
  * Automatically tracks page views, interactions, and performance
  */
