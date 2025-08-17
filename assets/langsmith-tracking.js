@@ -214,6 +214,11 @@
     
     // Initialize tracking
     function init() {
+        if (!CONFIG.enabled) {
+            console.log('LangSmith tracking disabled in production');
+            return; // Skip all tracking in production
+        }
+        
         log('Initializing LangSmith tracking...');
         
         // Track initial page view
