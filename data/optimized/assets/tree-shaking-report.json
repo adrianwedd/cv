@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-08-08T04:14:26.562Z",
+  "optimization": {
+    "css": {
+      "unusedRulesRemoved": 0,
+      "bytesRemoved": 2335,
+      "reductionPercentage": "70.0"
+    },
+    "javascript": {
+      "deadCodeRemoved": 0,
+      "bytesRemoved": 3758,
+      "reductionPercentage": "79.0"
+    }
+  },
+  "usedSelectors": {
+    "total": 253,
+    "samples": [
+      "html",
+      "body",
+      "*",
+      "::before",
+      "::after",
+      ":root",
+      ":focus",
+      ":hover",
+      ":active",
+      ".container"
+    ]
+  },
+  "usedFunctions": {
+    "total": 45,
+    "samples": [
+      "CVApplication",
+      "init",
+      "CONFIG",
+      "addEventListener",
+      "removeEventListener",
+      "click",
+      "load",
+      "DOMContentLoaded",
+      "querySelector",
+      "querySelectorAll"
+    ]
+  }
+}

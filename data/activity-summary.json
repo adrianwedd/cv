@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-08-10T14:26:25.641Z",
+  "analysis_period": {
+    "start": "2025-07-10T14:26:25.641Z",
+    "end": "2025-08-10T14:26:25.641Z"
+  },
+  "repositories": [
+    {
+      "name": "cv",
+      "full_name": "adrianwedd/cv",
+      "description": "Professional CV and Portfolio with AI-Enhanced Content Generation",
+      "private": false,
+      "html_url": "https://github.com/adrianwedd/cv",
+      "language": "JavaScript",
+      "stargazers_count": 12,
+      "forks_count": 3,
+      "open_issues_count": 30,
+      "size": 28456,
+      "created_at": "2024-12-15T00:00:00Z",
+      "updated_at": "2025-08-10T12:00:00Z",
+      "pushed_at": "2025-08-10T12:30:00Z"
+    }
+  ],
+  "github_stats": {
+    "total_commits": 892,
+    "total_repos": 175,
+    "total_stars": 247,
+    "languages": {
+      "JavaScript": 35,
+      "Python": 25,
+      "TypeScript": 15,
+      "HTML": 10,
+      "CSS": 8,
+      "Shell": 4,
+      "JSON": 3
+    }
+  },
+  "activity_metrics": {
+    "commits_last_30_days": 67,
+    "files_changed": 776,
+    "lines_added": 120000,
+    "lines_deleted": 60950,
+    "active_days": 28
+  },
+  "data_files": {
+    "latest_activity": "github-activity-20250808-00-2.json"
+  }
+}
