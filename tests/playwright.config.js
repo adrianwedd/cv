@@ -54,7 +54,7 @@ export default defineConfig({
     command: 'cd .. && python3 -m http.server 8000',
     port: 8000,
     timeout: 20000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true, // Always reuse existing server since CI starts it separately
     stdout: 'pipe',
     stderr: 'pipe',
     env: {

@@ -2,6 +2,7 @@
   "name": "cv-system-tests",
   "version": "1.0.0",
   "description": "Enterprise testing framework for CV system",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "jest",
