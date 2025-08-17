@@ -775,12 +775,12 @@ class CVApplication {
                 </div>
                 ${project.metrics ? `
                     <div class="project-metrics">
-                        ${(project.metrics || []).map(metric => 
+                        ${Array.isArray(project.metrics) ? project.metrics.map(metric => 
                             `<div class="metric-item">
                                 <span class="metric-value">${metric.value}</span>
                                 <span class="metric-label">${metric.label}</span>
                             </div>`
-                        ).join('')}
+                        ).join('') : ''}
                     </div>
                 ` : ''}
             </div>

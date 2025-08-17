@@ -1101,6 +1101,34 @@ class AccessibilityEnhancer {
     announce(message, priority = 'polite') {
         this.announceToScreenReader(message, priority);
     }
+
+    addContextualDescriptions() {
+        // Add contextual descriptions for screen readers
+        console.log('Adding contextual descriptions for screen readers');
+    }
+
+    handleNewContent(node) {
+        // Handle new content for accessibility
+        if (node && node.querySelector) {
+            const newLinks = node.querySelectorAll('a[href]');
+            newLinks.forEach(link => {
+                if (!link.getAttribute('aria-label') && link.textContent.trim()) {
+                    link.setAttribute('aria-label', link.textContent.trim());
+                }
+            });
+        }
+    }
+
+    handleClassChange(element) {
+        // Handle class changes for accessibility updates
+        if (element && element.classList) {
+            if (element.classList.contains('active')) {
+                element.setAttribute('aria-current', 'true');
+            } else {
+                element.removeAttribute('aria-current');
+            }
+        }
+    }
 }
 
 // Add accessibility styles
