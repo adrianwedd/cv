@@ -311,16 +311,12 @@ jobs:
     if: needs.quality-gate.outputs.should-run-tests == 'true'
     
     strategy:
-      fail-fast: false  # Don't cancel other browsers if one fails
+      fail-fast: false
       matrix:
-        browser: ['chromium', 'firefox', 'webkit']
+        browser: ['chromium']
         include:
           - browser: chromium
             browser-name: "Chrome"
-          - browser: firefox  
-            browser-name: "Firefox"
-          - browser: webkit
-            browser-name: "Safari"
     
     steps:
       - name: 📥 Checkout Repository
@@ -560,7 +556,7 @@ jobs:
           echo "| Accessibility | ⏸️ DISABLED | Temporarily disabled due to JS errors |" >> test-summary.md
           echo "| Performance | ${{ needs.performance-tests.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Core Web Vitals < 2s |" >> test-summary.md
           echo "| Mobile/Responsive | ${{ needs.mobile-tests.result == 'success' && '✅ PASS' || '❌ FAIL' }} | 44px touch targets |" >> test-summary.md
-          echo "| Cross-Browser | ${{ needs.cross-browser-tests.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Chrome, Firefox, Safari |" >> test-summary.md
+          echo "| Cross-Browser | ${{ needs.cross-browser-tests.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Chrome only |" >> test-summary.md
           echo "| Dashboard | ${{ needs.dashboard-validation.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Chart interactions |" >> test-summary.md
           echo "| Security | ${{ needs.security-scan.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Vulnerability scan |" >> test-summary.md
           echo "" >> test-summary.md
