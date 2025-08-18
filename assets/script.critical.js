@@ -205,24 +205,20 @@ class CVApplication {
         }
     }
 
-    async loadLazyFeatures() {
-        try {
-            // Load performance monitoring
-            const { PerformanceMonitor } = await import('./chunks/performance-monitor.js');
-            this.performanceMonitor = new PerformanceMonitor();
-            
-            // Load GitHub integration
-            const { GitHubIntegration } = await import('./chunks/github-integration.js');
-            this.githubIntegration = new GitHubIntegration();
-            
-            // Load data visualizations
-            const { DataVisualizer } = await import('./chunks/data-visualizer.js');
-            this.dataVisualizer = new DataVisualizer();
-            
-            
-            
-        } catch (error) {
-            console.warn('Failed to load some lazy features:', error);
+    loadLazyFeatures() {
+        // Use ChunkLoader for non-module script loading
+        if (window.ChunkLoader) {
+            window.ChunkLoader.loadLazyFeatures();
+        } else {
+            // Fallback: load chunk-loader first, then features
+            const script = document.createElement('script');
+            script.src = 'assets/chunk-loader.js';
+            script.onload = () => {
+                if (window.ChunkLoader) {
+                    window.ChunkLoader.loadLazyFeatures();
+                }
+            };
+            document.head.appendChild(script);
         }
     }
 
