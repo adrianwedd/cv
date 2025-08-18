@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-08-11T02:49:52.230Z",
+  "timestamp": "2025-08-18T02:46:58.842Z",
   "beforeSurgery": {
-    "totalSize": "234M",
-    "assetCount": 140,
+    "totalSize": "239M",
+    "assetCount": 144,
     "dataStructure": {
       "activity": {
         "fileCount": 108,
@@ -58,12 +58,21 @@
       }
     }
   },
-  "duplicateAnalysis": {},
+  "duplicateAnalysis": {
+    "du1ql4": [
+      "/home/runner/work/cv/cv/assets/consolidated/script-consolidated.min.js",
+      "/home/runner/work/cv/cv/assets/consolidated/script-consolidated.min.min.js"
+    ],
+    "8wqsmv": [
+      "/home/runner/work/cv/cv/assets/consolidated/styles-consolidated.min.css",
+      "/home/runner/work/cv/cv/assets/consolidated/styles-consolidated.min.min.css"
+    ]
+  },
   "technicalDebt": {
     "score": 60,
     "details": {
-      "fileCount": 18597,
-      "sizeKB": 239308,
+      "fileCount": 18609,
+      "sizeKB": 244496,
       "duplicates": 0,
       "oldDataFiles": 0
     }
