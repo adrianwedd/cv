@@ -42,8 +42,14 @@ class DynamicLoader {
     }
 
     async importChunk(chunkName) {
-        const chunkUrl = `./chunks/${chunkName}.min.js`;
-        return import(chunkUrl);
+        // Use script injection instead of dynamic import for non-module compatibility
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = `./assets/chunks/${chunkName}.min.js`;
+            script.onload = () => resolve();
+            script.onerror = () => reject(new Error(`Failed to load chunk: ${chunkName}`));
+            document.head.appendChild(script);
+        });
     }
 
     preloadChunk(chunkName) {
