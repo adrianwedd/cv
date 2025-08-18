@@ -742,6 +742,36 @@ class AccessibilityEnhancer {
     }
 
     /**
+     * Setup focus indicators for better keyboard navigation
+     */
+    setupFocusIndicators() {
+        // Add visible focus indicators
+        const style = document.createElement('style');
+        style.textContent = `
+            *:focus {
+                outline: 3px solid var(--color-primary, #2563eb) !important;
+                outline-offset: 2px !important;
+            }
+            .focus-visible:focus {
+                outline: 3px solid var(--color-primary, #2563eb) !important;
+                outline-offset: 2px !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Track focus for keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-nav');
+            }
+        });
+        
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-nav');
+        });
+    }
+
+    /**
      * Setup high contrast mode
      */
     setupHighContrastMode() {
