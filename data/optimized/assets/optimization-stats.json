@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-08T04:13:03.548Z",
+  "files": {
+    "styles.css": {
+      "originalSize": 34440,
+      "minifiedSize": 23962,
+      "savings": 10478,
+      "compressionRatio": "30.4"
+    },
+    "script.js": {
+      "originalSize": 92024,
+      "minifiedSize": 48516,
+      "savings": 43508,
+      "compressionRatio": "47.3"
+    }
+  },
+  "totalOriginalSize": 126464,
+  "totalMinifiedSize": 72478,
+  "totalSavings": 53986,
+  "averageCompression": "42.7"
+}
