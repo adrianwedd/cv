@@ -872,6 +872,92 @@ class AccessibilityEnhancer {
     }
 
     /**
+     * Setup reading support features
+     */
+    setupReadingSupport() {
+        // Add reading time estimates
+        const articles = document.querySelectorAll('article, .content-section');
+        articles.forEach(article => {
+            const text = article.textContent || '';
+            const words = text.trim().split(/\s+/).length;
+            const readingTime = Math.ceil(words / 200); // 200 WPM average
+            
+            const readingIndicator = document.createElement('div');
+            readingIndicator.className = 'reading-time';
+            readingIndicator.textContent = `${readingTime} min read`;
+            readingIndicator.setAttribute('aria-label', `Estimated reading time: ${readingTime} minutes`);
+            
+            article.insertBefore(readingIndicator, article.firstChild);
+        });
+    }
+
+    /**
+     * Setup context help
+     */
+    setupContextHelp() {
+        // Add help tooltips for complex sections
+        const complexElements = document.querySelectorAll('[data-help]');
+        complexElements.forEach(element => {
+            const helpText = element.getAttribute('data-help');
+            if (helpText) {
+                element.setAttribute('title', helpText);
+                element.setAttribute('aria-describedby', `help-${element.id || 'element'}`);
+            }
+        });
+    }
+
+    /**
+     * Setup progress indicators
+     */
+    setupProgressIndicators() {
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        progressBar.setAttribute('role', 'progressbar');
+        progressBar.setAttribute('aria-label', 'Page reading progress');
+        document.body.appendChild(progressBar);
+        
+        const updateProgress = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / documentHeight) * 100;
+            
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+            progressBar.setAttribute('aria-valuenow', Math.round(progress));
+        };
+        
+        window.addEventListener('scroll', updateProgress, { passive: true });
+    }
+
+    /**
+     * Setup attention management
+     */
+    setupAttentionManagement() {
+        // Reduce motion for users who prefer it
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        
+        const applyReducedMotion = (shouldReduce) => {
+            if (shouldReduce) {
+                document.body.classList.add('reduce-motion');
+                // Disable animations
+                const style = document.createElement('style');
+                style.textContent = `
+                    .reduce-motion *, .reduce-motion *::before, .reduce-motion *::after {
+                        animation-duration: 0.01ms !important;
+                        animation-iteration-count: 1 !important;
+                        transition-duration: 0.01ms !important;
+                        scroll-behavior: auto !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        };
+        
+        applyReducedMotion(prefersReducedMotion.matches);
+        prefersReducedMotion.addEventListener('change', (e) => applyReducedMotion(e.matches));
+    }
+
+    /**
      * Setup motor accessibility improvements
      */
     setupMotorAccessibility() {
