@@ -59,7 +59,7 @@
     "js-yaml": "^4.1.0",
     "jsdoc": "^4.0.4",
     "lodash": "^4.17.21",
-    "marked": "^16.1.2",
+    "marked": "^16.2.0",
     "node-cache": "^5.1.2",
     "puppeteer": "^24.15.0",
     "puppeteer-extra": "^3.3.6",
