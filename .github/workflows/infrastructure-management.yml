@@ -51,6 +51,12 @@ concurrency:
   cancel-in-progress: false  # Infrastructure changes should not be interrupted
 
 jobs:
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
   # ==========================================
   # INFRASTRUCTURE VALIDATION AND PLANNING
   # ==========================================

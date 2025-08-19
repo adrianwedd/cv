@@ -47,7 +47,18 @@ env:
   PERFORMANCE_REGRESSION_THRESHOLD: 10  # 10% regression
 
 jobs:
-  # ==========================================
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  # TEMPORARILY DISABLED FOR BILLING - DO NOT RUN
+  disabled-for-billing:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow disabled for billing management"  # ==========================================
   # LIGHTHOUSE PERFORMANCE AUDIT
   # ==========================================
   lighthouse_audit:

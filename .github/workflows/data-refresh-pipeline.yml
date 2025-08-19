@@ -43,7 +43,18 @@ env:
   CACHE_STRATEGY: 'smart'  # intelligent caching based on data age
 
 jobs:
-  data-intelligence:
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  # TEMPORARILY DISABLED FOR BILLING - DO NOT RUN
+  disabled-for-billing:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow disabled for billing management"  data-intelligence:
     name: 🧠 Data Refresh Intelligence
     runs-on: ubuntu-latest
     timeout-minutes: 5

@@ -28,7 +28,18 @@ on:
         type: boolean
 
 jobs:
-  # Comprehensive health checks and alerting
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  # TEMPORARILY DISABLED FOR BILLING - DO NOT RUN
+  disabled-for-billing:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow disabled for billing management"  # Comprehensive health checks and alerting
   health-monitoring:
     name: 🔍 System Health Monitoring
     runs-on: ubuntu-latest

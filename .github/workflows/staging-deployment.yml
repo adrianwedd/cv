@@ -23,7 +23,15 @@ env:
   STAGING_BRANCH: 'gh-pages-staging'
 
 jobs:
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  
   staging-quality-gates:
+    if: false  # DISABLED
     name: 🛡️ Quality Gates
     runs-on: ubuntu-latest
     timeout-minutes: 10

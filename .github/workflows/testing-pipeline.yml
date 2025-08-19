@@ -30,7 +30,15 @@ env:
   LIGHTHOUSE_CI_VERSION: '0.14.0'
 
 jobs:
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  
   quality-gate:
+    if: false  # DISABLED
     name: 🚦 Quality Gate Analysis
     runs-on: ubuntu-latest
     outputs:

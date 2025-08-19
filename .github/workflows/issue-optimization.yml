@@ -28,7 +28,18 @@ env:
   NODE_VERSION: '20'
 
 jobs:
-  # System Health Assessment
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  # TEMPORARILY DISABLED FOR BILLING - DO NOT RUN
+  disabled-for-billing:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow disabled for billing management"  # System Health Assessment
   system-health:
     name: 📊 System Health Assessment
     runs-on: ubuntu-latest

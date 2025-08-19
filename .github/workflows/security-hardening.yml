@@ -33,6 +33,13 @@ env:
   SECURITY_SCAN_TIMEOUT: '600' # 10 minutes
 
 jobs:
+  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
+  disabled:
+    if: true
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "All workflows disabled for billing management"
+  
   # ========================================
   # DEPENDENCY VULNERABILITY SCANNING
   # ========================================
