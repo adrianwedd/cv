@@ -1,0 +1,44 @@
+{
+  "base-cv.json": {
+    "size": 14431,
+    "structure": {
+      "depth": 6,
+      "keys": 9,
+      "arrays": 25,
+      "objects": 55
+    },
+    "compressionPotential": {
+      "original": 14431,
+      "compressed": 4720,
+      "ratio": "32.7%"
+    }
+  },
+  "activity-summary.json": {
+    "size": 1156,
+    "structure": {
+      "depth": 4,
+      "keys": 6,
+      "arrays": 1,
+      "objects": 7
+    },
+    "compressionPotential": {
+      "original": 1156,
+      "compressed": 555,
+      "ratio": "48.0%"
+    }
+  },
+  "ai-enhancements.json": {
+    "size": 5939,
+    "structure": {
+      "depth": 5,
+      "keys": 10,
+      "arrays": 3,
+      "objects": 10
+    },
+    "compressionPotential": {
+      "original": 5939,
+      "compressed": 2653,
+      "ratio": "44.7%"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-08-18T02:46:58.842Z",
+  "beforeSurgery": {
+    "totalSize": "239M",
+    "assetCount": 144,
+    "dataStructure": {
+      "activity": {
+        "fileCount": 108,
+        "totalSize": "8.0M"
+      },
+      "ai-cache": {
+        "fileCount": 4,
+        "totalSize": "20K"
+      },
+      "ai-intelligence": {
+        "fileCount": 1,
+        "totalSize": "8.0K"
+      },
+      "cache": {
+        "fileCount": 2,
+        "totalSize": "16K"
+      },
+      "cost-reports": {
+        "fileCount": 1,
+        "totalSize": "8.0K"
+      },
+      "intelligence": {
+        "fileCount": 4,
+        "totalSize": "180K"
+      },
+      "narratives": {
+        "fileCount": 3,
+        "totalSize": "52K"
+      },
+      "optimizations": {
+        "fileCount": 1,
+        "totalSize": "24K"
+      },
+      "optimized": {
+        "fileCount": 27,
+        "totalSize": "204K"
+      },
+      "positions": {
+        "fileCount": 1,
+        "totalSize": "8.0K"
+      },
+      "roadmaps": {
+        "fileCount": 2,
+        "totalSize": "32K"
+      },
+      "targeting": {
+        "fileCount": 2,
+        "totalSize": "12K"
+      },
+      "test-results": {
+        "fileCount": 8,
+        "totalSize": "36K"
+      }
+    }
+  },
+  "duplicateAnalysis": {
+    "du1ql4": [
+      "/home/runner/work/cv/cv/assets/consolidated/script-consolidated.min.js",
+      "/home/runner/work/cv/cv/assets/consolidated/script-consolidated.min.min.js"
+    ],
+    "8wqsmv": [
+      "/home/runner/work/cv/cv/assets/consolidated/styles-consolidated.min.css",
+      "/home/runner/work/cv/cv/assets/consolidated/styles-consolidated.min.min.css"
+    ]
+  },
+  "technicalDebt": {
+    "score": 60,
+    "details": {
+      "fileCount": 18609,
+      "sizeKB": 244496,
+      "duplicates": 0,
+      "oldDataFiles": 0
+    }
+  },
+  "recommendations": []
+}
