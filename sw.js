@@ -10,7 +10,7 @@
  * - Code-split resource handling
  */
 
-const CACHE_VERSION = 'v7-optimized-' + '20250810';
+const CACHE_VERSION = 'v8-mobile-enhanced-' + '20250819';
 const CACHE_NAMES = {
     critical: `cv-critical-${CACHE_VERSION}`,
     chunks: `cv-chunks-${CACHE_VERSION}`,

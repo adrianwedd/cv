@@ -32,6 +32,13 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="description" content="Adrian Wedd - AI Engineer & Software Architect specializing in autonomous systems, machine learning, and enterprise software architecture. Professional CV showcasing 15+ successful AI implementations, Python expertise, and distributed systems experience.">
     <meta name="theme-color" content="#2563eb">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a">
+    
+    <!-- Mobile Performance Optimization -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- P0 Critical Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -66,6 +73,11 @@
     <link rel="preload" href="assets/styles.css" as="style">
     <link rel="preload" href="assets/script.js" as="script">
     
+    <!-- Mobile-Specific Resource Hints -->
+    <link rel="preload" href="assets/mobile-enhancements.js" as="script">
+    <link rel="prefetch" href="assets/webp-optimizer.js">
+    <link rel="prefetch" href="assets/core-web-vitals.js">
+    
     <!-- Icons and PWA Manifest -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <link rel="manifest" href="manifest.json">
@@ -88,7 +100,44 @@
     <link rel="preload" href="assets/non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="preload" href="assets/non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="assets/non-critical.min.css"></noscript></noscript>
     
-    <!-- Mobile styles included in main CSS -->
+    <!-- Advanced Mobile Experience Enhancement - Critical CSS Inline for Fastest Rendering -->
+    <style>
+        /* Critical Mobile CSS - Inline for above-the-fold optimization */
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; max-width: 100vw; overflow-x: hidden; }
+            .header { padding: 1rem 0; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(16px); }
+            .profile-section { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+            .profile-image { width: 80px; height: 80px; margin-bottom: 1rem; }
+            .name { font-size: 1.75rem; line-height: 1.2; margin-bottom: 0.25rem; }
+            .title { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.3; }
+            .tagline { font-size: 0.875rem; margin-bottom: 1rem; line-height: 1.4; padding: 0 0.5rem; }
+            .nav-items { overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; padding: 0 0.5rem; }
+            .nav-item { flex-shrink: 0; padding: 0.75rem 1rem; min-height: 44px; margin: 0 0.25rem; border-radius: 0.5rem; }
+            .nav-item:active { transform: scale(0.96); background: rgba(59, 130, 246, 0.1); }
+            .live-stats { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+            .stat-item { padding: 1rem 0.75rem; min-height: 80px; }
+            .contact-link { min-height: 44px; flex: 1; min-width: 80px; max-width: 120px; }
+            .contact-link:active { transform: scale(0.96); background: rgba(59, 130, 246, 0.1); }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0 0.75rem; }
+            .name { font-size: 1.5rem; }
+            .title { font-size: 0.875rem; }
+            .tagline { font-size: 0.75rem; }
+            .live-stats { gap: 0.5rem; }
+            .stat-item { padding: 0.75rem 0.5rem; min-height: 70px; }
+            .nav-item, .contact-link { font-size: 0.75rem; min-width: 70px; }
+        }
+        /* Touch optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-item, .contact-link { min-height: 48px; }
+            .nav-item:hover, .contact-link:hover { background: none; transform: none; }
+        }
+    </style>
+    
+    <!-- Mobile Experience Enhancement CSS (Non-Critical - Lazy Loaded) -->
+    <link rel="preload" href="assets/critical-mobile.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/critical-mobile.css"></noscript>
     
     <!-- Minimal structured data -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Adrian Wedd","jobTitle":"AI Engineer","url":"https://adrianwedd.github.io/cv"}</script>
@@ -777,10 +826,15 @@
 
     <!-- Connection status handled by main script -->
 
-<!-- LangSmith Tracking Integration (CSP compliant external script) -->
-<script src="assets/langsmith-tracking.js" defer></script>
-<!-- Original inline LangSmith script extracted for CSP compliance -->
-<!-- LangSmith inline script removed for CSP compliance -->
+<!-- Advanced Mobile Experience Excellence -->
+    <script src="assets/mobile-enhancements.js" defer></script>
+    <script src="assets/webp-optimizer.js" defer></script>
+    <script src="assets/core-web-vitals.js" defer></script>
+    
+    <!-- LangSmith Tracking Integration (CSP compliant external script) -->
+    <script src="assets/langsmith-tracking.js" defer></script>
+    <!-- Original inline LangSmith script extracted for CSP compliance -->
+    <!-- LangSmith inline script removed for CSP compliance -->
 
 (function(window, document) {
     'use strict';
