@@ -44,5 +44,13 @@ __pycache__/
 
 # Claude logs
 .claude/
+
+# Environment variables - NEVER commit these
+.env
+.env.local
+.env.production
 .env*
 *.env
+# But allow example/template files
+!.env.example
+!.env.test

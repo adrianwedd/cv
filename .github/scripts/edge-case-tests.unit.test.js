@@ -184,12 +184,13 @@ describe('Edge Case Tests - Security Scenarios', () => {
     });
 
     test('should handle authentication token exposure', () => {
+        // Use environment variables or safe mock values for testing
         const potentialTokens = [
-            'sk-1234567890abcdef',
-            'ghp_1234567890abcdef1234567890abcdef12345678',
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9',
-            'ANTHROPIC_API_KEY=sk-ant-api03-...',
-            'Authorization: Bearer token123'
+            process.env.TEST_API_KEY || 'sk-TEST_MOCK_KEY',
+            process.env.TEST_GITHUB_TOKEN || 'ghp_TEST_MOCK_TOKEN',
+            process.env.TEST_JWT || 'Bearer TEST_MOCK_JWT',
+            process.env.TEST_ANTHROPIC_KEY || 'ANTHROPIC_API_KEY=sk-ant-TEST_MOCK',
+            process.env.TEST_AUTH_HEADER || 'Authorization: Bearer TEST_MOCK'
         ];
 
         potentialTokens.forEach(token => {
