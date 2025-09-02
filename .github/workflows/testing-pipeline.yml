@@ -30,21 +30,13 @@ env:
   LIGHTHOUSE_CI_VERSION: '0.14.0'
 
 jobs:
-  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
-  disabled:
-    if: true
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "All workflows disabled for billing management"
-  
   quality-gate:
-    if: false  # DISABLED
     name: 🚦 Quality Gate Analysis
     runs-on: ubuntu-latest
     outputs:
       should-run-tests: ${{ steps.changes.outputs.should-run }}
       test-suite-matrix: ${{ steps.matrix.outputs.suites }}
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -75,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     if: needs.quality-gate.outputs.should-run-tests == 'true'
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -129,7 +121,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     if: false # Disabled due to JavaScript syntax errors
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -181,7 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     if: false # Disabled until Node.js test implementation is complete
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -240,11 +232,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: foundation-tests
     if: needs.quality-gate.outputs.should-run-tests == 'true'
-    
+
     strategy:
       matrix:
         device: ['mobile', 'tablet', 'desktop']
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -275,7 +267,7 @@ jobs:
               process.exit(1);
             });
           " &
-          
+
           timeout 15 bash -c 'until curl -f http://localhost:8000/ > /dev/null 2>&1; do sleep 1; done'
           echo "✅ Server health check passed"
 
@@ -317,7 +309,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     if: needs.quality-gate.outputs.should-run-tests == 'true'
-    
+
     strategy:
       fail-fast: false
       matrix:
@@ -325,7 +317,7 @@ jobs:
         include:
           - browser: chromium
             browser-name: "Chrome"
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -364,7 +356,7 @@ jobs:
           SERVER_PID=$!
           echo $SERVER_PID > /tmp/test-server.pid
           sleep 3
-          
+
           # Enhanced health check with retries
           for i in {1..15}; do
             if curl -f http://localhost:8000/ > /dev/null 2>&1; then
@@ -374,7 +366,7 @@ jobs:
             echo "⏳ Waiting for server... (attempt $i/15)"
             sleep 2
           done
-          
+
           # Verify server is actually responding
           curl -f http://localhost:8000/ > /dev/null || {
             echo "❌ Server health check failed"
@@ -385,7 +377,7 @@ jobs:
         run: |
           cd tests
           echo "🔍 Running tests for ${{ matrix.browser-name }}..."
-          
+
           # Run with proper error handling and retries
           npx playwright test \
             --project=${{ matrix.browser }} \
@@ -413,7 +405,7 @@ jobs:
         if: always()
         run: |
           cd tests
-          
+
           mkdir -p test-results
           echo "# ${{ matrix.browser-name }} Test Results" > test-results/summary-${{ matrix.browser }}.md
           echo "" >> test-results/summary-${{ matrix.browser }}.md
@@ -421,12 +413,12 @@ jobs:
           echo "- **Browser**: ${{ matrix.browser-name }} (${{ matrix.browser }})" >> test-results/summary-${{ matrix.browser }}.md
           echo "- **Date**: $(date)" >> test-results/summary-${{ matrix.browser }}.md
           echo "- **Status**: ${{ job.status }}" >> test-results/summary-${{ matrix.browser }}.md
-          
+
           # Add test counts if results exist
           if [ -f "test-results/results.json" ]; then
             echo "- **Tests Found**: $(jq '.suites[0].specs | length' test-results/results.json 2>/dev/null || echo 'N/A')" >> test-results/summary-${{ matrix.browser }}.md
           fi
-          
+
           echo "" >> test-results/summary-${{ matrix.browser }}.md
           echo "## Cross-Browser Compatibility Status" >> test-results/summary-${{ matrix.browser }}.md
           echo "✅ Core functionality validation" >> test-results/summary-${{ matrix.browser }}.md
@@ -449,7 +441,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: foundation-tests
     if: needs.quality-gate.outputs.should-run-tests == 'true'
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -480,7 +472,7 @@ jobs:
               process.exit(1);
             });
           " &
-          
+
           # Wait for server with health check
           timeout 15 bash -c 'until curl -f http://localhost:8000/ > /dev/null 2>&1; do sleep 1; done'
           echo "✅ Server health check passed"
@@ -515,7 +507,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: quality-gate
     if: needs.quality-gate.outputs.should-run-tests == 'true'
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -529,7 +521,7 @@ jobs:
         run: |
           cd tests
           npm audit --audit-level=moderate
-          
+
       - name: 🛡️ Check for Vulnerabilities
         run: |
           echo "🔒 Security scan completed"
@@ -540,7 +532,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [foundation-tests, performance-tests, mobile-tests, cross-browser-tests, dashboard-validation, security-scan]
     if: always() && needs.quality-gate.outputs.should-run-tests == 'true'
-    
+
     steps:
       - name: 📥 Download All Reports
         uses: actions/download-artifact@v4
@@ -556,7 +548,7 @@ jobs:
           echo "- **Commit**: ${{ github.sha }}" >> test-summary.md
           echo "- **Branch**: ${{ github.ref_name }}" >> test-summary.md
           echo "" >> test-summary.md
-          
+
           echo "## 🎯 Quality Gates Status" >> test-summary.md
           echo "| Test Suite | Status | Notes |" >> test-summary.md
           echo "|------------|--------|-------|" >> test-summary.md
@@ -568,20 +560,20 @@ jobs:
           echo "| Dashboard | ${{ needs.dashboard-validation.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Chart interactions |" >> test-summary.md
           echo "| Security | ${{ needs.security-scan.result == 'success' && '✅ PASS' || '❌ FAIL' }} | Vulnerability scan |" >> test-summary.md
           echo "" >> test-summary.md
-          
+
           echo "## 🚀 Performance Metrics" >> test-summary.md
           echo "- Load Time: < 2 seconds (target met)" >> test-summary.md
           echo "- LCP: < 2.5 seconds (Core Web Vital)" >> test-summary.md
           echo "- CLS: < 0.1 (Layout stability)" >> test-summary.md
           echo "- Accessibility Score: 95%+ (WCAG 2.1 AA)" >> test-summary.md
           echo "" >> test-summary.md
-          
+
           echo "## 📱 Device Compatibility" >> test-summary.md
           echo "- Mobile (375px): Responsive design verified" >> test-summary.md
           echo "- Tablet (768px): Touch interactions optimized" >> test-summary.md
           echo "- Desktop (1280px): Full functionality validated" >> test-summary.md
           echo "" >> test-summary.md
-          
+
           if [[ "${{ needs.foundation-tests.result }}" == "success" && "${{ needs.mobile-tests.result }}" == "success" && "${{ needs.cross-browser-tests.result }}" == "success" && "${{ needs.dashboard-validation.result }}" == "success" ]]; then
             echo "## ✅ Overall Status: ENTERPRISE READY" >> test-summary.md
             echo "All critical quality gates have been met. The CV system demonstrates:" >> test-summary.md
@@ -607,7 +599,7 @@ jobs:
           script: |
             const fs = require('fs');
             const summary = fs.readFileSync('test-summary.md', 'utf8');
-            
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -620,7 +612,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-summary
     if: always() && github.ref == 'refs/heads/main'
-    
+
     steps:
       - name: 🎯 Validate Deployment Criteria
         run: |

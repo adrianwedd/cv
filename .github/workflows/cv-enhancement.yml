@@ -21,7 +21,7 @@ name: 🚀 Production CV Enhancement Pipeline
 # 1. Quality gates and pre-deployment validation
 # 2. GitHub activity data collection and analysis
 # 3. AI-powered content enhancement with validation
-# 4. Multi-format CV generation and testing  
+# 4. Multi-format CV generation and testing
 # 5. Production deployment to GitHub Pages
 # 6. Post-deployment verification and monitoring
 
@@ -72,18 +72,7 @@ env:
   TIMEZONE: "Australia/Tasmania"
 
 jobs:
-  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
-  disabled:
-    if: true
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "All workflows disabled for billing management"
-  # TEMPORARILY DISABLED FOR BILLING - DO NOT RUN
-  disabled-for-billing:
-    if: false
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Workflow disabled for billing management"  cv-intelligence-analysis:
+  cv-intelligence-analysis:
     name: 🧠 CV Intelligence Pre-Analysis
     runs-on: ubuntu-latest
     outputs:
@@ -113,11 +102,11 @@ jobs:
         id: strategy
         run: |
           echo "🎲 **DETERMINING OPTIMAL ENHANCEMENT STRATEGY**"
-          
+
           MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
           FORCE_REFRESH="${{ github.event.inputs.force_refresh || 'false' }}"
           CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
-          
+
           if [ "$FORCE_REFRESH" = "true" ]; then
             STRATEGY="full-rebuild"
             echo "🔄 Selected: Full CV rebuild strategy (forced)"
@@ -134,7 +123,7 @@ jobs:
             STRATEGY="comprehensive"
             echo "🔬 Selected: Comprehensive CV enhancement"
           fi
-          
+
           echo "strategy=$STRATEGY" >> $GITHUB_OUTPUT
           echo "creativity=$CREATIVITY" >> $GITHUB_OUTPUT
           echo ""
@@ -143,28 +132,28 @@ jobs:
         id: activity
         run: |
           echo "📊 **ANALYZING GITHUB ACTIVITY FOR CV ENHANCEMENT**"
-          
+
           # Get comprehensive GitHub activity data
           RECENT_COMMITS=$(git log --since="30 days ago" --oneline | wc -l)
           TOTAL_COMMITS=$(git rev-list --all --count)
           ACTIVE_DAYS=$(git log --since="30 days ago" --format="%ad" --date=short | sort -u | wc -l)
-          
+
           # Language analysis from recent commits
           LANGUAGES=$(git log --since="30 days ago" --name-only --pretty=format: | grep -E '\.(js|py|yml|md|ts|jsx|tsx|go|rs|java|cpp|c|php|rb|swift|kt)$' | sed 's/.*\.//' | sort | uniq -c | sort -nr | head -5)
           LANGUAGE_COUNT=$(echo "$LANGUAGES" | wc -l)
-          
+
           echo "📈 **Activity Metrics:**"
           echo "  - Recent commits (30d): $RECENT_COMMITS"
           echo "  - Total commits: $TOTAL_COMMITS"
           echo "  - Active days (30d): $ACTIVE_DAYS"
           echo "  - Active languages: $LANGUAGE_COUNT"
-          
+
           # Calculate activity score (0-100)
           ACTIVITY_SCORE=$(echo "scale=2; (($RECENT_COMMITS * 2) + ($ACTIVE_DAYS * 5) + ($LANGUAGE_COUNT * 3)) / 2" | bc -l)
           if (( $(echo "$ACTIVITY_SCORE > 100" | bc -l) )); then
             ACTIVITY_SCORE=100
           fi
-          
+
           echo "  - Activity Score: $ACTIVITY_SCORE/100"
           echo "score=$ACTIVITY_SCORE" >> $GITHUB_OUTPUT
           echo ""
@@ -173,18 +162,18 @@ jobs:
         id: health
         run: |
           echo "🔍 **ASSESSING CV CONTENT HEALTH**"
-          
+
           # Check if core CV files exist
           CV_DATA_EXISTS=$([ -f "data/base-cv.json" ] && echo "true" || echo "false")
           ACTIVITY_DATA_EXISTS=$([ -f "data/activity-summary.json" ] && echo "true" || echo "false")
           AI_DATA_EXISTS=$([ -f "data/ai-enhancements.json" ] && echo "true" || echo "false")
-          
+
           # Calculate content health score
           HEALTH_SCORE=0
           [ "$CV_DATA_EXISTS" = "true" ] && HEALTH_SCORE=$((HEALTH_SCORE + 40))
           [ "$ACTIVITY_DATA_EXISTS" = "true" ] && HEALTH_SCORE=$((HEALTH_SCORE + 30))
           [ "$AI_DATA_EXISTS" = "true" ] && HEALTH_SCORE=$((HEALTH_SCORE + 30))
-          
+
           if [ "$HEALTH_SCORE" -ge 80 ]; then
             HEALTH_STATUS="excellent"
             HEALTH_EMOJI="🟢"
@@ -195,12 +184,12 @@ jobs:
             HEALTH_STATUS="needs-attention"
             HEALTH_EMOJI="🔴"
           fi
-          
+
           echo "$HEALTH_EMOJI **Content Health Status:** $HEALTH_STATUS ($HEALTH_SCORE/100)"
           echo "  - Base CV Data: $CV_DATA_EXISTS"
           echo "  - Activity Data: $ACTIVITY_DATA_EXISTS"
           echo "  - AI Enhancements: $AI_DATA_EXISTS"
-          
+
           echo "health=$HEALTH_STATUS" >> $GITHUB_OUTPUT
           echo "score=$HEALTH_SCORE" >> $GITHUB_OUTPUT
           echo ""
@@ -209,7 +198,7 @@ jobs:
         id: budget
         run: |
           echo "💰 **ANALYZING AI ENHANCEMENT BUDGET**"
-          
+
           # Load usage tracking if exists
           USAGE_FILE="data/ai-usage-tracking.json"
           if [ -f "$USAGE_FILE" ]; then
@@ -219,7 +208,7 @@ jobs:
             TOKENS_USED_TODAY=0
             ENHANCEMENTS_TODAY=0
           fi
-          
+
           # Set budget based on creativity level and usage
           CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
           case "$CREATIVITY" in
@@ -240,9 +229,9 @@ jobs:
               SESSION_BUDGET=18000
               ;;
           esac
-          
+
           TOKENS_REMAINING=$((DAILY_BUDGET - TOKENS_USED_TODAY))
-          
+
           echo "📊 **AI Budget Analysis:**"
           echo "  - Creativity Level: $CREATIVITY"
           echo "  - Daily Budget: $DAILY_BUDGET tokens"
@@ -250,7 +239,7 @@ jobs:
           echo "  - Remaining: $TOKENS_REMAINING tokens"
           echo "  - Session Budget: $SESSION_BUDGET tokens"
           echo "  - Enhancements Today: $ENHANCEMENTS_TODAY"
-          
+
           if [ "$TOKENS_REMAINING" -ge "$SESSION_BUDGET" ]; then
             BUDGET_STATUS="sufficient"
             echo "  ✅ Sufficient budget for full enhancement"
@@ -261,7 +250,7 @@ jobs:
             BUDGET_STATUS="insufficient"
             echo "  ❌ Insufficient budget - activity-only mode"
           fi
-          
+
           echo "budget=$BUDGET_STATUS" >> $GITHUB_OUTPUT
           echo "remaining=$TOKENS_REMAINING" >> $GITHUB_OUTPUT
           echo "session_budget=$SESSION_BUDGET" >> $GITHUB_OUTPUT
@@ -304,14 +293,14 @@ jobs:
         run: |
           echo "✅ **RUNNING UNIT TESTS**"
           cd .github/scripts
-          
+
           # Check if test command exists, run if available
           if npm run test --silent 2>/dev/null; then
             echo "✅ Unit tests passed"
           else
             echo "⚠️ Unit tests not available, skipping"
           fi
-          
+
           cd ../..
           echo "✅ Unit test step completed"
 
@@ -330,31 +319,31 @@ jobs:
         if: needs.cv-intelligence-analysis.outputs.enhancement-strategy != 'ai-only'
         run: |
           echo "📊 **COLLECTING COMPREHENSIVE GITHUB ACTIVITY DATA**"
-          
+
           # Comprehensive activity analysis
           echo "🔍 Analyzing repository contributions..."
-          
+
           # User profile data
           USER_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/user")
-          
+
           # Repository data
           REPOS_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/users/adrianwedd/repos?per_page=100&sort=updated")
-          
+
           # Language statistics
           LANGUAGES_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/users/adrianwedd/repos?per_page=100" | \
             jq '[.[] | select(.language != null) | .language] | group_by(.) | map({language: .[0], count: length}) | sort_by(.count) | reverse')
-          
+
           # Recent activity metrics
           RECENT_COMMITS=$(git log --since="30 days ago" --oneline | wc -l)
           RECENT_ADDITIONS=$(git log --since="30 days ago" --numstat | awk '{add += $1} END {print add+0}')
           RECENT_DELETIONS=$(git log --since="30 days ago" --numstat | awk '{del += $2} END {print del+0}')
-          
+
           # Note: Activity metrics are now handled by the dedicated Activity Tracker workflow
           # This ensures consistency and avoids duplicate data generation
-          
+
           echo "✅ GitHub activity data collected and processed"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -363,17 +352,17 @@ jobs:
         run: |
           echo "🎬 **PROCESSING WATCH ME WORK DASHBOARD DATA**"
           echo "📊 Generating static data for dashboard to avoid rate limiting..."
-          
+
           cd .github/scripts
-          
+
           # Process Watch Me Work dashboard data
           if node watch-me-work-data-processor.js; then
             echo "✅ Watch Me Work data processed successfully"
-            
+
             # Verify data file was created
             if [ -f "../../data/watch-me-work-data.json" ]; then
               echo "📁 Dashboard data file created successfully"
-              
+
               # Show data summary
               echo "📊 **Data Summary:**"
               node -e "
@@ -392,7 +381,7 @@ jobs:
           else
             echo "⚠️ Watch Me Work data processing failed, dashboard may show errors"
           fi
-          
+
           cd ../..
 
       - name: 🔍 Comprehensive GitHub Data Mining
@@ -402,11 +391,11 @@ jobs:
           echo "📊 Mining issues, commits, and PR data for professional intelligence..."
           echo "🎯 Mining depth: comprehensive"
           echo ""
-          
+
           cd .github/scripts
           if node github-data-miner.js; then
             echo "✅ Comprehensive data mining completed successfully"
-            
+
             # Generate professional narratives from mined data
             echo ""
             echo "📖 **GENERATING PROFESSIONAL NARRATIVES**"
@@ -432,24 +421,24 @@ jobs:
           echo "🎨 Creativity level: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
           echo "🎯 Multi-persona analysis, market intelligence & content optimization"
           echo ""
-          
+
           # Execute Advanced AI Intelligence Pipeline
           AI_BUDGET="${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
           CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
           ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-          
+
           cd .github/scripts
-          
+
           # Run AI-Enhanced Orchestrator with comprehensive intelligence
           if [ -f "ai-enhanced-orchestrator.js" ]; then
             echo "🚀 Running Advanced AI Intelligence Pipeline..."
             timeout 900 node ai-enhanced-orchestrator.js --intelligence-first --headless
             INTELLIGENCE_EXIT_CODE=$?
-            
+
             if [ $INTELLIGENCE_EXIT_CODE -eq 0 ]; then
               echo "✅ Advanced AI Intelligence completed successfully"
               echo "🎭 Multi-persona analysis: Complete"
-              echo "📊 Market intelligence: Complete" 
+              echo "📊 Market intelligence: Complete"
               echo "🎯 Content optimization: Complete"
             elif [ $INTELLIGENCE_EXIT_CODE -eq 124 ]; then
               echo "⚠️ AI Intelligence timed out after 15 minutes, falling back to legacy enhancement"
@@ -463,7 +452,7 @@ jobs:
             if [ -f "claude-enhancer.js" ]; then
               timeout 600 node claude-enhancer.js
               ENHANCEMENT_EXIT_CODE=$?
-              
+
               if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
                 echo "✅ Legacy Claude AI enhancement completed successfully"
               elif [ $ENHANCEMENT_EXIT_CODE -eq 124 ]; then
@@ -475,7 +464,7 @@ jobs:
               echo "❌ No AI enhancement system found, skipping AI optimization"
             fi
           fi
-          
+
           cd ../..
         env:
           # Browser-based authentication (maximizes Claude subscription value)
@@ -492,19 +481,19 @@ jobs:
           AUTH_STRATEGY: browser_first
           # Standard configuration
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: 🍪 Cookie Health Check
         run: |
           echo "🍪 **CLAUDE COOKIE HEALTH MONITORING**"
           echo "🔍 Checking session cookie validity and expiration..."
           echo ""
-          
+
           cd .github/scripts
-          
+
           # Run cookie health monitor
           COOKIE_STATUS=$(node cookie-health-monitor.js status)
           echo "📊 Cookie Status: $COOKIE_STATUS"
-          
+
           # Full health check (will exit with appropriate code)
           if [ "$COOKIE_STATUS" = "expired" ] || [ "$COOKIE_STATUS" = "error" ]; then
             echo "🚨 CRITICAL: Claude cookies need immediate refresh!"
@@ -529,13 +518,13 @@ jobs:
           echo "🔍 Multi-layer validation of AI-generated content..."
           echo "📊 Cross-referencing claims with actual GitHub metrics..."
           echo ""
-          
+
           cd .github/scripts
-          
+
           # Run advanced hallucination detection with comprehensive error handling
           if node ai-hallucination-detector.js; then
             echo "✅ Advanced hallucination detection completed successfully"
-            
+
             # Display validation summary
             if [ -f "../../data/latest-validation-report.json" ]; then
               echo ""
@@ -545,7 +534,7 @@ jobs:
                 "🚨 Flagged Content: " + (.flagged_content | length | tostring) + " items",
                 "⚠️ Recommendations: " + (.recommendations | length | tostring),
                 "🔥 Urgent Reviews: " + (.urgent_reviews | length | tostring)'
-              
+
               # Check confidence threshold
               CONFIDENCE=$(cat ../../data/latest-validation-report.json | jq '.overall_confidence')
               if [ "$CONFIDENCE" -lt 70 ]; then
@@ -558,7 +547,7 @@ jobs:
             else
               echo "⚠️ Validation report not found, using basic verification"
             fi
-            
+
             # Also run legacy claim verifier for compatibility
             echo ""
             echo "🔍 Running legacy claim verification..."
@@ -567,15 +556,15 @@ jobs:
             else
               echo "⚠️ Legacy claim verification had warnings, continuing"
             fi
-            
+
           else
             echo "⚠️ Advanced hallucination detection encountered issues"
             echo "🔄 Falling back to basic claim verification..."
-            
+
             # Fallback to existing claim verifier
             if node claim-verifier.js; then
               echo "✅ Basic claim verification completed successfully"
-              
+
               # Display verification summary
               if [ -f "../../data/verification-summary.json" ]; then
                 echo ""
@@ -588,7 +577,7 @@ jobs:
                   "🚨 Flagged: " + (.summary.flagged_discrepancies | tostring),
                   "🎯 Confidence: " + ((.summary.overall_confidence * 100) | round | tostring) + "%"
                 '
-                
+
                 # Show urgent recommendations
                 if [ $(cat ../../data/verification-summary.json | jq '.urgent_recommendations | length') -gt 0 ]; then
                   echo ""
@@ -603,7 +592,7 @@ jobs:
               echo "🚨 **WARNING**: Continuing without validation - manual review recommended"
             fi
           fi
-          
+
           cd ../..
         env:
           # Browser-based authentication (free alternative)
@@ -627,7 +616,7 @@ jobs:
       - name: 📊 Professional Metrics Calculation
         run: |
           echo "📊 **CALCULATING PROFESSIONAL DEVELOPMENT METRICS**"
-          
+
           # Load activity data from the new activity summary structure
           if [ -f "data/activity-summary.json" ]; then
             # Extract basic activity metrics
@@ -635,11 +624,11 @@ jobs:
             ACTIVE_DAYS=$(jq -r '.summary.active_days // 0' data/activity-summary.json)
             NET_LINES=$(jq -r '.summary.net_lines_contributed // 0' data/activity-summary.json)
             LOOKBACK_DAYS=$(jq -r '.lookback_period_days // 30' data/activity-summary.json)
-            
+
             # Calculate professional metrics
             CONTRIB_VELOCITY=$(echo "scale=2; $TOTAL_COMMITS / $LOOKBACK_DAYS" | bc -l)
             ACTIVITY_SCORE=$(echo "scale=2; ($TOTAL_COMMITS * 3 + $ACTIVE_DAYS * 5) / 2" | bc -l)
-            
+
             # Load additional data from latest activity file if available
             LATEST_ACTIVITY=$(jq -r '.data_files.latest_activity // ""' data/activity-summary.json)
             if [ -n "$LATEST_ACTIVITY" ] && [ -f "data/activity/$LATEST_ACTIVITY" ]; then
@@ -652,15 +641,15 @@ jobs:
               TOTAL_STARS=0
               LANGUAGE_DIVERSITY=0
             fi
-            
+
             # Cap scores at reasonable maximums
             if (( $(echo "$ACTIVITY_SCORE > 100" | bc -l) )); then
               ACTIVITY_SCORE=100
             fi
-            
+
             # Professional growth indicators
             GROWTH_SCORE=$(echo "scale=2; ($ACTIVITY_SCORE + ($TOTAL_STARS * 0.5) + ($LANGUAGE_DIVERSITY * 2)) / 3" | bc -l)
-            
+
             echo "📈 **Professional Metrics:**"
             echo "  - Activity Score: $ACTIVITY_SCORE/100"
             echo "  - Contribution Velocity: $CONTRIB_VELOCITY commits/day"
@@ -682,10 +671,10 @@ jobs:
       - name: 🎨 Dynamic CV Website Generation
         run: |
           echo "🎨 **GENERATING DYNAMIC CV WEBSITE**"
-          
+
           # Ensure dist directory exists
           mkdir -p dist
-          
+
           # Verify cv-generator.js exists
           if [ ! -f ".github/scripts/cv-generator.js" ]; then
             echo "❌ cv-generator.js not found, using fallback copy"
@@ -695,13 +684,13 @@ jobs:
             echo "✅ Fallback CV website copy completed"
             exit 0
           fi
-          
+
           # Generate the complete CV website with timeout
           cd .github/scripts
           timeout 300 node cv-generator.js
           GENERATOR_EXIT_CODE=$?
           cd ../..
-          
+
           # Check generation result and implement fallback
           if [ $GENERATOR_EXIT_CODE -eq 0 ] && [ -f "dist/index.html" ]; then
             echo "✅ CV website generated successfully"
@@ -711,12 +700,12 @@ jobs:
             else
               echo "⚠️ CV generator failed (exit code: $GENERATOR_EXIT_CODE), using fallback copy"
             fi
-            
+
             # Fallback: copy existing assets
             cp index.html dist/ 2>/dev/null || echo "⚠️ index.html not found in root"
             cp -r assets dist/ 2>/dev/null || echo "⚠️ assets directory not found"
             cp -r data dist/ 2>/dev/null || echo "⚠️ data directory not found"
-            
+
             # Ensure we have at least a basic index.html
             if [ ! -f "dist/index.html" ]; then
               echo "🚨 Creating minimal fallback index.html"
@@ -736,7 +725,7 @@ jobs:
           </html>
           EOF
             fi
-            
+
             echo "✅ Fallback CV website deployed"
           fi
         env:
@@ -745,7 +734,7 @@ jobs:
       - name: ✅ Validate & Lint Generated Assets
         run: |
           echo "✅ **VALIDATING AND LINTING GENERATED ASSETS**"
-          
+
           # Run ESLint on JavaScript files (with error handling)
           echo "Running ESLint..."
           cd .github/scripts
@@ -759,7 +748,7 @@ jobs:
           # Validate JSON files (with better error handling)
           echo "Validating JSON files..."
           JSON_ERRORS=0
-          
+
           if [ -d "data" ] && [ "$(ls -A data/*.json 2>/dev/null)" ]; then
             for file in data/*.json; do
               if [ -f "$file" ]; then
@@ -774,7 +763,7 @@ jobs:
           else
             echo "⚠️ No JSON files found in data directory"
           fi
-          
+
           if [ $JSON_ERRORS -gt 0 ]; then
             echo "⚠️ Found $JSON_ERRORS JSON validation errors, but continuing deployment"
           else
@@ -784,7 +773,7 @@ jobs:
       - name: 📄 Verify PDF Asset Generation
         run: |
           echo "📄 **VERIFYING PDF GENERATION**"
-          
+
           # Check if PDF was generated by cv-generator.js
           if [ -f "dist/assets/adrian-wedd-cv.pdf" ]; then
             echo "✅ PDF asset generated successfully"
@@ -804,23 +793,23 @@ jobs:
         if: always()
         run: |
           echo "📈 **RECORDING CV ENHANCEMENT ANALYTICS**"
-          
+
           # Create or update usage tracking
           mkdir -p data
           USAGE_FILE="data/cv-usage-tracking.json"
           SESSION_TIME=$(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M AEST')
           SESSION_UTC=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          
+
           # Initialize usage file if not exists
           if [ ! -f "$USAGE_FILE" ]; then
             echo '{"daily_usage": [], "enhancement_history": [], "performance_metrics": []}' > "$USAGE_FILE"
           fi
-          
+
           # Record this session
           ENHANCEMENT_MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
           STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
           ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-          
+
           # Estimate token usage based on mode and success
           case "$ENHANCEMENT_MODE" in
             "comprehensive") ESTIMATED_TOKENS=8000 ;;
@@ -829,7 +818,7 @@ jobs:
             "emergency-update") ESTIMATED_TOKENS=3000 ;;
             *) ESTIMATED_TOKENS=6000 ;;
           esac
-          
+
           # Update usage tracking
           jq --arg time "$SESSION_TIME" \
              --arg utc "$SESSION_UTC" \
@@ -853,9 +842,9 @@ jobs:
                "activity_score": ($activity | tonumber),
                "success": true
              }]' "$USAGE_FILE" > "$USAGE_FILE.tmp"
-          
+
           mv "$USAGE_FILE.tmp" "$USAGE_FILE"
-          
+
           echo "📊 **Enhancement Session Analytics:**"
           echo "  - Mode: $ENHANCEMENT_MODE"
           echo "  - Strategy: $STRATEGY"
@@ -867,52 +856,52 @@ jobs:
       - name: 🚀 Safe Commit Enhanced CV Data
         run: |
           echo "🚀 **SAFE COMMIT CV ENHANCEMENT UPDATES**"
-          
+
           cd .github/scripts
-          
+
           # Ensure intelligence and narrative data is included
           if [ -d "../../data/intelligence" ]; then
             echo "📊 Including intelligence data in commit"
             ls -la ../../data/intelligence/
           fi
-          
+
           if [ -d "../../data/narratives" ]; then
             echo "📖 Including narrative data in commit"
             ls -la ../../data/narratives/
           fi
-          
+
           # Create intelligent commit message
           ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
           STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
           MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-          
+
           COMMIT_MESSAGE="🚀 CV Enhancement Update $(date +'%Y%m%d-%H%M')
 
           📊 Activity Score: $ACTIVITY_SCORE/100
-          🎯 Strategy: $STRATEGY  
+          🎯 Strategy: $STRATEGY
           🔄 Mode: $MODE
           🤖 System: CV Auto-Enhancement Pipeline ${{ env.CV_SYSTEM_VERSION }}
-          
+
           🎨 Enhanced with Claude AI content optimization
           📈 Updated with latest GitHub activity metrics
           🌐 Regenerated responsive CV website
-          
+
           🔗 Live CV: https://adrianwedd.github.io/cv
-          
+
           🤖 Generated with [Claude Code](https://claude.ai/code)
-          
+
           Co-Authored-By: Claude <noreply@anthropic.com>"
-          
+
           # Use safe git operations with retry logic and conflict resolution
           if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
             echo "✅ CV enhancement updates safely committed and deployed"
           else
             echo "⚠️ Safe commit failed, attempting emergency cleanup and retry..."
-            
+
             # Emergency cleanup and retry once
             node safe-git-operations.js cleanup
             sleep 5
-            
+
             if node safe-git-operations.js commit-push "$COMMIT_MESSAGE"; then
               echo "✅ CV enhancement updates committed after cleanup"
             else
@@ -956,14 +945,14 @@ jobs:
           # Generate comprehensive workflow summary
           cat >> $GITHUB_STEP_SUMMARY << EOF
           # 🚀 CV Enhancement Pipeline Results
-          
+
           ## 📊 Session Overview
           - **Enhancement Mode**: ${{ github.event.inputs.enhancement_mode || 'comprehensive' }}
           - **Strategy**: ${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}
           - **Activity Score**: ${{ needs.cv-intelligence-analysis.outputs.activity-score }}/100
           - **Content Health**: ${{ needs.cv-intelligence-analysis.outputs.content-health }}
           - **AI Budget**: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}
-          
+
           ## 🎯 Enhancement Results
           | Component | Status | Details |
           |-----------|--------|---------|
@@ -972,14 +961,14 @@ jobs:
           | 📈 Metrics Calculation | ✅ Complete | Professional development scores updated |
           | 🎨 Website Generation | ✅ Complete | Responsive CV website built |
           | 🚀 Deployment | ✅ Complete | GitHub Pages updated |
-          
+
           ## 🔗 Access Your Enhanced CV
           - **Live Website**: [adrianwedd.github.io/cv](https://adrianwedd.github.io/cv)
           - **Repository**: [github.com/adrianwedd/cv](https://github.com/adrianwedd/cv)
-          
+
           ## ⏰ Next Enhancement Session
           **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+6 hours' +'%Y-%m-%d %H:%M %Z')
-          
+
           ---
           *CV Enhancement Pipeline v${{ env.CV_SYSTEM_VERSION }} - Powered by Claude AI & GitHub Analytics*
           EOF
@@ -990,7 +979,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [cv-enhancement-pipeline]
     if: always()
-    
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -1005,18 +994,18 @@ jobs:
         run: |
           cd .github/scripts
           npm ci
-          
+
       - name: ⏱️ Wait for Deployment Propagation
         run: |
           echo "⏱️ Waiting for GitHub Pages deployment to propagate..."
           sleep 180  # 3 minutes for deployment and CDN propagation
-          
+
       - name: 🔍 Comprehensive Quality Validation
         id: quality-check
         run: |
           cd .github/scripts
           echo "🔍 Running comprehensive quality validation..."
-          
+
           # Run comprehensive quality validator
           if node comprehensive-quality-validator.js; then
             echo "✅ Comprehensive quality validation passed"
@@ -1025,13 +1014,13 @@ jobs:
             echo "⚠️ Quality validation completed with warnings"
             echo "comprehensive_status=warning" >> $GITHUB_OUTPUT
           fi
-          
-      - name: 🚀 CI Quality Gate Validation  
+
+      - name: 🚀 CI Quality Gate Validation
         id: ci-quality-gate
         run: |
           cd .github/scripts
           echo "🚀 Running CI quality gate validation..."
-          
+
           # Run CI quality validator (stricter requirements)
           if node ci-quality-validator.js; then
             echo "✅ CI Quality Gate PASSED - Deployment approved"
@@ -1042,16 +1031,16 @@ jobs:
             echo "ci_gate_status=failed" >> $GITHUB_OUTPUT
             echo "quality_score=0" >> $GITHUB_OUTPUT
           fi
-          
+
       - name: 📊 Quality Metrics Collection
         run: |
           cd .github/scripts
           echo "📊 Collecting quality metrics..."
-          
+
           # Generate quality metrics summary
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           QUALITY_SCORE="${{ steps.ci-quality-gate.outputs.quality_score }}"
-          
+
           cat > quality-metrics.json << EOF
           {
             "timestamp": "$TIMESTAMP",
@@ -1063,22 +1052,22 @@ jobs:
             "workflow_run": "${{ github.run_id }}"
           }
           EOF
-          
+
           echo "✅ Quality metrics collected and saved"
-          
+
       - name: 📈 Quality Score Reporting
         if: always()
         run: |
           # Generate quality report for GitHub Actions summary
           cat >> $GITHUB_STEP_SUMMARY << EOF
           # 🔍 Quality Validation Results
-          
+
           ## 📊 Quality Metrics
           - **Comprehensive Status**: ${{ steps.quality-check.outputs.comprehensive_status || 'unknown' }}
           - **CI Quality Gate**: ${{ steps.ci-quality-gate.outputs.ci_gate_status || 'unknown' }}
           - **Quality Score**: ${{ steps.ci-quality-gate.outputs.quality_score || '0' }}/100
           - **Validation Time**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          
+
           ## 🎯 Quality Standards
           | Category | Target | Status |
           |----------|--------|--------|
@@ -1086,12 +1075,12 @@ jobs:
           | Accessibility | ✅ WCAG 2.1 AA | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
           | SEO Technical | ✅ Enterprise | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
           | Performance | ✅ Core Web Vitals | ${{ steps.ci-quality-gate.outputs.ci_gate_status == 'passed' && '✅ Passed' || '⚠️ Review' }} |
-          
+
           ## 🔗 Quality Resources
           - **Live Site**: [adrianwedd.github.io/cv](https://adrianwedd.github.io/cv)
           - **Quality Report**: Available in workflow artifacts
           - **Validation Tools**: Comprehensive + CI quality validators
-          
+
           ---
           *Quality validation ensures enterprise-grade standards for professional CV deployment*
           EOF

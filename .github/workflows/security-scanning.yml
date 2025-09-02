@@ -9,8 +9,8 @@ on:
   pull_request:
     branches: [ main, develop ]
   schedule:
-    # Daily security scans at 2 AM UTC
-    - cron: '0 2 * * *'
+    # Weekly security scans on Monday at 2 AM UTC (cost optimization)
+    - cron: '0 2 * * 1'
   workflow_dispatch:
     inputs:
       scan_intensity:
@@ -20,7 +20,7 @@ on:
         type: choice
         options:
           - standard
-          - comprehensive  
+          - comprehensive
           - critical-only
       include_infrastructure:
         description: 'Include infrastructure security scan'
@@ -36,46 +36,39 @@ env:
   SECURITY_SCAN_VERSION: "v1.0"
   MAX_VULNERABILITY_SCORE: 7.0  # CVSS threshold
   DEPENDENCY_AUDIT_LEVEL: moderate
-  
+
 jobs:
-  # DISABLED FOR BILLING - REMOVE WHEN BILLING RESOLVED
-  disabled:
-    if: true
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "All workflows disabled for billing management"
-  
   # ==========================================
   # SECRET DETECTION AND LEAK PREVENTION
   # ==========================================
   secret_detection:
     name: 🔐 Secret Detection & Leak Prevention
     runs-on: ubuntu-latest
-    
+
     outputs:
       secrets_found: ${{ steps.secret_scan.outputs.secrets_found }}
       high_risk_secrets: ${{ steps.secret_scan.outputs.high_risk_secrets }}
-      
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Full history for secret detection
-          
+
       - name: 🔍 GitLeaks Secret Scanning
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-          
+
       - name: 🔐 Advanced Secret Pattern Detection
         id: secret_scan
         run: |
           echo "🔐 **ADVANCED SECRET DETECTION INITIATED**"
-          
+
           SECRETS_FOUND=0
           HIGH_RISK_SECRETS=0
-          
+
           # Custom secret patterns
           SECRET_PATTERNS=(
             'ANTHROPIC_API_KEY'
@@ -88,14 +81,14 @@ jobs:
             'SLACK_.*_TOKEN'
             'DISCORD_.*_TOKEN'
           )
-          
+
           echo "🔍 Scanning for custom secret patterns..."
           for pattern in "${SECRET_PATTERNS[@]}"; do
             MATCHES=$(grep -r -i "$pattern" . --exclude-dir=.git --exclude="*.md" --exclude="*.yml" --exclude="*.yaml" | grep -v "GITHUB_TOKEN.*secrets" | wc -l)
             if [ $MATCHES -gt 0 ]; then
               echo "⚠️ Found potential $pattern pattern: $MATCHES occurrences"
               SECRETS_FOUND=$((SECRETS_FOUND + MATCHES))
-              
+
               # High-risk patterns
               case $pattern in
                 *API_KEY*|*SECRET*|*PASSWORD*|*TOKEN*)
@@ -104,7 +97,7 @@ jobs:
               esac
             fi
           done
-          
+
           # Entropy-based detection for high-entropy strings
           echo "🧮 Performing entropy analysis..."
           find . -type f -name "*.js" -o -name "*.json" -o -name "*.yml" | \
@@ -112,25 +105,25 @@ jobs:
             head -10 | while read -r line; do
               echo "🔍 High-entropy string detected: $(echo "$line" | cut -c1-80)..."
           done
-          
+
           echo "secrets_found=$SECRETS_FOUND" >> $GITHUB_OUTPUT
           echo "high_risk_secrets=$HIGH_RISK_SECRETS" >> $GITHUB_OUTPUT
-          
+
           echo ""
           echo "🔐 **SECRET DETECTION SUMMARY**"
           echo "  - Total patterns found: $SECRETS_FOUND"
           echo "  - High-risk secrets: $HIGH_RISK_SECRETS"
-          
+
           if [ $HIGH_RISK_SECRETS -gt 0 ]; then
             echo "🚨 HIGH-RISK SECRETS DETECTED - Manual review required"
             exit 1
           fi
-          
+
       - name: 📋 Generate Secret Detection Report
         if: always()
         run: |
           mkdir -p security-reports
-          
+
           cat > security-reports/secret-detection.json << EOF
           {
             "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
@@ -150,122 +143,122 @@ jobs:
             ]
           }
           EOF
-          
+
       - name: 📤 Upload Secret Detection Report
         uses: actions/upload-artifact@v4
         with:
           name: secret-detection-report
           path: security-reports/
-          
+
   # ==========================================
   # DEPENDENCY VULNERABILITY SCANNING
   # ==========================================
   dependency_scanning:
     name: 📦 Dependency Vulnerability Scanning
     runs-on: ubuntu-latest
-    
+
     outputs:
       vulnerabilities_found: ${{ steps.npm_audit.outputs.vulnerabilities }}
       critical_vulnerabilities: ${{ steps.npm_audit.outputs.critical }}
       security_score: ${{ steps.security_assessment.outputs.score }}
-      
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
-        
+
       - name: 📦 Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: '.github/scripts/package-lock.json'
-          
+
       - name: 📦 Install Dependencies
         run: |
           cd .github/scripts
           npm ci
-          
+
       - name: 🔍 NPM Security Audit
         id: npm_audit
         continue-on-error: true
         run: |
           cd .github/scripts
           echo "🔍 **NPM SECURITY AUDIT INITIATED**"
-          
+
           # Generate audit report
           npm audit --audit-level=${{ env.DEPENDENCY_AUDIT_LEVEL }} --json > audit-report.json || true
-          
+
           # Parse audit results
           TOTAL_VULNERABILITIES=$(jq '.metadata.vulnerabilities | to_entries | map(.value) | add // 0' audit-report.json)
           CRITICAL=$(jq '.metadata.vulnerabilities.critical // 0' audit-report.json)
           HIGH=$(jq '.metadata.vulnerabilities.high // 0' audit-report.json)
           MODERATE=$(jq '.metadata.vulnerabilities.moderate // 0' audit-report.json)
           LOW=$(jq '.metadata.vulnerabilities.low // 0' audit-report.json)
-          
+
           echo "vulnerabilities=$TOTAL_VULNERABILITIES" >> $GITHUB_OUTPUT
           echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
           echo "high=$HIGH" >> $GITHUB_OUTPUT
           echo "moderate=$MODERATE" >> $GITHUB_OUTPUT
           echo "low=$LOW" >> $GITHUB_OUTPUT
-          
+
           echo ""
           echo "📦 **DEPENDENCY VULNERABILITY SUMMARY**"
           echo "  - Total Vulnerabilities: $TOTAL_VULNERABILITIES"
           echo "  - Critical: $CRITICAL"
-          echo "  - High: $HIGH"  
+          echo "  - High: $HIGH"
           echo "  - Moderate: $MODERATE"
           echo "  - Low: $LOW"
-          
+
           # Check for critical vulnerabilities
           if [ $CRITICAL -gt 0 ]; then
             echo "🚨 CRITICAL VULNERABILITIES FOUND - Immediate action required"
             echo "::error::Critical vulnerabilities detected in dependencies"
           fi
-          
+
       - name: 🧪 Advanced Dependency Analysis
         run: |
           cd .github/scripts
           echo "🧪 **ADVANCED DEPENDENCY ANALYSIS**"
-          
+
           # Check for outdated packages
           npm outdated --json > outdated-report.json || true
           OUTDATED_COUNT=$(jq '. | length // 0' outdated-report.json)
-          
+
           # License compliance check
           echo "⚖️ Checking license compliance..."
           npx license-checker --json > license-report.json || true
-          
+
           # Package size analysis
           echo "📊 Analyzing package sizes..."
           du -sh node_modules/ 2>/dev/null | cut -f1 > package-size.txt || echo "N/A" > package-size.txt
-          
+
           echo "  - Outdated packages: $OUTDATED_COUNT"
           echo "  - Total package size: $(cat package-size.txt)"
-          
+
       - name: 📊 Security Score Assessment
         id: security_assessment
         run: |
           cd .github/scripts
-          
+
           # Calculate security score (0-100)
           CRITICAL=${{ steps.npm_audit.outputs.critical }}
           HIGH=${{ steps.npm_audit.outputs.high }}
           MODERATE=${{ steps.npm_audit.outputs.moderate }}
           LOW=${{ steps.npm_audit.outputs.low }}
-          
+
           # Weighted vulnerability scoring
           VULNERABILITY_SCORE=$((CRITICAL * 25 + HIGH * 10 + MODERATE * 5 + LOW * 1))
           SECURITY_SCORE=$((100 - VULNERABILITY_SCORE))
-          
+
           # Cap at reasonable bounds
           if [ $SECURITY_SCORE -lt 0 ]; then
             SECURITY_SCORE=0
           fi
-          
+
           echo "score=$SECURITY_SCORE" >> $GITHUB_OUTPUT
-          
+
           echo "📊 **SECURITY SCORE: $SECURITY_SCORE/100**"
-          
+
           # Security recommendations based on score
           if [ $SECURITY_SCORE -ge 90 ]; then
             echo "✅ Excellent security posture"
@@ -276,12 +269,12 @@ jobs:
           else
             echo "🚨 Critical security improvements required"
           fi
-          
+
       - name: 📋 Generate Dependency Security Report
         run: |
           cd .github/scripts
           mkdir -p ../security-reports
-          
+
           cat > ../security-reports/dependency-security.json << EOF
           {
             "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
@@ -303,7 +296,7 @@ jobs:
             "scan_status": "completed"
           }
           EOF
-          
+
       - name: 📤 Upload Dependency Reports
         uses: actions/upload-artifact@v4
         with:
@@ -320,58 +313,58 @@ jobs:
   static_analysis:
     name: 🔍 Static Application Security Testing (SAST)
     runs-on: ubuntu-latest
-    
+
     outputs:
       sast_score: ${{ steps.sast_analysis.outputs.score }}
       issues_found: ${{ steps.sast_analysis.outputs.issues }}
-      
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       # CodeQL Analysis is handled by GitHub's default setup
       # Removed to avoid conflicts with default CodeQL configuration
-          
+
       - name: 📦 Setup Node.js for SAST
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: '.github/scripts/package-lock.json'
-          
+
       - name: 🔧 Install SAST Dependencies
         run: |
           cd .github/scripts
           npm ci
-          
+
           # Install additional security analysis tools
           npm install -g eslint-plugin-security
           npm install -g jshint
-          
+
       - name: 🔍 ESLint Security Analysis
         run: |
           cd .github/scripts
           echo "🔍 **ESLINT SECURITY ANALYSIS**"
-          
+
           # Run ESLint with security plugin
           npx eslint --ext .js . --format json > eslint-security.json || true
-          
+
           ESLINT_ISSUES=$(jq '. | length // 0' eslint-security.json)
           echo "  - ESLint security issues: $ESLINT_ISSUES"
-          
+
       - name: 🛡️ Custom Security Pattern Analysis
         id: sast_analysis
         run: |
           echo "🛡️ **CUSTOM SECURITY PATTERN ANALYSIS**"
-          
+
           TOTAL_ISSUES=0
           HIGH_SEVERITY=0
-          
+
           # Dangerous function patterns
           DANGEROUS_FUNCTIONS=("eval" "setTimeout.*string" "setInterval.*string" "Function.*constructor" "document.write" "innerHTML.*=")
-          
+
           for pattern in "${DANGEROUS_FUNCTIONS[@]}"; do
             MATCHES=$(grep -r -E "$pattern" . --include="*.js" | wc -l)
             if [ $MATCHES -gt 0 ]; then
@@ -380,10 +373,10 @@ jobs:
               HIGH_SEVERITY=$((HIGH_SEVERITY + MATCHES))
             fi
           done
-          
+
           # SQL injection patterns (even though this is frontend)
           SQL_PATTERNS=("SELECT.*FROM" "INSERT.*INTO" "UPDATE.*SET" "DELETE.*FROM")
-          
+
           for pattern in "${SQL_PATTERNS[@]}"; do
             MATCHES=$(grep -r -i -E "$pattern" . --include="*.js" | wc -l)
             if [ $MATCHES -gt 0 ]; then
@@ -391,10 +384,10 @@ jobs:
               TOTAL_ISSUES=$((TOTAL_ISSUES + MATCHES))
             fi
           done
-          
+
           # XSS vulnerability patterns
           XSS_PATTERNS=("innerHTML.*\\+" "outerHTML.*\\+" "document.write.*\\+" "location.href.*=.*user")
-          
+
           for pattern in "${XSS_PATTERNS[@]}"; do
             MATCHES=$(grep -r -E "$pattern" . --include="*.js" | wc -l)
             if [ $MATCHES -gt 0 ]; then
@@ -403,31 +396,31 @@ jobs:
               HIGH_SEVERITY=$((HIGH_SEVERITY + MATCHES))
             fi
           done
-          
+
           # Calculate SAST score
           SAST_SCORE=$((100 - HIGH_SEVERITY * 10 - (TOTAL_ISSUES - HIGH_SEVERITY) * 2))
-          
+
           if [ $SAST_SCORE -lt 0 ]; then
             SAST_SCORE=0
           fi
-          
+
           echo "score=$SAST_SCORE" >> $GITHUB_OUTPUT
           echo "issues=$TOTAL_ISSUES" >> $GITHUB_OUTPUT
-          
+
           echo ""
           echo "🛡️ **SAST ANALYSIS SUMMARY**"
           echo "  - Total Issues: $TOTAL_ISSUES"
           echo "  - High Severity: $HIGH_SEVERITY"
           echo "  - SAST Score: $SAST_SCORE/100"
-          
+
           if [ $HIGH_SEVERITY -gt 0 ]; then
             echo "🚨 High severity security issues detected - Review required"
           fi
-          
+
       - name: 📋 Generate SAST Report
         run: |
           mkdir -p security-reports
-          
+
           cat > security-reports/sast-analysis.json << EOF
           {
             "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
@@ -438,13 +431,13 @@ jobs:
             "scan_status": "completed",
             "recommendations": [
               "Avoid eval() and similar dangerous functions",
-              "Sanitize all user inputs before DOM manipulation", 
+              "Sanitize all user inputs before DOM manipulation",
               "Use Content Security Policy (CSP) headers",
               "Implement input validation for all user data"
             ]
           }
           EOF
-          
+
       - name: 📤 Upload SAST Reports
         uses: actions/upload-artifact@v4
         with:
@@ -458,49 +451,49 @@ jobs:
     name: 🏗️ Infrastructure Security Scanning
     runs-on: ubuntu-latest
     if: inputs.include_infrastructure != false
-    
+
     outputs:
       infrastructure_score: ${{ steps.infra_scan.outputs.score }}
-      
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
-        
+
       - name: 🏗️ Infrastructure Security Analysis
         id: infra_scan
         run: |
           echo "🏗️ **INFRASTRUCTURE SECURITY ANALYSIS**"
-          
+
           SECURITY_ISSUES=0
-          
+
           # GitHub Actions workflow security
           echo "🔍 Analyzing GitHub Actions security..."
-          
+
           WORKFLOW_ISSUES=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | \
             xargs grep -l "pull_request_target\|workflow_run" | wc -l)
-          
+
           if [ $WORKFLOW_ISSUES -gt 0 ]; then
             echo "⚠️ Found $WORKFLOW_ISSUES workflows with potentially dangerous triggers"
             SECURITY_ISSUES=$((SECURITY_ISSUES + WORKFLOW_ISSUES))
           fi
-          
+
           # Secret exposure in workflows
           SECRET_REFS=$(find .github/workflows -name "*.yml" -o -name "*.yaml" | \
             xargs grep -c "secrets\." | awk -F: '{sum += $2} END {print sum+0}')
-          
+
           echo "🔐 Secret references in workflows: $SECRET_REFS"
-          
+
           # Dockerfile security (if exists)
           if [ -f "Dockerfile" ]; then
             echo "🐳 Analyzing Dockerfile security..."
-            
+
             # Check for root user usage
             ROOT_USAGE=$(grep -c "USER root\|^USER 0" Dockerfile || echo "0")
             if [ $ROOT_USAGE -gt 0 ]; then
               echo "⚠️ Root user usage detected in Dockerfile"
               SECURITY_ISSUES=$((SECURITY_ISSUES + 1))
             fi
-            
+
             # Check for --privileged usage
             PRIVILEGED_USAGE=$(grep -c "\--privileged" Dockerfile || echo "0")
             if [ $PRIVILEGED_USAGE -gt 0 ]; then
@@ -508,36 +501,36 @@ jobs:
               SECURITY_ISSUES=$((SECURITY_ISSUES + 2))
             fi
           fi
-          
+
           # GitHub Pages configuration security
           echo "🌐 Analyzing GitHub Pages configuration..."
-          
+
           if [ -f "CNAME" ]; then
             CUSTOM_DOMAIN=$(cat CNAME)
             echo "🔗 Custom domain configured: $CUSTOM_DOMAIN"
-            
+
             # Check if HTTPS is enforced (GitHub Pages default)
             echo "✅ HTTPS enforcement (GitHub Pages default)"
           fi
-          
+
           # Calculate infrastructure security score
           INFRA_SCORE=$((100 - SECURITY_ISSUES * 15))
-          
+
           if [ $INFRA_SCORE -lt 0 ]; then
             INFRA_SCORE=0
           fi
-          
+
           echo "score=$INFRA_SCORE" >> $GITHUB_OUTPUT
-          
+
           echo ""
           echo "🏗️ **INFRASTRUCTURE SECURITY SUMMARY**"
           echo "  - Security Issues: $SECURITY_ISSUES"
           echo "  - Infrastructure Score: $INFRA_SCORE/100"
-          
+
       - name: 📋 Generate Infrastructure Security Report
         run: |
           mkdir -p security-reports
-          
+
           cat > security-reports/infrastructure-security.json << EOF
           {
             "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
@@ -558,7 +551,7 @@ jobs:
             ]
           }
           EOF
-          
+
       - name: 📤 Upload Infrastructure Reports
         uses: actions/upload-artifact@v4
         with:
@@ -573,27 +566,27 @@ jobs:
     runs-on: ubuntu-latest
     needs: [secret_detection, dependency_scanning, static_analysis, infrastructure_security]
     if: always()
-    
+
     outputs:
       overall_security_score: ${{ steps.calculate_overall.outputs.score }}
       security_gate_passed: ${{ steps.security_gate.outputs.passed }}
-      
+
     steps:
       - name: 📥 Download Security Reports
         uses: actions/download-artifact@v4
         with:
           path: all-security-reports
-          
+
       - name: 📊 Calculate Overall Security Score
         id: calculate_overall
         run: |
           echo "📊 **CALCULATING OVERALL SECURITY SCORE**"
-          
+
           # Individual scores (with defaults for failed jobs)
           DEPENDENCY_SCORE="${{ needs.dependency_scanning.outputs.security_score || 0 }}"
           SAST_SCORE="${{ needs.static_analysis.outputs.sast_score || 0 }}"
           INFRASTRUCTURE_SCORE="${{ needs.infrastructure_security.outputs.infrastructure_score || 100 }}"
-          
+
           # Secret detection scoring (binary: 100 if no high-risk secrets, 0 if found)
           HIGH_RISK_SECRETS="${{ needs.secret_detection.outputs.high_risk_secrets || 0 }}"
           if [ $HIGH_RISK_SECRETS -eq 0 ]; then
@@ -601,32 +594,32 @@ jobs:
           else
             SECRET_SCORE=0
           fi
-          
+
           # Weighted overall security score
           # Dependencies: 30%, SAST: 30%, Secrets: 25%, Infrastructure: 15%
           OVERALL_SCORE=$(( (DEPENDENCY_SCORE * 30 + SAST_SCORE * 30 + SECRET_SCORE * 25 + INFRASTRUCTURE_SCORE * 15) / 100 ))
-          
+
           echo "score=$OVERALL_SCORE" >> $GITHUB_OUTPUT
-          
+
           echo ""
           echo "📊 **SECURITY SCORE BREAKDOWN**"
           echo "  - Dependencies: $DEPENDENCY_SCORE/100 (30%)"
-          echo "  - Static Analysis: $SAST_SCORE/100 (30%)"  
+          echo "  - Static Analysis: $SAST_SCORE/100 (30%)"
           echo "  - Secret Detection: $SECRET_SCORE/100 (25%)"
           echo "  - Infrastructure: $INFRASTRUCTURE_SCORE/100 (15%)"
           echo "  - **OVERALL: $OVERALL_SCORE/100**"
-          
+
       - name: 🚦 Security Quality Gate
         id: security_gate
         run: |
           OVERALL_SCORE="${{ steps.calculate_overall.outputs.score }}"
           CRITICAL_VULNERABILITIES="${{ needs.dependency_scanning.outputs.critical_vulnerabilities || 0 }}"
           HIGH_RISK_SECRETS="${{ needs.secret_detection.outputs.high_risk_secrets || 0 }}"
-          
+
           echo "🚦 **SECURITY QUALITY GATE EVALUATION**"
-          
+
           GATE_PASSED=true
-          
+
           # Critical vulnerability check
           if [ $CRITICAL_VULNERABILITIES -gt 0 ]; then
             echo "❌ FAIL: Critical vulnerabilities detected ($CRITICAL_VULNERABILITIES)"
@@ -634,7 +627,7 @@ jobs:
           else
             echo "✅ PASS: No critical vulnerabilities"
           fi
-          
+
           # High-risk secret check
           if [ $HIGH_RISK_SECRETS -gt 0 ]; then
             echo "❌ FAIL: High-risk secrets detected ($HIGH_RISK_SECRETS)"
@@ -642,7 +635,7 @@ jobs:
           else
             echo "✅ PASS: No high-risk secrets detected"
           fi
-          
+
           # Overall security score check (minimum 70)
           if [ $OVERALL_SCORE -ge 70 ]; then
             echo "✅ PASS: Overall security score acceptable ($OVERALL_SCORE/100)"
@@ -650,9 +643,9 @@ jobs:
             echo "❌ FAIL: Overall security score too low ($OVERALL_SCORE/100)"
             GATE_PASSED=false
           fi
-          
+
           echo "passed=$GATE_PASSED" >> $GITHUB_OUTPUT
-          
+
           echo ""
           if [ "$GATE_PASSED" = "true" ]; then
             echo "✅ **SECURITY QUALITY GATE: PASSED**"
@@ -661,11 +654,11 @@ jobs:
             echo "🚨 Deployment blocked due to security issues"
             exit 1
           fi
-          
+
       - name: 📋 Generate Master Security Report
         run: |
           mkdir -p master-security-report
-          
+
           cat > master-security-report/security-summary.json << EOF
           {
             "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
@@ -703,18 +696,18 @@ jobs:
             ]
           }
           EOF
-          
+
       - name: 📤 Upload Master Security Report
         uses: actions/upload-artifact@v4
         with:
           name: master-security-report
           path: master-security-report/
-          
+
       - name: 📊 Security Summary Dashboard
         run: |
           cat >> $GITHUB_STEP_SUMMARY << 'EOF'
           # 🛡️ Enterprise Security Scanning Results
-          
+
           ## 📊 Overall Security Assessment
           | Metric | Score | Status |
           |--------|-------|--------|
@@ -723,19 +716,19 @@ jobs:
           | **Static Analysis** | ${{ needs.static_analysis.outputs.sast_score || 0 }}/100 | ${{ needs.static_analysis.outputs.sast_score >= '70' && '✅' || '⚠️' }} |
           | **Secret Detection** | ${{ needs.secret_detection.outputs.high_risk_secrets == '0' && '100' || '0' }}/100 | ${{ needs.secret_detection.outputs.high_risk_secrets == '0' && '✅' || '❌' }} |
           | **Infrastructure** | ${{ needs.infrastructure_security.outputs.infrastructure_score || 100 }}/100 | ✅ |
-          
+
           ## 🔍 Vulnerability Summary
           - **Critical Vulnerabilities**: ${{ needs.dependency_scanning.outputs.critical_vulnerabilities || 0 }}
           - **High-Risk Secrets**: ${{ needs.secret_detection.outputs.high_risk_secrets || 0 }}
           - **SAST Issues**: ${{ needs.static_analysis.outputs.issues_found || 0 }}
           - **Total Secrets Found**: ${{ needs.secret_detection.outputs.secrets_found || 0 }}
-          
+
           ## 🚦 Security Quality Gate
           ${{ steps.security_gate.outputs.passed == 'true' && '✅ **PASSED** - Deployment approved' || '❌ **FAILED** - Deployment blocked' }}
-          
+
           ## 📋 Next Steps
           ${{ steps.security_gate.outputs.passed == 'true' && '- Continue with deployment pipeline\n- Schedule regular security reviews\n- Monitor for new vulnerabilities' || '- Address critical security issues\n- Re-run security scans after fixes\n- Security review required before deployment' }}
-          
+
           ---
           *Enterprise Security Scanning v${{ env.SECURITY_SCAN_VERSION }} completed*
           EOF

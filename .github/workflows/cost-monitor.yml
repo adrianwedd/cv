@@ -1,0 +1,206 @@
+name: 💰 CI/CD Cost Monitor & Budget Alerts
+
+on:
+  schedule:
+    # Run daily at noon UTC to check usage
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      alert_threshold:
+        description: 'Budget alert threshold percentage'
+        required: false
+        default: '75'
+        type: choice
+        options:
+          - '50'
+          - '75'
+          - '90'
+          - '95'
+
+env:
+  MONTHLY_BUDGET: 15  # Monthly budget in USD
+  MINUTE_COST: 0.008  # Cost per minute for Ubuntu runners
+
+jobs:
+  monitor-usage:
+    name: 📊 Monitor GitHub Actions Usage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔍 Get Current Usage
+        id: usage
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get billing data for the current user
+          USAGE_DATA=$(gh api /users/${{ github.repository_owner }}/settings/billing/actions 2>/dev/null || echo "{}")
+
+          if [ "$USAGE_DATA" = "{}" ]; then
+            echo "⚠️ Unable to fetch billing data. Using estimates..."
+            # Estimate based on workflow runs
+            RUNS=$(gh run list --limit 100 --json conclusion,startedAt,updatedAt | jq '[.[] | select(.conclusion == "success")] | length')
+            MINUTES_USED=$((RUNS * 5))  # Estimate 5 minutes per run
+          else
+            MINUTES_USED=$(echo $USAGE_DATA | jq '.minutes_used_breakdown.UBUNTU // 0')
+            INCLUDED=$(echo $USAGE_DATA | jq '.included_minutes // 0')
+          fi
+
+          COST=$(echo "$MINUTES_USED * $MINUTE_COST" | bc -l | xargs printf "%.2f")
+          PERCENTAGE=$(echo "$COST / $MONTHLY_BUDGET * 100" | bc -l | xargs printf "%.0f")
+
+          echo "minutes=$MINUTES_USED" >> $GITHUB_OUTPUT
+          echo "cost=$COST" >> $GITHUB_OUTPUT
+          echo "percentage=$PERCENTAGE" >> $GITHUB_OUTPUT
+
+          # Calculate days left in month
+          DAYS_IN_MONTH=$(date +%d -d "$(date +%Y-%m-01) +1 month -1 day")
+          CURRENT_DAY=$(date +%d)
+          DAYS_LEFT=$((DAYS_IN_MONTH - CURRENT_DAY))
+
+          # Project monthly usage
+          DAILY_RATE=$(echo "$COST / $CURRENT_DAY" | bc -l)
+          PROJECTED=$(echo "$DAILY_RATE * $DAYS_IN_MONTH" | bc -l | xargs printf "%.2f")
+
+          echo "days_left=$DAYS_LEFT" >> $GITHUB_OUTPUT
+          echo "projected=$PROJECTED" >> $GITHUB_OUTPUT
+
+      - name: 📈 Generate Usage Report
+        run: |
+          cat << EOF > usage-report.md
+          # 📊 GitHub Actions Usage Report
+
+          **Date**: $(date +"%Y-%m-%d %H:%M UTC")
+
+          ## Current Month Usage
+          - **Minutes Used**: ${{ steps.usage.outputs.minutes }}
+          - **Current Cost**: \$${{ steps.usage.outputs.cost }}
+          - **Budget Used**: ${{ steps.usage.outputs.percentage }}%
+          - **Budget Remaining**: \$$(echo "$MONTHLY_BUDGET - ${{ steps.usage.outputs.cost }}" | bc -l | xargs printf "%.2f")
+
+          ## Projections
+          - **Days Left in Month**: ${{ steps.usage.outputs.days_left }}
+          - **Projected Monthly Cost**: \$${{ steps.usage.outputs.projected }}
+          - **Projected vs Budget**: $(echo "${{ steps.usage.outputs.projected }} / $MONTHLY_BUDGET * 100" | bc -l | xargs printf "%.0f")%
+
+          ## Budget Status
+          $(if [ ${{ steps.usage.outputs.percentage }} -lt 50 ]; then
+            echo "✅ **Healthy** - Usage well within budget"
+          elif [ ${{ steps.usage.outputs.percentage }} -lt 75 ]; then
+            echo "⚠️ **Caution** - Monitor usage closely"
+          elif [ ${{ steps.usage.outputs.percentage }} -lt 90 ]; then
+            echo "🔶 **Warning** - Approaching budget limit"
+          else
+            echo "🔴 **Critical** - Budget nearly exhausted!"
+          fi)
+
+          ## Recommendations
+          $(if [ ${{ steps.usage.outputs.percentage }} -gt 75 ]; then
+            echo "- Consider disabling non-critical workflows"
+            echo "- Review and optimize long-running workflows"
+            echo "- Implement stricter conditional execution"
+          else
+            echo "- Current usage is sustainable"
+            echo "- Continue monitoring for anomalies"
+          fi)
+          EOF
+
+          cat usage-report.md
+
+      - name: 🚨 Check Budget Alerts
+        id: alerts
+        run: |
+          THRESHOLD=${{ github.event.inputs.alert_threshold || '75' }}
+
+          if [ ${{ steps.usage.outputs.percentage }} -ge $THRESHOLD ]; then
+            echo "alert=true" >> $GITHUB_OUTPUT
+            echo "🚨 Budget alert triggered! Usage at ${{ steps.usage.outputs.percentage }}%"
+          else
+            echo "alert=false" >> $GITHUB_OUTPUT
+            echo "✅ Usage within acceptable range"
+          fi
+
+      - name: 📢 Create Issue if Over Budget
+        if: steps.alerts.outputs.alert == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Check if an alert issue already exists
+          EXISTING=$(gh issue list --label "ci-budget-alert" --state open --json number | jq '.[0].number // 0')
+
+          if [ "$EXISTING" -eq 0 ]; then
+            gh issue create \
+              --title "🚨 CI/CD Budget Alert: ${{ steps.usage.outputs.percentage }}% Used" \
+              --label "ci-budget-alert,P1: High,infrastructure" \
+              --body "$(cat usage-report.md)"
+          else
+            gh issue comment $EXISTING --body "$(cat usage-report.md)"
+          fi
+
+      - name: 💾 Save Usage Metrics
+        run: |
+          mkdir -p .github/metrics
+
+          # Append to CSV log
+          echo "$(date +%Y-%m-%d),${{ steps.usage.outputs.minutes }},${{ steps.usage.outputs.cost }},${{ steps.usage.outputs.percentage }}" >> .github/metrics/usage-history.csv
+
+          # Save current snapshot
+          cat << EOF > .github/metrics/current-usage.json
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "minutes_used": ${{ steps.usage.outputs.minutes }},
+            "cost_usd": ${{ steps.usage.outputs.cost }},
+            "budget_percentage": ${{ steps.usage.outputs.percentage }},
+            "projected_monthly": ${{ steps.usage.outputs.projected }},
+            "days_remaining": ${{ steps.usage.outputs.days_left }}
+          }
+          EOF
+
+      - name: 🔧 Auto-disable if Critical
+        if: steps.usage.outputs.percentage >= 95
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔴 CRITICAL: Disabling non-essential workflows..."
+
+          # List of workflows to keep running even at critical usage
+          CRITICAL_ONLY="security-scanning.yml cost-monitor.yml"
+
+          for workflow in .github/workflows/*.yml; do
+            FILENAME=$(basename $workflow)
+
+            if [[ ! " $CRITICAL_ONLY " =~ " $FILENAME " ]]; then
+              # Check if workflow has schedule trigger
+              if grep -q "schedule:" $workflow; then
+                echo "Disabling scheduled runs for $FILENAME"
+                # Comment out schedule section
+                sed -i.bak '/schedule:/,/^[^ ]/{s/^/# BUDGET_DISABLED /}' $workflow
+              fi
+            fi
+          done
+
+          # Create PR with changes
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git checkout -b emergency-budget-control-$(date +%s)
+            git add .github/workflows/
+            git commit -m "🚨 Emergency: Disable non-critical workflows (budget at ${{ steps.usage.outputs.percentage }}%)"
+            git push origin HEAD
+
+            gh pr create \
+              --title "🚨 Emergency Budget Control - Workflows Disabled" \
+              --body "Automatic workflow disabling triggered at ${{ steps.usage.outputs.percentage }}% budget usage" \
+              --label "emergency,ci-cd,P0: Critical"
+          fi
+
+      - name: 📊 Upload Metrics
+        uses: actions/upload-artifact@v4
+        with:
+          name: usage-metrics-${{ github.run_id }}
+          path: |
+            .github/metrics/
+            usage-report.md
+          retention-days: 30
