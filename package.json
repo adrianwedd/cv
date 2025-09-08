@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "dotenv": "^17.2.1",
-    "langsmith": "^0.3.55",
+    "langsmith": "^0.3.67",
     "puppeteer": "^24.18.0"
   }
 }
