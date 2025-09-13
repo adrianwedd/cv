@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
-    "axios": "^1.6.0",
+    "axios": "^1.12.0",
     "cors": "^2.8.5",
     "langsmith": "^0.3.55",
     "winston": "^3.11.0"
