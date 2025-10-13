@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2025-10-13T08:06:36.277Z",
+  "generated": "2025-10-13T14:04:50.148Z",
   "performance_budget": {
     "MAX_CRITICAL_PATH": 14400,
     "MAX_JSON_SIZE": 50000,
