@@ -1,0 +1,151 @@
+/* Enhanced Header Design - 2025 Professional Standards */
+
+/* Improved Typography Scale */
+:root {
+  --font-size-hero: 3.5rem;
+  /* 56px - Hero name */
+  --font-size-subtitle: 1.375rem;
+  /* 22px - Job title */
+  --font-size-tagline: 1rem;
+}/* Enhanced Header Layout */
+.header {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(248, 250, 252, 0.95) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  padding: var(--space-8) 0;
+  transition: all var(--transition-normal);
+}[data-theme="dark"] .header {
+  background: linear-gradient(135deg, 
+    rgba(10, 15, 26, 0.95) 0%, 
+    rgba(17, 24, 39, 0.95) 100%);
+  border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+}/* Hero Section Redesign */
+.profile-section {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-8);
+  align-items: center;
+  margin-bottom: var(--space-8);
+}.profile-image-container {
+  position: relative;
+}.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-2xl);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-xl), 0 0 0 4px rgba(59, 130, 246, 0.1);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}.profile-image::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.1), 
+    transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg);
+}50% {
+  transform: translateX(100%) translateY(100%) rotate(45deg);
+}100% {
+  transform: translateX(-100%) translateY(-100%) rotate(45deg);
+}
+}.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}.name {
+  font-size: var(--font-size-hero);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  background: linear-gradient(135deg, 
+    var(--color-primary), 
+    var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-1);
+}.title {
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}.tagline {
+  font-size: var(--font-size-tagline);
+  color: var(--color-text-muted);
+  max-width: 600px;
+  line-height: var(--line-height-relaxed);
+}/* Enhanced Live Stats */
+.live-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}.stat-item {
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}.stat-item:hover::before {
+  opacity: 1;
+}.stat-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-1);
+  display: block;
+}.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-section {
+    grid-template-columns: 1fr;
+  text-align: center;
+  gap: var(--space-6);
+}.profile-image {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}.name {
+  font-size: var(--font-size-4xl);
+}.live-stats {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+}
