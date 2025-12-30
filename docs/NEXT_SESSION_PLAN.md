@@ -1,180 +1,210 @@
-# NEXT SESSION PLAN - Infrastructure Recovery & Perfect Score Sprint
+# Next Session Plan - August 20, 2025
 
-**Session Duration**: 45-60 minutes
-**Priority**: P0 CRITICAL - Infrastructure Recovery Required
-**Date Created**: 2025-08-08
+## 🎯 Primary Objectives
 
-## 🚨 CRITICAL SYSTEM STATUS
+### 1. Performance Validation & Optimization (PRIORITY)
+**Goal**: Achieve 90+ Lighthouse mobile score and optimize bundle sizes
 
-**Current State**:
-- **Performance**: 96/100 EXCELLENT ✅
-- **Infrastructure**: 1/6 systems operational ❌ **CRITICAL**
-- **CI/CD**: 100% success on critical pipelines ✅
-- **Branch Status**: Develop ahead of main (needs merge)
-
-**Critical Finding**: Only CV Generator operational. OAuth, Content Guardian, Analytics, Historical Verification, and Elite Agents are all DOWN.
-
-## 🎯 SESSION OBJECTIVES (Priority Order)
-
-### 1️⃣ Infrastructure Recovery [P0 - 25 minutes]
-
-**CRITICAL**: Restore 6/6 systems to operational status
-
-```bash
-# Quick health check
-cd .github/scripts
-node production-monitor.js check
-
-# System-by-system recovery
-1. OAuth Authentication (auth-system-health-check.js)
-2. Content Guardian (content-guardian.js) 
-3. Analytics System (analytics verification)
-4. Historical Verification (historical-cv-verifier.js)
-5. Elite Agents (agents/ directory path fixes)
-```
+**Tasks**:
+- [ ] Run comprehensive Lighthouse audit on https://adrianwedd.github.io/cv/
+- [ ] Analyze Core Web Vitals in production
+- [ ] Identify and fix performance bottlenecks
+- [ ] Document performance metrics and improvements
 
 **Success Criteria**:
-- All 6 systems show green/operational
-- Health score >80%
-- No path resolution errors
-
-### 2️⃣ Service Worker Consistency [P1 - 20 minutes]
-
-**Issue**: Cache version mismatches causing console errors
-
-```javascript
-// Fix in sw.js
-const CACHE_VERSION = 'v1.0.1'; // Update version
-const urlsToCache = [
-  '/',
-  '/assets/styles.min.css',  // Use minified versions
-  '/assets/script.min.js',
-  '/assets/performance-monitor.min.js'
-];
-```
-
-**Success Criteria**:
-- Zero console errors
-- Offline mode functional
-- Assets properly cached
-
-### 3️⃣ Perfect Score Achievement [P1 - 15 minutes]
-
-**Target**: 96/100 → 100/100
-
-```html
-<!-- Update index.html -->
-<link rel="stylesheet" href="assets/styles.min.css">
-<script src="assets/script.min.js" defer></script>
-```
-
-**Remaining 4 points**:
-1. Deploy minified assets (2 points)
-2. Fix content size to <50KB (1 point)
-3. Optimize critical rendering path (1 point)
-
-**Success Criteria**:
-- Deployment verifier shows 100/100
-- Content size <50KB
-- All categories green
-
-## 📋 EXECUTION CHECKLIST
-
-### Pre-Session Setup (5 min)
-- [ ] Pull latest from origin/develop
-- [ ] Run `cd .github/scripts && npm test`
-- [ ] Check `NEXT_SESSION_PLAN.md` (this file)
-- [ ] Open monitoring dashboard
-
-### Phase 1: Infrastructure (25 min)
-- [ ] Run health check baseline
-- [ ] Fix OAuth authentication
-- [ ] Restore Content Guardian
-- [ ] Fix Analytics system
-- [ ] Restore Historical Verification
-- [ ] Fix Elite Agents paths
-- [ ] Verify 6/6 systems operational
-
-### Phase 2: Service Worker (20 min)
-- [ ] Update cache version
-- [ ] Align asset references
-- [ ] Test offline functionality
-- [ ] Clear browser cache and test
-- [ ] Verify zero console errors
-
-### Phase 3: Perfect Score (15 min)
-- [ ] Update HTML to use minified assets
-- [ ] Deploy and test locally
-- [ ] Run deployment verifier
-- [ ] Commit improvements
-- [ ] Push to develop
-- [ ] Create PR to main
-
-### Phase 4: Deployment (5 min)
-- [ ] Merge develop → main
-- [ ] Monitor CI/CD pipelines
-- [ ] Verify production deployment
-- [ ] Check final metrics
-
-## 🎯 SUCCESS METRICS
-
-**Must Achieve**:
-- ✅ 6/6 systems operational
-- ✅ 0 console errors
-- ✅ 100/100 performance score
-- ✅ Main branch updated
-
-**Bonus Goals**:
-- Test coverage >95%
-- All pipelines green
-- Documentation updated
-- Issue #284 progress logged
-
-## 🚀 QUICK START COMMANDS
-
-```bash
-# 1. Infrastructure Recovery
-cd .github/scripts
-node production-monitor.js check
-node auth-system-health-check.js
-node content-guardian.js --validate
-
-# 2. Service Worker Fix
-vim ../../sw.js
-# Update CACHE_VERSION and urlsToCache
-
-# 3. Perfect Score
-vim ../../index.html
-# Update to use .min.css and .min.js
-node deployment-verifier.js
-
-# 4. Deploy
-git add -A
-git commit -m "🚀 Infrastructure Recovery & Perfect Score Achievement"
-git push
-gh pr create --base main --head develop
-```
-
-## ⚠️ RISK MITIGATION
-
-**If infrastructure recovery fails**:
-1. Check environment variables
-2. Verify file paths are absolute
-3. Review recent changes in git log
-4. Rollback if necessary
-
-**If perfect score blocked**:
-1. Focus on infrastructure first
-2. Document blockers in issue #284
-3. Plan follow-up session
-
-## 📊 POST-SESSION
-
-1. Update issue #284 with results
-2. Close any resolved issues
-3. Update this file for next session
-4. Celebrate achievements! 🎉
+- Lighthouse Mobile Score: 90+
+- First Contentful Paint: <1.5s
+- Largest Contentful Paint: <2.5s
+- Bundle size reduction: 30%+
 
 ---
 
-**Remember**: Infrastructure recovery is P0 CRITICAL. Without it, the excellent frontend performance is meaningless. Focus on systematic recovery of all 6 systems before optimization work.
+### 2. Asset Optimization & Cleanup
+**Goal**: Reduce repository size and optimize resource delivery
+
+**Tasks**:
+- [ ] Remove 17MB+ of duplicate/unused assets identified
+- [ ] Implement actual WebP image conversion
+- [ ] Create responsive image variants (1x, 2x, 3x)
+- [ ] Optimize and minify all JavaScript bundles
+- [ ] Clean up consolidated and versioned script files
+
+**Expected Impact**:
+- Repository size: -85% reduction
+- Image sizes: -30% with WebP
+- JavaScript bundle: -40% with code splitting
+
+---
+
+### 3. Real Device Testing
+**Goal**: Validate mobile features work on actual devices
+
+**Tasks**:
+- [ ] Test on iOS Safari (iPhone/iPad)
+- [ ] Test on Android Chrome
+- [ ] Verify touch interactions (swipe, long-press, pull-to-refresh)
+- [ ] Validate haptic feedback on supported devices
+- [ ] Check responsive design across real screen sizes
+- [ ] Test offline functionality with Service Worker
+
+**Devices to Test**:
+- iPhone (iOS 14+)
+- Android phone (Chrome 90+)
+- iPad (landscape and portrait)
+- Various screen sizes (375px - 428px)
+
+---
+
+### 4. Documentation Updates (Issue #300)
+**Goal**: Update all documentation to reflect current system status
+
+**Priority Files**:
+- [ ] **README.md** - Add mobile features, update status
+- [ ] **CLAUDE.md** - Document achievements, update quick start
+- [ ] **SYSTEM_INSIGHTS.md** - Add mobile implementation insights
+- [ ] **DEVELOPMENT_GUIDE.md** - Update for CI-disabled workflow
+
+**Key Updates**:
+- Mobile Experience Excellence completion
+- CI workflow management situation
+- Performance achievements
+- UAT testing procedures
+
+---
+
+### 5. Advanced Mobile Features (If Time Permits)
+**Goal**: Implement additional mobile enhancements
+
+**Optional Tasks**:
+- [ ] Implement actual swipe navigation between sections
+- [ ] Add pull-to-refresh functionality
+- [ ] Create mobile-specific navigation menu
+- [ ] Implement progressive disclosure for mobile content
+- [ ] Add touch-friendly tooltips and help text
+
+---
+
+## 🔧 Technical Priorities
+
+### Performance Optimization Checklist
+```javascript
+// 1. Code Splitting
+- [ ] Split non-critical JS into lazy-loaded chunks
+- [ ] Implement route-based code splitting
+- [ ] Defer non-essential scripts
+
+// 2. Image Optimization  
+- [ ] Convert all images to WebP
+- [ ] Implement responsive srcset
+- [ ] Add lazy loading attributes
+
+// 3. CSS Optimization
+- [ ] Remove unused CSS rules
+- [ ] Optimize critical CSS extraction
+- [ ] Minify all CSS files
+
+// 4. Bundle Optimization
+- [ ] Tree shake unused code
+- [ ] Minify and compress all assets
+- [ ] Implement proper caching headers
+```
+
+---
+
+## 📊 Metrics to Track
+
+### Performance Targets
+- **Lighthouse Mobile**: 90+ (current: ~85-92 estimated)
+- **First Contentful Paint**: <1.5s (current: ~1.8s estimated)
+- **Speed Index**: <3.0s
+- **Time to Interactive**: <3.5s
+- **Total Blocking Time**: <200ms
+- **Cumulative Layout Shift**: <0.1
+
+### Quality Metrics
+- **JavaScript Errors**: 0
+- **Console Warnings**: <5
+- **Accessibility Score**: 95+
+- **SEO Score**: 100
+- **PWA Score**: 90+
+
+---
+
+## 🚀 Quick Start Commands
+
+```bash
+# Start local development server
+python -m http.server 8000
+
+# Run Lighthouse audit (after installing Lighthouse CLI)
+lighthouse https://adrianwedd.github.io/cv/ --view
+
+# Check bundle sizes
+du -sh assets/*.js | sort -h
+
+# Find duplicate files
+find assets -type f -exec md5sum {} \; | sort | uniq -d
+
+# Test WebP support
+curl -I https://adrianwedd.github.io/cv/assets/webp-optimizer.js
+```
+
+---
+
+## 📝 Session Preparation
+
+### Before Starting
+1. Review this plan and SESSION_SUMMARY_2025-08-19.md
+2. Check GitHub issues #248, #299, #300 for updates
+3. Ensure local environment is ready
+4. Have real devices ready for testing
+
+### Tools Needed
+- Chrome DevTools (Lighthouse, Performance tab)
+- Real mobile devices (iOS and Android)
+- Image optimization tools (for WebP conversion)
+- Text editor for documentation updates
+
+---
+
+## 🎯 Definition of Done
+
+### Session Success Criteria
+- [ ] Lighthouse mobile score 90+ achieved
+- [ ] All mobile features tested on real devices
+- [ ] Asset cleanup completed (>50% size reduction)
+- [ ] Documentation fully updated
+- [ ] No critical bugs or issues
+- [ ] Performance metrics documented
+
+---
+
+## 💡 Important Reminders
+
+1. **CI Still Disabled**: Continue using manual testing procedures
+2. **Direct to Main**: Test thoroughly before pushing (no CI safety net)
+3. **Mobile First**: Focus on mobile performance over desktop
+4. **Real Testing**: Prioritize real device testing over emulators
+5. **Document Everything**: Track all changes and metrics
+
+---
+
+## 🔮 Future Considerations
+
+### After Core Tasks Complete
+- Implement PWA installation prompts
+- Add offline content caching strategies
+- Create mobile app manifest improvements
+- Implement push notifications (if applicable)
+- Add mobile-specific analytics tracking
+
+### Long-term Optimizations
+- Investigate edge caching with CDN
+- Implement service worker background sync
+- Add predictive prefetching
+- Create AMP version (if beneficial)
+- Implement Web Share API
+
+---
+
+*Ready for next session with clear objectives and success criteria. Focus on performance validation and real-world testing of mobile features.*
