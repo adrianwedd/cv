@@ -261,24 +261,24 @@ class WorkflowConsolidator {
                             run: `
                                 # Intelligent pipeline routing based on changes and context
                                 echo "Analyzing pipeline requirements..."
-                                
+
                                 # Detect file changes
                                 CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
-                                
+
                                 # Deployment decisions
-                                if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+                                if [[ "\${{ github.ref }}" == "refs/heads/main" ]]; then
                                   echo "deploy-production=true" >> $GITHUB_OUTPUT
-                                elif [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+                                elif [[ "\${{ github.ref }}" == "refs/heads/develop" ]]; then
                                   echo "deploy-staging=true" >> $GITHUB_OUTPUT
                                 fi
-                                
+
                                 # Test decisions
-                                if [[ "${{ inputs.skip_tests }}" == "true" ]]; then
+                                if [[ "\${{ inputs.skip_tests }}" == "true" ]]; then
                                   echo "run-tests=false" >> $GITHUB_OUTPUT
                                 else
                                   echo "run-tests=true" >> $GITHUB_OUTPUT
                                 fi
-                                
+
                                 echo "Pipeline routing completed"
                             `
                         }
@@ -315,7 +315,7 @@ class WorkflowConsolidator {
                         {
                             name: '🧪 Run ${{ matrix.test-type }} Tests',
                             run: `
-                                case "${{ matrix.test-type }}" in
+                                case "\${{ matrix.test-type }}" in
                                   "unit")
                                     cd tests && npm run test:ci
                                     ;;
@@ -494,12 +494,12 @@ class WorkflowConsolidator {
                         {
                             name: '⚙️ Execute Specialized Operation',
                             run: `
-                                echo "⚙️ Executing: ${{ inputs.operation || 'data-refresh' }}"
-                                
+                                echo "⚙️ Executing: \${{ inputs.operation || 'data-refresh' }}"
+
                                 cd .github/scripts
                                 npm ci
-                                
-                                case "${{ inputs.operation || 'data-refresh' }}" in
+
+                                case "\${{ inputs.operation || 'data-refresh' }}" in
                                   "data-refresh")
                                     echo "🔄 Refreshing data pipeline..."
                                     node activity-analyzer.js
