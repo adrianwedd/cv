@@ -1,9 +1,9 @@
 /**
  * Watch Me Work Dashboard Styles
- * 
+ *
  * Live development activity dashboard with real-time updates,
  * beautiful visualizations, and responsive design.
- * 
+ *
  * @author Adrian Wedd
  * @version 1.0.0
  */
@@ -18,23 +18,23 @@
   --secondary-light: #34d399;
   --accent-color: #f59e0b;
   --danger-color: #ef4444;
-  
+
   /* Backgrounds */
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-tertiary: #334155;
   --bg-card: #1e293b;
   --bg-overlay: rgba(15, 23, 42, 0.9);
-  
+
   /* Text */
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
   --text-muted: #64748b;
-  
+
   /* Borders */
   --border-color: #334155;
   --border-hover: #475569;
-  
+
   /* Spacing */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -43,7 +43,7 @@
   --space-6: 1.5rem;
   --space-8: 2rem;
   --space-12: 3rem;
-  
+
   /* Sizing */
   --header-height: 80px;
   --card-border-radius: 12px;
@@ -279,6 +279,26 @@ select {
 }
 
 select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+/* Filter Inputs */
+.filter-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-border-radius);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+}
+
+.filter-input::placeholder {
+  color: var(--text-muted);
+}
+
+.filter-input:focus {
   outline: none;
   border-color: var(--primary-color);
 }
@@ -826,31 +846,31 @@ select:focus {
     gap: var(--space-4);
     text-align: center;
   }
-  
+
   .dashboard-nav {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .metrics-overview {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .section-header {
     flex-direction: column;
     gap: var(--space-4);
     align-items: stretch;
   }
-  
+
   .repo-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .filters-panel {
     width: 100%;
     right: -100%;
   }
-  
+
   .footer-content {
     flex-direction: column;
     gap: var(--space-4);
@@ -862,19 +882,19 @@ select:focus {
   .dashboard-main {
     padding: var(--space-4);
   }
-  
+
   .metrics-overview {
     grid-template-columns: 1fr;
   }
-  
+
   .metric-card {
     padding: var(--space-4);
   }
-  
+
   .timeline-item {
     gap: var(--space-2);
   }
-  
+
   .timeline-marker {
     width: 32px;
     height: 32px;
@@ -1489,45 +1509,45 @@ select:focus {
     gap: var(--space-4);
     text-align: center;
   }
-  
+
   .live-status {
     order: -1;
   }
-  
+
   .dashboard-nav {
     justify-content: center;
   }
-  
+
   .filters-panel {
     width: 100%;
     right: -100%;
   }
-  
+
   .metrics-overview {
     grid-template-columns: 1fr;
   }
-  
+
   .section-header {
     flex-direction: column;
     gap: var(--space-4);
     align-items: flex-start;
   }
-  
+
   .timeline-controls {
     align-self: stretch;
     justify-content: center;
   }
-  
+
   .repo-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .footer-content {
     flex-direction: column;
     gap: var(--space-4);
     text-align: center;
   }
-  
+
   .code-preview {
     width: 95vw;
     height: 90vh;
@@ -1542,19 +1562,19 @@ select:focus {
     --space-6: 1rem;
     --space-8: 1.5rem;
   }
-  
+
   .dashboard-main {
     padding: var(--space-6) var(--space-4);
   }
-  
+
   .metric-card {
     padding: var(--space-4);
   }
-  
+
   .timeline-container {
     padding: var(--space-4);
   }
-  
+
   .repo-card {
     padding: var(--space-4);
   }

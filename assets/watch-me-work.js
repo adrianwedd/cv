@@ -40,7 +40,9 @@ class WatchMeWorkDashboard {
             prs: true,
             comments: true,
             timeRange: '30d',
-            repositories: []
+            repositories: [], // excluded repos (unchecked)
+            searchQuery: '',
+            onlyActiveRepos: false
         };
         this.lastRefresh = null;
         this.refreshTimer = null;
@@ -53,10 +55,13 @@ class WatchMeWorkDashboard {
         console.log('🎬 Initializing Watch Me Work Dashboard...');
 
         try {
+            this.loadFiltersFromURL();
             this.setupEventListeners();
             this.updateLiveStatus('connecting');
 
             await this.loadData();
+            this.initializeRepoFilters();
+            this.syncFilterControlsFromState();
             this.startLiveUpdates();
 
             this.updateLiveStatus('live');
@@ -98,6 +103,22 @@ class WatchMeWorkDashboard {
 
         document.getElementById('time-range')?.addEventListener('change', (e) => {
             this.filters.timeRange = e.target.value;
+            this.applyFilters();
+        });
+
+        const searchInput = document.getElementById('search-query');
+        let searchDebounce;
+        searchInput?.addEventListener('input', (e) => {
+            clearTimeout(searchDebounce);
+            const val = String(e.target.value || '');
+            searchDebounce = setTimeout(() => {
+                this.filters.searchQuery = val;
+                this.applyFilters();
+            }, 120);
+        });
+
+        document.getElementById('filter-active-repos')?.addEventListener('change', (e) => {
+            this.filters.onlyActiveRepos = !!e.target.checked;
             this.applyFilters();
         });
 
@@ -253,8 +274,8 @@ class WatchMeWorkDashboard {
      */
     async loadLiveData() {
         const [events, repos] = await Promise.all([
-            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=100`),
-            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`)
+            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=100`, { cacheMode: 'etag' }),
+            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`, { cacheMode: 'etag' })
         ]);
 
         this.activities = (events || []).map(event => ({
@@ -289,65 +310,75 @@ class WatchMeWorkDashboard {
         this.trendsData = null;
     }
 
-    async fetchJSON(url) {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
+    async fetchJSON(url, { cacheMode = 'none', ttlMs = 5 * 60 * 1000 } = {}) {
+        if (cacheMode !== 'etag') {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+        }
+
+        const cacheKey = `wmw:${this.hashString(url)}`;
+        const etagKey = `${cacheKey}:etag`;
+        const bodyKey = `${cacheKey}:body`;
+        const timeKey = `${cacheKey}:time`;
+
+        const cachedEtag = localStorage.getItem(etagKey) || '';
+        const cachedBody = localStorage.getItem(bodyKey) || '';
+        const cachedTime = Number(localStorage.getItem(timeKey) || '0');
+        const isFresh = cachedTime && (Date.now() - cachedTime) < ttlMs;
+
+        const headers = new Headers();
+        // For public endpoints, unauthenticated requests are fine but rate-limited.
+        headers.set('Accept', 'application/vnd.github+json');
+        if (cachedEtag && isFresh) headers.set('If-None-Match', cachedEtag);
+
+        let response;
+        try {
+            response = await fetch(url, { headers });
+        } catch (err) {
+            // If offline/blocked, serve stale cache if we have it.
+            if (cachedBody) return JSON.parse(cachedBody);
+            throw err;
+        }
+
+        if (response.status === 304 && cachedBody) {
+            return JSON.parse(cachedBody);
+        }
+        if (!response.ok) {
+            if (cachedBody) return JSON.parse(cachedBody);
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const bodyText = await response.text();
+        const etag = response.headers.get('ETag') || response.headers.get('Etag') || '';
+        if (etag) localStorage.setItem(etagKey, etag);
+        localStorage.setItem(bodyKey, bodyText);
+        localStorage.setItem(timeKey, String(Date.now()));
+        return JSON.parse(bodyText);
     }
 
     updateMetrics() {
         // Use static summary data when available
         if (this.summaryData?.total_commits != null) {
-            const commits = this.summaryData.total_commits;
-            const activeDays = this.summaryData.active_days || 0;
+            this.updateElement('commits-today', this.summaryData.total_commits);
+            this.updateElement('streak-days', this.summaryData.active_days || 0);
 
-            this.updateElement('commits-today', commits);
-            document.querySelector('#commits-today')?.closest('.metric-card')
-                ?.querySelector('.metric-label')?.replaceChildren(
-                    document.createTextNode('Commits (30d)')
-                );
+            this.updateElement('repositories-count', this.repositories.size);
 
-            this.updateElement('streak-days', activeDays);
-            document.querySelector('#streak-days')?.closest('.metric-card')
-                ?.querySelector('.metric-label')?.replaceChildren(
-                    document.createTextNode('Active Days')
-                );
-
-            // Velocity from metrics
-            const score = this.metricsData?.scores?.overall_professional_score;
-            this.updateElement('velocity-score', score != null ? Math.round(score) : this.activities.length);
-
-            // Languages
-            const langCount = this.languageData?.length || this.repositories.size;
-            this.updateElement('focus-time', langCount);
-            document.querySelector('#focus-time')?.closest('.metric-card')
-                ?.querySelector('.metric-label')?.replaceChildren(
-                    document.createTextNode('Languages')
-                );
-
+            this.updateElement('languages-count', this.languageData?.length || 0);
             return;
         }
 
-        // Fallback: compute from live data
+        // Fallback: real counts from live data
         const now = new Date();
         const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-        const commitsToday = this.recentCommits.filter(c =>
+        this.updateElement('commits-today', this.recentCommits.filter(c =>
             new Date(c.created_at) >= todayStart
-        ).length;
-
-        this.updateElement('commits-today', commitsToday);
+        ).length);
         this.updateElement('streak-days', this.calculateStreakDays());
-
-        const weekAgo = new Date(now.getTime() - 7 * 86400000);
-        const velocityScore = (
-            this.recentCommits.filter(c => new Date(c.created_at) >= weekAgo).length * 3 +
-            this.recentIssues.filter(i => new Date(i.updated_at) >= weekAgo).length * 2
-        );
-        this.updateElement('velocity-score', velocityScore);
-
-        const focusTime = Math.min(8, Math.max(0, commitsToday * 1.5));
-        this.updateElement('focus-time', `${focusTime.toFixed(1)}h`);
+        this.updateElement('repositories-count', this.repositories.size);
+        this.updateElement('languages-count', 0);
     }
 
     calculateStreakDays() {
@@ -459,8 +490,10 @@ class WatchMeWorkDashboard {
         grid.textContent = '';
 
         repoArray.forEach(repo => {
-            const lastUpdate = this.getTimeAgo(repo.updated_at);
             const recentActivity = this.getRepoRecentActivity(repo.name);
+            if (this.filters.onlyActiveRepos && recentActivity.total === 0) return;
+
+            const lastUpdate = this.getTimeAgo(repo.updated_at);
 
             const card = document.createElement('div');
             card.className = 'repo-card';
@@ -534,13 +567,15 @@ class WatchMeWorkDashboard {
     }
 
     getRepoRecentActivity(repoName) {
-        const commits = this.recentCommits.filter(c => c.repository === repoName).length;
-        const issues = this.recentIssues.filter(i => i.repository === repoName).length;
+        const since = this.getTimeRangeDate();
+        const commits = this.recentCommits.filter(c => c.repository === repoName && new Date(c.created_at) >= since).length;
+        const issues = this.recentIssues.filter(i => i.repository === repoName && new Date(i.updated_at) >= since).length;
         return { commits, issues, total: commits + issues };
     }
 
     getFilteredActivities() {
         const timeRange = this.getTimeRangeDate();
+        const q = String(this.filters.searchQuery || '').trim().toLowerCase();
 
         return this.activities.filter(activity => {
             if (new Date(activity.created_at) < timeRange) return false;
@@ -552,6 +587,11 @@ class WatchMeWorkDashboard {
             if (this.filters.repositories.length > 0) {
                 const repoName = activity.repo.split('/')[1];
                 if (this.filters.repositories.includes(repoName)) return false;
+            }
+
+            if (q) {
+                const haystack = this.activitySearchText(activity);
+                if (!haystack.includes(q)) return false;
             }
 
             return true;
@@ -572,6 +612,7 @@ class WatchMeWorkDashboard {
     applyFilters() {
         this.updateActivityTimeline();
         this.updateRepositoryGrid();
+        this.saveFiltersToURL();
     }
 
     startLiveUpdates() {
@@ -665,6 +706,45 @@ class WatchMeWorkDashboard {
         contentDiv.append(detailsLabel, pre);
         details.appendChild(contentDiv);
 
+        if (activity.type === 'PushEvent') {
+            const linksBox = document.createElement('div');
+            linksBox.className = 'detail-content';
+
+            const label = document.createElement('strong');
+            label.textContent = 'Commits:';
+            linksBox.appendChild(label);
+
+            const commits = activity.payload?.commits || [];
+            if (!Array.isArray(commits) || commits.length === 0) {
+                const none = document.createElement('div');
+                none.textContent = 'No commit list available in event payload.';
+                linksBox.appendChild(none);
+            } else {
+                const list = document.createElement('div');
+                list.style.marginTop = '0.5rem';
+                list.style.display = 'flex';
+                list.style.flexDirection = 'column';
+                list.style.gap = '0.35rem';
+
+                commits.slice(0, 10).forEach(c => {
+                    const shaFull = String(c.sha || '');
+                    const shaShort = shaFull.slice(0, 7);
+                    const msg = String(c.message || '').split('\n')[0];
+
+                    const a = document.createElement('a');
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.textContent = `${shaShort} ${msg}`;
+                    a.href = this.getCommitHtmlURL(activity.repo, shaFull);
+                    list.appendChild(a);
+                });
+
+                linksBox.appendChild(list);
+            }
+
+            details.appendChild(linksBox);
+        }
+
         body.appendChild(details);
         modal.classList.add('open');
     }
@@ -741,6 +821,133 @@ class WatchMeWorkDashboard {
         if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
         if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`;
         return new Date(dateString).toLocaleDateString();
+    }
+
+    initializeRepoFilters() {
+        const repoFilters = document.getElementById('repo-filters');
+        if (!repoFilters) return;
+        repoFilters.textContent = '';
+
+        const repos = Array.from(this.repositories.keys()).sort((a, b) => a.localeCompare(b));
+        repos.forEach(repo => {
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.dataset.repo = repo;
+            checkbox.checked = !this.filters.repositories.includes(repo);
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(' ' + repo));
+
+            checkbox.addEventListener('change', (e) => {
+                const isChecked = !!e.target.checked;
+                if (isChecked) {
+                    this.filters.repositories = this.filters.repositories.filter(r => r !== repo);
+                } else if (!this.filters.repositories.includes(repo)) {
+                    this.filters.repositories.push(repo);
+                }
+                this.applyFilters();
+            });
+
+            repoFilters.appendChild(label);
+        });
+    }
+
+    syncFilterControlsFromState() {
+        const searchInput = document.getElementById('search-query');
+        if (searchInput && String(searchInput.value || '') !== String(this.filters.searchQuery || '')) {
+            searchInput.value = String(this.filters.searchQuery || '');
+        }
+        const activeOnly = document.getElementById('filter-active-repos');
+        if (activeOnly) activeOnly.checked = !!this.filters.onlyActiveRepos;
+        const timeRange = document.getElementById('time-range');
+        if (timeRange && timeRange.value !== this.filters.timeRange) timeRange.value = this.filters.timeRange;
+        ['commits', 'issues', 'prs', 'comments'].forEach(type => {
+            const el = document.getElementById(`filter-${type}`);
+            if (el) el.checked = !!this.filters[type];
+        });
+    }
+
+    loadFiltersFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const range = params.get('range');
+        if (range) this.filters.timeRange = range;
+
+        const types = (params.get('types') || '').split(',').map(s => s.trim()).filter(Boolean);
+        if (types.length) {
+            this.filters.commits = types.includes('commits');
+            this.filters.issues = types.includes('issues');
+            this.filters.prs = types.includes('prs');
+            this.filters.comments = types.includes('comments');
+        }
+
+        const q = params.get('q');
+        if (q != null) this.filters.searchQuery = q;
+
+        const active = params.get('active');
+        if (active != null) this.filters.onlyActiveRepos = active === '1' || active === 'true';
+
+        const exclude = (params.get('exclude') || '').split(',').map(s => s.trim()).filter(Boolean);
+        if (exclude.length) this.filters.repositories = exclude;
+    }
+
+    saveFiltersToURL() {
+        const params = new URLSearchParams();
+        if (this.filters.timeRange && this.filters.timeRange !== '30d') params.set('range', this.filters.timeRange);
+
+        const types = [];
+        if (this.filters.commits) types.push('commits');
+        if (this.filters.issues) types.push('issues');
+        if (this.filters.prs) types.push('prs');
+        if (this.filters.comments) types.push('comments');
+        if (types.length && types.length !== 4) params.set('types', types.join(','));
+
+        const q = String(this.filters.searchQuery || '').trim();
+        if (q) params.set('q', q);
+        if (this.filters.onlyActiveRepos) params.set('active', '1');
+
+        if (this.filters.repositories.length) params.set('exclude', this.filters.repositories.join(','));
+
+        const newQuery = params.toString();
+        const newUrl = newQuery ? `${window.location.pathname}?${newQuery}` : window.location.pathname;
+        window.history.replaceState(null, '', newUrl);
+    }
+
+    activitySearchText(activity) {
+        const parts = [];
+        parts.push(String(activity.type || ''));
+        parts.push(String(activity.repo || ''));
+        parts.push(this.formatActivityType(activity.type));
+        parts.push(this.formatActivityDescription(activity));
+
+        if (activity.type === 'PushEvent') {
+            const commits = activity.payload?.commits || [];
+            commits.slice(0, 5).forEach(c => parts.push(String(c.message || '').split('\n')[0]));
+        } else if (activity.type === 'IssuesEvent') {
+            parts.push(String(activity.payload?.issue?.title || ''));
+        } else if (activity.type === 'PullRequestEvent') {
+            parts.push(String(activity.payload?.pull_request?.title || ''));
+        } else if (activity.type === 'IssueCommentEvent') {
+            parts.push(String(activity.payload?.issue?.title || ''));
+        }
+
+        return parts.join(' ').toLowerCase();
+    }
+
+    getCommitHtmlURL(fullRepoName, sha) {
+        const safeRepo = String(fullRepoName || '').trim();
+        const safeSha = String(sha || '').trim();
+        if (!safeRepo || !safeSha) return 'https://github.com';
+        return `https://github.com/${safeRepo}/commit/${safeSha}`;
+    }
+
+    hashString(str) {
+        // FNV-1a 32-bit hash for stable localStorage keys.
+        let hash = 0x811c9dc5;
+        for (let i = 0; i < str.length; i++) {
+            hash ^= str.charCodeAt(i);
+            hash = (hash * 0x01000193) >>> 0;
+        }
+        return hash.toString(16);
     }
 }
 

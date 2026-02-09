@@ -1,9 +1,9 @@
 /**
  * Adrian Wedd CV - Interactive JavaScript Application
- * 
+ *
  * Modern, responsive CV website with dynamic content loading, GitHub integration,
  * and intelligent user experience features.
- * 
+ *
  * Features:
  * - Dynamic content loading from JSON data files
  * - Smooth section navigation with URL hash management
@@ -72,7 +72,7 @@ class CVApplication {
         this.themePreference = localStorage.getItem(CONFIG.THEME_KEY) || 'light';
         this.isLoading = true;
         this.loadingStartTime = Date.now();
-        
+
         this.init();
     }
 
@@ -81,31 +81,31 @@ class CVApplication {
      */
     async init() {
         console.log('🚀 Initializing CV Application...');
-        
+
         try {
             // Set initial theme
             this.applyTheme(this.themePreference);
-            
+
             // Initialize core systems
             this.setupEventListeners();
             this.setupNavigationSystem();
             this.setupThemeToggle();
-            
+
             // Load data concurrently
             await this.loadApplicationData();
-            
+
             // Initialize UI components
             this.initializeLiveStats();
             this.initializeContentSections();
-            
+
             // Handle initial route
             this.handleInitialRoute();
-            
+
             // Complete loading sequence
             this.completeLoadingSequence();
-            
+
             console.log('✅ CV Application initialized successfully');
-            
+
         } catch (error) {
             console.error('❌ Application initialization failed:', error);
             this.handleInitializationError(error);
@@ -163,7 +163,7 @@ class CVApplication {
      */
     setupNavigationSystem() {
         const navItems = document.querySelectorAll('.nav-item');
-        
+
         navItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -179,7 +179,7 @@ class CVApplication {
     setupThemeToggle() {
         const themeToggle = document.getElementById('theme-toggle');
         const themeIcon = themeToggle?.querySelector('.theme-icon');
-        
+
         if (themeToggle) {
             themeToggle.addEventListener('click', () => {
                 this.toggleTheme();
@@ -197,7 +197,7 @@ class CVApplication {
      */
     async loadApplicationData() {
         console.log('📊 Loading application data...');
-        
+
         const dataPromises = [
             this.loadCVData(),
             this.loadActivityData(),
@@ -207,14 +207,14 @@ class CVApplication {
 
         try {
             const [cvData, activityData, aiData, githubStats] = await Promise.allSettled(dataPromises);
-            
+
             this.cvData = cvData.status === 'fulfilled' ? cvData.value : {};
             this.activityData = activityData.status === 'fulfilled' ? activityData.value : {};
             this.aiEnhancements = aiData.status === 'fulfilled' ? aiData.value : {};
             this.githubStats = githubStats.status === 'fulfilled' ? githubStats.value : {};
-            
+
             console.log('✅ Application data loaded successfully');
-            
+
         } catch (error) {
             console.warn('⚠️ Some data failed to load:', error);
         }
@@ -289,17 +289,17 @@ class CVApplication {
             if (!latestActivityFile) {
                 throw new Error('No activity file reference found');
             }
-            
+
             // Fetch the detailed activity data
             const response = await fetch(`data/activity/${latestActivityFile}`);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
             }
-            
+
             const activityData = await response.json();
             // Fixed: correct path to languages array
             const languages = activityData?.repositories?.summary?.languages || [];
-            
+
             return languages.length;
         } catch (error) {
             console.warn('⚠️ Could not load language count:', error.message);
@@ -344,7 +344,7 @@ class CVApplication {
      */
     initializeLiveStats() {
         this.updateLiveStats();
-        
+
         // Refresh stats periodically
         setInterval(() => {
             this.refreshLiveData();
@@ -357,7 +357,7 @@ class CVApplication {
     updateLiveStats() {
         const elements = {
             commitsCount: document.getElementById('commits-count'),
-            activityScore: document.getElementById('activity-score'),
+            activeDays: document.getElementById('active-days'),
             languagesCount: document.getElementById('languages-count'),
             lastUpdated: document.getElementById('last-updated'),
             credibilityScore: document.getElementById('credibility-score')
@@ -369,15 +369,10 @@ class CVApplication {
             elements.commitsCount.textContent = this.formatNumber(commits);
         }
 
-        // Update activity score - calculate from available data
-        if (elements.activityScore) {
-            const commits = this.activityData?.summary?.total_commits || 0;
+        // Update active days count
+        if (elements.activeDays) {
             const activeDays = this.activityData?.summary?.active_days || 0;
-            const lookbackDays = this.activityData?.lookback_period_days || 30;
-            
-            // Calculate a basic activity score (0-100 scale)
-            const activityScore = Math.min(100, Math.round((commits * 3 + activeDays * 5) / 2));
-            elements.activityScore.textContent = `${activityScore}/100`;
+            elements.activeDays.textContent = this.formatNumber(activeDays);
         }
 
         // Update languages count - load from detailed activity data
@@ -434,7 +429,7 @@ class CVApplication {
             let enhancedSummary = this.aiEnhancements?.professional_summary?.enhanced ||
                                  this.cvData?.professional_summary ||
                                  summaryElement.textContent;
-            
+
             // Clean up AI-generated content that contains explanation text
             if (enhancedSummary && enhancedSummary.includes('**Enhanced Summary:**')) {
                 // Extract only the actual enhanced summary content, not the explanation
@@ -443,7 +438,7 @@ class CVApplication {
                     enhancedSummary = summaryMatch[1].trim();
                 }
             }
-            
+
             summaryElement.textContent = enhancedSummary;
         }
     }
@@ -456,7 +451,7 @@ class CVApplication {
         if (!timeline) return;
 
         const experiences = this.cvData?.experience || this.getDefaultExperience();
-        
+
         // Build experience timeline using safe DOM methods
         timeline.textContent = '';
         for (const exp of experiences) {
@@ -533,7 +528,7 @@ class CVApplication {
         if (!grid) return;
 
         const projects = this.cvData?.projects || this.getDefaultProjects();
-        
+
         // Build projects grid using safe DOM methods
         grid.textContent = '';
         for (const project of projects) {
@@ -623,7 +618,7 @@ class CVApplication {
         const skillProficiency = this.activityData?.skill_analysis?.skill_proficiency || {};
 
         const skillCategories = this.groupSkillsByCategory(skills);
-        
+
         // Build skills container using safe DOM methods
         container.textContent = '';
         for (const [category, categorySkills] of Object.entries(skillCategories)) {
@@ -696,7 +691,7 @@ class CVApplication {
         if (!grid) return;
 
         const achievements = this.cvData?.achievements || this.getDefaultAchievements();
-        
+
         // Build achievements grid using safe DOM methods
         grid.textContent = '';
         for (const achievement of achievements) {
@@ -751,13 +746,13 @@ class CVApplication {
 
         // Update URL hash
         window.history.pushState(null, null, `#${sectionId}`);
-        
+
         // Update navigation
         this.updateNavigation(sectionId);
-        
+
         // Show section with animation
         this.showSection(sectionId);
-        
+
         this.currentSection = sectionId;
     }
 
@@ -766,7 +761,7 @@ class CVApplication {
      */
     updateNavigation(activeSectionId) {
         const navItems = document.querySelectorAll('.nav-item');
-        
+
         navItems.forEach(item => {
             const isActive = item.dataset.section === activeSectionId;
             item.classList.toggle('active', isActive);
@@ -778,10 +773,10 @@ class CVApplication {
      */
     showSection(sectionId) {
         const sections = document.querySelectorAll('.section');
-        
+
         sections.forEach(section => {
             const isTarget = section.id === sectionId;
-            
+
             if (isTarget) {
                 section.classList.add('active');
                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -797,10 +792,10 @@ class CVApplication {
     toggleTheme() {
         this.themePreference = this.themePreference === 'light' ? 'dark' : 'light';
         this.applyTheme(this.themePreference);
-        
+
         // Save preference
         localStorage.setItem(CONFIG.THEME_KEY, this.themePreference);
-        
+
         // Update theme toggle icon
         const themeIcon = document.querySelector('.theme-icon');
         if (themeIcon) {
@@ -821,7 +816,7 @@ class CVApplication {
     handleInitialRoute() {
         const hash = window.location.hash.substring(1);
         const validSections = ['about', 'experience', 'projects', 'skills', 'achievements'];
-        
+
         if (hash && validSections.includes(hash)) {
             this.navigateToSection(hash);
         } else {
@@ -868,18 +863,18 @@ class CVApplication {
     completeLoadingSequence() {
         const loadingTime = Date.now() - this.loadingStartTime;
         const minLoadingTime = 1500; // Minimum loading time for UX
-        
+
         setTimeout(() => {
             const loadingScreen = document.getElementById('loading-screen');
             if (loadingScreen) {
                 loadingScreen.classList.add('hidden');
-                
+
                 // Remove loading screen after animation
                 setTimeout(() => {
                     loadingScreen.remove();
                 }, CONFIG.ANIMATION_DURATION);
             }
-            
+
             this.isLoading = false;
             console.log(`✅ Loading completed in ${loadingTime}ms`);
         }, Math.max(0, minLoadingTime - loadingTime));
@@ -890,7 +885,7 @@ class CVApplication {
      */
     handleInitializationError(error) {
         console.error('❌ Initialization error:', error);
-        
+
         // Remove loading screen and show error state
         const loadingScreen = document.getElementById('loading-screen');
         if (loadingScreen) {
@@ -925,13 +920,13 @@ class CVApplication {
         const date = new Date(dateString);
         const now = new Date();
         const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
-        
+
         if (diffInHours < 1) return 'Just now';
         if (diffInHours < 24) return `${diffInHours}h ago`;
-        
+
         const diffInDays = Math.floor(diffInHours / 24);
         if (diffInDays < 7) return `${diffInDays}d ago`;
-        
+
         return date.toLocaleDateString();
     }
 

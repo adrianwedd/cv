@@ -25,3 +25,6 @@ Thumbs.db
 # Python generated files
 *.log
 __pycache__/
+
+# Data snapshots are managed by CI — only latest is kept
+# Untracked after cleanup; CI re-adds the fresh one each run

@@ -1,0 +1,35 @@
+name: 🔒 Dependency Audit
+
+on:
+  pull_request:
+    paths:
+      - package.json
+      - package-lock.json
+      - .github/scripts/package.json
+      - .github/scripts/package-lock.json
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: npm audit (prod deps)
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 🔎 Audit Root
+        run: |
+          npm audit --omit=dev --audit-level=moderate
+
+      - name: 🔎 Audit Workflow Scripts
+        run: |
+          cd .github/scripts
+          npm audit --omit=dev --audit-level=moderate

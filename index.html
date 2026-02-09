@@ -6,32 +6,36 @@
     <meta name="description" content="Adrian Wedd - AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions">
     <meta name="keywords" content="Adrian Wedd, AI Engineer, Software Architect, Machine Learning, Autonomous Systems, Python, JavaScript, Tasmania">
     <meta name="author" content="Adrian Wedd">
-    
+
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Adrian Wedd - AI Engineer & Software Architect">
     <meta property="og:description" content="AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions">
     <meta property="og:url" content="https://adrianwedd.github.io/cv">
     <meta property="og:image" content="https://adrianwedd.github.io/cv/assets/profile-preview.png">
-    
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Adrian Wedd - AI Engineer & Software Architect">
     <meta name="twitter:description" content="AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions">
-    
+
     <title>Adrian Wedd - AI Engineer & Software Architect</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
+
     <!-- Icons -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
-    
+
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <!-- Styles -->
     <link rel="stylesheet" href="assets/styles.css">
-    
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -63,6 +67,9 @@
     </script>
 </head>
 <body>
+    <!-- Skip to Content (Accessibility) -->
+    <a href="#about" class="sr-only" style="position:absolute;top:-40px;left:0;background:#2563eb;color:#fff;padding:8px 16px;z-index:10000;transition:top 0.2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>
+
     <!-- Loading Screen -->
     <div id="loading-screen" class="loading-screen">
         <div class="loading-content">
@@ -104,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Live Stats -->
                 <div class="live-stats">
                     <div class="stat-item">
@@ -112,8 +119,8 @@
                         <div class="stat-label">Commits (30d)</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value" id="activity-score">---</div>
-                        <div class="stat-label">Activity Score</div>
+                        <div class="stat-value" id="active-days">---</div>
+                        <div class="stat-label">Active Days (30d)</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value" id="languages-count">---</div>
@@ -156,7 +163,7 @@
         </header>
 
         <!-- Navigation -->
-        <nav class="navigation" id="navigation">
+        <nav class="navigation" id="navigation" aria-label="CV sections">
             <div class="nav-items">
                 <a href="#about" class="nav-item active" data-section="about">
                     <span class="nav-icon">👤</span>
@@ -186,7 +193,7 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="main-content">
+        <main class="main-content" role="main">
             <!-- About Section -->
             <section id="about" class="section active">
                 <div class="section-header">
@@ -196,24 +203,24 @@
                     </h2>
                     <div class="section-subtitle">Professional Overview & Background</div>
                 </div>
-                
+
                 <div class="section-content">
                     <div class="about-grid">
                         <div class="about-main">
                             <div class="professional-summary">
                                 <p class="summary-text" id="professional-summary">
-                                    Innovative AI Engineer and Software Architect with a passion for creating autonomous systems 
-                                    that push the boundaries of what's possible. Based in Tasmania, I specialize in developing 
+                                    Innovative AI Engineer and Software Architect with a passion for creating autonomous systems
+                                    that push the boundaries of what's possible. Based in Tasmania, I specialize in developing
                                     intelligent solutions that combine cutting-edge machine learning with robust software architecture.
                                 </p>
                                 <p class="summary-text">
-                                    My expertise spans the full spectrum of AI development, from research and prototyping to 
-                                    production deployment of large-scale systems. I thrive on complex challenges and am 
-                                    particularly drawn to projects involving autonomous agents, real-time systems, and 
+                                    My expertise spans the full spectrum of AI development, from research and prototyping to
+                                    production deployment of large-scale systems. I thrive on complex challenges and am
+                                    particularly drawn to projects involving autonomous agents, real-time systems, and
                                     innovative human-AI collaboration.
                                 </p>
                             </div>
-                            
+
                             <div class="core-competencies">
                                 <h3 class="competency-title">Core Competencies</h3>
                                 <div class="competency-grid">
@@ -248,7 +255,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="about-sidebar">
                             <div class="quick-facts">
                                 <h3 class="facts-title">Quick Facts</h3>
@@ -269,7 +276,7 @@
                                     <span class="fact-value">Innovation-driven</span>
                                 </div>
                             </div>
-                            
+
                             <div class="interests">
                                 <h3 class="interests-title">Areas of Interest</h3>
                                 <div class="interest-tags">
@@ -295,7 +302,7 @@
                     </h2>
                     <div class="section-subtitle">Career Journey & Key Roles</div>
                 </div>
-                
+
                 <div class="section-content">
                     <div class="experience-timeline" id="experience-timeline">
                         <!-- Experience items will be dynamically loaded -->
@@ -316,7 +323,7 @@
                     </h2>
                     <div class="section-subtitle">Notable Work & Contributions</div>
                 </div>
-                
+
                 <div class="section-content">
                     <div class="projects-grid" id="projects-grid">
                         <!-- Projects will be dynamically loaded -->
@@ -337,7 +344,7 @@
                     </h2>
                     <div class="section-subtitle">Technologies & Expertise Levels</div>
                 </div>
-                
+
                 <div class="section-content">
                     <div class="skills-container" id="skills-container">
                         <!-- Skills will be dynamically loaded -->
@@ -358,7 +365,7 @@
                     </h2>
                     <div class="section-subtitle">Awards, Certifications & Milestones</div>
                 </div>
-                
+
                 <div class="section-content">
                     <div class="achievements-grid" id="achievements-grid">
                         <!-- Achievements will be dynamically loaded -->
@@ -372,7 +379,7 @@
         </main>
 
         <!-- Footer -->
-        <footer class="footer">
+        <footer class="footer" role="contentinfo">
             <div class="footer-content">
                 <div class="footer-info">
                     <div class="footer-text">
@@ -412,7 +419,7 @@
 
     <!-- Scripts -->
     <script src="assets/script.js"></script>
-    
+
     <!-- Analytics (Optional) -->
     <script>
         // Basic analytics tracking (privacy-focused)
