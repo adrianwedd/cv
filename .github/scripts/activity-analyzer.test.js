@@ -1,6 +1,6 @@
 const assert = require('assert');
-const { test, suite, beforeEach, afterEach } = require('node:test');
-const { ActivityAnalyzer, CONFIG } = require('./activity-analyzer.js');
+const { test, suite } = require('node:test');
+const { ActivityAnalyzer } = require('./activity-analyzer.js');
 
 suite('ActivityAnalyzer', () => {
     let analyzer;

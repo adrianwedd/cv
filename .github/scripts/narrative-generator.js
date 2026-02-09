@@ -123,7 +123,7 @@ class NarrativeGenerator {
     generateProfessionalSummary(intelligence) {
         const issues = intelligence.issues_intelligence || {};
         const commits = intelligence.commits_intelligence || {};
-        const prs = intelligence.prs_intelligence || {};
+        const _prs = intelligence.prs_intelligence || {};
 
         const totalIssues = issues.summary_metrics?.total_issues_analyzed || 0;
         const totalCommits = commits.summary_metrics?.total_commits_analyzed || 0;
@@ -234,7 +234,7 @@ class NarrativeGenerator {
         
         // From issue discussions
         const issues = intelligence.issues_intelligence?.technical_discussions || [];
-        issues.forEach((issue, index) => {
+        issues.forEach((issue, _index) => {
             if (issue.complexity_level === 'high' || issue.technical_score >= 3) {
                 examples.push({
                     type: 'issue_resolution',

@@ -823,8 +823,8 @@ body {
 }
 
 .timeline-content {
-  background: var(--color-card-background);
-  border-radius: var(--border-radius-lg);
+  background: var(--color-background-card);
+  border-radius: var(--radius-lg);
   padding: var(--space-6);
   border: 1px solid var(--color-border);
 }
@@ -958,7 +958,7 @@ body {
 /* Contact Links Styles (for PDF/Print buttons) */
 .contact-link.pdf,
 .contact-link.print-btn {
-  background: var(--color-secondary-bg);
+  background: rgba(16, 185, 129, 0.1);
   color: var(--color-secondary);
   border: 1px solid var(--color-secondary-light);
 }

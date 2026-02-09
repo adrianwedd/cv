@@ -21,7 +21,7 @@
 
 const fs = require('fs').promises;
 const path = require('path');
-const crypto = require('crypto');
+const _crypto = require('crypto');
 
 /**
  * Advanced AI Hallucination Detection System

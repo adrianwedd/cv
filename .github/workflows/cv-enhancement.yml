@@ -4,7 +4,7 @@ name: 🚀 CV Auto-Enhancement Pipeline
 # This workflow provides intelligent CV enhancement using GitHub activity analysis
 # and Claude AI optimization, with sophisticated analytics and caching.
 #
-# 🔄 **EXECUTION SCHEDULE**: Every 6 hours for continuous professional development tracking
+# 🔄 **EXECUTION SCHEDULE**: Twice daily at 8 AM and 8 PM AEST (22:00, 10:00 UTC)
 # 📊 **AI OPTIMIZATION**: Claude AI content enhancement with intelligent prompting
 # 📈 **ACTIVITY INTEGRATION**: Real-time GitHub metrics and contribution analysis
 # 🎨 **CONTENT GENERATION**: Dynamic CV website with responsive design
@@ -23,11 +23,14 @@ name: 🚀 CV Auto-Enhancement Pipeline
 # 4. Dynamic CV website generation and deployment
 # 5. Analytics tracking and performance monitoring
 
+concurrency:
+  group: cv-pipeline
+  cancel-in-progress: true
+
 on:
   schedule:
-    # 🕐 Run every 6 hours for optimal professional development tracking
-    # Schedule: 00:00, 06:00, 12:00, 18:00 AEST daily
-    - cron: '0 14,20,2,8 * * *'
+    # Run twice daily: 8 AM and 8 PM AEST
+    - cron: '0 22,10 * * *'
   workflow_dispatch:
     inputs:
       enhancement_mode:
@@ -282,16 +285,9 @@ jobs:
         run: |
           echo "✅ **RUNNING UNIT TESTS**"
           cd .github/scripts
-          
-          # Check if test command exists, run if available
-          if npm run test --silent 2>/dev/null; then
-            echo "✅ Unit tests passed"
-          else
-            echo "⚠️ Unit tests not available, skipping"
-          fi
-          
+          npm test
           cd ../..
-          echo "✅ Unit test step completed"
+          echo "✅ Unit tests passed"
 
       - name: 📦 Setup Node.js Environment
         uses: actions/setup-node@v4
@@ -402,95 +398,23 @@ jobs:
           
           cd ../...
           
-      - name: 🛡️ AI Hallucination Detection & Validation
+      - name: Content Validation Gate
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
         run: |
-          echo "🛡️ **AI HALLUCINATION DETECTION & VALIDATION INITIATED**"
-          echo "🔍 Multi-layer validation of AI-generated content..."
-          echo "📊 Cross-referencing claims with actual GitHub metrics..."
-          echo ""
-          
+          echo "Content validation gate..."
           cd .github/scripts
-          
-          # Run advanced hallucination detection with comprehensive error handling
-          if node ai-hallucination-detector.js; then
-            echo "✅ Advanced hallucination detection completed successfully"
-            
-            # Display validation summary
-            if [ -f "../../data/latest-validation-report.json" ]; then
-              echo ""
-              echo "🛡️ **VALIDATION REPORT:**"
-              cat ../../data/latest-validation-report.json | jq -r '
-                "🎯 Overall Confidence: " + (.overall_confidence | tostring) + "/100",
-                "🚨 Flagged Content: " + (.flagged_content | length | tostring) + " items",
-                "⚠️ Recommendations: " + (.recommendations | length | tostring),
-                "🔥 Urgent Reviews: " + (.urgent_reviews | length | tostring)'
-              
-              # Check confidence threshold
-              CONFIDENCE=$(cat ../../data/latest-validation-report.json | jq '.overall_confidence')
-              if [ "$CONFIDENCE" -lt 70 ]; then
-                echo ""
-                echo "🚨 **CRITICAL: Low confidence score detected!**"
-                echo "📋 Urgent recommendations:"
-                cat ../../data/latest-validation-report.json | jq -r '.urgent_reviews[]?.message // "Manual review required"'
-                # Continue but flag for attention
-              fi
-            else
-              echo "⚠️ Validation report not found, using basic verification"
-            fi
-            
-            # Also run legacy claim verifier for compatibility
-            echo ""
-            echo "🔍 Running legacy claim verification..."
-            if node claim-verifier.js; then
-              echo "✅ Legacy claim verification completed"
-            else
-              echo "⚠️ Legacy claim verification had warnings, continuing"
-            fi
-            
-          else
-            echo "⚠️ Advanced hallucination detection encountered issues"
-            echo "🔄 Falling back to basic claim verification..."
-            
-            # Fallback to existing claim verifier
-            if node claim-verifier.js; then
-              echo "✅ Basic claim verification completed successfully"
-              
-              # Display verification summary
-              if [ -f "../../data/verification-summary.json" ]; then
-                echo ""
-                echo "📋 **VERIFICATION SUMMARY:**"
-                cat ../../data/verification-summary.json | jq -r '
-                  "📊 Last Verification: " + .last_verification,
-                  "✅ Total Claims: " + (.summary.total_claims_analyzed | tostring),
-                  "✅ Verified: " + (.summary.verified_claims | tostring),
-                  "⚠️ Unverified: " + (.summary.unverified_claims | tostring),
-                  "🚨 Flagged: " + (.summary.flagged_discrepancies | tostring),
-                  "🎯 Confidence: " + ((.summary.overall_confidence * 100) | round | tostring) + "%"
-                '
-                
-                # Show urgent recommendations
-                if [ $(cat ../../data/verification-summary.json | jq '.urgent_recommendations | length') -gt 0 ]; then
-                  echo ""
-                  echo "🚨 **URGENT RECOMMENDATIONS:**"
-                  cat ../../data/verification-summary.json | jq -r '.urgent_recommendations[] | "- " + .message'
-                fi
-              else
-                echo "⚠️ Verification summary not found, continuing with enhanced content"
-              fi
-            else
-              echo "⚠️ Both advanced and basic claim verification failed"
-              echo "🚨 **WARNING**: Continuing without validation - manual review recommended"
-            fi
-          fi
-          
+
+          # Hallucination detector exits 1 on confidence < 70
+          node ai-hallucination-detector.js
+          echo "Hallucination detection passed"
+
+          # Content guardian exits 1 on violations found
+          node content-guardian.js --validate
+          echo "Content guardian passed"
+
           cd ../..
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AI_BUDGET: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}
-          CREATIVITY_LEVEL: ${{ github.event.inputs.ai_creativity || 'balanced' }}
-          ACTIVITY_SCORE: ${{ needs.cv-intelligence-analysis.outputs.activity-score }}
 
       - name: 📊 Professional Metrics Calculation
         run: |
@@ -613,41 +537,34 @@ jobs:
       - name: ✅ Validate & Lint Generated Assets
         run: |
           echo "✅ **VALIDATING AND LINTING GENERATED ASSETS**"
-          
-          # Run ESLint on JavaScript files (with error handling)
+
+          # Run ESLint on JavaScript files
           echo "Running ESLint..."
           cd .github/scripts
-          if npm run lint; then
-            echo "✅ ESLint completed successfully"
-          else
-            echo "⚠️ ESLint found issues, but continuing deployment"
-          fi
+          npm run lint
           cd ../..
+          echo "✅ ESLint passed"
 
-          # Validate JSON files (with better error handling)
+          # Validate JSON files
           echo "Validating JSON files..."
           JSON_ERRORS=0
-          
-          if [ -d "data" ] && [ "$(ls -A data/*.json 2>/dev/null)" ]; then
-            for file in data/*.json; do
-              if [ -f "$file" ]; then
-                if jq . "$file" > /dev/null 2>&1; then
-                  echo "✅ $file is valid JSON"
-                else
-                  echo "❌ $file is invalid JSON"
-                  JSON_ERRORS=$((JSON_ERRORS + 1))
-                fi
+
+          for file in data/*.json; do
+            if [ -f "$file" ]; then
+              if jq . "$file" > /dev/null 2>&1; then
+                echo "✅ $file is valid JSON"
+              else
+                echo "❌ $file is invalid JSON"
+                JSON_ERRORS=$((JSON_ERRORS + 1))
               fi
-            done
-          else
-            echo "⚠️ No JSON files found in data directory"
-          fi
-          
+            fi
+          done
+
           if [ $JSON_ERRORS -gt 0 ]; then
-            echo "⚠️ Found $JSON_ERRORS JSON validation errors, but continuing deployment"
-          else
-            echo "✅ JSON validation completed successfully"
+            echo "❌ Found $JSON_ERRORS JSON validation errors"
+            exit 1
           fi
+          echo "✅ JSON validation passed"
 
       - name: 📄 Verify PDF Asset Generation
         run: |

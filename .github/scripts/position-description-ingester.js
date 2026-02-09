@@ -337,12 +337,12 @@ class PositionDescriptionIngester {
     /**
      * Extract skills from text
      */
-    extractSkills(text, type = 'all') {
+    extractSkills(text, _type = 'all') {
         const skills = new Set();
         const lowerText = text.toLowerCase();
         
         // Check all skill categories
-        for (const [category, skillList] of Object.entries(this.skillCategories)) {
+        for (const [_category, skillList] of Object.entries(this.skillCategories)) {
             for (const skill of skillList) {
                 if (lowerText.includes(skill.toLowerCase())) {
                     skills.add(skill);
@@ -538,7 +538,7 @@ class PositionDescriptionIngester {
     /**
      * Analyze culture fit
      */
-    analyzeCultureFit(jobData, cvData) {
+    analyzeCultureFit(jobData, _cvData) {
         const cultureFit = {
             alignment_score: 0,
             matching_values: [],
@@ -557,7 +557,7 @@ class PositionDescriptionIngester {
     /**
      * Generate enhancement recommendations
      */
-    generateEnhancementRecommendations(jobData, cvData) {
+    generateEnhancementRecommendations(jobData, _cvData) {
         const recommendations = [];
 
         // Skill gap recommendations

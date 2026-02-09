@@ -4,16 +4,19 @@
   "description": "AI-Enhanced CV System with GitHub activity integration",
   "main": "index.html",
   "scripts": {
-    "dev": "python -m http.server 8000",
+    "dev": "python3 -m http.server 8000",
     "serve": "npx serve .",
-    "validate": "for file in data/*.json; do jq . \"$file\" > /dev/null && echo \"✅ $file valid\"; done",
+    "validate:json": "node -e \"const fs=require('fs'),path=require('path');const dir='data';fs.readdirSync(dir).filter(f=>f.endsWith('.json')).forEach(f=>{try{JSON.parse(fs.readFileSync(path.join(dir,f),'utf8'));console.log('OK',f)}catch(e){console.error('FAIL',f,e.message);process.exit(1)}})\"",
     "scripts:install": "cd .github/scripts && npm install",
     "scripts:lint": "cd .github/scripts && npm run lint",
     "scripts:test": "cd .github/scripts && npm test"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "keywords": [
     "cv",
-    "resume", 
+    "resume",
     "ai",
     "github-actions",
     "automation"

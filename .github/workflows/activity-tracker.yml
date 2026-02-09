@@ -4,7 +4,7 @@ name: 📊 GitHub Activity Intelligence Tracker
 # This workflow provides real-time GitHub activity tracking and professional
 # development metrics for dynamic CV enhancement and career analytics.
 #
-# 🔄 **EXECUTION SCHEDULE**: Every 2 hours for continuous activity monitoring
+# 🔄 **EXECUTION SCHEDULE**: Once daily at 6 AM AEST (20:00 UTC)
 # 📈 **ACTIVITY ANALYSIS**: Comprehensive contribution and collaboration tracking
 # 🏆 **PROFESSIONAL METRICS**: Skill development and project impact assessment
 # 📊 **ANALYTICS PIPELINE**: Real-time data processing and trend analysis
@@ -23,11 +23,14 @@ name: 📊 GitHub Activity Intelligence Tracker
 # 4. Activity data compilation and storage
 # 5. Integration with CV enhancement pipeline
 
+concurrency:
+  group: cv-pipeline
+  cancel-in-progress: true
+
 on:
   schedule:
-    # 🕐 Run every 2 hours for real-time activity tracking
-    # More frequent than CV enhancement for granular data collection
-    - cron: '0 */2 * * *'
+    # Run once daily at 6 AM AEST (20:00 UTC previous day)
+    - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
       analysis_depth:

@@ -11,6 +11,9 @@ node_modules/
 # Build outputs
 dist/
 
+# Generated docs
+docs/jsdoc_output/
+
 # IDE
 .vscode/
 .idea/

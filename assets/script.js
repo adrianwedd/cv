@@ -13,6 +13,41 @@
  * - Performance optimized with lazy loading
  */
 
+/**
+ * Sanitize a string for safe insertion into HTML.
+ * Escapes &, <, >, ", and ' to prevent XSS.
+ */
+function sanitizeHTML(str) {
+    if (str == null) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+/**
+ * Validate a URL string. Returns the URL or empty string.
+ * Only allows http, https, and mailto protocols.
+ */
+function sanitizeURL(url) {
+    if (!url) return '';
+    const str = String(url).trim();
+    if (/^mailto:/i.test(str)) {
+        return str;
+    }
+    try {
+        const parsed = new URL(str);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            return parsed.href;
+        }
+    } catch {
+        // invalid URL
+    }
+    return '';
+}
+
 // Configuration
 const CONFIG = {
     DATA_ENDPOINTS: {
@@ -422,37 +457,72 @@ class CVApplication {
 
         const experiences = this.cvData?.experience || this.getDefaultExperience();
         
-        timeline.innerHTML = experiences.map(exp => `
-            <div class="timeline-item">
-                <div class="timeline-marker"></div>
-                <div class="timeline-content">
-                    <div class="timeline-header">
-                        <h3 class="position-title">${exp.position}</h3>
-                        <div class="company-info">
-                            <span class="company-name">${exp.company}</span>
-                            <span class="timeline-period">${exp.period}</span>
-                        </div>
-                    </div>
-                    <div class="timeline-description">
-                        <p>${exp.description}</p>
-                        ${exp.achievements ? `
-                            <ul class="achievement-list">
-                                ${exp.achievements.map(achievement => 
-                                    `<li>${achievement}</li>`
-                                ).join('')}
-                            </ul>
-                        ` : ''}
-                    </div>
-                    ${exp.technologies ? `
-                        <div class="tech-tags">
-                            ${exp.technologies.map(tech => 
-                                `<span class="tech-tag">${tech}</span>`
-                            ).join('')}
-                        </div>
-                    ` : ''}
-                </div>
-            </div>
-        `).join('');
+        // Build experience timeline using safe DOM methods
+        timeline.textContent = '';
+        for (const exp of experiences) {
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+
+            const marker = document.createElement('div');
+            marker.className = 'timeline-marker';
+            item.appendChild(marker);
+
+            const content = document.createElement('div');
+            content.className = 'timeline-content';
+
+            const header = document.createElement('div');
+            header.className = 'timeline-header';
+            const title = document.createElement('h3');
+            title.className = 'position-title';
+            title.textContent = exp.position || '';
+            header.appendChild(title);
+
+            const companyInfo = document.createElement('div');
+            companyInfo.className = 'company-info';
+            const companyName = document.createElement('span');
+            companyName.className = 'company-name';
+            companyName.textContent = exp.company || '';
+            const period = document.createElement('span');
+            period.className = 'timeline-period';
+            period.textContent = exp.period || '';
+            companyInfo.appendChild(companyName);
+            companyInfo.appendChild(period);
+            header.appendChild(companyInfo);
+            content.appendChild(header);
+
+            const desc = document.createElement('div');
+            desc.className = 'timeline-description';
+            const descP = document.createElement('p');
+            descP.textContent = exp.description || '';
+            desc.appendChild(descP);
+
+            if (exp.achievements) {
+                const ul = document.createElement('ul');
+                ul.className = 'achievement-list';
+                for (const achievement of exp.achievements) {
+                    const li = document.createElement('li');
+                    li.textContent = achievement;
+                    ul.appendChild(li);
+                }
+                desc.appendChild(ul);
+            }
+            content.appendChild(desc);
+
+            if (exp.technologies) {
+                const tags = document.createElement('div');
+                tags.className = 'tech-tags';
+                for (const tech of exp.technologies) {
+                    const tag = document.createElement('span');
+                    tag.className = 'tech-tag';
+                    tag.textContent = tech;
+                    tags.appendChild(tag);
+                }
+                content.appendChild(tags);
+            }
+
+            item.appendChild(content);
+            timeline.appendChild(item);
+        }
     }
 
     /**
@@ -464,45 +534,82 @@ class CVApplication {
 
         const projects = this.cvData?.projects || this.getDefaultProjects();
         
-        grid.innerHTML = projects.map(project => `
-            <div class="project-card">
-                <div class="project-header">
-                    <h3 class="project-title">${project.name}</h3>
-                    <div class="project-links">
-                        ${project.github ? `
-                            <a href="${project.github}" target="_blank" rel="noopener" class="project-link">
-                                <span>🔗</span>
-                                <span>GitHub</span>
-                            </a>
-                        ` : ''}
-                        ${project.demo ? `
-                            <a href="${project.demo}" target="_blank" rel="noopener" class="project-link">
-                                <span>🚀</span>
-                                <span>Demo</span>
-                            </a>
-                        ` : ''}
-                    </div>
-                </div>
-                <div class="project-description">
-                    <p>${project.description}</p>
-                </div>
-                <div class="project-tech">
-                    ${project.technologies.map(tech => 
-                        `<span class="tech-badge">${tech}</span>`
-                    ).join('')}
-                </div>
-                ${project.metrics ? `
-                    <div class="project-metrics">
-                        ${project.metrics.map(metric => 
-                            `<div class="metric-item">
-                                <span class="metric-value">${metric.value}</span>
-                                <span class="metric-label">${metric.label}</span>
-                            </div>`
-                        ).join('')}
-                    </div>
-                ` : ''}
-            </div>
-        `).join('');
+        // Build projects grid using safe DOM methods
+        grid.textContent = '';
+        for (const project of projects) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'project-header';
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'project-title';
+            titleEl.textContent = project.name || '';
+            headerDiv.appendChild(titleEl);
+
+            const linksDiv = document.createElement('div');
+            linksDiv.className = 'project-links';
+            if (project.github && sanitizeURL(project.github)) {
+                const ghLink = document.createElement('a');
+                ghLink.href = sanitizeURL(project.github);
+                ghLink.target = '_blank';
+                ghLink.rel = 'noopener noreferrer';
+                ghLink.className = 'project-link';
+                ghLink.textContent = 'GitHub';
+                linksDiv.appendChild(ghLink);
+            }
+            if (project.demo && sanitizeURL(project.demo)) {
+                const demoLink = document.createElement('a');
+                demoLink.href = sanitizeURL(project.demo);
+                demoLink.target = '_blank';
+                demoLink.rel = 'noopener noreferrer';
+                demoLink.className = 'project-link';
+                demoLink.textContent = 'Demo';
+                linksDiv.appendChild(demoLink);
+            }
+            headerDiv.appendChild(linksDiv);
+            card.appendChild(headerDiv);
+
+            const descDiv = document.createElement('div');
+            descDiv.className = 'project-description';
+            const descP = document.createElement('p');
+            descP.textContent = project.description || '';
+            descDiv.appendChild(descP);
+            card.appendChild(descDiv);
+
+            if (project.technologies) {
+                const techDiv = document.createElement('div');
+                techDiv.className = 'project-tech';
+                for (const tech of project.technologies) {
+                    const badge = document.createElement('span');
+                    badge.className = 'tech-badge';
+                    badge.textContent = tech;
+                    techDiv.appendChild(badge);
+                }
+                card.appendChild(techDiv);
+            }
+
+            if (project.metrics) {
+                const metricsDiv = document.createElement('div');
+                metricsDiv.className = 'project-metrics';
+                for (const metric of project.metrics) {
+                    const metricItem = document.createElement('div');
+                    metricItem.className = 'metric-item';
+                    const val = document.createElement('span');
+                    val.className = 'metric-value';
+                    val.textContent = metric.value || '';
+                    const label = document.createElement('span');
+                    label.className = 'metric-label';
+                    label.textContent = metric.label || '';
+                    metricItem.appendChild(val);
+                    metricItem.appendChild(label);
+                    metricsDiv.appendChild(metricItem);
+                }
+                card.appendChild(metricsDiv);
+            }
+
+            grid.appendChild(card);
+        }
     }
 
     /**
@@ -517,37 +624,68 @@ class CVApplication {
 
         const skillCategories = this.groupSkillsByCategory(skills);
         
-        container.innerHTML = Object.entries(skillCategories).map(([category, categorySkills]) => `
-            <div class="skill-category">
-                <h3 class="skill-category-title">${category}</h3>
-                <div class="skill-items">
-                    ${categorySkills.map(skill => {
-                        const proficiency = skillProficiency[skill.name] || {};
-                        const level = proficiency.proficiency_score || skill.level || 70;
-                        
-                        return `
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">${skill.name}</span>
-                                    <span class="skill-level">${Math.round(level)}%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: ${level}%"></div>
-                                </div>
-                                ${proficiency.proficiency_level ? `
-                                    <div class="skill-meta">
-                                        <span class="proficiency-level">${proficiency.proficiency_level}</span>
-                                        ${proficiency.metrics?.repository_count ? `
-                                            <span class="project-count">${proficiency.metrics.repository_count} projects</span>
-                                        ` : ''}
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-            </div>
-        `).join('');
+        // Build skills container using safe DOM methods
+        container.textContent = '';
+        for (const [category, categorySkills] of Object.entries(skillCategories)) {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'skill-category';
+            const catTitle = document.createElement('h3');
+            catTitle.className = 'skill-category-title';
+            catTitle.textContent = category;
+            catDiv.appendChild(catTitle);
+
+            const itemsDiv = document.createElement('div');
+            itemsDiv.className = 'skill-items';
+
+            for (const skill of categorySkills) {
+                const proficiency = skillProficiency[skill.name] || {};
+                const level = Math.min(100, Math.max(0, proficiency.proficiency_score || skill.level || 70));
+
+                const skillItem = document.createElement('div');
+                skillItem.className = 'skill-item';
+
+                const skillHeader = document.createElement('div');
+                skillHeader.className = 'skill-header';
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'skill-name';
+                nameSpan.textContent = skill.name || '';
+                const levelSpan = document.createElement('span');
+                levelSpan.className = 'skill-level';
+                levelSpan.textContent = `${Math.round(level)}%`;
+                skillHeader.appendChild(nameSpan);
+                skillHeader.appendChild(levelSpan);
+                skillItem.appendChild(skillHeader);
+
+                const bar = document.createElement('div');
+                bar.className = 'skill-bar';
+                const progress = document.createElement('div');
+                progress.className = 'skill-progress';
+                progress.style.width = `${level}%`;
+                bar.appendChild(progress);
+                skillItem.appendChild(bar);
+
+                if (proficiency.proficiency_level) {
+                    const meta = document.createElement('div');
+                    meta.className = 'skill-meta';
+                    const profLevel = document.createElement('span');
+                    profLevel.className = 'proficiency-level';
+                    profLevel.textContent = proficiency.proficiency_level;
+                    meta.appendChild(profLevel);
+                    if (proficiency.metrics?.repository_count) {
+                        const projCount = document.createElement('span');
+                        projCount.className = 'project-count';
+                        projCount.textContent = `${proficiency.metrics.repository_count} projects`;
+                        meta.appendChild(projCount);
+                    }
+                    skillItem.appendChild(meta);
+                }
+
+                itemsDiv.appendChild(skillItem);
+            }
+
+            catDiv.appendChild(itemsDiv);
+            container.appendChild(catDiv);
+        }
     }
 
     /**
@@ -559,23 +697,50 @@ class CVApplication {
 
         const achievements = this.cvData?.achievements || this.getDefaultAchievements();
         
-        grid.innerHTML = achievements.map(achievement => `
-            <div class="achievement-card">
-                <div class="achievement-icon">${achievement.icon}</div>
-                <div class="achievement-content">
-                    <h3 class="achievement-title">${achievement.title}</h3>
-                    <p class="achievement-description">${achievement.description}</p>
-                    ${achievement.date ? `
-                        <div class="achievement-date">${achievement.date}</div>
-                    ` : ''}
-                    ${achievement.link ? `
-                        <a href="${achievement.link}" target="_blank" rel="noopener" class="achievement-link">
-                            View Details →
-                        </a>
-                    ` : ''}
-                </div>
-            </div>
-        `).join('');
+        // Build achievements grid using safe DOM methods
+        grid.textContent = '';
+        for (const achievement of achievements) {
+            const card = document.createElement('div');
+            card.className = 'achievement-card';
+
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'achievement-icon';
+            iconDiv.textContent = achievement.icon || '';
+            card.appendChild(iconDiv);
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'achievement-content';
+
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'achievement-title';
+            titleEl.textContent = achievement.title || '';
+            contentDiv.appendChild(titleEl);
+
+            const descEl = document.createElement('p');
+            descEl.className = 'achievement-description';
+            descEl.textContent = achievement.description || '';
+            contentDiv.appendChild(descEl);
+
+            if (achievement.date) {
+                const dateDiv = document.createElement('div');
+                dateDiv.className = 'achievement-date';
+                dateDiv.textContent = achievement.date;
+                contentDiv.appendChild(dateDiv);
+            }
+
+            if (achievement.link && sanitizeURL(achievement.link)) {
+                const link = document.createElement('a');
+                link.href = sanitizeURL(achievement.link);
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = 'achievement-link';
+                link.textContent = 'View Details →';
+                contentDiv.appendChild(link);
+            }
+
+            card.appendChild(contentDiv);
+            grid.appendChild(card);
+        }
     }
 
     /**
@@ -729,15 +894,22 @@ class CVApplication {
         // Remove loading screen and show error state
         const loadingScreen = document.getElementById('loading-screen');
         if (loadingScreen) {
-            loadingScreen.innerHTML = `
-                <div class="loading-content">
-                    <div style="font-size: 2rem; margin-bottom: 1rem;">⚠️</div>
-                    <div class="loading-text">Loading Error</div>
-                    <div style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
-                        Please refresh the page to try again
-                    </div>
-                </div>
-            `;
+            loadingScreen.textContent = '';
+            const errorContent = document.createElement('div');
+            errorContent.className = 'loading-content';
+            const icon = document.createElement('div');
+            icon.style.cssText = 'font-size: 2rem; margin-bottom: 1rem;';
+            icon.textContent = '⚠️';
+            const text = document.createElement('div');
+            text.className = 'loading-text';
+            text.textContent = 'Loading Error';
+            const hint = document.createElement('div');
+            hint.style.cssText = 'margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;';
+            hint.textContent = 'Please refresh the page to try again';
+            errorContent.appendChild(icon);
+            errorContent.appendChild(text);
+            errorContent.appendChild(hint);
+            loadingScreen.appendChild(errorContent);
         }
     }
 
@@ -787,7 +959,7 @@ class CVApplication {
     // Default data providers
     getDefaultCVData() {
         return {
-            professional_summary: "AI Engineer and Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions.",
+            professional_summary: "Systems Analyst and Technology Professional specializing in systems integration, cybersecurity, and applied AI in the public sector.",
             experience: this.getDefaultExperience(),
             projects: this.getDefaultProjects(),
             skills: this.getDefaultSkills(),
@@ -798,16 +970,16 @@ class CVApplication {
     getDefaultExperience() {
         return [
             {
-                position: "AI Engineer & Software Architect",
-                company: "Independent Consultant",
-                period: "2020 - Present",
-                description: "Specializing in autonomous systems, machine learning, and innovative AI solutions for complex technical challenges.",
+                position: "Systems Analyst / Acting Senior Change Analyst",
+                company: "Homes Tasmania",
+                period: "2018 - Present",
+                description: "Leading systems integration and digital transformation for Tasmania's public housing sector.",
                 achievements: [
-                    "Developed advanced AI systems for autonomous decision-making",
-                    "Architected scalable software solutions for real-time processing",
-                    "Led research initiatives in human-AI collaboration"
+                    "Enhanced Housing Management System integration using RESTful APIs and SFTP",
+                    "Led cybersecurity initiatives improving system security",
+                    "Pioneered generative AI adoption for data analysis"
                 ],
-                technologies: ["Python", "TensorFlow", "PyTorch", "JavaScript", "Docker", "Kubernetes"]
+                technologies: ["Python", "PowerShell", "JavaScript", "RESTful APIs", "Azure"]
             }
         ];
     }
@@ -815,63 +987,54 @@ class CVApplication {
     getDefaultProjects() {
         return [
             {
-                name: "TicketSmith",
-                description: "Ecosystem-aware AI automation platform for Jira & Confluence with intelligent workflow optimization.",
-                technologies: ["LangChain", "React", "FastAPI", "Docker"],
-                github: "https://github.com/adrianwedd/ticketsmith",
-                metrics: [
-                    { value: "95%", label: "Automation Rate" },
-                    { value: "40%", label: "Time Saved" }
-                ]
+                name: "ADHDo",
+                description: "AI safety system with Claude integration, confidence gating, and multi-tool orchestration.",
+                technologies: ["Python", "Claude API", "Safety Systems"],
+                github: "https://github.com/adrianwedd/ADHDo"
             },
             {
                 name: "Agentic Research Engine",
-                description: "Next-generation multi-agent research system with genuine learning and dynamic collaboration.",
-                technologies: ["Python", "AI/ML", "Multi-Agent Systems"],
-                metrics: [
-                    { value: "10x", label: "Research Speed" },
-                    { value: "85%", label: "Accuracy Rate" }
-                ]
+                description: "Multi-agent evaluation framework with LangGraph orchestration and self-correction loops.",
+                technologies: ["Python", "LangGraph", "Multi-Agent Systems"],
+                github: "https://github.com/adrianwedd/agentic-research-engine"
             }
         ];
     }
 
     getDefaultSkills() {
         return [
-            { name: "Python", category: "Programming Languages", level: 95 },
-            { name: "JavaScript", category: "Programming Languages", level: 90 },
-            { name: "TypeScript", category: "Programming Languages", level: 85 },
-            { name: "Machine Learning", category: "AI & Data Science", level: 90 },
-            { name: "Deep Learning", category: "AI & Data Science", level: 85 },
-            { name: "TensorFlow", category: "AI & Data Science", level: 80 },
-            { name: "React", category: "Frontend", level: 85 },
-            { name: "Node.js", category: "Backend", level: 90 },
-            { name: "Docker", category: "DevOps", level: 85 },
-            { name: "Kubernetes", category: "DevOps", level: 75 },
-            { name: "AWS", category: "Cloud Platforms", level: 80 },
-            { name: "System Architecture", category: "Software Design", level: 95 }
+            { name: "Python", category: "Programming Languages", level: 80 },
+            { name: "JavaScript", category: "Programming Languages", level: 75 },
+            { name: "TypeScript", category: "Programming Languages", level: 65 },
+            { name: "LLM Integration", category: "AI & Automation", level: 80 },
+            { name: "AI Safety", category: "AI & Automation", level: 75 },
+            { name: "Systems Integration", category: "Infrastructure", level: 85 },
+            { name: "Cybersecurity", category: "Infrastructure", level: 75 },
+            { name: "Docker", category: "DevOps", level: 70 },
+            { name: "GitHub Actions", category: "DevOps", level: 75 },
+            { name: "React", category: "Frontend", level: 65 }
         ];
     }
 
     getDefaultAchievements() {
         return [
             {
-                icon: "🏆",
-                title: "AI Innovation Excellence",
-                description: "Recognition for groundbreaking work in autonomous AI systems and human-machine collaboration.",
-                date: "2024"
+                icon: "🏛️",
+                title: "Systems Integration Excellence",
+                description: "Enhanced Housing Management System integration for Tasmania's public housing sector.",
+                date: "2018-2024"
             },
             {
-                icon: "🚀",
-                title: "Open Source Contributor",
-                description: "Active contribution to various open-source projects in AI, automation, and developer tools.",
-                date: "2020-2024"
+                icon: "🤖",
+                title: "AI Innovation Pioneer",
+                description: "First to implement generative AI for data analysis in Tasmania's public housing sector.",
+                date: "2023-2024"
             },
             {
-                icon: "🎯",
-                title: "Technical Leadership",
-                description: "Successfully led multiple high-impact technical projects from conception to deployment.",
-                date: "2021-2024"
+                icon: "🌿",
+                title: "Environmental Campaign Technology",
+                description: "Managed IT infrastructure for The Wilderness Society and coordinated Greenpeace campaigns.",
+                date: "2010-2015"
             }
         ];
     }

@@ -23,7 +23,11 @@ module.exports = [
             // Disable rules that are too strict for scripts
             'no-console': 'off',
             'no-process-exit': 'off',
-            'no-unused-vars': 'warn',
+            'no-unused-vars': ['warn', {
+                argsIgnorePattern: '^_',
+                varsIgnorePattern: '^_',
+                caughtErrors: 'none'
+            }],
             'no-undef': 'warn',
             
             // Less strict formatting for existing code  

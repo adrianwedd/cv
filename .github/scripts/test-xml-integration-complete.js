@@ -95,7 +95,7 @@ async function testXMLIntegration() {
             }
         ];
         
-        testCases.forEach((testCase, index) => {
+        testCases.forEach((testCase, _index) => {
             const passed = testCase.test(testCase.input);
             console.log(`${passed ? '✅' : '❌'} ${testCase.name}: ${passed ? 'PASSED' : 'FAILED'}`);
         });

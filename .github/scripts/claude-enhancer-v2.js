@@ -21,7 +21,7 @@
  * @version 2.0.0
  */
 
-const path = require('path');
+const _path = require('path');
 const { EnhancementOrchestrator } = require('./enhancer-modules/enhancement-orchestrator');
 
 // Configuration from environment variables and defaults
@@ -170,7 +170,7 @@ process.on('uncaughtException', (error) => {
     process.exit(1);
 });
 
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', (reason, _promise) => {
     console.error('💥 Unhandled promise rejection:', reason);
     process.exit(1);
 });

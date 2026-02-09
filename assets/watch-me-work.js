@@ -159,12 +159,13 @@ class WatchMeWorkDashboard {
 
         CONFIG.REPOSITORIES.forEach(repo => {
             const label = document.createElement('label');
-            label.innerHTML = `
-                <input type="checkbox" data-repo="${repo}" checked> 
-                ${repo}
-            `;
-            
-            const checkbox = label.querySelector('input');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.dataset.repo = repo;
+            checkbox.checked = true;
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(' ' + repo));
+
             checkbox.addEventListener('change', (e) => {
                 if (e.target.checked) {
                     this.filters.repositories = this.filters.repositories.filter(r => r !== repo);
@@ -173,7 +174,7 @@ class WatchMeWorkDashboard {
                 }
                 this.applyFilters();
             });
-            
+
             repoFilters.appendChild(label);
         });
     }
@@ -447,53 +448,69 @@ class WatchMeWorkDashboard {
         if (!container) return;
 
         const filteredActivities = this.getFilteredActivities();
-        
+        container.textContent = '';
+
         if (filteredActivities.length === 0) {
-            container.innerHTML = `
-                <div class="timeline-empty">
-                    <div class="empty-icon">📭</div>
-                    <p>No recent activity found</p>
-                    <p class="empty-subtitle">Try adjusting your filters or time range</p>
-                </div>
-            `;
+            const empty = document.createElement('div');
+            empty.className = 'timeline-empty';
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'empty-icon';
+            iconDiv.textContent = '\u{1F4ED}';
+            const p1 = document.createElement('p');
+            p1.textContent = 'No recent activity found';
+            const p2 = document.createElement('p');
+            p2.className = 'empty-subtitle';
+            p2.textContent = 'Try adjusting your filters or time range';
+            empty.appendChild(iconDiv);
+            empty.appendChild(p1);
+            empty.appendChild(p2);
+            container.appendChild(empty);
             return;
         }
 
-        const timelineHTML = filteredActivities.map(activity => {
+        filteredActivities.forEach(activity => {
             const icon = this.getActivityIcon(activity.type);
             const color = CONFIG.COLORS[activity.type] || '#6b7280';
             const timeAgo = this.getTimeAgo(activity.created_at);
-            
-            return `
-                <div class="timeline-item" data-activity-id="${activity.id}">
-                    <div class="timeline-marker" style="background-color: ${color}">
-                        ${icon}
-                    </div>
-                    <div class="timeline-content">
-                        <div class="timeline-header">
-                            <span class="activity-type">${this.formatActivityType(activity.type)}</span>
-                            <span class="activity-repo">${activity.repo}</span>
-                            <span class="activity-time">${timeAgo}</span>
-                        </div>
-                        <div class="timeline-description">
-                            ${this.formatActivityDescription(activity)}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
 
-        container.innerHTML = timelineHTML;
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.dataset.activityId = activity.id;
 
-        // Add click handlers for timeline items
-        container.querySelectorAll('.timeline-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const activityId = item.dataset.activityId;
-                const activity = filteredActivities.find(a => a.id === activityId);
-                if (activity) {
-                    this.showActivityDetails(activity);
-                }
-            });
+            const marker = document.createElement('div');
+            marker.className = 'timeline-marker';
+            marker.style.backgroundColor = color;
+            marker.textContent = icon;
+
+            const content = document.createElement('div');
+            content.className = 'timeline-content';
+
+            const header = document.createElement('div');
+            header.className = 'timeline-header';
+            const typeSpan = document.createElement('span');
+            typeSpan.className = 'activity-type';
+            typeSpan.textContent = this.formatActivityType(activity.type);
+            const repoSpan = document.createElement('span');
+            repoSpan.className = 'activity-repo';
+            repoSpan.textContent = activity.repo;
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'activity-time';
+            timeSpan.textContent = timeAgo;
+            header.appendChild(typeSpan);
+            header.appendChild(repoSpan);
+            header.appendChild(timeSpan);
+
+            const desc = document.createElement('div');
+            desc.className = 'timeline-description';
+            desc.textContent = this.formatActivityDescription(activity);
+
+            content.appendChild(header);
+            content.appendChild(desc);
+            item.appendChild(marker);
+            item.appendChild(content);
+
+            item.addEventListener('click', () => this.showActivityDetails(activity));
+            container.appendChild(item);
         });
     }
 
@@ -507,53 +524,83 @@ class WatchMeWorkDashboard {
         const repoArray = Array.from(this.repositories.values())
             .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
-        const gridHTML = repoArray.map(repo => {
+        grid.textContent = '';
+
+        repoArray.forEach(repo => {
             const lastUpdate = this.getTimeAgo(repo.updated_at);
             const recentActivity = this.getRepoRecentActivity(repo.name);
-            
-            return `
-                <div class="repo-card" data-repo="${repo.name}">
-                    <div class="repo-header">
-                        <h3 class="repo-name">
-                            <a href="${repo.html_url}" target="_blank">${repo.name}</a>
-                        </h3>
-                        <div class="repo-stats">
-                            <span class="repo-stat">⭐ ${repo.stars}</span>
-                            <span class="repo-stat">🍴 ${repo.forks}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="repo-description">
-                        ${repo.description || 'No description available'}
-                    </div>
-                    
-                    <div class="repo-meta">
-                        ${repo.language ? `<span class="repo-language">${repo.language}</span>` : ''}
-                        <span class="repo-updated">Updated ${lastUpdate}</span>
-                    </div>
-                    
-                    <div class="repo-activity">
-                        <div class="activity-summary">
-                            ${recentActivity.commits} commits, ${recentActivity.issues} issues
-                        </div>
-                        <div class="activity-indicator ${recentActivity.total > 0 ? 'active' : 'inactive'}">
-                            ${recentActivity.total > 0 ? '🟢' : '⚪'}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
 
-        grid.innerHTML = gridHTML;
+            const card = document.createElement('div');
+            card.className = 'repo-card';
+            card.dataset.repo = repo.name;
 
-        // Add click handlers for repo cards
-        grid.querySelectorAll('.repo-card').forEach(card => {
+            // Header
+            const header = document.createElement('div');
+            header.className = 'repo-header';
+            const h3 = document.createElement('h3');
+            h3.className = 'repo-name';
+            const link = document.createElement('a');
+            link.href = repo.html_url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = repo.name;
+            h3.appendChild(link);
+            const stats = document.createElement('div');
+            stats.className = 'repo-stats';
+            const starStat = document.createElement('span');
+            starStat.className = 'repo-stat';
+            starStat.textContent = '\u2B50 ' + repo.stars;
+            const forkStat = document.createElement('span');
+            forkStat.className = 'repo-stat';
+            forkStat.textContent = '\u{1F374} ' + repo.forks;
+            stats.appendChild(starStat);
+            stats.appendChild(forkStat);
+            header.appendChild(h3);
+            header.appendChild(stats);
+
+            // Description
+            const descDiv = document.createElement('div');
+            descDiv.className = 'repo-description';
+            descDiv.textContent = repo.description || 'No description available';
+
+            // Meta
+            const meta = document.createElement('div');
+            meta.className = 'repo-meta';
+            if (repo.language) {
+                const lang = document.createElement('span');
+                lang.className = 'repo-language';
+                lang.textContent = repo.language;
+                meta.appendChild(lang);
+            }
+            const updated = document.createElement('span');
+            updated.className = 'repo-updated';
+            updated.textContent = 'Updated ' + lastUpdate;
+            meta.appendChild(updated);
+
+            // Activity
+            const activityDiv = document.createElement('div');
+            activityDiv.className = 'repo-activity';
+            const summary = document.createElement('div');
+            summary.className = 'activity-summary';
+            summary.textContent = recentActivity.commits + ' commits, ' + recentActivity.issues + ' issues';
+            const indicator = document.createElement('div');
+            indicator.className = 'activity-indicator ' + (recentActivity.total > 0 ? 'active' : 'inactive');
+            indicator.textContent = recentActivity.total > 0 ? '\u{1F7E2}' : '\u26AA';
+            activityDiv.appendChild(summary);
+            activityDiv.appendChild(indicator);
+
+            card.appendChild(header);
+            card.appendChild(descDiv);
+            card.appendChild(meta);
+            card.appendChild(activityDiv);
+
             card.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'A') {
-                    const repoName = card.dataset.repo;
-                    this.showRepositoryDetails(repoName);
+                    this.showRepositoryDetails(repo.name);
                 }
             });
+
+            grid.appendChild(card);
         });
     }
 
@@ -644,10 +691,10 @@ class WatchMeWorkDashboard {
         const pauseBtn = document.getElementById('pause-btn');
         
         if (this.isPaused) {
-            pauseBtn.innerHTML = '▶️ Resume';
+            pauseBtn.textContent = '\u25B6\uFE0F Resume';
             this.updateLiveStatus('paused');
         } else {
-            pauseBtn.innerHTML = '⏸️ Pause';
+            pauseBtn.textContent = '\u23F8\uFE0F Pause';
             this.updateLiveStatus('live');
         }
     }
@@ -719,32 +766,43 @@ class WatchMeWorkDashboard {
         const modal = document.getElementById('activity-modal');
         const title = document.getElementById('modal-title');
         const body = document.getElementById('modal-body');
-        
+
         if (!modal || !title || !body) return;
-        
-        title.textContent = `${this.formatActivityType(activity.type)} - ${activity.repo}`;
-        
-        body.innerHTML = `
-            <div class="activity-details">
-                <div class="detail-row">
-                    <strong>Type:</strong> ${this.formatActivityType(activity.type)}
-                </div>
-                <div class="detail-row">
-                    <strong>Repository:</strong> ${activity.repo}
-                </div>
-                <div class="detail-row">
-                    <strong>Time:</strong> ${new Date(activity.created_at).toLocaleString()}
-                </div>
-                <div class="detail-row">
-                    <strong>Actor:</strong> ${activity.actor?.display_login || 'Unknown'}
-                </div>
-                <div class="detail-content">
-                    <strong>Details:</strong>
-                    <pre>${JSON.stringify(activity.payload, null, 2)}</pre>
-                </div>
-            </div>
-        `;
-        
+
+        title.textContent = this.formatActivityType(activity.type) + ' - ' + activity.repo;
+        body.textContent = '';
+
+        const details = document.createElement('div');
+        details.className = 'activity-details';
+
+        const rows = [
+            ['Type', this.formatActivityType(activity.type)],
+            ['Repository', activity.repo],
+            ['Time', new Date(activity.created_at).toLocaleString()],
+            ['Actor', activity.actor?.display_login || 'Unknown']
+        ];
+
+        rows.forEach(([label, value]) => {
+            const row = document.createElement('div');
+            row.className = 'detail-row';
+            const strong = document.createElement('strong');
+            strong.textContent = label + ':';
+            row.appendChild(strong);
+            row.appendChild(document.createTextNode(' ' + value));
+            details.appendChild(row);
+        });
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'detail-content';
+        const detailsLabel = document.createElement('strong');
+        detailsLabel.textContent = 'Details:';
+        const pre = document.createElement('pre');
+        pre.textContent = JSON.stringify(activity.payload, null, 2);
+        contentDiv.appendChild(detailsLabel);
+        contentDiv.appendChild(pre);
+        details.appendChild(contentDiv);
+
+        body.appendChild(details);
         modal.classList.add('open');
     }
 
@@ -756,7 +814,7 @@ class WatchMeWorkDashboard {
         if (!repo) return;
         
         // For now, just open the repository in a new tab
-        window.open(repo.html_url, '_blank');
+        window.open(repo.html_url, '_blank', 'noopener,noreferrer');
     }
 
     /**

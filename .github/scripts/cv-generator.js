@@ -841,7 +841,7 @@ Disallow: /data/
 
         // Ensure dark/light theme is set for consistency (e.g., light theme for print)
         await page.evaluate(() => {
-            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.setAttribute('data-theme', 'light'); // eslint-disable-line no-undef
         });
 
         const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.pdf');

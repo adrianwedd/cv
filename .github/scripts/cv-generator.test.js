@@ -1,8 +1,7 @@
-const { test, suite, beforeEach, afterEach } = require('node:test');
+const { test, suite } = require('node:test');
 const assert = require('assert');
-const { CVGenerator, CONFIG } = require('./cv-generator.js');
+const { CVGenerator } = require('./cv-generator.js');
 const fs = require('fs').promises;
-const path = require('path');
 
 suite('CVGenerator', () => {
     let generator;

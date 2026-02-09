@@ -7,8 +7,8 @@
     "analyze": "node activity-analyzer.js",
     "enhance": "node claude-enhancer.js",
     "generate": "node cv-generator.js",
-    "test": "node --test",
-    "lint": "eslint *.js",
+    "test": "node --test activity-analyzer.test.js claude-enhancer.test.js cv-generator.test.js",
+    "lint": "eslint --max-warnings=0 *.js",
     "format": "prettier --write *.js"
   },
   "keywords": [

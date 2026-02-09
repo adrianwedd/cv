@@ -630,7 +630,7 @@ class ActivityAnalyzer {
     /**
      * Get recent commits in the lookback period
      */
-    async getRecentCommits(sinceDate, authorEmail) {
+    async getRecentCommits(sinceDate, _authorEmail) {
         try {
             const { stdout } = await execAsync(`git log --since="${sinceDate}" --pretty=format:"%H|%an|%ae|%ad|%s" --date=iso`);
             
