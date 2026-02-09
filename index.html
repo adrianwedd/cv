@@ -238,11 +238,8 @@
     <!-- Scripts -->
     <script src="assets/curvature-field.js"></script>
     <script>
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        // Deterministic seed: changes daily, stable within a session
-        var daysSinceEpoch = Math.floor(Date.now() / 86400000);
-        initCurvatureField({ canvasId: 'curvature-bg', seed: daysSinceEpoch, masses: 1 });
-    }
+    var daysSinceEpoch = Math.floor(Date.now() / 86400000);
+    initCurvatureField({ canvasId: 'curvature-bg', seed: daysSinceEpoch, masses: 1 });
     </script>
     <script src="assets/script.js"></script>
 
