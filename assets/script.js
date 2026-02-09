@@ -1,16 +1,8 @@
 /**
  * Adrian Wedd CV - Interactive JavaScript Application
  *
- * Modern, responsive CV website with dynamic content loading, GitHub integration,
- * and intelligent user experience features.
- *
- * Features:
- * - Dynamic content loading from JSON data files
- * - Smooth section navigation with URL hash management
- * - Dark/light theme switching with persistence
- * - Live GitHub activity statistics
- * - Progressive enhancement and accessibility
- * - Performance optimized with lazy loading
+ * Minimal, professional CV website with dynamic content loading,
+ * GitHub integration, and dark-first theme.
  */
 
 /**
@@ -67,11 +59,9 @@ const CONFIG = {
  */
 class CVApplication {
     constructor() {
-        this.currentSection = 'about';
         this.cache = new Map();
-        this.themePreference = localStorage.getItem(CONFIG.THEME_KEY) || 'light';
-        this.isLoading = true;
-        this.loadingStartTime = Date.now();
+        // Dark-first: default to dark when no preference stored
+        this.themePreference = localStorage.getItem(CONFIG.THEME_KEY) || 'dark';
 
         this.init();
     }
@@ -80,35 +70,26 @@ class CVApplication {
      * Initialize the application
      */
     async init() {
-        console.log('🚀 Initializing CV Application...');
-
         try {
             // Set initial theme
             this.applyTheme(this.themePreference);
 
             // Initialize core systems
             this.setupEventListeners();
-            this.setupNavigationSystem();
             this.setupThemeToggle();
 
             // Load data concurrently
             await this.loadApplicationData();
 
             // Initialize UI components
-            this.initializeLiveStats();
             this.initializeContentSections();
 
-            // Handle initial route
-            this.handleInitialRoute();
+            // Update footer timestamp
+            this.updateFooterTimestamp();
 
-            // Complete loading sequence
-            this.completeLoadingSequence();
-
-            console.log('✅ CV Application initialized successfully');
 
         } catch (error) {
-            console.error('❌ Application initialization failed:', error);
-            this.handleInitializationError(error);
+            console.error('Application initialization failed:', error);
         }
     }
 
@@ -116,38 +97,11 @@ class CVApplication {
      * Setup event listeners for user interactions
      */
     setupEventListeners() {
-        // Navigation click handling
-        document.addEventListener('click', (e) => {
-            const navItem = e.target.closest('.nav-item');
-            if (navItem) {
-                const section = navItem.dataset.section;
-                if (section) {
-                    e.preventDefault();
-                    this.navigateToSection(section);
-                }
-            }
-        });
-
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
-                // Enhance keyboard navigation visibility
                 document.body.classList.add('keyboard-navigation');
             }
-        });
-
-        // Hash change for browser navigation
-        window.addEventListener('hashchange', () => {
-            this.handleHashChange();
-        });
-
-        // Window resize handling
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                this.handleWindowResize();
-            }, 150);
         });
 
         // Visibility change for tab switching
@@ -155,21 +109,6 @@ class CVApplication {
             if (!document.hidden) {
                 this.refreshLiveData();
             }
-        });
-    }
-
-    /**
-     * Setup navigation system
-     */
-    setupNavigationSystem() {
-        const navItems = document.querySelectorAll('.nav-item');
-
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = item.dataset.section;
-                this.navigateToSection(section);
-            });
         });
     }
 
@@ -187,7 +126,7 @@ class CVApplication {
 
             // Update icon based on current theme
             if (themeIcon) {
-                themeIcon.textContent = this.themePreference === 'dark' ? '☀️' : '🌙';
+                themeIcon.textContent = this.themePreference === 'dark' ? 'sun' : 'moon';
             }
         }
     }
@@ -196,8 +135,6 @@ class CVApplication {
      * Load application data from various sources
      */
     async loadApplicationData() {
-        console.log('📊 Loading application data...');
-
         const dataPromises = [
             this.loadCVData(),
             this.loadActivityData(),
@@ -213,10 +150,8 @@ class CVApplication {
             this.aiEnhancements = aiData.status === 'fulfilled' ? aiData.value : {};
             this.githubStats = githubStats.status === 'fulfilled' ? githubStats.value : {};
 
-            console.log('✅ Application data loaded successfully');
-
         } catch (error) {
-            console.warn('⚠️ Some data failed to load:', error);
+            console.warn('Some data failed to load:', error);
         }
     }
 
@@ -231,7 +166,7 @@ class CVApplication {
             }
             return await response.json();
         } catch (error) {
-            console.warn('⚠️ CV data not available, using defaults');
+            console.warn('CV data not available, using defaults');
             return this.getDefaultCVData();
         }
     }
@@ -247,63 +182,8 @@ class CVApplication {
             }
             return await response.json();
         } catch (error) {
-            console.warn('⚠️ Activity data not available');
+            console.warn('Activity data not available');
             return {};
-        }
-    }
-
-    /**
-     * Load AI credibility score from validation report
-     */
-    async loadCredibilityScore() {
-        try {
-            const response = await fetch('data/latest-validation-report.json');
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-            const validationData = await response.json();
-            return validationData.overall_confidence || 0;
-        } catch (error) {
-            console.warn('⚠️ Credibility score not available');
-            return 0;
-        }
-    }
-
-    /**
-     * Get CSS class for credibility score display
-     */
-    getCredibilityClass(score) {
-        if (score >= 90) return 'credibility-excellent';
-        if (score >= 70) return 'credibility-good';
-        if (score >= 50) return 'credibility-fair';
-        return 'credibility-poor';
-    }
-
-    /**
-     * Load language count from detailed activity data
-     */
-    async loadLanguageCount() {
-        try {
-            // Get the latest activity file reference from activity summary
-            const latestActivityFile = this.activityData?.data_files?.latest_activity;
-            if (!latestActivityFile) {
-                throw new Error('No activity file reference found');
-            }
-
-            // Fetch the detailed activity data
-            const response = await fetch(`data/activity/${latestActivityFile}`);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-            }
-
-            const activityData = await response.json();
-            // Fixed: correct path to languages array
-            const languages = activityData?.repositories?.summary?.languages || [];
-
-            return languages.length;
-        } catch (error) {
-            console.warn('⚠️ Could not load language count:', error.message);
-            return 7; // Fallback based on typical data
         }
     }
 
@@ -318,7 +198,7 @@ class CVApplication {
             }
             return await response.json();
         } catch (error) {
-            console.warn('⚠️ AI enhancements not available');
+            console.warn('AI enhancements not available');
             return {};
         }
     }
@@ -334,77 +214,18 @@ class CVApplication {
             }
             return await response.json();
         } catch (error) {
-            console.warn('⚠️ GitHub stats not available');
+            console.warn('GitHub stats not available');
             return {};
         }
     }
 
     /**
-     * Initialize live statistics display
+     * Update footer timestamp
      */
-    initializeLiveStats() {
-        this.updateLiveStats();
-
-        // Refresh stats periodically
-        setInterval(() => {
-            this.refreshLiveData();
-        }, CONFIG.CACHE_DURATION);
-    }
-
-    /**
-     * Update live statistics in the header
-     */
-    updateLiveStats() {
-        const elements = {
-            commitsCount: document.getElementById('commits-count'),
-            activeDays: document.getElementById('active-days'),
-            languagesCount: document.getElementById('languages-count'),
-            lastUpdated: document.getElementById('last-updated'),
-            credibilityScore: document.getElementById('credibility-score')
-        };
-
-        // Update commits count
-        if (elements.commitsCount) {
-            const commits = this.activityData?.summary?.total_commits || 0;
-            elements.commitsCount.textContent = this.formatNumber(commits);
-        }
-
-        // Update active days count
-        if (elements.activeDays) {
-            const activeDays = this.activityData?.summary?.active_days || 0;
-            elements.activeDays.textContent = this.formatNumber(activeDays);
-        }
-
-        // Update languages count - load from detailed activity data
-        if (elements.languagesCount) {
-            this.loadLanguageCount().then(count => {
-                elements.languagesCount.textContent = this.formatNumber(count);
-            }).catch(() => {
-                elements.languagesCount.textContent = "7"; // Fallback based on typical activity data
-            });
-        }
-
-        // Update last updated time
-        if (elements.lastUpdated) {
-            const lastUpdate = this.activityData?.last_updated || new Date().toISOString();
-            elements.lastUpdated.textContent = this.formatTimeAgo(lastUpdate);
-        }
-
-        // Update AI credibility score
-        if (elements.credibilityScore) {
-            this.loadCredibilityScore().then(score => {
-                elements.credibilityScore.textContent = `${score}/100`;
-                elements.credibilityScore.className = `stat-value ${this.getCredibilityClass(score)}`;
-            }).catch(() => {
-                elements.credibilityScore.textContent = "N/A";
-                elements.credibilityScore.className = "stat-value";
-            });
-        }
-
-        // Update footer timestamp
+    updateFooterTimestamp() {
         const footerUpdated = document.getElementById('footer-last-updated');
         if (footerUpdated) {
-            const timestamp = this.aiEnhancements?.last_updated || new Date().toISOString();
+            const timestamp = this.aiEnhancements?.last_updated || this.activityData?.last_updated || new Date().toISOString();
             footerUpdated.textContent = this.formatDateTime(timestamp);
         }
     }
@@ -432,7 +253,6 @@ class CVApplication {
 
             // Clean up AI-generated content that contains explanation text
             if (enhancedSummary && enhancedSummary.includes('**Enhanced Summary:**')) {
-                // Extract only the actual enhanced summary content, not the explanation
                 const summaryMatch = enhancedSummary.match(/\*\*Enhanced Summary:\*\*\s*([\s\S]*?)(?:\n\nThis enhancement:|$)/);
                 if (summaryMatch) {
                     enhancedSummary = summaryMatch[1].trim();
@@ -452,15 +272,10 @@ class CVApplication {
 
         const experiences = this.cvData?.experience || this.getDefaultExperience();
 
-        // Build experience timeline using safe DOM methods
         timeline.textContent = '';
         for (const exp of experiences) {
             const item = document.createElement('div');
             item.className = 'timeline-item';
-
-            const marker = document.createElement('div');
-            marker.className = 'timeline-marker';
-            item.appendChild(marker);
 
             const content = document.createElement('div');
             content.className = 'timeline-content';
@@ -529,7 +344,6 @@ class CVApplication {
 
         const projects = this.cvData?.projects || this.getDefaultProjects();
 
-        // Build projects grid using safe DOM methods
         grid.textContent = '';
         for (const project of projects) {
             const card = document.createElement('div');
@@ -619,7 +433,6 @@ class CVApplication {
 
         const skillCategories = this.groupSkillsByCategory(skills);
 
-        // Build skills container using safe DOM methods
         container.textContent = '';
         for (const [category, categorySkills] of Object.entries(skillCategories)) {
             const catDiv = document.createElement('div');
@@ -692,16 +505,10 @@ class CVApplication {
 
         const achievements = this.cvData?.achievements || this.getDefaultAchievements();
 
-        // Build achievements grid using safe DOM methods
         grid.textContent = '';
         for (const achievement of achievements) {
             const card = document.createElement('div');
             card.className = 'achievement-card';
-
-            const iconDiv = document.createElement('div');
-            iconDiv.className = 'achievement-icon';
-            iconDiv.textContent = achievement.icon || '';
-            card.appendChild(iconDiv);
 
             const contentDiv = document.createElement('div');
             contentDiv.className = 'achievement-content';
@@ -729,7 +536,7 @@ class CVApplication {
                 link.target = '_blank';
                 link.rel = 'noopener noreferrer';
                 link.className = 'achievement-link';
-                link.textContent = 'View Details →';
+                link.textContent = 'View Details';
                 contentDiv.appendChild(link);
             }
 
@@ -739,58 +546,10 @@ class CVApplication {
     }
 
     /**
-     * Navigate to specific section
-     */
-    navigateToSection(sectionId) {
-        if (sectionId === this.currentSection) return;
-
-        // Update URL hash
-        window.history.pushState(null, null, `#${sectionId}`);
-
-        // Update navigation
-        this.updateNavigation(sectionId);
-
-        // Show section with animation
-        this.showSection(sectionId);
-
-        this.currentSection = sectionId;
-    }
-
-    /**
-     * Update navigation active states
-     */
-    updateNavigation(activeSectionId) {
-        const navItems = document.querySelectorAll('.nav-item');
-
-        navItems.forEach(item => {
-            const isActive = item.dataset.section === activeSectionId;
-            item.classList.toggle('active', isActive);
-        });
-    }
-
-    /**
-     * Show section with smooth animation
-     */
-    showSection(sectionId) {
-        const sections = document.querySelectorAll('.section');
-
-        sections.forEach(section => {
-            const isTarget = section.id === sectionId;
-
-            if (isTarget) {
-                section.classList.add('active');
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                section.classList.remove('active');
-            }
-        });
-    }
-
-    /**
      * Toggle theme between dark and light
      */
     toggleTheme() {
-        this.themePreference = this.themePreference === 'light' ? 'dark' : 'light';
+        this.themePreference = this.themePreference === 'dark' ? 'light' : 'dark';
         this.applyTheme(this.themePreference);
 
         // Save preference
@@ -799,7 +558,7 @@ class CVApplication {
         // Update theme toggle icon
         const themeIcon = document.querySelector('.theme-icon');
         if (themeIcon) {
-            themeIcon.textContent = this.themePreference === 'dark' ? '☀️' : '🌙';
+            themeIcon.textContent = this.themePreference === 'dark' ? 'sun' : 'moon';
         }
     }
 
@@ -807,41 +566,12 @@ class CVApplication {
      * Apply theme to document
      */
     applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-    }
-
-    /**
-     * Handle initial route from URL hash
-     */
-    handleInitialRoute() {
-        const hash = window.location.hash.substring(1);
-        const validSections = ['about', 'experience', 'projects', 'skills', 'achievements'];
-
-        if (hash && validSections.includes(hash)) {
-            this.navigateToSection(hash);
+        if (theme === 'dark') {
+            // Dark is the :root default, so remove data-theme
+            document.documentElement.removeAttribute('data-theme');
         } else {
-            this.navigateToSection('about');
+            document.documentElement.setAttribute('data-theme', theme);
         }
-    }
-
-    /**
-     * Handle hash change events
-     */
-    handleHashChange() {
-        const hash = window.location.hash.substring(1);
-        if (hash && hash !== this.currentSection) {
-            this.showSection(hash);
-            this.updateNavigation(hash);
-            this.currentSection = hash;
-        }
-    }
-
-    /**
-     * Handle window resize events
-     */
-    handleWindowResize() {
-        // Update any responsive calculations if needed
-        console.log('Window resized');
     }
 
     /**
@@ -849,62 +579,10 @@ class CVApplication {
      */
     async refreshLiveData() {
         try {
-            // Reload activity data
             this.activityData = await this.loadActivityData();
-            this.updateLiveStats();
+            this.updateFooterTimestamp();
         } catch (error) {
-            console.warn('⚠️ Failed to refresh live data:', error);
-        }
-    }
-
-    /**
-     * Complete loading sequence
-     */
-    completeLoadingSequence() {
-        const loadingTime = Date.now() - this.loadingStartTime;
-        const minLoadingTime = 1500; // Minimum loading time for UX
-
-        setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-                loadingScreen.classList.add('hidden');
-
-                // Remove loading screen after animation
-                setTimeout(() => {
-                    loadingScreen.remove();
-                }, CONFIG.ANIMATION_DURATION);
-            }
-
-            this.isLoading = false;
-            console.log(`✅ Loading completed in ${loadingTime}ms`);
-        }, Math.max(0, minLoadingTime - loadingTime));
-    }
-
-    /**
-     * Handle initialization errors
-     */
-    handleInitializationError(error) {
-        console.error('❌ Initialization error:', error);
-
-        // Remove loading screen and show error state
-        const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            loadingScreen.textContent = '';
-            const errorContent = document.createElement('div');
-            errorContent.className = 'loading-content';
-            const icon = document.createElement('div');
-            icon.style.cssText = 'font-size: 2rem; margin-bottom: 1rem;';
-            icon.textContent = '⚠️';
-            const text = document.createElement('div');
-            text.className = 'loading-text';
-            text.textContent = 'Loading Error';
-            const hint = document.createElement('div');
-            hint.style.cssText = 'margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;';
-            hint.textContent = 'Please refresh the page to try again';
-            errorContent.appendChild(icon);
-            errorContent.appendChild(text);
-            errorContent.appendChild(hint);
-            loadingScreen.appendChild(errorContent);
+            console.warn('Failed to refresh live data:', error);
         }
     }
 
@@ -954,7 +632,7 @@ class CVApplication {
     // Default data providers
     getDefaultCVData() {
         return {
-            professional_summary: "Systems Analyst and Technology Professional specializing in systems integration, cybersecurity, and applied AI in the public sector.",
+            professional_summary: "AI Safety Engineer and Independent Researcher. Three years empirical research on frontier AI models, focused on red-teaming, evaluation frameworks, and failure-first methodology. Seven years translating complex technical findings into actionable insights for government decision-makers.",
             experience: this.getDefaultExperience(),
             projects: this.getDefaultProjects(),
             skills: this.getDefaultSkills(),
@@ -965,14 +643,14 @@ class CVApplication {
     getDefaultExperience() {
         return [
             {
-                position: "Systems Analyst / Acting Senior Change Analyst",
+                position: "Applications Specialist / Acting Senior Change Analyst",
                 company: "Homes Tasmania",
                 period: "2018 - Present",
-                description: "Leading systems integration and digital transformation for Tasmania's public housing sector.",
+                description: "Complex socio-technical systems analysis for Tasmania's housing and community services portfolio. Developed Homes Tasmania's first Generative AI usage policy in 2023.",
                 achievements: [
-                    "Enhanced Housing Management System integration using RESTful APIs and SFTP",
+                    "Developed Homes Tasmania's GenAI usage policy, procedure, and training materials",
                     "Led cybersecurity initiatives improving system security",
-                    "Pioneered generative AI adoption for data analysis"
+                    "Systems integration and API development using RESTful APIs and Python"
                 ],
                 technologies: ["Python", "PowerShell", "JavaScript", "RESTful APIs", "Azure"]
             }
@@ -999,37 +677,33 @@ class CVApplication {
     getDefaultSkills() {
         return [
             { name: "Python", category: "Programming Languages", level: 80 },
-            { name: "JavaScript", category: "Programming Languages", level: 75 },
-            { name: "TypeScript", category: "Programming Languages", level: 65 },
-            { name: "LLM Integration", category: "AI & Automation", level: 80 },
-            { name: "AI Safety", category: "AI & Automation", level: 75 },
+            { name: "JavaScript / TypeScript", category: "Programming Languages", level: 75 },
+            { name: "Frontier AI Models", category: "AI & Safety", level: 85 },
+            { name: "Red-Teaming", category: "AI & Safety", level: 80 },
+            { name: "Evaluation Frameworks", category: "AI & Safety", level: 80 },
             { name: "Systems Integration", category: "Infrastructure", level: 85 },
             { name: "Cybersecurity", category: "Infrastructure", level: 75 },
-            { name: "Docker", category: "DevOps", level: 70 },
-            { name: "GitHub Actions", category: "DevOps", level: 75 },
-            { name: "React", category: "Frontend", level: 65 }
+            { name: "Risk Assessment", category: "Research Methods", level: 85 },
+            { name: "Technical Writing", category: "Research Methods", level: 85 }
         ];
     }
 
     getDefaultAchievements() {
         return [
             {
-                icon: "🏛️",
-                title: "Systems Integration Excellence",
-                description: "Enhanced Housing Management System integration for Tasmania's public housing sector.",
-                date: "2018-2024"
+                title: "Failure-First Research Program",
+                description: "Developed comprehensive failure-first evaluation methodology for agentic AI systems.",
+                date: "2022-Present"
             },
             {
-                icon: "🤖",
-                title: "AI Innovation Pioneer",
-                description: "First to implement generative AI for data analysis in Tasmania's public housing sector.",
-                date: "2023-2024"
+                title: "Published Research: Organisational AI Governance",
+                description: "Published research on structural barriers to acting on AI safety evidence in organisations.",
+                date: "2025"
             },
             {
-                icon: "🌿",
-                title: "Environmental Campaign Technology",
-                description: "Managed IT infrastructure for The Wilderness Society and coordinated Greenpeace campaigns.",
-                date: "2010-2015"
+                title: "AI Governance Policy Development",
+                description: "Developed Homes Tasmania's first Generative AI usage policy and training materials.",
+                date: "2023"
             }
         ];
     }
