@@ -134,6 +134,22 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.3);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+
+  --color-primary-overlay: rgba(96, 165, 250, 0.15);
+  --color-secondary-overlay: rgba(52, 211, 153, 0.15);
+}
+
+[data-theme="dark"] .tech-tag {
+  background: var(--color-primary-overlay);
+}
+
+[data-theme="dark"] .tech-badge {
+  background: var(--color-secondary-overlay);
+}
+
+[data-theme="dark"] .contact-link.pdf,
+[data-theme="dark"] .contact-link.print-btn {
+  background: var(--color-secondary-overlay);
 }
 
 /* ==========================================================================

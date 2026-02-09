@@ -1,28 +1,21 @@
 /**
  * Watch Me Work Dashboard - Live Development Activity Tracker
- * 
- * Real-time dashboard displaying GitHub activity across all repositories,
- * including commits, issues, pull requests, and live development metrics.
- * 
- * Features:
- * - Live GitHub API integration
- * - Real-time activity stream
- * - Cross-repository insights
- * - Interactive filtering and search
- * - Live metrics and statistics
- * - Code preview and diff display
+ *
+ * Loads pre-generated data from the CI activity tracker pipeline,
+ * with fallback to the public GitHub API (rate-limited to 60 req/hr).
  */
 
-// Configuration
 const CONFIG = {
     GITHUB_API: 'https://api.github.com',
     USERNAME: 'adrianwedd',
-    REFRESH_INTERVAL: 30000, // 30 seconds
+    REFRESH_INTERVAL: 120000, // 2 minutes (static data doesn't change fast)
     MAX_ACTIVITIES: 100,
-    REPOSITORIES: [
-        'cv', 'ticketsmith', 'agentic-research-engine', 
-        'ai-career-advisor', 'multi-agent-research'
-    ],
+    STATIC_DATA: {
+        ACTIVITY_SUMMARY: 'data/activity-summary.json',
+        ACTIVITY_PREFIX: 'data/activity/',
+        METRICS_PREFIX: 'data/metrics/',
+        TRENDS_PREFIX: 'data/trends/'
+    },
     COLORS: {
         commit: '#22c55e',
         issue: '#f59e0b',
@@ -33,78 +26,57 @@ const CONFIG = {
     }
 };
 
-/**
- * Main Dashboard Application
- */
 class WatchMeWorkDashboard {
     constructor() {
         this.isLive = true;
         this.isPaused = false;
         this.activities = [];
         this.repositories = new Map();
+        this.recentCommits = [];
+        this.recentIssues = [];
         this.filters = {
             commits: true,
             issues: true,
             prs: true,
             comments: true,
-            timeRange: '24h',
+            timeRange: '30d',
             repositories: []
         };
         this.lastRefresh = null;
         this.refreshTimer = null;
-        
+        this.dataSource = 'unknown';
+
         this.init();
     }
 
-    /**
-     * Initialize the dashboard
-     */
     async init() {
         console.log('🎬 Initializing Watch Me Work Dashboard...');
-        
+
         try {
-            // Setup event listeners
             this.setupEventListeners();
-            
-            // Initialize UI components
-            this.initializeFilters();
             this.updateLiveStatus('connecting');
-            
-            // Load initial data
-            await this.loadInitialData();
-            
-            // Start live updates
+
+            await this.loadData();
             this.startLiveUpdates();
-            
-            // Update status
+
             this.updateLiveStatus('live');
-            
-            console.log('✅ Dashboard initialized successfully');
+            console.log(`✅ Dashboard initialized (source: ${this.dataSource})`);
         } catch (error) {
             console.error('❌ Dashboard initialization failed:', error);
             this.updateLiveStatus('error');
         }
     }
 
-    /**
-     * Setup event listeners for user interactions
-     */
     setupEventListeners() {
-        // Filter toggle
         const filterToggle = document.getElementById('filter-toggle');
         const filtersPanel = document.getElementById('filters-panel');
         filterToggle?.addEventListener('click', () => {
             filtersPanel.classList.toggle('open');
         });
 
-        // Timeline controls
-        const pauseBtn = document.getElementById('pause-btn');
-        const refreshBtn = document.getElementById('refresh-btn');
-        
-        pauseBtn?.addEventListener('click', () => this.togglePause());
-        refreshBtn?.addEventListener('click', () => this.refreshData());
+        document.getElementById('pause-btn')?.addEventListener('click', () => this.togglePause());
+        document.getElementById('refresh-btn')?.addEventListener('click', () => this.refreshData());
 
-        // View toggle
         document.querySelectorAll('.view-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
@@ -113,30 +85,15 @@ class WatchMeWorkDashboard {
             });
         });
 
-        // Modal controls
         const modalClose = document.getElementById('modal-close');
         const modal = document.getElementById('activity-modal');
         modalClose?.addEventListener('click', () => modal.classList.remove('open'));
 
-        // Filter controls
-        document.getElementById('filter-commits')?.addEventListener('change', (e) => {
-            this.filters.commits = e.target.checked;
-            this.applyFilters();
-        });
-        
-        document.getElementById('filter-issues')?.addEventListener('change', (e) => {
-            this.filters.issues = e.target.checked;
-            this.applyFilters();
-        });
-        
-        document.getElementById('filter-prs')?.addEventListener('change', (e) => {
-            this.filters.prs = e.target.checked;
-            this.applyFilters();
-        });
-        
-        document.getElementById('filter-comments')?.addEventListener('change', (e) => {
-            this.filters.comments = e.target.checked;
-            this.applyFilters();
+        ['commits', 'issues', 'prs', 'comments'].forEach(type => {
+            document.getElementById(`filter-${type}`)?.addEventListener('change', (e) => {
+                this.filters[type] = e.target.checked;
+                this.applyFilters();
+            });
         });
 
         document.getElementById('time-range')?.addEventListener('change', (e) => {
@@ -144,174 +101,79 @@ class WatchMeWorkDashboard {
             this.applyFilters();
         });
 
-        // Close code preview
         document.getElementById('close-preview')?.addEventListener('click', () => {
             document.getElementById('code-preview').style.display = 'none';
         });
     }
 
     /**
-     * Initialize filter components
+     * Load data: try static CI data first, fall back to live API
      */
-    initializeFilters() {
-        const repoFilters = document.getElementById('repo-filters');
-        if (!repoFilters) return;
-
-        CONFIG.REPOSITORIES.forEach(repo => {
-            const label = document.createElement('label');
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.dataset.repo = repo;
-            checkbox.checked = true;
-            label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(' ' + repo));
-
-            checkbox.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    this.filters.repositories = this.filters.repositories.filter(r => r !== repo);
-                } else {
-                    this.filters.repositories.push(repo);
-                }
-                this.applyFilters();
-            });
-
-            repoFilters.appendChild(label);
-        });
-    }
-
-    /**
-     * Load initial dashboard data
-     */
-    async loadInitialData() {
-        console.log('📊 Loading initial dashboard data...');
-        
-        const promises = [
-            this.loadUserActivity(),
-            this.loadRepositoryData(),
-            this.loadRecentCommits(),
-            this.loadIssuesAndPRs()
-        ];
-
+    async loadData() {
         try {
-            const results = await Promise.allSettled(promises);
-            
-            // Process results
-            this.processUserActivity(results[0].status === 'fulfilled' ? results[0].value : []);
-            this.processRepositoryData(results[1].status === 'fulfilled' ? results[1].value : []);
-            this.processCommitsData(results[2].status === 'fulfilled' ? results[2].value : []);
-            this.processIssuesData(results[3].status === 'fulfilled' ? results[3].value : []);
-            
-            // Update UI
-            this.updateMetrics();
-            this.updateActivityTimeline();
-            this.updateRepositoryGrid();
-            
-            this.lastRefresh = new Date();
-            this.updateFooterTimestamp();
-            
+            await this.loadStaticData();
+            this.dataSource = 'static';
         } catch (error) {
-            console.error('❌ Failed to load initial data:', error);
-        }
-    }
-
-    /**
-     * Load user activity from GitHub API
-     */
-    async loadUserActivity() {
-        try {
-            const response = await fetch(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=100`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            return await response.json();
-        } catch (error) {
-            console.warn('⚠️ Could not load user activity:', error.message);
-            return [];
-        }
-    }
-
-    /**
-     * Load repository data
-     */
-    async loadRepositoryData() {
-        try {
-            const response = await fetch(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            
-            return await response.json();
-        } catch (error) {
-            console.warn('⚠️ Could not load repository data:', error.message);
-            return [];
-        }
-    }
-
-    /**
-     * Load recent commits across repositories
-     */
-    async loadRecentCommits() {
-        const commits = [];
-        const since = this.getTimeRangeDate();
-        
-        for (const repo of CONFIG.REPOSITORIES) {
+            console.warn('⚠️ Static data unavailable, trying live API...', error.message);
             try {
-                const response = await fetch(
-                    `${CONFIG.GITHUB_API}/repos/${CONFIG.USERNAME}/${repo}/commits?author=${CONFIG.USERNAME}&since=${since.toISOString()}&per_page=10`
-                );
-                
-                if (response.ok) {
-                    const repoCommits = await response.json();
-                    commits.push(...repoCommits.map(commit => ({
-                        ...commit,
-                        repository: repo
-                    })));
-                }
-                
-                // Rate limiting protection
-                await this.sleep(100);
-            } catch (error) {
-                console.warn(`⚠️ Could not load commits for ${repo}:`, error.message);
+                await this.loadLiveData();
+                this.dataSource = 'api';
+            } catch (apiError) {
+                console.error('❌ Both data sources failed:', apiError.message);
+                this.dataSource = 'none';
             }
         }
-        
-        return commits.sort((a, b) => new Date(b.commit.author.date) - new Date(a.commit.author.date));
+
+        this.updateMetrics();
+        this.updateActivityTimeline();
+        this.updateRepositoryGrid();
+        this.lastRefresh = new Date();
+        this.updateFooterTimestamp();
     }
 
     /**
-     * Load issues and pull requests
+     * Load pre-generated static data from CI pipeline
      */
-    async loadIssuesAndPRs() {
-        const issues = [];
-        const since = this.getTimeRangeDate();
-        
-        for (const repo of CONFIG.REPOSITORIES) {
+    async loadStaticData() {
+        const summaryResp = await fetch(CONFIG.STATIC_DATA.ACTIVITY_SUMMARY);
+        if (!summaryResp.ok) throw new Error(`Summary: HTTP ${summaryResp.status}`);
+        const summary = await summaryResp.json();
+
+        // Load detailed activity file
+        const activityFile = summary.data_files?.latest_activity;
+        if (!activityFile) throw new Error('No activity file reference');
+
+        const activityResp = await fetch(CONFIG.STATIC_DATA.ACTIVITY_PREFIX + activityFile);
+        if (!activityResp.ok) throw new Error(`Activity: HTTP ${activityResp.status}`);
+        const activityData = await activityResp.json();
+
+        // Load metrics
+        const metricsFile = summary.data_files?.latest_metrics;
+        let metricsData = null;
+        if (metricsFile) {
             try {
-                // Load issues
-                const issuesResponse = await fetch(
-                    `${CONFIG.GITHUB_API}/repos/${CONFIG.USERNAME}/${repo}/issues?state=all&since=${since.toISOString()}&per_page=20`
-                );
-                
-                if (issuesResponse.ok) {
-                    const repoIssues = await issuesResponse.json();
-                    issues.push(...repoIssues.map(issue => ({
-                        ...issue,
-                        repository: repo,
-                        type: issue.pull_request ? 'pull_request' : 'issue'
-                    })));
-                }
-                
-                // Rate limiting protection
-                await this.sleep(100);
-            } catch (error) {
-                console.warn(`⚠️ Could not load issues for ${repo}:`, error.message);
-            }
+                const metricsResp = await fetch(CONFIG.STATIC_DATA.METRICS_PREFIX + metricsFile);
+                if (metricsResp.ok) metricsData = await metricsResp.json();
+            } catch (_) { /* optional */ }
         }
-        
-        return issues.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+        // Load trends
+        const trendsFile = summary.data_files?.latest_trends;
+        let trendsData = null;
+        if (trendsFile) {
+            try {
+                const trendsResp = await fetch(CONFIG.STATIC_DATA.TRENDS_PREFIX + trendsFile);
+                if (trendsResp.ok) trendsData = await trendsResp.json();
+            } catch (_) { /* optional */ }
+        }
+
+        // Process static data into dashboard format
+        this.processStaticData(summary, activityData, metricsData, trendsData);
     }
 
-    /**
-     * Process user activity data
-     */
-    processUserActivity(events) {
+    processStaticData(summary, activityData, metricsData, trendsData) {
+        // Process events from the activity data
+        const events = activityData.recent_activity?.events || [];
         this.activities = events.map(event => ({
             id: event.id,
             type: event.type,
@@ -321,128 +183,198 @@ class WatchMeWorkDashboard {
             actor: event.actor,
             public: event.public
         }));
+
+        // Process repositories
+        const repos = activityData.repositories?.data || [];
+        this.repositories.clear();
+        repos.forEach(repo => {
+            if (repo.name) {
+                this.repositories.set(repo.name, {
+                    name: repo.name,
+                    full_name: repo.full_name,
+                    description: repo.description,
+                    language: repo.language,
+                    stars: repo.stargazers_count || 0,
+                    forks: repo.forks_count || 0,
+                    updated_at: repo.updated_at,
+                    html_url: repo.html_url,
+                    private: repo.private
+                });
+            }
+        });
+
+        // Store summary and metrics for metric display
+        this.summaryData = summary.summary || {};
+        this.metricsData = metricsData;
+        this.trendsData = trendsData;
+        this.languageData = activityData.repositories?.summary?.languages || [];
+
+        // Build commit list from events
+        this.recentCommits = [];
+        this.activities.filter(a => a.type === 'PushEvent').forEach(event => {
+            const commits = event.payload?.commits || [];
+            const repoName = event.repo?.split('/')[1] || event.repo;
+            commits.forEach(c => {
+                this.recentCommits.push({
+                    sha: c.sha,
+                    message: c.message,
+                    author: { date: event.created_at },
+                    repository: repoName,
+                    html_url: c.url,
+                    created_at: event.created_at
+                });
+            });
+        });
+
+        // Build issues list from events
+        this.recentIssues = [];
+        this.activities.filter(a => a.type === 'IssuesEvent' || a.type === 'PullRequestEvent').forEach(event => {
+            const issue = event.payload?.issue || event.payload?.pull_request;
+            if (issue) {
+                const repoName = event.repo?.split('/')[1] || event.repo;
+                this.recentIssues.push({
+                    id: issue.id,
+                    number: issue.number,
+                    title: issue.title,
+                    state: issue.state,
+                    type: event.type === 'PullRequestEvent' ? 'pull_request' : 'issue',
+                    repository: repoName,
+                    html_url: issue.html_url,
+                    created_at: issue.created_at,
+                    updated_at: issue.updated_at,
+                    labels: issue.labels || []
+                });
+            }
+        });
     }
 
     /**
-     * Process repository data
+     * Fallback: load from live GitHub API
      */
-    processRepositoryData(repos) {
+    async loadLiveData() {
+        const [events, repos] = await Promise.all([
+            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=100`),
+            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`)
+        ]);
+
+        this.activities = (events || []).map(event => ({
+            id: event.id,
+            type: event.type,
+            repo: event.repo?.name || 'unknown',
+            created_at: event.created_at,
+            payload: event.payload,
+            actor: event.actor,
+            public: event.public
+        }));
+
         this.repositories.clear();
-        
-        repos.forEach(repo => {
+        (repos || []).forEach(repo => {
             this.repositories.set(repo.name, {
                 name: repo.name,
                 full_name: repo.full_name,
                 description: repo.description,
                 language: repo.language,
-                stars: repo.stargazers_count,
-                forks: repo.forks_count,
+                stars: repo.stargazers_count || 0,
+                forks: repo.forks_count || 0,
                 updated_at: repo.updated_at,
                 html_url: repo.html_url,
                 private: repo.private
             });
         });
+
+        this.recentCommits = [];
+        this.recentIssues = [];
+        this.summaryData = {};
+        this.metricsData = null;
+        this.trendsData = null;
     }
 
-    /**
-     * Process commits data
-     */
-    processCommitsData(commits) {
-        this.recentCommits = commits.map(commit => ({
-            sha: commit.sha,
-            message: commit.commit.message,
-            author: commit.commit.author,
-            repository: commit.repository,
-            html_url: commit.html_url,
-            created_at: commit.commit.author.date
-        }));
+    async fetchJSON(url) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json();
     }
 
-    /**
-     * Process issues and PRs data
-     */
-    processIssuesData(issues) {
-        this.recentIssues = issues.map(issue => ({
-            id: issue.id,
-            number: issue.number,
-            title: issue.title,
-            state: issue.state,
-            type: issue.type,
-            repository: issue.repository,
-            html_url: issue.html_url,
-            created_at: issue.created_at,
-            updated_at: issue.updated_at,
-            labels: issue.labels
-        }));
-    }
-
-    /**
-     * Update live metrics display
-     */
     updateMetrics() {
+        // Use static summary data when available
+        if (this.summaryData?.total_commits != null) {
+            const commits = this.summaryData.total_commits;
+            const activeDays = this.summaryData.active_days || 0;
+
+            this.updateElement('commits-today', commits);
+            document.querySelector('#commits-today')?.closest('.metric-card')
+                ?.querySelector('.metric-label')?.replaceChildren(
+                    document.createTextNode('Commits (30d)')
+                );
+
+            this.updateElement('streak-days', activeDays);
+            document.querySelector('#streak-days')?.closest('.metric-card')
+                ?.querySelector('.metric-label')?.replaceChildren(
+                    document.createTextNode('Active Days')
+                );
+
+            // Velocity from metrics
+            const score = this.metricsData?.scores?.overall_professional_score;
+            this.updateElement('velocity-score', score != null ? Math.round(score) : this.activities.length);
+
+            // Languages
+            const langCount = this.languageData?.length || this.repositories.size;
+            this.updateElement('focus-time', langCount);
+            document.querySelector('#focus-time')?.closest('.metric-card')
+                ?.querySelector('.metric-label')?.replaceChildren(
+                    document.createTextNode('Languages')
+                );
+
+            return;
+        }
+
+        // Fallback: compute from live data
         const now = new Date();
         const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        
-        // Commits today
-        const commitsToday = this.recentCommits?.filter(commit => 
-            new Date(commit.created_at) >= todayStart
-        ).length || 0;
-        
-        // Streak calculation (simplified)
-        const streakDays = this.calculateStreakDays();
-        
-        // Velocity score (commits + issues + PRs in last 7 days)
-        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-        const velocityScore = (
-            (this.recentCommits?.filter(c => new Date(c.created_at) >= weekAgo).length || 0) * 3 +
-            (this.recentIssues?.filter(i => new Date(i.updated_at) >= weekAgo).length || 0) * 2
-        );
-        
-        // Focus time (estimated from commit frequency)
-        const focusTime = Math.min(8, Math.max(0, commitsToday * 1.5));
-        
-        // Update UI
+
+        const commitsToday = this.recentCommits.filter(c =>
+            new Date(c.created_at) >= todayStart
+        ).length;
+
         this.updateElement('commits-today', commitsToday);
-        this.updateElement('streak-days', streakDays);
+        this.updateElement('streak-days', this.calculateStreakDays());
+
+        const weekAgo = new Date(now.getTime() - 7 * 86400000);
+        const velocityScore = (
+            this.recentCommits.filter(c => new Date(c.created_at) >= weekAgo).length * 3 +
+            this.recentIssues.filter(i => new Date(i.updated_at) >= weekAgo).length * 2
+        );
         this.updateElement('velocity-score', velocityScore);
+
+        const focusTime = Math.min(8, Math.max(0, commitsToday * 1.5));
         this.updateElement('focus-time', `${focusTime.toFixed(1)}h`);
     }
 
-    /**
-     * Calculate activity streak days
-     */
     calculateStreakDays() {
         if (!this.recentCommits || this.recentCommits.length === 0) return 0;
-        
+
         const commitDates = new Set();
         this.recentCommits.forEach(commit => {
-            const date = new Date(commit.created_at);
-            const dateString = date.toISOString().split('T')[0];
+            const dateString = new Date(commit.created_at).toISOString().split('T')[0];
             commitDates.add(dateString);
         });
-        
+
         const sortedDates = Array.from(commitDates).sort().reverse();
         let streak = 0;
-        const today = new Date().toISOString().split('T')[0];
-        
+
         for (let i = 0; i < sortedDates.length; i++) {
             const expectedDate = new Date();
             expectedDate.setDate(expectedDate.getDate() - i);
-            const expectedDateString = expectedDate.toISOString().split('T')[0];
-            
-            if (sortedDates[i] === expectedDateString) {
+            if (sortedDates[i] === expectedDate.toISOString().split('T')[0]) {
                 streak++;
             } else {
                 break;
             }
         }
-        
+
         return streak;
     }
 
-    /**
-     * Update activity timeline
-     */
     updateActivityTimeline() {
         const container = document.getElementById('timeline-container');
         if (!container) return;
@@ -453,17 +385,21 @@ class WatchMeWorkDashboard {
         if (filteredActivities.length === 0) {
             const empty = document.createElement('div');
             empty.className = 'timeline-empty';
+
             const iconDiv = document.createElement('div');
             iconDiv.className = 'empty-icon';
             iconDiv.textContent = '\u{1F4ED}';
+
             const p1 = document.createElement('p');
             p1.textContent = 'No recent activity found';
+
             const p2 = document.createElement('p');
             p2.className = 'empty-subtitle';
-            p2.textContent = 'Try adjusting your filters or time range';
-            empty.appendChild(iconDiv);
-            empty.appendChild(p1);
-            empty.appendChild(p2);
+            p2.textContent = this.dataSource === 'none'
+                ? 'Data unavailable — check back later'
+                : 'Try adjusting your filters or time range';
+
+            empty.append(iconDiv, p1, p2);
             container.appendChild(empty);
             return;
         }
@@ -475,7 +411,6 @@ class WatchMeWorkDashboard {
 
             const item = document.createElement('div');
             item.className = 'timeline-item';
-            item.dataset.activityId = activity.id;
 
             const marker = document.createElement('div');
             marker.className = 'timeline-marker';
@@ -487,36 +422,33 @@ class WatchMeWorkDashboard {
 
             const header = document.createElement('div');
             header.className = 'timeline-header';
+
             const typeSpan = document.createElement('span');
             typeSpan.className = 'activity-type';
             typeSpan.textContent = this.formatActivityType(activity.type);
+
             const repoSpan = document.createElement('span');
             repoSpan.className = 'activity-repo';
             repoSpan.textContent = activity.repo;
+
             const timeSpan = document.createElement('span');
             timeSpan.className = 'activity-time';
             timeSpan.textContent = timeAgo;
-            header.appendChild(typeSpan);
-            header.appendChild(repoSpan);
-            header.appendChild(timeSpan);
+
+            header.append(typeSpan, repoSpan, timeSpan);
 
             const desc = document.createElement('div');
             desc.className = 'timeline-description';
             desc.textContent = this.formatActivityDescription(activity);
 
-            content.appendChild(header);
-            content.appendChild(desc);
-            item.appendChild(marker);
-            item.appendChild(content);
+            content.append(header, desc);
+            item.append(marker, content);
 
             item.addEventListener('click', () => this.showActivityDetails(activity));
             container.appendChild(item);
         });
     }
 
-    /**
-     * Update repository grid
-     */
     updateRepositoryGrid() {
         const grid = document.getElementById('repo-grid');
         if (!grid) return;
@@ -532,38 +464,38 @@ class WatchMeWorkDashboard {
 
             const card = document.createElement('div');
             card.className = 'repo-card';
-            card.dataset.repo = repo.name;
 
-            // Header
             const header = document.createElement('div');
             header.className = 'repo-header';
+
             const h3 = document.createElement('h3');
             h3.className = 'repo-name';
+
             const link = document.createElement('a');
             link.href = repo.html_url;
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
             link.textContent = repo.name;
             h3.appendChild(link);
+
             const stats = document.createElement('div');
             stats.className = 'repo-stats';
+
             const starStat = document.createElement('span');
             starStat.className = 'repo-stat';
             starStat.textContent = '\u2B50 ' + repo.stars;
+
             const forkStat = document.createElement('span');
             forkStat.className = 'repo-stat';
             forkStat.textContent = '\u{1F374} ' + repo.forks;
-            stats.appendChild(starStat);
-            stats.appendChild(forkStat);
-            header.appendChild(h3);
-            header.appendChild(stats);
 
-            // Description
+            stats.append(starStat, forkStat);
+            header.append(h3, stats);
+
             const descDiv = document.createElement('div');
             descDiv.className = 'repo-description';
             descDiv.textContent = repo.description || 'No description available';
 
-            // Meta
             const meta = document.createElement('div');
             meta.className = 'repo-meta';
             if (repo.language) {
@@ -577,26 +509,23 @@ class WatchMeWorkDashboard {
             updated.textContent = 'Updated ' + lastUpdate;
             meta.appendChild(updated);
 
-            // Activity
             const activityDiv = document.createElement('div');
             activityDiv.className = 'repo-activity';
+
             const summary = document.createElement('div');
             summary.className = 'activity-summary';
             summary.textContent = recentActivity.commits + ' commits, ' + recentActivity.issues + ' issues';
+
             const indicator = document.createElement('div');
             indicator.className = 'activity-indicator ' + (recentActivity.total > 0 ? 'active' : 'inactive');
             indicator.textContent = recentActivity.total > 0 ? '\u{1F7E2}' : '\u26AA';
-            activityDiv.appendChild(summary);
-            activityDiv.appendChild(indicator);
 
-            card.appendChild(header);
-            card.appendChild(descDiv);
-            card.appendChild(meta);
-            card.appendChild(activityDiv);
+            activityDiv.append(summary, indicator);
+            card.append(header, descDiv, meta, activityDiv);
 
             card.addEventListener('click', (e) => {
                 if (e.target.tagName !== 'A') {
-                    this.showRepositoryDetails(repo.name);
+                    window.open(repo.html_url, '_blank', 'noopener,noreferrer');
                 }
             });
 
@@ -604,92 +533,57 @@ class WatchMeWorkDashboard {
         });
     }
 
-    /**
-     * Get recent activity for a repository
-     */
     getRepoRecentActivity(repoName) {
-        const commits = this.recentCommits?.filter(c => c.repository === repoName).length || 0;
-        const issues = this.recentIssues?.filter(i => i.repository === repoName).length || 0;
-        
-        return {
-            commits,
-            issues,
-            total: commits + issues
-        };
+        const commits = this.recentCommits.filter(c => c.repository === repoName).length;
+        const issues = this.recentIssues.filter(i => i.repository === repoName).length;
+        return { commits, issues, total: commits + issues };
     }
 
-    /**
-     * Get filtered activities based on current filters
-     */
     getFilteredActivities() {
         const timeRange = this.getTimeRangeDate();
-        
+
         return this.activities.filter(activity => {
-            // Time range filter
             if (new Date(activity.created_at) < timeRange) return false;
-            
-            // Activity type filters
             if (activity.type === 'PushEvent' && !this.filters.commits) return false;
             if (activity.type === 'IssuesEvent' && !this.filters.issues) return false;
             if (activity.type === 'PullRequestEvent' && !this.filters.prs) return false;
             if (activity.type === 'IssueCommentEvent' && !this.filters.comments) return false;
-            
-            // Repository filters
+
             if (this.filters.repositories.length > 0) {
                 const repoName = activity.repo.split('/')[1];
                 if (this.filters.repositories.includes(repoName)) return false;
             }
-            
+
             return true;
         }).slice(0, CONFIG.MAX_ACTIVITIES);
     }
 
-    /**
-     * Get time range date based on filter
-     */
     getTimeRangeDate() {
-        const now = new Date();
         const ranges = {
-            '1h': 60 * 60 * 1000,
-            '6h': 6 * 60 * 60 * 1000,
-            '24h': 24 * 60 * 60 * 1000,
-            '7d': 7 * 24 * 60 * 60 * 1000,
-            '30d': 30 * 24 * 60 * 60 * 1000
+            '1h': 3600000,
+            '6h': 21600000,
+            '24h': 86400000,
+            '7d': 604800000,
+            '30d': 2592000000
         };
-        
-        return new Date(now.getTime() - (ranges[this.filters.timeRange] || ranges['24h']));
+        return new Date(Date.now() - (ranges[this.filters.timeRange] || ranges['30d']));
     }
 
-    /**
-     * Apply current filters and refresh display
-     */
     applyFilters() {
         this.updateActivityTimeline();
         this.updateRepositoryGrid();
     }
 
-    /**
-     * Start live updates
-     */
     startLiveUpdates() {
-        if (this.refreshTimer) {
-            clearInterval(this.refreshTimer);
-        }
-        
+        if (this.refreshTimer) clearInterval(this.refreshTimer);
         this.refreshTimer = setInterval(() => {
-            if (!this.isPaused && this.isLive) {
-                this.refreshData();
-            }
+            if (!this.isPaused && this.isLive) this.refreshData();
         }, CONFIG.REFRESH_INTERVAL);
     }
 
-    /**
-     * Toggle pause state
-     */
     togglePause() {
         this.isPaused = !this.isPaused;
         const pauseBtn = document.getElementById('pause-btn');
-        
         if (this.isPaused) {
             pauseBtn.textContent = '\u25B6\uFE0F Resume';
             this.updateLiveStatus('paused');
@@ -699,16 +593,11 @@ class WatchMeWorkDashboard {
         }
     }
 
-    /**
-     * Refresh all data
-     */
     async refreshData() {
         if (this.isPaused) return;
-        
         this.updateLiveStatus('refreshing');
-        
         try {
-            await this.loadInitialData();
+            await this.loadData();
             this.updateLiveStatus('live');
         } catch (error) {
             console.error('❌ Refresh failed:', error);
@@ -716,57 +605,35 @@ class WatchMeWorkDashboard {
         }
     }
 
-    /**
-     * Update live status indicator
-     */
     updateLiveStatus(status) {
         const indicator = document.getElementById('live-indicator');
         const statusText = document.getElementById('status-text');
         const lastActivityTime = document.getElementById('last-activity-time');
-        
+
         if (!indicator || !statusText) return;
-        
-        // Remove all status classes
+
         indicator.className = 'status-indicator';
-        
-        switch (status) {
-            case 'live':
-                indicator.classList.add('live');
-                statusText.textContent = 'Live';
-                break;
-            case 'paused':
-                indicator.classList.add('paused');
-                statusText.textContent = 'Paused';
-                break;
-            case 'refreshing':
-                indicator.classList.add('refreshing');
-                statusText.textContent = 'Refreshing...';
-                break;
-            case 'connecting':
-                indicator.classList.add('connecting');
-                statusText.textContent = 'Connecting...';
-                break;
-            case 'error':
-                indicator.classList.add('error');
-                statusText.textContent = 'Error';
-                break;
-        }
-        
-        // Update last activity time
+
+        const labels = {
+            live: 'Live',
+            paused: 'Paused',
+            refreshing: 'Refreshing...',
+            connecting: 'Connecting...',
+            error: 'Error'
+        };
+
+        indicator.classList.add(status);
+        statusText.textContent = labels[status] || status;
+
         if (lastActivityTime && this.activities.length > 0) {
-            const latestActivity = this.activities[0];
-            lastActivityTime.textContent = this.getTimeAgo(latestActivity.created_at);
+            lastActivityTime.textContent = this.getTimeAgo(this.activities[0].created_at);
         }
     }
 
-    /**
-     * Show activity details in modal
-     */
     showActivityDetails(activity) {
         const modal = document.getElementById('activity-modal');
         const title = document.getElementById('modal-title');
         const body = document.getElementById('modal-body');
-
         if (!modal || !title || !body) return;
 
         title.textContent = this.formatActivityType(activity.type) + ' - ' + activity.repo;
@@ -775,61 +642,38 @@ class WatchMeWorkDashboard {
         const details = document.createElement('div');
         details.className = 'activity-details';
 
-        const rows = [
+        [
             ['Type', this.formatActivityType(activity.type)],
             ['Repository', activity.repo],
             ['Time', new Date(activity.created_at).toLocaleString()],
             ['Actor', activity.actor?.display_login || 'Unknown']
-        ];
-
-        rows.forEach(([label, value]) => {
+        ].forEach(([label, value]) => {
             const row = document.createElement('div');
             row.className = 'detail-row';
             const strong = document.createElement('strong');
             strong.textContent = label + ':';
-            row.appendChild(strong);
-            row.appendChild(document.createTextNode(' ' + value));
+            row.append(strong, document.createTextNode(' ' + value));
             details.appendChild(row);
         });
 
         const contentDiv = document.createElement('div');
         contentDiv.className = 'detail-content';
-        const detailsLabel = document.createElement('strong');
-        detailsLabel.textContent = 'Details:';
         const pre = document.createElement('pre');
         pre.textContent = JSON.stringify(activity.payload, null, 2);
-        contentDiv.appendChild(detailsLabel);
-        contentDiv.appendChild(pre);
+        const detailsLabel = document.createElement('strong');
+        detailsLabel.textContent = 'Details:';
+        contentDiv.append(detailsLabel, pre);
         details.appendChild(contentDiv);
 
         body.appendChild(details);
         modal.classList.add('open');
     }
 
-    /**
-     * Show repository details
-     */
-    showRepositoryDetails(repoName) {
-        const repo = this.repositories.get(repoName);
-        if (!repo) return;
-        
-        // For now, just open the repository in a new tab
-        window.open(repo.html_url, '_blank', 'noopener,noreferrer');
-    }
-
-    /**
-     * Update repository view (grid/list)
-     */
     updateRepoView(view) {
         const grid = document.getElementById('repo-grid');
-        if (!grid) return;
-        
-        grid.className = view === 'list' ? 'repo-list' : 'repo-grid';
+        if (grid) grid.className = view === 'list' ? 'repo-list' : 'repo-grid';
     }
 
-    /**
-     * Update footer timestamp
-     */
     updateFooterTimestamp() {
         const timestamp = document.getElementById('footer-timestamp');
         if (timestamp && this.lastRefresh) {
@@ -837,49 +681,48 @@ class WatchMeWorkDashboard {
         }
     }
 
-    // Utility methods
+    // Utilities
     updateElement(id, value) {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = value;
-        }
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
     }
 
     getActivityIcon(type) {
         const icons = {
-            'PushEvent': '📝',
-            'IssuesEvent': '🐛',
-            'PullRequestEvent': '🔄',
-            'IssueCommentEvent': '💬',
-            'CreateEvent': '🎯',
-            'DeleteEvent': '🗑️',
-            'ForkEvent': '🍴',
-            'WatchEvent': '👁️',
-            'ReleaseEvent': '🚀'
+            PushEvent: '\u{1F4DD}',
+            IssuesEvent: '\u{1F41B}',
+            PullRequestEvent: '\u{1F504}',
+            IssueCommentEvent: '\u{1F4AC}',
+            CreateEvent: '\u{1F3AF}',
+            DeleteEvent: '\u{1F5D1}\uFE0F',
+            ForkEvent: '\u{1F374}',
+            WatchEvent: '\u{1F441}\uFE0F',
+            ReleaseEvent: '\u{1F680}'
         };
-        return icons[type] || '📋';
+        return icons[type] || '\u{1F4CB}';
     }
 
     formatActivityType(type) {
         const types = {
-            'PushEvent': 'Push',
-            'IssuesEvent': 'Issue',
-            'PullRequestEvent': 'Pull Request',
-            'IssueCommentEvent': 'Comment',
-            'CreateEvent': 'Create',
-            'DeleteEvent': 'Delete',
-            'ForkEvent': 'Fork',
-            'WatchEvent': 'Watch',
-            'ReleaseEvent': 'Release'
+            PushEvent: 'Push',
+            IssuesEvent: 'Issue',
+            PullRequestEvent: 'Pull Request',
+            IssueCommentEvent: 'Comment',
+            CreateEvent: 'Create',
+            DeleteEvent: 'Delete',
+            ForkEvent: 'Fork',
+            WatchEvent: 'Watch',
+            ReleaseEvent: 'Release'
         };
         return types[type] || type;
     }
 
     formatActivityDescription(activity) {
         switch (activity.type) {
-            case 'PushEvent':
+            case 'PushEvent': {
                 const commits = activity.payload?.commits?.length || 0;
                 return `Pushed ${commits} commit${commits !== 1 ? 's' : ''}`;
+            }
             case 'IssuesEvent':
                 return `${activity.payload?.action || 'Updated'} issue #${activity.payload?.issue?.number}`;
             case 'PullRequestEvent':
@@ -892,29 +735,15 @@ class WatchMeWorkDashboard {
     }
 
     getTimeAgo(dateString) {
-        const date = new Date(dateString);
-        const now = new Date();
-        const diffInSeconds = Math.floor((now - date) / 1000);
-        
+        const diffInSeconds = Math.floor((Date.now() - new Date(dateString)) / 1000);
         if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
         if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
         if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
         if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`;
-        
-        return date.toLocaleDateString();
-    }
-
-    sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return new Date(dateString).toLocaleDateString();
     }
 }
 
-// Initialize dashboard when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     new WatchMeWorkDashboard();
 });
-
-// Export for potential module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { WatchMeWorkDashboard, CONFIG };
-}
