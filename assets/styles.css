@@ -664,25 +664,6 @@ body {
   font-family: var(--font-family-mono);
 }
 
-.skill-bar {
-  display: none;
-}
-
-.skill-progress {
-  display: none;
-}
-
-.skill-meta {
-  display: flex;
-  gap: var(--space-4);
-  margin-top: var(--space-1);
-}
-
-.proficiency-level,
-.project-count {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-}
 
 /* Achievement Styles */
 .achievement-card {

@@ -429,8 +429,6 @@ class CVApplication {
         if (!container) return;
 
         const skills = this.cvData?.skills || this.getDefaultSkills();
-        const skillProficiency = this.activityData?.skill_analysis?.skill_proficiency || {};
-
         const skillCategories = this.groupSkillsByCategory(skills);
 
         container.textContent = '';
@@ -446,8 +444,7 @@ class CVApplication {
             itemsDiv.className = 'skill-items';
 
             for (const skill of categorySkills) {
-                const proficiency = skillProficiency[skill.name] || {};
-                const level = Math.min(100, Math.max(0, proficiency.proficiency_score || skill.level || 70));
+                const tier = skill.tier || 'Secondary';
 
                 const skillItem = document.createElement('div');
                 skillItem.className = 'skill-item';
@@ -457,36 +454,12 @@ class CVApplication {
                 const nameSpan = document.createElement('span');
                 nameSpan.className = 'skill-name';
                 nameSpan.textContent = skill.name || '';
-                const levelSpan = document.createElement('span');
-                levelSpan.className = 'skill-level';
-                levelSpan.textContent = `${Math.round(level)}%`;
+                const tierSpan = document.createElement('span');
+                tierSpan.className = 'skill-level';
+                tierSpan.textContent = tier;
                 skillHeader.appendChild(nameSpan);
-                skillHeader.appendChild(levelSpan);
+                skillHeader.appendChild(tierSpan);
                 skillItem.appendChild(skillHeader);
-
-                const bar = document.createElement('div');
-                bar.className = 'skill-bar';
-                const progress = document.createElement('div');
-                progress.className = 'skill-progress';
-                progress.style.width = `${level}%`;
-                bar.appendChild(progress);
-                skillItem.appendChild(bar);
-
-                if (proficiency.proficiency_level) {
-                    const meta = document.createElement('div');
-                    meta.className = 'skill-meta';
-                    const profLevel = document.createElement('span');
-                    profLevel.className = 'proficiency-level';
-                    profLevel.textContent = proficiency.proficiency_level;
-                    meta.appendChild(profLevel);
-                    if (proficiency.metrics?.repository_count) {
-                        const projCount = document.createElement('span');
-                        projCount.className = 'project-count';
-                        projCount.textContent = `${proficiency.metrics.repository_count} projects`;
-                        meta.appendChild(projCount);
-                    }
-                    skillItem.appendChild(meta);
-                }
 
                 itemsDiv.appendChild(skillItem);
             }
@@ -676,15 +649,15 @@ class CVApplication {
 
     getDefaultSkills() {
         return [
-            { name: "Python", category: "Programming Languages", level: 80 },
-            { name: "JavaScript / TypeScript", category: "Programming Languages", level: 75 },
-            { name: "Frontier AI Models", category: "AI & Safety", level: 85 },
-            { name: "Red-Teaming", category: "AI & Safety", level: 80 },
-            { name: "Evaluation Frameworks", category: "AI & Safety", level: 80 },
-            { name: "Systems Integration", category: "Infrastructure", level: 85 },
-            { name: "Cybersecurity", category: "Infrastructure", level: 75 },
-            { name: "Risk Assessment", category: "Research Methods", level: 85 },
-            { name: "Technical Writing", category: "Research Methods", level: 85 }
+            { name: "Python", category: "Programming Languages", tier: "Primary" },
+            { name: "JavaScript / TypeScript", category: "Programming Languages", tier: "Primary" },
+            { name: "Frontier AI Models", category: "AI & Safety", tier: "Primary" },
+            { name: "Red-Teaming", category: "AI & Safety", tier: "Primary" },
+            { name: "Evaluation Frameworks", category: "AI & Safety", tier: "Primary" },
+            { name: "Systems Integration", category: "Infrastructure", tier: "Primary" },
+            { name: "Cybersecurity", category: "Infrastructure", tier: "Primary" },
+            { name: "Risk Assessment", category: "Research Methods", tier: "Primary" },
+            { name: "Technical Writing", category: "Research Methods", tier: "Primary" }
         ];
     }
 

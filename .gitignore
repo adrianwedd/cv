@@ -26,5 +26,14 @@ Thumbs.db
 *.log
 __pycache__/
 
-# Data snapshots are managed by CI — only latest is kept
-# Untracked after cleanup; CI re-adds the fresh one each run
+# CI-generated data snapshots (activity tracker rebuilds these each run)
+data/activity/
+data/metrics/
+data/trends/
+data/ai-cache/
+data/ai-enhancement-*.json
+
+# Test artifacts
+tests/node_modules/
+tests/coverage/
+tests/test-results/

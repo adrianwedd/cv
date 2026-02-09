@@ -203,99 +203,85 @@
     {
       "name": "Python",
       "category": "Programming Languages",
-      "level": 80,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "AI/ML development, automation scripting, backend services"
     },
     {
       "name": "JavaScript",
       "category": "Programming Languages",
-      "level": 75,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Frontend and Node.js development, automation"
     },
     {
       "name": "TypeScript",
       "category": "Programming Languages",
-      "level": 65,
-      "proficiency": "Intermediate",
+      "tier": "Secondary",
       "description": "Type-safe application development"
     },
     {
       "name": "PowerShell",
       "category": "Programming Languages",
-      "level": 70,
-      "proficiency": "Advanced",
+      "tier": "Secondary",
       "description": "Windows automation and systems administration"
     },
     {
       "name": "LLM Integration",
       "category": "AI & Automation",
-      "level": 80,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Claude, LangChain, LangGraph, multi-agent systems"
     },
     {
       "name": "AI Safety & Evaluation",
       "category": "AI & Automation",
-      "level": 75,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Confidence gating, red-teaming, failure-first methodology"
     },
     {
       "name": "Process Automation",
       "category": "AI & Automation",
-      "level": 80,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Workflow automation, scripting, CI/CD pipelines"
     },
     {
       "name": "Systems Integration",
       "category": "Infrastructure",
-      "level": 85,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "API development, data exchange, service integration"
     },
     {
       "name": "Cybersecurity",
       "category": "Infrastructure",
-      "level": 75,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Security assessment, vulnerability management, compliance"
     },
     {
       "name": "Linux/Windows Server",
       "category": "Infrastructure",
-      "level": 80,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Server management, networking, infrastructure"
     },
     {
       "name": "Docker",
       "category": "DevOps",
-      "level": 70,
-      "proficiency": "Intermediate",
+      "tier": "Secondary",
       "description": "Containerization and development environments"
     },
     {
       "name": "GitHub Actions",
       "category": "DevOps",
-      "level": 75,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "CI/CD pipeline design and automation"
     },
     {
       "name": "React",
       "category": "Frontend",
-      "level": 65,
-      "proficiency": "Intermediate",
+      "tier": "Secondary",
       "description": "Frontend application development"
     },
     {
       "name": "SQL / PostgreSQL",
       "category": "Data",
-      "level": 75,
-      "proficiency": "Advanced",
+      "tier": "Primary",
       "description": "Database design, querying, and optimization"
     }
   ],
