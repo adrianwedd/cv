@@ -120,9 +120,9 @@ class CVApplication {
         document.addEventListener('click', (e) => {
             const navItem = e.target.closest('.nav-item');
             if (navItem) {
-                e.preventDefault();
                 const section = navItem.dataset.section;
                 if (section) {
+                    e.preventDefault();
                     this.navigateToSection(section);
                 }
             }
