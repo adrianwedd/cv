@@ -591,9 +591,16 @@ class WatchMeWorkDashboard {
 
     getRepoRecentActivity(repoName) {
         const since = this.getTimeRangeDate();
+        // Count push events to this repo (commits array may be empty from public API)
+        const pushes = this.activities.filter(a =>
+            a.type === 'PushEvent' &&
+            (a.repo === repoName || a.repo.endsWith('/' + repoName)) &&
+            new Date(a.created_at) >= since
+        ).length;
         const commits = this.recentCommits.filter(c => c.repository === repoName && new Date(c.created_at) >= since).length;
         const issues = this.recentIssues.filter(i => i.repository === repoName && new Date(i.updated_at) >= since).length;
-        return { commits, issues, total: commits + issues };
+        const effectiveCommits = commits || pushes;
+        return { commits: effectiveCommits, issues, total: effectiveCommits + issues };
     }
 
     getFilteredActivities() {
@@ -823,7 +830,13 @@ class WatchMeWorkDashboard {
     formatActivityDescription(activity) {
         switch (activity.type) {
             case 'PushEvent': {
-                const commits = activity.payload?.commits?.length || 0;
+                const commits = activity.payload?.commits?.length ||
+                    activity.payload?.distinct_size ||
+                    activity.payload?.size || 0;
+                if (commits === 0) {
+                    const branch = (activity.payload?.ref || '').replace('refs/heads/', '');
+                    return branch ? `Pushed to ${branch}` : 'Pushed commits';
+                }
                 return `Pushed ${commits} commit${commits !== 1 ? 's' : ''}`;
             }
             case 'IssuesEvent':
