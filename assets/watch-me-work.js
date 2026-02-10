@@ -300,7 +300,7 @@ class WatchMeWorkDashboard {
     async loadLiveData() {
         const [events, repos] = await Promise.all([
             this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/events/public?per_page=100`, { cacheMode: 'etag' }),
-            this.fetchJSON(`${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated`, { cacheMode: 'etag' })
+            this.fetchAllRepos()
         ]);
 
         this.activities = (events || []).map(event => ({
@@ -333,6 +333,21 @@ class WatchMeWorkDashboard {
         this.summaryData = {};
         this.metricsData = null;
         this.trendsData = null;
+    }
+
+    async fetchAllRepos() {
+        const allRepos = [];
+        let page = 1;
+        const maxPages = 5; // safety cap: 500 repos
+        while (page <= maxPages) {
+            const url = `${CONFIG.GITHUB_API}/users/${CONFIG.USERNAME}/repos?per_page=100&sort=updated&page=${page}`;
+            const batch = await this.fetchJSON(url, { cacheMode: 'etag' });
+            if (!batch || batch.length === 0) break;
+            allRepos.push(...batch);
+            if (batch.length < 100) break;
+            page++;
+        }
+        return allRepos;
     }
 
     async fetchJSON(url, { cacheMode = 'none', ttlMs = 5 * 60 * 1000 } = {}) {
