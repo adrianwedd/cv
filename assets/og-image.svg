@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a0f"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines (curvature field nod) -->
+  <g stroke="#8ac7d9" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Accent line -->
+  <rect x="80" y="200" width="48" height="3" rx="1.5" fill="#8ac7d9"/>
+
+  <!-- Name -->
+  <text x="80" y="260" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="56" font-weight="600" fill="#e9eef6" letter-spacing="-0.02em">Adrian Wedd</text>
+
+  <!-- Title -->
+  <text x="80" y="310" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26" font-weight="400" fill="#8ac7d9" letter-spacing="0.01em">AI Safety Engineer &amp; Independent Researcher</text>
+
+  <!-- Tagline -->
+  <text x="80" y="370" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="400" fill="#a8b3c2" letter-spacing="0.01em">Red-teaming · Evaluation frameworks · Failure-first methodology</text>
+
+  <!-- URL -->
+  <text x="80" y="540" font-family="'JetBrains Mono', Consolas, monospace" font-size="14" font-weight="400" fill="#666666" letter-spacing="0.05em">cv.adrianwedd.com</text>
+</svg>

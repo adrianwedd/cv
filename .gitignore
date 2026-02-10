@@ -32,6 +32,10 @@ data/metrics/
 data/trends/
 data/ai-cache/
 data/ai-enhancement-*.json
+data/validation-report-*.json
+data/latest-validation-report.json
+data/validation-cache/
+data/content-audit.json
 
 # Test artifacts
 tests/node_modules/
