@@ -16,14 +16,7 @@ const CONFIG = {
         METRICS_PREFIX: 'data/metrics/',
         TRENDS_PREFIX: 'data/trends/'
     },
-    COLORS: {
-        commit: '#22c55e',
-        issue: '#f59e0b',
-        pr: '#3b82f6',
-        comment: '#8b5cf6',
-        push: '#10b981',
-        fork: '#f97316'
-    }
+    THEME_KEY: 'cv-theme'
 };
 
 class WatchMeWorkDashboard {
@@ -48,11 +41,16 @@ class WatchMeWorkDashboard {
         this.refreshTimer = null;
         this.dataSource = 'unknown';
 
+        this.themePreference = localStorage.getItem(CONFIG.THEME_KEY) || 'dark';
+
         this.init();
     }
 
     async init() {
-        console.log('🎬 Initializing Watch Me Work Dashboard...');
+        console.log('Initializing Watch Me Work Dashboard...');
+
+        this.applyTheme(this.themePreference);
+        this.setupThemeToggle();
 
         try {
             this.loadFiltersFromURL();
@@ -65,9 +63,9 @@ class WatchMeWorkDashboard {
             this.startLiveUpdates();
 
             this.updateLiveStatus('live');
-            console.log(`✅ Dashboard initialized (source: ${this.dataSource})`);
+            console.log(`Dashboard initialized (source: ${this.dataSource})`);
         } catch (error) {
-            console.error('❌ Dashboard initialization failed:', error);
+            console.error('Dashboard initialization failed:', error);
             this.updateLiveStatus('error');
         }
     }
@@ -127,6 +125,33 @@ class WatchMeWorkDashboard {
         });
     }
 
+    setupThemeToggle() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle?.querySelector('.theme-icon');
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                this.themePreference = this.themePreference === 'dark' ? 'light' : 'dark';
+                this.applyTheme(this.themePreference);
+                localStorage.setItem(CONFIG.THEME_KEY, this.themePreference);
+                const icon = document.querySelector('.theme-icon');
+                if (icon) icon.textContent = this.themePreference === 'dark' ? '\u2600' : '\u263E';
+            });
+
+            if (themeIcon) {
+                themeIcon.textContent = this.themePreference === 'dark' ? '\u2600' : '\u263E';
+            }
+        }
+    }
+
+    applyTheme(theme) {
+        if (theme === 'dark') {
+            document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+    }
+
     /**
      * Load data: try static CI data first, fall back to live API
      */
@@ -135,12 +160,12 @@ class WatchMeWorkDashboard {
             await this.loadStaticData();
             this.dataSource = 'static';
         } catch (error) {
-            console.warn('⚠️ Static data unavailable, trying live API...', error.message);
+            console.warn('Static data unavailable, trying live API...', error.message);
             try {
                 await this.loadLiveData();
                 this.dataSource = 'api';
             } catch (apiError) {
-                console.error('❌ Both data sources failed:', apiError.message);
+                console.error('Both data sources failed:', apiError.message);
                 this.dataSource = 'none';
             }
         }
@@ -419,7 +444,7 @@ class WatchMeWorkDashboard {
 
             const iconDiv = document.createElement('div');
             iconDiv.className = 'empty-icon';
-            iconDiv.textContent = '\u{1F4ED}';
+            iconDiv.textContent = '\u2014';
 
             const p1 = document.createElement('p');
             p1.textContent = 'No recent activity found';
@@ -437,7 +462,6 @@ class WatchMeWorkDashboard {
 
         filteredActivities.forEach(activity => {
             const icon = this.getActivityIcon(activity.type);
-            const color = CONFIG.COLORS[activity.type] || '#6b7280';
             const timeAgo = this.getTimeAgo(activity.created_at);
 
             const item = document.createElement('div');
@@ -445,7 +469,6 @@ class WatchMeWorkDashboard {
 
             const marker = document.createElement('div');
             marker.className = 'timeline-marker';
-            marker.style.backgroundColor = color;
             marker.textContent = icon;
 
             const content = document.createElement('div');
@@ -516,11 +539,11 @@ class WatchMeWorkDashboard {
 
             const starStat = document.createElement('span');
             starStat.className = 'repo-stat';
-            starStat.textContent = '\u2B50 ' + repo.stars;
+            starStat.textContent = repo.stars + ' stars';
 
             const forkStat = document.createElement('span');
             forkStat.className = 'repo-stat';
-            forkStat.textContent = '\u{1F374} ' + repo.forks;
+            forkStat.textContent = repo.forks + ' forks';
 
             stats.append(starStat, forkStat);
             header.append(h3, stats);
@@ -551,7 +574,7 @@ class WatchMeWorkDashboard {
 
             const indicator = document.createElement('div');
             indicator.className = 'activity-indicator ' + (recentActivity.total > 0 ? 'active' : 'inactive');
-            indicator.textContent = recentActivity.total > 0 ? '\u{1F7E2}' : '\u26AA';
+            indicator.textContent = recentActivity.total > 0 ? 'active' : 'idle';
 
             activityDiv.append(summary, indicator);
             card.append(header, descDiv, meta, activityDiv);
@@ -626,10 +649,10 @@ class WatchMeWorkDashboard {
         this.isPaused = !this.isPaused;
         const pauseBtn = document.getElementById('pause-btn');
         if (this.isPaused) {
-            pauseBtn.textContent = '\u25B6\uFE0F Resume';
+            pauseBtn.textContent = 'Resume';
             this.updateLiveStatus('paused');
         } else {
-            pauseBtn.textContent = '\u23F8\uFE0F Pause';
+            pauseBtn.textContent = 'Pause';
             this.updateLiveStatus('live');
         }
     }
@@ -641,7 +664,7 @@ class WatchMeWorkDashboard {
             await this.loadData();
             this.updateLiveStatus('live');
         } catch (error) {
-            console.error('❌ Refresh failed:', error);
+            console.error('Refresh failed:', error);
             this.updateLiveStatus('error');
         }
     }
@@ -769,17 +792,17 @@ class WatchMeWorkDashboard {
 
     getActivityIcon(type) {
         const icons = {
-            PushEvent: '\u{1F4DD}',
-            IssuesEvent: '\u{1F41B}',
-            PullRequestEvent: '\u{1F504}',
-            IssueCommentEvent: '\u{1F4AC}',
-            CreateEvent: '\u{1F3AF}',
-            DeleteEvent: '\u{1F5D1}\uFE0F',
-            ForkEvent: '\u{1F374}',
-            WatchEvent: '\u{1F441}\uFE0F',
-            ReleaseEvent: '\u{1F680}'
+            PushEvent: '\u2191',
+            IssuesEvent: '\u25CB',
+            PullRequestEvent: '\u21C4',
+            IssueCommentEvent: '\u2014',
+            CreateEvent: '+',
+            DeleteEvent: '\u00D7',
+            ForkEvent: '\u2442',
+            WatchEvent: '\u2022',
+            ReleaseEvent: '\u2713'
         };
-        return icons[type] || '\u{1F4CB}';
+        return icons[type] || '\u2022';
     }
 
     formatActivityType(type) {

@@ -7,8 +7,13 @@
     <meta name="description" content="Live development activity dashboard showing real-time coding, commits, issues, and pull requests across all repositories">
 
     <!-- Security -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.github.com; font-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com">
     <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/watch-me-work.css">
@@ -24,7 +29,7 @@
     <meta property="og:title" content="Watch Me Work - Adrian Wedd">
     <meta property="og:description" content="Live development activity dashboard">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://adrianwedd.github.io/cv/watch-me-work">
+    <meta property="og:url" content="https://cv.adrianwedd.com/watch-me-work">
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -32,7 +37,7 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Watch Me Work Dashboard",
-        "url": "https://adrianwedd.github.io/cv/watch-me-work",
+        "url": "https://cv.adrianwedd.com/watch-me-work",
         "description": "Live development activity dashboard",
         "author": {
             "@type": "Person",
@@ -42,21 +47,28 @@
     </script>
 </head>
 <body>
+    <canvas id="curvature-bg" aria-hidden="true"></canvas>
+
     <!-- Skip to content -->
-    <a href="#dashboard-main" class="skip-to-content" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;z-index:9999;padding:8px 16px;background:#2563eb;color:#fff;text-decoration:none;font-weight:600;border-radius:0 0 4px 0;">Skip to main content</a>
+    <a href="#dashboard-main" class="skip-to-content">Skip to main content</a>
+
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">
+        <span class="theme-icon">☀</span>
+    </button>
 
     <!-- Header -->
     <header class="dashboard-header">
         <div class="header-content">
             <div class="brand">
-                <h1>🎬 Watch Me Work</h1>
-                <p class="tagline">Live Development Activity Dashboard</p>
+                <h1>Watch Me Work</h1>
+                <p class="tagline">Live Development Activity</p>
             </div>
 
             <div class="live-status">
                 <div class="status-indicator" id="live-indicator">
                     <div class="pulse"></div>
-                    <span id="status-text">Connecting...</span>
+                    <span id="status-text">Connecting</span>
                 </div>
                 <div class="last-activity">
                     Last activity: <span id="last-activity-time">---</span>
@@ -64,8 +76,8 @@
             </div>
 
             <nav class="dashboard-nav" aria-label="Dashboard navigation">
-                <a href="index.html" class="nav-link">← Back to CV</a>
-                <button class="filter-toggle" id="filter-toggle">🔧 Filters</button>
+                <a href="index.html" class="nav-link">Back to CV</a>
+                <button class="filter-toggle" id="filter-toggle">Filters</button>
             </nav>
         </div>
     </header>
@@ -78,10 +90,10 @@
                 <div class="filter-group">
                     <label>Activity Types:</label>
                     <div class="filter-options">
-                        <label><input type="checkbox" id="filter-commits" checked> 📝 Commits</label>
-                        <label><input type="checkbox" id="filter-issues" checked> 🐛 Issues</label>
-                        <label><input type="checkbox" id="filter-prs" checked> 🔄 Pull Requests</label>
-                        <label><input type="checkbox" id="filter-comments" checked> 💬 Comments</label>
+                        <label><input type="checkbox" id="filter-commits" checked> Commits</label>
+                        <label><input type="checkbox" id="filter-issues" checked> Issues</label>
+                        <label><input type="checkbox" id="filter-prs" checked> Pull Requests</label>
+                        <label><input type="checkbox" id="filter-comments" checked> Comments</label>
                     </div>
                 </div>
 
@@ -107,7 +119,7 @@
                         spellcheck="false"
                     >
                     <div class="filter-options">
-                        <label><input type="checkbox" id="filter-active-repos"> ✅ Active repos only</label>
+                        <label><input type="checkbox" id="filter-active-repos"> Active repos only</label>
                     </div>
                 </div>
 
@@ -126,7 +138,6 @@
         <!-- Metrics Overview -->
         <section class="metrics-overview">
             <div class="metric-card">
-                <div class="metric-icon">📝</div>
                 <div class="metric-content">
                     <div class="metric-value" id="commits-today">0</div>
                     <div class="metric-label">Commits (30d)</div>
@@ -134,7 +145,6 @@
             </div>
 
             <div class="metric-card">
-                <div class="metric-icon">🔥</div>
                 <div class="metric-content">
                     <div class="metric-value" id="streak-days">0</div>
                     <div class="metric-label">Active Days</div>
@@ -142,7 +152,6 @@
             </div>
 
             <div class="metric-card">
-                <div class="metric-icon">📦</div>
                 <div class="metric-content">
                     <div class="metric-value" id="repositories-count">0</div>
                     <div class="metric-label">Repositories</div>
@@ -150,7 +159,6 @@
             </div>
 
             <div class="metric-card">
-                <div class="metric-icon">🎯</div>
                 <div class="metric-content">
                     <div class="metric-value" id="languages-count">0</div>
                     <div class="metric-label">Languages</div>
@@ -161,10 +169,10 @@
         <!-- Activity Timeline -->
         <section class="activity-timeline">
             <div class="section-header">
-                <h2>🕐 Live Activity Stream</h2>
+                <h2>Live Activity Stream</h2>
                 <div class="timeline-controls">
-                    <button class="btn-secondary" id="pause-btn">⏸️ Pause</button>
-                    <button class="btn-primary" id="refresh-btn">🔄 Refresh</button>
+                    <button class="btn-secondary" id="pause-btn">Pause</button>
+                    <button class="btn-primary" id="refresh-btn">Refresh</button>
                 </div>
             </div>
 
@@ -179,10 +187,10 @@
         <!-- Repository Activity Grid -->
         <section class="repo-activity-grid">
             <div class="section-header">
-                <h2>📊 Repository Activity</h2>
+                <h2>Repository Activity</h2>
                 <div class="view-toggle">
-                    <button class="view-btn active" data-view="grid">📊 Grid</button>
-                    <button class="view-btn" data-view="list">📋 List</button>
+                    <button class="view-btn active" data-view="grid">Grid</button>
+                    <button class="view-btn" data-view="list">List</button>
                 </div>
             </div>
 
@@ -194,7 +202,7 @@
         <!-- Live Code Preview (when available) -->
         <section class="code-preview" id="code-preview" style="display: none;">
             <div class="section-header">
-                <h2>👀 Live Code Preview</h2>
+                <h2>Live Code Preview</h2>
                 <button class="close-preview" id="close-preview">✕</button>
             </div>
 
@@ -226,7 +234,7 @@
     <footer class="dashboard-footer" role="contentinfo">
         <div class="footer-content">
             <div class="footer-info">
-                <p>🎬 Watch Me Work Dashboard • Real-time development activity</p>
+                <p>Watch Me Work Dashboard</p>
                 <p>Last updated: <span id="footer-timestamp">---</span></p>
             </div>
             <div class="footer-links">
@@ -238,6 +246,11 @@
     </footer>
 
     <!-- JavaScript -->
+    <script src="assets/curvature-field.js"></script>
+    <script>
+    var daysSinceEpoch = Math.floor(Date.now() / 86400000);
+    initCurvatureField({ canvasId: 'curvature-bg', seed: daysSinceEpoch, masses: 1 });
+    </script>
     <script src="assets/watch-me-work.js"></script>
 </body>
 </html>
