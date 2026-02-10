@@ -126,7 +126,7 @@ class CVApplication {
 
             // Update icon based on current theme
             if (themeIcon) {
-                themeIcon.textContent = this.themePreference === 'dark' ? 'sun' : 'moon';
+                themeIcon.textContent = this.themePreference === 'dark' ? '☀' : '☾';
             }
         }
     }
@@ -531,7 +531,7 @@ class CVApplication {
         // Update theme toggle icon
         const themeIcon = document.querySelector('.theme-icon');
         if (themeIcon) {
-            themeIcon.textContent = this.themePreference === 'dark' ? 'sun' : 'moon';
+            themeIcon.textContent = this.themePreference === 'dark' ? '☀' : '☾';
         }
     }
 
