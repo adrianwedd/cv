@@ -394,41 +394,33 @@ class WatchMeWorkDashboard {
             return;
         }
 
-        // Fallback: real counts from live data
-        const now = new Date();
-        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        // Fallback: derive from live API data
+        const since = this.getTimeRangeDate();
+        const recentActivities = this.activities.filter(a => new Date(a.created_at) >= since);
 
-        this.updateElement('commits-today', this.recentCommits.filter(c =>
-            new Date(c.created_at) >= todayStart
-        ).length);
-        this.updateElement('streak-days', this.calculateStreakDays());
+        // Count pushes as proxy for commits when commit details unavailable
+        const pushCount = recentActivities.filter(a => a.type === 'PushEvent').length;
+        const commitCount = this.recentCommits.filter(c => new Date(c.created_at) >= since).length;
+        this.updateElement('commits-today', commitCount || pushCount);
+
+        // Active days from all activity, not just commits
+        this.updateElement('streak-days', this.calculateActiveDays(recentActivities));
+
         this.updateElement('repositories-count', this.repositories.size);
-        this.updateElement('languages-count', 0);
+
+        // Count unique languages from repos
+        const languages = new Set();
+        this.repositories.forEach(repo => { if (repo.language) languages.add(repo.language); });
+        this.updateElement('languages-count', languages.size);
     }
 
-    calculateStreakDays() {
-        if (!this.recentCommits || this.recentCommits.length === 0) return 0;
-
-        const commitDates = new Set();
-        this.recentCommits.forEach(commit => {
-            const dateString = new Date(commit.created_at).toISOString().split('T')[0];
-            commitDates.add(dateString);
+    calculateActiveDays(activities) {
+        if (!activities || activities.length === 0) return 0;
+        const dates = new Set();
+        activities.forEach(a => {
+            dates.add(new Date(a.created_at).toISOString().split('T')[0]);
         });
-
-        const sortedDates = Array.from(commitDates).sort().reverse();
-        let streak = 0;
-
-        for (let i = 0; i < sortedDates.length; i++) {
-            const expectedDate = new Date();
-            expectedDate.setDate(expectedDate.getDate() - i);
-            if (sortedDates[i] === expectedDate.toISOString().split('T')[0]) {
-                streak++;
-            } else {
-                break;
-            }
-        }
-
-        return streak;
+        return dates.size;
     }
 
     updateActivityTimeline() {
