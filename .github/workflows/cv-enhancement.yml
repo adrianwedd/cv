@@ -272,9 +272,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔧 Install Dependencies (Pre-cache)
+      - name: 📦 Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 🔧 Install Dependencies
         run: |
-          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES (PRE-CACHE)**"
+          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
           cd .github/scripts
           npm cache clean --force
           npm install
@@ -288,12 +294,6 @@ jobs:
           npm test
           cd ../..
           echo "✅ Unit tests passed"
-
-      - name: 📦 Setup Node.js Environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
 
       - name: 🌐 Install Browser Dependencies
         run: |
@@ -396,7 +396,7 @@ jobs:
             echo "⚠️ Claude AI enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
           fi
 
-          cd ../...
+          cd ../..
 
       - name: Content Validation Gate
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
@@ -578,12 +578,21 @@ jobs:
             echo "⚠️ PDF not found in dist/assets/, PDF download will not be available"
           fi
 
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: ${{ secrets.CUSTOM_DOMAIN }}
+      - name: 🚀 Deploy Generated Assets to Main Branch
+        run: |
+          echo "🚀 **DEPLOYING GENERATED ASSETS**"
+
+          # Copy generated files from dist/ back into the working tree
+          if [ -d "dist" ]; then
+            # Copy generated assets over source files
+            cp -r dist/assets/* assets/ 2>/dev/null || true
+            cp -r dist/data/* data/ 2>/dev/null || true
+            [ -f dist/index.html ] && cp dist/index.html index.html
+
+            echo "✅ Generated assets staged for commit"
+          else
+            echo "⚠️ No dist directory found, skipping asset deploy"
+          fi
 
       - name: 📈 Usage Analytics Recording
         if: always()

@@ -82,20 +82,20 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🔧 Install Activity Analysis Dependencies (Pre-cache)
-        run: |
-          echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES (PRE-CACHE)**"
-          cd .github/scripts
-          npm cache clean --force
-          npm install
-          cd ../..
-          echo "✅ Analysis dependencies installed"
-
       - name: 📦 Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
+
+      - name: 🔧 Install Activity Analysis Dependencies
+        run: |
+          echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES**"
+          cd .github/scripts
+          npm cache clean --force
+          npm install
+          cd ../..
+          echo "✅ Analysis dependencies installed"
 
       - name: 🧹 Clean old data snapshots
         run: |
@@ -134,8 +134,8 @@ jobs:
             sed 's/.*\.//' | sort | uniq -c | sort -nr > temp_languages.txt
 
           # Code change metrics (with safety bounds)
-          LINES_ADDED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{if($1 != "-") add += $1} END {print add+0}')
-          LINES_REMOVED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{if($2 != "-") del += $2} END {print del+0}')
+          LINES_ADDED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{if($1 != "-") add += $1} END {printf "%.0f", add+0}')
+          LINES_REMOVED=$(git log --since="${LOOKBACK_DAYS} days ago" --numstat | awk '{if($2 != "-") del += $2} END {printf "%.0f", del+0}')
           NET_LINES=$((LINES_ADDED - LINES_REMOVED))
 
           # Cap extreme values (likely binary files or data corruption)
