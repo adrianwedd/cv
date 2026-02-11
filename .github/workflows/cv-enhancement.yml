@@ -370,11 +370,6 @@ jobs:
           echo "🎨 Creativity level: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
           echo ""
 
-          # Execute AI enhancement with comprehensive error handling
-          AI_BUDGET="${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
-          CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
-          ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-
           cd .github/scripts
 
           # Verify claude-enhancer.js exists before running
@@ -385,8 +380,11 @@ jobs:
           fi
 
           # Run with timeout and error handling
+          # Use set +e so process.exit(1) from the script doesn't abort the step
+          set +e
           timeout 600 node claude-enhancer.js
           ENHANCEMENT_EXIT_CODE=$?
+          set -e
 
           if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
             echo "✅ Claude AI enhancement completed successfully"
@@ -397,6 +395,8 @@ jobs:
           fi
 
           cd ../..
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Content Validation Gate
         if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
