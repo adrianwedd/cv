@@ -1,8 +1,8 @@
 // curvature-field.js
 // Renders gravitational field as static streamlines showing spacetime curvature
 // Adapted from Footnotes at the Edge of Reality
-// Geological drift — seed changes daily, field evolves on ~10-minute orbital period
-// Redraws every 30s and on window resize
+// Deterministic daily seed; visible slow drift via orbiting mass
+// Redraws on resize and a low-frequency timer
 
 // Seeded RNG (Mulberry32)
 function mulberry32(seed) {
@@ -31,9 +31,9 @@ function massesAtTime({ seed, tMs, w, h, count = 1 }) {
     const rng = mulberry32(seed + i * 1013);
     const cx = 0.5;
     const cy = 0.3;
-    const radius = 0.02 + rng() * 0.03;
+    const radius = 0.03 + rng() * 0.03;
     const ecc = 0.85 + rng() * 0.20;
-    const period = (10 + rng() * 10) * 60000;
+    const period = (4 + rng() * 4) * 60000;
     const phase = rng() * Math.PI * 2;
     const angle = phase + (tMs / period) * Math.PI * 2;
 
@@ -256,9 +256,9 @@ function initCurvatureField({ canvasId, seed = 42, masses = 1, epsilon = 140 } =
   resizeAndDraw(performance.now());
   window.addEventListener('resize', function () { resizeAndDraw(performance.now()); }, { passive: true });
 
-  // Geological drift — redraw every 30s so the mass orbits slowly
-  // Full orbital period is 10-20 minutes (set in massesAtTime)
+  // Visible but subtle drift: redraw every 8s.
+  // Full orbital period is 4-8 minutes (set in massesAtTime).
   setInterval(function () {
     resizeAndDraw(performance.now());
-  }, 30000);
+  }, 8000);
 }
