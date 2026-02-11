@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-02-11T01:23:25.550Z",
+  "generated_at": "2026-02-11T10:19:21.250Z",
   "mining_depth": "comprehensive",
   "lookback_days": 90,
   "summary_metrics": {
-    "issues_analyzed": 487,
-    "commits_analyzed": 242,
+    "issues_analyzed": 488,
+    "commits_analyzed": 243,
     "prs_analyzed": 229,
     "technical_depth_score": 97,
     "collaboration_score": 81
