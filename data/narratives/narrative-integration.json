@@ -1,28 +1,21 @@
 {
-  "generated_at": "2026-02-11T22:07:54.658Z",
+  "generated_at": "2026-02-12T10:17:13.573Z",
   "narratives_available": {
     "professional_summary": true,
     "technical_achievements": 11,
     "leadership_examples": 0,
-    "collaboration_stories": 26,
+    "collaboration_stories": 14,
     "skill_validations": 6,
     "growth_narrative": true
   },
   "integration_ready": true,
-  "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, DevOps, software quality. Evidence from GitHub activity shows I have contributed to technical discussions across 488+ GitHub issues, authored 243+ commits demonstrating consistent development activity, demonstrates high technical depth with 97% of contributions involving complex technical solutions, maintains 81% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+  "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, DevOps, software quality. Evidence from GitHub activity shows I have contributed to technical discussions across 411+ GitHub issues, authored 224+ commits demonstrating consistent development activity, demonstrates high technical depth with 98% of contributions involving complex technical solutions, maintains 76% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
   "top_achievements": [
-    {
-      "achievement": "Led technical development in ADHDo repository",
-      "evidence_type": "repository_leadership",
-      "impact_score": 402,
-      "details": "0 commits, 94 technical discussions, 24 high-complexity issues resolved",
-      "repository": "ADHDo"
-    },
     {
       "achievement": "Led technical development in adrianwedd repository",
       "evidence_type": "repository_leadership",
-      "impact_score": 384,
-      "details": "29 commits, 95 technical discussions, 14 high-complexity issues resolved",
+      "impact_score": 355,
+      "details": "0 commits, 95 technical discussions, 14 high-complexity issues resolved",
       "repository": "adrianwedd"
     },
     {
@@ -31,13 +24,20 @@
       "impact_score": 319,
       "details": "4 commits, 100 technical discussions, 3 high-complexity issues resolved",
       "repository": "cv"
+    },
+    {
+      "achievement": "Led technical development in AI-SWA repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 297,
+      "details": "0 commits, 99 technical discussions, 0 high-complexity issues resolved",
+      "repository": "AI-SWA"
     }
   ],
   "validated_skills": [
     "Software Architecture",
     "Security",
-    "Performance Optimization",
     "Testing",
+    "Performance Optimization",
     "JavaScript"
   ]
 }

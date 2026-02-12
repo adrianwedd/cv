@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-02-11T22:07:54.610Z",
+  "generated_at": "2026-02-12T10:17:13.530Z",
   "mining_depth": "comprehensive",
   "lookback_days": 90,
   "summary_metrics": {
-    "issues_analyzed": 488,
-    "commits_analyzed": 243,
-    "prs_analyzed": 229,
-    "technical_depth_score": 97,
-    "collaboration_score": 81
+    "issues_analyzed": 411,
+    "commits_analyzed": 224,
+    "prs_analyzed": 129,
+    "technical_depth_score": 98,
+    "collaboration_score": 76
   },
   "data_sources": {
     "issues_intelligence": true,
