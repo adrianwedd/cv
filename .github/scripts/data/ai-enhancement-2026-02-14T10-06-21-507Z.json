@@ -1,8 +1,11 @@
 {
-  "last_updated": "2026-02-14T10:06:21.508Z",
-  "creativity_level": "balanced",
-  "ai_budget": "sufficient",
-  "activity_score": 50,
+  "metadata": {
+    "enhancement_timestamp": "2026-02-14T10:05:58.023Z",
+    "creativity_level": "balanced",
+    "ai_budget": "sufficient",
+    "activity_score": 50,
+    "enhancer_version": "2.1.0"
+  },
   "professional_summary": {
     "original": "AI Engineer and Software Architect with proven track record in backend development, machine learning, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 742+ GitHub issues, authored 633+ commits demonstrating consistent development activity, demonstrates high technical depth with 85% of contributions involving complex technical solutions, maintains 78% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
     "enhanced": "AI Engineer and Software Architect with proven track record in backend development, machine learning, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 742+ GitHub issues, authored 633+ commits demonstrating consistent development activity, demonstrates high technical depth with 85% of contributions involving complex technical solutions, maintains 78% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
@@ -12,6 +15,14 @@
   "skills_enhancement": {
     "enhancement_applied": false,
     "error": "HTTP 400: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CY7msXgLfYSUDKDSd4TAL\"}"
+  },
+  "experience_enhancement": {
+    "enhancement_applied": false,
+    "error": "HTTP 400: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CY7mt26dYEzZ3DxdLm5zB\"}"
+  },
+  "project_enhancement": {
+    "enhancement_applied": false,
+    "error": "HTTP 400: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.\"},\"request_id\":\"req_011CY7mtGXnkb1UZLCXJ9nBL\"}"
   },
   "enhancement_summary": {
     "enhancement_overview": {
