@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-02-16T10:18:53.411Z",
+  "generated_at": "2026-02-16T22:07:09.630Z",
   "narratives_available": {
     "professional_summary": true,
     "technical_achievements": 12,
     "leadership_examples": 0,
-    "collaboration_stories": 14,
+    "collaboration_stories": 15,
     "skill_validations": 7,
     "growth_narrative": true
   },
   "integration_ready": true,
-  "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, DevOps, software quality. Evidence from GitHub activity shows I have contributed to technical discussions across 499+ GitHub issues, authored 326+ commits demonstrating consistent development activity, demonstrates high technical depth with 96% of contributions involving complex technical solutions, maintains 58% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+  "enhanced_summary": "AI Engineer and Software Architect with proven track record in performance optimization, frontend development, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 499+ GitHub issues, authored 326+ commits demonstrating consistent development activity, demonstrates high technical depth with 97% of contributions involving complex technical solutions, maintains 57% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
   "top_achievements": [
     {
       "achievement": "Led technical development in adrianwedd.com repository",
       "evidence_type": "repository_leadership",
-      "impact_score": 366,
-      "details": "99 commits, 89 technical discussions, 0 high-complexity issues resolved",
+      "impact_score": 382,
+      "details": "100 commits, 94 technical discussions, 0 high-complexity issues resolved",
       "repository": "adrianwedd.com"
     },
     {
