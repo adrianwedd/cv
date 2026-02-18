@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-02-18T10:16:49.025Z",
+  "generated_at": "2026-02-18T22:09:10.829Z",
   "narratives_available": {
     "professional_summary": true,
     "technical_achievements": 12,
     "leadership_examples": 0,
-    "collaboration_stories": 15,
+    "collaboration_stories": 4,
     "skill_validations": 7,
     "growth_narrative": true
   },
   "integration_ready": true,
-  "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, DevOps, software quality. Evidence from GitHub activity shows I have contributed to technical discussions across 500+ GitHub issues, authored 326+ commits demonstrating consistent development activity, demonstrates high technical depth with 97% of contributions involving complex technical solutions, maintains 58% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+  "enhanced_summary": "AI Engineer and Software Architect with proven track record in backend development, frontend development, software quality. Evidence from GitHub activity shows I have contributed to technical discussions across 500+ GitHub issues, authored 314+ commits demonstrating consistent development activity, demonstrates high technical depth with 96% of contributions involving complex technical solutions, maintains 52% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
   "top_achievements": [
     {
       "achievement": "Led technical development in adrianwedd.com repository",
@@ -19,23 +19,23 @@
       "repository": "adrianwedd.com"
     },
     {
-      "achievement": "Led technical development in adrianwedd repository",
-      "evidence_type": "repository_leadership",
-      "impact_score": 355,
-      "details": "0 commits, 95 technical discussions, 14 high-complexity issues resolved",
-      "repository": "adrianwedd"
-    },
-    {
       "achievement": "Led technical development in cv repository",
       "evidence_type": "repository_leadership",
       "impact_score": 319,
       "details": "4 commits, 100 technical discussions, 3 high-complexity issues resolved",
       "repository": "cv"
+    },
+    {
+      "achievement": "Led technical development in orbitr repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 313,
+      "details": "8 commits, 90 technical discussions, 7 high-complexity issues resolved",
+      "repository": "orbitr"
     }
   ],
   "validated_skills": [
-    "Software Architecture",
     "Security",
+    "Software Architecture",
     "Testing",
     "Performance Optimization",
     "JavaScript"
