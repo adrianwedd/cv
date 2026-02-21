@@ -1,0 +1,298 @@
+{
+  "professional_summary": {
+    "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, DevOps, software quality. Evidence from GitHub activity shows I have contributed to technical discussions across 502+ GitHub issues, authored 324+ commits demonstrating consistent development activity, demonstrates high technical depth with 96% of contributions involving complex technical solutions, maintains 52% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+    "evidence_sources": {
+      "issues_analyzed": 502,
+      "commits_analyzed": 324,
+      "technical_depth_score": 96,
+      "collaboration_score": 52
+    },
+    "supporting_data": {
+      "technical_themes": [
+        "machine learning",
+        "DevOps",
+        "software quality",
+        "frontend development",
+        "backend development",
+        "performance optimization",
+        "automation",
+        "software architecture",
+        "security"
+      ],
+      "problem_solving_examples": [
+        {
+          "type": "issue_resolution",
+          "repository": "cv",
+          "title": "chore(deps): bump the npm_and_yarn group across 2 directories with 2 updates",
+          "complexity": "low",
+          "technical_score": 5,
+          "evidence_link": "github.com/adrianwedd/cv/issues/385"
+        },
+        {
+          "type": "issue_resolution",
+          "repository": "cv",
+          "title": "Bump jsdom from 26.1.0 to 27.4.0 in /.github/scripts",
+          "complexity": "medium",
+          "technical_score": 5,
+          "evidence_link": "github.com/adrianwedd/cv/issues/373"
+        },
+        {
+          "type": "issue_resolution",
+          "repository": "orbitr",
+          "title": "🚀 Phase 1B: Performance Optimization & Code Quality",
+          "complexity": "high",
+          "technical_score": 5,
+          "evidence_link": "github.com/adrianwedd/orbitr/issues/45"
+        }
+      ]
+    }
+  },
+  "technical_achievements": [
+    {
+      "achievement": "Led technical development in adrianwedd.com repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 387,
+      "details": "100 commits, 94 technical discussions, 1 high-complexity issues resolved",
+      "repository": "adrianwedd.com"
+    },
+    {
+      "achievement": "Led technical development in cv repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 319,
+      "details": "4 commits, 100 technical discussions, 3 high-complexity issues resolved",
+      "repository": "cv"
+    },
+    {
+      "achievement": "Led technical development in orbitr repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 318,
+      "details": "13 commits, 90 technical discussions, 7 high-complexity issues resolved",
+      "repository": "orbitr"
+    },
+    {
+      "achievement": "Led technical development in AI-SWA repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 297,
+      "details": "0 commits, 99 technical discussions, 0 high-complexity issues resolved",
+      "repository": "AI-SWA"
+    },
+    {
+      "achievement": "Led technical development in notebooklm-automation repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 184,
+      "details": "67 commits, 39 technical discussions, 0 high-complexity issues resolved",
+      "repository": "notebooklm-automation"
+    },
+    {
+      "achievement": "Contributed to 502 technical discussions",
+      "evidence_type": "issue_participation",
+      "impact_score": 100,
+      "details": "Participated in technical discussions across multiple repositories, with 96% involving complex technical solutions"
+    },
+    {
+      "achievement": "Authored 324 commits in recent period",
+      "evidence_type": "development_activity",
+      "impact_score": 100,
+      "details": "Consistent development activity showing sustained contribution to codebase evolution"
+    },
+    {
+      "achievement": "Led technical development in failure-first repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 91,
+      "details": "68 commits, 6 technical discussions, 1 high-complexity issues resolved",
+      "repository": "failure-first"
+    },
+    {
+      "achievement": "Led technical development in why-demonstrated-risk-is-ignored repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 83,
+      "details": "0 commits, 26 technical discussions, 1 high-complexity issues resolved",
+      "repository": "why-demonstrated-risk-is-ignored"
+    },
+    {
+      "achievement": "Led technical development in squishmallowdex repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 73,
+      "details": "38 commits, 10 technical discussions, 1 high-complexity issues resolved",
+      "repository": "squishmallowdex"
+    },
+    {
+      "achievement": "Led technical development in terminal repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 42,
+      "details": "18 commits, 8 technical discussions, 0 high-complexity issues resolved",
+      "repository": "terminal"
+    },
+    {
+      "achievement": "Led technical development in rlm-mcp repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 36,
+      "details": "0 commits, 12 technical discussions, 0 high-complexity issues resolved",
+      "repository": "rlm-mcp"
+    }
+  ],
+  "leadership_examples": [],
+  "collaboration_stories": [
+    {
+      "story_type": "community_collaboration",
+      "narrative": "Maintains 52% collaboration effectiveness in community interactions",
+      "evidence": "Consistently provides helpful responses in technical discussions",
+      "impact": "Contributes to positive community environment and knowledge sharing"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in cv",
+      "evidence": "## ✅ Phase 1 Stabilization Complete\n\n### Achievements:\n- 🚀 Re-enabled 3 critical workflows with optimized schedules\n- 💰 Achieved 70% cost reduction ( → /month target)\n- 📊 Implemented cost monitorin...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "cv"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in adrianwedd.com",
+      "evidence": "**Implemented in f137f4b.**\n\nLighthouse CI assertions configured at `.github/lighthouse/lighthouserc.json`:\n\n```json\n{\n  \"ci\": {\n    \"collect\": {\n      \"staticDistDir\": \"dist\",\n      \"url\": [\n        ...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "adrianwedd.com"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in why-demonstrated-risk-is-ignored",
+      "evidence": "Scaffold artifact created: `/docs/evaluation/evaluation_designs.md`\n\n**Documents 3 candidate designs:**\n1. Pre/Post Single Unit\n2. Matched Comparison\n3. Stepped-Wedge Rollout\n\n**Per design includes:**...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "why-demonstrated-risk-is-ignored"
+    }
+  ],
+  "skill_validations": [
+    {
+      "skill": "Security",
+      "evidence_strength": "strong",
+      "evidence_count": 19,
+      "repositories": [
+        "cv",
+        "orbitr",
+        "notebooklm-automation",
+        "adrianwedd.com",
+        "AI-SWA"
+      ],
+      "evidence_types": [
+        "issue"
+      ],
+      "recent_usage": "2026-02-16T21:17:05Z",
+      "validation_summary": "Security skill demonstrated through 19 instances across 5 repositories"
+    },
+    {
+      "skill": "Software Architecture",
+      "evidence_strength": "strong",
+      "evidence_count": 17,
+      "repositories": [
+        "cv",
+        "squishmallowdex",
+        "AI-SWA",
+        "why-demonstrated-risk-is-ignored"
+      ],
+      "evidence_types": [
+        "issue"
+      ],
+      "recent_usage": "2026-02-15T08:39:25Z",
+      "validation_summary": "Software Architecture skill demonstrated through 17 instances across 4 repositories"
+    },
+    {
+      "skill": "Testing",
+      "evidence_strength": "strong",
+      "evidence_count": 16,
+      "repositories": [
+        "terminal",
+        "failure-first",
+        "cv",
+        "orbitr",
+        "notebooklm-automation",
+        "squishmallowdex"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-18T23:44:54Z",
+      "validation_summary": "Testing skill demonstrated through 16 instances across 6 repositories"
+    },
+    {
+      "skill": "Performance Optimization",
+      "evidence_strength": "strong",
+      "evidence_count": 12,
+      "repositories": [
+        "cv",
+        "orbitr",
+        "adrianwedd.com",
+        "AI-SWA",
+        "why-demonstrated-risk-is-ignored"
+      ],
+      "evidence_types": [
+        "issue"
+      ],
+      "recent_usage": "2026-02-16T21:16:59Z",
+      "validation_summary": "Performance Optimization skill demonstrated through 12 instances across 5 repositories"
+    },
+    {
+      "skill": "JavaScript",
+      "evidence_strength": "strong",
+      "evidence_count": 9,
+      "repositories": [
+        "notebooklm-automation",
+        "adrianwedd.com"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-13T12:01:32Z",
+      "validation_summary": "JavaScript skill demonstrated through 9 instances across 2 repositories"
+    },
+    {
+      "skill": "API Development",
+      "evidence_strength": "strong",
+      "evidence_count": 8,
+      "repositories": [
+        "cv",
+        "orbitr",
+        "notebooklm-automation"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-18T22:46:26Z",
+      "validation_summary": "API Development skill demonstrated through 8 instances across 3 repositories"
+    },
+    {
+      "skill": "Python",
+      "evidence_strength": "medium",
+      "evidence_count": 4,
+      "repositories": [
+        "orbitr",
+        "adrianwedd.com"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-15T05:22:38Z",
+      "validation_summary": "Python skill demonstrated through 4 instances across 2 repositories"
+    }
+  ],
+  "growth_narrative": {
+    "growth_summary": "Demonstrates consistent professional development through increasing technical complexity and community engagement",
+    "key_indicators": [
+      "Steady increase in technical contribution complexity",
+      "Growing involvement in architectural discussions",
+      "Evolution from individual contributor to community collaborator"
+    ],
+    "timeline_highlights": [
+      "308 commits showing consistent development activity",
+      "14 high-complexity technical discussions"
+    ],
+    "metrics_progression": {
+      "technical_evolution_score": 100,
+      "complexity_trend": "increasing",
+      "contribution_consistency": "high"
+    },
+    "future_trajectory": "Positioned for senior technical leadership roles based on demonstrated growth patterns"
+  }
+}
