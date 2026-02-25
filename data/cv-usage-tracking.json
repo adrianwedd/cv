@@ -287,6 +287,15 @@
       "estimated_tokens": 8000,
       "activity_score": 100,
       "outcome": "success"
+    },
+    {
+      "timestamp": "2026-02-25 21:19 AEST",
+      "utc_timestamp": "2026-02-25T10:19:32Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 100,
+      "outcome": "success"
     }
   ],
   "enhancement_history": [
@@ -478,6 +487,12 @@
     },
     {
       "date": "2026-02-24",
+      "mode": "comprehensive",
+      "activity_score": 100,
+      "success": true
+    },
+    {
+      "date": "2026-02-25",
       "mode": "comprehensive",
       "activity_score": 100,
       "success": true
