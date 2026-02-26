@@ -1,0 +1,663 @@
+{
+  "generated_at": "2026-02-26T09:00:31.600430Z",
+  "commit_timeline": [
+    {
+      "week": "2025-07-13",
+      "repos": {
+        "terminal": 2
+      }
+    },
+    {
+      "week": "2025-07-20",
+      "repos": {
+        "terminal": 88
+      }
+    },
+    {
+      "week": "2025-07-27",
+      "repos": {
+        "terminal": 128
+      }
+    },
+    {
+      "week": "2025-08-03",
+      "repos": {
+        "terminal": 60
+      }
+    },
+    {
+      "week": "2025-08-10",
+      "repos": {
+        "terminal": 135
+      }
+    },
+    {
+      "week": "2025-08-17",
+      "repos": {
+        "terminal": 154
+      }
+    },
+    {
+      "week": "2025-08-24",
+      "repos": {
+        "terminal": 150
+      }
+    },
+    {
+      "week": "2025-08-31",
+      "repos": {
+        "terminal": 144
+      }
+    },
+    {
+      "week": "2025-09-07",
+      "repos": {
+        "terminal": 146
+      }
+    },
+    {
+      "week": "2025-09-14",
+      "repos": {
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-09-21",
+      "repos": {
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-09-28",
+      "repos": {
+        "terminal": 149
+      }
+    },
+    {
+      "week": "2025-10-05",
+      "repos": {
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-10-12",
+      "repos": {
+        "terminal": 149
+      }
+    },
+    {
+      "week": "2025-10-19",
+      "repos": {
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-10-26",
+      "repos": {
+        "terminal": 144
+      }
+    },
+    {
+      "week": "2025-11-02",
+      "repos": {
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-11-09",
+      "repos": {
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-11-16",
+      "repos": {
+        "terminal": 150
+      }
+    },
+    {
+      "week": "2025-11-23",
+      "repos": {
+        "terminal": 147
+      }
+    },
+    {
+      "week": "2025-11-30",
+      "repos": {
+        "terminal": 151
+      }
+    },
+    {
+      "week": "2025-12-07",
+      "repos": {
+        "terminal": 154
+      }
+    },
+    {
+      "week": "2025-12-14",
+      "repos": {
+        "This-Wasn-t-in-the-Brochure": 29,
+        "terminal": 149
+      }
+    },
+    {
+      "week": "2025-12-21",
+      "repos": {
+        "This-Wasn-t-in-the-Brochure": 158,
+        "terminal": 148
+      }
+    },
+    {
+      "week": "2025-12-28",
+      "repos": {
+        "This-Wasn-t-in-the-Brochure": 83,
+        "terminal": 155
+      }
+    },
+    {
+      "week": "2026-01-04",
+      "repos": {
+        "This-Wasn-t-in-the-Brochure": 3,
+        "terminal": 138
+      }
+    },
+    {
+      "week": "2026-01-11",
+      "repos": {
+        "terminal": 119
+      }
+    },
+    {
+      "week": "2026-01-18",
+      "repos": {
+        "terminal": 119
+      }
+    },
+    {
+      "week": "2026-01-25",
+      "repos": {
+        "terminal": 119
+      }
+    },
+    {
+      "week": "2026-02-01",
+      "repos": {
+        "terminal": 117
+      }
+    },
+    {
+      "week": "2026-02-08",
+      "repos": {
+        "This-Wasn-t-in-the-Brochure": 3,
+        "terminal": 119
+      }
+    },
+    {
+      "week": "2026-02-15",
+      "repos": {
+        "This-Wasn-t-in-the-Brochure": 11,
+        "terminal": 118
+      }
+    },
+    {
+      "week": "2026-02-22",
+      "repos": {
+        "terminal": 74
+      }
+    },
+    {
+      "week": "2026-02-23",
+      "repos": {
+        "failure-first": 0,
+        "failure-first-embodied-ai": 0,
+        "evolvechiropractictas.com": 0,
+        "evolve-evolution": 0
+      }
+    }
+  ],
+  "languages": {
+    "HTML": 103713062,
+    "Python": 41424538,
+    "TypeScript": 8177771,
+    "Shell": 3481637,
+    "JavaScript": 2235418,
+    "Astro": 795401,
+    "Jupyter Notebook": 515412,
+    "CSS": 443486,
+    "Lua": 418003,
+    "HCL": 363068,
+    "PLpgSQL": 79100,
+    "Cypher": 72353,
+    "TeX": 52934,
+    "Luau": 51088,
+    "Dockerfile": 43219,
+    "Makefile": 19022,
+    "Ruby": 13544,
+    "Vim Script": 4563,
+    "Mako": 3369,
+    "Batchfile": 2346,
+    "Rust": 2289,
+    "Kotlin": 2233,
+    "Mermaid": 1855,
+    "Smarty": 1464,
+    "Swift": 1235,
+    "Emacs Lisp": 1225,
+    "PowerShell": 413
+  },
+  "repositories": [
+    {
+      "name": "cygnet",
+      "issues": 795,
+      "commits": 432,
+      "last_push": "2026-02-22",
+      "language": "Python",
+      "description": "AI-powered 3D printed housing ecosystem. 28+ specialized agents coordinating land, build, and print operations."
+    },
+    {
+      "name": "VERITAS",
+      "issues": 230,
+      "commits": 784,
+      "last_push": "2026-02-08",
+      "language": "HTML",
+      "description": "Project VERITAS is a next-generation, AI-native legal intelligence platform designed to address the core \"efficiency-trust deficit\" in the legal market. Our mission is to build a system that is not only powerful and efficient but also demonstrably reliable, transparent, and ethically sound."
+    },
+    {
+      "name": "AI-SWA",
+      "issues": 0,
+      "commits": 737,
+      "last_push": "2026-02-14",
+      "language": "Python",
+      "description": "SelfArchitectAI - A self-evolving software architect agent that reasons about its own design, builds modular components, and continually refines its architecture"
+    },
+    {
+      "name": "TEL3SIS",
+      "issues": 226,
+      "commits": 456,
+      "last_push": "2026-02-11",
+      "language": "HTML",
+      "description": "Telephony-Linked Embedded LLM System for Interactive Support"
+    },
+    {
+      "name": "Dx0",
+      "issues": 18,
+      "commits": 607,
+      "last_push": "2026-01-13",
+      "language": "Python",
+      "description": "Advanced diagnostic and debugging toolkit for complex system analysis and performance optimization"
+    },
+    {
+      "name": "failure-first-embodied-ai",
+      "issues": 104,
+      "commits": 504,
+      "last_push": "2026-02-26",
+      "language": "Python",
+      "description": "A failure-first red-teaming and benchmarking framework for embodied and agentic AI systems, focused on recursive failure, recovery, and human-in-the-loop safety rather than nominal alignment or task success."
+    },
+    {
+      "name": "strategic-acquisitions",
+      "issues": 40,
+      "commits": 567,
+      "last_push": "2026-02-11",
+      "language": "Python",
+      "description": "The Strategic Acquisitions Realty API Project is an innovative Python application built to fetch real estate listings from various Australian locales via the [Realty in AU API](https://realty-in-au.p.rapidapi.com/). The collected data is meticulously processed and stored in a SQLite database for comprehensive analysis and strategic decision-making."
+    },
+    {
+      "name": "evolve-evolution",
+      "issues": 206,
+      "commits": 190,
+      "last_push": "2026-02-26",
+      "language": "CSS",
+      "description": ""
+    },
+    {
+      "name": "personal-intelligence-node",
+      "issues": 1,
+      "commits": 372,
+      "last_push": "2026-02-17",
+      "language": "JavaScript",
+      "description": "Personal portfolio and intelligence hub - adrianwedd.com website with integrated AI-powered content management and dynamic data visualization"
+    },
+    {
+      "name": "cv",
+      "issues": 277,
+      "commits": 70,
+      "last_push": "2026-02-25",
+      "language": "Python",
+      "description": "\ud83e\udd16 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment"
+    },
+    {
+      "name": "adrianwedd",
+      "issues": 115,
+      "commits": 209,
+      "last_push": "2026-02-20",
+      "language": "JavaScript",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange"
+    },
+    {
+      "name": "This-Wasn-t-in-the-Brochure",
+      "issues": 25,
+      "commits": 288,
+      "last_push": "2026-02-20",
+      "language": "HTML",
+      "description": "Co-Parenting ADHD, Autism, PDA & ODD"
+    },
+    {
+      "name": "adrianwedd.com",
+      "issues": 145,
+      "commits": 105,
+      "last_push": "2026-02-25",
+      "language": "Astro",
+      "description": "adrianwedd.com \u2014 living workshop"
+    },
+    {
+      "name": "terminal",
+      "issues": 0,
+      "commits": 232,
+      "last_push": "2026-02-26",
+      "language": "JavaScript",
+      "description": ""
+    },
+    {
+      "name": "ADHDo",
+      "issues": 100,
+      "commits": 73,
+      "last_push": "2026-02-11",
+      "language": "Python",
+      "description": "\ud83e\udde0\u26a1 Neurodiversity-affirming AI assistant for ADHD executive function support. Features crisis detection, circuit breaker psychology, and local-first processing."
+    },
+    {
+      "name": "grid2_repo",
+      "issues": 28,
+      "commits": 128,
+      "last_push": "2026-01-28",
+      "language": "TypeScript",
+      "description": "\ud83d\ude80 Grid 2.0 - Deterministic AI Website Builder. AI for understanding, algorithms for execution. Export real code you own."
+    },
+    {
+      "name": "orchestrix",
+      "issues": 79,
+      "commits": 58,
+      "last_push": "2026-02-25",
+      "language": "Python",
+      "description": "Enterprise Execution Intelligence Platform - Workflow, Execution, Data & Decisions."
+    },
+    {
+      "name": "failure-first",
+      "issues": 0,
+      "commits": 106,
+      "last_push": "2026-02-26",
+      "language": "Astro",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-automation",
+      "issues": 22,
+      "commits": 72,
+      "last_push": "2026-02-08",
+      "language": "Shell",
+      "description": "Automation toolkit for Google NotebookLM - export notebooks, generate artifacts, smart research, and multi-format export (Obsidian, Notion, Anki)"
+    },
+    {
+      "name": "local-business-intelligence",
+      "issues": 63,
+      "commits": 25,
+      "last_push": "2026-02-20",
+      "language": "Python",
+      "description": "AI-powered business discovery platform with production-ready intelligence capabilities and stealth scraping."
+    },
+    {
+      "name": "Enchanted-Garden-Tycoon",
+      "issues": 26,
+      "commits": 62,
+      "last_push": "2026-02-15",
+      "language": "Lua",
+      "description": ""
+    },
+    {
+      "name": "evolvechiropractictas.com",
+      "issues": 7,
+      "commits": 62,
+      "last_push": "2026-02-26",
+      "language": "HTML",
+      "description": ""
+    },
+    {
+      "name": "orbitr",
+      "issues": 36,
+      "commits": 32,
+      "last_push": "2026-02-19",
+      "language": "HTML",
+      "description": "\ud83c\udfb5 Multi-track polyphonic AI sequencer with concentric rings. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation."
+    },
+    {
+      "name": "squishmallowdex",
+      "issues": 10,
+      "commits": 56,
+      "last_push": "2026-02-23",
+      "language": "Python",
+      "description": "Your Squishmallow collection tracker - like a Pok\u00e9dex, but for Squishmallows!  Download info on 3000+ Squishmallows from the wiki and browse your collection offline. Search by name, filter by squad, mark your favourites, and track which ones you own!"
+    },
+    {
+      "name": "why-demonstrated-risk-is-ignored",
+      "issues": 22,
+      "commits": 20,
+      "last_push": "2026-02-20",
+      "language": "Astro",
+      "description": ""
+    },
+    {
+      "name": "Footnotes-at-the-Edge-of-Reality",
+      "issues": 0,
+      "commits": 38,
+      "last_push": "2026-02-20",
+      "language": "JavaScript",
+      "description": "An essay-poem exploring physics, language, and what it means to participate in reality."
+    },
+    {
+      "name": "neuroconnect",
+      "issues": 9,
+      "commits": 29,
+      "last_push": "2026-02-03",
+      "language": "Python",
+      "description": "Australia's first AI-enhanced ADHD support ecosystem: 24/7 helpline, NDIS evidence logging, and executive function scaffolding."
+    },
+    {
+      "name": "rlm-mcp",
+      "issues": 10,
+      "commits": 27,
+      "last_push": "2026-02-11",
+      "language": "Python",
+      "description": "MCP server implementing Recursive Language Model pattern for processing arbitrarily long contexts. Enables Claude Code to work with 1M+ character documents through session-based chunking, BM25 search, and artifact provenance tracking."
+    },
+    {
+      "name": "truecapacity.coach",
+      "issues": 6,
+      "commits": 27,
+      "last_push": "2026-02-23",
+      "language": "HTML",
+      "description": "True Capacity coaching site \u2014 truecapacity.coach"
+    },
+    {
+      "name": "emdr-agent",
+      "issues": 19,
+      "commits": 14,
+      "last_push": "2026-02-11",
+      "language": "TypeScript",
+      "description": "TypeScript-based therapeutic agent for EMDR (Eye Movement Desensitization and Reprocessing) therapy assistance and protocol guidance"
+    },
+    {
+      "name": "annicalarsdotter.com",
+      "issues": 6,
+      "commits": 16,
+      "last_push": "2026-02-23",
+      "language": "JavaScript",
+      "description": "Annica Larsdotter \u2014 personal author hub"
+    },
+    {
+      "name": "lunar_tools_prototypes",
+      "issues": 18,
+      "commits": 4,
+      "last_push": "2026-02-05",
+      "language": "Python",
+      "description": "Oneiric interfaces and audiovisual installations: Dream Interpreters, Fingerprint Painters, and Cosmic Murals."
+    },
+    {
+      "name": "claude-code-skills-peeps-for-claude",
+      "issues": 0,
+      "commits": 3,
+      "last_push": "2026-01-14",
+      "language": "Python",
+      "description": "Reusable skills for Claude Code - Allows claude-code to use codex-cli and gemini-cli - and access 100+ AI models on openrouter"
+    }
+  ],
+  "heatmap": [
+    {
+      "date": "2025-07-13",
+      "count": 2
+    },
+    {
+      "date": "2025-07-20",
+      "count": 88
+    },
+    {
+      "date": "2025-07-27",
+      "count": 128
+    },
+    {
+      "date": "2025-08-03",
+      "count": 60
+    },
+    {
+      "date": "2025-08-10",
+      "count": 135
+    },
+    {
+      "date": "2025-08-17",
+      "count": 154
+    },
+    {
+      "date": "2025-08-24",
+      "count": 150
+    },
+    {
+      "date": "2025-08-31",
+      "count": 144
+    },
+    {
+      "date": "2025-09-07",
+      "count": 146
+    },
+    {
+      "date": "2025-09-14",
+      "count": 148
+    },
+    {
+      "date": "2025-09-21",
+      "count": 148
+    },
+    {
+      "date": "2025-09-28",
+      "count": 149
+    },
+    {
+      "date": "2025-10-05",
+      "count": 148
+    },
+    {
+      "date": "2025-10-12",
+      "count": 149
+    },
+    {
+      "date": "2025-10-19",
+      "count": 148
+    },
+    {
+      "date": "2025-10-26",
+      "count": 144
+    },
+    {
+      "date": "2025-11-02",
+      "count": 148
+    },
+    {
+      "date": "2025-11-09",
+      "count": 148
+    },
+    {
+      "date": "2025-11-16",
+      "count": 150
+    },
+    {
+      "date": "2025-11-23",
+      "count": 147
+    },
+    {
+      "date": "2025-11-30",
+      "count": 151
+    },
+    {
+      "date": "2025-12-07",
+      "count": 154
+    },
+    {
+      "date": "2025-12-14",
+      "count": 178
+    },
+    {
+      "date": "2025-12-21",
+      "count": 306
+    },
+    {
+      "date": "2025-12-28",
+      "count": 238
+    },
+    {
+      "date": "2026-01-04",
+      "count": 141
+    },
+    {
+      "date": "2026-01-11",
+      "count": 119
+    },
+    {
+      "date": "2026-01-18",
+      "count": 119
+    },
+    {
+      "date": "2026-01-25",
+      "count": 119
+    },
+    {
+      "date": "2026-02-01",
+      "count": 117
+    },
+    {
+      "date": "2026-02-08",
+      "count": 122
+    },
+    {
+      "date": "2026-02-15",
+      "count": 129
+    },
+    {
+      "date": "2026-02-22",
+      "count": 74
+    },
+    {
+      "date": "2026-02-23",
+      "count": 0
+    },
+    {
+      "date": "2026-02-24",
+      "count": 0
+    },
+    {
+      "date": "2026-02-25",
+      "count": 0
+    },
+    {
+      "date": "2026-02-26",
+      "count": 0
+    }
+  ]
+}

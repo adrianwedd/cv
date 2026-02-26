@@ -186,6 +186,30 @@
                 </div>
             </section>
 
+            <!-- Activity Section -->
+            <section id="activity" class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Activity</h2>
+                </div>
+
+                <div class="section-content">
+                    <div class="activity-grid">
+                        <div class="activity-panel" id="viz-streamgraph">
+                            <div class="activity-panel-label">commits</div>
+                        </div>
+                        <div class="activity-panel" id="viz-languages">
+                            <div class="activity-panel-label">languages</div>
+                        </div>
+                        <div class="activity-panel" id="viz-constellation">
+                            <div class="activity-panel-label">repositories</div>
+                        </div>
+                        <div class="activity-panel" id="viz-heatmap">
+                            <div class="activity-panel-label">contributions</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Skills Section -->
             <section id="skills" class="section">
                 <div class="section-header">
@@ -248,6 +272,7 @@
     initCurvatureField({ canvasId: 'curvature-bg', seed: daysSinceEpoch, masses: 1 });
     </script>
     <script src="assets/script.js"></script>
+    <script src="assets/activity-viz.js"></script>
 
 </body>
 </html>

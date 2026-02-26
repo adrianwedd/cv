@@ -16,7 +16,7 @@
     "tagline": "Building the systems I study — AI safety, multi-agent frameworks, and client delivery",
     "availability": "Currently freelancing and building — open to the right opportunity"
   },
-  "professional_summary": "AI safety researcher and systems developer building the systems I study. Currently freelancing and shipping independent projects — from a red-teaming framework for embodied AI with 104 tracked research issues, to a voice-first agentic phone system, to a three-site healthcare web presence under AHPRA advertising regulations. Previously led systems integration and cybersecurity for Tasmania's public housing sector. Active across 15+ repositories with 1,200+ tracked issues spanning agent orchestration, AI governance, CLI tooling, and client delivery. Background in environmental advocacy, government service, and infrastructure management. Self-taught across the stack. Most interested in where AI systems break.",
+  "professional_summary": "AI safety researcher and systems developer building the systems I study. Currently freelancing and shipping independent projects — from a red-teaming framework for embodied AI with 104 tracked research issues, to a voice-first agentic phone system, to a four-site healthcare digital presence under AHPRA advertising regulations, to a multilingual restaurant site in Bali. Previously led systems integration and cybersecurity for Tasmania's public housing sector. Active across 15+ repositories with 1,200+ tracked issues spanning agent orchestration, AI governance, CLI tooling, and client delivery. Background in environmental advocacy, government service, and infrastructure management. Self-taught across the stack. Most interested in where AI systems break.",
   "experience": [
     {
       "position": "Freelance Developer & AI Consultant",
@@ -26,7 +26,7 @@
       "type": "Freelance",
       "description": "Delivering client web projects and independent AI research while exploring full-time opportunities. Current client work includes a multi-site healthcare digital presence under AHPRA advertising regulations, with Cliniko API integration and phased project delivery. Concurrently building open-source AI safety tooling, multi-agent frameworks, and CLI automation tools.",
       "achievements": [
-        "Delivered three-site healthcare digital presence with AHPRA regulatory compliance and Cliniko API integration",
+        "Delivered four-site healthcare digital presence with AHPRA regulatory compliance and Cliniko API integration",
         "Built and maintained 10+ active open-source repositories spanning agent orchestration, AI governance, and CLI tooling",
         "Developed failure-first methodology for AI safety evaluation across multi-agent systems"
       ],
@@ -152,75 +152,6 @@
   ],
   "projects": [
     {
-      "name": "ADHDo",
-      "subtitle": "AI-Powered Task Management System",
-      "description": "Production AI safety system with Claude integration, confidence gating, crisis detection, multi-tool orchestration, and real-time monitoring. Built with a failure-first safety philosophy.",
-      "technologies": [
-        "Python",
-        "Claude API",
-        "Multi-tool Orchestration",
-        "Safety Systems"
-      ],
-      "github": "https://github.com/adrianwedd/ADHDo",
-      "status": "Active Development",
-      "period": "2024 - Present"
-    },
-    {
-      "name": "Agentic Research Engine",
-      "subtitle": "Multi-Agent Research System",
-      "description": "Multi-agent evaluation framework with LangGraph orchestration, self-correction loops, comprehensive test coverage, and CI/CD pipeline with observability.",
-      "technologies": [
-        "Python",
-        "LangGraph",
-        "Multi-Agent Systems",
-        "CI/CD"
-      ],
-      "github": "https://github.com/adrianwedd/agentic-research-engine",
-      "status": "Active Development",
-      "period": "2024 - Present"
-    },
-    {
-      "name": "Cygnet",
-      "subtitle": "Large-Scale Agent Coordination",
-      "description": "Large-scale agent coordination system managing 28+ agents with real-world operations and physical safety constraints.",
-      "technologies": [
-        "Python",
-        "Agent Coordination",
-        "Safety Constraints"
-      ],
-      "github": "https://github.com/adrianwedd/cygnet",
-      "status": "Active Development",
-      "period": "2024 - Present"
-    },
-    {
-      "name": "TicketSmith",
-      "subtitle": "Workflow Automation Platform",
-      "description": "LLM-powered platform for Jira and Confluence workflow automation. Features CLI tools, React UI, API backend, and Docker orchestration.",
-      "technologies": [
-        "LangChain",
-        "React",
-        "FastAPI",
-        "Docker"
-      ],
-      "github": "https://github.com/adrianwedd/ticketsmith",
-      "status": "Active Development",
-      "period": "2023 - Present"
-    },
-    {
-      "name": "Agentic Index",
-      "subtitle": "Catalogue of Autonomous AI Tools",
-      "description": "Developer-focused directory of scored and curated autonomous AI tools, covering LLM agents, multi-agent systems, RAG pipelines, and development tools.",
-      "technologies": [
-        "JavaScript",
-        "React",
-        "Node.js",
-        "GitHub API"
-      ],
-      "github": "https://github.com/adrianwedd/agentic-index",
-      "status": "Community Driven",
-      "period": "2023 - Present"
-    },
-    {
       "name": "NotebookLM Automation",
       "subtitle": "CLI Tooling for Google NotebookLM",
       "description": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing.",
@@ -236,13 +167,12 @@
     },
     {
       "name": "Orbitr",
-      "subtitle": "Performance-Optimized Web Application",
-      "description": "Web application with phased development: performance optimization, security hardening, cache management, and community launch preparation.",
+      "subtitle": "AI Music Sequencer",
+      "description": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery.",
       "technologies": [
-        "JavaScript",
-        "Node.js",
-        "Security",
-        "Performance"
+        "HTML/CSS/JS",
+        "MusicGen",
+        "Web Audio API"
       ],
       "github": "https://github.com/adrianwedd/orbitr",
       "status": "Active Development",
@@ -251,13 +181,25 @@
     {
       "name": "Evolve Evolution",
       "subtitle": "Multi-Site Healthcare Digital Presence",
-      "description": "Three-site digital presence for a chiropractic practice: AHPRA-compliant clinical site, coaching/personal brand site, and author hub. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 206 issues tracked across phased delivery.",
+      "description": "Four-site digital presence for a healthcare practitioner: AHPRA-compliant chiropractic clinic site, coaching/personal brand platform, author hub, and business evolution site. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 170+ issues tracked across phased delivery.",
       "technologies": [
         "HTML/CSS/JS",
         "Cloudflare Pages",
         "Cliniko API",
         "GA4/GTM",
         "Structured Data"
+      ],
+      "status": "Client Delivery",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "Tanda Pizza",
+      "subtitle": "Localized Restaurant Website",
+      "description": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering.",
+      "technologies": [
+        "HTML/CSS/JS",
+        "i18n",
+        "WhatsApp API"
       ],
       "status": "Client Delivery",
       "period": "2026"
@@ -291,6 +233,63 @@
       "github": "https://github.com/adrianwedd/TEL3SIS",
       "status": "Active Development",
       "period": "2024 - Present"
+    },
+    {
+      "name": "Cygnet",
+      "subtitle": "AI-Powered 3D Printed Housing Ecosystem",
+      "description": "Multi-agent platform coordinating land acquisition, build planning, and 3D print operations for affordable housing. 28+ specialized agents, FastAPI backend, React frontend. 795 issues tracked, 432 commits across Python, TypeScript, Kotlin, and Swift.",
+      "technologies": [
+        "Python",
+        "FastAPI",
+        "React",
+        "TypeScript",
+        "Docker"
+      ],
+      "github": "https://github.com/adrianwedd/cygnet",
+      "status": "Active Development",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "VERITAS",
+      "subtitle": "AI-Native Legal Intelligence Platform",
+      "description": "Legal intelligence platform addressing the efficiency-trust deficit in the legal market. Knowledge graph with Cypher queries, document analysis pipeline, and transparency-first AI reasoning. 230 issues, 784 commits across Python, TypeScript, and Jupyter notebooks.",
+      "technologies": [
+        "Python",
+        "TypeScript",
+        "Neo4j/Cypher",
+        "Jupyter",
+        "Docker"
+      ],
+      "github": "https://github.com/adrianwedd/VERITAS",
+      "status": "Active Development",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "ADHDo",
+      "subtitle": "Neurodiversity-Affirming AI Assistant",
+      "description": "AI assistant for ADHD executive function support with crisis detection, circuit breaker psychology, and local-first processing. NDIS-aware for Australian users. 100 issues, 73 commits.",
+      "technologies": [
+        "Python",
+        "AI Safety",
+        "Accessibility"
+      ],
+      "github": "https://github.com/adrianwedd/ADHDo",
+      "status": "Active Development",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "NeuroConnect",
+      "subtitle": "AI-Enhanced ADHD Support Ecosystem",
+      "description": "24/7 voice helpline with wired STT-to-LLM-to-TTS pipeline over Twilio, NDIS evidence logging, and executive function scaffolding. Multi-provider LLM fallback chain including Claude CLI.",
+      "technologies": [
+        "Python",
+        "Twilio",
+        "Whisper",
+        "Docker"
+      ],
+      "github": "https://github.com/adrianwedd/neuroconnect",
+      "status": "Active Development",
+      "period": "2025 - Present"
     },
     {
       "name": "RLM-MCP",

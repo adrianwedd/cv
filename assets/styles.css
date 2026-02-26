@@ -757,6 +757,116 @@ body {
 }
 
 /* ==========================================================================
+   Activity Visualization
+   ========================================================================== */
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.activity-panel {
+  position: relative;
+  min-height: 180px;
+}
+
+.activity-panel-label {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+}
+
+.constellation-canvas {
+  display: block;
+  width: 100%;
+}
+
+/* Streamgraph & Language Ring SVGs */
+.activity-panel svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Legend */
+.viz-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.viz-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-family-mono);
+  font-size: 9px;
+  color: var(--color-text-muted);
+}
+
+.viz-legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Heatmap */
+.heatmap-months {
+  display: flex;
+  gap: 0;
+  margin-bottom: var(--space-1);
+  position: relative;
+  height: 12px;
+}
+
+.heatmap-month-label {
+  font-family: var(--font-family-mono);
+  font-size: 8px;
+  color: var(--color-text-muted);
+  position: absolute;
+}
+
+.heatmap-grid {
+  display: flex;
+  gap: 2px;
+}
+
+.heatmap-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.heatmap-cell {
+  width: 10px;
+  height: 10px;
+  border-radius: 1px;
+  background: rgba(138, 199, 217, 0.06);
+}
+
+.heatmap-cell[data-level="1"] { background: rgba(138, 199, 217, 0.20); }
+.heatmap-cell[data-level="2"] { background: rgba(138, 199, 217, 0.42); }
+.heatmap-cell[data-level="3"] { background: rgba(138, 199, 217, 0.68); }
+.heatmap-cell[data-level="4"] { background: #8ac7d9; }
+
+/* Responsive */
+@media (max-width: 520px) {
+  .activity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .heatmap-cell {
+    width: 5px;
+    height: 5px;
+  }
+}
+
+/* ==========================================================================
    Print Styles
    ========================================================================== */
 
@@ -778,6 +888,26 @@ body {
   .footer-links {
     display: none !important;
   }
+
+  .activity-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .constellation-canvas {
+    /* Canvas freezes on print via beforeprint event */
+  }
+
+  .heatmap-cell {
+    width: 6px;
+    height: 6px;
+  }
+
+  .heatmap-cell[data-level="0"] { background: #eee; }
+  .heatmap-cell[data-level="1"] { background: #bbb; }
+  .heatmap-cell[data-level="2"] { background: #888; }
+  .heatmap-cell[data-level="3"] { background: #555; }
+  .heatmap-cell[data-level="4"] { background: #333; }
 
   .container {
     max-width: none !important;
