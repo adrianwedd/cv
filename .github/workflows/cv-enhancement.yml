@@ -4,7 +4,7 @@ name: 🚀 CV Auto-Enhancement Pipeline
 # This workflow provides intelligent CV enhancement using GitHub activity analysis
 # and Claude AI optimization, with sophisticated analytics and caching.
 #
-# 🔄 **EXECUTION SCHEDULE**: Twice daily at 8 AM and 8 PM AEST (22:00, 10:00 UTC)
+# 🔄 **EXECUTION SCHEDULE**: Daily at 8 AM AEST (22:00 UTC previous day)
 # 📊 **AI OPTIMIZATION**: Claude AI content enhancement with intelligent prompting
 # 📈 **ACTIVITY INTEGRATION**: Real-time GitHub metrics and contribution analysis
 # 🎨 **CONTENT GENERATION**: Dynamic CV website with responsive design
@@ -29,8 +29,8 @@ concurrency:
 
 on:
   schedule:
-    # Run twice daily: 8 AM and 8 PM AEST
-    - cron: '0 22,10 * * *'
+    # Run daily at 8 AM AEST (22:00 UTC previous day)
+    - cron: '0 22 * * *'
   workflow_dispatch:
     inputs:
       enhancement_mode:
@@ -732,7 +732,7 @@ jobs:
           echo "  - ✅ GitHub Pages deployment successful"
           echo ""
           echo "🔗 **Live CV**: https://adrianwedd.github.io/cv"
-          echo "⏰ **Next Enhancement**: $(TZ='${{ env.TIMEZONE }}' date -d '+6 hours' +'%Y-%m-%d %H:%M %Z')"
+          echo "⏰ **Next Enhancement**: $(TZ='${{ env.TIMEZONE }}' date -d '+24 hours' +'%Y-%m-%d %H:%M %Z')"
           echo ""
           echo "======================================"
 
@@ -764,7 +764,7 @@ jobs:
           - **Repository**: [github.com/adrianwedd/cv](https://github.com/adrianwedd/cv)
 
           ## ⏰ Next Enhancement Session
-          **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+6 hours' +'%Y-%m-%d %H:%M %Z')
+          **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+24 hours' +'%Y-%m-%d %H:%M %Z')
 
           ---
           *CV Enhancement Pipeline v${{ env.CV_SYSTEM_VERSION }} - Powered by Claude AI & GitHub Analytics*

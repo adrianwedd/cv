@@ -7,22 +7,44 @@
   },
   "personal_info": {
     "name": "Adrian Wedd",
-    "title": "Systems Analyst & AI Developer",
+    "title": "AI Safety Researcher & Developer",
     "location": "Tasmania, Australia",
     "email": "adrian@adrianwedd.com",
     "website": "https://adrianwedd.github.io/cv",
     "github": "https://github.com/adrianwedd",
     "linkedin": "https://linkedin.com/in/adrianwedd",
-    "tagline": "Systems integration, cybersecurity, and applied AI in the public sector",
-    "availability": "Open to opportunities"
+    "tagline": "Building the systems I study — AI safety, multi-agent frameworks, and client delivery",
+    "availability": "Currently freelancing and building — open to the right opportunity"
   },
-  "professional_summary": "AI safety researcher and systems analyst building the systems I study. I independently develop multi-agent frameworks — including a 28-agent coordination platform with physical safety constraints and an AI task manager with confidence gating and crisis detection — while leading systems integration and cybersecurity for Tasmania's public housing sector. A background spanning environmental advocacy, government service, and infrastructure management informs a consistent focus on risk assessment and failure-first methodology. Self-taught across the stack, from Python and LangGraph orchestration to API integration and server administration. Most interested in where AI systems break.",
+  "professional_summary": "AI safety researcher and systems developer building the systems I study. Currently freelancing and shipping independent projects — from a red-teaming framework for embodied AI with 104 tracked research issues, to a voice-first agentic phone system, to a three-site healthcare web presence under AHPRA advertising regulations. Previously led systems integration and cybersecurity for Tasmania's public housing sector. Active across 15+ repositories with 1,200+ tracked issues spanning agent orchestration, AI governance, CLI tooling, and client delivery. Background in environmental advocacy, government service, and infrastructure management. Self-taught across the stack. Most interested in where AI systems break.",
   "experience": [
+    {
+      "position": "Freelance Developer & AI Consultant",
+      "company": "Independent",
+      "location": "Tasmania, Australia",
+      "period": "2025 - Present",
+      "type": "Freelance",
+      "description": "Delivering client web projects and independent AI research while exploring full-time opportunities. Current client work includes a multi-site healthcare digital presence under AHPRA advertising regulations, with Cliniko API integration and phased project delivery. Concurrently building open-source AI safety tooling, multi-agent frameworks, and CLI automation tools.",
+      "achievements": [
+        "Delivered three-site healthcare digital presence with AHPRA regulatory compliance and Cliniko API integration",
+        "Built and maintained 10+ active open-source repositories spanning agent orchestration, AI governance, and CLI tooling",
+        "Developed failure-first methodology for AI safety evaluation across multi-agent systems"
+      ],
+      "technologies": [
+        "Python",
+        "JavaScript",
+        "HTML/CSS",
+        "Cloudflare Pages",
+        "Claude API",
+        "GitHub Actions",
+        "Cliniko API"
+      ]
+    },
     {
       "position": "Systems Analyst / Acting Senior Change Analyst",
       "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
       "location": "Tasmania, Australia",
-      "period": "2018 - Present",
+      "period": "2018 - Feb 2026",
       "type": "Full-time",
       "description": "Leading systems integration and digital transformation initiatives for Tasmania's public housing sector. Specializing in API development, cybersecurity enhancement, and automation solutions that improve service delivery for vulnerable communities.",
       "achievements": [
@@ -197,6 +219,92 @@
       "github": "https://github.com/adrianwedd/agentic-index",
       "status": "Community Driven",
       "period": "2023 - Present"
+    },
+    {
+      "name": "NotebookLM Automation",
+      "subtitle": "CLI Tooling for Google NotebookLM",
+      "description": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing.",
+      "technologies": [
+        "Bash",
+        "Python",
+        "CI/CD",
+        "JSON Schema"
+      ],
+      "github": "https://github.com/adrianwedd/notebooklm-automation",
+      "status": "Active Development",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "Orbitr",
+      "subtitle": "Performance-Optimized Web Application",
+      "description": "Web application with phased development: performance optimization, security hardening, cache management, and community launch preparation.",
+      "technologies": [
+        "JavaScript",
+        "Node.js",
+        "Security",
+        "Performance"
+      ],
+      "github": "https://github.com/adrianwedd/orbitr",
+      "status": "Active Development",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "Evolve Evolution",
+      "subtitle": "Multi-Site Healthcare Digital Presence",
+      "description": "Three-site digital presence for a chiropractic practice: AHPRA-compliant clinical site, coaching/personal brand site, and author hub. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 206 issues tracked across phased delivery.",
+      "technologies": [
+        "HTML/CSS/JS",
+        "Cloudflare Pages",
+        "Cliniko API",
+        "GA4/GTM",
+        "Structured Data"
+      ],
+      "status": "Client Delivery",
+      "period": "2026"
+    },
+    {
+      "name": "Failure-First Embodied AI",
+      "subtitle": "AI Safety Red-Teaming Framework",
+      "description": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes automated attack adapters (TAP), cross-modal vulnerability research on VLA models, arXiv paper synthesis pipeline, and a customer discovery track for commercial AI safety services.",
+      "technologies": [
+        "Python",
+        "AI Safety",
+        "Red-teaming",
+        "NotebookLM",
+        "arXiv"
+      ],
+      "github": "https://github.com/adrianwedd/failure-first-embodied-ai",
+      "status": "Active Research",
+      "period": "2025 - Present"
+    },
+    {
+      "name": "TEL3SIS",
+      "subtitle": "Voice-First Agentic Phone System",
+      "description": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs.",
+      "technologies": [
+        "Python",
+        "Vocode",
+        "Whisper",
+        "Redis",
+        "Docker"
+      ],
+      "github": "https://github.com/adrianwedd/TEL3SIS",
+      "status": "Active Development",
+      "period": "2024 - Present"
+    },
+    {
+      "name": "RLM-MCP",
+      "subtitle": "Recursive Language Model MCP Server",
+      "description": "MCP server enabling Claude Code to process 1M+ character documents through session-based chunking, BM25 search, and artifact provenance tracking.",
+      "technologies": [
+        "Python",
+        "MCP",
+        "BM25",
+        "Claude Code"
+      ],
+      "github": "https://github.com/adrianwedd/rlm-mcp",
+      "status": "Active Development",
+      "period": "2025 - Present"
     }
   ],
   "skills": [
@@ -273,6 +381,24 @@
       "description": "CI/CD pipeline design and automation"
     },
     {
+      "name": "MCP Development",
+      "category": "AI & Automation",
+      "tier": "Secondary",
+      "description": "Model Context Protocol servers for Claude Code integration"
+    },
+    {
+      "name": "Voice/Telephony AI",
+      "category": "AI & Automation",
+      "tier": "Secondary",
+      "description": "STT/TTS pipelines, vocode, Whisper, ElevenLabs"
+    },
+    {
+      "name": "Cloudflare Pages",
+      "category": "DevOps",
+      "tier": "Secondary",
+      "description": "Static site deployment, serverless functions, email routing"
+    },
+    {
       "name": "React",
       "category": "Frontend",
       "tier": "Secondary",
@@ -302,9 +428,16 @@
     },
     {
       "icon": "🤖",
-      "title": "AI Innovation Pioneer",
-      "description": "First to showcase and implement generative AI applications for data analysis and decision-making within Tasmania's public housing sector.",
-      "date": "2023-2024",
+      "title": "AI Safety Research & Red-Teaming",
+      "description": "Developed failure-first red-teaming framework for embodied AI systems with 104 tracked research issues, cross-modal vulnerability analysis on VLA models, and automated attack adapters. Pursuing commercial AI safety services.",
+      "date": "2025-2026",
+      "category": "Research"
+    },
+    {
+      "icon": "📞",
+      "title": "Voice-First AI Agent Platform",
+      "description": "Built TEL3SIS, a real-time telephony platform with LLM-powered conversations, tri-layer memory architecture, safety oracle, and tool orchestration across 226 tracked issues.",
+      "date": "2024-2026",
       "category": "Innovation"
     },
     {

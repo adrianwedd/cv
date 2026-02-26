@@ -2,10 +2,10 @@
 
 /**
  * Claude AI Content Enhancement Engine
- * 
+ *
  * Advanced AI-powered CV content enhancement using Claude API with intelligent
  * prompt engineering, content optimization, and professional development insights.
- * 
+ *
  * Features:
  * - Intelligent content analysis and enhancement
  * - Professional tone optimization
@@ -16,7 +16,7 @@
  * - Meta-commentary artifact removal (Issue #100 fix)
  * - XML-structured output formatting
  * - Robust content filtering and cleaning
- * 
+ *
  * Meta-Commentary Fix (Issue #100):
  * This version includes comprehensive fixes to prevent Claude AI from generating
  * explanatory text and meta-commentary in CV content. Implementation includes:
@@ -25,10 +25,10 @@
  * - Multi-layer content cleaning and artifact removal
  * - Enhanced JSON parsing with fallback content extraction
  * - Comprehensive test suite for content validation
- * 
+ *
  * Usage: node claude-enhancer.js
  *        node claude-enhancer.js --test-cleaning  # Test content cleaning functions
- * 
+ *
  * Environment Variables:
  * - ANTHROPIC_API_KEY: Claude API key for authentication
  * - AI_BUDGET: Token budget for enhancement session
@@ -40,12 +40,15 @@ const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const https = require('https');
+const { execFile } = require('child_process');
 const { sleep } = require('./utils/apiClient');
 const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
 
 // Configuration
 const CONFIG = {
     ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+    USE_CLAUDE_CODE: process.env.USE_CLAUDE_CODE !== 'false',
+    CLAUDE_CODE_MODEL: process.env.CLAUDE_CODE_MODEL || 'sonnet',
     AI_BUDGET: process.env.AI_BUDGET || 'sufficient',
     CREATIVITY_LEVEL: process.env.CREATIVITY_LEVEL || 'balanced',
     ACTIVITY_SCORE: parseFloat(process.env.ACTIVITY_SCORE) || 50,
@@ -85,17 +88,127 @@ class ClaudeApiClient {
     async makeRequest(messages, options = {}, sourceContent = '') {
         const temperature = CONFIG.TEMPERATURE_MAP[CONFIG.CREATIVITY_LEVEL] || 0.5;
         const maxTokens = options.maxTokens || CONFIG.MAX_TOKENS;
-        
+
         // Generate cache key for identical requests
         const cacheKey = this.generateCacheKey({ messages, temperature, maxTokens }, sourceContent);
         const cachedResponse = await this.getCachedResponse(cacheKey);
-        
+
         if (cachedResponse && !options.skipCache) {
             console.log('📦 Cache hit for Claude request');
             this.cacheHits++;
             return cachedResponse;
         }
 
+        // Route to Claude Code CLI or direct API
+        const useClaudeCode = CONFIG.USE_CLAUDE_CODE && !CONFIG.ANTHROPIC_API_KEY;
+        const responseData = useClaudeCode
+            ? await this._makeClaudeCodeRequest(messages, maxTokens)
+            : await this._makeDirectApiRequest(messages, temperature, maxTokens);
+
+        // Track token usage
+        if (responseData.usage) {
+            this.tokenUsage.input_tokens += responseData.usage.input_tokens || 0;
+            this.tokenUsage.output_tokens += responseData.usage.output_tokens || 0;
+            this.tokenUsage.cache_creation_tokens += responseData.usage.cache_creation_input_tokens || 0;
+            this.tokenUsage.cache_read_tokens += responseData.usage.cache_read_input_tokens || 0;
+        }
+
+        // Cache successful responses
+        await this.cacheResponse(cacheKey, responseData);
+
+        return responseData;
+    }
+
+    /**
+     * Make request via Claude Code CLI (uses Max subscription billing)
+     */
+    async _makeClaudeCodeRequest(messages, maxTokens) {
+        // Separate system messages from user/assistant messages
+        const systemParts = messages.filter(m => m.role === 'system').map(m => m.content);
+        const userParts = messages.filter(m => m.role !== 'system').map(m => m.content);
+        const prompt = userParts.join('\n\n');
+
+        try {
+            console.log(`🤖 Making Claude Code CLI request (model: ${CONFIG.CLAUDE_CODE_MODEL})...`);
+            this.requestCount++;
+
+            const result = await new Promise(async (resolve, reject) => {
+                const { spawn } = require('child_process');
+
+                const args = [
+                    '-p', prompt,
+                    '--output-format', 'json',
+                    '--model', CONFIG.CLAUDE_CODE_MODEL,
+                    '--max-turns', '1',
+                    '--no-chrome'
+                ];
+
+                if (systemParts.length > 0) {
+                    args.push('--append-system-prompt', systemParts.join('\n\n'));
+                }
+
+                // Clear CLAUDECODE env var to allow spawning from within a Claude Code session
+                const env = { ...process.env };
+                delete env.CLAUDECODE;
+
+                let stdout = '';
+                let stderr = '';
+                // spawn passes args directly to execvp — no shell, no arg length issues
+                const child = spawn('claude', args, { env });
+
+                child.stdout.on('data', (data) => { stdout += data; });
+                child.stderr.on('data', (data) => { stderr += data; });
+
+                child.on('close', (code) => {
+                    if (code !== 0 && !stdout) {
+                        reject(new Error(`Claude Code CLI exited with code ${code}${stderr ? ` — ${stderr.slice(0, 200)}` : ''}`));
+                        return;
+                    }
+                    // Claude Code may exit non-zero for budget limits but still return valid output
+                    resolve(stdout);
+                });
+
+                child.on('error', (error) => {
+                    reject(new Error(`Claude Code CLI spawn error: ${error.message}`));
+                });
+            });
+
+            // Claude Code --output-format json returns a JSON array:
+            // [0] {type:"system"} init metadata
+            // [1] {type:"assistant", message: {content: [{text}], usage}} the response
+            // [2] {type:"result"} session summary
+            const parsed = JSON.parse(result);
+            const assistantMsg = Array.isArray(parsed)
+                ? parsed.find(item => item.type === 'assistant')
+                : null;
+
+            if (!assistantMsg?.message?.content?.[0]?.text) {
+                throw new Error('Could not extract assistant response from Claude Code output');
+            }
+
+            const message = assistantMsg.message;
+
+            // Return in the same shape as the Anthropic API response
+            return {
+                content: message.content,
+                usage: {
+                    input_tokens: message.usage?.input_tokens || 0,
+                    output_tokens: message.usage?.output_tokens || 0,
+                    cache_creation_input_tokens: message.usage?.cache_creation_input_tokens || 0,
+                    cache_read_input_tokens: message.usage?.cache_read_input_tokens || 0
+                }
+            };
+
+        } catch (error) {
+            console.error('❌ Claude Code CLI request failed:', error.message);
+            throw error;
+        }
+    }
+
+    /**
+     * Make request via direct Anthropic API (uses API credits)
+     */
+    async _makeDirectApiRequest(messages, temperature, maxTokens) {
         const requestBody = {
             model: CONFIG.MODEL,
             max_tokens: maxTokens,
@@ -109,7 +222,7 @@ class ClaudeApiClient {
         try {
             console.log('🤖 Making Claude API request...');
             this.requestCount++;
-            
+
             const response = await this.httpRequest(this.baseUrl, {
                 method: 'POST',
                 headers: {
@@ -121,21 +234,10 @@ class ClaudeApiClient {
             });
 
             const responseData = JSON.parse(response.body);
-            
+
             if (responseData.error) {
                 throw new Error(`Claude API Error: ${responseData.error.message}`);
             }
-
-            // Track token usage
-            if (responseData.usage) {
-                this.tokenUsage.input_tokens += responseData.usage.input_tokens || 0;
-                this.tokenUsage.output_tokens += responseData.usage.output_tokens || 0;
-                this.tokenUsage.cache_creation_tokens += responseData.usage.cache_creation_input_tokens || 0;
-                this.tokenUsage.cache_read_tokens += responseData.usage.cache_read_input_tokens || 0;
-            }
-
-            // Cache successful responses
-            await this.cacheResponse(cacheKey, responseData);
 
             return responseData;
 
@@ -199,7 +301,7 @@ class ClaudeApiClient {
         // Combine the request structure with a hash of the actual content being processed.
         const contentHash = crypto.createHash('sha256').update(sourceContent).digest('hex');
         const payloadString = JSON.stringify(requestPayload);
-        
+
         // The final key depends on both the prompt and the data.
         return crypto.createHash('sha256').update(payloadString + contentHash).digest('hex').substring(0, 16);
     }
@@ -212,7 +314,7 @@ class ClaudeApiClient {
             const cachePath = path.join(CONFIG.CACHE_DIR, `${cacheKey}.json`);
             const cached = await fs.readFile(cachePath, 'utf8');
             const cachedData = JSON.parse(cached);
-            
+
             // Check if cache is still valid (24 hours)
             if (Date.now() - cachedData.timestamp < 24 * 60 * 60 * 1000) {
                 return cachedData.response;
@@ -257,7 +359,7 @@ class ClaudeApiClient {
     getUsageStats() {
         const totalTokens = this.tokenUsage.input_tokens + this.tokenUsage.output_tokens;
         const cacheEfficiency = this.requestCount > 0 ? (this.cacheHits / this.requestCount) * 100 : 0;
-        
+
         return {
             ...this.tokenUsage,
             total_tokens: totalTokens,
@@ -270,7 +372,7 @@ class ClaudeApiClient {
 
 /**
  * CV Content Enhancement Engine
- * 
+ *
  * Multi-stage AI enhancement pipeline for professional CV content
  */
 class CVContentEnhancer {
@@ -336,7 +438,7 @@ class CVContentEnhancer {
 
             const enhancementTime = ((Date.now() - this.enhancementStartTime) / 1000).toFixed(2);
             const usageStats = this.client.getUsageStats();
-            
+
             console.log(`✅ Enhancement completed in ${enhancementTime}s`);
             console.log(`📊 Token usage: ${usageStats.total_tokens} total (${usageStats.cache_efficiency_percent}% cache efficiency)`);
             console.log(`📁 Results saved to ${CONFIG.OUTPUT_DIR}/`);
@@ -357,7 +459,7 @@ class CVContentEnhancer {
             const narrativePath = path.join('data', 'narratives', 'narrative-integration.json');
             const content = await fs.readFile(narrativePath, 'utf8');
             const narrativeData = JSON.parse(content);
-            
+
             console.log('📖 Loaded professional narrative intelligence data');
             return narrativeData;
         } catch (error) {
@@ -375,7 +477,7 @@ class CVContentEnhancer {
         if (this.useXMLPrompts) {
             return await this.enhanceProfessionalSummaryXML(cvData, activityMetrics);
         }
-        
+
         // Legacy method for backward compatibility
         return await this.enhanceProfessionalSummaryLegacy(cvData, activityMetrics);
     }
@@ -385,20 +487,20 @@ class CVContentEnhancer {
      */
     async enhanceProfessionalSummaryXML(cvData, activityMetrics) {
         console.log('🔨 Using XML-structured prompt with few-shot examples...');
-        
+
         try {
             // Initialize XML integrator
             await this.xmlIntegrator.initialize();
-            
+
             // Construct XML-structured prompt with few-shot examples
             const promptResult = await this.xmlIntegrator.enhanceProfessionalSummaryXML(
-                cvData, 
-                activityMetrics, 
+                cvData,
+                activityMetrics,
                 CONFIG.CREATIVITY_LEVEL
             );
-            
+
             console.log(`📊 Expected quality improvement: ${(promptResult.quality_expected * 100).toFixed(1)}%`);
-            
+
             // Create messages for Claude API
             const messages = [
                 {
@@ -414,14 +516,14 @@ class CVContentEnhancer {
             // Make API request
             const response = await this.client.makeRequest(messages, { maxTokens: 800 }, promptResult.contextData.currentContent);
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean and parse response
             const cleanedResponse = this.cleanResponseText(responseText);
             let enhancementData;
-            
+
             try {
                 enhancementData = JSON.parse(cleanedResponse);
-                
+
                 // Clean enhanced content
                 if (enhancementData.enhanced) {
                     enhancementData.enhanced = this.cleanEnhancedContent(enhancementData.enhanced);
@@ -436,7 +538,7 @@ class CVContentEnhancer {
 
             // Validate response quality
             const validation = await this.xmlIntegrator.validateResponse(enhancementData, 'professional-summary', promptResult.quality_expected);
-            
+
             console.log(`✅ Response validation: ${validation.valid ? 'PASSED' : 'FAILED'} (Score: ${(validation.score * 100).toFixed(1)}%)`);
             if (validation.quality_improvement) {
                 console.log('🎯 Quality improvement achieved beyond expected threshold');
@@ -453,7 +555,7 @@ class CVContentEnhancer {
                 xml_metadata: promptResult.metadata,
                 validation_results: validation,
                 improvement_notes: this.analyzeSummaryImprovement(
-                    promptResult.contextData.currentContent, 
+                    promptResult.contextData.currentContent,
                     enhancementData.enhanced || enhancementData.enhanced_summary
                 ),
                 quality_indicators: {
@@ -477,9 +579,9 @@ class CVContentEnhancer {
     async enhanceProfessionalSummaryLegacy(cvData, activityMetrics) {
         // Load narrative intelligence if available
         const narrativeData = await this.loadNarrativeIntelligence();
-        
-        const currentSummary = narrativeData?.enhanced_summary || 
-                              cvData?.professional_summary || 
+
+        const currentSummary = narrativeData?.enhanced_summary ||
+                              cvData?.professional_summary ||
                               "AI Engineer and Software Architect with expertise in autonomous systems and machine learning.";
 
         // Dynamic persona and strategy based on creativity level
@@ -511,17 +613,17 @@ class CVContentEnhancer {
         };
 
         const strategy = creativityStrategies[CONFIG.CREATIVITY_LEVEL] || creativityStrategies['balanced'];
-        
+
         // Context analysis for intelligent narrative integration
         const activityInsight = CONFIG.ACTIVITY_SCORE >= 80 ? 'exceptionally active contributor with consistent innovation' :
                                CONFIG.ACTIVITY_SCORE >= 60 ? 'highly engaged developer with strong technical output' :
                                CONFIG.ACTIVITY_SCORE >= 40 ? 'focused contributor with quality-driven development' :
                                'selective contributor with deep technical focus';
-        
+
         const technicalBreadth = (activityMetrics?.top_languages?.length || 3) >= 5 ? 'remarkable technical versatility across multiple paradigms' :
                                  (activityMetrics?.top_languages?.length || 3) >= 3 ? 'solid multi-language expertise with platform agility' :
                                  'deep specialization with focused technical mastery';
-        
+
         const professionalArchetype = CONFIG.ACTIVITY_SCORE >= 70 && (activityMetrics?.total_repos || 0) >= 20 ? 'prolific innovator' :
                                      CONFIG.ACTIVITY_SCORE >= 50 && (activityMetrics?.total_repos || 0) >= 10 ? 'strategic technologist' :
                                      'specialized expert';
@@ -578,15 +680,15 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
         try {
             const response = await this.client.makeRequest(messages, { maxTokens: 500 }, currentSummary);
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean the response text from potential artifacts
             const cleanedResponse = this.cleanResponseText(responseText);
-            
+
             // Parse JSON response
             let enhancementData;
             try {
                 enhancementData = JSON.parse(cleanedResponse);
-                
+
                 // Additional cleaning of the enhanced_summary field
                 if (enhancementData.enhanced_summary) {
                     enhancementData.enhanced_summary = this.cleanEnhancedContent(enhancementData.enhanced_summary);
@@ -626,7 +728,7 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
         if (this.useXMLPrompts) {
             return await this.enhanceSkillsSectionXML(cvData, activityMetrics);
         }
-        
+
         // Legacy method for backward compatibility
         return await this.enhanceSkillsSectionLegacy(cvData, activityMetrics);
     }
@@ -636,17 +738,17 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
      */
     async enhanceSkillsSectionXML(cvData, activityMetrics) {
         console.log('🔨 Using XML-structured skills enhancement prompt...');
-        
+
         try {
             // Construct XML-structured prompt with few-shot examples
             const promptResult = await this.xmlIntegrator.enhanceSkillsSectionXML(
-                cvData, 
-                activityMetrics, 
+                cvData,
+                activityMetrics,
                 CONFIG.CREATIVITY_LEVEL
             );
-            
+
             console.log(`📊 Expected skills quality improvement: ${(promptResult.quality_expected * 100).toFixed(1)}%`);
-            
+
             // Create messages for Claude API
             const messages = [
                 {
@@ -662,11 +764,11 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
             // Make API request
             const response = await this.client.makeRequest(messages, { maxTokens: 1000 }, JSON.stringify(cvData.skills));
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean and parse response
             const cleanedResponse = this.cleanResponseText(responseText);
             let skillsData;
-            
+
             try {
                 skillsData = JSON.parse(cleanedResponse);
             } catch (parseError) {
@@ -681,7 +783,7 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
 
             // Validate response quality
             const validation = await this.xmlIntegrator.validateResponse(skillsData, 'skills-enhancement', promptResult.quality_expected);
-            
+
             console.log(`✅ Skills validation: ${validation.valid ? 'PASSED' : 'FAILED'} (Score: ${(validation.score * 100).toFixed(1)}%)`);
 
             return {
@@ -737,23 +839,23 @@ Respond with ONLY this JSON structure. Do not include any explanatory text, proc
             },
             'innovative': {
                 persona: 'Alex Chen, Co-founder and CTO of Adept AI, revolutionizing how AI agents interact with complex software systems.',
-                approach: 'visionary skill architecture for paradigm-shifting AI development', 
+                approach: 'visionary skill architecture for paradigm-shifting AI development',
                 focus: 'breakthrough technical innovation with industry-defining potential'
             }
         };
 
         const expert = expertPersonas[CONFIG.CREATIVITY_LEVEL] || expertPersonas['balanced'];
-        
+
         // Activity-based insights
         const skillDepthIndicator = CONFIG.ACTIVITY_SCORE >= 80 ? 'demonstrates exceptional depth across multiple domains' :
                                    CONFIG.ACTIVITY_SCORE >= 60 ? 'shows strong technical versatility with consistent growth' :
                                    CONFIG.ACTIVITY_SCORE >= 40 ? 'exhibits focused expertise with quality-driven development' :
                                    'displays specialized knowledge with strategic technical choices';
-        
+
         const expertiseEvolution = (activityMetrics?.top_languages?.length || 3) >= 5 ? 'polyglot technologist with rapid technology adoption' :
                                   (activityMetrics?.top_languages?.length || 3) >= 3 ? 'multi-platform engineer with strategic language selection' :
                                   'domain specialist with deep technical mastery';
-        
+
         const communityImpact = (activityMetrics?.total_stars || 0) >= 100 ? 'significant open-source influence with community recognition' :
                                (activityMetrics?.total_stars || 0) >= 20 ? 'growing technical influence with peer acknowledgment' :
                                'focused contribution with quality-driven development';
@@ -813,10 +915,10 @@ Respond with ONLY this JSON structure:
         try {
             const response = await this.client.makeRequest(messages, { maxTokens: 800 }, JSON.stringify(cvData.skills));
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean the response text from potential artifacts
             const cleanedResponse = this.cleanResponseText(responseText);
-            
+
             // Parse structured JSON response
             let skillsData;
             try {
@@ -866,7 +968,7 @@ Respond with ONLY this JSON structure:
         if (this.useXMLPrompts) {
             return await this.enhanceExperienceXML(cvData, activityMetrics);
         }
-        
+
         // Legacy method for backward compatibility
         return await this.enhanceExperienceLegacy(cvData, activityMetrics);
     }
@@ -876,17 +978,17 @@ Respond with ONLY this JSON structure:
      */
     async enhanceExperienceXML(cvData, activityMetrics) {
         console.log('🔨 Using XML-structured experience enhancement prompt...');
-        
+
         try {
             // Construct XML-structured prompt with few-shot examples
             const promptResult = await this.xmlIntegrator.enhanceExperienceXML(
-                cvData, 
-                activityMetrics, 
+                cvData,
+                activityMetrics,
                 CONFIG.CREATIVITY_LEVEL
             );
-            
+
             console.log(`📊 Expected experience quality improvement: ${(promptResult.quality_expected * 100).toFixed(1)}%`);
-            
+
             // Create messages for Claude API
             const messages = [
                 {
@@ -902,11 +1004,11 @@ Respond with ONLY this JSON structure:
             // Make API request
             const response = await this.client.makeRequest(messages, { maxTokens: 1200 }, JSON.stringify(cvData.experience));
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean and parse response
             const cleanedResponse = this.cleanResponseText(responseText);
             let experienceData;
-            
+
             try {
                 experienceData = JSON.parse(cleanedResponse);
             } catch (parseError) {
@@ -921,7 +1023,7 @@ Respond with ONLY this JSON structure:
 
             // Validate response quality
             const validation = await this.xmlIntegrator.validateResponse(experienceData, 'experience-enhancement', promptResult.quality_expected);
-            
+
             console.log(`✅ Experience validation: ${validation.valid ? 'PASSED' : 'FAILED'} (Score: ${(validation.score * 100).toFixed(1)}%)`);
 
             return {
@@ -986,17 +1088,17 @@ Respond with ONLY this JSON structure:
         };
 
         const expert = careerExperts[CONFIG.CREATIVITY_LEVEL] || careerExperts['balanced'];
-        
+
         // Dynamic career trajectory analysis
         const leadershipProgression = CONFIG.ACTIVITY_SCORE >= 80 ? 'demonstrates exceptional technical leadership with consistent innovation delivery' :
                                      CONFIG.ACTIVITY_SCORE >= 60 ? 'shows strong technical influence with growing leadership responsibilities' :
                                      CONFIG.ACTIVITY_SCORE >= 40 ? 'exhibits focused technical expertise with emerging leadership qualities' :
                                      'displays deep technical specialization with selective leadership engagement';
-        
+
         const innovationCapacity = (activityMetrics?.total_repos || 0) >= 20 ? 'prolific technical innovator with diverse project portfolio' :
                                    (activityMetrics?.total_repos || 0) >= 10 ? 'strategic technical contributor with impactful project selection' :
                                    'focused technical expert with high-impact project concentration';
-        
+
         const marketPositioning = CONFIG.ACTIVITY_SCORE >= 70 && (activityMetrics?.total_stars || 0) >= 50 ? 'industry-recognized technical leader ready for executive roles' :
                                   CONFIG.ACTIVITY_SCORE >= 50 ? 'emerging technical authority positioned for senior leadership' :
                                   'specialized technical expert ready for expanded influence';
@@ -1063,10 +1165,10 @@ Respond with ONLY this JSON structure:
         try {
             const response = await this.client.makeRequest(messages, { maxTokens: 900 }, JSON.stringify(cvData.experience));
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean the response text from potential artifacts
             const cleanedResponse = this.cleanResponseText(responseText);
-            
+
             // Parse structured JSON response
             let experienceData;
             try {
@@ -1159,7 +1261,7 @@ Create compelling project narratives that showcase technical expertise and innov
         try {
             const response = await this.client.makeRequest(messages, { maxTokens: 600 }, JSON.stringify(cvData.projects));
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean the response text from potential artifacts
             const cleanedResponse = this.cleanResponseText(responseText);
             const projectEnhancement = this.cleanEnhancedContent(cleanedResponse);
@@ -1212,17 +1314,17 @@ Create compelling project narratives that showcase technical expertise and innov
         };
 
         const strategist = strategicExperts[CONFIG.CREATIVITY_LEVEL] || strategicExperts['balanced'];
-        
+
         // Strategic positioning analysis
         const leadershipReadiness = CONFIG.ACTIVITY_SCORE >= 80 ? 'ready for executive AI leadership roles with proven innovation capacity' :
                                    CONFIG.ACTIVITY_SCORE >= 60 ? 'positioned for senior technical leadership with strong growth trajectory' :
                                    CONFIG.ACTIVITY_SCORE >= 40 ? 'prepared for expanded technical influence with focused expertise development' :
                                    'specialized for high-impact technical roles with strategic skill building';
-        
+
         const marketDifferentiation = (activityMetrics?.total_stars || 0) >= 100 ? 'established technical thought leader with significant industry influence' :
                                      (activityMetrics?.total_stars || 0) >= 20 ? 'emerging technical authority with growing market recognition' :
                                      'focused technical expert with potential for expanded influence';
-        
+
         const innovationProfile = (activityMetrics?.top_languages?.length || 3) >= 5 ? 'polyglot innovator positioned for cross-platform AI architecture leadership' :
                                   (activityMetrics?.top_languages?.length || 3) >= 3 ? 'multi-domain technologist ready for comprehensive AI system leadership' :
                                   'specialized expert positioned for deep technical domain leadership';
@@ -1294,10 +1396,10 @@ Respond with ONLY this JSON structure:
         try {
             const response = await this.client.makeRequest(messages, { maxTokens: 1000 }, JSON.stringify(cvData));
             const responseText = response.content[0]?.text?.trim();
-            
+
             // Clean the response text from potential artifacts
             const cleanedResponse = this.cleanResponseText(responseText);
-            
+
             // Parse comprehensive strategic JSON response
             let strategicData;
             try {
@@ -1368,7 +1470,7 @@ Respond with ONLY this JSON structure:
             const activityPath = path.join(CONFIG.OUTPUT_DIR, 'activity-summary.json');
             const activityData = await fs.readFile(activityPath, 'utf8');
             const parsedData = JSON.parse(activityData);
-            
+
             return {
                 total_repos: parsedData.summary?.raw_data?.repositories || 0,
                 total_stars: parsedData.summary?.raw_data?.stars_received || 0,
@@ -1400,7 +1502,7 @@ Respond with ONLY this JSON structure:
 
         return {
             enhancement_overview: {
-                total_stages_completed: Object.keys(enhancementPlan).filter(key => 
+                total_stages_completed: Object.keys(enhancementPlan).filter(key =>
                     key !== 'metadata' && key !== 'enhancement_summary'
                 ).length,
                 creativity_level: CONFIG.CREATIVITY_LEVEL,
@@ -1508,11 +1610,11 @@ Respond with ONLY this JSON structure:
      */
     async saveEnhancementResults(enhancementPlan) {
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        
+
         // Save comprehensive enhancement results
         const enhancementPath = path.join(CONFIG.OUTPUT_DIR, `ai-enhancement-${timestamp}.json`);
         await fs.writeFile(enhancementPath, JSON.stringify(enhancementPlan, null, 2), 'utf8');
-        
+
         // Save current enhancement for CV integration
         const currentPath = path.join(CONFIG.OUTPUT_DIR, 'ai-enhancements.json');
         await fs.writeFile(currentPath, JSON.stringify({
@@ -1546,7 +1648,7 @@ Respond with ONLY this JSON structure:
      */
     cleanResponseText(text) {
         if (!text) return text;
-        
+
         // Remove common meta-commentary patterns
         const metaPatterns = [
             /^Here's an enhanced.*?:\s*/i,
@@ -1559,21 +1661,21 @@ Respond with ONLY this JSON structure:
             /^I'll.*?\.\s*/i,
             /^Let me.*?\.\s*/i
         ];
-        
+
         let cleaned = text;
         for (const pattern of metaPatterns) {
             cleaned = cleaned.replace(pattern, '');
         }
-        
+
         return cleaned.trim();
     }
-    
+
     /**
      * Clean enhanced content from artifacts and meta-commentary
      */
     cleanEnhancedContent(content) {
         if (!content) return content;
-        
+
         // Remove specific meta-commentary patterns from enhanced content
         let cleaned = content
             .replace(/^Here's an enhanced.*?:\s*/i, '')
@@ -1585,7 +1687,7 @@ Respond with ONLY this JSON structure:
             .replace(/^- .*?\n/gm, '') // Remove bullet point explanations
             .replace(/\n\n+/g, ' ') // Replace multiple newlines with single space
             .trim();
-        
+
         // If content still looks like meta-commentary, extract just the summary part
         if (cleaned.toLowerCase().includes('this ') || cleaned.toLowerCase().includes('the ')) {
             const summaryMatch = cleaned.match(/Results-driven.*?\.|Innovative.*?\.|Experienced.*?\.|Senior.*?\./i);
@@ -1593,16 +1695,16 @@ Respond with ONLY this JSON structure:
                 cleaned = summaryMatch[0];
             }
         }
-        
+
         return cleaned;
     }
-    
+
     /**
      * Extract content from text when JSON parsing fails
      */
     extractContentFromText(text) {
         const cleaned = this.cleanResponseText(text);
-        
+
         // Try to parse as JSON first, even if it looks malformed
         try {
             const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
@@ -1616,10 +1718,10 @@ Respond with ONLY this JSON structure:
         } catch (error) {
             // Continue with text extraction
         }
-        
+
         // Try to extract enhanced summary from various patterns
         let enhancedSummary = cleaned;
-        
+
         // Look for enhanced summary in quotes or after colons
         const summaryPatterns = [
             /"enhanced_summary":\s*"([^"]+)"/i,
@@ -1627,7 +1729,7 @@ Respond with ONLY this JSON structure:
             /summary.*?:\s*"([^"]+)"/i,
             /"([^"]*(?:AI|Engineer|Software|Architect)[^"]*)"/i
         ];
-        
+
         for (const pattern of summaryPatterns) {
             const match = cleaned.match(pattern);
             if (match && match[1]) {
@@ -1635,7 +1737,7 @@ Respond with ONLY this JSON structure:
                 break;
             }
         }
-        
+
         return {
             enhanced_summary: this.cleanEnhancedContent(enhancedSummary),
             strategic_improvements: { positioning_shift: "Enhanced with AI optimization" },
@@ -1647,7 +1749,7 @@ Respond with ONLY this JSON structure:
     // Helper methods
     analyzeSummaryImprovement(original, enhanced) {
         if (!enhanced) return { improvement_indicators: ['Enhancement processing failed'] };
-        
+
         return {
             length_change: enhanced.length - original.length,
             word_count_change: enhanced.split(' ').length - original.split(' ').length,
@@ -1681,11 +1783,11 @@ Respond with ONLY this JSON structure:
                 ...skillsData.development_roadmap.innovation_opportunities || []
             ];
         }
-        
+
         // Fallback recommendations
         return [
             'Continue developing AI/ML expertise',
-            'Expand cloud architecture knowledge', 
+            'Expand cloud architecture knowledge',
             'Strengthen autonomous systems experience',
             'Enhance leadership and mentoring skills'
         ];
@@ -1696,23 +1798,27 @@ Respond with ONLY this JSON structure:
  * Main execution function
  */
 async function main() {
-    if (!CONFIG.ANTHROPIC_API_KEY) {
-        console.error('❌ ANTHROPIC_API_KEY environment variable is required');
+    if (!CONFIG.ANTHROPIC_API_KEY && !CONFIG.USE_CLAUDE_CODE) {
+        console.error('❌ ANTHROPIC_API_KEY environment variable is required (or set USE_CLAUDE_CODE=true)');
         process.exit(1);
+    }
+
+    if (!CONFIG.ANTHROPIC_API_KEY && CONFIG.USE_CLAUDE_CODE) {
+        console.log('🔧 Using Claude Code CLI (Max subscription) — no API key needed');
     }
 
     try {
         const enhancer = new CVContentEnhancer();
         const results = await enhancer.enhance();
-        
+
         const usageStats = enhancer.client.getUsageStats();
-        
+
         console.log('\n🎉 **ENHANCEMENT COMPLETE**');
         console.log(`🤖 Stages completed: ${results.enhancement_summary?.enhancement_overview?.total_stages_completed || 'N/A'}`);
         console.log(`📊 Token usage: ${usageStats.total_tokens} (${usageStats.cache_efficiency_percent}% cached)`);
         console.log(`🎨 Creativity level: ${CONFIG.CREATIVITY_LEVEL}`);
         console.log(`⚡ Activity score: ${CONFIG.ACTIVITY_SCORE}/100`);
-        
+
         return results;
     } catch (error) {
         console.error('❌ Enhancement failed:', error.message);
@@ -1725,9 +1831,9 @@ async function main() {
  */
 function testContentCleaning() {
     console.log('🧪 Testing content cleaning functions...');
-    
+
     const enhancer = new CVContentEnhancer();
-    
+
     // Test cases with typical problematic outputs
     const testCases = [
         {
@@ -1751,13 +1857,13 @@ function testContentCleaning() {
             expected: 'Senior AI Engineer and Software Architect with 8+ years experience developing cutting-edge autonomous systems and machine learning solutions.'
         }
     ];
-    
+
     testCases.forEach((testCase, index) => {
         console.log(`\n🔍 Test ${index + 1}: ${testCase.name}`);
         console.log('📥 Input:', testCase.input.substring(0, 100) + '...');
-        
+
         let enhanced;
-        
+
         // For JSON test cases, use the extraction function
         if (testCase.input.startsWith('{')) {
             const extracted = enhancer.extractContentFromText(testCase.input);
@@ -1766,25 +1872,25 @@ function testContentCleaning() {
             const cleaned = enhancer.cleanResponseText(testCase.input);
             enhanced = enhancer.cleanEnhancedContent(cleaned);
         }
-        
+
         console.log('🧹 Cleaned:', enhanced.substring(0, 100) + (enhanced.length > 100 ? '...' : ''));
         console.log('✅ Expected:', testCase.expected.substring(0, 100) + (testCase.expected.length > 100 ? '...' : ''));
-        
+
         // Basic validation
-        const isClean = !enhanced.toLowerCase().includes('here\'s') && 
+        const isClean = !enhanced.toLowerCase().includes('here\'s') &&
                        !enhanced.toLowerCase().includes('this enhancement') &&
                        !enhanced.toLowerCase().includes('i\'ll provide');
-        
+
         console.log(`${isClean ? '✅' : '❌'} Cleaning ${isClean ? 'successful' : 'needs improvement'}`);
     });
-    
+
     console.log('\n🎉 Content cleaning test completed');
 }
 
 // Execute if called directly
 if (require.main === module) {
     const args = process.argv.slice(2);
-    
+
     if (args.includes('--test-cleaning')) {
         testContentCleaning();
     } else {
