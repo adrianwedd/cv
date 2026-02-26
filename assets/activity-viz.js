@@ -13,14 +13,17 @@
     '#8a9dd9', '#d98abd'
   ];
 
+  // Any repo not in the map falls to "Other" (index 4)
   const CATEGORY_MAP = {
     'cygnet': 0, 'AI-SWA': 0, 'failure-first-embodied-ai': 0, 'failure-first': 0,
     'VERITAS': 1, 'ADHDo': 1, 'neuroconnect': 1, 'emdr-agent': 1,
     'evolve-evolution': 2, 'evolvechiropractictas.com': 2, 'truecapacity.coach': 2, 'annicalarsdotter.com': 2,
     'notebooklm-automation': 3, 'rlm-mcp': 3, 'cv': 3, 'Dx0': 3,
-    'orbitr': 4, 'squishmallowdex': 4, 'TEL3SIS': 4
+    'orbitr': 4, 'squishmallowdex': 4, 'TEL3SIS': 4,
+    // Common repos that appear in data
+    'terminal': 0,
   };
-  const CATEGORY_NAMES = ['AI & Agents', 'Health & Safety', 'Client Delivery', 'Tooling', 'Creative'];
+  const CATEGORY_NAMES = ['AI & Agents', 'Health & Safety', 'Client Delivery', 'Tooling', 'Other'];
   const CATEGORY_COLORS = ['#8ac7d9', '#c9a8d9', '#7dd9b5', '#d9c78a', '#d98abd'];
 
   let activityData = null;
@@ -69,12 +72,12 @@
     const panels = document.querySelectorAll('.activity-panel');
     panels.forEach((p, i) => {
       p.style.opacity = '0';
-      p.style.transform = 'translateY(16px)';
+      p.style.transform = 'translateY(12px)';
       setTimeout(() => {
-        p.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        p.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         p.style.opacity = '1';
         p.style.transform = 'translateY(0)';
-      }, i * 120);
+      }, i * 100);
     });
   }
 
@@ -85,15 +88,15 @@
     if (!container || !activityData.commit_timeline.length) return;
 
     const weeks = activityData.commit_timeline;
-    const W = container.clientWidth || 340;
-    const H = 160;
+    const W = container.clientWidth || 320;
+    const H = 140;
 
     // Group repos into categories
     const catTotals = [];
     for (const week of weeks) {
       const cats = new Array(CATEGORY_NAMES.length).fill(0);
       for (const [repo, count] of Object.entries(week.repos)) {
-        const cat = CATEGORY_MAP[repo] ?? CATEGORY_NAMES.length - 1;
+        const cat = CATEGORY_MAP[repo] ?? (CATEGORY_NAMES.length - 1);
         cats[Math.min(cat, CATEGORY_NAMES.length - 1)] += count;
       }
       catTotals.push(cats);
@@ -108,9 +111,9 @@
     ns.setAttribute('aria-label', 'Commit activity streamgraph showing weekly commits by category');
 
     const n = catTotals.length;
-    const xStep = W / Math.max(n - 1, 1);
+    const xStep = n > 1 ? W / (n - 1) : W;
 
-    // Build stacked areas from bottom
+    // Build stacked areas from bottom — draw back-to-front so top categories overlay
     for (let cat = CATEGORY_NAMES.length - 1; cat >= 0; cat--) {
       const topPoints = [];
       const botPoints = [];
@@ -122,38 +125,48 @@
           yBot += catTotals[i][c];
         }
         const yTop = yBot + catTotals[i][cat];
-        const scaledBot = H - (yBot / maxTotal) * (H * 0.85) - H * 0.05;
-        const scaledTop = H - (yTop / maxTotal) * (H * 0.85) - H * 0.05;
+        // Map 0..maxTotal -> H*0.90..H*0.05 (leave bottom margin for labels)
+        const scaledBot = H - 14 - (yBot / maxTotal) * (H * 0.78);
+        const scaledTop = H - 14 - (yTop / maxTotal) * (H * 0.78);
         topPoints.push({ x, y: scaledTop });
         botPoints.push({ x, y: scaledBot });
       }
 
-      // Smooth path using cardinal spline approximation
       const topPath = smoothLine(topPoints);
-      const botPath = smoothLine(botPoints.reverse());
+      const botReversed = [...botPoints].reverse();
+      const botPath = smoothLine(botReversed);
+      // Strip leading "M x,y" from botPath so we can append it after a lineto
+      const botPathBody = botPath.replace(/^M\s*[\d.eE+\-]+\s*,\s*[\d.eE+\-]+\s*/, '');
 
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', `${topPath} L ${botPoints[0].x},${botPoints[0].y} ${botPath.replace(/^M\s*[\d.]+,[\d.]+\s*/, '')} Z`);
+      const lastTop = topPoints[topPoints.length - 1];
+      const firstBot = botReversed[0]; // = last botPoint
+      path.setAttribute('d',
+        `${topPath} L ${firstBot.x},${firstBot.y} ${botPathBody} Z`
+      );
       path.setAttribute('fill', CATEGORY_COLORS[cat]);
-      path.setAttribute('fill-opacity', '0.7');
-      path.setAttribute('stroke', 'none');
+      path.setAttribute('fill-opacity', '0.75');
+      path.setAttribute('stroke', 'var(--color-background)');
+      path.setAttribute('stroke-width', '0.5');
       ns.appendChild(path);
     }
 
-    // Month labels
-    const startDate = new Date(weeks[0].week);
-    for (let i = 0; i < n; i += 4) {
-      const d = new Date(startDate);
-      d.setDate(d.getDate() + i * 7);
-      const label = d.toLocaleDateString('en-AU', { month: 'short' });
-      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('x', i * xStep);
-      text.setAttribute('y', H - 2);
-      text.setAttribute('fill', 'var(--color-text-muted)');
-      text.setAttribute('font-size', '9');
-      text.setAttribute('font-family', 'var(--font-family-mono)');
-      text.textContent = label;
-      ns.appendChild(text);
+    // Month labels along bottom
+    if (weeks.length > 0) {
+      const startDate = new Date(weeks[0].week);
+      for (let i = 0; i < n; i += 4) {
+        const d = new Date(startDate);
+        d.setDate(d.getDate() + i * 7);
+        const label = d.toLocaleDateString('en-AU', { month: 'short' });
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', Math.min(i * xStep, W - 16));
+        text.setAttribute('y', H - 2);
+        text.setAttribute('fill', 'var(--color-text-muted)');
+        text.setAttribute('font-size', '8');
+        text.setAttribute('font-family', 'var(--font-family-mono)');
+        text.textContent = label;
+        ns.appendChild(text);
+      }
     }
 
     container.textContent = '';
@@ -169,15 +182,14 @@
       dot.className = 'viz-legend-dot';
       dot.style.backgroundColor = CATEGORY_COLORS[i];
       item.appendChild(dot);
-      const lbl = document.createTextNode(CATEGORY_NAMES[i]);
-      item.appendChild(lbl);
+      item.appendChild(document.createTextNode(CATEGORY_NAMES[i]));
       legend.appendChild(item);
     }
     container.appendChild(legend);
   }
 
   function smoothLine(points) {
-    if (points.length < 2) return '';
+    if (points.length < 2) return `M ${points[0].x},${points[0].y}`;
     let d = `M ${points[0].x},${points[0].y}`;
     for (let i = 1; i < points.length; i++) {
       const prev = points[i - 1];
@@ -198,41 +210,44 @@
     const total = entries.reduce((s, [, v]) => s + v, 0);
     if (!total) return;
 
-    const SIZE = 200;
+    const SIZE = 180;
     const CX = SIZE / 2;
     const CY = SIZE / 2;
 
     const ns = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     ns.setAttribute('viewBox', `0 0 ${SIZE} ${SIZE}`);
-    ns.setAttribute('width', '100%');
+    ns.setAttribute('width', SIZE);
     ns.setAttribute('height', SIZE);
     ns.setAttribute('role', 'img');
     ns.setAttribute('aria-label', 'Language distribution ring chart');
 
-    // Inner ring: top 5, outer ring: rest
+    // Inner ring: top 5, outer ring: rest (up to 7 more)
     const top5 = entries.slice(0, 5);
     const rest = entries.slice(5, 12);
 
-    drawRing(ns, top5, total, CX, CY, 50, 75, PALETTE);
-    drawRing(ns, rest, total, CX, CY, 78, 92, PALETTE.slice(5));
+    drawRing(ns, top5, total, CX, CY, 46, 70, PALETTE);
+    if (rest.length > 0) {
+      drawRing(ns, rest, total, CX, CY, 73, 85, PALETTE.slice(5));
+    }
 
     // Center text
     const centerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     centerText.setAttribute('x', CX);
-    centerText.setAttribute('y', CY - 4);
+    centerText.setAttribute('y', CY - 5);
     centerText.setAttribute('text-anchor', 'middle');
+    centerText.setAttribute('dominant-baseline', 'middle');
     centerText.setAttribute('fill', 'var(--color-text-primary)');
-    centerText.setAttribute('font-size', '16');
+    centerText.setAttribute('font-size', '18');
     centerText.setAttribute('font-family', 'var(--font-family-mono)');
     centerText.textContent = entries.length;
     ns.appendChild(centerText);
 
     const subText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     subText.setAttribute('x', CX);
-    subText.setAttribute('y', CY + 12);
+    subText.setAttribute('y', CY + 11);
     subText.setAttribute('text-anchor', 'middle');
     subText.setAttribute('fill', 'var(--color-text-muted)');
-    subText.setAttribute('font-size', '9');
+    subText.setAttribute('font-size', '8');
     subText.setAttribute('font-family', 'var(--font-family-mono)');
     subText.textContent = 'languages';
     ns.appendChild(subText);
@@ -261,16 +276,19 @@
     let angle = -Math.PI / 2;
     entries.forEach(([, value], i) => {
       const sweep = (value / total) * Math.PI * 2;
-      if (sweep < 0.01) return;
-      const x1i = cx + r1 * Math.cos(angle);
-      const y1i = cy + r1 * Math.sin(angle);
-      const x1o = cx + r2 * Math.cos(angle);
-      const y1o = cy + r2 * Math.sin(angle);
-      const x2i = cx + r1 * Math.cos(angle + sweep);
-      const y2i = cy + r1 * Math.sin(angle + sweep);
-      const x2o = cx + r2 * Math.cos(angle + sweep);
-      const y2o = cy + r2 * Math.sin(angle + sweep);
-      const large = sweep > Math.PI ? 1 : 0;
+      if (sweep < 0.015) return;
+      const GAP = 0.03; // radians gap between segments
+      const a1 = angle + GAP / 2;
+      const a2 = angle + sweep - GAP / 2;
+      const x1i = cx + r1 * Math.cos(a1);
+      const y1i = cy + r1 * Math.sin(a1);
+      const x1o = cx + r2 * Math.cos(a1);
+      const y1o = cy + r2 * Math.sin(a1);
+      const x2i = cx + r1 * Math.cos(a2);
+      const y2i = cy + r1 * Math.sin(a2);
+      const x2o = cx + r2 * Math.cos(a2);
+      const y2o = cy + r2 * Math.sin(a2);
+      const large = (sweep - GAP) > Math.PI ? 1 : 0;
 
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', [
@@ -281,9 +299,7 @@
         'Z'
       ].join(' '));
       path.setAttribute('fill', colors[i % colors.length]);
-      path.setAttribute('fill-opacity', '0.85');
-      path.setAttribute('stroke', 'var(--color-background)');
-      path.setAttribute('stroke-width', '1');
+      path.setAttribute('fill-opacity', '0.88');
       svg.appendChild(path);
       angle += sweep;
     });
@@ -313,7 +329,7 @@
   function sizeConstellationCanvas() {
     if (!constellationCanvas) return;
     const container = constellationCanvas.parentElement;
-    const w = container.clientWidth || 340;
+    const w = container.clientWidth || 320;
     const h = 200;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     constellationCanvas.width = w * dpr;
@@ -344,26 +360,28 @@
     // Position nodes in a relaxed layout — golden angle spiral with drift
     const nodes = repos.map((r, i) => {
       const activity = r.issues + r.commits;
-      const maxActivity = repos[0].issues + repos[0].commits;
-      const radius = 3 + (activity / maxActivity) * 14;
-      const cat = CATEGORY_MAP[r.name] ?? 4;
+      const maxActivity = Math.max(...repos.map(x => x.issues + x.commits), 1);
+      const radius = 3 + (activity / maxActivity) * 13;
+      const cat = CATEGORY_MAP[r.name] ?? (CATEGORY_NAMES.length - 1);
 
       // Golden angle spiral
       const ga = 2.399963;
       const baseAngle = i * ga;
-      const baseR = 25 + Math.sqrt(i) * 28;
+      // Compress radial extent to keep nodes well within bounds
+      const baseR = 18 + Math.sqrt(i) * 22;
 
-      // Gentle orbital drift (30s period)
-      const drift = elapsed * (0.02 + i * 0.003);
+      // Gentle orbital drift — very slow (one full turn per ~50s for outer nodes)
+      const drift = elapsed * (0.015 + i * 0.002);
       const angle = baseAngle + drift;
 
+      // Elliptical layout to use horizontal space
       const x = W / 2 + baseR * Math.cos(angle);
-      const y = H / 2 + baseR * Math.sin(angle) * 0.65;
+      const y = H / 2 + baseR * Math.sin(angle) * 0.6;
 
-      return { x, y, radius, cat, name: r.name, lang: r.language };
+      return { x, y, radius, cat, name: r.name };
     });
 
-    // Draw connections for shared tech categories
+    // Draw connections for same-category pairs within range
     ctx.lineWidth = 0.5;
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
@@ -371,8 +389,8 @@
           const dx = nodes[j].x - nodes[i].x;
           const dy = nodes[j].y - nodes[i].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 160) {
-            const alpha = 0.08 * (1 - dist / 160);
+          if (dist < 140) {
+            const alpha = 0.10 * (1 - dist / 140);
             ctx.strokeStyle = CATEGORY_COLORS[nodes[i].cat] || '#8ac7d9';
             ctx.globalAlpha = alpha;
             ctx.beginPath();
@@ -385,22 +403,49 @@
     }
 
     // Draw nodes
+    ctx.globalAlpha = 1;
     for (const node of nodes) {
-      ctx.globalAlpha = 0.85;
       ctx.fillStyle = CATEGORY_COLORS[node.cat] || '#8ac7d9';
+      ctx.globalAlpha = 0.85;
       ctx.beginPath();
       ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
       ctx.fill();
+    }
 
-      // Label for large nodes
-      if (node.radius > 8) {
-        ctx.globalAlpha = 0.6;
-        ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--color-text-secondary').trim() || '#a8b3c2';
-        ctx.font = '8px "JetBrains Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText(node.name, node.x, node.y + node.radius + 10);
+    // Draw labels with overlap prevention — only for nodes with radius > 7
+    const labelCandidates = nodes
+      .filter(n => n.radius > 7)
+      .sort((a, b) => b.radius - a.radius); // largest first so they claim space first
+
+    const placedLabels = []; // { x1, y1, x2, y2 } bounding boxes
+
+    const textColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-text-muted').trim() || '#666';
+
+    ctx.font = '8px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+
+    for (const node of labelCandidates) {
+      const labelY = node.y + node.radius + 11;
+      const labelX = node.x;
+      const textW = ctx.measureText(node.name).width;
+      const half = textW / 2 + 1;
+
+      // Check bounding box overlap with already-placed labels
+      const box = { x1: labelX - half, y1: labelY - 9, x2: labelX + half, y2: labelY + 2 };
+      const overlaps = placedLabels.some(b =>
+        box.x1 < b.x2 && box.x2 > b.x1 && box.y1 < b.y2 && box.y2 > b.y1
+      );
+
+      // Also check if label would be clipped by canvas edge
+      if (!overlaps && box.x1 >= 0 && box.x2 <= W && box.y2 <= H) {
+        ctx.globalAlpha = 0.55;
+        ctx.fillStyle = textColor;
+        ctx.fillText(node.name, labelX, labelY);
+        placedLabels.push(box);
       }
     }
+
     ctx.globalAlpha = 1;
   }
 
@@ -412,11 +457,10 @@
 
     // Build day map from both heatmap and commit_timeline data
     const dayMap = {};
-    // From heatmap entries (daily granularity where available)
     for (const e of (activityData.heatmap || [])) {
       dayMap[e.date] = (dayMap[e.date] || 0) + e.count;
     }
-    // From commit_timeline (weekly — spread across the week)
+    // From commit_timeline (weekly — mark the week start day)
     for (const w of (activityData.commit_timeline || [])) {
       const total = Object.values(w.repos).reduce((a, b) => a + b, 0);
       if (total > 0 && !dayMap[w.week]) {
@@ -430,31 +474,68 @@
       if (c > maxCount) maxCount = c;
     }
 
-    const end = new Date();
-    const grid = document.createElement('div');
-    grid.className = 'heatmap-grid';
-
-    // 52 weeks x 7 days
     const WEEKS = 52;
-    const today = new Date(end.getFullYear(), end.getMonth(), end.getDate());
-    const startDay = new Date(today);
+    const today = new Date();
+    const todayNorm = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    // Start on the Sunday before 52 weeks ago
+    const startDay = new Date(todayNorm);
     startDay.setDate(startDay.getDate() - (WEEKS * 7 - 1) - startDay.getDay());
 
-    const monthLabels = document.createElement('div');
-    monthLabels.className = 'heatmap-months';
+    // Build month labels: track which grid column each month starts in
+    const monthLabelData = []; // { colIndex, label }
     let lastMonth = -1;
 
+    const cols = [];
     for (let w = 0; w < WEEKS; w++) {
-      const col = document.createElement('div');
-      col.className = 'heatmap-col';
+      const weekStart = new Date(startDay);
+      weekStart.setDate(startDay.getDate() + w * 7);
 
+      if (weekStart.getMonth() !== lastMonth && weekStart.getDate() <= 7) {
+        monthLabelData.push({
+          col: w,
+          label: weekStart.toLocaleDateString('en-AU', { month: 'short' })
+        });
+        lastMonth = weekStart.getMonth();
+      }
+
+      const colCells = [];
       for (let d = 0; d < 7; d++) {
         const cellDate = new Date(startDay);
         cellDate.setDate(startDay.getDate() + w * 7 + d);
         const key = cellDate.toISOString().slice(0, 10);
         const count = dayMap[key] || 0;
         const level = maxCount > 0 ? Math.min(Math.ceil((count / maxCount) * 4), 4) : 0;
+        colCells.push({ level, key, count });
+      }
+      cols.push(colCells);
+    }
 
+    // Wrapper (handles overflow on very small screens)
+    const wrapper = document.createElement('div');
+    wrapper.className = 'heatmap-wrapper';
+
+    // Month labels row — use CSS grid matching heatmap-grid
+    const monthRow = document.createElement('div');
+    monthRow.className = 'heatmap-months';
+    monthRow.style.gridTemplateColumns = `repeat(${WEEKS}, 1fr)`;
+
+    for (const { col, label } of monthLabelData) {
+      const span = document.createElement('span');
+      span.className = 'heatmap-month-label';
+      span.textContent = label;
+      span.style.gridColumnStart = col + 1;
+      monthRow.appendChild(span);
+    }
+
+    // Grid of cells
+    const grid = document.createElement('div');
+    grid.className = 'heatmap-grid';
+    grid.style.gridTemplateColumns = `repeat(${WEEKS}, 1fr)`;
+
+    for (const colCells of cols) {
+      const col = document.createElement('div');
+      col.className = 'heatmap-col';
+      for (const { level, key, count } of colCells) {
         const cell = document.createElement('div');
         cell.className = 'heatmap-cell';
         cell.dataset.level = level;
@@ -462,25 +543,17 @@
         cell.dataset.count = count;
         col.appendChild(cell);
       }
-
-      // Month label
-      const weekStart = new Date(startDay);
-      weekStart.setDate(startDay.getDate() + w * 7);
-      if (weekStart.getMonth() !== lastMonth && weekStart.getDate() <= 7) {
-        const label = document.createElement('span');
-        label.className = 'heatmap-month-label';
-        label.textContent = weekStart.toLocaleDateString('en-AU', { month: 'short' });
-        label.style.gridColumnStart = w + 1;
-        monthLabels.appendChild(label);
-        lastMonth = weekStart.getMonth();
-      }
-
       grid.appendChild(col);
     }
 
+    wrapper.appendChild(monthRow);
+    wrapper.appendChild(grid);
+
+    // Remove label element, replace container children
+    const labelEl = container.querySelector('.activity-panel-label');
     container.textContent = '';
-    container.appendChild(monthLabels);
-    container.appendChild(grid);
+    if (labelEl) container.appendChild(labelEl);
+    container.appendChild(wrapper);
   }
 
   // ── Print support ─────────────────────────────────────
@@ -491,7 +564,7 @@
       cancelAnimationFrame(constellationAnimId);
       constellationAnimId = null;
     }
-    // Freeze constellation at current state (already drawn)
+    // Constellation is already drawn on canvas — it freezes as-is
   });
 
   window.addEventListener('afterprint', () => {

@@ -766,6 +766,11 @@ body {
   gap: var(--space-6);
 }
 
+/* Heatmap spans full width — it needs horizontal space */
+.activity-panel--wide {
+  grid-column: 1 / -1;
+}
+
 .activity-panel {
   position: relative;
   min-height: 180px;
@@ -795,7 +800,7 @@ body {
 .viz-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
+  gap: var(--space-1) var(--space-3);
   margin-top: var(--space-2);
 }
 
@@ -806,6 +811,7 @@ body {
   font-family: var(--font-family-mono);
   font-size: 9px;
   color: var(--color-text-muted);
+  white-space: nowrap;
 }
 
 .viz-legend-dot {
@@ -816,23 +822,31 @@ body {
 }
 
 /* Heatmap */
+.heatmap-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  /* hide scrollbar — the grid sizes to fit but allow overflow on very small screens */
+  scrollbar-width: none;
+}
+.heatmap-wrapper::-webkit-scrollbar { display: none; }
+
 .heatmap-months {
-  display: flex;
-  gap: 0;
-  margin-bottom: var(--space-1);
-  position: relative;
-  height: 12px;
+  display: grid;
+  /* grid-template-columns set inline by JS: repeat(52, 1fr) — matching heatmap-grid */
+  margin-bottom: 2px;
+  min-height: 14px;
 }
 
 .heatmap-month-label {
   font-family: var(--font-family-mono);
   font-size: 8px;
   color: var(--color-text-muted);
-  position: absolute;
+  /* each label sits in the grid column that matches its week index */
 }
 
 .heatmap-grid {
-  display: flex;
+  display: grid;
+  /* columns injected inline by JS: repeat(52, 1fr) */
   gap: 2px;
 }
 
@@ -843,26 +857,43 @@ body {
 }
 
 .heatmap-cell {
-  width: 10px;
-  height: 10px;
+  /* Width is determined by the 1fr column. Height matches width via aspect-ratio.
+     This works because the col has no intrinsic height constraint. */
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 1px;
   background: rgba(138, 199, 217, 0.06);
+  flex-shrink: 0;
 }
 
-.heatmap-cell[data-level="1"] { background: rgba(138, 199, 217, 0.20); }
-.heatmap-cell[data-level="2"] { background: rgba(138, 199, 217, 0.42); }
-.heatmap-cell[data-level="3"] { background: rgba(138, 199, 217, 0.68); }
+.heatmap-cell[data-level="1"] { background: rgba(138, 199, 217, 0.22); }
+.heatmap-cell[data-level="2"] { background: rgba(138, 199, 217, 0.45); }
+.heatmap-cell[data-level="3"] { background: rgba(138, 199, 217, 0.70); }
 .heatmap-cell[data-level="4"] { background: #8ac7d9; }
 
+/* Language ring: center the SVG */
+#viz-languages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#viz-languages svg {
+  max-width: 200px;
+}
+#viz-languages .viz-legend {
+  justify-content: center;
+  width: 100%;
+}
+
 /* Responsive */
-@media (max-width: 520px) {
+@media (max-width: 600px) {
   .activity-grid {
     grid-template-columns: 1fr;
   }
 
-  .heatmap-cell {
-    width: 5px;
-    height: 5px;
+  /* On single-column mobile, wide panel reverts to normal */
+  .activity-panel--wide {
+    grid-column: auto;
   }
 }
 
@@ -885,29 +916,10 @@ body {
 
   #curvature-bg,
   .theme-toggle,
-  .footer-links {
+  .footer-links,
+  #activity {
     display: none !important;
   }
-
-  .activity-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-  }
-
-  .constellation-canvas {
-    /* Canvas freezes on print via beforeprint event */
-  }
-
-  .heatmap-cell {
-    width: 6px;
-    height: 6px;
-  }
-
-  .heatmap-cell[data-level="0"] { background: #eee; }
-  .heatmap-cell[data-level="1"] { background: #bbb; }
-  .heatmap-cell[data-level="2"] { background: #888; }
-  .heatmap-cell[data-level="3"] { background: #555; }
-  .heatmap-cell[data-level="4"] { background: #333; }
 
   .container {
     max-width: none !important;
