@@ -304,6 +304,20 @@
       "github": "https://github.com/adrianwedd/rlm-mcp",
       "status": "Active Development",
       "period": "2025 - Present"
+    },
+    {
+      "name": "Agentic Research Engine",
+      "subtitle": "Multi-Agent Research System",
+      "description": "Next-generation multi-agent research system with LangGraph orchestration, self-correction loops, and autonomous learning. 1,001 commits across Python with CI/CD cost optimization and enterprise security integration.",
+      "technologies": [
+        "Python",
+        "LangGraph",
+        "Multi-Agent Systems",
+        "Docker"
+      ],
+      "github": "https://github.com/adrianwedd/agentic-research-engine",
+      "status": "Active Development",
+      "period": "2025 - Present"
     }
   ],
   "skills": [
