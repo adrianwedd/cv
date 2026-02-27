@@ -2,17 +2,17 @@
 
 /**
  * CV Website Generator
- * 
+ *
  * Generates the complete CV website by combining base CV data, GitHub activity
  * metrics, and AI enhancements into a production-ready static site.
- * 
+ *
  * Features:
  * - Dynamic content compilation from multiple data sources
  * - Responsive HTML generation with optimized assets
  * - GitHub Pages deployment preparation
  * - SEO optimization and meta tag generation
  * - Performance optimization and asset bundling
- * 
+ *
  * Usage: node cv-generator.js
  * Output: ./dist/ directory with complete website
  */
@@ -58,7 +58,7 @@ const CONFIG = {
 
 /**
  * CV Website Generator
- * 
+ *
  * Compiles all CV data sources into a production-ready website
  */
 class CVGenerator {
@@ -111,14 +111,14 @@ class CVGenerator {
      */
     async prepareOutputDirectory() {
         console.log('📁 Preparing output directory...');
-        
+
         try {
             // Remove existing directory
             await fs.rm(CONFIG.OUTPUT_DIR, { recursive: true, force: true });
-            
+
             // Create fresh directory
             await fs.mkdir(CONFIG.OUTPUT_DIR, { recursive: true });
-            
+
             console.log(`✅ Output directory prepared: ${CONFIG.OUTPUT_DIR}`);
         } catch (error) {
             console.error('❌ Failed to prepare output directory:', error.message);
@@ -272,7 +272,7 @@ class CVGenerator {
         const hasRealGitHubData = this.activityData?.summary?.total_commits > 0;
         const hasValidMetrics = this.activityData?.summary?.net_lines_contributed > 0;
         const dataFreshness = this.activityData?.cv_integration?.data_freshness;
-        
+
         if (hasRealGitHubData && hasValidMetrics) {
             console.log(`✅ Data integrity: Excellent - Using verified GitHub data (${this.activityData.summary.total_commits} commits, ${this.activityData.summary.net_lines_contributed} lines)`);
         } else if (hasRealGitHubData) {
@@ -319,10 +319,10 @@ class CVGenerator {
     async processHTMLTemplate(htmlContent) {
         // Update meta tags
         htmlContent = this.updateMetaTags(htmlContent);
-        
+
         // Update structured data with GitHub-enhanced skills
         htmlContent = this.updateStructuredDataWithGitHubSkills(htmlContent);
-        
+
         // Update dynamic content placeholders
         htmlContent = this.updateDynamicContent(htmlContent);
 
@@ -336,8 +336,8 @@ class CVGenerator {
         const personalInfo = this.cvData.personal_info || {};
         const name = personalInfo.name || 'Adrian Wedd';
         const title = personalInfo.title || 'AI Engineer & Software Architect';
-        const description = this.aiEnhancements?.professional_summary?.enhanced || 
-                           this.cvData.professional_summary || 
+        const description = this.aiEnhancements?.professional_summary?.enhanced ||
+                           this.cvData.professional_summary ||
                            'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions';
 
         // Update title
@@ -387,9 +387,9 @@ class CVGenerator {
         const now = new Date();
         htmlContent = htmlContent.replace(
             /(<span id="footer-last-updated">).*?(<\/span>)/,
-            `$1${now.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'short', 
+            `$1${now.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit'
@@ -405,7 +405,7 @@ class CVGenerator {
     updateGitHubMetrics(htmlContent) {
         const summary = this.activityData?.summary || {};
         const cvIntegration = this.activityData?.cv_integration || {};
-        
+
         // Load latest professional development metrics if available
         let professionalMetrics = {};
         try {
@@ -429,7 +429,7 @@ class CVGenerator {
         );
 
         // Update activity score
-        const activityScore = professionalMetrics?.scores?.activity_score || 
+        const activityScore = professionalMetrics?.scores?.activity_score ||
                              Math.round((summary.active_days || 0) * 10);
         htmlContent = htmlContent.replace(
             /(<div class="stat-value" id="activity-score">)[^<]*(<\/div>)/,
@@ -465,7 +465,7 @@ class CVGenerator {
         );
 
         console.log(`✅ GitHub metrics updated: ${commitsCount} commits, ${activityScore} activity score, ${languagesCount} languages`);
-        
+
         return htmlContent;
     }
 
@@ -477,7 +477,7 @@ class CVGenerator {
         const programmingSkills = (this.cvData.skills || [])
             .filter(skill => skill.category === 'Programming Languages')
             .length;
-        
+
         // Use reasonable default if no data available
         return programmingSkills > 0 ? programmingSkills : 8;
     }
@@ -487,29 +487,29 @@ class CVGenerator {
      */
     calculateCredibilityScore(summary, professionalMetrics) {
         let credibilityScore = 100;
-        
+
         // Deduct points for missing or suspicious data
         if (!summary.total_commits || summary.total_commits === 0) {
             credibilityScore -= 20;
         }
-        
+
         if (!summary.net_lines_contributed || summary.net_lines_contributed === 0) {
             credibilityScore -= 15;
         }
-        
+
         if (!professionalMetrics?.scores?.overall_professional_score) {
             credibilityScore -= 10;
         }
-        
+
         // Add points for comprehensive data
         if (summary.total_commits > 50) {
             credibilityScore += 5;
         }
-        
+
         if (summary.net_lines_contributed > 10000) {
             credibilityScore += 5;
         }
-        
+
         return Math.min(100, Math.max(60, credibilityScore));
     }
 
@@ -519,7 +519,7 @@ class CVGenerator {
     updateStructuredDataWithGitHubSkills(htmlContent) {
         const personalInfo = this.cvData.personal_info || {};
         let skills = (this.cvData.skills || []).slice(0, 10).map(skill => skill.name);
-        
+
         // Try to enhance with GitHub language data if available
         try {
             const skillAnalysisFile = this.activityData?.data_files?.latest_activity;
@@ -529,13 +529,13 @@ class CVGenerator {
                 if (fs.existsSync(activityPath)) {
                     const activityData = JSON.parse(fs.readFileSync(activityPath, 'utf8'));
                     const skillAnalysis = activityData.skill_analysis;
-                    
+
                     if (skillAnalysis && skillAnalysis.skill_proficiency) {
                         // Get top GitHub-verified skills
                         const githubSkills = Object.keys(skillAnalysis.skill_proficiency)
                             .filter(skill => skillAnalysis.skill_proficiency[skill].proficiency_level !== 'Beginner')
                             .slice(0, 10);
-                        
+
                         // Merge with existing skills, prioritizing GitHub-verified ones
                         if (githubSkills.length > 0) {
                             skills = [...new Set([...githubSkills, ...skills])].slice(0, 10);
@@ -547,7 +547,7 @@ class CVGenerator {
         } catch (error) {
             console.warn('⚠️ Could not enhance skills with GitHub data:', error.message);
         }
-        
+
         const structuredData = {
             "@context": "https://schema.org",
             "@type": "Person",
@@ -568,7 +568,7 @@ class CVGenerator {
         };
 
         const structuredDataJson = JSON.stringify(structuredData, null, 2);
-        
+
         return htmlContent.replace(
             /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
             `<script type="application/ld+json">\n${structuredDataJson}\n</script>`
@@ -595,13 +595,23 @@ class CVGenerator {
             const jsTarget = path.join(assetsOutputDir, 'script.js');
             await fs.copyFile(jsSource, jsTarget);
 
+            // Copy watch-me-work JS
+            const watchJsSource = path.join(CONFIG.ASSETS_DIR, 'watch-me-work.js');
+            const watchJsTarget = path.join(assetsOutputDir, 'watch-me-work.js');
+            await fs.copyFile(watchJsSource, watchJsTarget).catch(e => console.warn('⚠️ watch-me-work.js not found:', e.message));
+
+            // Copy watch-me-work.html to dist root
+            const watchHtmlSource = path.join(CONFIG.INPUT_DIR, 'watch-me-work.html');
+            const watchHtmlTarget = path.join(CONFIG.OUTPUT_DIR, 'watch-me-work.html');
+            await fs.copyFile(watchHtmlSource, watchHtmlTarget).catch(e => console.warn('⚠️ watch-me-work.html not found:', e.message));
+
             // Copy data directory
             const dataOutputDir = path.join(CONFIG.OUTPUT_DIR, 'data');
             await fs.mkdir(dataOutputDir, { recursive: true });
 
             // Copy JSON data files
             const dataFiles = ['base-cv.json', 'activity-summary.json', 'ai-enhancements.json'];
-            
+
             for (const file of dataFiles) {
                 try {
                     const sourcePath = path.join(CONFIG.DATA_DIR, file);
@@ -616,11 +626,11 @@ class CVGenerator {
             try {
                 const activitySourceDir = path.join(CONFIG.DATA_DIR, 'activity');
                 const activityOutputDir = path.join(dataOutputDir, 'activity');
-                
+
                 const activityExists = await fs.access(activitySourceDir).then(() => true).catch(() => false);
                 if (activityExists) {
                     await fs.mkdir(activityOutputDir, { recursive: true });
-                    
+
                     // Copy all activity files
                     const activityFiles = await fs.readdir(activitySourceDir);
                     for (const file of activityFiles) {
@@ -724,7 +734,7 @@ Disallow: /data/
         console.log('📱 Generating web manifest...');
 
         const personalInfo = this.cvData.personal_info || {};
-        
+
         const manifest = {
             name: `${personalInfo.name || 'Adrian Wedd'} - Professional CV`,
             short_name: personalInfo.name || 'Adrian Wedd',
@@ -835,7 +845,7 @@ Disallow: /data/
         console.log('📄 Generating PDF version of the CV...');
         const browser = await puppeteer.launch({ args: ['--no-sandbox'] }); // --no-sandbox is crucial for running in GitHub Actions
         const page = await browser.newPage();
-        
+
         const htmlPath = path.resolve(path.join(CONFIG.OUTPUT_DIR, 'index.html'));
         await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
 
@@ -889,11 +899,11 @@ async function main() {
     try {
         const generator = new CVGenerator();
         await generator.generate();
-        
+
         console.log('\n🎉 **CV WEBSITE GENERATION COMPLETE**');
         console.log(`🌐 Website ready for deployment at: ${CONFIG.OUTPUT_DIR}/`);
         console.log(`🚀 Target URL: ${CONFIG.SITE_URL}`);
-        
+
     } catch (error) {
         console.error('❌ Generation failed:', error.message);
         process.exit(1);
