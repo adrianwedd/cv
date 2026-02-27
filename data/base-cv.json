@@ -241,12 +241,16 @@
     {
       "name": "Failure-First Embodied AI",
       "subtitle": "AI Safety Red-Teaming Framework",
-      "description": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes automated attack adapters (TAP), cross-modal vulnerability research on VLA models, prompt injection and jailbreak testing, bias detection, robustness evaluation, interpretability analysis, and a customer discovery track for commercial AI safety services.",
+      "description": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation.",
       "technologies": [
         "Python",
         "AI Safety",
         "Red-teaming",
         "Adversarial Testing",
+        "Computer Vision",
+        "Neural Networks",
+        "Model Evaluation",
+        "AI Ethics",
         "Prompt Injection",
         "Bias Detection",
         "Robustness",
@@ -254,6 +258,7 @@
         "Evaluation Framework",
         "Content Safety",
         "Responsible AI",
+        "Deep Learning",
         "NotebookLM",
         "arXiv"
       ],
@@ -397,7 +402,7 @@
       "name": "AI Safety & Evaluation",
       "category": "AI & Automation",
       "tier": "Primary",
-      "description": "Red-teaming, adversarial testing, evaluation frameworks, hallucination detection, content safety, failure-first methodology, responsible AI"
+      "description": "Red-teaming, adversarial testing, evaluation frameworks, model evaluation, hallucination detection, content safety, AI ethics, responsible AI, failure-first methodology, transformer and BERT-based evaluation"
     },
     {
       "name": "Process Automation",
@@ -439,7 +444,7 @@
       "name": "ML Libraries",
       "category": "AI & Automation",
       "tier": "Secondary",
-      "description": "PyTorch, Hugging Face, NumPy, Pandas, spaCy, Scikit-learn — used across research and agentic projects"
+      "description": "PyTorch, Hugging Face Transformers, Scikit-learn, NumPy, Pandas, spaCy — deep learning, neural networks, transformer-based evaluation, and classical ML across research and agentic projects"
     },
     {
       "name": "MCP Development",
