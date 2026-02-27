@@ -16,7 +16,7 @@
     "tagline": "Building the systems I study — AI safety, multi-agent frameworks, and client delivery",
     "availability": "Currently freelancing and building — open to the right opportunity"
   },
-  "professional_summary": "AI safety researcher and systems developer building the systems I study. Currently freelancing and shipping independent projects — from a red-teaming framework for embodied AI with 104 tracked research issues, to a voice-first agentic phone system, to a four-site healthcare digital presence under AHPRA advertising regulations, to a multilingual restaurant site in Bali. Previously led systems integration and cybersecurity for Tasmania's public housing sector. Active across 15+ repositories with 1,200+ tracked issues spanning agent orchestration, AI governance, CLI tooling, and client delivery. Background in environmental advocacy, government service, and infrastructure management. Self-taught across the stack. Most interested in where AI systems break.",
+  "professional_summary": "AI safety researcher and systems developer building the systems I study. Self-taught since childhood — started with BASIC at age 6, drawn to infosec and systems early, nearly 45 years across the stack. Currently freelancing and shipping independent projects — from a red-teaming framework for embodied AI with 104 tracked research issues, to a voice-first agentic phone system, to a four-site healthcare digital presence under AHPRA advertising regulations, to a multilingual restaurant site in Bali. Previously led systems integration and cybersecurity for Tasmania's public housing sector. Active across 15+ repositories with 1,200+ tracked issues spanning agent orchestration, AI governance, CLI tooling, and client delivery. Background in environmental advocacy, government service, and infrastructure management. Most interested in where AI systems break.",
   "experience": [
     {
       "position": "Freelance Developer & AI Consultant",
@@ -151,6 +151,20 @@
     }
   ],
   "projects": [
+    {
+      "name": "This Wasn't in the Brochure",
+      "subtitle": "Published Book — Co-Parenting Neurodivergent Children",
+      "description": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
+      "technologies": [
+        "Technical Writing",
+        "Neurodiversity",
+        "Research Synthesis"
+      ],
+      "url": "https://thiswasntinthebrochure.wtf",
+      "github": "https://github.com/adrianwedd/This-Wasn-t-in-the-Brochure",
+      "status": "Published",
+      "period": "2025 - Present"
+    },
     {
       "name": "NotebookLM Automation",
       "subtitle": "CLI Tooling for Google NotebookLM",
