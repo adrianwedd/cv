@@ -412,6 +412,10 @@ jobs:
           node content-guardian.js --validate
           echo "Content guardian passed"
 
+          # Keyword scorer — soft gate (threshold 35, logs gaps for enhancer)
+          node keyword-scorer.js --threshold 35 --report
+          echo "Keyword scoring complete"
+
           cd ../..
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -402,6 +402,12 @@ class CVContentEnhancer {
             const currentCVData = await this.loadCurrentCVData();
             const activityMetrics = await this.loadActivityMetrics();
 
+            // Load keyword gaps to guide enhancement
+            const keywordGaps = await this.loadKeywordGaps();
+            if (keywordGaps.top_missing?.length) {
+                console.log(`🔑 Keyword gaps to address: ${keywordGaps.top_missing.slice(0,5).map(g=>g.kw).join(', ')} ...`);
+            }
+
             const enhancementPlan = {
                 metadata: {
                     enhancement_timestamp: new Date().toISOString(),
@@ -1489,6 +1495,16 @@ Respond with ONLY this JSON structure:
                 language_count: 3,
                 development_velocity: 0
             };
+        }
+    }
+
+    async loadKeywordGaps() {
+        try {
+            const { execSync } = require('child_process');
+            const output = execSync('node keyword-scorer.js --gaps', { encoding: 'utf8', cwd: __dirname });
+            return JSON.parse(output);
+        } catch {
+            return { ats_score: null, top_missing: [] };
         }
     }
 
