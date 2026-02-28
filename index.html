@@ -328,8 +328,11 @@
       var themeBtn = document.getElementById('theme-toggle');
       if (themeBtn) {
         themeBtn.addEventListener('click', function() {
-          var theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-          gtag('event', 'theme_toggle', { theme: theme });
+          // Read after the native handler flips the class
+          setTimeout(function() {
+            var theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            gtag('event', 'theme_toggle', { theme: theme });
+          }, 0);
         });
       }
     })();
