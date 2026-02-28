@@ -43,6 +43,55 @@ cd ~/repos/book-api
 npm create cloudflare@latest . -- --type=hello-world --no-git
 # Select: JavaScript, no TypeScript, no deploy yet
 git init
+```
+
+**Step 2a: Create `.gitignore` BEFORE anything else is committed**
+
+The service account JSON key must NEVER be committed. Create this file first:
+
+```gitignore
+# Dependencies
+node_modules/
+
+# Wrangler build output and local state
+.wrangler/
+dist/
+
+# Service account key — NEVER commit this
+*.json
+!package.json
+!package-lock.json
+
+# PEM / key files — any format
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+```
+
+Verify the gitignore is working before proceeding:
+```bash
+# Download your service account JSON key to ~/repos/book-api/sa-key.json
+# Then verify git does NOT see it:
+git status
+# sa-key.json must NOT appear in the output
+```
+
+**Step 2b: Push to GitHub (private repo)**
+
+```bash
+git add .gitignore
+git commit -m "chore: init repo with gitignore"
 gh repo create adrianwedd/book-api --private --source=. --push
 ```
 
@@ -484,14 +533,35 @@ export default {
 };
 ```
 
-**Step 2: Store secrets**
+**Step 2: Store secrets via Wrangler (never via env files or code)**
+
+Secrets are stored encrypted in Cloudflare — never in `wrangler.toml`, `.env`, or source files.
 
 ```bash
 cd ~/repos/book-api
-# Paste the full service account JSON when prompted:
+
+# Paste the ENTIRE contents of your service account JSON when prompted.
+# The key file must stay in a directory outside the repo, or be deleted after this step.
 wrangler secret put GOOGLE_SA_KEY
+
 # Paste Resend API key:
 wrangler secret put RESEND_API_KEY
+```
+
+After uploading the key, delete the local JSON file:
+```bash
+rm ~/repos/book-api/sa-key.json
+# Or if stored outside the repo:
+# shred -u ~/Downloads/your-sa-key.json   (Linux)
+# rm -P ~/Downloads/your-sa-key.json      (macOS)
+```
+
+Verify no secrets leaked into git:
+```bash
+git log --all --full-history -- "*.json" "*.pem" "*.key"
+# Must return nothing (no key files ever committed)
+git grep -i "client_email\|private_key_id" HEAD
+# Must return nothing
 ```
 
 **Step 3: Smoke test locally**
