@@ -33,8 +33,17 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' x='0.1em' font-size='80' font-family='sans-serif' fill='%23e5e5e5'>AW</text></svg>">
 
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://www.google-analytics.com https://analytics.google.com">
     <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ET0FJJS7C7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ET0FJJS7C7', { page_title: 'CV', page_location: 'https://cv.adrianwedd.com' });
+    </script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/styles.css">
@@ -273,6 +282,58 @@
     </script>
     <script src="assets/script.js"></script>
     <script src="assets/activity-viz.js"></script>
+
+    <!-- Analytics Events -->
+    <script>
+    (function() {
+      if (typeof gtag !== 'function') return;
+
+      // Section visibility
+      var sections = ['about', 'experience', 'projects', 'activity', 'skills', 'achievements'];
+      var seen = {};
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting && !seen[e.target.id]) {
+            seen[e.target.id] = true;
+            gtag('event', 'section_view', { section: e.target.id });
+          }
+        });
+      }, { threshold: 0.3 });
+      sections.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+
+      // Outbound link clicks
+      document.querySelectorAll('a[href^="http"], a[href^="mailto"]').forEach(function(a) {
+        a.addEventListener('click', function() {
+          gtag('event', 'outbound_click', { url: a.href, label: a.textContent.trim() });
+        });
+      });
+
+      // Scroll depth
+      var depths = [25, 50, 75, 100];
+      var fired = {};
+      window.addEventListener('scroll', function() {
+        var pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        depths.forEach(function(d) {
+          if (pct >= d && !fired[d]) {
+            fired[d] = true;
+            gtag('event', 'scroll_depth', { depth: d });
+          }
+        });
+      }, { passive: true });
+
+      // Theme toggle
+      var themeBtn = document.getElementById('theme-toggle');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          var theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+          gtag('event', 'theme_toggle', { theme: theme });
+        });
+      }
+    })();
+    </script>
 
 </body>
 </html>
