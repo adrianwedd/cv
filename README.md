@@ -2,12 +2,12 @@
 
 A professional CV website that uses GitHub activity analysis and Claude AI to keep content current. Runs on GitHub Actions with scheduled workflows.
 
-**Live site**: [adrianwedd.github.io/cv](https://adrianwedd.github.io/cv)
+**Live site**: [cv.adrianwedd.com](https://cv.adrianwedd.com)
 
 ## How It Works
 
 1. **Activity Tracker** (`activity-tracker.yml`) runs daily, collecting GitHub commit data, language stats, and contribution metrics
-2. **CV Enhancement Pipeline** (`cv-enhancement.yml`) runs twice daily, using Claude AI to optimize content and regenerate the website
+2. **CV Enhancement Pipeline** (`cv-enhancement.yml`) runs once daily (8 AM AEST), using Claude AI to optimize content and regenerate the website
 3. **Validation gate** blocks deployment if the hallucination detector or content guardian finds issues
 
 ## Project Structure

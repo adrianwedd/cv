@@ -14,7 +14,7 @@ The system has two layers:
 
 **CI Pipeline** — Two GitHub Actions workflows run Node.js scripts from `.github/scripts/`:
 - `activity-tracker.yml` — Runs daily (6 AM AEST). Collects GitHub commit data, language stats, contribution metrics via `activity-analyzer.js`.
-- `cv-enhancement.yml` — Runs twice daily (8 AM/8 PM AEST). Uses `claude-enhancer.js` for AI content optimization, `cv-generator.js` for site generation, then deploys to Pages. Validation gate runs `ai-hallucination-detector.js` and `content-guardian.js --validate` — failures block deployment.
+- `cv-enhancement.yml` — Runs once daily (8 AM AEST). Uses `claude-enhancer.js` for AI content optimization, `cv-generator.js` for site generation, then deploys to Pages. Validation gate runs `ai-hallucination-detector.js` and `content-guardian.js --validate` — failures block deployment.
 
 Both workflows share a single concurrency group (`cv-pipeline`) to prevent race conditions on shared data files.
 
