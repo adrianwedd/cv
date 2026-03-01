@@ -914,14 +914,18 @@ Disallow: /data/
 
         const info = this.cvData.personal_info || {};
 
-        // Simple replacements
-        html = html.replace(/\{\{NAME\}\}/g, info.name || 'Adrian Wedd');
-        html = html.replace(/\{\{TITLE\}\}/g, info.title || 'AI Safety Researcher & Developer');
-        html = html.replace(/\{\{LOCATION\}\}/g, info.location || '');
-        html = html.replace(/\{\{PHONE\}\}/g, info.phone || '');
-        html = html.replace(/\{\{EMAIL\}\}/g, info.email || '');
-        html = html.replace(/\{\{LINKEDIN_URL\}\}/g, info.linkedin || '');
-        html = html.replace(/\{\{GITHUB_URL\}\}/g, info.github || '');
+        // Simple replacements — escape text fields for safe HTML insertion
+        html = html.replace(/\{\{NAME\}\}/g, this.escapeHtml(info.name || 'Adrian Wedd'));
+        html = html.replace(/\{\{TITLE\}\}/g, this.escapeHtml(info.title || 'AI Safety Researcher & Developer'));
+        html = html.replace(/\{\{LOCATION\}\}/g, this.escapeHtml(info.location || ''));
+        html = html.replace(/\{\{PHONE\}\}/g, this.escapeHtml(info.phone || ''));
+        html = html.replace(/\{\{EMAIL\}\}/g, this.escapeHtml(info.email || ''));
+
+        // URL fields — validate protocol instead of escaping (they go into href attributes)
+        const linkedinUrl = (info.linkedin || '').startsWith('https://') ? info.linkedin : 'https://linkedin.com/in/adrianwedd';
+        const githubUrl = (info.github || '').startsWith('https://') ? info.github : 'https://github.com/adrianwedd';
+        html = html.replace(/\{\{LINKEDIN_URL\}\}/g, linkedinUrl);
+        html = html.replace(/\{\{GITHUB_URL\}\}/g, githubUrl);
 
         // Summary — truncate to ~400 chars on sentence boundary
         const fullSummary = this.cvData.professional_summary || '';
@@ -1022,25 +1026,28 @@ Disallow: /data/
         const htmlContent = await this.buildATSHTML();
 
         const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-        const page = await browser.newPage();
+        try {
+            const page = await browser.newPage();
 
-        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+            await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
 
-        const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv-short.pdf');
-        await page.pdf({
-            path: pdfPath,
-            format: 'A4',
-            printBackground: true,
-            margin: {
-                top: '15mm',
-                right: '15mm',
-                bottom: '15mm',
-                left: '15mm'
-            }
-        });
+            const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv-short.pdf');
+            await page.pdf({
+                path: pdfPath,
+                format: 'A4',
+                printBackground: true,
+                margin: {
+                    top: '15mm',
+                    right: '15mm',
+                    bottom: '15mm',
+                    left: '15mm'
+                }
+            });
 
-        await browser.close();
-        console.log(`✅ ATS short PDF generated at: ${pdfPath}`);
+            console.log(`✅ ATS short PDF generated at: ${pdfPath}`);
+        } finally {
+            await browser.close();
+        }
     }
 
     /**
