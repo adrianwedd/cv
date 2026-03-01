@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cv.adrianwedd.com/sitemap.xml
+
+Disallow: /data/

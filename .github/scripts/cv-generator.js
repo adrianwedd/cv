@@ -637,6 +637,18 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             const watchHtmlTarget = path.join(CONFIG.OUTPUT_DIR, 'watch-me-work.html');
             await fs.copyFile(watchHtmlSource, watchHtmlTarget).catch(e => console.warn('⚠️ watch-me-work.html not found:', e.message));
 
+            // Copy root web files
+            for (const file of ['favicon.svg', 'robots.txt', 'sitemap.xml', 'manifest.json']) {
+                try {
+                    const src = path.join(CONFIG.INPUT_DIR, file);
+                    const dst = path.join(CONFIG.OUTPUT_DIR, file);
+                    await fs.copyFile(src, dst);
+                } catch (e) {
+                    console.warn(`⚠️ ${file} not found:`, e.message);
+                }
+            }
+            console.log('✅ Root web files copied');
+
             // Copy data directory
             const dataOutputDir = path.join(CONFIG.OUTPUT_DIR, 'data');
             await fs.mkdir(dataOutputDir, { recursive: true });
@@ -692,43 +704,20 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
     async generateSitemap() {
         console.log('🗺️ Generating sitemap...');
 
+        const lastmod = new Date().toISOString();
         const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>${CONFIG.SITE_URL}</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <lastmod>${lastmod}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>${CONFIG.SITE_URL}#about</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <loc>${CONFIG.SITE_URL}/watch-me-work.html</loc>
+        <lastmod>${lastmod}</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>${CONFIG.SITE_URL}#experience</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>${CONFIG.SITE_URL}#projects</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>${CONFIG.SITE_URL}#skills</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.7</priority>
-    </url>
-    <url>
-        <loc>${CONFIG.SITE_URL}#achievements</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.6</priority>
     </url>
 </urlset>`;
 

@@ -1,0 +1,16 @@
+{
+  "name": "Adrian Wedd - AI Safety Researcher & Developer",
+  "short_name": "Adrian Wedd",
+  "description": "AI Safety Researcher & Developer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070a0f",
+  "theme_color": "#8ac7d9",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
