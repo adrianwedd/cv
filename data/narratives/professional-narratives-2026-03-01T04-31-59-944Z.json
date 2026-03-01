@@ -1,0 +1,448 @@
+{
+  "professional_summary": {
+    "enhanced_summary": "AI Engineer and Software Architect with proven track record in backend development, software quality, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 421+ GitHub issues, authored 314+ commits demonstrating consistent development activity, demonstrates high technical depth with 97% of contributions involving complex technical solutions, maintains 69% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+    "evidence_sources": {
+      "issues_analyzed": 421,
+      "commits_analyzed": 314,
+      "technical_depth_score": 97,
+      "collaboration_score": 69
+    },
+    "supporting_data": {
+      "technical_themes": [
+        "backend development",
+        "software quality",
+        "DevOps",
+        "machine learning",
+        "frontend development",
+        "performance optimization",
+        "automation",
+        "software architecture",
+        "security"
+      ],
+      "problem_solving_examples": [
+        {
+          "type": "issue_resolution",
+          "repository": "ADHDo",
+          "title": "🎵 Link nudges to music system (lower volume during nudges)",
+          "complexity": "high",
+          "technical_score": 6,
+          "evidence_link": "github.com/adrianwedd/ADHDo/issues/86"
+        },
+        {
+          "type": "issue_resolution",
+          "repository": "ADHDo",
+          "title": "🔊 Add nudge audio caching to reduce TTS calls",
+          "complexity": "high",
+          "technical_score": 6,
+          "evidence_link": "github.com/adrianwedd/ADHDo/issues/84"
+        },
+        {
+          "type": "issue_resolution",
+          "repository": "ADHDo",
+          "title": "🚀 EPIC: Comprehensive Claude Code Integration for Self-Improving MCP System",
+          "complexity": "high",
+          "technical_score": 6,
+          "evidence_link": "github.com/adrianwedd/ADHDo/issues/66"
+        }
+      ]
+    }
+  },
+  "technical_achievements": [
+    {
+      "achievement": "Led technical development in ADHDo repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 405,
+      "details": "3 commits, 94 technical discussions, 24 high-complexity issues resolved",
+      "repository": "ADHDo"
+    },
+    {
+      "achievement": "Led technical development in adrianwedd.com repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 392,
+      "details": "100 commits, 94 technical discussions, 2 high-complexity issues resolved",
+      "repository": "adrianwedd.com"
+    },
+    {
+      "achievement": "Led technical development in cv repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 314,
+      "details": "4 commits, 100 technical discussions, 2 high-complexity issues resolved",
+      "repository": "cv"
+    },
+    {
+      "achievement": "Led technical development in notebooklm-automation repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 184,
+      "details": "67 commits, 39 technical discussions, 0 high-complexity issues resolved",
+      "repository": "notebooklm-automation"
+    },
+    {
+      "achievement": "Led technical development in failure-first repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 126,
+      "details": "97 commits, 8 technical discussions, 1 high-complexity issues resolved",
+      "repository": "failure-first"
+    },
+    {
+      "achievement": "Led technical development in grid2_repo repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 124,
+      "details": "0 commits, 38 technical discussions, 2 high-complexity issues resolved",
+      "repository": "grid2_repo"
+    },
+    {
+      "achievement": "Contributed to 421 technical discussions",
+      "evidence_type": "issue_participation",
+      "impact_score": 100,
+      "details": "Participated in technical discussions across multiple repositories, with 97% involving complex technical solutions"
+    },
+    {
+      "achievement": "Authored 314 commits in recent period",
+      "evidence_type": "development_activity",
+      "impact_score": 100,
+      "details": "Consistent development activity showing sustained contribution to codebase evolution"
+    },
+    {
+      "achievement": "Led technical development in picar-x-hacking repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 47,
+      "details": "5 commits, 14 technical discussions, 0 high-complexity issues resolved",
+      "repository": "picar-x-hacking"
+    },
+    {
+      "achievement": "Led technical development in squishmallowdex repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 46,
+      "details": "0 commits, 12 technical discussions, 2 high-complexity issues resolved",
+      "repository": "squishmallowdex"
+    },
+    {
+      "achievement": "Led technical development in terminal repository",
+      "evidence_type": "repository_leadership",
+      "impact_score": 45,
+      "details": "18 commits, 9 technical discussions, 0 high-complexity issues resolved",
+      "repository": "terminal"
+    }
+  ],
+  "leadership_examples": [],
+  "collaboration_stories": [
+    {
+      "story_type": "community_collaboration",
+      "narrative": "Maintains 69% collaboration effectiveness in community interactions",
+      "evidence": "Consistently provides helpful responses in technical discussions",
+      "impact": "Contributes to positive community environment and knowledge sharing"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in cv",
+      "evidence": "## ✅ Phase 1 Stabilization Complete\n\n### Achievements:\n- 🚀 Re-enabled 3 critical workflows with optimized schedules\n- 💰 Achieved 70% cost reduction ( → /month target)\n- 📊 Implemented cost monitorin...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "cv"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in adrianwedd.com",
+      "evidence": "**Implemented in f137f4b.**\n\nLighthouse CI assertions configured at `.github/lighthouse/lighthouserc.json`:\n\n```json\n{\n  \"ci\": {\n    \"collect\": {\n      \"staticDistDir\": \"dist\",\n      \"url\": [\n        ...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "adrianwedd.com"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "✅ UPDATE: Manual session refresh helper completed and working!\n\n**Created**: `manual_session_refresh.py` - Interactive script for quick session updates\n**Usage**: Run script, paste session key from br...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## 🔄 **MAJOR STATUS UPDATE: 80% Complete!**\n\n### ✅ **IMPLEMENTED FEATURES:**\n\n#### **Enhanced Nudge System** ✅ COMPLETE\n- Urgency-based volume and message adaptation\n- Multiple device routing with pr...",
+      "helpfulness_level": "low",
+      "response_type": "suggestion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## 🎵 Music System Status Update\n\n### ✅ FIXED - Music is now working!\n\nThe Jellyfin integration has been fixed with the following solution:\n\n### The Problem\n- Chromecast couldn't reach `localhost:8096...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## ✅ Good news - Chat is actually working\\!\n\nJust tested the /chat endpoint and it's responding correctly:\n\n```bash\ncurl -X POST http://localhost:23443/chat \\\n  -H \"Content-Type: application/json\" \\\n ...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## ✅ RESOLVED: CVE-2024-40647 - Sentry SDK Security Vulnerability\n\n### Summary\nSuccessfully resolved the remaining LOW-priority security vulnerability in sentry-sdk related to unintentional environmen...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## RESOLVED: CVE-2024-40647 - Sentry SDK Security Vulnerability\n\n### Summary\nSuccessfully resolved the remaining LOW-priority security vulnerability in sentry-sdk related to unintentional environment ...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## ✅ ISSUE RESOLVED - CI/CD Pipeline Dramatically Simplified\n\n### 🎯 **Completion Summary**\nSuccessfully **eliminated the overly complex evolutionary CI pipeline** and replaced it with a **streamlined...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "## ✅ ISSUE RESOLVED - Massive Architecture Refactoring Success\n\n### 🎯 **Completion Summary**\nSuccessfully completed the **most significant architectural refactoring** in the project's history, transf...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "📧 **Gmail Integration Status: Ready for Implementation**\n\nThe MCP framework is now complete and Gmail integration is fully implemented and ready to use!\n\n## ✅ **Gmail Tool Complete:**\n- **Full ADHD O...",
+      "helpfulness_level": "low",
+      "response_type": "suggestion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "✅ **COMPLETED** - Gmail Integration for Email-Based ADHD Support\n\nThis issue has been fully implemented and is now production-ready. The complete Gmail integration provides ADHD-optimized email manage...",
+      "helpfulness_level": "low",
+      "response_type": "suggestion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "✅ **PARTIALLY COMPLETE** - Mobile UX improvements implemented\n\n## ✅ **Completed**\n- Added min-h-[44px] and min-w-[44px] classes to all interactive buttons\n- Updated modal container with responsive mar...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in ADHDo",
+      "evidence": "✅ **COMPLETED** - User Onboarding and Welcome Experience\n\nThis issue has been fully implemented and is now production-ready. The comprehensive onboarding system provides ADHD-optimized user welcome an...",
+      "helpfulness_level": "low",
+      "response_type": "suggestion",
+      "repository": "ADHDo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## ✅ Progress Update\n\n### Good News:\n- CI/CD pipeline is now **PASSING** ✅\n- TypeScript errors resolved\n- Build succeeds locally and in CI\n\n### Editor Status:\n- ✅ Works perfectly locally (shows \"Ready...",
+      "helpfulness_level": "low",
+      "response_type": "discussion",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## Status Update\n\n### ✅ Progress Made:\n- CI/CD pipeline fixed and passing\n- Editor resilience improved with timeouts and fallbacks\n- Better error handling implemented\n\n### 🔴 Blocker:\nEditor initializ...",
+      "helpfulness_level": "low",
+      "response_type": "solution",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## 🚀 MAJOR PROGRESS - LLM Integration Complete in commit 58623a1\n\nThe core LLM integration has been **IMPLEMENTED** and is ready for use.\n\n### ✅ Completed Features:\n1. **LLM Integration Infrastructur...",
+      "helpfulness_level": "low",
+      "response_type": "solution",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## 📊 Progress Update: Major Components Added\n\n### Current Status: 38/54 components (70% complete)\n\n**✅ Major Progress Since Last Update:**\n- **Hero Components**: Added 5 new variants (minimal, full-b...",
+      "helpfulness_level": "low",
+      "response_type": "suggestion",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## 📊 Progress Update - Jan 12, 2025\n\n### ✅ Major Accomplishments Today\n\n1. **Component Library Expansion (Issue #19)**\n   - Successfully implemented **28/44 component variants (64% complete)**\n   - A...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## ✅ Test Configuration Fixed\n\n### Changes Made:\n1. Updated `vitest.config.ts` to exclude e2e directory\n2. Moved `tests/claude-director-ui.spec.ts` to `e2e/` directory\n3. Separated test commands prope...",
+      "helpfulness_level": "medium",
+      "response_type": "solution",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## ⚠️ This May Not Be The Real Issue\n\n### Investigation Results\nAfter testing, the TypeScript compatibility issue may be a red herring. The real problems are:\n\n1. **Import errors** - New components wo...",
+      "helpfulness_level": "medium",
+      "response_type": "solution",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in grid2_repo",
+      "evidence": "## ✅ **RESOLVED** - TypeScript Compatibility Issues Fixed\n\n### Evidence of Resolution:\n\n#### 1. Build Status Verification\n```bash\n# Current build status - all TypeScript errors resolved\nnpm run build ...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "grid2_repo"
+    },
+    {
+      "story_type": "technical_assistance",
+      "narrative": "Provided technical assistance in squishmallowdex",
+      "evidence": "**Post-close fix — 73df578**\n\nThe rAF race guard was incomplete: `viewRenderToken` was only incremented in the cards branch, so switching cards → table quickly still let the queued double-rAF callback...",
+      "helpfulness_level": "high",
+      "response_type": "solution",
+      "repository": "squishmallowdex"
+    }
+  ],
+  "skill_validations": [
+    {
+      "skill": "Performance Optimization",
+      "evidence_strength": "strong",
+      "evidence_count": 21,
+      "repositories": [
+        "cv",
+        "adrianwedd.com",
+        "ADHDo",
+        "grid2_repo"
+      ],
+      "evidence_types": [
+        "issue"
+      ],
+      "recent_usage": "2026-02-16T21:16:59Z",
+      "validation_summary": "Performance Optimization skill demonstrated through 21 instances across 4 repositories"
+    },
+    {
+      "skill": "Software Architecture",
+      "evidence_strength": "strong",
+      "evidence_count": 19,
+      "repositories": [
+        "cv",
+        "ADHDo",
+        "grid2_repo",
+        "squishmallowdex"
+      ],
+      "evidence_types": [
+        "issue"
+      ],
+      "recent_usage": "2026-02-15T08:39:25Z",
+      "validation_summary": "Software Architecture skill demonstrated through 19 instances across 4 repositories"
+    },
+    {
+      "skill": "Security",
+      "evidence_strength": "strong",
+      "evidence_count": 19,
+      "repositories": [
+        "cv",
+        "adrianwedd.com",
+        "ADHDo",
+        "notebooklm-automation",
+        "grid2_repo"
+      ],
+      "evidence_types": [
+        "issue"
+      ],
+      "recent_usage": "2026-02-16T21:17:05Z",
+      "validation_summary": "Security skill demonstrated through 19 instances across 5 repositories"
+    },
+    {
+      "skill": "Testing",
+      "evidence_strength": "strong",
+      "evidence_count": 14,
+      "repositories": [
+        "cv",
+        "failure-first",
+        "terminal",
+        "picar-x-hacking",
+        "notebooklm-automation"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-28T02:24:13Z",
+      "validation_summary": "Testing skill demonstrated through 14 instances across 5 repositories"
+    },
+    {
+      "skill": "JavaScript",
+      "evidence_strength": "strong",
+      "evidence_count": 9,
+      "repositories": [
+        "adrianwedd.com",
+        "notebooklm-automation"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-13T12:01:32Z",
+      "validation_summary": "JavaScript skill demonstrated through 9 instances across 2 repositories"
+    },
+    {
+      "skill": "Python",
+      "evidence_strength": "medium",
+      "evidence_count": 3,
+      "repositories": [
+        "adrianwedd.com",
+        "book.adrianwedd.com"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-28T03:49:32Z",
+      "validation_summary": "Python skill demonstrated through 3 instances across 2 repositories"
+    },
+    {
+      "skill": "API Development",
+      "evidence_strength": "basic",
+      "evidence_count": 2,
+      "repositories": [
+        "cv",
+        "notebooklm-automation"
+      ],
+      "evidence_types": [
+        "commit"
+      ],
+      "recent_usage": "2026-02-11T01:20:23Z",
+      "validation_summary": "API Development skill demonstrated through 2 instances across 2 repositories"
+    }
+  ],
+  "growth_narrative": {
+    "growth_summary": "Demonstrates consistent professional development through increasing technical complexity and community engagement",
+    "key_indicators": [
+      "Steady increase in technical contribution complexity",
+      "Growing involvement in architectural discussions",
+      "Evolution from individual contributor to community collaborator"
+    ],
+    "timeline_highlights": [
+      "300 commits showing consistent development activity",
+      "33 high-complexity technical discussions"
+    ],
+    "metrics_progression": {
+      "technical_evolution_score": 100,
+      "complexity_trend": "increasing",
+      "contribution_consistency": "high"
+    },
+    "future_trajectory": "Positioned for senior technical leadership roles based on demonstrated growth patterns"
+  }
+}

@@ -1,45 +1,43 @@
 {
-  "generated_at": "2026-02-26T10:17:04.247Z",
+  "generated_at": "2026-03-01T04:31:59.946Z",
   "narratives_available": {
     "professional_summary": true,
-    "technical_achievements": 12,
+    "technical_achievements": 11,
     "leadership_examples": 0,
-    "collaboration_stories": 13,
+    "collaboration_stories": 24,
     "skill_validations": 7,
     "growth_narrative": true
   },
   "integration_ready": true,
-  "enhanced_summary": "AI Engineer and Software Architect with proven track record in machine learning, DevOps, performance optimization. Evidence from GitHub activity shows I have contributed to technical discussions across 531+ GitHub issues, authored 370+ commits demonstrating consistent development activity, demonstrates high technical depth with 97% of contributions involving complex technical solutions, maintains 60% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
+  "enhanced_summary": "AI Engineer and Software Architect with proven track record in backend development, software quality, DevOps. Evidence from GitHub activity shows I have contributed to technical discussions across 421+ GitHub issues, authored 314+ commits demonstrating consistent development activity, demonstrates high technical depth with 97% of contributions involving complex technical solutions, maintains 69% collaboration effectiveness in community interactions. Specializes in creating intelligent solutions that bridge theoretical AI/ML concepts with production-ready implementations, with particular focus on autonomous systems and human-AI collaboration frameworks.",
   "top_achievements": [
     {
-      "achievement": "Led AI safety and agent architecture across AI-SWA project",
+      "achievement": "Led technical development in ADHDo repository",
       "evidence_type": "repository_leadership",
-      "impact_score": 400,
-      "details": "94 authored issues, 12 medium/high-complexity covering MCP servers, multi-agent coordination",
-      "repository": "AI-SWA"
+      "impact_score": 405,
+      "details": "3 commits, 94 technical discussions, 24 high-complexity issues resolved",
+      "repository": "ADHDo"
     },
     {
-      "achievement": "Built and maintained notebooklm-automation CLI tooling",
+      "achievement": "Led technical development in adrianwedd.com repository",
       "evidence_type": "repository_leadership",
-      "impact_score": 300,
-      "details": "39 authored issues covering CI, testing infrastructure, CLI standardization, retry/backoff patterns",
-      "repository": "notebooklm-automation"
+      "impact_score": 392,
+      "details": "100 commits, 94 technical discussions, 2 high-complexity issues resolved",
+      "repository": "adrianwedd.com"
     },
     {
-      "achievement": "Drove performance optimization and security for orbitr",
+      "achievement": "Led technical development in cv repository",
       "evidence_type": "repository_leadership",
-      "impact_score": 318,
-      "details": "23 issues, 12 medium/high-complexity including Phase 1B performance optimization and security test suite fixes",
-      "repository": "orbitr"
+      "impact_score": 314,
+      "details": "4 commits, 100 technical discussions, 2 high-complexity issues resolved",
+      "repository": "cv"
     }
   ],
   "validated_skills": [
-    "AI Safety & Agent Architecture",
-    "Security Hardening",
     "Performance Optimization",
-    "CI/CD Pipeline Design",
-    "CLI Tooling",
-    "Python",
+    "Software Architecture",
+    "Security",
+    "Testing",
     "JavaScript"
   ]
 }
