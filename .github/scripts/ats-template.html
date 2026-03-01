@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{NAME}} - {{TITLE}}</title>
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.4;
+  color: #000;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  font-size: 18pt;
+  margin: 0 0 2pt 0;
+}
+h2 {
+  font-size: 12pt;
+  border-bottom: 1pt solid #000;
+  padding-bottom: 2pt;
+  margin: 12pt 0 6pt 0;
+}
+h3 {
+  font-size: 10.5pt;
+  margin: 6pt 0 2pt 0;
+}
+p {
+  margin: 0 0 4pt 0;
+}
+ul {
+  margin: 2pt 0 6pt 0;
+  padding-left: 18pt;
+}
+li {
+  margin-bottom: 2pt;
+}
+.contact {
+  font-size: 9.5pt;
+  margin-bottom: 8pt;
+}
+.contact a {
+  color: #000;
+  text-decoration: none;
+}
+.job-header {
+  margin-bottom: 2pt;
+}
+.job-period {
+  font-style: italic;
+  font-size: 9.5pt;
+}
+</style>
+</head>
+<body>
+<h1>{{NAME}}</h1>
+<p><strong>{{TITLE}}</strong></p>
+<p class="contact">{{LOCATION}} | {{PHONE}} | {{EMAIL}} | <a href="{{LINKEDIN_URL}}">LinkedIn</a> | <a href="{{GITHUB_URL}}">GitHub</a></p>
+
+<h2>Summary</h2>
+<p>{{SUMMARY}}</p>
+
+<h2>Core Competencies</h2>
+<p>{{COMPETENCIES}}</p>
+
+<h2>Professional Experience</h2>
+{{EXPERIENCE}}
+
+<h2>Selected Projects</h2>
+<ul>
+{{PROJECTS}}
+</ul>
+
+<h2>Technical Skills</h2>
+<p>{{SKILLS}}</p>
+
+<h2>Education</h2>
+{{EDUCATION}}
+
+</body>
+</html>

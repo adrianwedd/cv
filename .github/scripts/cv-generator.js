@@ -88,6 +88,7 @@ class CVGenerator {
             await this.generateHTML();
             await this.copyAssets();
             await this.generatePDF(); // New call
+            await this.generateATSPDF();
             await this.generateSitemap();
             await this.generateRobotsTxt();
             await this.generateManifest();
@@ -900,6 +901,146 @@ Disallow: /data/
 
         await browser.close();
         console.log(`✅ PDF generated successfully at: ${pdfPath}`);
+    }
+
+    /**
+     * Build ATS-optimised HTML from template and CV data
+     */
+    async buildATSHTML() {
+        const templatePath = path.join(
+            rootPrefix, '.github', 'scripts', 'ats-template.html'
+        );
+        let html = await fs.readFile(templatePath, 'utf8');
+
+        const info = this.cvData.personal_info || {};
+
+        // Simple replacements
+        html = html.replace(/\{\{NAME\}\}/g, info.name || 'Adrian Wedd');
+        html = html.replace(/\{\{TITLE\}\}/g, info.title || 'AI Safety Researcher & Developer');
+        html = html.replace(/\{\{LOCATION\}\}/g, info.location || '');
+        html = html.replace(/\{\{PHONE\}\}/g, info.phone || '');
+        html = html.replace(/\{\{EMAIL\}\}/g, info.email || '');
+        html = html.replace(/\{\{LINKEDIN_URL\}\}/g, info.linkedin || '');
+        html = html.replace(/\{\{GITHUB_URL\}\}/g, info.github || '');
+
+        // Summary — truncate to ~400 chars on sentence boundary
+        const fullSummary = this.cvData.professional_summary || '';
+        let summary = fullSummary;
+        if (summary.length > 400) {
+            const truncated = summary.substring(0, 400);
+            const lastDot = truncated.lastIndexOf('.');
+            summary = lastDot > 200 ? truncated.substring(0, lastDot + 1) : truncated;
+        }
+        html = html.replace('{{SUMMARY}}', this.escapeHtml(summary));
+
+        // Competencies
+        html = html.replace(
+            '{{COMPETENCIES}}',
+            'AI Safety &amp; Evaluation | Frontier AI Models | Risk Assessment | Policy Translation'
+        );
+
+        // Experience — first 3 entries
+        const experience = (this.cvData.experience || []).slice(0, 3);
+        let expHtml = '';
+        for (const job of experience) {
+            const desc = this.truncateToSentence(job.description || '', 1);
+            const achievements = (job.achievements || []).slice(0, 3);
+            let achHtml = '';
+            if (achievements.length > 0) {
+                achHtml = '<ul>' +
+                    achievements.map(a => `<li>${this.escapeHtml(a)}</li>`).join('') +
+                    '</ul>';
+            }
+            expHtml += `<div class="job-header"><h3>${this.escapeHtml(job.position || '')} — ${this.escapeHtml(job.company || '')}</h3>` +
+                `<span class="job-period">${this.escapeHtml(job.period || '')}</span></div>` +
+                `<p>${this.escapeHtml(desc)}</p>` +
+                achHtml;
+        }
+        html = html.replace('{{EXPERIENCE}}', expHtml);
+
+        // Projects — first 3
+        const projects = (this.cvData.projects || []).slice(0, 3);
+        let projHtml = '';
+        for (const proj of projects) {
+            const desc = this.truncateToSentence(proj.description || '', 1);
+            projHtml += `<li><strong>${this.escapeHtml(proj.name || '')}</strong> — ${this.escapeHtml(desc)}</li>\n`;
+        }
+        html = html.replace('{{PROJECTS}}', projHtml);
+
+        // Skills — grouped by category, no tiers
+        const skills = this.cvData.skills || [];
+        const grouped = {};
+        for (const skill of skills) {
+            const cat = skill.category || 'Other';
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(skill.name);
+        }
+        let skillsHtml = '';
+        for (const [cat, names] of Object.entries(grouped)) {
+            skillsHtml += `<strong>${this.escapeHtml(cat)}:</strong> ${this.escapeHtml(names.join(', '))}<br>`;
+        }
+        html = html.replace('{{SKILLS}}', skillsHtml);
+
+        // Education — first 2, skip "First Code at Age 6"
+        const education = (this.cvData.education || [])
+            .filter(e => !(e.degree || '').includes('First Code'))
+            .slice(0, 2);
+        let eduHtml = '';
+        for (const edu of education) {
+            eduHtml += `<h3>${this.escapeHtml(edu.degree || '')}</h3>` +
+                `<p>${this.escapeHtml(edu.institution || '')} — ${this.escapeHtml(edu.period || '')}</p>`;
+        }
+        html = html.replace('{{EDUCATION}}', eduHtml);
+
+        return html;
+    }
+
+    /**
+     * Escape text for safe HTML insertion
+     */
+    escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    /**
+     * Truncate text to a given number of sentences
+     */
+    truncateToSentence(text, count) {
+        const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+        return sentences.slice(0, count).join(' ').trim();
+    }
+
+    /**
+     * Generate ATS-optimised short PDF (2-3 pages)
+     */
+    async generateATSPDF() {
+        console.log('📄 Generating ATS-optimised short PDF...');
+        const htmlContent = await this.buildATSHTML();
+
+        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+        const page = await browser.newPage();
+
+        await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
+
+        const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv-short.pdf');
+        await page.pdf({
+            path: pdfPath,
+            format: 'A4',
+            printBackground: true,
+            margin: {
+                top: '15mm',
+                right: '15mm',
+                bottom: '15mm',
+                left: '15mm'
+            }
+        });
+
+        await browser.close();
+        console.log(`✅ ATS short PDF generated at: ${pdfPath}`);
     }
 
     /**
