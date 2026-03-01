@@ -331,7 +331,7 @@
     },
     {
       "name": "NeuroConnect",
-      "subtitle": "AI-Enhanced ADHD Support Ecosystem",
+      "subtitle": "ADHD Support Ecosystem with AI Integration",
       "description": "24/7 voice helpline with wired STT-to-LLM-to-TTS pipeline over Twilio, NDIS evidence logging, and executive function scaffolding. Multi-provider LLM fallback chain including Claude CLI.",
       "technologies": [
         "Python",
