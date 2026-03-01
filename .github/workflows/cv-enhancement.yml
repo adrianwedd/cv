@@ -4,7 +4,7 @@ name: 🚀 CV Auto-Enhancement Pipeline
 # This workflow provides intelligent CV enhancement using GitHub activity analysis
 # and Claude AI optimization, with sophisticated analytics and caching.
 #
-# 🔄 **EXECUTION SCHEDULE**: Daily at 8 AM AEST (22:00 UTC previous day)
+# 🔄 **EXECUTION SCHEDULE**: Daily at 8 AM AEST (21:00 UTC)
 # 📊 **AI OPTIMIZATION**: Claude AI content enhancement with intelligent prompting
 # 📈 **ACTIVITY INTEGRATION**: Real-time GitHub metrics and contribution analysis
 # 🎨 **CONTENT GENERATION**: Dynamic CV website with responsive design
@@ -29,8 +29,8 @@ concurrency:
 
 on:
   schedule:
-    # Run daily at 8 AM AEST (22:00 UTC previous day)
-    - cron: '0 22 * * *'
+    # Run daily at 8 AM AEST (21:00 UTC)
+    - cron: '0 21 * * *'
   workflow_dispatch:
     inputs:
       enhancement_mode:

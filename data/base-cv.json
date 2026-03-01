@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.1.0",
-    "last_updated": "2026-02-09T00:00:00Z",
+    "last_updated": "2026-03-01T00:00:00Z",
     "data_source": "CV Pipeline",
     "enhancement_ready": true
   },
@@ -10,7 +10,7 @@
     "title": "AI Safety Researcher & Developer",
     "location": "Tasmania, Australia",
     "email": "adrian@adrianwedd.com",
-    "website": "https://adrianwedd.github.io/cv",
+    "website": "https://cv.adrianwedd.com",
     "github": "https://github.com/adrianwedd",
     "linkedin": "https://linkedin.com/in/adrianwedd",
     "tagline": "Building the systems I study \u2014 AI safety, multi-agent frameworks, and client delivery",
@@ -90,7 +90,7 @@
       "company": "University of Tasmania",
       "location": "Tasmania, Australia",
       "period": "2015 - 2018",
-      "type": "Full-time",
+      "type": "Concurrent",
       "description": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since.",
       "achievements": [
         "Sole support contact for a diverse user base with no tolerance for downtime — learned to triage fast and fix faster",
@@ -111,7 +111,7 @@
       "company": "Digital Agency PTY LTD",
       "location": "Australia",
       "period": "2015 - 2018",
-      "type": "Full-time",
+      "type": "Concurrent",
       "description": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to.",
       "achievements": [
         "Built and managed Google Ad Grants campaigns for nonprofits, maximising the $10k/month allowance to drive real audience growth",
