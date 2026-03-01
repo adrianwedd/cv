@@ -1,7 +1,8 @@
 /**
  * GitHub Activity Visualization
- * Four-panel display: Streamgraph, Language Ring, Constellation, Heatmap
+ * Three panels: Streamgraph, Language Ring, Commit Bars
  * Pure DOM/Canvas/SVG — no external libraries
+ * All panels interactive on hover
  */
 
 (function () {
@@ -13,21 +14,79 @@
     '#8a9dd9', '#d98abd'
   ];
 
-  // Any repo not in the map falls to "Other" (index 4)
   const CATEGORY_MAP = {
     'cygnet': 0, 'AI-SWA': 0, 'failure-first-embodied-ai': 0, 'failure-first': 0,
     'VERITAS': 1, 'ADHDo': 1, 'neuroconnect': 1, 'emdr-agent': 1,
     'evolve-evolution': 2, 'evolvechiropractictas.com': 2, 'truecapacity.coach': 2, 'annicalarsdotter.com': 2,
     'notebooklm-automation': 3, 'rlm-mcp': 3, 'cv': 3, 'Dx0': 3,
     'orbitr': 4, 'squishmallowdex': 4, 'TEL3SIS': 4,
-    // Common repos that appear in data
     'terminal': 0,
   };
   const CATEGORY_NAMES = ['AI & Agents', 'Health & Safety', 'Client Delivery', 'Tooling', 'Other'];
   const CATEGORY_COLORS = ['#8ac7d9', '#c9a8d9', '#7dd9b5', '#d9c78a', '#d98abd'];
 
   let activityData = null;
-  let isPrinting = false;
+  let tooltipEl = null;
+
+  // ── Shared tooltip ─────────────────────────────────────
+
+  function getTooltip() {
+    if (!tooltipEl) {
+      tooltipEl = document.createElement('div');
+      tooltipEl.className = 'viz-tooltip';
+      document.body.appendChild(tooltipEl);
+    }
+    return tooltipEl;
+  }
+
+  function showTooltip(builder, e) {
+    const t = getTooltip();
+    t.textContent = '';
+    builder(t);
+    t.style.opacity = '1';
+    moveTooltip(e);
+  }
+
+  function moveTooltip(e) {
+    const t = getTooltip();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    let x = e.clientX + 14;
+    let y = e.clientY - 10;
+    // Flip left if overflowing right
+    if (x + 250 > vw) x = e.clientX - 254;
+    // Flip up if overflowing bottom
+    if (y + 120 > vh) y = e.clientY - 120;
+    t.style.left = x + 'px';
+    t.style.top = y + 'px';
+  }
+
+  function hideTooltip() {
+    const t = getTooltip();
+    t.style.opacity = '0';
+  }
+
+  function tooltipLine(parent, text, color) {
+    const row = document.createElement('div');
+    row.className = 'viz-tooltip-row';
+    if (color) {
+      const dot = document.createElement('span');
+      dot.className = 'viz-tooltip-dot';
+      dot.style.background = color;
+      row.appendChild(dot);
+    }
+    const span = document.createElement('span');
+    span.textContent = text;
+    row.appendChild(span);
+    parent.appendChild(row);
+  }
+
+  function fmtDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  // ── Init ──────────────────────────────────────────────
 
   function init() {
     fetch('data/github-activity.json')
@@ -59,7 +118,7 @@
   function renderAll() {
     renderStreamgraph();
     renderLanguageRing();
-    renderHeatmap();
+    renderCommitBars();
     staggerEntrance();
   }
 
@@ -78,75 +137,73 @@
 
   // ── Panel 1: Streamgraph ──────────────────────────────
 
-  function renderStreamgraph() {
-    const container = document.getElementById('viz-streamgraph');
-    if (!container || !activityData.commit_timeline.length) return;
-
-    const weeks = activityData.commit_timeline;
-    const W = container.clientWidth || 320;
-    const H = 140;
-
-    // Group repos into categories
-    const catTotals = [];
-    for (const week of weeks) {
+  function buildCatTotals(weeks) {
+    return weeks.map(week => {
       const cats = new Array(CATEGORY_NAMES.length).fill(0);
       for (const [repo, count] of Object.entries(week.repos)) {
         const cat = CATEGORY_MAP[repo] ?? (CATEGORY_NAMES.length - 1);
         cats[Math.min(cat, CATEGORY_NAMES.length - 1)] += count;
       }
-      catTotals.push(cats);
-    }
+      return cats;
+    });
+  }
+
+  function renderStreamgraph() {
+    const container = document.getElementById('viz-streamgraph');
+    if (!container || !activityData.commit_timeline.length) return;
+
+    const weeks = activityData.commit_timeline;
+    const catTotals = buildCatTotals(weeks);
+    const W = container.clientWidth || 320;
+    const H = 140;
+    const BOTTOM = 14; // space for month labels
 
     const maxTotal = Math.max(...catTotals.map(c => c.reduce((a, b) => a + b, 0)), 1);
+    const n = catTotals.length;
+    const xStep = n > 1 ? W / (n - 1) : W;
+
     const ns = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     ns.setAttribute('viewBox', `0 0 ${W} ${H}`);
     ns.setAttribute('width', '100%');
     ns.setAttribute('height', H);
     ns.setAttribute('role', 'img');
-    ns.setAttribute('aria-label', 'Commit activity streamgraph showing weekly commits by category');
+    ns.setAttribute('aria-label', 'Commit activity streamgraph by category over time');
+    ns.style.cursor = 'crosshair';
+    ns.style.overflow = 'visible';
 
-    const n = catTotals.length;
-    const xStep = n > 1 ? W / (n - 1) : W;
-
-    // Build stacked areas from bottom — draw back-to-front so top categories overlay
+    // Build stacked area paths
+    const areaPaths = [];
     for (let cat = CATEGORY_NAMES.length - 1; cat >= 0; cat--) {
       const topPoints = [];
       const botPoints = [];
-
       for (let i = 0; i < n; i++) {
         const x = i * xStep;
         let yBot = 0;
-        for (let c = 0; c < cat; c++) {
-          yBot += catTotals[i][c];
-        }
+        for (let c = 0; c < cat; c++) yBot += catTotals[i][c];
         const yTop = yBot + catTotals[i][cat];
-        // Map 0..maxTotal -> H*0.90..H*0.05 (leave bottom margin for labels)
-        const scaledBot = H - 14 - (yBot / maxTotal) * (H * 0.78);
-        const scaledTop = H - 14 - (yTop / maxTotal) * (H * 0.78);
+        const scaledBot = H - BOTTOM - (yBot / maxTotal) * (H * 0.78);
+        const scaledTop = H - BOTTOM - (yTop / maxTotal) * (H * 0.78);
         topPoints.push({ x, y: scaledTop });
         botPoints.push({ x, y: scaledBot });
       }
 
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       const topPath = smoothLine(topPoints);
       const botReversed = [...botPoints].reverse();
       const botPath = smoothLine(botReversed);
-      // Strip leading "M x,y" from botPath so we can append it after a lineto
       const botPathBody = botPath.replace(/^M\s*[\d.eE+\-]+\s*,\s*[\d.eE+\-]+\s*/, '');
-
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      const lastTop = topPoints[topPoints.length - 1];
-      const firstBot = botReversed[0]; // = last botPoint
-      path.setAttribute('d',
-        `${topPath} L ${firstBot.x},${firstBot.y} ${botPathBody} Z`
-      );
+      const firstBot = botReversed[0];
+      path.setAttribute('d', `${topPath} L ${firstBot.x},${firstBot.y} ${botPathBody} Z`);
       path.setAttribute('fill', CATEGORY_COLORS[cat]);
       path.setAttribute('fill-opacity', '0.75');
       path.setAttribute('stroke', 'var(--color-background)');
       path.setAttribute('stroke-width', '0.5');
+      path.dataset.cat = cat;
       ns.appendChild(path);
+      areaPaths.unshift(path); // front-to-back order
     }
 
-    // Month labels along bottom
+    // Month labels
     if (weeks.length > 0) {
       const startDate = new Date(weeks[0].week);
       for (let i = 0; i < n; i += 4) {
@@ -163,6 +220,57 @@
         ns.appendChild(text);
       }
     }
+
+    // Hover indicator: vertical line
+    const indicator = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    indicator.setAttribute('y1', '0');
+    indicator.setAttribute('y2', H - BOTTOM);
+    indicator.setAttribute('stroke', 'var(--color-text-muted)');
+    indicator.setAttribute('stroke-width', '1');
+    indicator.setAttribute('stroke-dasharray', '3,2');
+    indicator.style.opacity = '0';
+    indicator.style.transition = 'opacity 0.1s';
+    indicator.style.pointerEvents = 'none';
+    ns.appendChild(indicator);
+
+    // Invisible overlay rect for mouse capture
+    const overlay = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    overlay.setAttribute('width', W);
+    overlay.setAttribute('height', H - BOTTOM);
+    overlay.setAttribute('fill', 'transparent');
+    ns.appendChild(overlay);
+
+    overlay.addEventListener('mousemove', e => {
+      const rect = ns.getBoundingClientRect();
+      const svgX = (e.clientX - rect.left) * (W / rect.width);
+      const idx = Math.max(0, Math.min(n - 1, Math.round(svgX / xStep)));
+      const cats = catTotals[idx];
+      const total = cats.reduce((a, b) => a + b, 0);
+      const week = weeks[idx];
+
+      indicator.setAttribute('x1', idx * xStep);
+      indicator.setAttribute('x2', idx * xStep);
+      indicator.style.opacity = '1';
+
+      // Dim non-hovered areas — find which category x falls in
+      showTooltip(t => {
+        const header = document.createElement('div');
+        header.className = 'viz-tooltip-header';
+        header.textContent = 'Week of ' + fmtDate(week.week);
+        t.appendChild(header);
+        tooltipLine(t, `Total: ${total} commits`);
+        for (let c = 0; c < CATEGORY_NAMES.length; c++) {
+          if (cats[c] > 0) {
+            tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, CATEGORY_COLORS[c]);
+          }
+        }
+      }, e);
+    });
+
+    overlay.addEventListener('mouseleave', () => {
+      indicator.style.opacity = '0';
+      hideTooltip();
+    });
 
     container.textContent = '';
     container.appendChild(ns);
@@ -216,41 +324,86 @@
     ns.setAttribute('role', 'img');
     ns.setAttribute('aria-label', 'Language distribution ring chart');
 
-    // Inner ring: top 5, outer ring: rest (up to 7 more)
     const top5 = entries.slice(0, 5);
     const rest = entries.slice(5, 12);
 
-    drawRing(ns, top5, total, CX, CY, 46, 70, PALETTE);
+    drawRing(ns, top5, total, CX, CY, 46, 70, PALETTE, entries);
     if (rest.length > 0) {
-      drawRing(ns, rest, total, CX, CY, 73, 85, PALETTE.slice(5));
+      drawRing(ns, rest, total, CX, CY, 73, 85, PALETTE.slice(5), entries);
     }
 
-    // Center text
-    const centerText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    centerText.setAttribute('x', CX);
-    centerText.setAttribute('y', CY - 5);
-    centerText.setAttribute('text-anchor', 'middle');
-    centerText.setAttribute('dominant-baseline', 'middle');
-    centerText.setAttribute('fill', 'var(--color-text-primary)');
-    centerText.setAttribute('font-size', '18');
-    centerText.setAttribute('font-family', 'var(--font-family-mono)');
-    centerText.textContent = entries.length;
-    ns.appendChild(centerText);
+    // Center text — updates on hover
+    const centerVal = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    centerVal.setAttribute('x', CX);
+    centerVal.setAttribute('y', CY - 5);
+    centerVal.setAttribute('text-anchor', 'middle');
+    centerVal.setAttribute('dominant-baseline', 'middle');
+    centerVal.setAttribute('fill', 'var(--color-text-primary)');
+    centerVal.setAttribute('font-size', '18');
+    centerVal.setAttribute('font-family', 'var(--font-family-mono)');
+    centerVal.textContent = entries.length;
 
-    const subText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    subText.setAttribute('x', CX);
-    subText.setAttribute('y', CY + 11);
-    subText.setAttribute('text-anchor', 'middle');
-    subText.setAttribute('fill', 'var(--color-text-muted)');
-    subText.setAttribute('font-size', '8');
-    subText.setAttribute('font-family', 'var(--font-family-mono)');
-    subText.textContent = 'languages';
-    ns.appendChild(subText);
+    const centerLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    centerLabel.setAttribute('x', CX);
+    centerLabel.setAttribute('y', CY + 11);
+    centerLabel.setAttribute('text-anchor', 'middle');
+    centerLabel.setAttribute('fill', 'var(--color-text-muted)');
+    centerLabel.setAttribute('font-size', '8');
+    centerLabel.setAttribute('font-family', 'var(--font-family-mono)');
+    centerLabel.textContent = 'languages';
+
+    ns.appendChild(centerVal);
+    ns.appendChild(centerLabel);
+
+    // Hover on segments — show language tooltip
+    ns.addEventListener('mouseover', e => {
+      const path = e.target.closest('path[data-lang]');
+      if (!path) return;
+      const lang = path.dataset.lang;
+      const bytes = parseInt(path.dataset.bytes, 10);
+      const pct = ((bytes / total) * 100).toFixed(1);
+
+      // Pulse center text
+      centerVal.textContent = pct + '%';
+      centerLabel.textContent = lang;
+
+      // Highlight segment
+      ns.querySelectorAll('path[data-lang]').forEach(p => {
+        p.style.opacity = p === path ? '1' : '0.35';
+        p.style.transition = 'opacity 0.15s';
+      });
+
+      showTooltip(t => {
+        const header = document.createElement('div');
+        header.className = 'viz-tooltip-header';
+        header.textContent = lang;
+        t.appendChild(header);
+        tooltipLine(t, `${pct}% of codebase`);
+        tooltipLine(t, `${(bytes / 1000).toFixed(0)}k bytes`);
+      }, e);
+    });
+
+    ns.addEventListener('mousemove', e => {
+      if (e.target.closest('path[data-lang]')) moveTooltip(e);
+    });
+
+    ns.addEventListener('mouseout', e => {
+      const path = e.target.closest('path[data-lang]');
+      if (!path) return;
+      if (ns.contains(e.relatedTarget) && e.relatedTarget.closest('path[data-lang]')) return;
+      // Leaving the ring entirely
+      centerVal.textContent = entries.length;
+      centerLabel.textContent = 'languages';
+      ns.querySelectorAll('path[data-lang]').forEach(p => {
+        p.style.opacity = '1';
+      });
+      hideTooltip();
+    });
 
     container.textContent = '';
     container.appendChild(ns);
 
-    // Labels below
+    // Legend
     const legend = document.createElement('div');
     legend.className = 'viz-legend';
     for (let i = 0; i < Math.min(5, top5.length); i++) {
@@ -267,22 +420,18 @@
     container.appendChild(legend);
   }
 
-  function drawRing(svg, entries, total, cx, cy, r1, r2, colors) {
+  function drawRing(svg, entries, total, cx, cy, r1, r2, colors, allEntries) {
     let angle = -Math.PI / 2;
-    entries.forEach(([, value], i) => {
+    entries.forEach(([lang, value], i) => {
       const sweep = (value / total) * Math.PI * 2;
-      if (sweep < 0.015) return;
-      const GAP = 0.03; // radians gap between segments
+      if (sweep < 0.015) { angle += sweep; return; }
+      const GAP = 0.03;
       const a1 = angle + GAP / 2;
       const a2 = angle + sweep - GAP / 2;
-      const x1i = cx + r1 * Math.cos(a1);
-      const y1i = cy + r1 * Math.sin(a1);
-      const x1o = cx + r2 * Math.cos(a1);
-      const y1o = cy + r2 * Math.sin(a1);
-      const x2i = cx + r1 * Math.cos(a2);
-      const y2i = cy + r1 * Math.sin(a2);
-      const x2o = cx + r2 * Math.cos(a2);
-      const y2o = cy + r2 * Math.sin(a2);
+      const x1i = cx + r1 * Math.cos(a1), y1i = cy + r1 * Math.sin(a1);
+      const x1o = cx + r2 * Math.cos(a1), y1o = cy + r2 * Math.sin(a1);
+      const x2i = cx + r1 * Math.cos(a2), y2i = cy + r1 * Math.sin(a2);
+      const x2o = cx + r2 * Math.cos(a2), y2o = cy + r2 * Math.sin(a2);
       const large = (sweep - GAP) > Math.PI ? 1 : 0;
 
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -295,128 +444,139 @@
       ].join(' '));
       path.setAttribute('fill', colors[i % colors.length]);
       path.setAttribute('fill-opacity', '0.88');
+      path.dataset.lang = lang;
+      path.dataset.bytes = value;
+      path.style.cursor = 'pointer';
       svg.appendChild(path);
       angle += sweep;
     });
   }
 
-  // ── Panel 3: Heatmap ──────────────────────────────────
+  // ── Panel 3: Commit Bars (weekly stacked bar chart) ───
 
-  function renderHeatmap() {
+  function renderCommitBars() {
     const container = document.getElementById('viz-heatmap');
-    if (!container) return;
+    if (!container || !activityData.commit_timeline.length) return;
 
-    // Build day map from both heatmap and commit_timeline data
-    const dayMap = {};
-    for (const e of (activityData.heatmap || [])) {
-      dayMap[e.date] = (dayMap[e.date] || 0) + e.count;
-    }
-    // From commit_timeline (weekly — mark the week start day)
-    for (const w of (activityData.commit_timeline || [])) {
-      const total = Object.values(w.repos).reduce((a, b) => a + b, 0);
-      if (total > 0 && !dayMap[w.week]) {
-        dayMap[w.week] = total;
+    const weeks = activityData.commit_timeline;
+    const catTotals = buildCatTotals(weeks);
+    const maxTotal = Math.max(...catTotals.map(c => c.reduce((a, b) => a + b, 0)), 1);
+
+    const W = container.clientWidth || 640;
+    const H = 120;
+    const BOTTOM = 16;
+    const CHART_H = H - BOTTOM;
+    const n = weeks.length;
+    const barW = Math.max(1, (W / n) - 1.5);
+    const xStep = W / n;
+
+    const ns = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    ns.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    ns.setAttribute('width', '100%');
+    ns.setAttribute('height', H);
+    ns.setAttribute('role', 'img');
+    ns.setAttribute('aria-label', 'Weekly commits stacked bar chart');
+    ns.style.cursor = 'default';
+    ns.style.overflow = 'visible';
+
+    // One group per week
+    const barGroups = [];
+    for (let i = 0; i < n; i++) {
+      const cats = catTotals[i];
+      const total = cats.reduce((a, b) => a + b, 0);
+      const x = i * xStep + (xStep - barW) / 2;
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.dataset.week = i;
+      g.style.cursor = 'pointer';
+
+      let yOffset = CHART_H;
+      for (let c = 0; c < CATEGORY_NAMES.length; c++) {
+        if (cats[c] <= 0) continue;
+        const segH = (cats[c] / maxTotal) * CHART_H;
+        yOffset -= segH;
+        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', yOffset);
+        rect.setAttribute('width', barW);
+        rect.setAttribute('height', segH);
+        rect.setAttribute('fill', CATEGORY_COLORS[c]);
+        rect.setAttribute('fill-opacity', '0.82');
+        g.appendChild(rect);
       }
+
+      // Invisible full-height hit target
+      const hit = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      hit.setAttribute('x', i * xStep);
+      hit.setAttribute('y', '0');
+      hit.setAttribute('width', xStep);
+      hit.setAttribute('height', CHART_H);
+      hit.setAttribute('fill', 'transparent');
+      g.appendChild(hit);
+
+      ns.appendChild(g);
+      barGroups.push({ g, cats, total, week: weeks[i] });
     }
-    if (!Object.keys(dayMap).length) return;
 
-    let maxCount = 0;
-    for (const c of Object.values(dayMap)) {
-      if (c > maxCount) maxCount = c;
-    }
-
-    const today = new Date();
-    const todayNorm = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    // Start from the Sunday on or before the earliest data point
-    const earliest = Object.keys(dayMap).sort()[0];
-    const earliestDate = new Date(earliest);
-    const startDay = new Date(earliestDate);
-    startDay.setDate(startDay.getDate() - startDay.getDay());
-    const WEEKS = Math.ceil((todayNorm - startDay) / (7 * 86400000)) + 1;
-
-    // Build month labels: track which grid column each month starts in
-    const monthLabelData = []; // { colIndex, label }
+    // Month labels
     let lastMonth = -1;
+    for (let i = 0; i < n; i++) {
+      const d = new Date(weeks[i].week + 'T00:00:00');
+      if (d.getMonth() !== lastMonth) {
+        lastMonth = d.getMonth();
+        const label = d.toLocaleDateString('en-AU', { month: 'short' });
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', i * xStep);
+        text.setAttribute('y', H - 2);
+        text.setAttribute('fill', 'var(--color-text-muted)');
+        text.setAttribute('font-size', '8');
+        text.setAttribute('font-family', 'var(--font-family-mono)');
+        text.textContent = label;
+        ns.appendChild(text);
+      }
+    }
 
-    const cols = [];
-    for (let w = 0; w < WEEKS; w++) {
-      const weekStart = new Date(startDay);
-      weekStart.setDate(startDay.getDate() + w * 7);
-
-      if (weekStart.getMonth() !== lastMonth && weekStart.getDate() <= 7) {
-        monthLabelData.push({
-          col: w,
-          label: weekStart.toLocaleDateString('en-AU', { month: 'short' })
+    // Hover handlers on each group
+    barGroups.forEach(({ g, cats, total, week }) => {
+      g.addEventListener('mouseenter', e => {
+        // Dim all others
+        barGroups.forEach(({ g: og }) => {
+          og.style.opacity = og === g ? '1' : '0.4';
+          og.style.transition = 'opacity 0.12s';
         });
-        lastMonth = weekStart.getMonth();
-      }
+        showTooltip(t => {
+          const header = document.createElement('div');
+          header.className = 'viz-tooltip-header';
+          header.textContent = 'Week of ' + fmtDate(week.week);
+          t.appendChild(header);
+          tooltipLine(t, `${total} commits`);
+          for (let c = 0; c < CATEGORY_NAMES.length; c++) {
+            if (cats[c] > 0) {
+              tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, CATEGORY_COLORS[c]);
+            }
+          }
+        }, e);
+      });
 
-      const colCells = [];
-      for (let d = 0; d < 7; d++) {
-        const cellDate = new Date(startDay);
-        cellDate.setDate(startDay.getDate() + w * 7 + d);
-        const key = cellDate.toISOString().slice(0, 10);
-        const count = dayMap[key] || 0;
-        const level = maxCount > 0 ? Math.min(Math.ceil((count / maxCount) * 4), 4) : 0;
-        colCells.push({ level, key, count });
-      }
-      cols.push(colCells);
-    }
+      g.addEventListener('mousemove', e => moveTooltip(e));
 
-    // Wrapper (handles overflow on very small screens)
-    const wrapper = document.createElement('div');
-    wrapper.className = 'heatmap-wrapper';
+      g.addEventListener('mouseleave', () => {
+        barGroups.forEach(({ g: og }) => {
+          og.style.opacity = '1';
+        });
+        hideTooltip();
+      });
+    });
 
-    // Month labels row — use CSS grid matching heatmap-grid
-    const monthRow = document.createElement('div');
-    monthRow.className = 'heatmap-months';
-    monthRow.style.gridTemplateColumns = `repeat(${WEEKS}, 1fr)`;
-
-    for (const { col, label } of monthLabelData) {
-      const span = document.createElement('span');
-      span.className = 'heatmap-month-label';
-      span.textContent = label;
-      span.style.gridColumnStart = col + 1;
-      monthRow.appendChild(span);
-    }
-
-    // Grid of cells
-    const grid = document.createElement('div');
-    grid.className = 'heatmap-grid';
-    grid.style.gridTemplateColumns = `repeat(${WEEKS}, 1fr)`;
-
-    for (const colCells of cols) {
-      const col = document.createElement('div');
-      col.className = 'heatmap-col';
-      for (const { level, key, count } of colCells) {
-        const cell = document.createElement('div');
-        cell.className = 'heatmap-cell';
-        cell.dataset.level = level;
-        cell.dataset.date = key;
-        cell.dataset.count = count;
-        col.appendChild(cell);
-      }
-      grid.appendChild(col);
-    }
-
-    wrapper.appendChild(monthRow);
-    wrapper.appendChild(grid);
-
-    // Remove label element, replace container children
     const labelEl = container.querySelector('.activity-panel-label');
     container.textContent = '';
     if (labelEl) container.appendChild(labelEl);
-    container.appendChild(wrapper);
+    container.appendChild(ns);
   }
 
   // ── Print support ─────────────────────────────────────
 
   window.addEventListener('beforeprint', () => {
-    isPrinting = true;
-  });
-
-  window.addEventListener('afterprint', () => {
-    isPrinting = false;
+    if (tooltipEl) tooltipEl.style.opacity = '0';
   });
 
   // ── Boot ──────────────────────────────────────────────

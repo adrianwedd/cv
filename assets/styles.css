@@ -767,7 +767,7 @@ body {
   gap: var(--space-6);
 }
 
-/* Heatmap spans full width — it needs horizontal space */
+/* Wide panels span both columns */
 .activity-panel--wide {
   grid-column: 1 / -1;
 }
@@ -786,12 +786,7 @@ body {
   margin-bottom: var(--space-2);
 }
 
-.constellation-canvas {
-  display: block;
-  width: 100%;
-}
-
-/* Streamgraph & Language Ring SVGs */
+/* Activity panel SVGs */
 .activity-panel svg {
   display: block;
   max-width: 100%;
@@ -871,6 +866,48 @@ body {
 .heatmap-cell[data-level="2"] { background: rgba(138, 199, 217, 0.45); }
 .heatmap-cell[data-level="3"] { background: rgba(138, 199, 217, 0.70); }
 .heatmap-cell[data-level="4"] { background: #8ac7d9; }
+
+/* Shared hover tooltip */
+.viz-tooltip {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  z-index: 9999;
+  background: var(--color-background-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-family: var(--font-family-mono);
+  font-size: 10px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  max-width: 260px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.viz-tooltip-header {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  margin-bottom: 5px;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 4px;
+}
+
+.viz-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  color: var(--color-text-muted);
+}
+
+.viz-tooltip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 
 /* Language ring: center the SVG */
 #viz-languages {
