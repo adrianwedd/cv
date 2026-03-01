@@ -589,6 +589,8 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             "knowsAbout": skills,
             "address": {
                 "@type": "PostalAddress",
+                "postOfficeBoxNumber": "331",
+                "addressLocality": "Cygnet",
                 "addressRegion": "Tasmania",
                 "addressCountry": "Australia"
             }
