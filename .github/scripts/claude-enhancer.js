@@ -40,7 +40,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const https = require('https');
-const { execFile } = require('child_process');
+const { execFile: _execFile } = require('child_process');
 const { sleep } = require('./utils/apiClient');
 const { XMLFewShotIntegrator } = require('./enhancer-modules/xml-few-shot-integrator');
 
@@ -122,7 +122,7 @@ class ClaudeApiClient {
     /**
      * Make request via Claude Code CLI (uses Max subscription billing)
      */
-    async _makeClaudeCodeRequest(messages, maxTokens) {
+    async _makeClaudeCodeRequest(messages, _maxTokens) {
         // Separate system messages from user/assistant messages
         const systemParts = messages.filter(m => m.role === 'system').map(m => m.content);
         const userParts = messages.filter(m => m.role !== 'system').map(m => m.content);
