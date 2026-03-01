@@ -342,6 +342,7 @@ class CVApplication {
         for (const project of projects) {
             const card = document.createElement('div');
             card.className = 'project-card';
+            card.setAttribute('role', 'article');
 
             const headerDiv = document.createElement('div');
             headerDiv.className = 'project-header';
@@ -445,12 +446,14 @@ class CVApplication {
 
             const itemsDiv = document.createElement('div');
             itemsDiv.className = 'skill-items';
+            itemsDiv.setAttribute('role', 'list');
 
             for (const skill of categorySkills) {
                 const tier = skill.tier || 'Secondary';
 
                 const skillItem = document.createElement('div');
                 skillItem.className = 'skill-item';
+                skillItem.setAttribute('role', 'listitem');
 
                 const skillHeader = document.createElement('div');
                 skillHeader.className = 'skill-header';
