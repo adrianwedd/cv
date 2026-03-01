@@ -326,7 +326,24 @@ class CVGenerator {
         // Update dynamic content placeholders
         htmlContent = this.updateDynamicContent(htmlContent);
 
+        // Inject full CV data as inline script so Puppeteer's file:// PDF render
+        // gets real data instead of the hardcoded fallback (fetch fails on file://)
+        htmlContent = this.injectInlineData(htmlContent);
+
         return htmlContent;
+    }
+
+    /**
+     * Inject CV data as window.__CV_DATA__ so script.js can use it when fetch fails
+     * (e.g. Puppeteer file:// PDF generation)
+     */
+    injectInlineData(htmlContent) {
+        const inlineScript = `<script id="cv-inline-data">
+window.__CV_DATA__ = ${JSON.stringify(this.cvData)};
+window.__ACTIVITY_DATA__ = ${JSON.stringify(this.activityData || {})};
+window.__AI_ENHANCEMENTS__ = ${JSON.stringify(this.aiEnhancements || {})};
+</script>`;
+        return htmlContent.replace('</head>', `${inlineScript}\n</head>`);
     }
 
     /**

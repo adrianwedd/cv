@@ -159,6 +159,7 @@ class CVApplication {
      * Load CV data from JSON file
      */
     async loadCVData() {
+        if (window.__CV_DATA__) return window.__CV_DATA__;
         try {
             const response = await fetch(CONFIG.DATA_ENDPOINTS.BASE_CV);
             if (!response.ok) {
@@ -175,6 +176,7 @@ class CVApplication {
      * Load GitHub activity data
      */
     async loadActivityData() {
+        if (window.__ACTIVITY_DATA__) return window.__ACTIVITY_DATA__;
         try {
             const response = await fetch(CONFIG.DATA_ENDPOINTS.ACTIVITY_SUMMARY);
             if (!response.ok) {
@@ -191,6 +193,7 @@ class CVApplication {
      * Load AI enhancements
      */
     async loadAIEnhancements() {
+        if (window.__AI_ENHANCEMENTS__) return window.__AI_ENHANCEMENTS__;
         try {
             const response = await fetch(CONFIG.DATA_ENDPOINTS.AI_ENHANCEMENTS);
             if (!response.ok) {
