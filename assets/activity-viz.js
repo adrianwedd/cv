@@ -27,10 +27,6 @@
   const CATEGORY_COLORS = ['#8ac7d9', '#c9a8d9', '#7dd9b5', '#d9c78a', '#d98abd'];
 
   let activityData = null;
-  let constellationCanvas = null;
-  let constellationCtx = null;
-  let constellationAnimId = null;
-  let constellationStartTime = 0;
   let isPrinting = false;
 
   function init() {
@@ -63,7 +59,6 @@
   function renderAll() {
     renderStreamgraph();
     renderLanguageRing();
-    renderConstellation();
     renderHeatmap();
     staggerEntrance();
   }
@@ -305,151 +300,7 @@
     });
   }
 
-  // ── Panel 3: Repository Constellation ──────────────────
-
-  function renderConstellation() {
-    const container = document.getElementById('viz-constellation');
-    if (!container || !activityData.repositories.length) return;
-
-    constellationCanvas = document.createElement('canvas');
-    constellationCanvas.className = 'constellation-canvas';
-    constellationCanvas.setAttribute('role', 'img');
-    constellationCanvas.setAttribute('aria-label', 'Repository constellation showing project relationships');
-    container.textContent = '';
-    container.appendChild(constellationCanvas);
-
-    constellationCtx = constellationCanvas.getContext('2d');
-    constellationStartTime = performance.now();
-
-    sizeConstellationCanvas();
-    window.addEventListener('resize', sizeConstellationCanvas);
-    tickConstellation();
-  }
-
-  function sizeConstellationCanvas() {
-    if (!constellationCanvas) return;
-    const container = constellationCanvas.parentElement;
-    const w = container.clientWidth || 320;
-    const h = 200;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    constellationCanvas.width = w * dpr;
-    constellationCanvas.height = h * dpr;
-    constellationCanvas.style.width = w + 'px';
-    constellationCanvas.style.height = h + 'px';
-    constellationCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function tickConstellation() {
-    if (isPrinting) return;
-    drawConstellation(performance.now());
-    constellationAnimId = requestAnimationFrame(tickConstellation);
-  }
-
-  function drawConstellation(now) {
-    const ctx = constellationCtx;
-    const canvas = constellationCanvas;
-    if (!ctx || !canvas) return;
-    const W = canvas.clientWidth;
-    const H = canvas.clientHeight;
-
-    ctx.clearRect(0, 0, W, H);
-
-    const repos = activityData.repositories.slice(0, 18);
-    const elapsed = (now - constellationStartTime) / 1000;
-
-    // Position nodes in a relaxed layout — golden angle spiral with drift
-    const nodes = repos.map((r, i) => {
-      const activity = r.issues + r.commits;
-      const maxActivity = Math.max(...repos.map(x => x.issues + x.commits), 1);
-      const radius = 3 + (activity / maxActivity) * 13;
-      const cat = CATEGORY_MAP[r.name] ?? (CATEGORY_NAMES.length - 1);
-
-      // Golden angle spiral
-      const ga = 2.399963;
-      const baseAngle = i * ga;
-      // Compress radial extent to keep nodes well within bounds
-      const baseR = 18 + Math.sqrt(i) * 22;
-
-      // Gentle orbital drift — very slow (one full turn per ~50s for outer nodes)
-      const drift = elapsed * (0.015 + i * 0.002);
-      const angle = baseAngle + drift;
-
-      // Elliptical layout to use horizontal space
-      const x = W / 2 + baseR * Math.cos(angle);
-      const y = H / 2 + baseR * Math.sin(angle) * 0.6;
-
-      return { x, y, radius, cat, name: r.name };
-    });
-
-    // Draw connections for same-category pairs within range
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        if (nodes[i].cat === nodes[j].cat) {
-          const dx = nodes[j].x - nodes[i].x;
-          const dy = nodes[j].y - nodes[i].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 140) {
-            const alpha = 0.10 * (1 - dist / 140);
-            ctx.strokeStyle = CATEGORY_COLORS[nodes[i].cat] || '#8ac7d9';
-            ctx.globalAlpha = alpha;
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    // Draw nodes
-    ctx.globalAlpha = 1;
-    for (const node of nodes) {
-      ctx.fillStyle = CATEGORY_COLORS[node.cat] || '#8ac7d9';
-      ctx.globalAlpha = 0.85;
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // Draw labels with overlap prevention — only for nodes with radius > 7
-    const labelCandidates = nodes
-      .filter(n => n.radius > 7)
-      .sort((a, b) => b.radius - a.radius); // largest first so they claim space first
-
-    const placedLabels = []; // { x1, y1, x2, y2 } bounding boxes
-
-    const textColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--color-text-muted').trim() || '#666';
-
-    ctx.font = '8px "JetBrains Mono", monospace';
-    ctx.textAlign = 'center';
-
-    for (const node of labelCandidates) {
-      const labelY = node.y + node.radius + 11;
-      const labelX = node.x;
-      const textW = ctx.measureText(node.name).width;
-      const half = textW / 2 + 1;
-
-      // Check bounding box overlap with already-placed labels
-      const box = { x1: labelX - half, y1: labelY - 9, x2: labelX + half, y2: labelY + 2 };
-      const overlaps = placedLabels.some(b =>
-        box.x1 < b.x2 && box.x2 > b.x1 && box.y1 < b.y2 && box.y2 > b.y1
-      );
-
-      // Also check if label would be clipped by canvas edge
-      if (!overlaps && box.x1 >= 0 && box.x2 <= W && box.y2 <= H) {
-        ctx.globalAlpha = 0.55;
-        ctx.fillStyle = textColor;
-        ctx.fillText(node.name, labelX, labelY);
-        placedLabels.push(box);
-      }
-    }
-
-    ctx.globalAlpha = 1;
-  }
-
-  // ── Panel 4: Heatmap ──────────────────────────────────
+  // ── Panel 3: Heatmap ──────────────────────────────────
 
   function renderHeatmap() {
     const container = document.getElementById('viz-heatmap');
@@ -474,12 +325,14 @@
       if (c > maxCount) maxCount = c;
     }
 
-    const WEEKS = 52;
     const today = new Date();
     const todayNorm = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    // Start on the Sunday before 52 weeks ago
-    const startDay = new Date(todayNorm);
-    startDay.setDate(startDay.getDate() - (WEEKS * 7 - 1) - startDay.getDay());
+    // Start from the Sunday on or before the earliest data point
+    const earliest = Object.keys(dayMap).sort()[0];
+    const earliestDate = new Date(earliest);
+    const startDay = new Date(earliestDate);
+    startDay.setDate(startDay.getDate() - startDay.getDay());
+    const WEEKS = Math.ceil((todayNorm - startDay) / (7 * 86400000)) + 1;
 
     // Build month labels: track which grid column each month starts in
     const monthLabelData = []; // { colIndex, label }
@@ -560,18 +413,10 @@
 
   window.addEventListener('beforeprint', () => {
     isPrinting = true;
-    if (constellationAnimId) {
-      cancelAnimationFrame(constellationAnimId);
-      constellationAnimId = null;
-    }
-    // Constellation is already drawn on canvas — it freezes as-is
   });
 
   window.addEventListener('afterprint', () => {
     isPrinting = false;
-    if (constellationCanvas && !constellationAnimId) {
-      tickConstellation();
-    }
   });
 
   // ── Boot ──────────────────────────────────────────────
