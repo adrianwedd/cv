@@ -57,6 +57,9 @@
     if (x + 250 > vw) x = e.clientX - 254;
     // Flip up if overflowing bottom
     if (y + 120 > vh) y = e.clientY - 120;
+    // Clamp to viewport edges
+    x = Math.max(0, Math.min(x, vw - 250));
+    y = Math.max(0, Math.min(y, vh - 120));
     t.style.left = x + 'px';
     t.style.top = y + 'px';
   }
