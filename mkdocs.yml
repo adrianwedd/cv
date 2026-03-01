@@ -1,5 +1,5 @@
 site_name: AI-Enhanced CV System Documentation
-site_url: https://adrianwedd.github.io/cv/docs/
+site_url: https://cv.adrianwedd.com/docs/
 site_description: Comprehensive technical documentation for the AI-Enhanced CV System.
 
 nav:
@@ -49,11 +49,3 @@ plugins:
 markdown_extensions:
   - attr_list
   - md_in_html
-
-# Extra CSS for custom styling (optional)
-extra_css:
-  - assets/extra.css
-
-# Extra JavaScript for custom functionality (optional)
-extra_javascript:
-  - assets/extra.js

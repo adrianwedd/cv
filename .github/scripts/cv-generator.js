@@ -349,15 +349,23 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
     }
 
     /**
+     * Escape a string for safe insertion into HTML attributes
+     */
+    escapeAttr(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    /**
      * Update meta tags with dynamic content
      */
     updateMetaTags(htmlContent) {
         const personalInfo = this.cvData.personal_info || {};
-        const name = personalInfo.name || 'Adrian Wedd';
-        const title = personalInfo.title || 'AI Engineer & Software Architect';
-        const description = this.aiEnhancements?.professional_summary?.enhanced ||
+        const name = this.escapeAttr(personalInfo.name || 'Adrian Wedd');
+        const title = this.escapeAttr(personalInfo.title || 'AI Engineer & Software Architect');
+        const rawDesc = this.aiEnhancements?.professional_summary?.enhanced ||
                            this.cvData.professional_summary ||
                            'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions';
+        const description = this.escapeAttr(rawDesc);
 
         // Update title
         htmlContent = htmlContent.replace(
@@ -392,7 +400,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
     updateDynamicContent(htmlContent) {
         // Update professional summary if enhanced version available
         if (this.aiEnhancements?.professional_summary?.enhanced) {
-            const enhancedSummary = this.aiEnhancements.professional_summary.enhanced;
+            const enhancedSummary = this.escapeAttr(this.aiEnhancements.professional_summary.enhanced);
             htmlContent = htmlContent.replace(
                 /(<p class="summary-text" id="professional-summary">)[\s\S]*?(<\/p>)/,
                 `$1${enhancedSummary}$2`
@@ -760,8 +768,8 @@ Disallow: /data/
             description: this.cvData.professional_summary || 'AI Engineer & Software Architect',
             start_url: '/',
             display: 'standalone',
-            background_color: '#ffffff',
-            theme_color: '#2563eb',
+            background_color: '#070a0f',
+            theme_color: '#8ac7d9',
             orientation: 'portrait-primary',
             icons: [
                 {

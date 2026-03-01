@@ -59,7 +59,7 @@ To provide intelligent, continuous CV enhancement using GitHub activity analysis
 
 ### Triggers
 *   **`schedule`**: Runs automatically at specified intervals for continuous enhancement.
-    *   **Cron Schedule**: `0 14,20,2,8 * * *` (Runs every 6 hours).
+    *   **Cron Schedule**: `0 21 * * *` (Daily at 21:00 UTC / ~8 AM AEDT / ~7 AM AEST).
 *   **`workflow_dispatch`**: Allows manual triggering of the workflow from the GitHub Actions UI, with customizable inputs.
     *   **`enhancement_mode`**: Defines the overall enhancement strategy.
         *   `comprehensive` (default)

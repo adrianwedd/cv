@@ -680,7 +680,7 @@ jobs:
             ls -la data/narratives/
           fi
 
-          git add .
+          git add data/ index.html assets/ CNAME
 
           if ! git diff --cached --quiet; then
             # Create intelligent commit message
@@ -764,7 +764,7 @@ jobs:
           | 🚀 Deployment | ✅ Complete | GitHub Pages updated |
 
           ## 🔗 Access Your Enhanced CV
-          - **Live Website**: [adrianwedd.github.io/cv](https://cv.adrianwedd.com)
+          - **Live Website**: [cv.adrianwedd.com](https://cv.adrianwedd.com)
           - **Repository**: [github.com/adrianwedd/cv](https://github.com/adrianwedd/cv)
 
           ## ⏰ Next Enhancement Session

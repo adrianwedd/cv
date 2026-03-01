@@ -7,7 +7,7 @@ A professional CV website that uses GitHub activity analysis and Claude AI to ke
 ## How It Works
 
 1. **Activity Tracker** (`activity-tracker.yml`) runs daily, collecting GitHub commit data, language stats, and contribution metrics
-2. **CV Enhancement Pipeline** (`cv-enhancement.yml`) runs once daily (8 AM AEST), using Claude AI to optimize content and regenerate the website
+2. **CV Enhancement Pipeline** (`cv-enhancement.yml`) runs daily (~8 AM AEDT / ~7 AM AEST), using Claude AI to optimize content and regenerate the website
 3. **Validation gate** blocks deployment if the hallucination detector or content guardian finds issues
 
 ## Project Structure

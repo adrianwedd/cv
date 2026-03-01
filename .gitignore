@@ -30,12 +30,17 @@ __pycache__/
 data/activity/
 data/metrics/
 data/trends/
+data/intelligence/
+data/narratives/
 data/ai-cache/
 data/ai-enhancement-*.json
 data/validation-report-*.json
 data/latest-validation-report.json
 data/validation-cache/
 data/content-audit.json
+
+# CI-generated script data (shadow copies)
+.github/scripts/data/
 
 # Test artifacts
 tests/node_modules/

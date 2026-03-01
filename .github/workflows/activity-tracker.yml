@@ -508,12 +508,12 @@ jobs:
           | 🔄 Master Summary | ✅ Complete | Integration data prepared |
 
           ## 🎯 CV Integration Status
-          - **Data Freshness**: Real-time (updated every 2 hours)
+          - **Data Freshness**: Updated daily (~6 AM AEST)
           - **Integration Ready**: ✅ Yes
-          - **Next CV Enhancement**: Automatic via 6-hour cycle
+          - **Next CV Enhancement**: Automatic (daily at ~8 AM AEDT)
 
           ## ⏰ Next Activity Tracking
-          **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+2 hours' +'%Y-%m-%d %H:%M %Z')
+          **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+24 hours' +'%Y-%m-%d %H:%M %Z')
 
           ---
           *Activity Intelligence Tracker v${{ env.TRACKER_VERSION }} - Continuous Professional Development Monitoring*

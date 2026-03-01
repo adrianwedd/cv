@@ -6,20 +6,6 @@
  */
 
 /**
- * Sanitize a string for safe insertion into HTML.
- * Escapes &, <, >, ", and ' to prevent XSS.
- */
-function sanitizeHTML(str) {
-    if (str == null) return '';
-    return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-}
-
-/**
  * Validate a URL string. Returns the URL or empty string.
  * Only allows http, https, and mailto protocols.
  */
@@ -48,8 +34,6 @@ const CONFIG = {
         AI_ENHANCEMENTS: 'data/ai-enhancements.json',
         GITHUB_API: 'https://api.github.com/users/adrianwedd'
     },
-    CACHE_DURATION: 300000, // 5 minutes
-    ANIMATION_DURATION: 300,
     THEME_KEY: 'cv-theme',
     USERNAME: 'adrianwedd'
 };
@@ -59,7 +43,6 @@ const CONFIG = {
  */
 class CVApplication {
     constructor() {
-        this.cache = new Map();
         // Dark-first: default to dark when no preference stored
         this.themePreference = localStorage.getItem(CONFIG.THEME_KEY) || 'dark';
 
@@ -110,6 +93,12 @@ class CVApplication {
                 this.refreshLiveData();
             }
         });
+
+        // Print button
+        const printBtn = document.getElementById('print-btn');
+        if (printBtn) {
+            printBtn.addEventListener('click', () => window.print());
+        }
     }
 
     /**
@@ -560,28 +549,6 @@ class CVApplication {
         } catch (error) {
             console.warn('Failed to refresh live data:', error);
         }
-    }
-
-    // Utility methods
-    formatNumber(num) {
-        if (num >= 1000) {
-            return `${(num / 1000).toFixed(1)}k`;
-        }
-        return num.toString();
-    }
-
-    formatTimeAgo(dateString) {
-        const date = new Date(dateString);
-        const now = new Date();
-        const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
-
-        if (diffInHours < 1) return 'Just now';
-        if (diffInHours < 24) return `${diffInHours}h ago`;
-
-        const diffInDays = Math.floor(diffInHours / 24);
-        if (diffInDays < 7) return `${diffInDays}d ago`;
-
-        return date.toLocaleDateString();
     }
 
     formatDateTime(dateString) {

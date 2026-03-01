@@ -18,8 +18,8 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Adrian Wedd - AI Safety Engineer & Independent Researcher">
-    <meta name="twitter:description" content="AI Safety Engineer & Independent Researcher specializing in red-teaming, evaluation frameworks, and failure-first methodology for frontier AI">
+    <meta name="twitter:title" content="Adrian Wedd - AI Safety Researcher & Developer">
+    <meta name="twitter:description" content="Systems builder, AI safety researcher, and adversarial thinker with nearly 45 years across the stack. The failure-first methodology didn't come from papers — it...">
     <meta name="twitter:image" content="https://cv.adrianwedd.com/assets/og-image.png">
 
     <title>Adrian Wedd - AI Safety Researcher & Developer</title>
@@ -93,6 +93,7 @@
   ],
   "address": {
     "@type": "PostalAddress",
+    "addressLocality": "Cygnet",
     "addressRegion": "Tasmania",
     "addressCountry": "Australia"
   }
@@ -113,7 +114,7 @@ window.__AI_ENHANCEMENTS__ = {"last_updated":null,"professional_summary":{},"ski
     <canvas id="curvature-bg" aria-hidden="true"></canvas>
 
     <!-- Skip to Content (Accessibility) -->
-    <a href="#about" class="sr-only" style="position:absolute;top:-40px;left:0;background:#6b8aad;color:#fff;padding:8px 16px;z-index:10000;transition:top 0.2s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>
+    <a href="#about" class="skip-to-content">Skip to main content</a>
 
     <!-- Theme Toggle -->
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">
@@ -126,7 +127,7 @@ window.__AI_ENHANCEMENTS__ = {"last_updated":null,"professional_summary":{},"ski
         <header class="header" id="header">
             <div class="header-content">
                 <h1 class="name">Adrian Wedd</h1>
-                <p class="title">AI Safety Engineer & Independent Researcher</p>
+                <p class="title">AI Safety Researcher & Developer</p>
                 <div class="location">Cygnet, Tasmania, Australia</div>
 
                 <!-- Contact Links -->
@@ -135,14 +136,14 @@ window.__AI_ENHANCEMENTS__ = {"last_updated":null,"professional_summary":{},"ski
                     <a href="https://linkedin.com/in/adrianwedd" target="_blank" rel="noopener noreferrer" class="contact-link linkedin">LinkedIn</a>
                     <a href="mailto:adrian@adrianwedd.com" class="contact-link email">Email</a>
                     <a href="assets/adrian-wedd-cv.pdf" target="_blank" rel="noopener noreferrer" class="contact-link pdf" download>PDF</a>
-                    <button onclick="window.print()" class="contact-link print-btn">Print</button>
+                    <button id="print-btn" class="contact-link print-btn">Print</button>
                     <a href="watch-me-work.html" class="contact-link">Watch Me Work</a>
                 </div>
             </div>
         </header>
 
         <!-- Main Content -->
-        <main class="main-content" role="main">
+        <main class="main-content">
             <!-- About Section -->
             <section id="about" class="section">
                 <div class="section-header">
@@ -278,13 +279,13 @@ window.__AI_ENHANCEMENTS__ = {"last_updated":null,"professional_summary":{},"ski
         </main>
 
         <!-- Footer -->
-        <footer class="footer" role="contentinfo">
+        <footer class="footer">
             <div class="footer-content">
                 <div class="footer-info">
                     <div class="footer-text">
                         <span class="footer-name">Adrian Wedd</span>
                         <span class="footer-separator">&middot;</span>
-                        <span class="footer-title">AI Safety Engineer & Independent Researcher</span>
+                        <span class="footer-title">AI Safety Researcher & Developer</span>
                     </div>
                     <div class="footer-meta">
                         <span class="update-info">Last updated: <span id="footer-last-updated">Mar 1, 2026, 12:17 PM</span></span>
@@ -355,7 +356,7 @@ window.__AI_ENHANCEMENTS__ = {"last_updated":null,"professional_summary":{},"ski
         themeBtn.addEventListener('click', function() {
           // Read after the native handler flips the class
           setTimeout(function() {
-            var theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+            var theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
             gtag('event', 'theme_toggle', { theme: theme });
           }, 0);
         });
