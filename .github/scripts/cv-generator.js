@@ -338,10 +338,12 @@ class CVGenerator {
      * (e.g. Puppeteer file:// PDF generation)
      */
     injectInlineData(htmlContent) {
+        // Escape </script> sequences to prevent XSS via inline JSON injection
+        const safe = (obj) => JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
         const inlineScript = `<script id="cv-inline-data">
-window.__CV_DATA__ = ${JSON.stringify(this.cvData)};
-window.__ACTIVITY_DATA__ = ${JSON.stringify(this.activityData || {})};
-window.__AI_ENHANCEMENTS__ = ${JSON.stringify(this.aiEnhancements || {})};
+window.__CV_DATA__ = ${safe(this.cvData)};
+window.__ACTIVITY_DATA__ = ${safe(this.activityData || {})};
+window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
 </script>`;
         return htmlContent.replace('</head>', `${inlineScript}\n</head>`);
     }
