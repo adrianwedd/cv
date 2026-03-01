@@ -13,10 +13,10 @@
     "website": "https://adrianwedd.github.io/cv",
     "github": "https://github.com/adrianwedd",
     "linkedin": "https://linkedin.com/in/adrianwedd",
-    "tagline": "Building the systems I study — AI safety, multi-agent frameworks, and client delivery",
-    "availability": "Currently freelancing and building — open to the right opportunity"
+    "tagline": "Building the systems I study \u2014 AI safety, multi-agent frameworks, and client delivery",
+    "availability": "Currently freelancing and building \u2014 open to the right opportunity"
   },
-  "professional_summary": "AI safety researcher and systems developer building the systems I study. Self-taught since childhood — started with BASIC at age 6, drawn to infosec and systems early, nearly 45 years across the stack. Three years of empirical research on frontier AI models: red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology. Currently freelancing and shipping independent projects — from a red-teaming framework for embodied AI with 104 tracked research issues, to a voice-first agentic phone system, to a four-site healthcare digital presence under AHPRA advertising regulations, to a multilingual restaurant site in Bali. Previously led systems integration and cybersecurity for Tasmania's public housing sector, including penetration testing, vulnerability assessment, identity and access management, and Essential Eight compliance. Active across 15+ repositories with 1,200+ tracked issues spanning agent orchestration, AI governance, CLI tooling, and client delivery. Background in environmental advocacy, government service, and infrastructure management. Most interested in where AI systems break.",
+  "professional_summary": "Systems builder, AI safety researcher, and adversarial thinker with nearly 45 years across the stack. The failure-first methodology didn't come from papers \u2014 it came from coordinating direct actions for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: seven years leading cybersecurity, penetration testing, and IDAM for Tasmania's public housing sector; three years of empirical AI red-teaming across 120+ models and 18,000+ adversarial prompts; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD \u2014 the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built.",
   "experience": [
     {
       "position": "Freelance Developer & AI Consultant",
@@ -133,12 +133,13 @@
       "location": "Australia",
       "period": "2012 - 2015",
       "type": "Full-time",
-      "description": "Managed comprehensive IT infrastructure for national environmental organization. Specialized in lifecycle management of diverse server environments, network infrastructure, and communication systems.",
+      "description": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems \u2014 the kind of breadth that builds genuine systems thinking.",
       "achievements": [
-        "Managed lifecycle of 60+ Windows/Debian/Ubuntu servers ensuring optimal performance",
-        "Maintained heterogeneous network infrastructure supporting distributed organization",
-        "Administered Google Apps infrastructure and VOIP PBX systems",
-        "Executed complex upgrades, implementations, migrations and decommissioning projects"
+        "Owned lifecycle management of 60+ Windows/Debian/Ubuntu servers across a nationally distributed organisation",
+        "Maintained heterogeneous network infrastructure with no dedicated team \u2014 full-stack from physical layer to application",
+        "Built and administered Google Apps and VOIP PBX infrastructure replacing legacy systems",
+        "Executed complex migrations and decommissioning with zero data loss across diverse environments",
+        "Delivered ICT capability to teams with no technical background, building organisational resilience"
       ],
       "technologies": [
         "Windows Server",
@@ -150,31 +151,35 @@
       ]
     },
     {
-      "position": "Communications and Logistics Coordinator",
+      "position": "Actions Unit \u2014 Communications & Logistics Coordinator",
       "company": "Greenpeace Australia Pacific",
       "location": "Australia",
       "period": "2010 - 2012",
       "type": "Full-time",
-      "description": "Coordinated high-profile environmental campaigns combining technology, logistics, and strategic planning. Specialized in risk assessment, security planning, and ICT support for direct action initiatives.",
+      "description": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents \u2014 corporations and state actors who actively work to prevent campaign success. Work required genuine operational security, adversarial threat modeling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
       "achievements": [
-        "Planned and coordinated logistical implementation of direct actions and protests",
-        "Developed comprehensive risk assessments and security plans for campaign activities",
-        "Provided ICT support for actions ensuring reliable communication systems",
-        "Delivered activist training programs building organizational capacity"
+        "Planned and coordinated direct action operations \u2014 logistics, communications, and security across multiple simultaneous campaigns",
+        "Developed threat models and operational security protocols against adversarial opponents with surveillance and legal resources",
+        "Designed and maintained field ICT infrastructure for covert operations: encrypted comms, dead drops, secure channels under active counter-surveillance",
+        "Conducted pre-action risk assessments enumerating failure modes, contingency routes, and abort criteria",
+        "Trained activists in operational security and secure communications under pressure",
+        "Coordinated multi-team logistics across geographically distributed operations with real-time adaptation to adversarial conditions"
       ],
       "technologies": [
-        "ICT Systems",
-        "Communications",
+        "Operational Security",
+        "Threat Modeling",
         "Risk Assessment",
-        "Security Planning",
-        "Logistics Management"
+        "Encrypted Communications",
+        "Field ICT",
+        "Logistics Coordination",
+        "Adversarial Planning"
       ]
     }
   ],
   "projects": [
     {
       "name": "This Wasn't in the Brochure",
-      "subtitle": "Published Book — Co-Parenting Neurodivergent Children",
+      "subtitle": "Published Book \u2014 Co-Parenting Neurodivergent Children",
       "description": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
       "technologies": [
         "Technical Writing",
@@ -444,7 +449,7 @@
       "name": "ML Libraries",
       "category": "AI & Automation",
       "tier": "Secondary",
-      "description": "PyTorch, Hugging Face Transformers, Scikit-learn, NumPy, Pandas, spaCy — deep learning, neural networks, transformer-based evaluation, and classical ML across research and agentic projects"
+      "description": "PyTorch, Hugging Face Transformers, Scikit-learn, NumPy, Pandas, spaCy \u2014 deep learning, neural networks, transformer-based evaluation, and classical ML across research and agentic projects"
     },
     {
       "name": "MCP Development",
@@ -479,42 +484,42 @@
   ],
   "achievements": [
     {
-      "icon": "🏛️",
+      "icon": "\ud83c\udfdb\ufe0f",
       "title": "Systems Integration Excellence",
       "description": "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP, improving data exchange and operational efficiency for Tasmania's public housing sector.",
       "date": "2018-2024",
       "category": "Technical Achievement"
     },
     {
-      "icon": "🛡️",
+      "icon": "\ud83d\udee1\ufe0f",
       "title": "Cybersecurity Leadership",
       "description": "Led cybersecurity initiatives at Homes Tasmania, improving system security posture and reducing vulnerabilities across critical housing management systems.",
       "date": "2020-2024",
       "category": "Security Achievement"
     },
     {
-      "icon": "🤖",
+      "icon": "\ud83e\udd16",
       "title": "AI Safety Research & Red-Teaming",
       "description": "Developed failure-first red-teaming framework for embodied AI systems with 104 tracked research issues, cross-modal vulnerability analysis on VLA models, and automated attack adapters. Pursuing commercial AI safety services.",
       "date": "2025-2026",
       "category": "Research"
     },
     {
-      "icon": "📞",
+      "icon": "\ud83d\udcde",
       "title": "Voice-First AI Agent Platform",
       "description": "Built TEL3SIS, a real-time telephony platform with LLM-powered conversations, tri-layer memory architecture, safety oracle, and tool orchestration across 226 tracked issues.",
       "date": "2024-2026",
       "category": "Innovation"
     },
     {
-      "icon": "🌿",
+      "icon": "\ud83c\udf3f",
       "title": "Environmental Campaign Technology",
       "description": "Managed IT infrastructure for The Wilderness Society and coordinated Greenpeace campaigns, combining technology expertise with environmental advocacy.",
       "date": "2010-2015",
       "category": "Social Impact"
     },
     {
-      "icon": "🎓",
+      "icon": "\ud83c\udf93",
       "title": "Professional Certifications",
       "description": "Achieved certifications across Google Analytics, AdWords, and Bing Ads platforms.",
       "date": "2015",
@@ -526,7 +531,7 @@
       ]
     },
     {
-      "icon": "⚡",
+      "icon": "\u26a1",
       "title": "Automation & Process Improvement",
       "description": "Developed automation scripts in Python, PowerShell, and JavaScript that streamlined operations across multiple organizations.",
       "date": "2018-2024",
