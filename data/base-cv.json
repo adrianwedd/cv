@@ -91,12 +91,12 @@
       "location": "Tasmania, Australia",
       "period": "2015 - 2018",
       "type": "Full-time",
-      "description": "Provided comprehensive IT support and technical solutions for university staff and students. Specialized in Microsoft technologies, troubleshooting complex technical problems, and developing procedural documentation.",
+      "description": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since.",
       "achievements": [
-        "Delivered first-line IT support resolving complex technical problems across diverse user base",
-        "Developed comprehensive procedural documentation improving support team efficiency",
-        "Supported Microsoft technology stack ensuring optimal performance for academic environment",
-        "Maintained high user satisfaction through prompt problem resolution and clear communication"
+        "Sole support contact for a diverse user base with no tolerance for downtime — learned to triage fast and fix faster",
+        "Built and maintained procedural documentation that actually got used, reducing repeat escalations",
+        "Managed Microsoft 365 and Active Directory environments across a complex multi-faculty structure",
+        "Handled ServiceNow ticketing and escalation paths for infrastructure issues beyond first-line scope"
       ],
       "technologies": [
         "Microsoft 365",
@@ -112,12 +112,12 @@
       "location": "Australia",
       "period": "2015 - 2018",
       "type": "Full-time",
-      "description": "Founded and operated digital marketing agency specializing in helping nonprofits and small businesses maximize their digital impact. Expert-level certified across Google and Bing advertising platforms.",
+      "description": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to.",
       "achievements": [
-        "Enabled nonprofits and small businesses to measure digital effectiveness with Google Analytics",
-        "Attracted new audiences through strategic Google AdWords and Google Ad Grants implementation",
-        "Achieved expert-level certification across Google and Bing advertising platforms",
-        "Delivered measurable digital marketing results for diverse client portfolio"
+        "Built and managed Google Ad Grants campaigns for nonprofits, maximising the $10k/month allowance to drive real audience growth",
+        "Set up Analytics and conversion tracking from scratch for clients with no prior measurement — made their spend legible",
+        "Delivered web and campaign work across diverse sectors: environmental orgs, health practitioners, retail",
+        "Managed client relationships end-to-end: scoping, delivery, reporting, iteration"
       ],
       "technologies": [
         "Google Analytics",
@@ -485,17 +485,10 @@
   "achievements": [
     {
       "icon": "\ud83c\udfdb\ufe0f",
-      "title": "Systems Integration Excellence",
-      "description": "Enhanced Housing Management System integration with external services using RESTful APIs and SFTP, improving data exchange and operational efficiency for Tasmania's public housing sector.",
+      "title": "Security & Systems Uplift — Homes Tasmania",
+      "description": "Led cybersecurity and systems integration for Tasmania's public housing sector: Essential Eight compliance uplift, penetration testing, IDAM controls, and RESTful API integrations for the Housing Management System. Infrastructure that vulnerable people depend on — the stakes made the work serious.",
       "date": "2018-2024",
       "category": "Technical Achievement"
-    },
-    {
-      "icon": "\ud83d\udee1\ufe0f",
-      "title": "Cybersecurity Leadership",
-      "description": "Led cybersecurity initiatives at Homes Tasmania, improving system security posture and reducing vulnerabilities across critical housing management systems.",
-      "date": "2020-2024",
-      "category": "Security Achievement"
     },
     {
       "icon": "\ud83e\udd16",
@@ -513,29 +506,10 @@
     },
     {
       "icon": "\ud83c\udf3f",
-      "title": "Environmental Campaign Technology",
-      "description": "Managed IT infrastructure for The Wilderness Society and coordinated Greenpeace campaigns, combining technology expertise with environmental advocacy.",
+      "title": "Technology for High-Stakes Campaigns",
+      "description": "Maintained distributed IT infrastructure across The Wilderness Society's national operations and built field technology for Greenpeace direct actions — two very different threat models, both requiring the infrastructure to be invisible until it isn't.",
       "date": "2010-2015",
       "category": "Social Impact"
-    },
-    {
-      "icon": "\ud83c\udf93",
-      "title": "Professional Certifications",
-      "description": "Achieved certifications across Google Analytics, AdWords, and Bing Ads platforms.",
-      "date": "2015",
-      "category": "Professional Development",
-      "certifications": [
-        "Google Analytics Individual Qualification",
-        "Google AdWords Certification",
-        "Bing Ads Accredited Professional"
-      ]
-    },
-    {
-      "icon": "\u26a1",
-      "title": "Automation & Process Improvement",
-      "description": "Developed automation scripts in Python, PowerShell, and JavaScript that streamlined operations across multiple organizations.",
-      "date": "2018-2024",
-      "category": "Process Innovation"
     }
   ],
   "education": [
