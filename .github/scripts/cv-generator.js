@@ -582,6 +582,8 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             "jobTitle": personalInfo.title || "AI Engineer & Software Architect",
             "description": this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary,
             "url": CONFIG.SITE_URL,
+            "email": personalInfo.email || "adrian@adrianwedd.com",
+            "telephone": personalInfo.phone || "+61407081084",
             "sameAs": [
                 personalInfo.github || "https://github.com/adrianwedd",
                 personalInfo.linkedin || "https://linkedin.com/in/adrianwedd"

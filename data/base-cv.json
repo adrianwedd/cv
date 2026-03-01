@@ -9,6 +9,7 @@
     "name": "Adrian Wedd",
     "title": "AI Safety Researcher & Developer",
     "location": "PO Box 331, Cygnet, Tasmania, Australia",
+    "phone": "+61407081084",
     "email": "adrian@adrianwedd.com",
     "website": "https://cv.adrianwedd.com",
     "github": "https://github.com/adrianwedd",
@@ -24,7 +25,7 @@
       "location": "Tasmania, Australia",
       "period": "2025 - Present",
       "type": "Freelance",
-      "description": "Delivering client web projects and independent AI safety research. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
+      "description": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design \u2014 deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
       "achievements": [
         "Designed and built red-teaming and adversarial testing framework for embodied AI with automated attack adapters (TAP) and cross-modal vulnerability research on VLA models",
         "Developed evaluation frameworks with hallucination detection, content safety gates, and model monitoring for production LLM pipelines",
@@ -174,6 +175,27 @@
         "Logistics Coordination",
         "Adversarial Planning"
       ]
+    },
+    {
+      "position": "DJ / Multimedia Artist / Freelance Technologist",
+      "company": "Independent",
+      "location": "Australia",
+      "period": "~2000 - 2010",
+      "type": "Mixed",
+      "description": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems \u2014 sound systems, visual systems, technical systems \u2014 and the instinct to build tools rather than just use them.",
+      "achievements": [
+        "Professional DJ across venues and events, managing PA systems, lighting rigs, and live audio",
+        "Created multimedia art installations combining audio, visual, and interactive elements",
+        "Freelance web development and technical consulting for small businesses and artists",
+        "Built early web presences for clients with no digital footprint, learning full-stack by necessity"
+      ],
+      "technologies": [
+        "Audio Production",
+        "Web Development",
+        "Multimedia",
+        "Live Sound",
+        "Creative Technology"
+      ]
     }
   ],
   "projects": [
@@ -300,76 +322,6 @@
       "github": "https://github.com/adrianwedd/cygnet",
       "status": "Active Development",
       "period": "2025 - Present"
-    },
-    {
-      "name": "VERITAS",
-      "subtitle": "AI-Native Legal Intelligence Platform",
-      "description": "Legal intelligence platform addressing the efficiency-trust deficit in the legal market. Knowledge graph with Cypher queries, document analysis pipeline, and transparency-first AI reasoning. 230 issues, 784 commits across Python, TypeScript, and Jupyter notebooks.",
-      "technologies": [
-        "Python",
-        "TypeScript",
-        "Neo4j/Cypher",
-        "Jupyter",
-        "Docker"
-      ],
-      "github": "https://github.com/adrianwedd/VERITAS",
-      "status": "Active Development",
-      "period": "2025 - Present"
-    },
-    {
-      "name": "ADHDo",
-      "subtitle": "Neurodiversity-Affirming AI Assistant",
-      "description": "AI assistant for ADHD executive function support with crisis detection, circuit breaker psychology, and local-first processing. NDIS-aware for Australian users. 100 issues, 73 commits.",
-      "technologies": [
-        "Python",
-        "AI Safety",
-        "Accessibility"
-      ],
-      "github": "https://github.com/adrianwedd/ADHDo",
-      "status": "Active Development",
-      "period": "2025 - Present"
-    },
-    {
-      "name": "NeuroConnect",
-      "subtitle": "ADHD Support Ecosystem with AI Integration",
-      "description": "24/7 voice helpline with wired STT-to-LLM-to-TTS pipeline over Twilio, NDIS evidence logging, and executive function scaffolding. Multi-provider LLM fallback chain including Claude CLI.",
-      "technologies": [
-        "Python",
-        "Twilio",
-        "Whisper",
-        "Docker"
-      ],
-      "github": "https://github.com/adrianwedd/neuroconnect",
-      "status": "Active Development",
-      "period": "2025 - Present"
-    },
-    {
-      "name": "RLM-MCP",
-      "subtitle": "Recursive Language Model MCP Server",
-      "description": "MCP server enabling Claude Code to process 1M+ character documents through session-based chunking, BM25 search, and artifact provenance tracking.",
-      "technologies": [
-        "Python",
-        "MCP",
-        "BM25",
-        "Claude Code"
-      ],
-      "github": "https://github.com/adrianwedd/rlm-mcp",
-      "status": "Active Development",
-      "period": "2025 - Present"
-    },
-    {
-      "name": "Agentic Research Engine",
-      "subtitle": "Multi-Agent Research System",
-      "description": "Next-generation multi-agent research system with LangGraph orchestration, self-correction loops, and autonomous learning. 1,001 commits across Python with CI/CD cost optimization and enterprise security integration.",
-      "technologies": [
-        "Python",
-        "LangGraph",
-        "Multi-Agent Systems",
-        "Docker"
-      ],
-      "github": "https://github.com/adrianwedd/agentic-research-engine",
-      "status": "Active Development",
-      "period": "2025 - Present"
     }
   ],
   "skills": [
@@ -484,6 +436,14 @@
   ],
   "achievements": [
     {
+      "icon": "\ud83d\udcda",
+      "title": "Published Author — This Wasn't in the Brochure",
+      "description": "Wrote and published a neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. Four localised editions (AU, US, UK, NZ). Built using a three-AI collaborative workflow as an executive function accommodation \u2014 documented transparently in the book's appendix.",
+      "date": "2025",
+      "category": "Publication",
+      "url": "https://thiswasntinthebrochure.wtf"
+    },
+    {
       "icon": "\ud83c\udfdb\ufe0f",
       "title": "Security & Systems Uplift — Homes Tasmania",
       "description": "Led cybersecurity and systems integration for Tasmania's public housing sector: Essential Eight compliance uplift, penetration testing, IDAM controls, and RESTful API integrations for the Housing Management System. Infrastructure that vulnerable people depend on — the stakes made the work serious.",
@@ -534,36 +494,23 @@
     {
       "degree": "Computer Science Foundation",
       "institution": "Self-Taught & Professional Experience",
-      "period": "2014 - 2018",
-      "description": "Built computer science foundation through self-study and professional projects.",
+      "period": "2000 - 2018",
+      "description": "Self-taught through two decades of professional projects, freelance work, and relentless curiosity. No formal degree \u2014 learned by building, breaking, and rebuilding.",
       "key_areas": [
         "Software Engineering",
         "System Design",
         "Database Systems",
         "Network Administration"
       ]
-    }
-  ],
-  "certifications": [
-    {
-      "name": "Google Analytics Individual Qualification",
-      "issuer": "Google",
-      "date": "2015",
-      "status": "Completed"
     },
     {
-      "name": "Google AdWords Certification",
-      "issuer": "Google",
-      "date": "2015",
-      "status": "Completed"
-    },
-    {
-      "name": "Bing Ads Accredited Professional",
-      "issuer": "Microsoft",
-      "date": "2015",
-      "status": "Completed"
+      "degree": "First Code at Age 6",
+      "institution": "Microbee (BASIC)",
+      "period": "~1987",
+      "description": "Wrote first program at age 6 on a Microbee in BASIC \u2014 a morning routine sequencer with randomised audiovisual rewards. Built to compensate for undiagnosed ADHD executive function deficits. The instinct to build tools rather than endure problems started here and never stopped."
     }
   ],
+  "certifications": [],
   "languages": [
     {
       "language": "English",
@@ -572,11 +519,11 @@
     }
   ],
   "interests": [
-    "AI Safety & Evaluation",
-    "Multi-Agent Systems",
-    "Human-AI Collaboration",
-    "Sustainable Technology",
-    "Open Source Development",
-    "Technology Ethics"
+    "Zen Do Kai martial arts (Shodan, Sempai)",
+    "170 acres of Tasmanian bush — land stewardship and quiet",
+    "Raising neurodivergent kids (thiswasntinthebrochure.wtf)",
+    "Open source and AI safety research",
+    "DJing and audio production (former life, still wired in)",
+    "Where complex systems break and what that reveals"
   ]
 }

@@ -603,16 +603,16 @@ class CVApplication {
     getDefaultProjects() {
         return [
             {
-                name: "ADHDo",
-                description: "AI safety system with Claude integration, confidence gating, and multi-tool orchestration.",
-                technologies: ["Python", "Claude API", "Safety Systems"],
-                github: "https://github.com/adrianwedd/ADHDo"
+                name: "Failure-First Embodied AI",
+                description: "Red-teaming and benchmarking framework for embodied and agentic AI systems.",
+                technologies: ["Python", "AI Safety", "Red-teaming"],
+                github: "https://github.com/adrianwedd/failure-first-embodied-ai"
             },
             {
-                name: "Agentic Research Engine",
-                description: "Multi-agent evaluation framework with LangGraph orchestration and self-correction loops.",
-                technologies: ["Python", "LangGraph", "Multi-Agent Systems"],
-                github: "https://github.com/adrianwedd/agentic-research-engine"
+                name: "TEL3SIS",
+                description: "Real-time telephony platform with LLM-powered conversations and safety oracle.",
+                technologies: ["Python", "Vocode", "Whisper"],
+                github: "https://github.com/adrianwedd/TEL3SIS"
             }
         ];
     }
