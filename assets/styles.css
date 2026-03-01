@@ -713,6 +713,7 @@ body {
 .contact-link.pdf,
 .contact-link.print-btn {
   color: var(--color-text-secondary);
+  text-align: left;
 }
 
 /* ==========================================================================
