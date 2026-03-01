@@ -699,7 +699,7 @@ jobs:
             📈 Updated with latest GitHub activity metrics
             🌐 Regenerated responsive CV website
 
-            🔗 Live CV: https://adrianwedd.github.io/cv
+            🔗 Live CV: https://cv.adrianwedd.com
 
             🤖 Generated with [Claude Code](https://claude.ai/code)
 
@@ -735,7 +735,7 @@ jobs:
           echo "  - ✅ Dynamic CV website generated"
           echo "  - ✅ GitHub Pages deployment successful"
           echo ""
-          echo "🔗 **Live CV**: https://adrianwedd.github.io/cv"
+          echo "🔗 **Live CV**: https://cv.adrianwedd.com"
           echo "⏰ **Next Enhancement**: $(TZ='${{ env.TIMEZONE }}' date -d '+24 hours' +'%Y-%m-%d %H:%M %Z')"
           echo ""
           echo "======================================"
@@ -764,7 +764,7 @@ jobs:
           | 🚀 Deployment | ✅ Complete | GitHub Pages updated |
 
           ## 🔗 Access Your Enhanced CV
-          - **Live Website**: [adrianwedd.github.io/cv](https://adrianwedd.github.io/cv)
+          - **Live Website**: [adrianwedd.github.io/cv](https://cv.adrianwedd.com)
           - **Repository**: [github.com/adrianwedd/cv](https://github.com/adrianwedd/cv)
 
           ## ⏰ Next Enhancement Session

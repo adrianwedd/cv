@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/adrianwedd/cv.git"
   },
-  "homepage": "https://adrianwedd.github.io/cv",
+  "homepage": "https://cv.adrianwedd.com",
   "devDependencies": {
     "serve": "^14.2.5"
   }

@@ -52,7 +52,7 @@ const CONFIG = {
     DATA_DIR: path.join(rootPrefix, 'data'),
     ASSETS_DIR: path.join(rootPrefix, 'assets'),
     TEMPLATE_FILE: 'index.html',
-    SITE_URL: 'https://adrianwedd.github.io/cv',
+    SITE_URL: 'https://cv.adrianwedd.com',
     GITHUB_USERNAME: 'adrianwedd'
 };
 
@@ -338,8 +338,8 @@ class CVGenerator {
      * (e.g. Puppeteer file:// PDF generation)
      */
     injectInlineData(htmlContent) {
-        // Escape </script> sequences to prevent XSS via inline JSON injection
-        const safe = (obj) => JSON.stringify(obj).replace(/<\/script>/gi, '<\\/script>');
+        // Escape < to prevent XSS via inline JSON injection (covers </script> and variants)
+        const safe = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
         const inlineScript = `<script id="cv-inline-data">
 window.__CV_DATA__ = ${safe(this.cvData)};
 window.__ACTIVITY_DATA__ = ${safe(this.activityData || {})};
