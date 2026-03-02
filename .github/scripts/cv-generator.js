@@ -627,6 +627,38 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             const jsTarget = path.join(assetsOutputDir, 'script.js');
             await fs.copyFile(jsSource, jsTarget);
 
+            // Copy JS modules
+            const modulesSourceDir = path.join(CONFIG.ASSETS_DIR, 'modules');
+            const modulesOutputDir = path.join(assetsOutputDir, 'modules');
+            const modulesExist = await fs.access(modulesSourceDir).then(() => true).catch(() => false);
+            if (modulesExist) {
+                await fs.mkdir(path.join(modulesOutputDir, 'sections'), { recursive: true });
+                // Copy top-level module files
+                const moduleFiles = await fs.readdir(modulesSourceDir);
+                for (const file of moduleFiles) {
+                    const srcPath = path.join(modulesSourceDir, file);
+                    const stat = await fs.stat(srcPath);
+                    if (stat.isFile() && file.endsWith('.js')) {
+                        await fs.copyFile(srcPath, path.join(modulesOutputDir, file));
+                    }
+                }
+                // Copy sections subdirectory
+                const sectionsDir = path.join(modulesSourceDir, 'sections');
+                const sectionsExist = await fs.access(sectionsDir).then(() => true).catch(() => false);
+                if (sectionsExist) {
+                    const sectionFiles = await fs.readdir(sectionsDir);
+                    for (const file of sectionFiles) {
+                        if (file.endsWith('.js')) {
+                            await fs.copyFile(
+                                path.join(sectionsDir, file),
+                                path.join(modulesOutputDir, 'sections', file)
+                            );
+                        }
+                    }
+                }
+                console.log('✅ JS modules copied');
+            }
+
             // Copy watch-me-work JS
             const watchJsSource = path.join(CONFIG.ASSETS_DIR, 'watch-me-work.js');
             const watchJsTarget = path.join(assetsOutputDir, 'watch-me-work.js');
