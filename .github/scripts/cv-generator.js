@@ -670,7 +670,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             await fs.copyFile(watchHtmlSource, watchHtmlTarget).catch(e => console.warn('⚠️ watch-me-work.html not found:', e.message));
 
             // Copy root web files
-            for (const file of ['favicon.svg', 'robots.txt', 'sitemap.xml', 'manifest.json']) {
+            for (const file of ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml', 'manifest.json']) {
                 try {
                     const src = path.join(CONFIG.INPUT_DIR, file);
                     const dst = path.join(CONFIG.OUTPUT_DIR, file);
