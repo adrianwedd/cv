@@ -37,34 +37,17 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
 
-    <!-- Security Headers -->
+    <!-- Security Headers — 'unsafe-inline' in script-src required for pipeline-injected cv-inline-data; all other inline scripts externalised -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://snap.licdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://www.google-analytics.com https://analytics.google.com https://px.ads.linkedin.com">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- LinkedIn Insight Tag -->
-    <script type="text/javascript">
-    _linkedin_partner_id = "8890876";
-    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-    (function(l) {
-      if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
-      window.lintrk.q=[]}
-      var s = document.getElementsByTagName("script")[0];
-      var b = document.createElement("script");
-      b.type = "text/javascript";b.async = true;
-      b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-      s.parentNode.insertBefore(b, s);})(window.lintrk);
-    </script>
+    <script src="assets/linkedin-insight.js"></script>
     <noscript><img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=8890876&fmt=gif" /></noscript>
 
     <!-- Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ET0FJJS7C7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-ET0FJJS7C7', { page_title: 'CV', page_location: 'https://cv.adrianwedd.com' });
-    </script>
+    <script src="assets/analytics-config.js"></script>
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/styles.css">
@@ -323,67 +306,12 @@ window.__AI_ENHANCEMENTS__ = {"last_updated":null,"professional_summary":{},"ski
 
     <!-- Scripts -->
     <script src="assets/curvature-field.js"></script>
-    <script>
-    var daysSinceEpoch = Math.floor(Date.now() / 86400000);
-    initCurvatureField({ canvasId: 'curvature-bg', seed: daysSinceEpoch, masses: 1 });
-    </script>
+    <script src="assets/curvature-init.js"></script>
     <script type="module" src="assets/script.js"></script>
     <script src="assets/activity-viz.js"></script>
 
     <!-- Analytics Events -->
-    <script>
-    (function() {
-      if (typeof gtag !== 'function') return;
-
-      // Section visibility
-      var sections = ['about', 'experience', 'projects', 'activity', 'skills', 'achievements'];
-      var seen = {};
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(e) {
-          if (e.isIntersecting && !seen[e.target.id]) {
-            seen[e.target.id] = true;
-            gtag('event', 'section_view', { section: e.target.id });
-          }
-        });
-      }, { threshold: 0.3 });
-      sections.forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) observer.observe(el);
-      });
-
-      // Outbound link clicks
-      document.querySelectorAll('a[href^="http"], a[href^="mailto"]').forEach(function(a) {
-        a.addEventListener('click', function() {
-          gtag('event', 'outbound_click', { url: a.href, label: a.textContent.trim() });
-        });
-      });
-
-      // Scroll depth
-      var depths = [25, 50, 75, 100];
-      var fired = {};
-      window.addEventListener('scroll', function() {
-        var pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-        depths.forEach(function(d) {
-          if (pct >= d && !fired[d]) {
-            fired[d] = true;
-            gtag('event', 'scroll_depth', { depth: d });
-          }
-        });
-      }, { passive: true });
-
-      // Theme toggle
-      var themeBtn = document.getElementById('theme-toggle');
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-          // Read after the native handler flips the class
-          setTimeout(function() {
-            var theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-            gtag('event', 'theme_toggle', { theme: theme });
-          }, 0);
-        });
-      }
-    })();
-    </script>
+    <script src="assets/analytics-events.js"></script>
 
 </body>
 </html>

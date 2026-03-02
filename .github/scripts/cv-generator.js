@@ -659,10 +659,19 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
                 console.log('✅ JS modules copied');
             }
 
-            // Copy watch-me-work JS
-            const watchJsSource = path.join(CONFIG.ASSETS_DIR, 'watch-me-work.js');
-            const watchJsTarget = path.join(assetsOutputDir, 'watch-me-work.js');
-            await fs.copyFile(watchJsSource, watchJsTarget).catch(e => console.warn('⚠️ watch-me-work.js not found:', e.message));
+            // Copy additional JS files
+            for (const jsFile of ['watch-me-work.js', 'curvature-field.js', 'curvature-init.js', 'activity-viz.js', 'linkedin-insight.js', 'analytics-config.js', 'analytics-events.js']) {
+                const src = path.join(CONFIG.ASSETS_DIR, jsFile);
+                const dst = path.join(assetsOutputDir, jsFile);
+                await fs.copyFile(src, dst).catch(e => console.warn(`⚠️ ${jsFile} not found:`, e.message));
+            }
+
+            // Copy image assets
+            for (const imgFile of ['og-image.png', 'og-image.svg']) {
+                const src = path.join(CONFIG.ASSETS_DIR, imgFile);
+                const dst = path.join(assetsOutputDir, imgFile);
+                await fs.copyFile(src, dst).catch(e => console.warn(`⚠️ ${imgFile} not found:`, e.message));
+            }
 
             // Copy watch-me-work.html to dist root
             const watchHtmlSource = path.join(CONFIG.INPUT_DIR, 'watch-me-work.html');
@@ -945,8 +954,8 @@ Disallow: /data/
         // URL fields — validate protocol instead of escaping (they go into href attributes)
         const linkedinUrl = (info.linkedin || '').startsWith('https://') ? info.linkedin : 'https://linkedin.com/in/adrianwedd';
         const githubUrl = (info.github || '').startsWith('https://') ? info.github : 'https://github.com/adrianwedd';
-        html = html.replace(/\{\{LINKEDIN_URL\}\}/g, linkedinUrl);
-        html = html.replace(/\{\{GITHUB_URL\}\}/g, githubUrl);
+        html = html.replace(/\{\{LINKEDIN_URL\}\}/g, this.escapeHtml(linkedinUrl));
+        html = html.replace(/\{\{GITHUB_URL\}\}/g, this.escapeHtml(githubUrl));
 
         // Summary — truncate to ~400 chars on sentence boundary
         const fullSummary = this.cvData.professional_summary || '';

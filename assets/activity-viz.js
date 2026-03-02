@@ -8,11 +8,30 @@
 (function () {
   'use strict';
 
-  const PALETTE = [
+  // Dark theme palette (light colours on dark background)
+  const PALETTE_DARK = [
     '#8ac7d9', '#6ba3b5', '#4d8091', '#9dd4e3', '#b5e0eb',
     '#c9a8d9', '#a88cb5', '#7dd9b5', '#d9c78a', '#d9968a',
     '#8a9dd9', '#d98abd'
   ];
+  // Light theme palette (darkened for WCAG AA contrast on #f5f5f0)
+  const PALETTE_LIGHT = [
+    '#3a8a9e', '#3d7080', '#2d5a6b', '#4a9aad', '#5aabb8',
+    '#8a5a9e', '#6e4d80', '#3a9e75', '#9e8a3a', '#9e5a3a',
+    '#3a4d9e', '#9e3a80'
+  ];
+  const CATEGORY_COLORS_DARK = ['#8ac7d9', '#c9a8d9', '#7dd9b5', '#d9c78a', '#d98abd'];
+  const CATEGORY_COLORS_LIGHT = ['#3a8a9e', '#8a5a9e', '#3a9e75', '#9e8a3a', '#9e3a80'];
+
+  function isLightTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'light';
+  }
+  function getPalette() { return isLightTheme() ? PALETTE_LIGHT : PALETTE_DARK; }
+  function getCategoryColors() { return isLightTheme() ? CATEGORY_COLORS_LIGHT : CATEGORY_COLORS_DARK; }
+
+  // Legacy aliases for static references
+  var PALETTE = PALETTE_DARK;
+  var CATEGORY_COLORS = CATEGORY_COLORS_DARK;
 
   const CATEGORY_MAP = {
     'cygnet': 0, 'AI-SWA': 0, 'failure-first-embodied-ai': 0, 'failure-first': 0,
@@ -23,7 +42,6 @@
     'terminal': 0,
   };
   const CATEGORY_NAMES = ['AI & Agents', 'Health & Safety', 'Client Delivery', 'Tooling', 'Other'];
-  const CATEGORY_COLORS = ['#8ac7d9', '#c9a8d9', '#7dd9b5', '#d9c78a', '#d98abd'];
 
   let activityData = null;
   let tooltipEl = null;
@@ -197,7 +215,7 @@
       const botPathBody = botPath.replace(/^M\s*[\d.eE+\-]+\s*,\s*[\d.eE+\-]+\s*/, '');
       const firstBot = botReversed[0];
       path.setAttribute('d', `${topPath} L ${firstBot.x},${firstBot.y} ${botPathBody} Z`);
-      path.setAttribute('fill', CATEGORY_COLORS[cat]);
+      path.setAttribute('fill', getCategoryColors()[cat]);
       path.setAttribute('fill-opacity', '0.75');
       path.setAttribute('stroke', 'var(--color-background)');
       path.setAttribute('stroke-width', '0.5');
@@ -264,7 +282,7 @@
         tooltipLine(t, `Total: ${total} commits`);
         for (let c = 0; c < CATEGORY_NAMES.length; c++) {
           if (cats[c] > 0) {
-            tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, CATEGORY_COLORS[c]);
+            tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, getCategoryColors()[c]);
           }
         }
       }, e);
@@ -286,7 +304,7 @@
       item.className = 'viz-legend-item';
       const dot = document.createElement('span');
       dot.className = 'viz-legend-dot';
-      dot.style.backgroundColor = CATEGORY_COLORS[i];
+      dot.style.backgroundColor = getCategoryColors()[i];
       item.appendChild(dot);
       item.appendChild(document.createTextNode(CATEGORY_NAMES[i]));
       legend.appendChild(item);
@@ -330,9 +348,9 @@
     const top5 = entries.slice(0, 5);
     const rest = entries.slice(5, 12);
 
-    drawRing(ns, top5, total, CX, CY, 46, 70, PALETTE, entries);
+    drawRing(ns, top5, total, CX, CY, 46, 70, getPalette(), entries);
     if (rest.length > 0) {
-      drawRing(ns, rest, total, CX, CY, 73, 85, PALETTE.slice(5), entries);
+      drawRing(ns, rest, total, CX, CY, 73, 85, getPalette().slice(5), entries);
     }
 
     // Center text — updates on hover
@@ -415,7 +433,7 @@
       item.className = 'viz-legend-item';
       const dot = document.createElement('span');
       dot.className = 'viz-legend-dot';
-      dot.style.backgroundColor = PALETTE[i];
+      dot.style.backgroundColor = getPalette()[i];
       item.appendChild(dot);
       item.appendChild(document.createTextNode(`${top5[i][0]} ${pct}%`));
       legend.appendChild(item);
@@ -502,7 +520,7 @@
         rect.setAttribute('y', yOffset);
         rect.setAttribute('width', barW);
         rect.setAttribute('height', segH);
-        rect.setAttribute('fill', CATEGORY_COLORS[c]);
+        rect.setAttribute('fill', getCategoryColors()[c]);
         rect.setAttribute('fill-opacity', '0.82');
         g.appendChild(rect);
       }
@@ -554,7 +572,7 @@
           tooltipLine(t, `${total} commits`);
           for (let c = 0; c < CATEGORY_NAMES.length; c++) {
             if (cats[c] > 0) {
-              tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, CATEGORY_COLORS[c]);
+              tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, getCategoryColors()[c]);
             }
           }
         }, e);
@@ -588,5 +606,15 @@
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
+  }
+
+  // Re-render on theme change so colours update
+  var themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      setTimeout(function() {
+        if (activityData) init();
+      }, 50);
+    });
   }
 })();
