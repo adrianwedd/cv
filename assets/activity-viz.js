@@ -30,12 +30,23 @@
   function getCategoryColors() { return isLightTheme() ? CATEGORY_COLORS_LIGHT : CATEGORY_COLORS_DARK; }
 
   const CATEGORY_MAP = {
+    // AI & Agents
     'cygnet': 0, 'AI-SWA': 0, 'failure-first-embodied-ai': 0, 'failure-first': 0,
+    'terminal': 0, 'orchestrix': 0, 'personal-intelligence-node': 0,
+    'claude-code-skills-peeps-for-claude': 0, 'lunar_tools_prototypes': 0,
+    // Health & Safety
     'VERITAS': 1, 'ADHDo': 1, 'neuroconnect': 1, 'emdr-agent': 1,
+    // Client Delivery
     'evolve-evolution': 2, 'evolvechiropractictas.com': 2, 'truecapacity.coach': 2, 'annicalarsdotter.com': 2,
+    'local-business-intelligence': 2,
+    // Tooling
     'notebooklm-automation': 3, 'rlm-mcp': 3, 'cv': 3, 'Dx0': 3,
+    'grid2_repo': 3, 'adrianwedd': 3, 'adrianwedd.com': 3,
+    // Other
     'orbitr': 4, 'squishmallowdex': 4, 'TEL3SIS': 4,
-    'terminal': 0,
+    'strategic-acquisitions': 4, 'Enchanted-Garden-Tycoon': 4,
+    'This-Wasn-t-in-the-Brochure': 4, 'why-demonstrated-risk-is-ignored': 4,
+    'Footnotes-at-the-Edge-of-Reality': 4,
   };
   const CATEGORY_NAMES = ['AI & Agents', 'Health & Safety', 'Client Delivery', 'Tooling', 'Other'];
 
@@ -135,7 +146,7 @@
   function renderAll() {
     renderStreamgraph();
     renderLanguageRing();
-    renderCommitBars();
+    renderCommitHeatmap();
     staggerEntrance();
   }
 
@@ -467,22 +478,21 @@
     });
   }
 
-  // ── Panel 3: Commit Bars (weekly stacked bar chart) ───
+  // ── Panel 3: Commit Heatmap (weekly totals bar chart) ─
 
-  function renderCommitBars() {
+  function renderCommitHeatmap() {
     const container = document.getElementById('viz-heatmap');
-    if (!container || !activityData.commit_timeline.length) return;
+    if (!container || !activityData.heatmap || !activityData.heatmap.length) return;
 
-    const weeks = activityData.commit_timeline;
-    const catTotals = buildCatTotals(weeks);
-    const maxTotal = Math.max(...catTotals.map(c => c.reduce((a, b) => a + b, 0)), 1);
+    const weeks = activityData.heatmap;
+    const maxCount = Math.max(...weeks.map(w => w.count), 1);
 
     const W = container.clientWidth || 640;
     const H = 120;
     const BOTTOM = 16;
     const CHART_H = H - BOTTOM;
     const n = weeks.length;
-    const barW = Math.max(1, (W / n) - 1.5);
+    const barW = Math.max(2, (W / n) - 1.5);
     const xStep = W / n;
 
     const ns = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -490,52 +500,37 @@
     ns.setAttribute('width', '100%');
     ns.setAttribute('height', H);
     ns.setAttribute('role', 'img');
-    ns.setAttribute('aria-label', 'Weekly commits stacked bar chart');
+    ns.setAttribute('aria-label', 'Weekly commit totals');
     ns.style.cursor = 'default';
     ns.style.overflow = 'visible';
 
-    // One group per week
+    const primaryColor = isLightTheme() ? '#44717f' : '#8ac7d9';
     const barGroups = [];
+
     for (let i = 0; i < n; i++) {
-      const cats = catTotals[i];
-      const total = cats.reduce((a, b) => a + b, 0);
+      const count = weeks[i].count;
       const x = i * xStep + (xStep - barW) / 2;
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      g.dataset.week = i;
-      g.style.cursor = 'pointer';
+      const barH = Math.max(1, (count / maxCount) * CHART_H);
+      const y = CHART_H - barH;
 
-      let yOffset = CHART_H;
-      for (let c = 0; c < CATEGORY_NAMES.length; c++) {
-        if (cats[c] <= 0) continue;
-        const segH = (cats[c] / maxTotal) * CHART_H;
-        yOffset -= segH;
-        const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        rect.setAttribute('x', x);
-        rect.setAttribute('y', yOffset);
-        rect.setAttribute('width', barW);
-        rect.setAttribute('height', segH);
-        rect.setAttribute('fill', getCategoryColors()[c]);
-        rect.setAttribute('fill-opacity', '0.82');
-        g.appendChild(rect);
-      }
-
-      // Invisible full-height hit target
-      const hit = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      hit.setAttribute('x', i * xStep);
-      hit.setAttribute('y', '0');
-      hit.setAttribute('width', xStep);
-      hit.setAttribute('height', CHART_H);
-      hit.setAttribute('fill', 'transparent');
-      g.appendChild(hit);
-
-      ns.appendChild(g);
-      barGroups.push({ g, cats, total, week: weeks[i] });
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', barW);
+      rect.setAttribute('height', barH);
+      rect.setAttribute('fill', primaryColor);
+      rect.setAttribute('fill-opacity', count > 0 ? (0.3 + 0.7 * (count / maxCount)).toFixed(2) : '0.08');
+      rect.setAttribute('rx', '1');
+      rect.style.cursor = 'pointer';
+      rect.dataset.week = i;
+      ns.appendChild(rect);
+      barGroups.push({ rect, count, week: weeks[i] });
     }
 
     // Month labels
     let lastMonth = -1;
     for (let i = 0; i < n; i++) {
-      const d = new Date(weeks[i].week + 'T00:00:00');
+      const d = new Date(weeks[i].date + 'T00:00:00');
       if (d.getMonth() !== lastMonth) {
         lastMonth = d.getMonth();
         const label = d.toLocaleDateString('en-AU', { month: 'short' });
@@ -550,34 +545,24 @@
       }
     }
 
-    // Hover handlers on each group
-    barGroups.forEach(({ g, cats, total, week }) => {
-      g.addEventListener('mouseenter', e => {
-        // Dim all others
-        barGroups.forEach(({ g: og }) => {
-          og.style.opacity = og === g ? '1' : '0.4';
-          og.style.transition = 'opacity 0.12s';
+    // Hover
+    barGroups.forEach(({ rect, count, week }) => {
+      rect.addEventListener('mouseenter', e => {
+        barGroups.forEach(({ rect: r }) => {
+          r.style.opacity = r === rect ? '1' : '0.4';
+          r.style.transition = 'opacity 0.12s';
         });
         showTooltip(t => {
           const header = document.createElement('div');
           header.className = 'viz-tooltip-header';
-          header.textContent = 'Week of ' + fmtDate(week.week);
+          header.textContent = 'Week of ' + fmtDate(week.date);
           t.appendChild(header);
-          tooltipLine(t, `${total} commits`);
-          for (let c = 0; c < CATEGORY_NAMES.length; c++) {
-            if (cats[c] > 0) {
-              tooltipLine(t, `${CATEGORY_NAMES[c]}: ${cats[c]}`, getCategoryColors()[c]);
-            }
-          }
+          tooltipLine(t, count + ' commits');
         }, e);
       });
-
-      g.addEventListener('mousemove', e => moveTooltip(e));
-
-      g.addEventListener('mouseleave', () => {
-        barGroups.forEach(({ g: og }) => {
-          og.style.opacity = '1';
-        });
+      rect.addEventListener('mousemove', e => moveTooltip(e));
+      rect.addEventListener('mouseleave', () => {
+        barGroups.forEach(({ rect: r }) => { r.style.opacity = '1'; });
         hideTooltip();
       });
     });
