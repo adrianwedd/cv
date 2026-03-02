@@ -19,6 +19,7 @@ import { initializeInterestsSection } from './modules/sections/interests.js';
  */
 class CVApplication {
     constructor() {
+        this._lastRefresh = 0;
         this.init();
     }
 
@@ -56,6 +57,10 @@ class CVApplication {
             if (e.key === 'Tab') {
                 document.body.classList.add('keyboard-navigation');
             }
+        });
+
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
         });
 
         // Visibility change for tab switching
@@ -124,6 +129,9 @@ class CVApplication {
      * Refresh live data
      */
     async refreshLiveData() {
+        const now = Date.now();
+        if (now - this._lastRefresh < 60000) return;
+        this._lastRefresh = now;
         try {
             this.activityData = await loadActivityData();
             this.updateFooterTimestamp();

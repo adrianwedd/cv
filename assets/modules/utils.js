@@ -10,7 +10,11 @@ export function sanitizeURL(url) {
     if (!url) return '';
     const str = String(url).trim();
     if (/^mailto:/i.test(str)) {
-        return str;
+        const address = str.slice(str.indexOf(':') + 1).split('?')[0];
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) {
+            return str;
+        }
+        return '';
     }
     try {
         const parsed = new URL(str);
@@ -27,7 +31,9 @@ export function sanitizeURL(url) {
  * Format a date/time string for display.
  */
 export function formatDateTime(dateString) {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return 'Unknown';
+    return d.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',

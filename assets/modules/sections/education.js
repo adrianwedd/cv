@@ -49,6 +49,8 @@ export function initializeEducationSection(cvData) {
             item.appendChild(desc);
         }
 
+        // key_areas field exists in data but is intentionally not rendered (was not rendered in original script.js either)
+
         container.appendChild(item);
     }
 }

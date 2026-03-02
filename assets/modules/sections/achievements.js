@@ -22,6 +22,8 @@ export function initializeAchievementsSection(cvData) {
         const contentDiv = document.createElement('div');
         contentDiv.className = 'achievement-content';
 
+        // icon field exists in data but is intentionally not rendered (was not rendered in original script.js either)
+
         const titleEl = document.createElement('h3');
         titleEl.className = 'achievement-title';
         titleEl.textContent = achievement.title || '';
