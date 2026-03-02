@@ -306,8 +306,8 @@
     <script type="module" src="assets/script.js"></script>
     <script src="assets/activity-viz.js"></script>
 
-    <!-- Analytics Events -->
-    <script src="assets/analytics-events.js"></script>
+    <!-- Analytics Events (defer preserves document order: analytics-config.js runs first) -->
+    <script defer src="assets/analytics-events.js"></script>
 
 </body>
 </html>

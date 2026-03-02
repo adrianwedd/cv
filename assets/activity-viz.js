@@ -16,7 +16,7 @@
   ];
   // Light theme palette (darkened for WCAG AA contrast on #f5f5f0)
   const PALETTE_LIGHT = [
-    '#3a8a9e', '#3d7080', '#2d5a6b', '#4a9aad', '#5aabb8',
+    '#3a8a9e', '#3d7080', '#2d5a6b', '#3a8899', '#358590',
     '#8a5a9e', '#6e4d80', '#3a9e75', '#9e8a3a', '#9e5a3a',
     '#3a4d9e', '#9e3a80'
   ];
