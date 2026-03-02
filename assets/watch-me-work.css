@@ -14,7 +14,7 @@
 
   --color-text-primary: #e9eef6;
   --color-text-secondary: #a8b3c2;
-  --color-text-muted: #666666;
+  --color-text-muted: #808080;
   --color-text-inverse: #070a0f;
 
   --color-border: rgba(233, 238, 246, 0.10);
@@ -69,10 +69,10 @@
 
   --color-text-primary: #1a1a1a;
   --color-text-secondary: #555555;
-  --color-text-muted: #888888;
+  --color-text-muted: #6f6f6f;
   --color-text-inverse: #f5f5f0;
 
-  --color-primary: #4a7a8c;
+  --color-primary: #44717f;
   --color-border: rgba(0, 0, 0, 0.08);
   --color-border-light: rgba(0, 0, 0, 0.04);
   --color-border-focus: #4a7a8c;
@@ -1137,6 +1137,10 @@ select:focus,
 }
 
 *:focus {
+  outline: none;
+}
+.keyboard-navigation *:focus,
+*:focus-visible {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }

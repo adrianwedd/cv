@@ -71,6 +71,14 @@ class WatchMeWorkDashboard {
     }
 
     setupEventListeners() {
+        // Keyboard-navigation focus ring toggle (matches main CV page pattern)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') document.body.classList.add('keyboard-navigation');
+        });
+        document.addEventListener('mousedown', () => {
+            document.body.classList.remove('keyboard-navigation');
+        });
+
         const filterToggle = document.getElementById('filter-toggle');
         const filtersPanel = document.getElementById('filters-panel');
         filterToggle?.addEventListener('click', () => {

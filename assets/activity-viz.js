@@ -189,7 +189,6 @@
     ns.style.overflow = 'visible';
 
     // Build stacked area paths
-    const areaPaths = [];
     for (let cat = CATEGORY_NAMES.length - 1; cat >= 0; cat--) {
       const topPoints = [];
       const botPoints = [];
@@ -217,7 +216,6 @@
       path.setAttribute('stroke-width', '0.5');
       path.dataset.cat = cat;
       ns.appendChild(path);
-      areaPaths.unshift(path); // front-to-back order
     }
 
     // Month labels

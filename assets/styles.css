@@ -92,10 +92,10 @@
   --color-text-muted: #6f6f6f;
   --color-text-inverse: #f5f5f0;
 
-  --color-primary: #4a7a8c;
+  --color-primary: #44717f;
   --color-border: rgba(0, 0, 0, 0.08);
   --color-border-light: rgba(0, 0, 0, 0.04);
-  --color-border-focus: #4a7a8c;
+  --color-border-focus: #44717f;
   --color-selection: rgba(74, 122, 140, 0.20);
 }
 
@@ -1070,7 +1070,7 @@ body {
   position: absolute;
   top: -40px;
   left: 0;
-  background: #6b8aad;
+  background: #546f8b;
   color: #fff;
   padding: 8px 16px;
   z-index: 10000;
