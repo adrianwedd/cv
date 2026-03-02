@@ -17,11 +17,12 @@
     if (el) observer.observe(el);
   });
 
-  // Outbound link clicks
-  document.querySelectorAll('a[href^="http"], a[href^="mailto"]').forEach(function(a) {
-    a.addEventListener('click', function() {
+  // Outbound link clicks (event delegation for dynamically-rendered links)
+  document.body.addEventListener('click', function(e) {
+    var a = e.target.closest('a[href^="http"], a[href^="mailto"]');
+    if (a) {
       gtag('event', 'outbound_click', { url: a.href, label: a.textContent.trim() });
-    });
+    }
   });
 
   // Scroll depth

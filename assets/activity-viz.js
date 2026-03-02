@@ -29,10 +29,6 @@
   function getPalette() { return isLightTheme() ? PALETTE_LIGHT : PALETTE_DARK; }
   function getCategoryColors() { return isLightTheme() ? CATEGORY_COLORS_LIGHT : CATEGORY_COLORS_DARK; }
 
-  // Legacy aliases for static references
-  var PALETTE = PALETTE_DARK;
-  var CATEGORY_COLORS = CATEGORY_COLORS_DARK;
-
   const CATEGORY_MAP = {
     'cygnet': 0, 'AI-SWA': 0, 'failure-first-embodied-ai': 0, 'failure-first': 0,
     'VERITAS': 1, 'ADHDo': 1, 'neuroconnect': 1, 'emdr-agent': 1,

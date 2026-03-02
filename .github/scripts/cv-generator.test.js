@@ -17,6 +17,13 @@ function mockFs() {
             education: [{ degree: 'CS Degree', institution: 'Uni', period: '2016-2020' }]
         });
         if (filePath.includes('ats-template.html')) return '<!DOCTYPE html><html><body><h1>{{NAME}}</h1><p>{{TITLE}}</p><p>{{LOCATION}} {{PHONE}} {{EMAIL}} {{LINKEDIN_URL}} {{GITHUB_URL}}</p><p>{{SUMMARY}}</p><p>{{COMPETENCIES}}</p>{{EXPERIENCE}}<ul>{{PROJECTS}}</ul><p>{{SKILLS}}</p>{{EDUCATION}}</body></html>';
+        if (filePath.includes('activity-summary.json')) return JSON.stringify({
+            summary: { total_commits: 42, active_days: 10, net_lines_contributed: 5000, tracking_status: 'active', last_commit_date: '2026-03-01' },
+            last_updated: '2026-03-01T00:00:00Z'
+        });
+        if (filePath.includes('ai-enhancements.json')) return JSON.stringify({
+            last_updated: null, professional_summary: {}, skills_enhancement: {}, enhancement_summary: {}
+        });
         return '{}';
     };
     fs.writeFile = async () => {};

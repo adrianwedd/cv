@@ -91,7 +91,6 @@ class CVGenerator {
             await this.generateATSPDF();
             await this.generateSitemap();
             await this.generateRobotsTxt();
-            await this.generateManifest();
 
             // Generate additional files for GitHub Pages
             await this.generateGitHubPagesFiles();
@@ -679,7 +678,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             await fs.copyFile(watchHtmlSource, watchHtmlTarget).catch(e => console.warn('⚠️ watch-me-work.html not found:', e.message));
 
             // Copy root web files
-            for (const file of ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml', 'manifest.json']) {
+            for (const file of ['favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml', 'manifest.json', 'CNAME']) {
                 try {
                     const src = path.join(CONFIG.INPUT_DIR, file);
                     const dst = path.join(CONFIG.OUTPUT_DIR, file);
@@ -695,7 +694,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             await fs.mkdir(dataOutputDir, { recursive: true });
 
             // Copy JSON data files
-            const dataFiles = ['base-cv.json', 'activity-summary.json', 'ai-enhancements.json'];
+            const dataFiles = ['base-cv.json', 'activity-summary.json', 'ai-enhancements.json', 'github-activity.json'];
 
             for (const file of dataFiles) {
                 try {
@@ -905,32 +904,35 @@ Disallow: /data/
      */
     async generatePDF() {
         console.log('📄 Generating PDF version of the CV...');
-        const browser = await puppeteer.launch({ args: ['--no-sandbox'] }); // --no-sandbox is crucial for running in GitHub Actions
-        const page = await browser.newPage();
+        const browser = await puppeteer.launch({ args: ['--no-sandbox', '--allow-file-access-from-files'] });
+        try {
+            const page = await browser.newPage();
 
-        const htmlPath = path.resolve(path.join(CONFIG.OUTPUT_DIR, 'index.html'));
-        await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
+            const htmlPath = path.resolve(path.join(CONFIG.OUTPUT_DIR, 'index.html'));
+            await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0' });
 
-        // Ensure dark/light theme is set for consistency (e.g., light theme for print)
-        await page.evaluate(() => {
-            document.documentElement.setAttribute('data-theme', 'light'); // eslint-disable-line no-undef
-        });
+            // Ensure dark/light theme is set for consistency (e.g., light theme for print)
+            await page.evaluate(() => {
+                document.documentElement.setAttribute('data-theme', 'light'); // eslint-disable-line no-undef
+            });
 
-        const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.pdf');
-        await page.pdf({
-            path: pdfPath,
-            format: 'A4',
-            printBackground: true,
-            margin: {
-                top: '20mm',
-                right: '20mm',
-                bottom: '20mm',
-                left: '20mm'
-            }
-        });
+            const pdfPath = path.join(CONFIG.OUTPUT_DIR, 'assets', 'adrian-wedd-cv.pdf');
+            await page.pdf({
+                path: pdfPath,
+                format: 'A4',
+                printBackground: true,
+                margin: {
+                    top: '20mm',
+                    right: '20mm',
+                    bottom: '20mm',
+                    left: '20mm'
+                }
+            });
 
-        await browser.close();
-        console.log(`✅ PDF generated successfully at: ${pdfPath}`);
+            console.log(`✅ PDF generated successfully at: ${pdfPath}`);
+        } finally {
+            await browser.close();
+        }
     }
 
     /**
@@ -1055,7 +1057,7 @@ Disallow: /data/
         console.log('📄 Generating ATS-optimised short PDF...');
         const htmlContent = await this.buildATSHTML();
 
-        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+        const browser = await puppeteer.launch({ args: ['--no-sandbox', '--allow-file-access-from-files'] });
         try {
             const page = await browser.newPage();
 
