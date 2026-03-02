@@ -8,7 +8,7 @@
     <meta name="author" content="Adrian Wedd">
 
     <!-- Security -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Fonts -->
@@ -252,10 +252,7 @@
 
     <!-- JavaScript -->
     <script src="assets/curvature-field.js"></script>
-    <script>
-    var daysSinceEpoch = Math.floor(Date.now() / 86400000);
-    initCurvatureField({ canvasId: 'curvature-bg', seed: daysSinceEpoch, masses: 1 });
-    </script>
+    <script src="assets/curvature-init.js"></script>
     <script src="assets/watch-me-work.js"></script>
 </body>
 </html>

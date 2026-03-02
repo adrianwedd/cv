@@ -1034,8 +1034,12 @@ body {
   }
 }
 
-/* Focus styles */
+/* Focus styles — only show for keyboard users */
 *:focus {
+  outline: none;
+}
+.keyboard-navigation *:focus,
+*:focus-visible {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }

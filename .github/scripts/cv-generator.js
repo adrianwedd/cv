@@ -598,7 +598,8 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             }
         };
 
-        const structuredDataJson = JSON.stringify(structuredData, null, 2);
+        const structuredDataJson = JSON.stringify(structuredData, null, 2)
+            .replace(/<\//g, '<\\/');
 
         return htmlContent.replace(
             /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
@@ -620,6 +621,11 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             const cssSource = path.join(CONFIG.ASSETS_DIR, 'styles.css');
             const cssTarget = path.join(assetsOutputDir, 'styles.css');
             await fs.copyFile(cssSource, cssTarget);
+
+            // Copy watch-me-work CSS
+            const wmwCssSource = path.join(CONFIG.ASSETS_DIR, 'watch-me-work.css');
+            const wmwCssTarget = path.join(assetsOutputDir, 'watch-me-work.css');
+            await fs.copyFile(wmwCssSource, wmwCssTarget).catch(e => console.warn('⚠️ watch-me-work.css not found:', e.message));
 
             // Copy JavaScript
             const jsSource = path.join(CONFIG.ASSETS_DIR, 'script.js');
@@ -706,28 +712,27 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
                 }
             }
 
-            // Copy activity data directory if it exists
-            try {
-                const activitySourceDir = path.join(CONFIG.DATA_DIR, 'activity');
-                const activityOutputDir = path.join(dataOutputDir, 'activity');
+            // Copy data subdirectories (activity, metrics, trends)
+            for (const subdir of ['activity', 'metrics', 'trends']) {
+                try {
+                    const sourceDir = path.join(CONFIG.DATA_DIR, subdir);
+                    const outputDir = path.join(dataOutputDir, subdir);
 
-                const activityExists = await fs.access(activitySourceDir).then(() => true).catch(() => false);
-                if (activityExists) {
-                    await fs.mkdir(activityOutputDir, { recursive: true });
+                    const exists = await fs.access(sourceDir).then(() => true).catch(() => false);
+                    if (exists) {
+                        await fs.mkdir(outputDir, { recursive: true });
 
-                    // Copy all activity files
-                    const activityFiles = await fs.readdir(activitySourceDir);
-                    for (const file of activityFiles) {
-                        if (file.endsWith('.json')) {
-                            const sourcePath = path.join(activitySourceDir, file);
-                            const targetPath = path.join(activityOutputDir, file);
-                            await fs.copyFile(sourcePath, targetPath);
+                        const files = await fs.readdir(sourceDir);
+                        for (const file of files) {
+                            if (file.endsWith('.json')) {
+                                await fs.copyFile(path.join(sourceDir, file), path.join(outputDir, file));
+                            }
                         }
+                        console.log(`✅ ${subdir} data directory copied (${files.length} files)`);
                     }
-                    console.log(`✅ Activity data directory copied (${activityFiles.length} files)`);
+                } catch (error) {
+                    console.warn(`⚠️ Could not copy ${subdir} directory:`, error.message);
                 }
-            } catch (error) {
-                console.warn('⚠️ Could not copy activity directory:', error.message);
             }
 
             console.log('✅ Assets copied successfully');

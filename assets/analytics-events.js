@@ -2,7 +2,7 @@
   if (typeof gtag !== 'function') return;
 
   // Section visibility
-  var sections = ['about', 'experience', 'projects', 'activity', 'skills', 'achievements'];
+  var sections = ['about', 'experience', 'projects', 'activity', 'skills', 'achievements', 'education', 'interests'];
   var seen = {};
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
