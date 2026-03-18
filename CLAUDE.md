@@ -10,7 +10,7 @@ AI-Enhanced CV system: a static website (`index.html`) driven by JSON data (`dat
 
 The system has two layers:
 
-**Frontend** — Static HTML/CSS/JS served from the repo root. `index.html` loads `data/base-cv.json` via fetch and renders CV sections using DOM API methods. `watch-me-work.html` is a live activity dashboard that fetches from the GitHub API. Both use `assets/styles.css` (design tokens, dark/light themes) and their respective JS files.
+**Frontend** — Static HTML/CSS/JS served from the repo root. `index.html` loads `data/base-cv.json` via fetch and renders CV sections using DOM API methods. `watch-me-work.html` is a redirect stub pointing to `adrianwedd.com/activity/` (the activity dashboard has been migrated to the portfolio site). Uses `assets/styles.css` (design tokens, dark/light themes).
 
 **CI Pipeline** — Two GitHub Actions workflows run Node.js scripts from `.github/scripts/`:
 - `activity-tracker.yml` — Runs daily (~6 AM AEST / ~7 AM AEDT, 20:00 UTC). Collects GitHub commit data, language stats, contribution metrics via `activity-analyzer.js`.
@@ -49,7 +49,7 @@ npm test                                     # from .github/scripts/
 |------|---------|
 | `data/base-cv.json` | Source of truth for all CV content. Edit this to update CV data. |
 | `assets/script.js` | Main CV page JS. Uses DOM API methods (no innerHTML) to render sections from base-cv.json. |
-| `assets/watch-me-work.js` | Dashboard JS. Fetches live GitHub activity via public API. |
+| `watch-me-work.html` | Redirect stub → `adrianwedd.com/activity/` (dashboard migrated). |
 | `assets/styles.css` | All styling. Uses CSS custom properties (design tokens) defined in `:root`. |
 | `.github/scripts/ai-hallucination-detector.js` | Validates AI-generated claims. Exits 1 if confidence < 70%. |
 | `.github/scripts/content-guardian.js` | Blocks fabricated claims. Use `--validate` flag for gate mode. |

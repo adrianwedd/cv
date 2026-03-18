@@ -3,8 +3,8 @@
 ## Project Structure
 
 - `index.html`: main CV site entrypoint.
-- `watch-me-work.html`: live activity dashboard page.
-- `assets/`: front-end code and static assets (`script.js`, `styles.css`, `watch-me-work.js`, CSS/images).
+- `watch-me-work.html`: redirect stub → `adrianwedd.com/activity/` (dashboard migrated).
+- `assets/`: front-end code and static assets (`script.js`, `styles.css`, CSS/images).
 - `data/`: runtime content and generated reports (JSON) consumed by the site (for example `data/base-cv.json`).
 - `.github/workflows/`: GitHub Actions pipelines (activity tracking + CV enhancement/deploy).
 - `.github/scripts/`: Node-based pipeline tooling (analyzers, generators, validators, tests).
