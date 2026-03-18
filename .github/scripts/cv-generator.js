@@ -622,11 +622,6 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             const cssTarget = path.join(assetsOutputDir, 'styles.css');
             await fs.copyFile(cssSource, cssTarget);
 
-            // Copy watch-me-work CSS
-            const wmwCssSource = path.join(CONFIG.ASSETS_DIR, 'watch-me-work.css');
-            const wmwCssTarget = path.join(assetsOutputDir, 'watch-me-work.css');
-            await fs.copyFile(wmwCssSource, wmwCssTarget).catch(e => console.warn('⚠️ watch-me-work.css not found:', e.message));
-
             // Copy JavaScript
             const jsSource = path.join(CONFIG.ASSETS_DIR, 'script.js');
             const jsTarget = path.join(assetsOutputDir, 'script.js');
@@ -665,7 +660,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             }
 
             // Copy additional JS files
-            for (const jsFile of ['watch-me-work.js', 'curvature-field.js', 'curvature-init.js', 'activity-viz.js', 'linkedin-insight.js', 'analytics-config.js', 'analytics-events.js']) {
+            for (const jsFile of ['curvature-field.js', 'curvature-init.js', 'activity-viz.js', 'linkedin-insight.js', 'analytics-config.js', 'analytics-events.js']) {
                 const src = path.join(CONFIG.ASSETS_DIR, jsFile);
                 const dst = path.join(assetsOutputDir, jsFile);
                 await fs.copyFile(src, dst).catch(e => console.warn(`⚠️ ${jsFile} not found:`, e.message));
@@ -757,12 +752,6 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
         <lastmod>${lastmod}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>${CONFIG.SITE_URL}/watch-me-work.html</loc>
-        <lastmod>${lastmod}</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
     </url>
 </urlset>`;
 
