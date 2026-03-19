@@ -18,6 +18,8 @@ The system has two layers:
 
 Both workflows share a single concurrency group (`cv-pipeline`) to prevent race conditions on shared data files.
 
+**Deployment** — GitHub Pages serves from `main` branch root (not `gh-pages`). The `.nojekyll` file prevents Jekyll processing. The `cv-enhancement.yml` pipeline generates `dist/`, copies output back into the working tree on `main`, and commits directly. The built-in `pages-build-deployment` workflow auto-triggered by GitHub will show as "failed" — this is expected and harmless since `.nojekyll` bypasses Jekyll.
+
 ## Commands
 
 ```bash
