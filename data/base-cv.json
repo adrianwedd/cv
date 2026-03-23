@@ -69,7 +69,8 @@
         "Implemented identity and access management (IDAM) controls reducing unauthorised access risk",
         "Built Python and PowerShell automation scripts for operational workflows, reducing manual processing time",
         "Pioneered responsible AI adoption for data analysis and decision support, including prompt engineering and LLM integration",
-        "Developed ISO 27001-aligned information security practices across the department"
+        "Developed ISO 27001-aligned information security practices across the department",
+        "Contributed to ICT policy development and audit processes for departmental compliance"
       ],
       "technologies": [
         "Python",
@@ -380,7 +381,7 @@
       "name": "AI Safety & Evaluation",
       "category": "AI & Automation",
       "tier": "Primary",
-      "description": "Red-teaming, adversarial testing, evaluation frameworks, model evaluation, hallucination detection, content safety, AI ethics, responsible AI, failure-first methodology, transformer and BERT-based evaluation"
+      "description": "Red-teaming, red teaming, adversarial testing, evaluation frameworks, model evaluation, hallucination detection, content safety, AI ethics, responsible AI, AI alignment, failure-first methodology, FMEA, pre-mortem analysis, transformer and BERT-based evaluation, explainability, interpretability, safety testing"
     },
     {
       "name": "Process Automation",
@@ -398,7 +399,7 @@
       "name": "Cybersecurity",
       "category": "Infrastructure",
       "tier": "Primary",
-      "description": "Penetration testing, vulnerability assessment, threat modeling, identity and access management (IDAM), Essential Eight, ISO 27001, Zero Trust, network security, information security"
+      "description": "Penetration testing (pentesting), vulnerability assessment, threat modeling, identity and access management (IDAM), Essential Eight, ISO 27001, Zero Trust, network security, information security"
     },
     {
       "name": "Linux/Windows Server",
@@ -422,7 +423,7 @@
       "name": "ML Libraries",
       "category": "AI & Automation",
       "tier": "Secondary",
-      "description": "PyTorch, TensorFlow, Hugging Face Transformers, scikit-learn, NumPy, Pandas, spaCy, NLTK — deep learning, neural networks, supervised and unsupervised learning, transformer-based evaluation, and classical machine learning"
+      "description": "PyTorch, TensorFlow, Hugging Face Transformers, scikit-learn, NumPy, Pandas, spaCy, NLTK — deep learning, neural networks, supervised and unsupervised learning, transformer-based evaluation, and classical machine learning, transfer learning"
     },
     {
       "name": "MCP Development",
@@ -470,7 +471,7 @@
       "name": "Deep Learning",
       "category": "AI & Automation",
       "tier": "Primary",
-      "description": "Neural networks, transformer architectures, model training and evaluation"
+      "description": "Neural networks, transformer architectures, CNN, RNN, model training and evaluation, transfer learning"
     },
     {
       "name": "Generative AI",
@@ -488,7 +489,7 @@
       "name": "Data Engineering",
       "category": "Data",
       "tier": "Secondary",
-      "description": "Data pipelines, ETL, data analysis, JSON/CSV processing, vector databases, Redis, MongoDB"
+      "description": "Data pipelines, ETL, data analysis, data science, JSON/CSV processing, vector databases, Redis, MongoDB"
     },
     {
       "name": "MLOps",
@@ -507,6 +508,12 @@
       "category": "Programming Languages",
       "tier": "Secondary",
       "description": "Shell scripting, Unix systems automation"
+    },
+    {
+      "name": "Leadership & Collaboration",
+      "category": "Soft Skills",
+      "tier": "Primary",
+      "description": "Team leadership, stakeholder management, problem solving, critical thinking, cross-functional collaboration, technical presentations, agile delivery"
     }
   ],
   "achievements": [
