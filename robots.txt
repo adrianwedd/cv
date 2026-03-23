@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /data/
+Disallow: /.github/
+Disallow: /dist/
 
 Sitemap: https://cv.adrianwedd.com/sitemap.xml
-
-Disallow: /data/

@@ -224,7 +224,8 @@
       ],
       "github": "https://github.com/adrianwedd/notebooklm-automation",
       "status": "Active Development",
-      "period": "2025 - Present"
+      "period": "2025 - Present",
+      "url": "https://github.com/adrianwedd/notebooklm-automation"
     },
     {
       "name": "Orbitr",
@@ -237,7 +238,8 @@
       ],
       "github": "https://github.com/adrianwedd/orbitr",
       "status": "Active Development",
-      "period": "2025 - Present"
+      "period": "2025 - Present",
+      "url": "https://github.com/adrianwedd/orbitr"
     },
     {
       "name": "Evolve Evolution",
@@ -251,7 +253,8 @@
         "Structured Data"
       ],
       "status": "Client Delivery",
-      "period": "2025 - Present"
+      "period": "2025 - Present",
+      "url": "https://evolvechiropractictas.com"
     },
     {
       "name": "Tanda Pizza",
@@ -263,7 +266,8 @@
         "WhatsApp API"
       ],
       "status": "Client Delivery",
-      "period": "2026"
+      "period": "2026",
+      "url": "https://tandapizza.com"
     },
     {
       "name": "Failure-First Embodied AI",
@@ -291,7 +295,8 @@
       ],
       "github": "https://github.com/adrianwedd/failure-first-embodied-ai",
       "status": "Active Research",
-      "period": "2025 - Present"
+      "period": "2025 - Present",
+      "url": "https://github.com/adrianwedd/failure-first"
     },
     {
       "name": "TEL3SIS",
@@ -306,22 +311,38 @@
       ],
       "github": "https://github.com/adrianwedd/TEL3SIS",
       "status": "Active Development",
-      "period": "2024 - Present"
+      "period": "2024 - Present",
+      "url": "https://github.com/adrianwedd/tel3sis"
     },
     {
-      "name": "Cygnet",
-      "subtitle": "AI-Powered 3D Printed Housing Ecosystem",
-      "description": "Multi-agent platform coordinating land acquisition, build planning, and 3D print operations for affordable housing. 28+ specialized agents, FastAPI backend, React frontend. 795 issues tracked, 432 commits across Python, TypeScript, Kotlin, and Swift.",
-      "technologies": [
-        "Python",
-        "FastAPI",
-        "React",
-        "TypeScript",
-        "Docker"
-      ],
-      "github": "https://github.com/adrianwedd/cygnet",
-      "status": "Active Development",
-      "period": "2025 - Present"
+      "name": "Afterwords",
+      "description": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box.",
+      "url": "https://adrianwedd.github.io/afterwords",
+      "highlights": [
+        "Zero-shot voice cloning running locally on Apple Silicon with no cloud dependencies",
+        "Complements Claude Code's /voice input with TTS output for full voice loop",
+        "Privacy-first: all processing on-device, no data leaves the machine"
+      ]
+    },
+    {
+      "name": "SPARK",
+      "description": "Claude-powered robot companion for a neurodivergent child, built on SunFounder PiCar-X and Raspberry Pi 5. Voice-controlled robotics platform with three-layer cognitive architecture and REST API. Designed around the AuDHD frameworks from This Wasn't in the Brochure.",
+      "url": "https://spark.wedd.au",
+      "highlights": [
+        "Executive function scaffolding, emotional regulation, and meltdown protocol (Safety, Silence, Space)",
+        "Sideways engagement via declarative language for demand-avoidant children",
+        "Claude-powered voice loop with espeak TTS on Raspberry Pi 5"
+      ]
+    },
+    {
+      "name": "Wolf Clan Zen Do Kai",
+      "description": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base.",
+      "url": "https://wolfclanmartialarts.com",
+      "highlights": [
+        "Public-facing club site with SEO-optimised historical blog content",
+        "Private operations hub with instructor tools and lesson management",
+        "Built with vanilla HTML/CSS/JS, deployed on Cloudflare Pages"
+      ]
     }
   ],
   "skills": [
