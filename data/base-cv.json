@@ -14,10 +14,10 @@
     "website": "https://cv.adrianwedd.com",
     "github": "https://github.com/adrianwedd",
     "linkedin": "https://linkedin.com/in/adrianwedd",
-    "tagline": "Building the systems I study \u2014 AI safety, multi-agent frameworks, and client delivery",
-    "availability": "Currently freelancing and building \u2014 open to the right opportunity"
+    "tagline": "Building the systems I study — AI safety, multi-agent frameworks, and client delivery",
+    "availability": "Currently freelancing and building — open to the right opportunity"
   },
-  "professional_summary": "Systems builder, AI safety researcher, and adversarial thinker with nearly 45 years across the stack. The failure-first methodology didn't come from papers \u2014 it came from coordinating direct actions for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: seven years leading cybersecurity, penetration testing, and IDAM for Tasmania's public housing sector; three years of empirical AI red-teaming across 120+ models and 18,000+ adversarial prompts; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD \u2014 the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built.",
+  "professional_summary": "Systems builder, AI safety researcher, and adversarial thinker with nearly 45 years across the stack. The failure-first methodology didn't come from papers — it came from coordinating direct actions for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: seven years leading cybersecurity, penetration testing, and IDAM for Tasmania's public housing sector; three years of empirical AI red-teaming across 120+ models and 18,000+ adversarial prompts; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD — the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built.",
   "experience": [
     {
       "position": "Freelance Developer & AI Consultant",
@@ -25,7 +25,7 @@
       "location": "Tasmania, Australia",
       "period": "2025 - Present",
       "type": "Freelance",
-      "description": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design \u2014 deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
+      "description": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
       "achievements": [
         "Designed and built red-teaming and adversarial testing framework for embodied AI with automated attack adapters (TAP) and cross-modal vulnerability research on VLA models",
         "Developed evaluation frameworks with hallucination detection, content safety gates, and model monitoring for production LLM pipelines",
@@ -134,10 +134,10 @@
       "location": "Australia",
       "period": "2012 - 2015",
       "type": "Full-time",
-      "description": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems \u2014 the kind of breadth that builds genuine systems thinking.",
+      "description": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking.",
       "achievements": [
         "Owned lifecycle management of 60+ Windows/Debian/Ubuntu servers across a nationally distributed organisation",
-        "Maintained heterogeneous network infrastructure with no dedicated team \u2014 full-stack from physical layer to application",
+        "Maintained heterogeneous network infrastructure with no dedicated team — full-stack from physical layer to application",
         "Built and administered Google Apps and VOIP PBX infrastructure replacing legacy systems",
         "Executed complex migrations and decommissioning with zero data loss across diverse environments",
         "Delivered ICT capability to teams with no technical background, building organisational resilience"
@@ -152,14 +152,14 @@
       ]
     },
     {
-      "position": "Actions Unit \u2014 Communications & Logistics Coordinator",
+      "position": "Actions Unit — Communications & Logistics Coordinator",
       "company": "Greenpeace Australia Pacific",
       "location": "Australia",
       "period": "2010 - 2012",
       "type": "Full-time",
-      "description": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents \u2014 corporations and state actors who actively work to prevent campaign success. Work required genuine operational security, adversarial threat modeling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
+      "description": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents — corporations and state actors who actively work to prevent campaign success. Work required genuine operational security, adversarial threat modeling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
       "achievements": [
-        "Planned and coordinated direct action operations \u2014 logistics, communications, and security across multiple simultaneous campaigns",
+        "Planned and coordinated direct action operations — logistics, communications, and security across multiple simultaneous campaigns",
         "Developed threat models and operational security protocols against adversarial opponents with surveillance and legal resources",
         "Designed and maintained field ICT infrastructure for covert operations: encrypted comms, dead drops, secure channels under active counter-surveillance",
         "Conducted pre-action risk assessments enumerating failure modes, contingency routes, and abort criteria",
@@ -182,7 +182,7 @@
       "location": "Australia",
       "period": "~2000 - 2010",
       "type": "Mixed",
-      "description": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems \u2014 sound systems, visual systems, technical systems \u2014 and the instinct to build tools rather than just use them.",
+      "description": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them.",
       "achievements": [
         "Professional DJ across venues and events, managing PA systems, lighting rigs, and live audio",
         "Created multimedia art installations combining audio, visual, and interactive elements",
@@ -201,7 +201,7 @@
   "projects": [
     {
       "name": "This Wasn't in the Brochure",
-      "subtitle": "Published Book \u2014 Co-Parenting Neurodivergent Children",
+      "subtitle": "Published Book — Co-Parenting Neurodivergent Children",
       "description": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
       "technologies": [
         "Technical Writing",
@@ -350,10 +350,10 @@
       "description": "Windows automation and systems administration"
     },
     {
-      "name": "LLM Integration",
+      "name": "Large Language Models",
       "category": "AI & Automation",
       "tier": "Primary",
-      "description": "Large language models (LLMs), Claude API, Anthropic SDK, LangChain, LangGraph, prompt engineering, RAG, retrieval-augmented generation, fine-tuning, multi-agent systems, NLP"
+      "description": "LLMs, Claude API, Anthropic SDK, OpenAI API, LangChain, LangGraph, prompt engineering, RAG, retrieval-augmented generation, fine-tuning, multi-agent systems, natural language processing (NLP)"
     },
     {
       "name": "AI Safety & Evaluation",
@@ -401,7 +401,7 @@
       "name": "ML Libraries",
       "category": "AI & Automation",
       "tier": "Secondary",
-      "description": "PyTorch, Hugging Face Transformers, Scikit-learn, NumPy, Pandas, spaCy \u2014 deep learning, neural networks, transformer-based evaluation, and classical ML across research and agentic projects"
+      "description": "PyTorch, TensorFlow, Hugging Face Transformers, scikit-learn, NumPy, Pandas, spaCy, NLTK — deep learning, neural networks, supervised and unsupervised learning, transformer-based evaluation, and classical machine learning"
     },
     {
       "name": "MCP Development",
@@ -432,40 +432,94 @@
       "category": "Data",
       "tier": "Primary",
       "description": "Database design, querying, and optimization"
+    },
+    {
+      "name": "Cloud Platforms",
+      "category": "Infrastructure",
+      "tier": "Primary",
+      "description": "AWS, Azure, GCP, Cloudflare — cloud deployment, serverless functions, infrastructure management"
+    },
+    {
+      "name": "Kubernetes",
+      "category": "DevOps",
+      "tier": "Secondary",
+      "description": "Container orchestration, cluster management"
+    },
+    {
+      "name": "Deep Learning",
+      "category": "AI & Automation",
+      "tier": "Primary",
+      "description": "Neural networks, transformer architectures, model training and evaluation"
+    },
+    {
+      "name": "Generative AI",
+      "category": "AI & Automation",
+      "tier": "Primary",
+      "description": "Large language models (LLMs), generative model evaluation, prompt engineering, content generation pipelines"
+    },
+    {
+      "name": "Computer Vision",
+      "category": "AI & Automation",
+      "tier": "Secondary",
+      "description": "VLA model evaluation, cross-modal vulnerability research, image-based adversarial testing"
+    },
+    {
+      "name": "Data Engineering",
+      "category": "Data",
+      "tier": "Secondary",
+      "description": "Data pipelines, ETL, data analysis, JSON/CSV processing, vector databases, Redis, MongoDB"
+    },
+    {
+      "name": "MLOps",
+      "category": "DevOps",
+      "tier": "Secondary",
+      "description": "Model deployment, model monitoring, production ML pipelines, experiment tracking"
+    },
+    {
+      "name": "FastAPI",
+      "category": "Programming Languages",
+      "tier": "Secondary",
+      "description": "Python web framework for API development and microservices"
+    },
+    {
+      "name": "Bash",
+      "category": "Programming Languages",
+      "tier": "Secondary",
+      "description": "Shell scripting, Unix systems automation"
     }
   ],
   "achievements": [
     {
-      "icon": "\ud83d\udcda",
+      "icon": "📚",
       "title": "Published Author — This Wasn't in the Brochure",
-      "description": "Wrote and published a neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. Four localised editions (AU, US, UK, NZ). Built using a three-AI collaborative workflow as an executive function accommodation \u2014 documented transparently in the book's appendix.",
+      "description": "Wrote and published a neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. Four localised editions (AU, US, UK, NZ). Built using a three-AI collaborative workflow as an executive function accommodation — documented transparently in the book's appendix.",
       "date": "2025",
       "category": "Publication",
       "url": "https://thiswasntinthebrochure.wtf"
     },
     {
-      "icon": "\ud83c\udfdb\ufe0f",
+      "icon": "🏛️",
       "title": "Security & Systems Uplift — Homes Tasmania",
       "description": "Led cybersecurity and systems integration for Tasmania's public housing sector: Essential Eight compliance uplift, penetration testing, IDAM controls, and RESTful API integrations for the Housing Management System. Infrastructure that vulnerable people depend on — the stakes made the work serious.",
       "date": "2018-2024",
       "category": "Technical Achievement"
     },
     {
-      "icon": "\ud83e\udd16",
+      "icon": "🤖",
       "title": "AI Safety Research & Red-Teaming",
       "description": "Developed failure-first red-teaming framework for embodied AI systems with 104 tracked research issues, cross-modal vulnerability analysis on VLA models, and automated attack adapters. Pursuing commercial AI safety services.",
       "date": "2025-2026",
       "category": "Research"
     },
     {
-      "icon": "\ud83d\udcde",
+      "icon": "📞",
       "title": "Voice-First AI Agent Platform",
       "description": "Built TEL3SIS, a real-time telephony platform with LLM-powered conversations, tri-layer memory architecture, safety oracle, and tool orchestration across 226 tracked issues.",
       "date": "2024-2026",
       "category": "Innovation"
     },
     {
-      "icon": "\ud83c\udf3f",
+      "icon": "🌿",
       "title": "Technology for High-Stakes Campaigns",
       "description": "Maintained distributed IT infrastructure across The Wilderness Society's national operations and built field technology for Greenpeace direct actions — two very different threat models, both requiring the infrastructure to be invisible until it isn't.",
       "date": "2010-2015",
@@ -495,7 +549,7 @@
       "degree": "Computer Science Foundation",
       "institution": "Self-Taught & Professional Experience",
       "period": "2000 - 2018",
-      "description": "Self-taught through two decades of professional projects, freelance work, and relentless curiosity. No formal degree \u2014 learned by building, breaking, and rebuilding.",
+      "description": "Self-taught through two decades of professional projects, freelance work, and relentless curiosity. No formal degree — learned by building, breaking, and rebuilding.",
       "key_areas": [
         "Software Engineering",
         "System Design",
@@ -507,7 +561,7 @@
       "degree": "First Code at Age 6",
       "institution": "Microbee (BASIC)",
       "period": "~1981",
-      "description": "Wrote first program at age 6 on a Microbee in BASIC \u2014 a morning routine sequencer with randomised audiovisual rewards. Built to compensate for undiagnosed ADHD executive function deficits. The instinct to build tools rather than endure problems started here and never stopped."
+      "description": "Wrote first program at age 6 on a Microbee in BASIC — a morning routine sequencer with randomised audiovisual rewards. Built to compensate for undiagnosed ADHD executive function deficits. The instinct to build tools rather than endure problems started here and never stopped."
     }
   ],
   "certifications": [],
