@@ -345,6 +345,8 @@ window.__CV_DATA__ = ${safe(this.cvData)};
 window.__ACTIVITY_DATA__ = ${safe(this.activityData || {})};
 window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
 </script>`;
+        // Remove any previously injected inline data blocks to prevent duplication
+        htmlContent = htmlContent.replace(/<script id="cv-inline-data">[\s\S]*?<\/script>\n?/g, '');
         return htmlContent.replace('</head>', `${inlineScript}\n</head>`);
     }
 

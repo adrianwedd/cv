@@ -25,7 +25,7 @@ name: 🚀 CV Auto-Enhancement Pipeline
 
 concurrency:
   group: cv-pipeline
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 on:
   schedule:
@@ -254,8 +254,6 @@ jobs:
     needs: cv-intelligence-analysis
     permissions:
       contents: write
-      pages: write
-      id-token: write
     steps:
       - name: 🚀 CV Enhancement Pipeline Initialization
         run: |
@@ -282,8 +280,7 @@ jobs:
         run: |
           echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
           cd .github/scripts
-          npm cache clean --force
-          npm install
+          npm ci
           cd ../..
           echo "✅ Dependencies installed successfully"
 
@@ -652,6 +649,10 @@ jobs:
                "success": true
              }]' "$USAGE_FILE" > "$USAGE_FILE.tmp"
 
+          mv "$USAGE_FILE.tmp" "$USAGE_FILE"
+
+          # Prune to last 90 entries to prevent unbounded growth
+          jq '.daily_usage = (.daily_usage | .[-90:]) | .enhancement_history = (.enhancement_history | .[-90:])' "$USAGE_FILE" > "$USAGE_FILE.tmp"
           mv "$USAGE_FILE.tmp" "$USAGE_FILE"
 
           echo "📊 **Enhancement Session Analytics:**"

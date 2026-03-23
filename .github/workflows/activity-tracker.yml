@@ -25,7 +25,7 @@ name: 📊 GitHub Activity Intelligence Tracker
 
 concurrency:
   group: cv-pipeline
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 on:
   schedule:
@@ -92,8 +92,7 @@ jobs:
         run: |
           echo "📦 **INSTALLING ACTIVITY ANALYSIS DEPENDENCIES**"
           cd .github/scripts
-          npm cache clean --force
-          npm install
+          npm ci
           cd ../..
           echo "✅ Analysis dependencies installed"
 
