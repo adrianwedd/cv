@@ -1,15 +1,6 @@
 {
   "daily_usage": [
     {
-      "timestamp": "2025-07-31 06:04 AEST",
-      "utc_timestamp": "2025-07-30T20:04:45Z",
-      "enhancement_mode": "comprehensive",
-      "strategy": "comprehensive",
-      "estimated_tokens": 8000,
-      "activity_score": 53.50,
-      "outcome": "success"
-    },
-    {
       "timestamp": "2025-07-31 10:12 AEST",
       "utc_timestamp": "2025-07-31T00:12:00Z",
       "enhancement_mode": "comprehensive",
@@ -809,15 +800,18 @@
       "estimated_tokens": 8000,
       "activity_score": 100,
       "outcome": "success"
+    },
+    {
+      "timestamp": "2026-05-11 07:21 AEST",
+      "utc_timestamp": "2026-05-10T21:21:48Z",
+      "enhancement_mode": "comprehensive",
+      "strategy": "comprehensive",
+      "estimated_tokens": 8000,
+      "activity_score": 100,
+      "outcome": "success"
     }
   ],
   "enhancement_history": [
-    {
-      "date": "2025-07-30",
-      "mode": "comprehensive",
-      "activity_score": 53.50,
-      "success": true
-    },
     {
       "date": "2025-07-31",
       "mode": "comprehensive",
@@ -1348,6 +1342,12 @@
     },
     {
       "date": "2026-05-09",
+      "mode": "comprehensive",
+      "activity_score": 100,
+      "success": true
+    },
+    {
+      "date": "2026-05-10",
       "mode": "comprehensive",
       "activity_score": 100,
       "success": true
