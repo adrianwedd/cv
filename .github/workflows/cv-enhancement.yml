@@ -396,7 +396,9 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Content Validation Gate
-        if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
+        # Always run: integrity checks must gate every deploy, even on low-budget
+        # days when AI enhancement is skipped — the detector/guardian validate the
+        # base CV content about to be committed, not just freshly generated AI output.
         run: |
           echo "Content validation gate..."
           cd .github/scripts
