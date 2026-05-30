@@ -14,7 +14,7 @@ The system has two layers:
 
 **CI Pipeline** — Two scheduled GitHub Actions workflows run Node.js scripts from `.github/scripts/`:
 - `activity-tracker.yml` — Runs daily (~6 AM AEST / ~7 AM AEDT, 20:00 UTC). Collects GitHub commit data, language stats, and contribution metrics inline in the workflow steps (git/curl/jq). Note: the standalone `activity-analyzer.js` script exists but is not currently invoked by this workflow.
-- `cv-enhancement.yml` — Runs daily (~8 AM AEDT / ~7 AM AEST, 21:00 UTC). Order: `claude-enhancer.js` (AI content optimization) → Content Validation Gate → `cv-generator.js` (site generation) → commit/deploy. The validation gate runs `ai-hallucination-detector.js` and `content-guardian.js --validate` — failures block deployment. The gate is currently conditional (`if: ai-budget != 'insufficient'`), so it is skipped when the AI budget is insufficient.
+- `cv-enhancement.yml` — Runs daily (~8 AM AEDT / ~7 AM AEST, 21:00 UTC). Order: `claude-enhancer.js` (AI content optimization) → Content Validation Gate → `cv-generator.js` (site generation) → commit/deploy. The validation gate runs `tests/validate-json.test.js` (base-cv.json schema/integrity), `ai-hallucination-detector.js`, and `content-guardian.js --validate` — failures block deployment. The gate runs unconditionally (it validates the base CV content about to be committed, not just freshly generated AI output), so it gates every deploy regardless of AI budget.
 
 Both scheduled workflows share a single concurrency group (`cv-pipeline`) to prevent race conditions on shared data files.
 

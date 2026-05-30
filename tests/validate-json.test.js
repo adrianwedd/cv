@@ -96,11 +96,19 @@ for (let i = 0; i < (data.projects || []).length; i++) {
   const label = `projects[${i}] (${proj.name || 'unknown'})`;
   assert(typeof proj.name === 'string' && proj.name.length > 0, `${label} has name`);
   assert(typeof proj.description === 'string' && proj.description.length > 0, `${label} has description`);
-  assert(Array.isArray(proj.technologies) && proj.technologies.length > 0, `${label} has technologies array`);
-  assert(
-    typeof proj.github === 'string' && /^https:\/\//.test(proj.github),
-    `${label} has valid github URL`
-  );
+  // technologies is optional — non-code projects use a {url, highlights} shape
+  // instead. Require a non-empty array only when the field is present.
+  if (proj.technologies !== undefined) {
+    assert(Array.isArray(proj.technologies) && proj.technologies.length > 0, `${label} technologies is a non-empty array when present`);
+  }
+  // github is optional — non-code projects (e.g. hospitality, martial arts)
+  // legitimately have no repo. Validate the URL only when the field is present.
+  if (proj.github !== undefined && proj.github !== '') {
+    assert(
+      typeof proj.github === 'string' && /^https:\/\//.test(proj.github),
+      `${label} github URL is valid https when present`
+    );
+  }
 }
 
 // ── Skill entries ───────────────────────────────────────────────

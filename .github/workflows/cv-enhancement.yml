@@ -401,6 +401,11 @@ jobs:
         # base CV content about to be committed, not just freshly generated AI output.
         run: |
           echo "Content validation gate..."
+
+          # base-cv.json schema/integrity validation (exits 1 on any violation)
+          node tests/validate-json.test.js
+          echo "base-cv.json schema validation passed"
+
           cd .github/scripts
 
           # Hallucination detector exits 1 on confidence < 70

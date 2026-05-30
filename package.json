@@ -7,6 +7,8 @@
     "dev": "python3 -m http.server 8000",
     "serve": "npx serve .",
     "validate:json": "node -e \"const fs=require('fs'),path=require('path');const dir='data';fs.readdirSync(dir).filter(f=>f.endsWith('.json')).forEach(f=>{try{JSON.parse(fs.readFileSync(path.join(dir,f),'utf8'));console.log('OK',f)}catch(e){console.error('FAIL',f,e.message);process.exit(1)}})\"",
+    "test": "node tests/validate-json.test.js",
+    "test:e2e": "playwright test --config tests/playwright.config.js",
     "scripts:install": "cd .github/scripts && npm install",
     "scripts:lint": "cd .github/scripts && npm run lint",
     "scripts:test": "cd .github/scripts && npm test"
