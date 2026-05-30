@@ -12,7 +12,7 @@ This function sets up a logger that writes to both a specified log file and the 
 **Usage:**
 
 ```python
-from utils.logging_utils import setup_logger
+from src.python.utils.logging_utils import setup_logger
 
 logger = setup_logger(__name__, 'my_app.log')
 logger.info('This is an info message.')
@@ -25,7 +25,7 @@ This class provides a simple way to collect and store metrics.
 **Usage:**
 
 ```python
-from utils.logging_utils import MetricsCollector
+from src.python.utils.logging_utils import MetricsCollector
 
 metrics_collector = MetricsCollector()
 metrics_collector.collect('requests_processed', 100)

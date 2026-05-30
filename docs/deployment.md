@@ -4,47 +4,41 @@ This section details the deployment process for the AI-enhanced CV system, prima
 
 ## GitHub Pages Setup
 
-The AI-enhanced CV is designed to be automatically deployed to [GitHub Pages](https://pages.github.com/) with each successful run of the `🚀 CV Auto-Enhancement Pipeline` (`cv-enhancement.yml`) workflow.
+The AI-enhanced CV is automatically deployed to [GitHub Pages](https://pages.github.com/) with each successful run of the `🚀 CV Auto-Enhancement Pipeline` (`cv-enhancement.yml`) workflow. GitHub Pages serves the site directly from the **root of the `main` branch** (not a `gh-pages` branch).
 
 ### How it Works
 
 1.  **Build Output**: The `cv-generator.js` script generates all static website assets (HTML, CSS, JavaScript, data files, PDF) into the `dist/` directory.
-2.  **Deployment Action**: The `peaceiris/actions-gh-pages@v3` GitHub Action is used to deploy the contents of the `dist/` directory to the `gh-pages` branch of the repository.
-3.  **GitHub Pages Hosting**: GitHub Pages then serves the content from the `gh-pages` branch, making the CV accessible at a URL like `https://<username>.github.io/<repository-name>` (e.g., `https://adrianwedd.github.io/cv`).
+2.  **Commit Back to `main`**: The `🚀 Deploy Generated Assets to Main Branch` step copies the built output from `dist/` back into the working tree on `main` (e.g. `index.html`, `assets/`, `data/`) and commits it directly.
+3.  **GitHub Pages Hosting**: GitHub Pages serves the content from the `main` branch root. A `.nojekyll` file at the repository root disables Jekyll processing so the static files are served as-is.
+
+> **Note**: The built-in `pages-build-deployment` workflow that GitHub auto-triggers may show as "failed". This is expected and harmless — `.nojekyll` bypasses the Jekyll build path that workflow runs.
 
 ### Configuration in `cv-enhancement.yml`
 
-The deployment step in the workflow is configured as follows:
+There is no third-party Pages-deploy action (such as `peaceiris/actions-gh-pages`). Deployment is a plain git commit/push performed by the workflow:
 
-```yaml
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: ${{ secrets.CUSTOM_DOMAIN }}
-```
-
-*   **`github_token`**: Uses the default `GITHUB_TOKEN` provided by GitHub Actions, which has sufficient permissions to push to the `gh-pages` branch.
-*   **`publish_dir`**: Specifies that the `dist/` directory should be deployed.
-*   **`cname`**: (Optional) Allows specifying a custom domain for the GitHub Pages site. This value is pulled from a GitHub Secret named `CUSTOM_DOMAIN`.
+*   The `cv-enhancement-pipeline` job declares only `permissions: contents: write` — enough to push the generated assets back to `main`.
+*   The `🚀 Deploy Generated Assets to Main Branch` step stages the generated files and commits them.
+*   A later `🚀 Commit Enhanced CV Data` step commits any updated `data/` files.
 
 ## Custom Domains
 
-To use a custom domain (e.g., `cv.yourdomain.com`) for your GitHub Pages CV, follow these steps:
+The site is served at the custom domain configured by the committed `CNAME` file at the repository root (currently `cv.adrianwedd.com`). There is no `CUSTOM_DOMAIN` secret — the domain is read directly from that file.
 
-1.  **Configure DNS**: In your domain registrar's settings, create a `CNAME` record that points your desired subdomain (e.g., `cv`) to `<username>.github.io/<repository-name>` (e.g., `adrianwedd.github.io/cv`).
-2.  **GitHub Secret**: Add your custom domain as a repository secret named `CUSTOM_DOMAIN` in your GitHub repository settings (`Settings > Secrets and variables > Actions > New repository secret`).
-3.  **Workflow Execution**: The `cv-generator.js` script will automatically create a `CNAME` file in the `dist/` directory with your custom domain, which the `peaceiris/actions-gh-pages` action will then deploy.
+To change the custom domain:
+
+1.  **Configure DNS**: In your domain registrar's settings, create a `CNAME` record pointing your desired subdomain (e.g., `cv`) to `<username>.github.io` (e.g., `adrianwedd.github.io`).
+2.  **Edit the `CNAME` file**: Update the committed `CNAME` file at the repository root to contain your domain, then commit it to `main`.
 
 ## Troubleshooting Deployment Issues
 
 If your CV is not deploying correctly to GitHub Pages, consider the following:
 
-*   **Workflow Status**: Check the `Actions` tab in your GitHub repository. Ensure the `🚀 CV Auto-Enhancement Pipeline` workflow is completing successfully. Look for any failed steps.
-*   **Permissions**: Verify that the `GITHUB_TOKEN` has `contents: write` and `pages: write` permissions in your workflow file.
-*   **`publish_dir`**: Ensure the `publish_dir` in the deployment step (`./dist`) correctly points to the directory where your `cv-generator.js` script outputs the website files.
-*   **`CNAME` File**: If using a custom domain, check the `gh-pages` branch of your repository to ensure the `CNAME` file exists and contains the correct domain name.
+*   **Workflow Status**: Check the `Actions` tab in your GitHub repository. Ensure the `🚀 CV Auto-Enhancement Pipeline` workflow is completing successfully. Look for any failed steps. (The auto-triggered `pages-build-deployment` showing "failed" is expected and harmless — see the note above.)
+*   **Permissions**: Verify that the `cv-enhancement-pipeline` job has `contents: write` permission so it can commit the generated assets back to `main`.
+*   **Generated Output**: Ensure `cv-generator.js` is writing the website files into `dist/` and that the `🚀 Deploy Generated Assets to Main Branch` step copies them into the working tree.
+*   **`CNAME` File**: If using a custom domain, check that the committed `CNAME` file at the repository root exists and contains the correct domain name.
 *   **Browser Cache**: Sometimes, browser cache can cause issues. Try clearing your browser's cache or opening the GitHub Pages URL in an incognito/private window.
-*   **GitHub Pages Settings**: Verify your repository's GitHub Pages settings (`Settings > Pages`) to ensure it's configured to deploy from the `gh-pages` branch.
+*   **GitHub Pages Settings**: Verify your repository's GitHub Pages settings (`Settings > Pages`) to ensure it's configured to deploy from the `main` branch root.
 *   **Build Errors**: Check the logs of the `🎨 Dynamic CV Website Generation` step. Errors here will prevent the website files from being correctly generated.

@@ -19,7 +19,7 @@ This module provides the `DataValidator` class with static methods for common da
 **Usage Examples:**
 
 ```python
-from data_validation.data_validator import DataValidator
+from src.python.data_validation.data_validator import DataValidator
 
 # Check if not empty
 print(f"Is 'hello' not empty? {DataValidator.is_not_empty('hello')}")

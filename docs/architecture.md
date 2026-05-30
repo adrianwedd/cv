@@ -113,21 +113,21 @@ Data flows through the system in a well-defined pipeline, ensuring that each sta
 
 ### 6. Python Utilities (`src/python/`)
 
-This new set of Python modules provides foundational utilities for various aspects of the system, promoting modularity, reusability, and maintainability.
+This set of Python modules is **experimental and not yet integrated** into the running system: no GitHub Actions workflow, JavaScript script, `package.json`, or `index.html` references `src/python`. The live CI pipeline (`activity-tracker.yml`, `cv-enhancement.yml`) runs only Node.js scripts from `.github/scripts/`. The modules below are provided as foundational utilities pending integration.
 
-*   **`logging_utils.py`**: Provides advanced logging and metrics collection capabilities, allowing for structured logging and performance monitoring.
+*   **`utils/logging_utils.py`** (`src/python/utils/logging_utils.py`): Provides advanced logging and metrics collection capabilities, allowing for structured logging and performance monitoring.
 *   **`api_wrappers/external_apis.py`**: Contains wrappers for external APIs (e.g., firmographics, funding data), abstracting API interactions and handling authentication and error management.
 *   **`config_manager/config_manager.py`**: Implements a flexible configuration management system that can load settings from `.ini` files and environment variables, with environment variables taking precedence.
 *   **`data_validation/data_validator.py`**: Offers a suite of data validation functions for common tasks such as type checking, range validation, and format validation (e.g., email, URL).
 
 ## Technology Stack
 
-*   **Primary Languages**: JavaScript (Node.js), Python, Shell Scripting (Bash).
+*   **Primary Languages**: JavaScript (Node.js), Shell Scripting (Bash). (Python exists under `src/python/` but is experimental and not wired into the running system.)
 *   **AI/ML**: Anthropic Claude API.
 *   **Web Technologies**: HTML5, CSS3.
-*   **Frontend Frameworks/Libraries**: None (Vanilla JavaScript).
+*   **Frontend Frameworks/Libraries**: None (Vanilla JavaScript, ES modules).
 *   **Build/Automation**: npm, GitHub Actions.
 *   **PDF Generation**: Puppeteer.
-*   **Data Processing**: `jq` (JSON processor), Python libraries (e.g., `configparser`, `requests`).
-*   **Testing**: Node.js native test runner, Python `unittest` module.
+*   **Data Processing**: `jq` (JSON processor in CI), plus Node.js scripts.
+*   **Testing**: Node.js native test runner (active CI gate). The `src/python/` `unittest`/`pytest` suite is standalone/manual and not run in CI.
 

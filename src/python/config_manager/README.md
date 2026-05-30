@@ -26,7 +26,7 @@ max_retries = 5
 **Usage:**
 
 ```python
-from config_manager.config_manager import ConfigManager
+from src.python.config_manager.config_manager import ConfigManager
 import os
 
 # Create a dummy config file for demonstration

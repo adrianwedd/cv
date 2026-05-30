@@ -14,7 +14,7 @@ Wrapper for the [Abstract API Company Enrichment](https://www.abstractapi.com/ap
 **Initialization:**
 
 ```python
-from api_wrappers.external_apis import AbstractApiWrapper
+from src.python.api_wrappers.external_apis import AbstractApiWrapper
 
 # API key can be passed directly or set as an environment variable ABSTRACT_API_KEY
 api_wrapper = AbstractApiWrapper(api_key="YOUR_ABSTRACT_API_KEY")
@@ -37,7 +37,7 @@ Wrapper for the [Intellizence Startup Funding Dataset API](https://www.intellize
 **Initialization:**
 
 ```python
-from api_wrappers.external_apis import IntellizenceApiWrapper
+from src.python.api_wrappers.external_apis import IntellizenceApiWrapper
 
 # API key can be passed directly or set as an environment variable INTELLIZENCE_API_KEY
 api_wrapper = IntellizenceApiWrapper(api_key="YOUR_INTELLIZENCE_API_KEY")

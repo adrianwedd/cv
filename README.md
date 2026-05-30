@@ -15,7 +15,7 @@ A professional CV website that uses GitHub activity analysis and Claude AI to ke
 ```
 cv/
 ├── index.html                    # Main CV webpage
-├── watch-me-work.html            # Live activity dashboard
+├── watch-me-work.html            # Redirect stub → adrianwedd.com/activity/ (dashboard migrated)
 ├── assets/
 │   ├── styles.css                # CSS with dark/light themes
 │   └── script.js                 # Interactive features

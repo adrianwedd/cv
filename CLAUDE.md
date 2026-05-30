@@ -12,11 +12,13 @@ The system has two layers:
 
 **Frontend** — Static HTML/CSS/JS served from the repo root. `index.html` loads `data/base-cv.json` via fetch and renders CV sections using DOM API methods. `watch-me-work.html` is a redirect stub pointing to `adrianwedd.com/activity/` (the activity dashboard has been migrated to the portfolio site). Uses `assets/styles.css` (design tokens, dark/light themes).
 
-**CI Pipeline** — Two GitHub Actions workflows run Node.js scripts from `.github/scripts/`:
-- `activity-tracker.yml` — Runs daily (~6 AM AEST / ~7 AM AEDT, 20:00 UTC). Collects GitHub commit data, language stats, contribution metrics via `activity-analyzer.js`.
-- `cv-enhancement.yml` — Runs daily (~8 AM AEDT / ~7 AM AEST, 21:00 UTC). Uses `claude-enhancer.js` for AI content optimization, `cv-generator.js` for site generation, then deploys to Pages. Validation gate runs `ai-hallucination-detector.js` and `content-guardian.js --validate` — failures block deployment.
+**CI Pipeline** — Two scheduled GitHub Actions workflows run Node.js scripts from `.github/scripts/`:
+- `activity-tracker.yml` — Runs daily (~6 AM AEST / ~7 AM AEDT, 20:00 UTC). Collects GitHub commit data, language stats, and contribution metrics inline in the workflow steps (git/curl/jq). Note: the standalone `activity-analyzer.js` script exists but is not currently invoked by this workflow.
+- `cv-enhancement.yml` — Runs daily (~8 AM AEDT / ~7 AM AEST, 21:00 UTC). Order: `claude-enhancer.js` (AI content optimization) → Content Validation Gate → `cv-generator.js` (site generation) → commit/deploy. The validation gate runs `ai-hallucination-detector.js` and `content-guardian.js --validate` — failures block deployment. The gate is currently conditional (`if: ai-budget != 'insufficient'`), so it is skipped when the AI budget is insufficient.
 
-Both workflows share a single concurrency group (`cv-pipeline`) to prevent race conditions on shared data files.
+Both scheduled workflows share a single concurrency group (`cv-pipeline`) to prevent race conditions on shared data files.
+
+A third workflow, `dependency-audit.yml`, runs on PRs that touch `package.json`/`package-lock.json` (root or `.github/scripts/`) and on manual dispatch. It runs `npm audit --omit=dev --audit-level=moderate` for both the root and the scripts package, so it may show red on PRs with unresolved moderate+ production-dependency vulnerabilities.
 
 **Deployment** — GitHub Pages serves from `main` branch root (not `gh-pages`). The `.nojekyll` file prevents Jekyll processing. The `cv-enhancement.yml` pipeline generates `dist/`, copies output back into the working tree on `main`, and commits directly. The built-in `pages-build-deployment` workflow auto-triggered by GitHub will show as "failed" — this is expected and harmless since `.nojekyll` bypasses Jekyll.
 
@@ -50,7 +52,7 @@ npm test                                     # from .github/scripts/
 | File | Purpose |
 |------|---------|
 | `data/base-cv.json` | Source of truth for all CV content. Edit this to update CV data. |
-| `assets/script.js` | Main CV page JS. Uses DOM API methods (no innerHTML) to render sections from base-cv.json. |
+| `assets/script.js` | Main CV page entrypoint, loaded as an ES module (`<script type="module">`). Orchestrates modules under `assets/modules/` (`data-loader.js`, `theme.js`, `utils.js`, `defaults.js`, `config.js`) and per-section renderers in `assets/modules/sections/`. All rendering uses DOM API methods (no innerHTML) from base-cv.json. |
 | `watch-me-work.html` | Redirect stub → `adrianwedd.com/activity/` (dashboard migrated). |
 | `assets/styles.css` | All styling. Uses CSS custom properties (design tokens) defined in `:root`. |
 | `.github/scripts/ai-hallucination-detector.js` | Validates AI-generated claims. Exits 1 if confidence < 70%. |
@@ -58,11 +60,11 @@ npm test                                     # from .github/scripts/
 
 ## Critical Constraints
 
-**No innerHTML** — All frontend JS uses safe DOM methods (`createElement`, `textContent`, `appendChild`). A pre-commit hook blocks innerHTML usage.
+**No innerHTML** — All frontend JS uses safe DOM methods (`createElement`, `textContent`, `appendChild`). This is enforced by the test suite (`tests/smoke.test.js` asserts `script.js` contains no `.innerHTML =`); the `.pre-commit-config.yaml` hooks do not scan for innerHTML.
 
 **Content integrity** — `base-cv.json` must contain only verifiable claims. No fabricated metrics, certifications, or project details. The hallucination detector and content guardian run as CI gates.
 
-**CSS variables** — Custom properties follow the naming convention `--color-*`, `--radius-*`, `--spacing-*`. If you add new variables, define them in the `:root` block. Common gotcha: `--radius-sm` not `--border-radius-sm`, `--color-background-card` not `--color-card-background`.
+**CSS variables** — Custom properties follow the naming convention `--color-*`, `--radius-*`, and the spacing scale `--space-*` (e.g. `--space-4`, plus `--section-spacing` / `--container-padding`) — note there is no `--spacing-*` prefix. If you add new variables, define them in the `:root` block. Common gotcha: `--radius-sm` not `--border-radius-sm`, `--color-background-card` not `--color-card-background`.
 
 **Workflow data files** — Both workflows write to `data/` and share the `cv-pipeline` concurrency group so they never run simultaneously. Always create referenced files atomically before updating summary files.
 

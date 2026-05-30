@@ -35,8 +35,8 @@ To set up your local development environment, follow these steps:
     ANTHROPIC_API_KEY=your_claude_api_key
     ABSTRACT_API_KEY=your_abstract_api_key # For Python API wrappers
     INTELLIZENCE_API_KEY=your_intellizence_api_key # For Python API wrappers
-    # Optional: CUSTOM_DOMAIN=your.custom.domain
     ```
+    > The custom domain is configured by the committed `CNAME` file at the repository root, not by an environment variable or secret.
     *   **GitHub Token**: Generate a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `repo` scope.
     *   **Claude API Key**: Obtain an API key from [Anthropic](https://www.anthropic.com/).
 

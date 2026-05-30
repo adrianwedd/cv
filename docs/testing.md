@@ -9,7 +9,7 @@ Unit tests are implemented for the core JavaScript and Python business logic to 
 ### Frameworks
 
 *   **JavaScript**: The project utilizes Node.js's built-in test runner (`node:test`). This lightweight framework provides basic testing capabilities without requiring external dependencies like Jest or Mocha.
-*   **Python**: The project uses Python's built-in `unittest` module for writing and running tests. This module provides a rich set of tools for constructing and running tests.
+*   **Python**: A set of `unittest`-based tests exists under `src/python/`. These are **not** wired into any GitHub Actions workflow or the `npm test` gate — they are a standalone/experimental suite run manually (see below).
 
 ### How to Run Tests
 
@@ -21,19 +21,23 @@ To execute the unit tests locally:
     npm test
     ```
 
-    This command will execute all files ending with `.test.js` within the `.github/scripts` directory.
+    The `test` script in `package.json` runs the Node test runner against an explicit list of test files: `activity-analyzer.test.js`, `claude-enhancer.test.js`, and `cv-generator.test.js` (`node --test --test-concurrency=1 ...`). It does not glob all `*.test.js` files, so any other `*.test.js` files in the directory are not run by `npm test`.
 
-*   **Python Tests**: Navigate to the directory containing the Python test files (e.g., `src/python/utils`, `src/python/api_wrappers`, `src/python/config_manager`, `src/python/data_validation`) and run the following command:
-
-    ```bash
-    python -m unittest discover -s . -p "test_*.py"
-    ```
-
-    Alternatively, you can run individual test files directly:
+*   **Python Tests**: The test files use absolute imports (`from src.python.<mod> import ...`), so they must be run **from the repository root** — not from inside a module directory. Run all of them with:
 
     ```bash
-    python -m src.python.utils.test_logging_utils
+    python3 -m pytest src/python
+    # or, with unittest, from the repo root:
+    python3 -m unittest discover -s . -p "test_*.py"
     ```
+
+    Alternatively, you can run an individual test module directly (also from the repo root):
+
+    ```bash
+    python3 -m src.python.utils.test_logging_utils
+    ```
+
+    > **Note**: These Python tests are not invoked by any CI workflow; they are a manual/experimental suite.
 
 ### Test File Structure and Conventions
 
@@ -50,15 +54,16 @@ Automated validation and linting steps are integrated into the CI/CD pipeline to
 
 ESLint is used to statically analyze the JavaScript code for programmatic errors, bugs, stylistic issues, and suspicious constructs. It helps maintain a consistent code style and catches potential issues early in the development cycle.
 
-*   **Configuration**: The ESLint configuration is defined in `.eslintrc.js` within the `.github/scripts` directory.
+*   **Configuration**: The ESLint configuration is defined in `eslint.config.js` (the ESLint 9 flat-config format) within the `.github/scripts` directory.
 *   **Execution**: The `npm run lint` command is executed as part of the CI pipeline.
 
 ### JSON Validation: Ensuring Data Integrity
 
-All generated JSON data files (e.g., `activity-summary.json`, `ai-enhancements.json`) are validated in the CI pipeline to ensure they are well-formed and syntactically correct. This prevents malformed data from breaking downstream processes or the live CV.
+All JSON data files in `data/` are validated to ensure they are well-formed and syntactically correct. This prevents malformed data from breaking downstream processes or the live CV.
 
-*   **Tool**: `jq` is used for JSON validation.
-*   **Execution**: A loop iterates through all `.json` files in the `data/` directory, and `jq . <file>` is used to parse and validate each file. Any parsing error will cause the CI step to fail.
+*   **Tool**: The repo-root `npm run validate:json` script uses Node's `JSON.parse` (a one-liner over `data/*.json`), not `jq`.
+*   **Execution**: The script iterates through all `.json` files in `data/` and parses each one; any parse error causes a non-zero exit.
+*   **Note on `jq`**: `jq` is used elsewhere in `cv-enhancement.yml` for extracting individual metrics from JSON, but it is not the JSON-validation tool.
 
 ### (Future) HTML Validation
 

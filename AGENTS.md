@@ -8,7 +8,7 @@
 - `data/`: runtime content and generated reports (JSON) consumed by the site (for example `data/base-cv.json`).
 - `.github/workflows/`: GitHub Actions pipelines (activity tracking + CV enhancement/deploy).
 - `.github/scripts/`: Node-based pipeline tooling (analyzers, generators, validators, tests).
-- `docs/`: documentation artifacts (may include generated output like `docs/jsdoc_output/`).
+- `docs/`: documentation artifacts. JSDoc HTML output (`docs/jsdoc_output/`) is generated locally on demand and is gitignored, so it is not committed.
 - `tests/`: repository-level tests (if present, keep focused on user-visible behavior and safety checks).
 
 ## Build, Test, And Development Commands

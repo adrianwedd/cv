@@ -11,24 +11,16 @@ prompts/claude/v2.0/
 ├── README.md                 # This documentation
 ├── personas/                 # Expert persona definitions
 │   ├── senior-technical-recruiter.yaml
-│   ├── technical-assessment-specialist.yaml
-│   ├── executive-recruiter.yaml
-│   └── technical-product-manager.yaml
-├── templates/                # Prompt templates with XML structure
-│   ├── professional-summary.xml
-│   ├── skills-assessment.xml
-│   ├── experience-enhancement.xml
-│   └── projects-showcase.xml
-├── schemas/                  # Output schemas and validation
-│   ├── professional-summary-schema.json
-│   ├── skills-assessment-schema.json
-│   ├── experience-enhancement-schema.json
-│   └── projects-showcase-schema.json
-└── examples/                 # Example prompts and responses
-    ├── professional-summary-examples.md
-    ├── skills-assessment-examples.md
-    └── validation-examples.md
+│   └── technical-assessment-specialist.yaml
+└── templates/                # Prompt templates with XML structure
+    └── professional-summary.xml
 ```
+
+> **Planned (not yet created):** additional personas (e.g. `executive-recruiter.yaml`,
+> `technical-product-manager.yaml`), further templates (`skills-assessment.xml`,
+> `experience-enhancement.xml`, `projects-showcase.xml`), a `schemas/` directory of
+> output-validation JSON schemas, and an `examples/` directory of reference prompts/responses.
+> The sections below describe the intended full system; only the files listed above currently exist.
 
 ## 🎯 Design Principles
 

@@ -1,6 +1,6 @@
 # Script Reference
 
-This section provides an overview of the main JavaScript and Python classes and their key methods used throughout the AI-enhanced CV system. For more detailed API documentation, please refer to the [JSDoc-generated HTML documentation](jsdoc_output/index.html) for JavaScript components.
+This section provides an overview of the main JavaScript and Python classes and their key methods used throughout the AI-enhanced CV system. JSDoc HTML documentation is not committed to the repository; it can be generated locally from `.github/scripts/jsdoc.json` by running JSDoc against the scripts.
 
 ## JavaScript Components
 
@@ -72,9 +72,21 @@ This section provides an overview of the main JavaScript and Python classes and 
 *   `generateGitHubPagesFiles()`: Generates GitHub Pages specific files.
 *   `generatePDF()`: Generates a high-quality PDF from the generated HTML.
 
+### `AIHallucinationDetector` (`.github/scripts/ai-hallucination-detector.js`)
+
+**Role**: CI validation gate. Cross-checks AI-generated CV claims against verifiable data and computes an overall confidence score. Exits with a non-zero status (code 1) when the overall confidence score is below 70, which blocks deployment in the `cv-enhancement.yml` content validation gate.
+
+### `ContentGuardian` (`.github/scripts/content-guardian.js`)
+
+**Role**: CI validation gate. Blocks fabricated or unverifiable claims from entering the CV. Run as `node content-guardian.js --validate` (the mode used by the workflow gate); a failed validation blocks deployment.
+
+### Other Active Scripts (`.github/scripts/`)
+
+The pipeline also wires in several supporting scripts, including `github-data-miner.js` (comprehensive GitHub data mining), `narrative-generator.js`, `keyword-scorer.js` (soft scoring gate), `claim-verifier.js`, and `position-description-ingester.js`. (Note: `claude-enhancer-v2.js` ships in the repo but is **not** invoked by CI — the active enhancer is `claude-enhancer.js`.)
+
 ### `CVApplication` (`assets/script.js`)
 
-**Role**: The main application controller for the interactive frontend of the CV.
+**Role**: The entry-point ES module (`assets/script.js`, loaded via `<script type="module">`) that orchestrates the interactive frontend. The actual per-section DOM rendering lives in the imported modules under `assets/modules/` (`data-loader.js`, `utils.js`, `theme.js`, `config.js`, `defaults.js`) and `assets/modules/sections/*.js` (about, experience, projects, skills, achievements, education, interests). All of these use safe DOM methods (`createElement`/`textContent`/`appendChild`), never `innerHTML`.
 
 ### Key Methods:
 

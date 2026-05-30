@@ -73,7 +73,7 @@ The `claude-enhancer.js` script employs sophisticated prompt engineering to guid
 
 ## Python External API Wrappers
 
-This section details the Python wrappers for external APIs, located in `src/python/api_wrappers/external_apis.py`. These wrappers provide a standardized way to interact with third-party services for data such as firmographics and funding information.
+This section details the Python wrappers for external APIs, located in `src/python/api_wrappers/external_apis.py`. **These wrappers are an unintegrated/experimental utility**: they are exercised only by mocked unit tests and are not called by any workflow or JavaScript in the running system. They are documented here as a standardized pattern for interacting with third-party services (firmographics, funding information) if integrated. Note that `external_apis.py` imports `requests`, which must be present in `requirements.txt` for the module to run.
 
 ### Abstract API (Firmographics)
 

@@ -1,24 +1,29 @@
+## `📊 GitHub Activity Intelligence Tracker` (`activity-tracker.yml`)
+
+This workflow collects GitHub activity data and processes it into structured metrics.
+
+### Triggers & Scheduling
+*   **Cron Schedule**: `0 20 * * *` (Daily at 20:00 UTC / ~6 AM AEST / ~7 AM AEDT).
+*   **Concurrency**: Shares the `cv-pipeline` concurrency group with `cv-enhancement.yml` so the two workflows never run simultaneously and avoid races on shared `data/` files.
+
 ### Jobs
 
 #### 1. `📊 GitHub Activity Intelligence Collection` (`activity-intelligence`)
-This job collects raw GitHub activity data and processes it into structured metrics.
+This job collects raw GitHub activity data and processes it into structured metrics. Note: collection is performed **inline** in the workflow steps (git/curl/jq); the standalone `activity-analyzer.js` script is not invoked by this workflow.
 
 *   **Runs on**: `ubuntu-latest`
 *   **Permissions**:
     *   `contents: write`: To commit updated activity data files.
-*   **Steps**:
-    *   **`🚀 Activity Tracker Initialization`**: Displays initial workflow parameters.
+*   **Steps** (in order):
     *   **`📥 Repository Checkout`**: Checks out the repository code.
-    *   **`🔧 Install Activity Analysis Dependencies (Pre-cache)`**: Installs Node.js dependencies for the analysis scripts, ensuring `package-lock.json` is generated for caching.
     *   **`📦 Setup Node.js Environment`**: Sets up the Node.js environment for subsequent steps, leveraging npm cache.
+    *   **`🔧 Install Activity Analysis Dependencies`**: Installs Node.js dependencies via `npm ci` (runs after Node setup).
     *   **`📊 Comprehensive Repository Activity Analysis`**: Performs local Git log analysis to extract commit counts, active days, and lines of code changes.
     *   **`🌐 GitHub API Activity Collection`**: Collects detailed GitHub API data, including user profile, repositories, events, and organization data.
-    *   **`🎯 Professional Development Metrics`**: Calculates various professional development scores (Activity, Diversity, Impact) and trends based on collected data.
     *   **`📈 Activity Trend Analysis`**: Analyzes activity patterns over different time periods to identify trends.
     *   **`🔄 Update Master Activity Summary`**: Compiles all collected and processed data into a master `activity-summary.json` file.
     *   **`🚀 Commit Activity Data`**: Commits the updated activity data files back to the repository.
-    *   **`📊 Activity Tracking Summary`**: Provides a summary of the activity tracking execution.
-    *   **`📈 Workflow Performance Report`**: Generates a detailed summary report visible in the GitHub Actions UI.
+    *   **`📊 Repository Metrics Summary`**: Provides a summary of repository metrics for the run.
 
 ### Integrating Python Utilities in Workflows
 
@@ -102,25 +107,21 @@ This job executes the main CV enhancement process, leveraging the outputs from t
 *   **Runs on**: `ubuntu-latest`
 *   **Needs**: `cv-intelligence-analysis` (ensures pre-analysis completes successfully).
 *   **Permissions**:
-    *   `contents: write`: To commit enhanced CV data.
-    *   `pages: write`: For deploying to GitHub Pages.
-    *   `id-token: write`: For OIDC authentication with GitHub Pages.
-*   **Steps**:
+    *   `contents: write`: To commit enhanced CV data and the generated assets back to `main`. (This is the only permission declared — there is no `pages: write` or `id-token: write`, because deployment is a git commit to `main` rather than an OIDC GitHub Pages deploy.)
+*   **Steps** (in order):
     *   **`🚀 CV Enhancement Pipeline Initialization`**: Displays initial workflow parameters and outputs from the pre-analysis job.
     *   **`📥 Repository Checkout`**: Checks out the repository code.
-    *   **`🔧 Install Dependencies (Pre-cache)`**: Installs Node.js dependencies for the enhancement scripts.
-    *   **`✅ Run Unit Tests`**: Executes unit tests for the `.github/scripts` components.
     *   **`📦 Setup Node.js Environment`**: Sets up the Node.js environment.
+    *   **`🔧 Install Dependencies`**: Installs Node.js dependencies via `npm ci`.
+    *   **`✅ Run Unit Tests`**: Executes unit tests for the `.github/scripts` components (runs after Node setup and dependency install).
     *   **`🌐 Install Browser Dependencies`**: Installs necessary browser dependencies for Puppeteer (used in PDF generation).
     *   **`📊 GitHub Activity Data Collection`**: Collects comprehensive GitHub activity data (if not `ai-only` mode).
     *   **`🔍 Comprehensive GitHub Data Mining`**: Initiates comprehensive GitHub data mining and narrative generation (for `comprehensive` or `full-rebuild` strategies).
     *   **`🤖 Claude AI Content Enhancement`**: Initiates AI-powered content enhancement using Claude (if AI budget is sufficient).
-    *   **`🔍 AI Claim Verification`**: Verifies AI-generated claims against GitHub data.
-    *   **`📊 Professional Metrics Calculation`**: Calculates professional development metrics.
-    *   **`🎨 Dynamic CV Website Generation`**: Generates the dynamic CV website.
-    *   **`✅ Validate & Lint Generated Assets`**: Validates JSON files and lints JavaScript assets.
-    *   **`📄 Generate PDF Asset`**: Generates the PDF version of the CV using Puppeteer.
-    *   **`🚀 Deploy to GitHub Pages`**: Deploys the generated website to GitHub Pages.
+    *   **`Content Validation Gate`**: The deployment-blocking validation gate, combining `ai-hallucination-detector.js` (fails if confidence < 70), `content-guardian.js --validate`, and `keyword-scorer.js` (soft gate). This step runs **between** the enhancer and the generator. (It is conditionally skipped when the pre-analysis `ai-budget` output is `insufficient`.)
+    *   **`🎨 Dynamic CV Website Generation`**: Runs `cv-generator.js` to generate the dynamic CV website into `dist/`.
+    *   **`📄 Verify PDF Asset Generation`**: Verifies that a PDF asset exists (this step checks for an existing PDF; it does not itself generate one).
+    *   **`🚀 Deploy Generated Assets to Main Branch`**: Copies the built `dist/` output back into the working tree on `main` and commits it (GitHub Pages serves `main` root). This is not a GitHub Pages deploy action.
     *   **`📈 Usage Analytics Recording`**: Records usage analytics for the enhancement session.
     *   **`🚀 Commit Enhanced CV Data`**: Commits the updated CV data back to the repository.
     *   **`🎯 Enhancement Summary`**: Provides a summary of the CV enhancement execution.
