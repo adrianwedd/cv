@@ -46,3 +46,5 @@ data/content-audit.json
 tests/node_modules/
 tests/coverage/
 tests/test-results/
+
+.afterwords
