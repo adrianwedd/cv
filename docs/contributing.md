@@ -32,27 +32,32 @@ To set up your local development environment, follow these steps:
 
     ```
     GITHUB_TOKEN=your_github_personal_access_token
-    ANTHROPIC_API_KEY=your_claude_api_key
+    OPENROUTER_API_KEY=your_openrouter_api_key # For AI enhancement (or GEMINI_API_KEY / OLLAMA_HOST)
     ABSTRACT_API_KEY=your_abstract_api_key # For Python API wrappers
     INTELLIZENCE_API_KEY=your_intellizence_api_key # For Python API wrappers
     ```
     > The custom domain is configured by the committed `CNAME` file at the repository root, not by an environment variable or secret.
     *   **GitHub Token**: Generate a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `repo` scope.
-    *   **Claude API Key**: Obtain an API key from [Anthropic](https://www.anthropic.com/).
+    *   **AI Provider Key**: Obtain an API key from [OpenRouter](https://openrouter.ai/) (default provider) or Google (Gemini), or run [Ollama](https://ollama.com/) locally — the AI key is optional; without one the enhancement stage is skipped.
 
 ## Running Scripts Locally
 
 You can run the core scripts locally for development and testing:
 
-*   **Analyze GitHub Activity** (Node.js):
+*   **Collect GitHub Activity Evidence** (Node.js):
 
     ```bash
-    node .github/scripts/activity-analyzer.js
+    node .github/scripts/activity-collector.js
     ```
-*   **Enhance CV Content with AI** (Node.js):
+*   **Propose AI Content Enhancements** (Node.js):
 
     ```bash
-    node .github/scripts/claude-enhancer.js
+    node .github/scripts/enhance.js
+    ```
+*   **Verify and Apply Proposals** (Node.js):
+
+    ```bash
+    node .github/scripts/verify-proposals.js
     ```
 *   **Generate CV Website** (Node.js):
 

@@ -6,90 +6,100 @@ This section provides a comprehensive overview of the AI-enhanced CV system's ar
 
 The AI-enhanced CV system is designed as a modular, data-driven application that leverages automation and artificial intelligence to maintain an up-to-date and compelling professional profile. It transforms raw GitHub activity and static CV data into an optimized, multi-format CV asset.
 
-At a high level, the system operates through a pipeline of interconnected components:
+At a high level, the system operates through a pipeline of separated stages, each with explicit outcome semantics (SUCCESS / SKIPPED / FAILED):
 
-1.  **Data Collection & Analysis**: Gathers raw GitHub activity and processes it into meaningful professional metrics.
-2.  **AI Enhancement**: Utilizes a large language model (Claude AI) to refine and optimize CV content based on collected data and strategic prompts.
-3.  **CV Generation**: Compiles all processed data and AI enhancements into various output formats (web, PDF, plain text, etc.).
-4.  **Automation & Deployment**: Orchestrates the entire pipeline using GitHub Actions, ensuring continuous updates and deployment to GitHub Pages.
+1.  **Evidence Ingestion**: Gathers real cross-repo GitHub activity and processes it into meaningful professional metrics.
+2.  **AI Proposal**: Utilizes a large language model (via a provider-neutral client — OpenRouter by default, Ollama or Gemini alternatively) to propose per-section content rewrites bounded by the collected evidence. Proposals are never rendered directly.
+3.  **Verification**: Rejects proposals containing unsupported numbers, new credentials, corporate filler, or drastic length changes; applies only the survivors to `base-cv.json`.
+4.  **Validation & Generation**: Runs hard content-integrity gates, then compiles the verified data into the output formats (web, PDF).
+5.  **Automation & Deployment**: Orchestrates the entire pipeline using GitHub Actions, ensuring continuous updates and deployment to GitHub Pages.
 
 ```mermaid
 graph TD
-    A[GitHub Activity] --> B(Activity Analyzer .js)
-    B --> C{Activity Metrics .json}
-    D[Base CV Data .json] --> E(Claude Enhancer .js)
+    A[GitHub Activity] --> B(activity-collector.js)
+    B --> C{github-activity.json / activity-summary.json}
+    D[base-cv.json] --> E(enhance.js)
     C --> E
-    E --> F{AI Enhancements .json}
-    D --> G(CV Generator .js)
+    E --> F{ai-enhancements.json - proposals}
+    F --> V(verify-proposals.js)
+    C --> V
+    V --> D
+    V --> R{proposal-review.json}
+    D --> G(cv-generator.js)
     C --> G
-    F --> G
     G --> H[Web CV .html]
     G --> I[PDF CV .pdf]
-    G --> J[ATS CV .txt]
-    K[GitHub Actions] --> A
-    K --> B
+    K[GitHub Actions] --> B
     K --> E
+    K --> V
     K --> G
     H --> L[GitHub Pages Deployment]
     I --> L
-    J --> L
 ```
 
 ## Component Breakdown
 
-### 1. Activity Analyzer (`.github/scripts/activity-analyzer.js`)
+### 1. Activity Collector (`.github/scripts/activity-collector.js`)
 
-*   **Role**: The quantitative engine of the CV. It connects to the GitHub API and analyzes repository contributions, commit history, language usage, and other activity patterns to generate objective professional metrics.
-*   **Inputs**: GitHub API data (user profile, repositories, events), local Git history.
-*   **Outputs**: `activity-summary.json` (summarized metrics), detailed activity analysis JSON files.
+*   **Role**: The quantitative engine of the CV. It measures the whole GitHub account (not this repo's git log, which is dominated by automation commits) via the GraphQL contribution calendar plus REST repository, event, and commit-search data.
+*   **Inputs**: GitHub API data (contribution calendar, repositories, public events, commit search).
+*   **Outputs**: `github-activity.json` (full evidence snapshot: summary, heatmap, commit timeline, languages, active repositories) and `activity-summary.json` (compact website summary).
 *   **Key Functionalities**:
-    *   Calculates `overall_professional_score`.
-    *   Analyzes skill proficiency based on language usage and project complexity.
-    *   Tracks development velocity and consistency.
+    *   Cross-repo commit counts, active days, and active-repository inventory over a configurable lookback window.
+    *   Weekly contribution heatmap and per-repo commit timeline for the frontend activity panels.
+    *   Language mix by repository size.
 
-### 2. Claude Enhancer (`.github/scripts/claude-enhancer.js`)
+### 2. AI Enhancer (`.github/scripts/enhance.js` + `.github/scripts/ai/client.js`)
 
-*   **Role**: The AI-powered content strategist. It leverages the Claude API to transform raw CV data and activity metrics into compelling, optimized narratives.
-*   **Inputs**: `base-cv.json`, `activity-summary.json`, Claude API key, AI creativity level.
-*   **Outputs**: `ai-enhancements.json` (AI-optimized professional summary, skills, experience, projects).
+*   **Role**: The proposal stage. It asks an AI provider for per-section rewrites of the professional summary and experience/project descriptions, bounded by the collected evidence. `ai/client.js` is a provider-neutral chat client (no SDKs) supporting `openrouter` (CI default, model `deepseek/deepseek-v4-flash`), `ollama` (local), and `gemini`.
+*   **Inputs**: `base-cv.json`, `activity-summary.json`, mined narratives, an AI provider API key (`OPENROUTER_API_KEY`, `GEMINI_API_KEY`, or `OLLAMA_HOST`).
+*   **Outputs**: `ai-enhancements.json` — **proposals only** with an explicit status (SUCCESS / SKIPPED / FAILED), never rendered directly and never touching `base-cv.json`.
 *   **Key Functionalities**:
-    *   Generates enhanced professional summaries.
-    *   Optimizes skill descriptions and identifies market-relevant skills.
-    *   Refines experience and project descriptions with quantifiable impact.
-    *   Implements intelligent caching for API responses to optimize token usage.
+    *   Evidence-bounded prompts with measured token usage (no estimates).
+    *   Per-section verdicts (`improved` / unchanged) with rationale.
+    *   Reports SKIPPED when no provider is configured, so the pipeline can still deploy curated content.
 
-### 3. CV Generator (`.github/scripts/cv-generator.js`)
+### 3. Proposal Verifier (`.github/scripts/verify-proposals.js`)
 
-*   **Role**: The presentation layer orchestrator. It compiles all data sources and AI enhancements into various consumable CV formats.
-*   **Inputs**: `base-cv.json`, `activity-summary.json`, `ai-enhancements.json`.
+*   **Role**: The gatekeeper between AI output and the CV. Rejecting every proposal is a healthy outcome — the previous good version always beats a worse rewrite.
+*   **Inputs**: `ai-enhancements.json`, `base-cv.json`, and the evidence corpus (`activity-summary.json`, `github-activity.json`, `data/narratives/`, `data/intelligence/`).
+*   **Outputs**: An updated `base-cv.json` (accepted proposals applied) and `proposal-review.json` (per-proposal verdicts).
+*   **Key Functionalities**:
+    *   Quantity guard: rejects numbers/claims unsupported by the evidence corpus.
+    *   Credential guard: rejects newly invented certifications or credentials.
+    *   Beige guard: rejects corporate filler and meta-commentary.
+    *   Size guard: rejects drastic length changes.
+
+### 4. CV Generator (`.github/scripts/cv-generator.js`)
+
+*   **Role**: The presentation layer orchestrator. It compiles the verified data sources into the consumable CV formats.
+*   **Inputs**: `base-cv.json`, `activity-summary.json`, `github-activity.json`.
 *   **Outputs**:
     *   `dist/index.html`: The interactive web-based CV.
-    *   `dist/assets/adrian-wedd-cv.pdf`: A high-quality PDF version of the CV.
-    *   (Future) `dist/assets/adrian-wedd-cv-ats.txt`: Plain text version optimized for Applicant Tracking Systems.
-    *   (Future) `dist/assets/adrian-wedd-cv.docx`: Microsoft Word document version.
-    *   (Future) `dist/assets/adrian-wedd-cv.tex`: LaTeX version.
+    *   `dist/assets/adrian-wedd-cv.pdf`: A high-quality full PDF version of the CV (Puppeteer).
+    *   `dist/assets/adrian-wedd-cv-short.pdf`: An ATS-optimized short PDF rendered from `ats-template.html`.
 *   **Key Functionalities**:
     *   HTML templating and dynamic content injection.
     *   Asset copying (CSS, JavaScript, data files).
     *   Sitemap, robots.txt, and web manifest generation.
     *   PDF generation using Puppeteer.
 
-### 4. Frontend (Web UI) (`assets/script.js`, `index.html`, `assets/styles.css`)
+### 5. Frontend (Web UI) (`assets/script.js`, `index.html`, `assets/styles.css`)
 
 *   **Role**: The interactive digital storefront of the CV. It provides a responsive and engaging user experience.
 *   **Technologies**: HTML5, CSS3, JavaScript (ES6+).
 *   **Key Functionalities**:
-    *   Dynamic loading of CV content from JSON files.
+    *   Dynamic loading of CV content from `base-cv.json` (inlined as `window.__CV_DATA__` in production builds) — the frontend does not call `api.github.com` and does not read `ai-enhancements.json`.
+    *   Activity panels rendered by `assets/activity-viz.js` from `github-activity.json`.
     *   Smooth navigation between sections.
     *   Dark/light theme switching.
-    *   Display of live GitHub activity statistics.
 
-### 5. GitHub Actions (`.github/workflows/`)
+### 6. GitHub Actions (`.github/workflows/`)
 
 *   **Role**: The automated project manager. These workflows orchestrate the entire CI/CD pipeline, ensuring continuous integration, analysis, enhancement, and deployment.
 *   **Key Workflows**:
-    *   `cv-enhancement.yml`: Main pipeline for CV generation and deployment.
-    *   `activity-tracker.yml`: Dedicated to continuous GitHub activity data collection.
+    *   `cv-enhancement.yml`: Main pipeline for CV enhancement, generation, and deployment (weekly Mondays 21:00 UTC, on evidence dispatch, or manual).
+    *   `activity-tracker.yml`: Daily GitHub activity evidence collection; commits only on material change and triggers the enhancement pipeline via `repository_dispatch`.
 *   **Key Functionalities**:
     *   Scheduled and manual triggering of processes.
     *   Dependency management and caching.
@@ -102,16 +112,16 @@ graph TD
 
 Data flows through the system in a well-defined pipeline, ensuring that each stage builds upon the output of the previous one. The central data hub is the `data/` directory within the repository, where intermediate and final data assets are stored.
 
-1.  **GitHub Activity -> Activity Analyzer**: Raw GitHub activity (commits, repos, user data) is pulled by the `Activity Analyzer`.
-2.  **Activity Analyzer -> Activity Metrics**: The `Activity Analyzer` processes this raw data and outputs `activity-summary.json` and other detailed activity metrics.
-3.  **Base CV Data + Activity Metrics -> Claude Enhancer**: The static `base-cv.json` and the dynamic `activity-summary.json` are fed into the `Claude Enhancer`.
-4.  **Claude Enhancer -> AI Enhancements**: The `Claude Enhancer` generates AI-optimized content, stored in `ai-enhancements.json`.
-5.  **Base CV Data + Activity Metrics + AI Enhancements -> CV Generator**: All three primary data sources are consumed by the `CV Generator`.
-6.  **CV Generator -> Output Formats**: The `CV Generator` produces the final CV assets: `index.html`, `adrian-wedd-cv.pdf`, and future formats like `adrian-wedd-cv-ats.txt`, `adrian-wedd-cv.docx`, and `adrian-wedd-cv.tex`.
-7.  **Output Formats -> GitHub Pages Deployment**: The generated assets are deployed to GitHub Pages for public access.
+1.  **GitHub Activity -> Activity Collector**: Raw cross-repo GitHub activity is pulled by `activity-collector.js`.
+2.  **Activity Collector -> Evidence**: The collector outputs `github-activity.json` (full evidence snapshot) and `activity-summary.json` (compact summary).
+3.  **Base CV Data + Evidence -> AI Enhancer**: The curated `base-cv.json` and the collected evidence are fed into `enhance.js`.
+4.  **AI Enhancer -> Proposals**: `enhance.js` writes per-section proposals to `ai-enhancements.json` — never applied directly.
+5.  **Proposals + Evidence -> Verifier -> Base CV Data**: `verify-proposals.js` checks each proposal against the evidence corpus, applies only the accepted ones to `base-cv.json`, and records verdicts in `proposal-review.json`.
+6.  **Base CV Data + Evidence -> CV Generator -> Output Formats**: `cv-generator.js` produces the final CV assets: `index.html`, `adrian-wedd-cv.pdf`, and `adrian-wedd-cv-short.pdf`.
+7.  **Output Formats -> GitHub Pages Deployment**: The generated assets are committed back to `main`, which GitHub Pages serves.
 8.  **GitHub Actions**: Orchestrates all these steps, from data collection to deployment, and commits updated data back to the repository, closing the loop for continuous integration.
 
-### 6. Python Utilities (`src/python/`)
+### 7. Python Utilities (`src/python/`)
 
 This set of Python modules is **experimental and not yet integrated** into the running system: no GitHub Actions workflow, JavaScript script, `package.json`, or `index.html` references `src/python`. The live CI pipeline (`activity-tracker.yml`, `cv-enhancement.yml`) runs only Node.js scripts from `.github/scripts/`. The modules below are provided as foundational utilities pending integration.
 
@@ -123,11 +133,10 @@ This set of Python modules is **experimental and not yet integrated** into the r
 ## Technology Stack
 
 *   **Primary Languages**: JavaScript (Node.js), Shell Scripting (Bash). (Python exists under `src/python/` but is experimental and not wired into the running system.)
-*   **AI/ML**: Anthropic Claude API.
+*   **AI/ML**: Provider-neutral chat client (`.github/scripts/ai/client.js`): OpenRouter (default, `deepseek/deepseek-v4-flash`), Ollama (local), or Gemini. (The earlier Anthropic Claude API integration was retired.)
 *   **Web Technologies**: HTML5, CSS3.
 *   **Frontend Frameworks/Libraries**: None (Vanilla JavaScript, ES modules).
 *   **Build/Automation**: npm, GitHub Actions.
 *   **PDF Generation**: Puppeteer.
 *   **Data Processing**: `jq` (JSON processor in CI), plus Node.js scripts.
 *   **Testing**: Node.js native test runner (active CI gate). The `src/python/` `unittest`/`pytest` suite is standalone/manual and not run in CI.
-

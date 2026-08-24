@@ -40,5 +40,5 @@
 
 ## Security & Configuration
 
-- Treat `ANTHROPIC_API_KEY` as required for AI enhancement runs; never commit secrets.
+- AI provider keys (`OPENROUTER_API_KEY`, `GEMINI_API_KEY`) are optional: when absent, AI enhancement reports SKIPPED and the pipeline still validates, builds, and deploys from `data/base-cv.json`. Never commit secrets.
 - When adding links opened in a new tab, set `rel="noopener noreferrer"` to avoid reverse-tabnabbing.

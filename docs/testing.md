@@ -21,7 +21,9 @@ To execute the unit tests locally:
     npm test
     ```
 
-    The `test` script in `package.json` runs the Node test runner against an explicit list of test files: `activity-analyzer.test.js`, `claude-enhancer.test.js`, and `cv-generator.test.js` (`node --test --test-concurrency=1 ...`). It does not glob all `*.test.js` files, so any other `*.test.js` files in the directory are not run by `npm test`.
+    The `test` script in `package.json` runs the Node test runner against an explicit list of test files: `cv-generator.test.js` and `verify-proposals.test.js` (`node --test --test-concurrency=1 ...`). It does not glob all `*.test.js` files, so any other `*.test.js` files in the directory are not run by `npm test`.
+
+    At the repository root, `npm test` runs `tests/validate-json.test.js` (base-cv.json schema/integrity checks), which is also part of the CI validation gate.
 
 *   **Python Tests**: The test files use absolute imports (`from src.python.<mod> import ...`), so they must be run **from the repository root** — not from inside a module directory. Run all of them with:
 
@@ -41,7 +43,7 @@ To execute the unit tests locally:
 
 ### Test File Structure and Conventions
 
-*   **JavaScript**: Test files are located alongside their respective source files in the `.github/scripts` directory. Test files are named with the `.test.js` suffix (e.g., `activity-analyzer.test.js`). Tests are structured using `suite()` for test suites and `test()` for individual test cases, as per `node:test` conventions.
+*   **JavaScript**: Test files are located alongside their respective source files in the `.github/scripts` directory. Test files are named with the `.test.js` suffix (e.g., `verify-proposals.test.js`). Tests are structured using `suite()` for test suites and `test()` for individual test cases, as per `node:test` conventions.
 *   **Python**: Test files are located within the respective module directories (e.g., `src/python/utils/test_logging_utils.py`). Test files are named with the `test_*.py` prefix (e.g., `test_logging_utils.py`). Tests are structured using `unittest.TestCase` classes and methods starting with `test_`.
 
 `test.beforeEach()` and `test.afterEach()` hooks (for JavaScript) and `setUp()` and `tearDown()` methods (for Python) are used for setup and teardown operations, such as mocking API clients or environment variables.

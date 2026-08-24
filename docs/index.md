@@ -4,7 +4,7 @@ Welcome to the documentation for the **AI-enhanced CV System**! This project rep
 
 ## Project Overview
 
-The AI-enhanced CV system is a sophisticated application designed to automate the creation, enhancement, and deployment of a personalized curriculum vitae. It integrates real-time GitHub activity data with advanced AI capabilities (powered by Claude AI) to generate a compelling and up-to-date professional narrative. The entire process is orchestrated through GitHub Actions, ensuring continuous integration and delivery of your professional story.
+The AI-enhanced CV system is a sophisticated application designed to automate the creation, enhancement, and deployment of a personalized curriculum vitae. It integrates real cross-repo GitHub activity evidence with AI capabilities (via a provider-neutral client — OpenRouter by default, Ollama or Gemini alternatively) to propose content improvements, which are verified against the evidence before they can enter the CV. The entire process is orchestrated through GitHub Actions, ensuring continuous integration and delivery of your professional story.
 
 ## Core Vision
 
@@ -14,20 +14,19 @@ Our core vision is to create a **living document** that evolves in tandem with y
 
 The system is built on three pillars, ensuring a comprehensive and dynamic CV:
 
-1.  **Activity Analysis**: Quantifying your work.
-    *   Automated collection and analysis of GitHub activity (commits, repositories, languages).
-    *   Calculation of professional metrics like activity scores, development velocity, and technical diversity.
-2.  **AI Enhancement**: Articulating your value.
-    *   Leverages Claude AI to optimize professional summaries, experience descriptions, and project impacts.
-    *   Provides strategic career insights and skill recommendations based on your activity and industry trends.
+1.  **Evidence Collection**: Quantifying your work.
+    *   Automated cross-repo collection of GitHub activity (commits, repositories, languages, contribution heatmap).
+    *   Commits only on material change, keeping the evidence honest and the git history clean.
+2.  **AI Enhancement, Verified**: Articulating your value.
+    *   An AI provider proposes improved wording for professional summaries and experience/project descriptions, bounded by the collected evidence.
+    *   Every proposal is verified — unsupported numbers, invented credentials, corporate filler, and drastic rewrites are rejected before anything touches the CV.
 3.  **Automated Generation**: Presenting your story.
     *   Generates a dynamic, responsive web-based CV.
-    *   Automated high-quality PDF generation for easy sharing.
-    *   (Future) Support for ATS-optimized plain text, DOCX, and LaTeX formats.
+    *   Automated PDF generation (full and ATS-optimized versions) for easy sharing.
 
 ## Research & Insights
 
-This section contains detailed research papers and insights that underpin the design and functionality of the AI-enhanced CV system.
+This section contains detailed research papers and insights that informed earlier iterations of the system. (Note: these predate the current provider-neutral pipeline — the Anthropic Claude integration they discuss has since been retired.)
 
 *   [Architecting Intelligence: A Framework for Advanced Prompt and Pipeline Engineering with Anthropic's Claude for the Autonomous Career Agent](research/claude-prompt-engineering-framework.md)
 *   [Prompt Engineering Strategy for Claude AI](prompt_construction.md)
