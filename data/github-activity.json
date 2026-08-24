@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-24T15:14:20.567Z",
+  "generated_at": "2026-08-24T16:00:50.588Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 3067,
+    "total_commits": 451,
     "commit_contributions_9mo": 8929,
-    "active_repositories": 24,
+    "active_repositories": 23,
     "total_repositories": 100,
     "total_stars": 35,
     "tracking_status": "active"
@@ -115,24 +115,29 @@
     {
       "week": "2026-08-16",
       "repos": {
-        "status": 2
+        "status": 14,
+        "twitb-status": 4,
+        "spark": 11,
+        "failure-first": 1,
+        "adrianwedd.com": 1
       }
     },
     {
       "week": "2026-08-23",
       "repos": {
+        "cv": 1,
+        "spark": 13,
         "failure-first": 18,
         "status": 5,
         "twitb-status": 5,
-        "spark": 12,
         "OBLITERATUS": 1
       }
     }
   ],
   "languages": {
-    "Python": 2102029,
-    "JSON": 163215,
     "JavaScript": 171448,
+    "Python": 2102071,
+    "JSON": 163215,
     "Markdown": 375319,
     "Astro": 1162255,
     "TypeScript": 426678,
@@ -196,11 +201,11 @@
     },
     {
       "date": "2026-02-22",
-      "count": 631
+      "count": 632
     },
     {
       "date": "2026-03-01",
-      "count": 1274
+      "count": 1273
     },
     {
       "date": "2026-03-08",
@@ -208,11 +213,11 @@
     },
     {
       "date": "2026-03-15",
-      "count": 1223
+      "count": 1225
     },
     {
       "date": "2026-03-22",
-      "count": 2258
+      "count": 2256
     },
     {
       "date": "2026-03-29",
@@ -305,6 +310,13 @@
   ],
   "repositories": [
     {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-08-24",
+      "stars": 4
+    },
+    {
       "name": "spark",
       "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
       "language": "Python",
@@ -345,13 +357,6 @@
       "language": "Astro",
       "last_push": "2026-08-23",
       "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-08-23",
-      "stars": 4
     },
     {
       "name": "OBLITERATUS",
@@ -464,13 +469,6 @@
       "language": "Python",
       "last_push": "2026-07-27",
       "stars": 2
-    },
-    {
-      "name": "development-guide",
-      "description": "A set of guidelines and best practices for an awesome software engineering team",
-      "language": "HTML",
-      "last_push": "2026-07-25",
-      "stars": 0
     }
   ]
 }
