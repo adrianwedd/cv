@@ -4,7 +4,7 @@
  * Entry point that orchestrates module imports and application lifecycle.
  */
 import { setupThemeToggle } from './modules/theme.js';
-import { loadCVData, loadActivityData, loadAIEnhancements, loadGitHubStats } from './modules/data-loader.js';
+import { loadCVData, loadActivityData } from './modules/data-loader.js';
 import { formatDateTime } from './modules/utils.js';
 import { initializeAboutSection } from './modules/sections/about.js';
 import { initializeExperienceSection } from './modules/sections/experience.js';
@@ -83,18 +83,14 @@ class CVApplication {
     async loadApplicationData() {
         const dataPromises = [
             loadCVData(),
-            loadActivityData(),
-            loadAIEnhancements(),
-            loadGitHubStats()
+            loadActivityData()
         ];
 
         try {
-            const [cvData, activityData, aiData, githubStats] = await Promise.allSettled(dataPromises);
+            const [cvData, activityData] = await Promise.allSettled(dataPromises);
 
             this.cvData = cvData.status === 'fulfilled' ? cvData.value : {};
             this.activityData = activityData.status === 'fulfilled' ? activityData.value : {};
-            this.aiEnhancements = aiData.status === 'fulfilled' ? aiData.value : {};
-            this.githubStats = githubStats.status === 'fulfilled' ? githubStats.value : {};
 
         } catch (error) {
             console.warn('Some data failed to load:', error);
@@ -107,7 +103,7 @@ class CVApplication {
     updateFooterTimestamp() {
         const footerUpdated = document.getElementById('footer-last-updated');
         if (footerUpdated) {
-            const timestamp = this.aiEnhancements?.last_updated || this.activityData?.last_updated || new Date().toISOString();
+            const timestamp = this.activityData?.last_updated || this.cvData?.metadata?.last_updated || new Date().toISOString();
             footerUpdated.textContent = formatDateTime(timestamp);
         }
     }
@@ -116,7 +112,7 @@ class CVApplication {
      * Initialize content sections
      */
     initializeContentSections() {
-        initializeAboutSection(this.cvData, this.aiEnhancements);
+        initializeAboutSection(this.cvData);
         initializeExperienceSection(this.cvData);
         initializeProjectsSection(this.cvData);
         initializeSkillsSection(this.cvData);

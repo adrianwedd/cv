@@ -66,7 +66,6 @@ class CVGenerator {
         this.generationStartTime = Date.now();
         this.cvData = {};
         this.activityData = {};
-        this.aiEnhancements = {};
     }
 
     /**
@@ -157,17 +156,6 @@ class CVGenerator {
                 this.activityData = this.getDefaultActivityData();
             }
 
-            // Load AI enhancements
-            try {
-                const aiPath = path.join(CONFIG.DATA_DIR, 'ai-enhancements.json');
-                const aiContent = await fs.readFile(aiPath, 'utf8');
-                this.aiEnhancements = JSON.parse(aiContent);
-                console.log('✅ AI enhancements loaded');
-            } catch (error) {
-                console.warn('⚠️ AI enhancements not found');
-                this.aiEnhancements = {};
-            }
-
             // Log data integrity status
             this.logDataIntegrityStatus();
 
@@ -228,7 +216,7 @@ class CVGenerator {
         }
 
         // Ensure reasonable limits (data integrity check)
-        const maxReasonableCommits = 1000; // 1000 commits in 30 days is extremely high but possible
+        const maxReasonableCommits = 20000; // cross-repo, automation-assisted: thousands/month is real for this account
         const maxReasonableLines = 1000000; // 1M lines in 30 days is unrealistic
 
         if (summary.total_commits > maxReasonableCommits) {
@@ -343,7 +331,6 @@ class CVGenerator {
         const inlineScript = `<script id="cv-inline-data">
 window.__CV_DATA__ = ${safe(this.cvData)};
 window.__ACTIVITY_DATA__ = ${safe(this.activityData || {})};
-window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
 </script>`;
         // Remove any previously injected inline data blocks to prevent duplication
         htmlContent = htmlContent.replace(/<script id="cv-inline-data">[\s\S]*?<\/script>\n?/g, '');
@@ -364,8 +351,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
         const personalInfo = this.cvData.personal_info || {};
         const name = this.escapeAttr(personalInfo.name || 'Adrian Wedd');
         const title = this.escapeAttr(personalInfo.title || 'AI Engineer & Software Architect');
-        const rawDesc = this.aiEnhancements?.professional_summary?.enhanced ||
-                           this.cvData.professional_summary ||
+        const rawDesc = this.cvData.professional_summary ||
                            'AI Engineer & Software Architect specializing in autonomous systems, machine learning, and innovative technology solutions';
         const description = this.escapeAttr(rawDesc);
 
@@ -400,20 +386,18 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
      * Update dynamic content placeholders with verified GitHub data
      */
     updateDynamicContent(htmlContent) {
-        // Update professional summary if enhanced version available
-        if (this.aiEnhancements?.professional_summary?.enhanced) {
-            const enhancedSummary = this.escapeAttr(this.aiEnhancements.professional_summary.enhanced);
+        // Statically render the curated summary so no-JS readers and crawlers
+        // see current content, not whatever text last shipped in the template.
+        if (this.cvData.professional_summary) {
             htmlContent = htmlContent.replace(
                 /(<p class="summary-text" id="professional-summary">)[\s\S]*?(<\/p>)/,
-                `$1${enhancedSummary}$2`
+                `$1${this.escapeAttr(this.cvData.professional_summary)}$2`
             );
         }
 
-        // Update GitHub activity metrics with verified data
-        htmlContent = this.updateGitHubMetrics(htmlContent);
-
-        // Add generation timestamp
-        const now = new Date();
+        // Footer timestamp comes from the DATA, not the wall clock — a run that
+        // changes no content must produce a byte-identical page (no churn commits).
+        const now = new Date(this.activityData?.last_updated || this.cvData?.metadata?.last_updated || Date.now());
         htmlContent = htmlContent.replace(
             /(<span id="footer-last-updated">).*?(<\/span>)/,
             `$1${now.toLocaleDateString('en-US', {
@@ -426,120 +410,6 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
         );
 
         return htmlContent;
-    }
-
-    /**
-     * Update GitHub metrics with verified activity data
-     */
-    updateGitHubMetrics(htmlContent) {
-        const summary = this.activityData?.summary || {};
-        const cvIntegration = this.activityData?.cv_integration || {};
-
-        // Load latest professional development metrics if available
-        let professionalMetrics = {};
-        try {
-            const metricsFile = this.activityData?.data_files?.latest_metrics;
-            if (metricsFile) {
-                const metricsPath = path.join(CONFIG.DATA_DIR, 'metrics', metricsFile);
-                const fs = require('fs');
-                if (fs.existsSync(metricsPath)) {
-                    professionalMetrics = JSON.parse(fs.readFileSync(metricsPath, 'utf8'));
-                }
-            }
-        } catch (error) {
-            console.warn('⚠️ Could not load professional metrics:', error.message);
-        }
-
-        // Update commits count (30 days)
-        const commitsCount = summary.total_commits || 0;
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="commits-count">)[^<]*(<\/div>)/,
-            `$1${commitsCount}$2`
-        );
-
-        // Update activity score
-        const activityScore = professionalMetrics?.scores?.activity_score ||
-                             Math.round((summary.active_days || 0) * 10);
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="activity-score">)[^<]*(<\/div>)/,
-            `$1${activityScore}$2`
-        );
-
-        // Update languages count (estimated from activity data)
-        const languagesCount = this.estimateLanguageCount();
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="languages-count">)[^<]*(<\/div>)/,
-            `$1${languagesCount}$2`
-        );
-
-        // Update last updated with actual GitHub activity timestamp
-        if (cvIntegration.data_freshness) {
-            const lastUpdated = new Date(cvIntegration.data_freshness).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            htmlContent = htmlContent.replace(
-                /(<div class="stat-value" id="last-updated">)[^<]*(<\/div>)/,
-                `$1${lastUpdated}$2`
-            );
-        }
-
-        // Update AI credibility score (based on data verification)
-        const credibilityScore = this.calculateCredibilityScore(summary, professionalMetrics);
-        htmlContent = htmlContent.replace(
-            /(<div class="stat-value" id="credibility-score">)[^<]*(<\/div>)/,
-            `$1${credibilityScore}%$2`
-        );
-
-        console.log(`✅ GitHub metrics updated: ${commitsCount} commits, ${activityScore} activity score, ${languagesCount} languages`);
-
-        return htmlContent;
-    }
-
-    /**
-     * Estimate language count from available data
-     */
-    estimateLanguageCount() {
-        // Try to get from base CV skills
-        const programmingSkills = (this.cvData.skills || [])
-            .filter(skill => skill.category === 'Programming Languages')
-            .length;
-
-        // Use reasonable default if no data available
-        return programmingSkills > 0 ? programmingSkills : 8;
-    }
-
-    /**
-     * Calculate credibility score based on data verification
-     */
-    calculateCredibilityScore(summary, professionalMetrics) {
-        let credibilityScore = 100;
-
-        // Deduct points for missing or suspicious data
-        if (!summary.total_commits || summary.total_commits === 0) {
-            credibilityScore -= 20;
-        }
-
-        if (!summary.net_lines_contributed || summary.net_lines_contributed === 0) {
-            credibilityScore -= 15;
-        }
-
-        if (!professionalMetrics?.scores?.overall_professional_score) {
-            credibilityScore -= 10;
-        }
-
-        // Add points for comprehensive data
-        if (summary.total_commits > 50) {
-            credibilityScore += 5;
-        }
-
-        if (summary.net_lines_contributed > 10000) {
-            credibilityScore += 5;
-        }
-
-        return Math.min(100, Math.max(60, credibilityScore));
     }
 
     /**
@@ -582,7 +452,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             "@type": "Person",
             "name": personalInfo.name || "Adrian Wedd",
             "jobTitle": personalInfo.title || "AI Engineer & Software Architect",
-            "description": this.aiEnhancements?.professional_summary?.enhanced || this.cvData.professional_summary,
+            "description": this.cvData.professional_summary,
             "url": CONFIG.SITE_URL,
             "email": personalInfo.email || "adrian@adrianwedd.com",
             "telephone": personalInfo.phone || "+61407081084",
@@ -697,7 +567,7 @@ window.__AI_ENHANCEMENTS__ = ${safe(this.aiEnhancements || {})};
             await fs.mkdir(dataOutputDir, { recursive: true });
 
             // Copy JSON data files
-            const dataFiles = ['base-cv.json', 'activity-summary.json', 'ai-enhancements.json', 'github-activity.json'];
+            const dataFiles = ['base-cv.json', 'activity-summary.json', 'github-activity.json'];
 
             for (const file of dataFiles) {
                 try {
