@@ -4,12 +4,13 @@
   "description": "AI-powered CV enhancement scripts with GitHub activity integration",
   "main": "cv-generator.js",
   "scripts": {
-    "analyze": "node activity-analyzer.js",
-    "enhance": "node claude-enhancer.js",
+    "collect": "node activity-collector.js",
+    "enhance": "node enhance.js",
+    "verify": "node verify-proposals.js",
     "generate": "node cv-generator.js",
-    "test": "node --test --test-concurrency=1 activity-analyzer.test.js claude-enhancer.test.js cv-generator.test.js",
-    "lint": "eslint --max-warnings=0 *.js",
-    "format": "prettier --write *.js"
+    "test": "node --test --test-concurrency=1 cv-generator.test.js verify-proposals.test.js",
+    "lint": "eslint --max-warnings=0 *.js ai/*.js",
+    "format": "prettier --write *.js ai/*.js"
   },
   "keywords": [
     "cv",
@@ -23,13 +24,6 @@
   "author": "Adrian Wedd <adrian@adrianwedd.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.13.5",
-    "cheerio": "^1.0.0",
-    "date-fns": "^4.1.0",
-    "jsdoc": "^4.0.4",
-    "lodash": "^4.17.23",
-    "marked": "^16.1.1",
-    "node-cache": "^5.1.2",
     "puppeteer": "^24.15.0"
   },
   "devDependencies": {

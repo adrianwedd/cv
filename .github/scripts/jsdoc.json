@@ -1,6 +1,12 @@
 {
     "source": {
-        "include": [".github/scripts/activity-analyzer.js", ".github/scripts/claude-enhancer.js", ".github/scripts/cv-generator.js", "assets/script.js"],
+        "include": [
+            ".github/scripts/activity-collector.js",
+            ".github/scripts/enhance.js",
+            ".github/scripts/verify-proposals.js",
+            ".github/scripts/cv-generator.js",
+            "assets/script.js"
+        ],
         "includePattern": ".js$",
         "excludePattern": "(node_modules/|docs)"
     },

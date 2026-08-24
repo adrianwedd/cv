@@ -104,7 +104,9 @@ class AIHallucinationDetector {
                 /\boptimized\s+by\s+(?:AI|Claude|GPT|LLM)/gi,
                 /\bas\s+an\s+AI\s+(?:language\s+)?model\b/gi,
                 /\bI(?:'m| am)\s+an?\s+AI\b/gi,
-                /\bprompt\s+(?:engineering|instructions?|template)\b/gi,
+                // NOTE: "prompt engineering" is a legitimate skill on this CV,
+                // not meta-commentary — only flag instruction/template leakage.
+                /\bprompt\s+(?:instructions?|template)\b/gi,
                 /\bhere(?:'s| is)\s+(?:a|an|the)\s+(?:revised|updated|improved|enhanced)\s+version\b/gi,
                 /\bI've\s+(?:revised|updated|improved|enhanced|rewritten)\b/gi,
                 /\bplease\s+(?:review|note|see)\s+(?:the\s+)?(?:following|below|above)\b/gi
@@ -115,6 +117,7 @@ class AIHallucinationDetector {
         this.scoringWeights = {
             quantitative_accuracy: 0.35,
             timeline_coherence: 0.25,
+            consistency: 0.40,
             generic_language_penalty: 0.15,
             impossible_claims_penalty: 0.25
         };
@@ -551,14 +554,22 @@ class AIHallucinationDetector {
         const impossiblePenalty = layers.impossible_claims.count * 30;
         const consistencyScore = layers.consistency_check.consistency_score;
 
-        // Apply weighted scoring
+        // Apply weighted scoring (positive weights sum to 1.0)
         const overallScore = Math.max(0, Math.min(100,
             (quantScore * this.scoringWeights.quantitative_accuracy) +
             (timelineScore * this.scoringWeights.timeline_coherence) +
-            (consistencyScore * this.scoringWeights.quantitative_accuracy) -
+            (consistencyScore * this.scoringWeights.consistency) -
             (genericPenalty * this.scoringWeights.generic_language_penalty) -
             (impossiblePenalty * this.scoringWeights.impossible_claims_penalty)
         ));
+
+        // High-severity base CV integrity issues penalise this path too — they
+        // were previously counted only in base-CV-only mode, letting flagged
+        // content sail through whenever an enhancements file existed.
+        const baseCVHighCount = this.detectionResults.flagged_content
+            .filter(f => f.type === 'base_cv_integrity')
+            .reduce((sum, f) => sum + (f.issues ? f.issues.filter(i => i.severity === 'high').length : 0), 0);
+        const baseCVPenalty = baseCVHighCount * 15;
 
         // Additional penalty for meta-commentary (hard penalty)
         const metaFlags = this.detectionResults.flagged_content.filter(
@@ -567,7 +578,7 @@ class AIHallucinationDetector {
         const metaCount = metaFlags.reduce((sum, f) => sum + (f.count || 0), 0);
         const metaPenalty = metaCount * 10;
 
-        this.detectionResults.overall_confidence = Math.max(0, Math.round(overallScore - metaPenalty));
+        this.detectionResults.overall_confidence = Math.max(0, Math.round(overallScore - metaPenalty - baseCVPenalty));
 
         console.log('');
         console.log(`🎯 **OVERALL CONFIDENCE SCORE: ${this.detectionResults.overall_confidence}/100**`);
@@ -1065,7 +1076,13 @@ class AIHallucinationDetector {
         try {
             const enhancementsPath = path.join(this.dataDir, 'ai-enhancements.json');
             const content = await fs.readFile(enhancementsPath, 'utf8');
-            return JSON.parse(content);
+            const parsed = JSON.parse(content);
+            // The current pipeline stores PROPOSALS here (status/sections schema),
+            // which are gated by verify-proposals.js and applied into base-cv.json
+            // before this detector runs — so base-CV validation covers them.
+            // Only the legacy schema carried directly-rendered enhanced text.
+            if (!parsed?.professional_summary?.enhanced) return {};
+            return parsed;
         } catch {
             console.warn('⚠️ AI enhancements data not found');
             return {};
@@ -1115,10 +1132,12 @@ class AIHallucinationDetector {
     }
 
     generateEmptyReport() {
+        // A missing base CV is an operational failure, not a clean bill of
+        // health — score 0 so the gate fails loudly instead of vacuously passing.
         return {
-            overall_confidence: 100,
+            overall_confidence: 0,
             validation_timestamp: new Date().toISOString(),
-            message: 'No content to validate (no AI enhancements and no base CV)',
+            message: 'Nothing to validate: base CV missing — failing closed',
             detection_layers: {},
             flagged_content: [],
             recommendations: []
