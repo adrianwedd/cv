@@ -24,7 +24,7 @@
   "author": "Adrian Wedd <adrian@adrianwedd.com>",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^24.15.0"
+    "puppeteer": "^25.8.0"
   },
   "devDependencies": {
     "eslint": "^9.32.0",

@@ -73,8 +73,9 @@ async function chat({ system, prompt, maxTokens = 1200, temperature = 0.4, model
 
   try {
     if (provider === 'gemini') {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${resolvedModel}:generateContent?key=${process.env.GEMINI_API_KEY}`;
-      const res = await post(url, {}, {
+      // Key travels in a header, never the URL — URLs leak into error strings and logs.
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${resolvedModel}:generateContent`;
+      const res = await post(url, { 'x-goog-api-key': process.env.GEMINI_API_KEY }, {
         system_instruction: { parts: [{ text: system }] },
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         generationConfig: { temperature, maxOutputTokens: maxTokens },
