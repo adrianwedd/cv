@@ -1,27 +1,19 @@
 /**
  * About / Professional Summary section renderer.
+ *
+ * Renders only curated content from base-cv.json. AI proposals live in
+ * data/ai-enhancements.json and reach the page exclusively via the verified
+ * apply step that writes them into base-cv.json — never directly.
  */
 
 /**
- * Initialize the about section with professional summary.
+ * Initialize the about section with the professional summary.
  * @param {Object} cvData - The CV data object
- * @param {Object} aiEnhancements - AI enhancement data
  */
-export function initializeAboutSection(cvData, aiEnhancements) {
+export function initializeAboutSection(cvData) {
     const summaryElement = document.getElementById('professional-summary');
     if (!summaryElement) return;
 
-    let enhancedSummary = aiEnhancements?.professional_summary?.enhanced ||
-                         cvData?.professional_summary ||
-                         summaryElement.textContent;
-
-    // Clean up AI-generated content that contains explanation text
-    if (enhancedSummary && enhancedSummary.includes('**Enhanced Summary:**')) {
-        const summaryMatch = enhancedSummary.match(/\*\*Enhanced Summary:\*\*\s*([\s\S]*?)(?:\n\nThis enhancement:|$)/);
-        if (summaryMatch) {
-            enhancedSummary = summaryMatch[1].trim();
-        }
-    }
-
-    summaryElement.textContent = enhancedSummary;
+    const summary = cvData?.professional_summary || summaryElement.textContent;
+    summaryElement.textContent = summary;
 }

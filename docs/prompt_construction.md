@@ -1,5 +1,7 @@
 # Prompt Engineering Strategy for Claude AI
 
+> **Status: historical.** This document was written for the system's earlier Anthropic Claude integration, which has since been retired. The current pipeline uses a provider-neutral client (`.github/scripts/ai/client.js` — OpenRouter by default, Ollama or Gemini alternatively), and its prompts live in `.github/scripts/enhance.js`. The general prompting principles below remain useful reference material.
+
 This document outlines the core principles and techniques for constructing effective prompts for Anthropic's Claude models within the AI-enhanced CV system. It builds upon the foundational concepts detailed in `docs/research/claude-prompt-engineering-framework.md`.
 
 Our prompt engineering strategy focuses on ensuring clarity, control, and consistency in Claude's outputs, enabling reliable and strategically effective content generation.

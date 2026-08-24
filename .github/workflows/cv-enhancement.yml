@@ -1,27 +1,17 @@
-name: 🚀 CV Auto-Enhancement Pipeline
+name: CV Enhancement Pipeline
 
-# 🎯 **COMPREHENSIVE CV ENHANCEMENT SYSTEM**
-# This workflow provides intelligent CV enhancement using GitHub activity analysis
-# and Claude AI optimization, with sophisticated analytics and caching.
+# Evidence-driven CV pipeline with explicit stage semantics:
+#   ingest -> propose (AI) -> verify/apply -> validate (hard gate) -> render -> publish
 #
-# 🔄 **EXECUTION SCHEDULE**: Daily at ~8 AM AEDT / ~7 AM AEST (21:00 UTC)
-# 📊 **AI OPTIMIZATION**: Claude AI content enhancement with intelligent prompting
-# 📈 **ACTIVITY INTEGRATION**: Real-time GitHub metrics and contribution analysis
-# 🎨 **CONTENT GENERATION**: Dynamic CV website with responsive design
+# Stage outcomes are real: the AI stage reports SUCCESS / SKIPPED / FAILED and the
+# commit message states exactly what happened. A failed stage never masquerades
+# as a success downstream.
 #
-# 🔧 **FEATURES**:
-# - GitHub activity analytics with contribution scoring
-# - Claude AI professional content optimization
-# - Dynamic skill proficiency calculation
-# - Responsive CV website generation
-# - Comprehensive usage tracking and analytics
-#
-# 📋 **WORKFLOW STAGES**:
-# 1. GitHub activity data collection and analysis
-# 2. AI-powered content enhancement and optimization
-# 3. Professional metrics calculation and integration
-# 4. Dynamic CV website generation and deployment
-# 5. Analytics tracking and performance monitoring
+# Triggers — meaningful events, not a daily rewrite:
+#   - workflow_dispatch: explicit refresh (optionally proposals-only dry run)
+#   - repository_dispatch (cv-evidence-changed): sent by the activity tracker
+#     when GitHub activity changes materially
+#   - schedule: weekly maintenance run (Mondays 21:00 UTC)
 
 concurrency:
   group: cv-pipeline
@@ -29,755 +19,186 @@ concurrency:
 
 on:
   schedule:
-    # Run daily at ~8 AM AEST/AEDT (21:00 UTC = 8 AM AEDT / 7 AM AEST — drifts 1hr in winter)
-    - cron: '0 21 * * *'
+    - cron: '0 21 * * 1'
+  repository_dispatch:
+    types: [cv-evidence-changed]
   workflow_dispatch:
     inputs:
-      enhancement_mode:
-        description: '🎯 CV Enhancement Mode'
-        required: false
-        default: 'comprehensive'
-        type: choice
-        options:
-          - comprehensive
-          - activity-only
-          - ai-only
-          - emergency-update
-      force_refresh:
-        description: '🔄 Force complete data refresh'
+      dry_run:
+        description: 'Generate proposals only — do not apply, render, or publish'
         required: false
         default: false
         type: boolean
-      ai_creativity:
-        description: '🎨 AI Enhancement Creativity Level'
-        required: false
-        default: 'balanced'
-        type: choice
-        options:
-          - conservative
-          - balanced
-          - creative
-          - innovative
 
 env:
-  CV_SYSTEM_VERSION: "v2.0"
-  TIMEZONE: "Australia/Tasmania"
+  TIMEZONE: 'Australia/Tasmania'
+  AI_PROVIDER: openrouter
+  AI_MODEL: deepseek/deepseek-v4-flash
 
 jobs:
-  cv-intelligence-analysis:
-    name: 🧠 CV Intelligence Pre-Analysis
+  pipeline:
+    name: Enhance, Validate, Publish
     runs-on: ubuntu-latest
-    outputs:
-      enhancement-strategy: ${{ steps.strategy.outputs.strategy }}
-      activity-score: ${{ steps.activity.outputs.score }}
-      content-health: ${{ steps.health.outputs.health }}
-      ai-budget: ${{ steps.budget.outputs.budget }}
-    steps:
-      - name: 🚀 CV Enhancement System Initialization
-        run: |
-          echo "🚀 **CV AUTO-ENHANCEMENT PIPELINE INITIATED**"
-          echo "📅 Enhancement cycle: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
-          echo "🔄 Mode: ${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-          echo "🎨 Creativity: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
-          echo "🔄 Force refresh: ${{ github.event.inputs.force_refresh || 'false' }}"
-          echo "🤖 Triggered by: ${{ github.event_name }}"
-          echo "📊 System version: ${{ env.CV_SYSTEM_VERSION }}"
-          echo ""
-
-      - name: 📥 Repository Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🎯 Enhancement Strategy Determination
-        id: strategy
-        run: |
-          echo "🎲 **DETERMINING OPTIMAL ENHANCEMENT STRATEGY**"
-
-          MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-          FORCE_REFRESH="${{ github.event.inputs.force_refresh || 'false' }}"
-          CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
-
-          if [ "$FORCE_REFRESH" = "true" ]; then
-            STRATEGY="full-rebuild"
-            echo "🔄 Selected: Full CV rebuild strategy (forced)"
-          elif [ "$MODE" = "emergency-update" ]; then
-            STRATEGY="emergency"
-            echo "🚨 Selected: Emergency update strategy"
-          elif [ "$MODE" = "activity-only" ]; then
-            STRATEGY="activity-focused"
-            echo "📊 Selected: Activity-focused enhancement"
-          elif [ "$MODE" = "ai-only" ]; then
-            STRATEGY="ai-focused"
-            echo "🤖 Selected: AI-focused optimization"
-          else
-            STRATEGY="comprehensive"
-            echo "🔬 Selected: Comprehensive CV enhancement"
-          fi
-
-          echo "strategy=$STRATEGY" >> $GITHUB_OUTPUT
-          echo "creativity=$CREATIVITY" >> $GITHUB_OUTPUT
-          echo ""
-
-      - name: 📊 GitHub Activity Analysis
-        id: activity
-        run: |
-          echo "📊 **ANALYZING GITHUB ACTIVITY FOR CV ENHANCEMENT**"
-
-          # Get comprehensive GitHub activity data
-          RECENT_COMMITS=$(git log --since="30 days ago" --oneline | wc -l)
-          TOTAL_COMMITS=$(git rev-list --all --count)
-          ACTIVE_DAYS=$(git log --since="30 days ago" --format="%ad" --date=short | sort -u | wc -l)
-
-          # Language analysis from recent commits
-          LANGUAGES=$(git log --since="30 days ago" --name-only --pretty=format: | grep -E '\.(js|py|yml|md|ts|jsx|tsx|go|rs|java|cpp|c|php|rb|swift|kt)$' | sed 's/.*\.//' | sort | uniq -c | sort -nr | head -5)
-          LANGUAGE_COUNT=$(echo "$LANGUAGES" | wc -l)
-
-          echo "📈 **Activity Metrics:**"
-          echo "  - Recent commits (30d): $RECENT_COMMITS"
-          echo "  - Total commits: $TOTAL_COMMITS"
-          echo "  - Active days (30d): $ACTIVE_DAYS"
-          echo "  - Active languages: $LANGUAGE_COUNT"
-
-          # Calculate activity score (0-100)
-          ACTIVITY_SCORE=$(echo "scale=2; (($RECENT_COMMITS * 2) + ($ACTIVE_DAYS * 5) + ($LANGUAGE_COUNT * 3)) / 2" | bc -l)
-          if (( $(echo "$ACTIVITY_SCORE > 100" | bc -l) )); then
-            ACTIVITY_SCORE=100
-          fi
-
-          echo "  - Activity Score: $ACTIVITY_SCORE/100"
-          echo "score=$ACTIVITY_SCORE" >> $GITHUB_OUTPUT
-          echo ""
-
-      - name: 🔍 Content Health Assessment
-        id: health
-        run: |
-          echo "🔍 **ASSESSING CV CONTENT HEALTH**"
-
-          # Check if core CV files exist
-          CV_DATA_EXISTS=$([ -f "data/base-cv.json" ] && echo "true" || echo "false")
-          ACTIVITY_DATA_EXISTS=$([ -f "data/activity-summary.json" ] && echo "true" || echo "false")
-          AI_DATA_EXISTS=$([ -f "data/ai-enhancements.json" ] && echo "true" || echo "false")
-
-          # Calculate content health score
-          HEALTH_SCORE=0
-          [ "$CV_DATA_EXISTS" = "true" ] && HEALTH_SCORE=$((HEALTH_SCORE + 40))
-          [ "$ACTIVITY_DATA_EXISTS" = "true" ] && HEALTH_SCORE=$((HEALTH_SCORE + 30))
-          [ "$AI_DATA_EXISTS" = "true" ] && HEALTH_SCORE=$((HEALTH_SCORE + 30))
-
-          if [ "$HEALTH_SCORE" -ge 80 ]; then
-            HEALTH_STATUS="excellent"
-            HEALTH_EMOJI="🟢"
-          elif [ "$HEALTH_SCORE" -ge 60 ]; then
-            HEALTH_STATUS="good"
-            HEALTH_EMOJI="🟡"
-          else
-            HEALTH_STATUS="needs-attention"
-            HEALTH_EMOJI="🔴"
-          fi
-
-          echo "$HEALTH_EMOJI **Content Health Status:** $HEALTH_STATUS ($HEALTH_SCORE/100)"
-          echo "  - Base CV Data: $CV_DATA_EXISTS"
-          echo "  - Activity Data: $ACTIVITY_DATA_EXISTS"
-          echo "  - AI Enhancements: $AI_DATA_EXISTS"
-
-          echo "health=$HEALTH_STATUS" >> $GITHUB_OUTPUT
-          echo "score=$HEALTH_SCORE" >> $GITHUB_OUTPUT
-          echo ""
-
-      - name: 💰 AI Budget Analysis
-        id: budget
-        run: |
-          echo "💰 **ANALYZING AI ENHANCEMENT BUDGET**"
-
-          # Load usage tracking if exists
-          USAGE_FILE="data/ai-usage-tracking.json"
-          if [ -f "$USAGE_FILE" ]; then
-            TOKENS_USED_TODAY=$(jq '.daily_usage | map(.total_tokens // 0) | add // 0' "$USAGE_FILE")
-            ENHANCEMENTS_TODAY=$(jq '.daily_usage | length' "$USAGE_FILE")
-          else
-            TOKENS_USED_TODAY=0
-            ENHANCEMENTS_TODAY=0
-          fi
-
-          # Set budget based on creativity level and usage
-          CREATIVITY="${{ github.event.inputs.ai_creativity || 'balanced' }}"
-          case "$CREATIVITY" in
-            "conservative")
-              DAILY_BUDGET=15000
-              SESSION_BUDGET=4000
-              ;;
-            "balanced")
-              DAILY_BUDGET=25000
-              SESSION_BUDGET=7000
-              ;;
-            "creative")
-              DAILY_BUDGET=40000
-              SESSION_BUDGET=12000
-              ;;
-            "innovative")
-              DAILY_BUDGET=60000
-              SESSION_BUDGET=18000
-              ;;
-          esac
-
-          TOKENS_REMAINING=$((DAILY_BUDGET - TOKENS_USED_TODAY))
-
-          echo "📊 **AI Budget Analysis:**"
-          echo "  - Creativity Level: $CREATIVITY"
-          echo "  - Daily Budget: $DAILY_BUDGET tokens"
-          echo "  - Used Today: $TOKENS_USED_TODAY tokens"
-          echo "  - Remaining: $TOKENS_REMAINING tokens"
-          echo "  - Session Budget: $SESSION_BUDGET tokens"
-          echo "  - Enhancements Today: $ENHANCEMENTS_TODAY"
-
-          if [ "$TOKENS_REMAINING" -ge "$SESSION_BUDGET" ]; then
-            BUDGET_STATUS="sufficient"
-            echo "  ✅ Sufficient budget for full enhancement"
-          elif [ "$TOKENS_REMAINING" -ge 2000 ]; then
-            BUDGET_STATUS="limited"
-            echo "  ⚠️ Limited budget - reduced enhancement scope"
-          else
-            BUDGET_STATUS="insufficient"
-            echo "  ❌ Insufficient budget - activity-only mode"
-          fi
-
-          echo "budget=$BUDGET_STATUS" >> $GITHUB_OUTPUT
-          echo "remaining=$TOKENS_REMAINING" >> $GITHUB_OUTPUT
-          echo "session_budget=$SESSION_BUDGET" >> $GITHUB_OUTPUT
-          echo ""
-
-  cv-enhancement-pipeline:
-    name: 🎯 CV Enhancement Execution
-    runs-on: ubuntu-latest
-    needs: cv-intelligence-analysis
     permissions:
       contents: write
     steps:
-      - name: 🚀 CV Enhancement Pipeline Initialization
-        run: |
-          echo "🎯 **CV ENHANCEMENT PIPELINE INITIATED**"
-          echo "🎲 Strategy: ${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
-          echo "📊 Activity Score: ${{ needs.cv-intelligence-analysis.outputs.activity-score }}/100"
-          echo "🔍 Content Health: ${{ needs.cv-intelligence-analysis.outputs.content-health }}"
-          echo "💰 AI Budget: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
-          echo ""
-
-      - name: 📥 Repository Checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📦 Setup Node.js Environment
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: 🔧 Install Dependencies
-        run: |
-          echo "📦 **INSTALLING CV ENHANCEMENT DEPENDENCIES**"
-          cd .github/scripts
-          npm ci
-          cd ../..
-          echo "✅ Dependencies installed successfully"
+      - name: Install dependencies
+        run: cd .github/scripts && npm ci
 
-      - name: ✅ Run Unit Tests
-        run: |
-          echo "✅ **RUNNING UNIT TESTS**"
-          cd .github/scripts
-          npm test
-          cd ../..
-          echo "✅ Unit tests passed"
+      - name: Unit tests
+        run: cd .github/scripts && npm test
 
-      - name: 🌐 Install Browser Dependencies
+      - name: Browser libraries (PDF rendering)
         run: |
           sudo apt-get update
           sudo apt-get install -y libnss3 libatk-bridge2.0-0 libxkbcommon0 libgbm-dev
 
-      - name: 📊 GitHub Activity Data Collection
-        if: needs.cv-intelligence-analysis.outputs.enhancement-strategy != 'ai-only'
+      # ── Stage 1: evidence ingestion ─────────────────────────────────────────
+      - name: Ingest — GitHub data mining and narratives
+        id: ingest
         run: |
-          echo "📊 **COLLECTING COMPREHENSIVE GITHUB ACTIVITY DATA**"
-
-          # Comprehensive activity analysis
-          echo "🔍 Analyzing repository contributions..."
-
-          # User profile data
-          USER_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/user")
-
-          # Repository data
-          REPOS_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/users/adrianwedd/repos?per_page=100&sort=updated")
-
-          # Language statistics
-          LANGUAGES_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            "https://api.github.com/users/adrianwedd/repos?per_page=100" | \
-            jq '[.[] | select(.language != null) | .language] | group_by(.) | map({language: .[0], count: length}) | sort_by(.count) | reverse')
-
-          # Recent activity metrics
-          RECENT_COMMITS=$(git log --since="30 days ago" --oneline | wc -l)
-          RECENT_ADDITIONS=$(git log --since="30 days ago" --numstat | awk '{add += $1} END {print add+0}')
-          RECENT_DELETIONS=$(git log --since="30 days ago" --numstat | awk '{del += $2} END {print del+0}')
-
-          # Note: Activity metrics are now handled by the dedicated Activity Tracker workflow
-          # This ensures consistency and avoids duplicate data generation
-
-          echo "✅ GitHub activity data collected and processed"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🔍 Comprehensive GitHub Data Mining
-        if: needs.cv-intelligence-analysis.outputs.enhancement-strategy == 'comprehensive' || needs.cv-intelligence-analysis.outputs.enhancement-strategy == 'full-rebuild'
-        run: |
-          echo "🔍 **INITIATING COMPREHENSIVE GITHUB DATA MINING**"
-          echo "📊 Mining issues, commits, and PR data for professional intelligence..."
-          echo "🎯 Mining depth: comprehensive"
-          echo ""
-
           cd .github/scripts
-          if node github-data-miner.js; then
-            echo "✅ Comprehensive data mining completed successfully"
-
-            # Generate professional narratives from mined data
-            echo ""
-            echo "📖 **GENERATING PROFESSIONAL NARRATIVES**"
-            if node narrative-generator.js; then
-              echo "✅ Professional narratives generated successfully"
-            else
-              echo "⚠️ Narrative generation failed, continuing with basic data"
-            fi
+          if node github-data-miner.js && node narrative-generator.js; then
+            echo "status=SUCCESS" >> "$GITHUB_OUTPUT"
+            # Keep only the newest snapshot per directory — no unbounded growth
+            for dir in ../../data/intelligence ../../data/narratives; do
+              ls -t "$dir"/*-narratives-*.json "$dir"/*-intelligence-*.json 2>/dev/null | tail -n +2 | xargs -r rm -f
+            done
           else
-            echo "⚠️ Data mining failed, falling back to basic activity data"
+            # Enhancement can still run on previously collected evidence, but the
+            # outcome is recorded and reported — not silently upgraded.
+            echo "status=FAILED" >> "$GITHUB_OUTPUT"
+            echo "::warning::Evidence ingestion failed; proposing from previously collected evidence"
           fi
-          cd ../..
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MINING_DEPTH: comprehensive
           LOOKBACK_DAYS: 90
 
-      - name: 🤖 Claude AI Content Enhancement
-        if: needs.cv-intelligence-analysis.outputs.ai-budget != 'insufficient'
+      # ── Stage 2: AI proposals (never touches base-cv.json) ──────────────────
+      - name: Propose — evidence-bounded AI enhancement
+        id: propose
         run: |
-          echo "🤖 **INITIATING CLAUDE AI CONTENT ENHANCEMENT**"
-          echo "💰 Available budget: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
-          echo "🎨 Creativity level: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
-          echo ""
-
           cd .github/scripts
-
-          # Verify claude-enhancer.js exists before running
-          if [ ! -f "claude-enhancer.js" ]; then
-            echo "❌ claude-enhancer.js not found, skipping AI enhancement"
-            cd ../..
-            exit 0
-          fi
-
-          # Run with timeout and error handling
-          # Use set +e so process.exit(1) from the script doesn't abort the step
           set +e
-          timeout 600 node claude-enhancer.js
-          ENHANCEMENT_EXIT_CODE=$?
+          timeout 600 node enhance.js
+          EXIT=$?
           set -e
-
-          if [ $ENHANCEMENT_EXIT_CODE -eq 0 ]; then
-            echo "✅ Claude AI enhancement completed successfully"
-          elif [ $ENHANCEMENT_EXIT_CODE -eq 124 ]; then
-            echo "⚠️ Claude AI enhancement timed out after 10 minutes, continuing with existing content"
-          else
-            echo "⚠️ Claude AI enhancement failed (exit code: $ENHANCEMENT_EXIT_CODE), continuing with existing content"
-          fi
-
-          cd ../..
+          STATUS=$(jq -r '.status // "FAILED"' ../../data/ai-enhancements.json 2>/dev/null || echo FAILED)
+          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
+          echo "AI proposal stage: $STATUS (exit $EXIT)"
+          # FAILED proposals never block the pipeline — the site can still be
+          # validated and re-rendered from curated content — but the status is
+          # carried into the commit message, not laundered into success.
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-      - name: Content Validation Gate
-        # Always run: integrity checks must gate every deploy, even on low-budget
-        # days when AI enhancement is skipped — the detector/guardian validate the
-        # base CV content about to be committed, not just freshly generated AI output.
+      # ── Stage 3: verification decides what lands ────────────────────────────
+      - name: Verify — apply only evidence-supported proposals
+        id: verify
+        if: inputs.dry_run != true
         run: |
-          echo "Content validation gate..."
-
-          # base-cv.json schema/integrity validation (exits 1 on any violation)
-          node tests/validate-json.test.js
-          echo "base-cv.json schema validation passed"
-
           cd .github/scripts
+          node verify-proposals.js | tee /tmp/verify.log
+          APPLIED=$(grep -oE '^APPLIED=[0-9]+' /tmp/verify.log | cut -d= -f2)
+          echo "applied=${APPLIED:-0}" >> "$GITHUB_OUTPUT"
 
-          # Hallucination detector exits 1 on confidence < 70
+      # ── Stage 4: hard validation gate ───────────────────────────────────────
+      - name: Validate — content integrity gate
+        run: |
+          node tests/validate-json.test.js
+          cd .github/scripts
           node ai-hallucination-detector.js
-          echo "Hallucination detection passed"
-
-          # Content guardian exits 1 on violations found
           node content-guardian.js --validate
-          echo "Content guardian passed"
-
-          # Keyword scorer — soft gate (threshold 35, logs gaps for enhancer)
           node keyword-scorer.js --threshold 35 --report
-          echo "Keyword scoring complete"
-
-          cd ../..
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📊 Professional Metrics Calculation
+      # ── Stage 5: render site + PDFs ─────────────────────────────────────────
+      - name: Render — website and PDFs
+        if: inputs.dry_run != true
         run: |
-          echo "📊 **CALCULATING PROFESSIONAL DEVELOPMENT METRICS**"
-
-          # Load activity data from the new activity summary structure
-          if [ -f "data/activity-summary.json" ]; then
-            # Extract basic activity metrics
-            TOTAL_COMMITS=$(jq -r '.summary.total_commits // 0' data/activity-summary.json)
-            ACTIVE_DAYS=$(jq -r '.summary.active_days // 0' data/activity-summary.json)
-            NET_LINES=$(jq -r '.summary.net_lines_contributed // 0' data/activity-summary.json)
-            LOOKBACK_DAYS=$(jq -r '.lookback_period_days // 30' data/activity-summary.json)
-
-            # Calculate professional metrics
-            CONTRIB_VELOCITY=$(echo "scale=2; $TOTAL_COMMITS / $LOOKBACK_DAYS" | bc -l)
-            ACTIVITY_SCORE=$(echo "scale=2; ($TOTAL_COMMITS * 3 + $ACTIVE_DAYS * 5) / 2" | bc -l)
-
-            # Load additional data from latest activity file if available
-            LATEST_ACTIVITY=$(jq -r '.data_files.latest_activity // ""' data/activity-summary.json)
-            if [ -n "$LATEST_ACTIVITY" ] && [ -f "data/activity/$LATEST_ACTIVITY" ]; then
-              TOTAL_REPOS=$(jq -r '.repositories.summary.total_count // 0' "data/activity/$LATEST_ACTIVITY")
-              TOTAL_STARS=$(jq -r '.repositories.summary.total_stars // 0' "data/activity/$LATEST_ACTIVITY")
-              LANGUAGE_DIVERSITY=$(jq -r '.repositories.summary.languages | length // 0' "data/activity/$LATEST_ACTIVITY")
-            else
-              # Fallback values
-              TOTAL_REPOS=0
-              TOTAL_STARS=0
-              LANGUAGE_DIVERSITY=0
-            fi
-
-            # Cap scores at reasonable maximums
-            if (( $(echo "$ACTIVITY_SCORE > 100" | bc -l) )); then
-              ACTIVITY_SCORE=100
-            fi
-
-            # Professional growth indicators
-            GROWTH_SCORE=$(echo "scale=2; ($ACTIVITY_SCORE + ($TOTAL_STARS * 0.5) + ($LANGUAGE_DIVERSITY * 2)) / 3" | bc -l)
-
-            echo "📈 **Professional Metrics:**"
-            echo "  - Activity Score: $ACTIVITY_SCORE/100"
-            echo "  - Contribution Velocity: $CONTRIB_VELOCITY commits/day"
-            echo "  - Repository Portfolio: $TOTAL_REPOS repositories"
-            echo "  - Community Recognition: $TOTAL_STARS stars"
-            echo "  - Technical Diversity: $LANGUAGE_DIVERSITY languages"
-            echo "  - Professional Growth Score: $GROWTH_SCORE/100"
-            echo ""
-          else
-            echo "⚠️ Activity summary not available, using defaults"
-            ACTIVITY_SCORE=50
-            CONTRIB_VELOCITY=1.0
-            TOTAL_REPOS=10
-            TOTAL_STARS=5
-            LANGUAGE_DIVERSITY=3
-            GROWTH_SCORE=40
-          fi
-
-      - name: 🎨 Dynamic CV Website Generation
-        run: |
-          echo "🎨 **GENERATING DYNAMIC CV WEBSITE**"
-
-          # Ensure dist directory exists
-          mkdir -p dist
-
-          # Verify cv-generator.js exists
-          if [ ! -f ".github/scripts/cv-generator.js" ]; then
-            echo "❌ cv-generator.js not found, using fallback copy"
-            cp index.html dist/
-            cp -r assets dist/ 2>/dev/null || true
-            cp -r data dist/ 2>/dev/null || true
-            echo "✅ Fallback CV website copy completed"
-            exit 0
-          fi
-
-          # Generate the complete CV website with timeout
           cd .github/scripts
           timeout 300 node cv-generator.js
-          GENERATOR_EXIT_CODE=$?
           cd ../..
+          test -f dist/index.html
+          # Copy generated output into the working tree for Pages deployment
+          cp -r dist/assets/. assets/
+          cp -r dist/data/. data/
+          cp dist/index.html index.html
 
-          # Check generation result and implement fallback
-          if [ $GENERATOR_EXIT_CODE -eq 0 ] && [ -f "dist/index.html" ]; then
-            echo "✅ CV website generated successfully"
-          else
-            if [ $GENERATOR_EXIT_CODE -eq 124 ]; then
-              echo "⚠️ CV generator timed out after 5 minutes, using fallback copy"
-            else
-              echo "⚠️ CV generator failed (exit code: $GENERATOR_EXIT_CODE), using fallback copy"
-            fi
+      - name: Lint generated JavaScript
+        if: inputs.dry_run != true
+        run: cd .github/scripts && npm run lint
 
-            # Fallback: copy existing assets
-            cp index.html dist/ 2>/dev/null || echo "⚠️ index.html not found in root"
-            cp -r assets dist/ 2>/dev/null || echo "⚠️ assets directory not found"
-            cp -r data dist/ 2>/dev/null || echo "⚠️ data directory not found"
-
-            # Ensure we have at least a basic index.html
-            if [ ! -f "dist/index.html" ]; then
-              echo "🚨 Creating minimal fallback index.html"
-              cat > dist/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Adrian Wedd - CV</title>
-          </head>
-          <body>
-              <h1>Adrian Wedd</h1>
-              <p>AI Engineer & Software Architect</p>
-              <p>CV generation in progress. Please check back shortly.</p>
-          </body>
-          </html>
-          EOF
-            fi
-
-            echo "✅ Fallback CV website deployed"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: ✅ Validate & Lint Generated Assets
+      # ── Stage 6: publish (honest commit message) ────────────────────────────
+      - name: Publish — commit if content changed
+        if: inputs.dry_run != true
         run: |
-          echo "✅ **VALIDATING AND LINTING GENERATED ASSETS**"
-
-          # Run ESLint on JavaScript files
-          echo "Running ESLint..."
-          cd .github/scripts
-          npm run lint
-          cd ../..
-          echo "✅ ESLint passed"
-
-          # Validate JSON files
-          echo "Validating JSON files..."
-          JSON_ERRORS=0
-
-          for file in data/*.json; do
-            if [ -f "$file" ]; then
-              if jq . "$file" > /dev/null 2>&1; then
-                echo "✅ $file is valid JSON"
-              else
-                echo "❌ $file is invalid JSON"
-                JSON_ERRORS=$((JSON_ERRORS + 1))
-              fi
-            fi
-          done
-
-          if [ $JSON_ERRORS -gt 0 ]; then
-            echo "❌ Found $JSON_ERRORS JSON validation errors"
-            exit 1
-          fi
-          echo "✅ JSON validation passed"
-
-      - name: 📄 Verify PDF Asset Generation
-        run: |
-          echo "📄 **VERIFYING PDF GENERATION**"
-
-          # Check if PDF was generated by cv-generator.js
-          if [ -f "dist/assets/adrian-wedd-cv.pdf" ]; then
-            echo "✅ PDF asset generated successfully"
-            ls -la dist/assets/adrian-wedd-cv.pdf
-          else
-            echo "⚠️ PDF not found in dist/assets/, PDF download will not be available"
-          fi
-
-      - name: 🚀 Deploy Generated Assets to Main Branch
-        run: |
-          echo "🚀 **DEPLOYING GENERATED ASSETS**"
-
-          # Copy generated files from dist/ back into the working tree
-          if [ -d "dist" ]; then
-            # Copy generated assets over source files
-            cp -r dist/assets/* assets/ 2>/dev/null || true
-            cp -r dist/data/* data/ 2>/dev/null || true
-            [ -f dist/index.html ] && cp dist/index.html index.html
-
-            echo "✅ Generated assets staged for commit"
-          else
-            echo "⚠️ No dist directory found, skipping asset deploy"
-          fi
-
-      - name: 📈 Usage Analytics Recording
-        if: always()
-        run: |
-          echo "📈 **RECORDING CV ENHANCEMENT ANALYTICS**"
-
-          # Create or update usage tracking
-          mkdir -p data
-          USAGE_FILE="data/cv-usage-tracking.json"
-          SESSION_TIME=$(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M AEST')
-          SESSION_UTC=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-
-          # Initialize usage file if not exists
-          if [ ! -f "$USAGE_FILE" ]; then
-            echo '{"daily_usage": [], "enhancement_history": [], "performance_metrics": []}' > "$USAGE_FILE"
-          fi
-
-          # Record this session
-          ENHANCEMENT_MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-          STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
-          ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-
-          # Estimate token usage based on mode and success
-          case "$ENHANCEMENT_MODE" in
-            "comprehensive") ESTIMATED_TOKENS=8000 ;;
-            "ai-only") ESTIMATED_TOKENS=5000 ;;
-            "activity-only") ESTIMATED_TOKENS=1000 ;;
-            "emergency-update") ESTIMATED_TOKENS=3000 ;;
-            *) ESTIMATED_TOKENS=6000 ;;
-          esac
-
-          # Update usage tracking
-          jq --arg time "$SESSION_TIME" \
-             --arg utc "$SESSION_UTC" \
-             --arg mode "$ENHANCEMENT_MODE" \
-             --arg strategy "$STRATEGY" \
-             --arg tokens "$ESTIMATED_TOKENS" \
-             --arg activity "$ACTIVITY_SCORE" \
-             --arg outcome "success" \
-             '.daily_usage += [{
-               "timestamp": $time,
-               "utc_timestamp": $utc,
-               "enhancement_mode": $mode,
-               "strategy": $strategy,
-               "estimated_tokens": ($tokens | tonumber),
-               "activity_score": ($activity | tonumber),
-               "outcome": $outcome
-             }] |
-             .enhancement_history += [{
-               "date": ($utc | split("T")[0]),
-               "mode": $mode,
-               "activity_score": ($activity | tonumber),
-               "success": true
-             }]' "$USAGE_FILE" > "$USAGE_FILE.tmp"
-
-          mv "$USAGE_FILE.tmp" "$USAGE_FILE"
-
-          # Prune to last 90 entries to prevent unbounded growth
-          jq '.daily_usage = (.daily_usage | .[-90:]) | .enhancement_history = (.enhancement_history | .[-90:])' "$USAGE_FILE" > "$USAGE_FILE.tmp"
-          mv "$USAGE_FILE.tmp" "$USAGE_FILE"
-
-          echo "📊 **Enhancement Session Analytics:**"
-          echo "  - Mode: $ENHANCEMENT_MODE"
-          echo "  - Strategy: $STRATEGY"
-          echo "  - Activity Score: $ACTIVITY_SCORE/100"
-          echo "  - Estimated Tokens: $ESTIMATED_TOKENS"
-          echo "  - Session Time: $SESSION_TIME"
-          echo ""
-
-      - name: 🚀 Commit Enhanced CV Data
-        run: |
-          echo "🚀 **COMMITTING CV ENHANCEMENT UPDATES**"
-
-          git config --local user.email "cv-enhancement@adrianwedd.com"
-          git config --local user.name "adrianwedd(cv-enhancer)"
-
-          # Ensure intelligence and narrative data is included
-          if [ -d "data/intelligence" ]; then
-            echo "📊 Including intelligence data in commit"
-            ls -la data/intelligence/
-          fi
-
-          if [ -d "data/narratives" ]; then
-            echo "📖 Including narrative data in commit"
-            ls -la data/narratives/
-          fi
+          git config --local user.email "cv-pipeline@adrianwedd.com"
+          git config --local user.name "cv-pipeline"
 
           git add data/ index.html assets/ CNAME
 
-          if ! git diff --cached --quiet; then
-            # Create intelligent commit message
-            ACTIVITY_SCORE="${{ needs.cv-intelligence-analysis.outputs.activity-score }}"
-            STRATEGY="${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
-            MODE="${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-
-            git commit -m "🚀 CV Enhancement Update $(date +'%Y%m%d-%H%M')
-
-            📊 Activity Score: $ACTIVITY_SCORE/100
-            🎯 Strategy: $STRATEGY
-            🔄 Mode: $MODE
-            🤖 System: CV Auto-Enhancement Pipeline ${{ env.CV_SYSTEM_VERSION }}
-
-            🎨 Enhanced with Claude AI content optimization
-            📈 Updated with latest GitHub activity metrics
-            🌐 Regenerated responsive CV website
-
-            🔗 Live CV: https://cv.adrianwedd.com
-
-            🤖 Generated with [Claude Code](https://claude.ai/code)
-
-            Co-Authored-By: Claude <noreply@anthropic.com>"
-
-            git push
-            echo "✅ CV enhancement updates committed and deployed"
-          else
-            echo "📝 No changes to commit"
+          # Ignore runs where nothing but volatile metadata moved: if the only
+          # changes are generation timestamps and byte-jittered PDFs, skip the
+          # commit entirely instead of manufacturing daily churn.
+          if git diff --cached --quiet; then
+            echo "No content changes — nothing to publish"
+            exit 0
+          fi
+          MEANINGFUL=$(git diff --cached --numstat -- ':!assets/*.pdf' ':!data/ai-enhancements.json' | wc -l)
+          if [ "$MEANINGFUL" -eq 0 ] && [ "${{ steps.verify.outputs.applied || '0' }}" = "0" ]; then
+            echo "Only volatile files changed (PDF byte-jitter) — nothing to publish"
+            exit 0
           fi
 
-      - name: 🎯 Enhancement Summary
+          INGEST="${{ steps.ingest.outputs.status }}"
+          PROPOSE="${{ steps.propose.outputs.status }}"
+          APPLIED="${{ steps.verify.outputs.applied || '0' }}"
+
+          if [ "$PROPOSE" = "SUCCESS" ] && [ "$APPLIED" -gt 0 ]; then
+            HEADLINE="cv: apply $APPLIED verified AI-proposed improvement(s)"
+          else
+            HEADLINE="cv: refresh generated site from curated content"
+          fi
+
+          git commit -m "$HEADLINE
+
+          Trigger: ${{ github.event_name }}
+          Evidence ingestion: $INGEST
+          AI proposals: $PROPOSE (provider: ${{ env.AI_PROVIDER }}, model: ${{ env.AI_MODEL }})
+          Proposals applied after verification: $APPLIED
+          Validation gate: PASSED (deploys are blocked when it fails)"
+
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run summary
         if: always()
         run: |
-          echo "🎯 **CV ENHANCEMENT PIPELINE SUMMARY**"
-          echo "======================================"
-          echo ""
-          echo "📅 **Session Details**"
-          echo "  - Completion Time: $(TZ='${{ env.TIMEZONE }}' date +'%Y-%m-%d %H:%M %Z')"
-          echo "  - Enhancement Mode: ${{ github.event.inputs.enhancement_mode || 'comprehensive' }}"
-          echo "  - Strategy Used: ${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}"
-          echo "  - AI Creativity: ${{ github.event.inputs.ai_creativity || 'balanced' }}"
-          echo ""
-          echo "📊 **Performance Metrics**"
-          echo "  - Activity Score: ${{ needs.cv-intelligence-analysis.outputs.activity-score }}/100"
-          echo "  - Content Health: ${{ needs.cv-intelligence-analysis.outputs.content-health }}"
-          echo "  - AI Budget Status: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}"
-          echo ""
-          echo "🚀 **Deliverables**"
-          echo "  - ✅ GitHub activity analysis completed"
-          echo "  - ✅ AI content enhancement applied"
-          echo "  - ✅ Professional metrics calculated"
-          echo "  - ✅ Dynamic CV website generated"
-          echo "  - ✅ GitHub Pages deployment successful"
-          echo ""
-          echo "🔗 **Live CV**: https://cv.adrianwedd.com"
-          echo "⏰ **Next Enhancement**: $(TZ='${{ env.TIMEZONE }}' date -d '+24 hours' +'%Y-%m-%d %H:%M %Z')"
-          echo ""
-          echo "======================================"
-
-      - name: 📊 Workflow Summary Report
-        if: always()
-        run: |
-          # Generate comprehensive workflow summary
-          cat >> $GITHUB_STEP_SUMMARY << EOF
-          # 🚀 CV Enhancement Pipeline Results
-
-          ## 📊 Session Overview
-          - **Enhancement Mode**: ${{ github.event.inputs.enhancement_mode || 'comprehensive' }}
-          - **Strategy**: ${{ needs.cv-intelligence-analysis.outputs.enhancement-strategy }}
-          - **Activity Score**: ${{ needs.cv-intelligence-analysis.outputs.activity-score }}/100
-          - **Content Health**: ${{ needs.cv-intelligence-analysis.outputs.content-health }}
-          - **AI Budget**: ${{ needs.cv-intelligence-analysis.outputs.ai-budget }}
-
-          ## 🎯 Enhancement Results
-          | Component | Status | Details |
-          |-----------|--------|---------|
-          | 📊 Activity Analysis | ✅ Complete | GitHub metrics collected and processed |
-          | 🤖 AI Enhancement | ✅ Complete | Claude AI content optimization applied |
-          | 📈 Metrics Calculation | ✅ Complete | Professional development scores updated |
-          | 🎨 Website Generation | ✅ Complete | Responsive CV website built |
-          | 🚀 Deployment | ✅ Complete | GitHub Pages updated |
-
-          ## 🔗 Access Your Enhanced CV
-          - **Live Website**: [cv.adrianwedd.com](https://cv.adrianwedd.com)
-          - **Repository**: [github.com/adrianwedd/cv](https://github.com/adrianwedd/cv)
-
-          ## ⏰ Next Enhancement Session
-          **Scheduled**: $(TZ='${{ env.TIMEZONE }}' date -d '+24 hours' +'%Y-%m-%d %H:%M %Z')
-
-          ---
-          *CV Enhancement Pipeline v${{ env.CV_SYSTEM_VERSION }} - Powered by Claude AI & GitHub Analytics*
-          EOF
+          {
+            echo "# CV Pipeline Result"
+            echo ""
+            echo "| Stage | Outcome |"
+            echo "|-------|---------|"
+            echo "| Evidence ingestion | ${{ steps.ingest.outputs.status || 'not run' }} |"
+            echo "| AI proposals | ${{ steps.propose.outputs.status || 'not run' }} |"
+            echo "| Applied after verification | ${{ steps.verify.outputs.applied || '0' }} |"
+            echo ""
+            echo "Statuses above are measured, not assumed. See data/proposal-review.json for per-proposal verdicts."
+          } >> "$GITHUB_STEP_SUMMARY"

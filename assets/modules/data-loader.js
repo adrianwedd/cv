@@ -37,36 +37,3 @@ export async function loadActivityData() {
         return {};
     }
 }
-
-/**
- * Load AI enhancements data.
- */
-export async function loadAIEnhancements() {
-    if (window.__AI_ENHANCEMENTS__) return window.__AI_ENHANCEMENTS__;
-    try {
-        const response = await fetch(CONFIG.DATA_ENDPOINTS.AI_ENHANCEMENTS);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.warn('AI enhancements not available');
-        return {};
-    }
-}
-
-/**
- * Load GitHub statistics from the public API.
- */
-export async function loadGitHubStats() {
-    try {
-        const response = await fetch(CONFIG.DATA_ENDPOINTS.GITHUB_API);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.warn('GitHub stats not available');
-        return {};
-    }
-}

@@ -38,6 +38,7 @@ data/validation-report-*.json
 data/latest-validation-report.json
 data/validation-cache/
 data/content-audit.json
+data/proposal-review.json
 
 # CI-generated script data (shadow copies)
 .github/scripts/data/

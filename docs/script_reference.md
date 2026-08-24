@@ -4,44 +4,31 @@ This section provides an overview of the main JavaScript and Python classes and 
 
 ## JavaScript Components
 
-### `ActivityAnalyzer` (`.github/scripts/activity-analyzer.js`)
+### Activity Collector (`.github/scripts/activity-collector.js`)
 
-**Role**: Responsible for collecting and analyzing GitHub activity data to generate professional metrics.
+**Role**: Collects real cross-repo GitHub activity evidence (the whole account, not this repo's git log). Writes `data/github-activity.json` (full snapshot) and `data/activity-summary.json` (compact website summary).
 
-### Key Methods:
+### Key Functions:
 
-*   `analyze()`: Runs the comprehensive activity analysis pipeline.
-*   `analyzeUserProfile()`: Analyzes basic user profile statistics.
-*   `analyzeRepositories()`: Analyzes user repositories with detailed metrics.
-*   `analyzeActivityPatterns()`: Analyzes activity patterns and contribution consistency.
-*   `calculateProfessionalMetrics()`: Calculates comprehensive professional development metrics.
-*   `analyzeSkillProficiency()`: Analyzes skill proficiency based on language usage and project complexity.
+*   `main()`: Runs the collection: GraphQL contribution calendar (~9 months, one call), per-repo commit totals, public push events for the commit timeline, repository inventory and language mix, and a cross-repo commit-search count over the lookback window (`LOOKBACK_DAYS`, default 30).
+*   `graphql(query, variables)` / `gh(url, accept)`: Authenticated GitHub GraphQL/REST helpers (require `GITHUB_TOKEN`).
 
-### `ClaudeApiClient` (`.github/scripts/claude-enhancer.js`)
+### AI Client (`.github/scripts/ai/client.js`)
 
-**Role**: Provides an enhanced HTTP client for interacting with the Claude API, including caching and token optimization.
+**Role**: Provider-neutral chat client with explicit SUCCESS/SKIPPED/FAILED semantics. No provider SDKs.
 
-### Key Methods:
+### Key Functions:
 
-*   `makeRequest(messages, options, sourceContent)`: Makes a Claude API request with caching and token tracking.
-*   `httpRequest(url, options, maxRetries, retryDelay)`: HTTP request wrapper with retry logic and exponential backoff.
-*   `generateCacheKey(requestPayload, sourceContent)`: Generates a content-aware cache key for request deduplication.
-*   `getCachedResponse(cacheKey)`: Retrieves a cached response.
-*   `cacheResponse(cacheKey, response)`: Caches an API response.
-*   `getUsageStats()`: Returns token usage statistics.
+*   `chat({ system, prompt, maxTokens, temperature, model })`: Sends one chat request to the configured provider and returns `{ status, text, usage, provider, model }`. Returns `SKIPPED` when no provider is configured.
+*   `detectProvider(env)`: Selects the provider from `AI_PROVIDER` or auto-detects: `openrouter` (`OPENROUTER_API_KEY`, default model `deepseek/deepseek-v4-flash`), `ollama` (`OLLAMA_HOST`), or `gemini` (`GEMINI_API_KEY`).
 
-### `CVContentEnhancer` (`.github/scripts/claude-enhancer.js`)
+### Enhancer (`.github/scripts/enhance.js`)
 
-**Role**: Orchestrates the multi-stage AI enhancement pipeline for professional CV content.
+**Role**: The proposal stage. Builds evidence-bounded prompts from `activity-summary.json`, mined narratives, and ATS keyword gaps, then asks the AI provider for per-section rewrites of `professional_summary` and experience/project descriptions. Writes `data/ai-enhancements.json` as **proposals only** (status + per-section verdicts + measured token usage); never touches `base-cv.json`.
 
-### Key Methods:
+### Proposal Verifier (`.github/scripts/verify-proposals.js`)
 
-*   `enhance()`: Runs the comprehensive CV content enhancement pipeline.
-*   `enhanceProfessionalSummary(cvData, activityMetrics)`: Enhances the professional summary with AI optimization.
-*   `enhanceSkillsSection(cvData, activityMetrics)`: Enhances the skills section with proficiency analysis.
-*   `enhanceExperience(cvData, activityMetrics)`: Enhances experience descriptions.
-*   `enhanceProjects(cvData, activityMetrics)`: Enhances project descriptions with impact analysis.
-*   `generateStrategicInsights(cvData, activityMetrics)`: Generates strategic career insights.
+**Role**: Verification + apply stage. Checks each proposal against the evidence corpus (`base-cv.json`, activity data, narratives, intelligence snapshots) and rejects those with unsupported numbers (quantity guard), new credentials, corporate beige/meta-commentary, or drastic length change. Accepted proposals are applied to `data/base-cv.json`; per-proposal verdicts are recorded in `data/proposal-review.json`. Covered by `verify-proposals.test.js`.
 
 ### `CVGenerator` (`.github/scripts/cv-generator.js`)
 
@@ -50,7 +37,7 @@ This section provides an overview of the main JavaScript and Python classes and 
 ### Key Methods:
 
 *   `generate()`: Runs the complete CV website generation pipeline with GitHub data integration.
-*   `loadDataSources()`: Loads and validates all data sources including activity data, CV data, and AI enhancements.
+*   `loadDataSources()`: Loads and validates the data sources: CV data (`base-cv.json`, into which verified proposals have already been merged) and activity data.
 *   `validateActivityData()`: Validates and sanitizes GitHub activity metrics for data integrity.
 *   `updateGitHubMetrics(htmlContent)`: Replaces placeholder metrics with verified GitHub data.
 *   `updateStructuredDataWithGitHubSkills(htmlContent)`: Enhances structured data with GitHub-verified skills.
@@ -70,7 +57,7 @@ This section provides an overview of the main JavaScript and Python classes and 
 *   `generateRobotsTxt()`: Generates `robots.txt`.
 *   `generateManifest()`: Generates web manifest.
 *   `generateGitHubPagesFiles()`: Generates GitHub Pages specific files.
-*   `generatePDF()`: Generates a high-quality PDF from the generated HTML.
+*   `generatePDF()`: Generates the PDF assets via Puppeteer — the full `adrian-wedd-cv.pdf` and the ATS-optimized `adrian-wedd-cv-short.pdf` (from `ats-template.html`).
 
 ### `AIHallucinationDetector` (`.github/scripts/ai-hallucination-detector.js`)
 
@@ -82,7 +69,7 @@ This section provides an overview of the main JavaScript and Python classes and 
 
 ### Other Active Scripts (`.github/scripts/`)
 
-The pipeline also wires in several supporting scripts, including `github-data-miner.js` (comprehensive GitHub data mining), `narrative-generator.js`, `keyword-scorer.js` (soft scoring gate), `claim-verifier.js`, and `position-description-ingester.js`. (Note: `claude-enhancer-v2.js` ships in the repo but is **not** invoked by CI — the active enhancer is `claude-enhancer.js`.)
+The pipeline also wires in several supporting scripts: `github-data-miner.js` (comprehensive GitHub data mining) and `narrative-generator.js` run in the ingest stage, and `keyword-scorer.js` runs as a soft scoring gate in the validation stage.
 
 ### `CVApplication` (`assets/script.js`)
 
