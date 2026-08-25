@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "version": "2.1.0",
-    "last_updated": "2026-03-01T00:00:00Z",
+    "version": "2.2.0",
+    "last_updated": "2026-08-25T00:00:00Z",
     "data_source": "CV Pipeline",
     "enhancement_ready": true
   },
@@ -17,13 +17,13 @@
     "tagline": "Building the systems I study — AI safety, multi-agent frameworks, and client delivery",
     "availability": "Currently freelancing and building — open to the right opportunity"
   },
-  "professional_summary": "Systems builder, AI safety researcher, and adversarial thinker with nearly 45 years across the stack. The failure-first methodology didn't come from papers — it came from coordinating direct actions for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: seven years leading cybersecurity, penetration testing, and IDAM for Tasmania's public housing sector; three years of empirical AI red-teaming across 120+ models and 18,000+ adversarial prompts; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD — the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built.",
+  "professional_summary": "Systems builder, AI safety researcher, and adversarial thinker — writing code since age six, with fifteen years of applied infrastructure, security, and delivery across government, university, and campaign organisations. The failure-first methodology didn't come from papers — it came from coordinating communications and logistics for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: leading the cybersecurity uplift for Tasmania's public housing sector — translating the ~900-control ACSC ISM into a tracked delivery program alongside Essential Eight and IDAM work; an adversarial evaluation practice spanning 257 models and 142,068 adversarial prompts across 346 attack techniques; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD — the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built.",
   "experience": [
     {
       "position": "Freelance Developer & AI Consultant",
       "company": "Independent",
       "location": "Tasmania, Australia",
-      "period": "2025 - Present",
+      "period": "Jan 2025 - Present",
       "type": "Freelance",
       "description": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
       "achievements": [
@@ -32,15 +32,16 @@
         "Applied prompt engineering, RAG, and retrieval-augmented generation across multiple agentic systems",
         "Delivered four-site healthcare digital presence with AHPRA regulatory compliance and REST API integration",
         "Built 10+ active open-source repositories: agent orchestration, AI governance, NLP tooling, and CLI automation",
-        "Developed multi-agent orchestration system with LangGraph, LangChain, and Anthropic SDK"
+        "Designs and operates agentic AI workflows daily — multi-step agent pipelines gated by automated tests and evaluation-first CI harnesses",
+        "Built rlm-mcp, an MCP server for 1M+ token document processing with BM25 retrieval and artifact provenance tracking"
       ],
       "technologies": [
         "Python",
         "JavaScript",
         "TypeScript",
-        "LangChain",
-        "LangGraph",
-        "Anthropic SDK",
+        "Node.js",
+        "Cloudflare Workers",
+        "MCP",
         "Claude API",
         "Prompt Engineering",
         "RAG",
@@ -60,16 +61,15 @@
       "position": "Systems Analyst / Acting Senior Change Analyst",
       "company": "Homes Tasmania (formerly Department of Communities Tasmania)",
       "location": "Tasmania, Australia",
-      "period": "2018 - Feb 2026",
+      "period": "May 2018 - Feb 2026",
       "type": "Full-time",
-      "description": "Led systems integration, cybersecurity, and digital transformation for Tasmania's public housing sector. Delivered penetration testing, vulnerability assessment, and identity and access management (IDAM) improvements. Deployed automation and AI tooling to improve service delivery for vulnerable communities.",
+      "description": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023.",
       "achievements": [
         "Designed and implemented RESTful API integrations and SFTP data exchange for the Housing Management System",
-        "Led cybersecurity program including vulnerability assessment, penetration testing, and Essential Eight compliance uplift",
+        "Built the department's ISM-aligned security program: interpreted ~900 ACSC ISM controls across 22 guideline domains into a structured, owned, trackable delivery program; led the cybersecurity uplift across Essential Eight and IDAM",
         "Implemented identity and access management (IDAM) controls reducing unauthorised access risk",
         "Built Python and PowerShell automation scripts for operational workflows, reducing manual processing time",
-        "Pioneered responsible AI adoption for data analysis and decision support, including prompt engineering and LLM integration",
-        "Developed ISO 27001-aligned information security practices across the department",
+        "Wrote the department's first generative-AI policy, governing responsible AI adoption before deployment in a regulated human-services environment",
         "Contributed to ICT policy development and audit processes for departmental compliance"
       ],
       "technologies": [
@@ -80,10 +80,9 @@
         "SFTP",
         "SQL",
         "Azure",
-        "Penetration Testing",
+        "ACSC ISM",
         "IDAM",
         "Essential Eight",
-        "ISO 27001",
         "Prompt Engineering"
       ]
     },
@@ -158,11 +157,11 @@
       "location": "Australia",
       "period": "2010 - 2012",
       "type": "Full-time",
-      "description": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents — corporations and state actors who actively work to prevent campaign success. Work required genuine operational security, adversarial threat modeling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
+      "description": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
       "achievements": [
         "Planned and coordinated direct action operations — logistics, communications, and security across multiple simultaneous campaigns",
-        "Developed threat models and operational security protocols against adversarial opponents with surveillance and legal resources",
-        "Designed and maintained field ICT infrastructure for covert operations: encrypted comms, dead drops, secure channels under active counter-surveillance",
+        "Developed threat models and operational security protocols for campaigns facing well-resourced opponents",
+        "Designed and maintained field ICT infrastructure for direct actions, including encrypted communications and secure channels",
         "Conducted pre-action risk assessments enumerating failure modes, contingency routes, and abort criteria",
         "Trained activists in operational security and secure communications under pressure",
         "Coordinated multi-team logistics across geographically distributed operations with real-time adaptation to adversarial conditions"
@@ -375,13 +374,13 @@
       "name": "Large Language Models",
       "category": "AI & Automation",
       "tier": "Primary",
-      "description": "LLMs, Claude API, Anthropic SDK, OpenAI API, LangChain, LangGraph, prompt engineering, RAG, retrieval-augmented generation, fine-tuning, multi-agent systems, natural language processing (NLP)"
+      "description": "LLMs, Claude API, OpenAI API, prompt engineering, RAG, retrieval-augmented generation, multi-agent systems, MCP, natural language processing (NLP)"
     },
     {
       "name": "AI Safety & Evaluation",
       "category": "AI & Automation",
       "tier": "Primary",
-      "description": "Red-teaming, red teaming, adversarial testing, evaluation frameworks, model evaluation, hallucination detection, content safety, AI ethics, responsible AI, AI alignment, failure-first methodology, FMEA, pre-mortem analysis, transformer and BERT-based evaluation, explainability, interpretability, safety testing"
+      "description": "Red-teaming, adversarial testing, evaluation frameworks, model evaluation, hallucination detection, content safety, responsible AI, failure-first methodology, drift detection, interpretability, safety testing"
     },
     {
       "name": "Process Automation",
@@ -399,7 +398,7 @@
       "name": "Cybersecurity",
       "category": "Infrastructure",
       "tier": "Primary",
-      "description": "Penetration testing (pentesting), vulnerability assessment, threat modeling, identity and access management (IDAM), Essential Eight, ISO 27001, Zero Trust, network security, information security"
+      "description": "Security governance and control-framework delivery (ACSC ISM, Essential Eight), threat modeling, identity and access management (IDAM), security policy authorship, network security, information security"
     },
     {
       "name": "Linux/Windows Server",
@@ -528,14 +527,14 @@
     {
       "icon": "🏛️",
       "title": "Security & Systems Uplift — Homes Tasmania",
-      "description": "Led cybersecurity and systems integration for Tasmania's public housing sector: Essential Eight compliance uplift, penetration testing, IDAM controls, and RESTful API integrations for the Housing Management System. Infrastructure that vulnerable people depend on — the stakes made the work serious.",
-      "date": "2018-2024",
+      "description": "Led the cybersecurity uplift and systems integration for Tasmania's public housing sector: translated the ~900-control ACSC ISM into a structured, trackable delivery program, worked across Essential Eight and IDAM, and built RESTful API integrations for the Housing Management System. Infrastructure that vulnerable people depend on — the stakes made the work serious.",
+      "date": "2018 - Feb 2026",
       "category": "Technical Achievement"
     },
     {
       "icon": "🤖",
       "title": "AI Safety Research & Red-Teaming",
-      "description": "Developed failure-first red-teaming framework for embodied AI systems with 104 tracked research issues, cross-modal vulnerability analysis on VLA models, and automated attack adapters. Pursuing commercial AI safety services.",
+      "description": "Developed failure-first red-teaming framework for embodied AI systems — 257 models evaluated against 142,068 adversarial prompts spanning 346 attack techniques, with cross-modal vulnerability analysis on VLA models, automated attack adapters, and a drift-detection pipeline. Pursuing commercial AI safety services.",
       "date": "2025-2026",
       "category": "Research"
     },
@@ -592,7 +591,20 @@
       "description": "Wrote first program at age 6 on a Microbee in BASIC — a morning routine sequencer with randomised audiovisual rewards. Built to compensate for undiagnosed ADHD executive function deficits. The instinct to build tools rather than endure problems started here and never stopped."
     }
   ],
-  "certifications": [],
+  "certifications": [
+    {
+      "name": "Google Analytics Individual Qualification",
+      "issuer": "Google",
+      "status": "Historical",
+      "note": "Held during Digital Agency period (2015-2018)"
+    },
+    {
+      "name": "Google AdWords Certification",
+      "issuer": "Google",
+      "status": "Historical",
+      "note": "Held during Digital Agency period (2015-2018); product now branded Google Ads"
+    }
+  ],
   "languages": [
     {
       "language": "English",

@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.1.0",
+  "title": "Canonical career spine — Adrian Wedd",
+  "purpose": "The smallest machine-readable export of verified career facts. This repo (adrianwedd/cv) owns canonical facts: employment dates, roles, durable achievements, technologies actually used, project facts, stable metrics. Downstream consumers (adrianwedd/job-search) snapshot this file explicitly, record the source commit, and must not contradict it silently. Role-specific prose may EXTEND these claims only with its own evidence; it never rewrites them.",
+  "last_updated": "2026-08-25",
+  "statuses": {
+    "verified": "Documented evidence exists (employment records, repo history, published data, or explicit confirmation by Adrian recorded in a QA trail).",
+    "qualified": "True with the stated bounds; do not restate more broadly than the claim text.",
+    "retired": "Previously asserted somewhere; evidence does not support it. Do not reuse. Revert only with new documentary evidence.",
+    "unresolved": "Contradictory or unconfirmed; do not assert in outward-facing material until resolved."
+  },
+  "evidence_hierarchy": {
+    "purpose": "When sources conflict, higher rank wins. A QA'd application is a rigorously audited INTERPRETATION, not primary evidence — it must never become evidence for itself or outrank the records it was derived from.",
+    "ranks": [
+      "1. primary source: artifact, repository, employment or business record, published data",
+      "2. explicitly user-confirmed fact (recorded in a QA trail, e.g. 'PER ADRIAN')",
+      "3. corroborated canonical spine claim (this file)",
+      "4. QA'd application interpretation (job-search packages, however many engines signed off)",
+      "5. legacy CV / LinkedIn prose"
+    ],
+    "rule": "An evidence ref citing only rank-4 material supports at most QUALIFIED status; VERIFIED requires rank 1 or 2 somewhere in the chain. Rank-5 sources are leads, never evidence."
+  },
+  "claims": [
+    {
+      "id": "emp.homes.tenure",
+      "category": "employment",
+      "status": "verified",
+      "claim": "Systems Analyst, Homes Tasmania (formerly Department of Communities Tasmania), May 2018 – February 2026.",
+      "evidence": ["employment records", "confirmed by Adrian, recorded in job-search Tourism QA footer 2026-07-05"],
+      "last_verified": "2026-07-05"
+    },
+    {
+      "id": "emp.homes.acting",
+      "category": "employment",
+      "status": "verified",
+      "claim": "Acting Senior Change Analyst, Homes Tasmania, 13 February 2023 – 21 November 2023.",
+      "evidence": ["confirmed by Adrian ('dates added PER ADRIAN'), job-search Tourism QA footer 2026-07-05"],
+      "last_verified": "2026-07-05"
+    },
+    {
+      "id": "emp.utas",
+      "category": "employment",
+      "status": "verified",
+      "claim": "ITS Client Services Officer, University of Tasmania, 2015 – 2018.",
+      "evidence": ["employment records (cv data/protected-content.json)"]
+    },
+    {
+      "id": "emp.agency",
+      "category": "employment",
+      "status": "verified",
+      "claim": "Director, Digital Agency Pty Ltd, 2015 – 2018 (concurrent with UTas role).",
+      "evidence": ["business records (cv data/protected-content.json)"]
+    },
+    {
+      "id": "emp.tws",
+      "category": "employment",
+      "status": "verified",
+      "claim": "Second Level IT Support Engineer, The Wilderness Society Inc., 2012 – 2015.",
+      "evidence": ["employment records (cv data/protected-content.json)"]
+    },
+    {
+      "id": "emp.greenpeace",
+      "category": "employment",
+      "status": "qualified",
+      "claim": "Actions Unit — Communications & Logistics Coordinator, Greenpeace Australia Pacific, 2010 – 2012 (paid role).",
+      "qualification": "Any longer association (e.g. volunteer involvement pre-2010) is UNRESOLVED (see unres.greenpeace-tenure); never claim 'thirteen years at Greenpeace'.",
+      "evidence": ["employment records (cv data/protected-content.json)"]
+    },
+    {
+      "id": "emp.freelance.start",
+      "category": "employment",
+      "status": "verified",
+      "claim": "Freelance Developer & AI Consultant, Independent, January 2025 – Present.",
+      "evidence": ["consistent across all QA'd application packages; job-search Tourism QA footer"],
+      "notes": "Earlier independent projects (e.g. GPT-3-era telephony voice agent, vox-libre 2023) predate this and are framed as 'earlier independent project', not as part of this tenure."
+    },
+    {
+      "id": "exp.tas-public-institutions",
+      "category": "experience-aggregate",
+      "status": "verified",
+      "claim": "Eleven years inside Tasmanian public institutions (UTas 2015–2018 + Homes Tasmania May 2018–Feb 2026).",
+      "evidence": ["derived arithmetic over emp.utas + emp.homes.tenure (both rank 1/2); definition also recorded in job-search QA footers (Tourism, TasNetworks, DoH)"],
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "exp.breadth",
+      "category": "experience-aggregate",
+      "status": "qualified",
+      "claim": "Fifteen years of applied infrastructure, security and delivery across government, university and campaign organisations (2010 – 2026); writing code since age six (Microbee BASIC, ~1981).",
+      "qualification": "The age-six fact is biography, not professional experience. Never convert it into a years-of-experience quantifier ('45 years across the stack' is RETIRED — see ret.45-years)."
+    },
+    {
+      "id": "ach.homes.ism-program",
+      "category": "achievement",
+      "status": "verified",
+      "claim": "Built Homes Tasmania's ISM-aligned security program: interpreted ~900 ACSC ISM controls across 22 guideline domains into a structured, owned, trackable (Jira) delivery program with per-control implementation plans; led the cybersecurity uplift; worked across Essential Eight and IDAM.",
+      "qualification": "Adrian = program lead/creator; this is a delivery-planning and uplift achievement, NOT 'all controls remediated'. Essential Eight and IDAM are 'worked across', not individually 'led'.",
+      "evidence": ["primary artifact: ACSC ISM JIRA.csv (per Tourism QA footer: 'verified phrasing per ACSC ISM JIRA.csv evidence; Adrian = project lead/creator')", "3-engine QA convergence 2026-07-05 (Hermes, Codex, Claude), job-search Tourism/SOCI/DoH packages"],
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "ach.homes.genai-policy",
+      "category": "achievement",
+      "status": "verified",
+      "claim": "Wrote Homes Tasmania's first generative-AI policy, governing responsible AI adoption before any deployment.",
+      "evidence": ["'GenAI policy = first in the department, authored pre-deployment. Confirmed.' — job-search Tourism QA footer"],
+      "last_verified": "2026-07-05"
+    },
+    {
+      "id": "ach.homes.integrations",
+      "category": "achievement",
+      "status": "verified",
+      "claim": "Designed RESTful API integrations and enterprise data exchange (incl. SFTP) across CRM, operational and system-of-record platforms for the Housing Management System.",
+      "evidence": ["employment record; consistent across all QA'd packages"]
+    },
+    {
+      "id": "ach.homes.automation",
+      "category": "achievement",
+      "status": "verified",
+      "claim": "Built Python and PowerShell automation reducing manual processing across operational workflows; investigated and resolved faults/exceptions surfaced by that automation.",
+      "qualification": "Fault/exception work is on own systems — no ITIL incident-team claim.",
+      "evidence": ["job-search TasNetworks 11044 QA footer"]
+    },
+    {
+      "id": "ach.homes.vendor-program",
+      "category": "achievement",
+      "status": "verified",
+      "claim": "As Acting Senior Change Analyst, led the technical delivery of a multi-million-dollar program in which an external vendor built bespoke software for the department: owned technical direction, integration architecture and delivery risk; technical advisor to the signing executives.",
+      "evidence": ["explicit confirmation: Tourism QA footer leadership-anchor note — '\"led the technical delivery of a multi-million-dollar vendor program\" reflects Acting Senior Change Analyst role per Adrian'", "job-search Tourism/TasNetworks/SOCI packages, QA'd"],
+      "notes": "Deliberately not published on the public CV site; available for applications and interviews.",
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "ach.tws.infrastructure",
+      "category": "achievement",
+      "status": "qualified",
+      "claim": "Managed lifecycle of 60+ Windows/Linux servers and ran a multi-site VoIP/PBX over VPN across ~10 offices Australia-wide (The Wilderness Society).",
+      "qualification": "The role itself is rank-1 verified (emp.tws); the specific figures (60+, ~10 offices) trace only to Adrian's own earlier CV prose canonicalised through QA (rank 4/5) — no independent artifact. Fine to state as self-reported scope; promote to VERIFIED on explicit confirmation or documentary evidence.",
+      "evidence": ["emp.tws (role, rank 1)", "canonical QA'd lines, job-search TasNetworks 11044 footer (figures)"]
+    },
+    {
+      "id": "ach.greenpeace.opsec",
+      "category": "achievement",
+      "status": "qualified",
+      "claim": "Operational security and field ICT for Greenpeace direct-action campaigns: threat modelling, secure-communications training, encrypted communications, pre-action risk assessments.",
+      "qualification": "Do not use cinematic framing ('covert operations', 'dead drops', 'active counter-surveillance') — unevidenced; retired from canonical CV 2026-08-25.",
+      "evidence": ["QA'd earlier-roles lines across job-search packages"]
+    },
+    {
+      "id": "proj.ffai.metrics",
+      "category": "project-metric",
+      "status": "verified",
+      "claim": "failurefirst.org adversarial LLM evaluation practice: 257 models evaluated, 142,068 adversarial prompts across 346 attack techniques, with an automated drift-detection pipeline and formal Model & Benchmark Cards.",
+      "evidence": ["failure-first repo 'Canonical Metrics' 2026-04-16 (257 models); 346 techniques documented 2025-12-18; figures published adrianwedd.com 2026-02-09"],
+      "last_verified": "2026-08-25",
+      "notes": "Supersedes 230/141,691/337 and 120+/18,000+ generations. Refresh from failure-first canonical metrics when re-verifying."
+    },
+    {
+      "id": "proj.rlm-mcp",
+      "category": "project",
+      "status": "verified",
+      "claim": "rlm-mcp: MCP server for 1M+ token document processing (Recursive Language Model pattern) with BM25 retrieval and artifact provenance tracking.",
+      "evidence": ["github.com/adrianwedd repo; QA'd in Tourism/TasNetworks packages"]
+    },
+    {
+      "id": "proj.voice-agent.gpt3",
+      "category": "project",
+      "status": "qualified",
+      "claim": "Built and operated a from-scratch telephony voice agent handling live calls in the GPT-3/3.5 era, before current agent frameworks: prompt orchestration, turn-taking and failure handling engineered by hand.",
+      "qualification": "No SIP/RTP stack claims (stack unconfirmed). Deployment context is sensitive and deliberately omitted from applications.",
+      "evidence": ["job-search TasNetworks 11044 QA footer ('per verified background')"]
+    },
+    {
+      "id": "cert.held",
+      "category": "credential",
+      "status": "verified",
+      "claim": "Industry certifications held: Google Analytics and Google Ads. No tertiary qualifications; no vendor certifications (Microsoft, Cisco, Ciena, etc.).",
+      "evidence": ["disclosed consistently across QA'd packages incl. TasNetworks 11044 in-letter"],
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "cred.rwvp",
+      "category": "credential",
+      "status": "qualified",
+      "claim": "Registration to Work with Vulnerable People: previously held at Homes Tasmania, expired, renewal in progress (as at 2026-08).",
+      "evidence": ["job-search commit f4e5386 (DoJ 358004 package)"],
+      "last_verified": "2026-08-08"
+    },
+    {
+      "id": "tech.current-stack",
+      "category": "technology",
+      "status": "verified",
+      "claim": "Current working stack: Python, TypeScript/Node.js, JavaScript, PowerShell, SQL, Cloudflare Workers, GitHub Actions, Docker, Postgres, Prometheus/Grafana, MCP; ships daily with AI coding agents (Claude Code, Codex) gated by automated tests and own review.",
+      "evidence": ["QA'd stack lines across 2026 packages; repo activity"],
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "ret.45-years",
+      "category": "retired",
+      "status": "retired",
+      "claim": "RETIRED: 'nearly 45 years across the stack'. Derived from first code at age six (~1981); not a professional-experience figure. Use exp.breadth or exp.tas-public-institutions instead.",
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "ret.pentest",
+      "category": "retired",
+      "status": "retired",
+      "claim": "RETIRED: 'penetration testing' and 'vulnerability assessment' as Homes Tasmania deliverables, and 'seven years leading cybersecurity'. Replaced by ach.homes.ism-program per 3-engine QA convergence 2026-07-05. Revert only with documentary evidence.",
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "ret.iso27001",
+      "category": "retired",
+      "status": "retired",
+      "claim": "RETIRED: 'ISO 27001-aligned practices' at Homes Tasmania. Framework was ACSC ISM. Revert only with documentary ISO 27001 evidence (QA 2026-07-05).",
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "ret.langgraph-stack",
+      "category": "retired",
+      "status": "retired",
+      "claim": "RETIRED as current-stack claims: LangGraph, LangChain, Anthropic SDK. LangChain evidence is limited to vox-libre (2023). The cv repo's own Anthropic integration was retired July 2025.",
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "unres.greenpeace-tenure",
+      "category": "unresolved",
+      "status": "unresolved",
+      "claim": "UNRESOLVED: length of Greenpeace association beyond the paid 2010–2012 role ('thirteen years' appeared in one package; QA finding C8 2026-04-28, never answered). Needs Adrian to rule on volunteer vs paid distinction.",
+      "last_verified": "2026-08-25"
+    },
+    {
+      "id": "unres.homes-ai-builds",
+      "category": "unresolved",
+      "status": "unresolved",
+      "claim": "UNRESOLVED: interview-prep material (job-search alignerr/) attributes a RAG chatbot over Homes Tasmania public data, a Twilio voice interface, and BabyAGI policy loops to work inside Homes; the QA'd application canon deliberately claims only the generative-AI policy at Homes and attributes AI builds to independent practice. Do not assert the Homes attribution until Adrian confirms scope and employer approval.",
+      "last_verified": "2026-08-25"
+    }
+  ]
+}

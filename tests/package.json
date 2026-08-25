@@ -5,7 +5,7 @@
   "description": "Tests for Adrian Wedd CV site",
   "scripts": {
     "test": "npm run test:json && npm run test:smoke",
-    "test:json": "node validate-json.test.js",
+    "test:json": "node validate-json.test.js && node career-spine.test.js",
     "test:smoke": "npx playwright test smoke.test.js"
   },
   "devDependencies": {

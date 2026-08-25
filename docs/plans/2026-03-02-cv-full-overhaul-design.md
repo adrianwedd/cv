@@ -1,7 +1,7 @@
 # CV Full Overhaul — Design Document
 
 > **Date:** 2026-03-02
-> **Status:** Approved
+> **Status:** Historical — superseded 2026-08-25. The keyword list below includes claims since retired (Anthropic SDK, LangChain, Penetration Testing); `data/career-spine.json` is now the authority on which claims are usable. Do not treat this document's keyword guidance as current doctrine.
 > **Context:** Active job search across AI safety, cybersecurity, AI training, and dev roles. CV needs to work as both a submission artifact (ATS) and a professional web presence.
 
 ## Goal
