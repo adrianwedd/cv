@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "title": "Canonical career spine — Adrian Wedd",
   "purpose": "The smallest machine-readable export of verified career facts. This repo (adrianwedd/cv) owns canonical facts: employment dates, roles, durable achievements, technologies actually used, project facts, stable metrics. Downstream consumers (adrianwedd/job-search) snapshot this file explicitly, record the source commit, and must not contradict it silently. Role-specific prose may EXTEND these claims only with its own evidence; it never rewrites them.",
   "last_updated": "2026-08-25",
@@ -8,6 +8,17 @@
     "qualified": "True with the stated bounds; do not restate more broadly than the claim text.",
     "retired": "Previously asserted somewhere; evidence does not support it. Do not reuse. Revert only with new documentary evidence.",
     "unresolved": "Contradictory or unconfirmed; do not assert in outward-facing material until resolved."
+  },
+  "evidence_hierarchy": {
+    "purpose": "When sources conflict, higher rank wins. A QA'd application is a rigorously audited INTERPRETATION, not primary evidence — it must never become evidence for itself or outrank the records it was derived from.",
+    "ranks": [
+      "1. primary source: artifact, repository, employment or business record, published data",
+      "2. explicitly user-confirmed fact (recorded in a QA trail, e.g. 'PER ADRIAN')",
+      "3. corroborated canonical spine claim (this file)",
+      "4. QA'd application interpretation (job-search packages, however many engines signed off)",
+      "5. legacy CV / LinkedIn prose"
+    ],
+    "rule": "An evidence ref citing only rank-4 material supports at most QUALIFIED status; VERIFIED requires rank 1 or 2 somewhere in the chain. Rank-5 sources are leads, never evidence."
   },
   "claims": [
     {
@@ -68,7 +79,7 @@
       "category": "experience-aggregate",
       "status": "verified",
       "claim": "Eleven years inside Tasmanian public institutions (UTas 2015–2018 + Homes Tasmania May 2018–Feb 2026).",
-      "evidence": ["definition recorded in job-search QA footers (Tourism, TasNetworks, DoH)"],
+      "evidence": ["derived arithmetic over emp.utas + emp.homes.tenure (both rank 1/2); definition also recorded in job-search QA footers (Tourism, TasNetworks, DoH)"],
       "last_verified": "2026-08-25"
     },
     {
@@ -84,7 +95,7 @@
       "status": "verified",
       "claim": "Built Homes Tasmania's ISM-aligned security program: interpreted ~900 ACSC ISM controls across 22 guideline domains into a structured, owned, trackable (Jira) delivery program with per-control implementation plans; led the cybersecurity uplift; worked across Essential Eight and IDAM.",
       "qualification": "Adrian = program lead/creator; this is a delivery-planning and uplift achievement, NOT 'all controls remediated'. Essential Eight and IDAM are 'worked across', not individually 'led'.",
-      "evidence": ["3-engine QA convergence 2026-07-05 (Hermes, Codex, Claude), job-search Tourism/SOCI/DoH packages"],
+      "evidence": ["primary artifact: ACSC ISM JIRA.csv (per Tourism QA footer: 'verified phrasing per ACSC ISM JIRA.csv evidence; Adrian = project lead/creator')", "3-engine QA convergence 2026-07-05 (Hermes, Codex, Claude), job-search Tourism/SOCI/DoH packages"],
       "last_verified": "2026-08-25"
     },
     {
@@ -115,16 +126,17 @@
       "category": "achievement",
       "status": "verified",
       "claim": "As Acting Senior Change Analyst, led the technical delivery of a multi-million-dollar program in which an external vendor built bespoke software for the department: owned technical direction, integration architecture and delivery risk; technical advisor to the signing executives.",
-      "evidence": ["job-search Tourism/TasNetworks/SOCI packages, QA'd"],
+      "evidence": ["explicit confirmation: Tourism QA footer leadership-anchor note — '\"led the technical delivery of a multi-million-dollar vendor program\" reflects Acting Senior Change Analyst role per Adrian'", "job-search Tourism/TasNetworks/SOCI packages, QA'd"],
       "notes": "Deliberately not published on the public CV site; available for applications and interviews.",
       "last_verified": "2026-08-25"
     },
     {
       "id": "ach.tws.infrastructure",
       "category": "achievement",
-      "status": "verified",
+      "status": "qualified",
       "claim": "Managed lifecycle of 60+ Windows/Linux servers and ran a multi-site VoIP/PBX over VPN across ~10 offices Australia-wide (The Wilderness Society).",
-      "evidence": ["canonical QA'd lines, job-search TasNetworks 11044 footer"]
+      "qualification": "The role itself is rank-1 verified (emp.tws); the specific figures (60+, ~10 offices) trace only to Adrian's own earlier CV prose canonicalised through QA (rank 4/5) — no independent artifact. Fine to state as self-reported scope; promote to VERIFIED on explicit confirmation or documentary evidence.",
+      "evidence": ["emp.tws (role, rank 1)", "canonical QA'd lines, job-search TasNetworks 11044 footer (figures)"]
     },
     {
       "id": "ach.greenpeace.opsec",
