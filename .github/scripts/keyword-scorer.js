@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 /**
  * CV Keyword Scorer — CI gate for the CV enhancement pipeline
- * Runs after claude-enhancer.js, fails build if weighted ATS score drops
- * or surfaces keyword gaps for the enhancer to address.
+ * Runs after enhance.js as an ATS-coverage report and floor check.
+ * Keywords listed here MUST be evidence-backed (see data/career-spine.json):
+ * the scorer must never create pressure to claim technologies Adrian does
+ * not use. Retired claims (Anthropic SDK, LangChain/LangGraph as current
+ * stack, penetration testing, ISO 27001) are deliberately absent.
  *
  * Exit 0: score >= threshold
  * Exit 1: score below threshold (blocks deployment)
@@ -24,8 +27,7 @@ const CATEGORIES = [
   },
   {
     name: 'ML/AI Frameworks', weight: 2,
-    keywords: ['TensorFlow','PyTorch','Keras','Scikit-learn','XGBoost','LightGBM','Hugging Face',
-      'OpenCV','NLTK','spaCy','Pandas','NumPy','JAX','LangChain','LangGraph','Anthropic SDK'],
+    keywords: ['PyTorch','Hugging Face','Pandas','NumPy','MCP','Claude API','Whisper','MusicGen'],
   },
   {
     name: 'Cloud & Infrastructure', weight: 1.5,
@@ -35,8 +37,8 @@ const CATEGORIES = [
   {
     name: 'ML/AI Techniques', weight: 2,
     keywords: ['Machine Learning','Deep Learning','Neural Networks','Natural Language Processing','NLP',
-      'Computer Vision','Reinforcement Learning','Large Language Models','LLM','GPT','BERT',
-      'Transformer','RAG','Retrieval-Augmented Generation','Prompt Engineering','Fine-tuning','RLHF'],
+      'Computer Vision','Large Language Models','LLM','GPT',
+      'Transformer','RAG','Retrieval-Augmented Generation','Prompt Engineering','RLHF'],
   },
   {
     name: 'AI Safety & Evaluation', weight: 2.5,
@@ -47,9 +49,8 @@ const CATEGORIES = [
   },
   {
     name: 'Cybersecurity', weight: 2,
-    keywords: ['Cybersecurity','Penetration Testing','Vulnerability Assessment','Threat Modeling',
-      'Network Security','Infosec','Zero Trust','Identity Management','IDAM','ISO 27001',
-      'NIST','Essential Eight','Information Security'],
+    keywords: ['Cybersecurity','Threat Modeling','Network Security','IDAM','ACSC ISM',
+      'Essential Eight','Information Security','Security Policy','Operational Security'],
   },
   {
     name: 'MLOps & Deployment', weight: 1.5,
@@ -100,7 +101,8 @@ const text = extractText(cvPath);
 const { percentage, results, topMissing } = analyse(text);
 
 if (isGaps) {
-  // Output JSON for claude-enhancer.js to consume
+  // Output JSON for enhance.js to consume (gaps are advisory: enhance.js
+  // instructs the model to cover them "only where truthful")
   console.log(JSON.stringify({ ats_score: percentage, top_missing: topMissing.slice(0,15) }, null, 2));
   process.exit(0);
 }

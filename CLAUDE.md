@@ -54,6 +54,12 @@ npm run lint
 | `.github/scripts/cv-generator.js` | Site + PDF renderer. |
 | `assets/script.js` | Main CV page entrypoint (ES module); orchestrates `assets/modules/`. DOM-API-only rendering. |
 
+## Career Spine (canonical claims export)
+
+`data/career-spine.json` is the versioned, machine-readable registry of canonical career claims — each with a stable id, VERIFIED/QUALIFIED/RETIRED/UNRESOLVED status, evidence refs, and last-verified date. **Ownership contract:** this repo owns canonical career facts (employment dates, roles, durable achievements, technologies actually used, project facts, stable metrics). `adrianwedd/job-search` owns role-specific projections (JDs, letters, tailored résumés, QA receipts, frozen submitted artifacts, the premium PDF renderer) and consumes the spine via an explicit snapshot (`job-search/data/career-spine.snapshot.json` + `job-search/scripts/spine_check.py`) that records this repo's commit hash — no network at render time. Role-specific prose may extend the spine only with its own evidence; it must never silently contradict it, and it never becomes canonical biography merely because it sounded good.
+
+Corrections discovered downstream flow back as candidate evidence files in `job-search/qa/spine-candidates/`, then get applied here (with evidence) and re-snapshotted. `tests/career-spine.test.js` (part of `npm test`) guards schema shape, keeps RETIRED phrasings (penetration testing, ISO 27001 at Homes, LangGraph/LangChain/Anthropic SDK as current stack, "45 years") out of `base-cv.json`, and pins load-bearing facts (Homes tenure May 2018 – Feb 2026, freelance start Jan 2025, failurefirst 257/142,068/346).
+
 ## Critical Constraints
 
 **No innerHTML** — All frontend JS uses safe DOM methods (`createElement`, `textContent`, `appendChild`). Enforced by `tests/smoke.test.js`.
