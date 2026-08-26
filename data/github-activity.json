@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-24T16:00:50.588Z",
+  "generated_at": "2026-08-26T20:48:39.069Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 451,
-    "commit_contributions_9mo": 8929,
-    "active_repositories": 23,
+    "total_commits": 433,
+    "commit_contributions_9mo": 8953,
+    "active_repositories": 21,
     "total_repositories": 100,
-    "total_stars": 35,
+    "total_stars": 36,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
     {
       "name": "spark",
-      "commits": 4028
+      "commits": 4047
     },
     {
       "name": "failure-first",
-      "commits": 1776
+      "commits": 1779
     },
     {
       "name": "adrianwedd.com",
@@ -24,7 +24,7 @@
     },
     {
       "name": "cv",
-      "commits": 318
+      "commits": 320
     },
     {
       "name": "afterwords",
@@ -113,32 +113,21 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-08-16",
-      "repos": {
-        "status": 14,
-        "twitb-status": 4,
-        "spark": 11,
-        "failure-first": 1,
-        "adrianwedd.com": 1
-      }
-    },
-    {
       "week": "2026-08-23",
       "repos": {
-        "cv": 1,
-        "spark": 13,
-        "failure-first": 18,
-        "status": 5,
-        "twitb-status": 5,
-        "OBLITERATUS": 1
+        "spark": 19,
+        "status": 13,
+        "failure-first": 3,
+        "twitb-status": 6,
+        "cv": 3
       }
     }
   ],
   "languages": {
-    "JavaScript": 171448,
-    "Python": 2102071,
-    "JSON": 163215,
-    "Markdown": 375319,
+    "JSON": 163248,
+    "Python": 2102338,
+    "Markdown": 384378,
+    "JavaScript": 168630,
     "Astro": 1162255,
     "TypeScript": 426678,
     "Swift": 358,
@@ -149,7 +138,7 @@
   "heatmap": [
     {
       "date": "2025-11-23",
-      "count": 33
+      "count": 25
     },
     {
       "date": "2025-11-30",
@@ -293,7 +282,7 @@
     },
     {
       "date": "2026-08-02",
-      "count": 451
+      "count": 458
     },
     {
       "date": "2026-08-09",
@@ -305,51 +294,51 @@
     },
     {
       "date": "2026-08-23",
-      "count": 557
+      "count": 741
     }
   ],
   "repositories": [
     {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-08-24",
-      "stars": 4
+      "name": "failurefirst-status",
+      "description": "Status page for failurefirst.org — powered by Upptime",
+      "language": "JSON",
+      "last_push": "2026-08-26",
+      "stars": 0
     },
     {
       "name": "spark",
       "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
       "language": "Python",
-      "last_push": "2026-08-24",
+      "last_push": "2026-08-26",
       "stars": 6
     },
     {
-      "name": "failurefirst-status",
-      "description": "Status page for failurefirst.org — powered by Upptime",
-      "language": "JSON",
-      "last_push": "2026-08-24",
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-08-26",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-08-24",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-08-24",
+      "last_push": "2026-08-26",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-08-24",
+      "last_push": "2026-08-26",
       "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-08-25",
+      "stars": 4
     },
     {
       "name": "adrianwedd.com",
@@ -455,20 +444,6 @@
       "language": "TypeScript",
       "last_push": "2026-07-29",
       "stars": 0
-    },
-    {
-      "name": "excel-sheet-unlocker",
-      "description": "Python utility for Excel protection management and cell unlocking.",
-      "language": "Python",
-      "last_push": "2026-07-27",
-      "stars": 0
-    },
-    {
-      "name": "Agentic-Index",
-      "description": "Agentic Index, the definitive, developer-focused catalogue of autonomous AI tooling. Here you’ll find scored and curated repositories that power LLM agents, multi-agent systems, RAG pipelines, devtools, and more",
-      "language": "Python",
-      "last_push": "2026-07-27",
-      "stars": 2
     }
   ]
 }
