@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-26T20:48:39.069Z",
+  "generated_at": "2026-08-28T21:57:00.112Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 433,
-    "commit_contributions_9mo": 8953,
-    "active_repositories": 21,
+    "total_commits": 363,
+    "commit_contributions_9mo": 8952,
+    "active_repositories": 19,
     "total_repositories": 100,
     "total_stars": 36,
     "tracking_status": "active"
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1779
+      "commits": 1786
     },
     {
       "name": "adrianwedd.com",
@@ -24,7 +24,7 @@
     },
     {
       "name": "cv",
-      "commits": 320
+      "commits": 312
     },
     {
       "name": "afterwords",
@@ -115,19 +115,19 @@
     {
       "week": "2026-08-23",
       "repos": {
-        "spark": 19,
-        "status": 13,
-        "failure-first": 3,
-        "twitb-status": 6,
-        "cv": 3
+        "status": 25,
+        "failure-first": 23,
+        "twitb-status": 14,
+        "spark": 32,
+        "cv": 4
       }
     }
   ],
   "languages": {
-    "JSON": 163248,
+    "Markdown": 393468,
+    "JSON": 163273,
+    "JavaScript": 168744,
     "Python": 2102338,
-    "Markdown": 384378,
-    "JavaScript": 168630,
     "Astro": 1162255,
     "TypeScript": 426678,
     "Swift": 358,
@@ -137,12 +137,8 @@
   },
   "heatmap": [
     {
-      "date": "2025-11-23",
-      "count": 25
-    },
-    {
       "date": "2025-11-30",
-      "count": 107
+      "count": 102
     },
     {
       "date": "2025-12-07",
@@ -294,16 +290,44 @@
     },
     {
       "date": "2026-08-23",
-      "count": 741
+      "count": 788
     }
   ],
   "repositories": [
     {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-08-28",
+      "stars": 0
+    },
+    {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-08-26",
+      "last_push": "2026-08-28",
       "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-08-28",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-08-28",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-08-26",
+      "stars": 4
     },
     {
       "name": "spark",
@@ -311,34 +335,6 @@
       "language": "Python",
       "last_push": "2026-08-26",
       "stars": 6
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-08-26",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-08-26",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-08-26",
-      "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-08-25",
-      "stars": 4
     },
     {
       "name": "adrianwedd.com",
@@ -428,20 +424,6 @@
       "name": "book.adrianwedd.com",
       "description": "Minimal, dependency-free booking frontend for 30-minute calls: vanilla HTML/JS, live availability API, timezone-safe scheduling.",
       "language": "HTML",
-      "last_push": "2026-07-29",
-      "stars": 0
-    },
-    {
-      "name": "enviro",
-      "description": "",
-      "language": null,
-      "last_push": "2026-07-29",
-      "stars": 0
-    },
-    {
-      "name": "T3MP3ST",
-      "description": "autonomous red teaming platform; multi-agent offensive-security meta-harness",
-      "language": "TypeScript",
       "last_push": "2026-07-29",
       "stars": 0
     }
