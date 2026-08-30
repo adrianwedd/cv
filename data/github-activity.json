@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-08-29T20:08:37.117Z",
+  "generated_at": "2026-08-30T20:08:20.263Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 345,
-    "commit_contributions_9mo": 8949,
-    "active_repositories": 18,
+    "total_commits": 338,
+    "commit_contributions_9mo": 8946,
+    "active_repositories": 17,
     "total_repositories": 100,
     "total_stars": 36,
     "tracking_status": "active"
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1787
+      "commits": 1788
     },
     {
       "name": "adrianwedd.com",
@@ -24,7 +24,7 @@
     },
     {
       "name": "cv",
-      "commits": 308
+      "commits": 304
     },
     {
       "name": "afterwords",
@@ -115,17 +115,24 @@
     {
       "week": "2026-08-23",
       "repos": {
+        "status": 22,
+        "twitb-status": 11,
         "failure-first": 8,
-        "status": 20,
-        "twitb-status": 9,
-        "spark": 8
+        "spark": 6
+      }
+    },
+    {
+      "week": "2026-08-30",
+      "repos": {
+        "status": 2,
+        "twitb-status": 2
       }
     }
   ],
   "languages": {
-    "JSON": 163292,
-    "Markdown": 398037,
-    "JavaScript": 168872,
+    "JSON": 163306,
+    "JavaScript": 168988,
+    "Markdown": 402740,
     "Python": 2102338,
     "Astro": 1162255,
     "TypeScript": 426678,
@@ -137,7 +144,7 @@
   "heatmap": [
     {
       "date": "2025-11-30",
-      "count": 79
+      "count": 47
     },
     {
       "date": "2025-12-07",
@@ -290,6 +297,10 @@
     {
       "date": "2026-08-23",
       "count": 811
+    },
+    {
+      "date": "2026-08-30",
+      "count": 9
     }
   ],
   "repositories": [
@@ -297,35 +308,35 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-08-29",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-08-29",
+      "last_push": "2026-08-30",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-08-29",
+      "last_push": "2026-08-30",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-08-30",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-08-29",
+      "last_push": "2026-08-30",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-08-28",
+      "last_push": "2026-08-29",
       "stars": 4
     },
     {
@@ -410,13 +421,6 @@
       "description": "OpenAssistant is a chat-based assistant that understands tasks, can interact with third-party systems, and retrieve information dynamically to do so.",
       "language": null,
       "last_push": "2026-08-04",
-      "stars": 0
-    },
-    {
-      "name": "soularr",
-      "description": "A Python script that connects Lidarr with Soulseek! ",
-      "language": null,
-      "last_push": "2026-07-31",
       "stars": 0
     }
   ]
