@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-30T20:08:20.263Z",
+  "generated_at": "2026-09-03T20:08:45.982Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 338,
-    "commit_contributions_9mo": 8946,
-    "active_repositories": 17,
+    "total_commits": 342,
+    "commit_contributions_9mo": 8912,
+    "active_repositories": 16,
     "total_repositories": 100,
-    "total_stars": 36,
+    "total_stars": 38,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -16,27 +16,23 @@
     },
     {
       "name": "failure-first",
-      "commits": 1788
+      "commits": 1793
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1533
-    },
-    {
-      "name": "cv",
-      "commits": 304
+      "commits": 1536
     },
     {
       "name": "afterwords",
       "commits": 293
     },
     {
-      "name": "afterwords-app",
-      "commits": 131
+      "name": "cv",
+      "commits": 288
     },
     {
-      "name": "afterglow-engine",
-      "commits": 90
+      "name": "afterwords-app",
+      "commits": 131
     },
     {
       "name": "ModelAtlas",
@@ -52,6 +48,10 @@
     },
     {
       "name": "lunar_tools_prototypes",
+      "commits": 64
+    },
+    {
+      "name": "afterglow-engine",
       "commits": 64
     },
     {
@@ -113,28 +113,21 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-08-23",
-      "repos": {
-        "status": 22,
-        "twitb-status": 11,
-        "failure-first": 8,
-        "spark": 6
-      }
-    },
-    {
       "week": "2026-08-30",
       "repos": {
-        "status": 2,
-        "twitb-status": 2
+        "status": 13,
+        "twitb-status": 4,
+        "adrianwedd.com": 16,
+        "failure-first": 2
       }
     }
   ],
   "languages": {
-    "JSON": 163306,
-    "JavaScript": 168988,
-    "Markdown": 402740,
+    "Astro": 1169773,
+    "JSON": 163365,
+    "JavaScript": 169115,
+    "Markdown": 421390,
     "Python": 2102338,
-    "Astro": 1162255,
     "TypeScript": 426678,
     "Swift": 358,
     "HTML": 9029,
@@ -142,10 +135,6 @@
     "Jupyter Notebook": 12365
   },
   "heatmap": [
-    {
-      "date": "2025-11-30",
-      "count": 47
-    },
     {
       "date": "2025-12-07",
       "count": 65
@@ -168,7 +157,7 @@
     },
     {
       "date": "2026-01-11",
-      "count": 168
+      "count": 167
     },
     {
       "date": "2026-01-18",
@@ -296,47 +285,54 @@
     },
     {
       "date": "2026-08-23",
-      "count": 811
+      "count": 815
     },
     {
       "date": "2026-08-30",
-      "count": 9
+      "count": 138
     }
   ],
   "repositories": [
     {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "Astro",
+      "last_push": "2026-09-03",
+      "stars": 0
+    },
+    {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-08-30",
+      "last_push": "2026-09-03",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-08-30",
+      "last_push": "2026-09-03",
       "stars": 0
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-08-30",
+      "last_push": "2026-09-03",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-08-30",
+      "last_push": "2026-09-03",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-08-29",
+      "last_push": "2026-08-30",
       "stars": 4
     },
     {
@@ -345,13 +341,6 @@
       "language": "Python",
       "last_push": "2026-08-26",
       "stars": 6
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "Astro",
-      "last_push": "2026-08-23",
-      "stars": 0
     },
     {
       "name": "OBLITERATUS",
@@ -414,13 +403,6 @@
       "description": "General technology for enabling AI capabilities w/ LLMs and MLLMs",
       "language": "Python",
       "last_push": "2026-08-09",
-      "stars": 0
-    },
-    {
-      "name": "Open-Assistant",
-      "description": "OpenAssistant is a chat-based assistant that understands tasks, can interact with third-party systems, and retrieve information dynamically to do so.",
-      "language": null,
-      "last_push": "2026-08-04",
       "stars": 0
     }
   ]
