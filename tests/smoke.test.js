@@ -70,6 +70,21 @@ test.describe('CV Site Smoke Tests', () => {
     expect(unsafeLinks).toEqual([]);
   });
 
+  test('campaign attribution and traffic classification survive CV next steps', async ({ page }) => {
+    await page.route(/googletagmanager\.com|google-analytics\.com/, (route) => route.abort());
+    await page.goto('/?utm_source=release&utm_medium=internal&utm_campaign=analytics_ship&aw_traffic=internal');
+
+    const nextStep = page.getByRole('link', { name: 'See services' });
+    const href = await nextStep.getAttribute('href');
+    const url = new URL(href);
+
+    expect(url.origin + url.pathname).toBe('https://adrianwedd.com/services/');
+    expect(url.searchParams.get('utm_source')).toBe('release');
+    expect(url.searchParams.get('utm_medium')).toBe('internal');
+    expect(url.searchParams.get('utm_campaign')).toBe('analytics_ship');
+    expect(url.searchParams.get('aw_traffic')).toBe('internal');
+  });
+
   test('dark theme is default', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
