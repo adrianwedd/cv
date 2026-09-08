@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-03T20:08:45.982Z",
+  "generated_at": "2026-09-08T20:08:46.380Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 342,
-    "commit_contributions_9mo": 8912,
-    "active_repositories": 16,
+    "total_commits": 336,
+    "commit_contributions_9mo": 8901,
+    "active_repositories": 15,
     "total_repositories": 100,
-    "total_stars": 38,
+    "total_stars": 40,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1793
+      "commits": 1795
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1536
+      "commits": 1568
     },
     {
       "name": "afterwords",
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 288
+      "commits": 270
     },
     {
       "name": "afterwords-app",
@@ -51,10 +51,6 @@
       "commits": 64
     },
     {
-      "name": "afterglow-engine",
-      "commits": 64
-    },
-    {
       "name": "before-the-words-existed",
       "commits": 58
     },
@@ -72,6 +68,10 @@
     },
     {
       "name": "orbitr",
+      "commits": 37
+    },
+    {
+      "name": "afterglow-engine",
       "commits": 37
     },
     {
@@ -115,29 +115,38 @@
     {
       "week": "2026-08-30",
       "repos": {
-        "status": 13,
-        "twitb-status": 4,
-        "adrianwedd.com": 16,
+        "twitb-status": 9,
+        "adrianwedd.com": 23,
+        "status": 9,
+        "cv": 1,
         "failure-first": 2
+      }
+    },
+    {
+      "week": "2026-09-06",
+      "repos": {
+        "twitb-status": 9,
+        "status": 9,
+        "adrianwedd.com": 9
       }
     }
   ],
   "languages": {
-    "Astro": 1169773,
-    "JSON": 163365,
-    "JavaScript": 169115,
-    "Markdown": 421390,
+    "JSON": 163374,
+    "TypeScript": 1651472,
+    "JavaScript": 169387,
+    "Markdown": 444371,
     "Python": 2102338,
-    "TypeScript": 426678,
     "Swift": 358,
     "HTML": 9029,
+    "Astro": 1214,
     "Java": 41939,
     "Jupyter Notebook": 12365
   },
   "heatmap": [
     {
       "date": "2025-12-07",
-      "count": 65
+      "count": 15
     },
     {
       "date": "2025-12-14",
@@ -157,7 +166,7 @@
     },
     {
       "date": "2026-01-11",
-      "count": 167
+      "count": 165
     },
     {
       "date": "2026-01-18",
@@ -289,50 +298,54 @@
     },
     {
       "date": "2026-08-30",
-      "count": 138
+      "count": 246
+    },
+    {
+      "date": "2026-09-06",
+      "count": 216
     }
   ],
   "repositories": [
     {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "Astro",
-      "last_push": "2026-09-03",
-      "stars": 0
-    },
-    {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-03",
+      "last_push": "2026-09-08",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-09-08",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-09-03",
+      "last_push": "2026-09-08",
       "stars": 0
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-09-03",
+      "last_push": "2026-09-08",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-09-03",
+      "last_push": "2026-09-08",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-08-30",
+      "last_push": "2026-09-04",
       "stars": 4
     },
     {
@@ -396,13 +409,6 @@
       "description": "Telephony-Linked Embedded LLM System for Interactive Support",
       "language": "HTML",
       "last_push": "2026-08-13",
-      "stars": 0
-    },
-    {
-      "name": "LMOps",
-      "description": "General technology for enabling AI capabilities w/ LLMs and MLLMs",
-      "language": "Python",
-      "last_push": "2026-08-09",
       "stars": 0
     }
   ]
