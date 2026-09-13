@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-08T20:08:46.380Z",
+  "generated_at": "2026-09-13T20:08:48.431Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 336,
-    "commit_contributions_9mo": 8901,
-    "active_repositories": 15,
+    "total_commits": 305,
+    "commit_contributions_9mo": 8877,
+    "active_repositories": 14,
     "total_repositories": 100,
-    "total_stars": 40,
+    "total_stars": 41,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -20,7 +20,7 @@
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1568
+      "commits": 1577
     },
     {
       "name": "afterwords",
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 270
+      "commits": 250
     },
     {
       "name": "afterwords-app",
@@ -71,10 +71,6 @@
       "commits": 37
     },
     {
-      "name": "afterglow-engine",
-      "commits": 37
-    },
-    {
       "name": "ADHDo",
       "commits": 29
     },
@@ -85,6 +81,10 @@
     {
       "name": "status",
       "commits": 26
+    },
+    {
+      "name": "afterglow-engine",
+      "commits": 24
     },
     {
       "name": "terminal",
@@ -113,29 +113,26 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-08-30",
+      "week": "2026-09-06",
       "repos": {
-        "twitb-status": 9,
-        "adrianwedd.com": 23,
-        "status": 9,
-        "cv": 1,
-        "failure-first": 2
+        "status": 4,
+        "twitb-status": 4
       }
     },
     {
-      "week": "2026-09-06",
+      "week": "2026-09-13",
       "repos": {
-        "twitb-status": 9,
-        "status": 9,
-        "adrianwedd.com": 9
+        "adrianwedd.com": 3,
+        "twitb-status": 1,
+        "status": 2
       }
     }
   ],
   "languages": {
-    "JSON": 163374,
-    "TypeScript": 1651472,
-    "JavaScript": 169387,
-    "Markdown": 444371,
+    "JSON": 163447,
+    "TypeScript": 1653627,
+    "JavaScript": 169644,
+    "Markdown": 467414,
     "Python": 2102338,
     "Swift": 358,
     "HTML": 9029,
@@ -145,12 +142,8 @@
   },
   "heatmap": [
     {
-      "date": "2025-12-07",
-      "count": 15
-    },
-    {
       "date": "2025-12-14",
-      "count": 78
+      "count": 57
     },
     {
       "date": "2025-12-21",
@@ -302,7 +295,11 @@
     },
     {
       "date": "2026-09-06",
-      "count": 216
+      "count": 642
+    },
+    {
+      "date": "2026-09-13",
+      "count": 161
     }
   ],
   "repositories": [
@@ -310,42 +307,42 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-08",
+      "last_push": "2026-09-13",
       "stars": 0
     },
     {
       "name": "adrianwedd.com",
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
-      "last_push": "2026-09-08",
+      "last_push": "2026-09-13",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-09-08",
+      "last_push": "2026-09-13",
       "stars": 0
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-09-08",
+      "last_push": "2026-09-13",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-09-08",
+      "last_push": "2026-09-13",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-09-04",
+      "last_push": "2026-09-08",
       "stars": 4
     },
     {
@@ -402,13 +399,6 @@
       "description": "Research portfolio on why organisations fail to act on known, demonstrated risks: canonical essay, dependency-ordered research backlog, codebook, and agent-assistance audit trail.",
       "language": "Astro",
       "last_push": "2026-08-16",
-      "stars": 0
-    },
-    {
-      "name": "TEL3SIS",
-      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
-      "language": "HTML",
-      "last_push": "2026-08-13",
       "stars": 0
     }
   ]
