@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-09-13T20:08:48.431Z",
+  "generated_at": "2026-09-15T20:09:45.105Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 305,
-    "commit_contributions_9mo": 8877,
-    "active_repositories": 14,
+    "total_commits": 282,
+    "commit_contributions_9mo": 8871,
+    "active_repositories": 13,
     "total_repositories": 100,
-    "total_stars": 41,
+    "total_stars": 43,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
     {
       "name": "spark",
-      "commits": 4047
+      "commits": 4050
     },
     {
       "name": "failure-first",
-      "commits": 1795
+      "commits": 1796
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1577
+      "commits": 1584
     },
     {
       "name": "afterwords",
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 250
+      "commits": 242
     },
     {
       "name": "afterwords-app",
@@ -83,10 +83,6 @@
       "commits": 26
     },
     {
-      "name": "afterglow-engine",
-      "commits": 24
-    },
-    {
       "name": "terminal",
       "commits": 22
     },
@@ -103,6 +99,10 @@
       "commits": 19
     },
     {
+      "name": "afterglow-engine",
+      "commits": 15
+    },
+    {
       "name": "robotics-specs",
       "commits": 11
     },
@@ -115,25 +115,25 @@
     {
       "week": "2026-09-06",
       "repos": {
-        "status": 4,
-        "twitb-status": 4
+        "status": 1
       }
     },
     {
       "week": "2026-09-13",
       "repos": {
+        "spark": 2,
+        "status": 3,
         "adrianwedd.com": 3,
-        "twitb-status": 1,
-        "status": 2
+        "twitb-status": 4
       }
     }
   ],
   "languages": {
-    "JSON": 163447,
-    "TypeScript": 1653627,
-    "JavaScript": 169644,
-    "Markdown": 467414,
-    "Python": 2102338,
+    "JSON": 163477,
+    "Markdown": 476792,
+    "Python": 2102578,
+    "JavaScript": 169838,
+    "TypeScript": 1653633,
     "Swift": 358,
     "HTML": 9029,
     "Astro": 1214,
@@ -143,7 +143,7 @@
   "heatmap": [
     {
       "date": "2025-12-14",
-      "count": 57
+      "count": 40
     },
     {
       "date": "2025-12-21",
@@ -299,7 +299,7 @@
     },
     {
       "date": "2026-09-13",
-      "count": 161
+      "count": 574
     }
   ],
   "repositories": [
@@ -307,7 +307,35 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-13",
+      "last_push": "2026-09-15",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-09-15",
+      "stars": 0
+    },
+    {
+      "name": "spark",
+      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
+      "language": "Python",
+      "last_push": "2026-09-15",
+      "stars": 7
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-09-15",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-09-15",
       "stars": 0
     },
     {
@@ -318,39 +346,11 @@
       "stars": 0
     },
     {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-09-13",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-09-13",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-09-13",
-      "stars": 0
-    },
-    {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-09-08",
+      "last_push": "2026-09-13",
       "stars": 4
-    },
-    {
-      "name": "spark",
-      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
-      "language": "Python",
-      "last_push": "2026-08-26",
-      "stars": 6
     },
     {
       "name": "OBLITERATUS",
@@ -392,13 +392,6 @@
       "description": "All-in-one steganography suite",
       "language": "HTML",
       "last_push": "2026-08-17",
-      "stars": 0
-    },
-    {
-      "name": "why-demonstrated-risk-is-ignored",
-      "description": "Research portfolio on why organisations fail to act on known, demonstrated risks: canonical essay, dependency-ordered research backlog, codebook, and agent-assistance audit trail.",
-      "language": "Astro",
-      "last_push": "2026-08-16",
       "stars": 0
     }
   ]
