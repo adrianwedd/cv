@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-18T20:09:21.989Z",
+  "generated_at": "2026-09-20T20:08:40.747Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 399,
-    "commit_contributions_9mo": 9057,
-    "active_repositories": 10,
+    "total_commits": 352,
+    "commit_contributions_9mo": 9056,
+    "active_repositories": 9,
     "total_repositories": 100,
     "total_stars": 43,
     "tracking_status": "active"
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1802
+      "commits": 1804
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1585
+      "commits": 1590
     },
     {
       "name": "afterwords",
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 230
+      "commits": 222
     },
     {
       "name": "afterwords-app",
@@ -115,21 +115,29 @@
     {
       "week": "2026-09-13",
       "repos": {
-        "spark": 54,
-        "twitb-status": 3,
-        "adrianwedd.com": 3,
-        "failure-first": 5,
-        "status": 3,
-        "afterwords": 2
+        "adrianwedd.com": 6,
+        "status": 7,
+        "twitb-status": 7,
+        "spark": 52,
+        "failure-first": 6,
+        "afterwords": 1
+      }
+    },
+    {
+      "week": "2026-09-20",
+      "repos": {
+        "twitb-status": 2,
+        "status": 5,
+        "failure-first": 1
       }
     }
   ],
   "languages": {
-    "JSON": 163452,
-    "TypeScript": 1653409,
-    "JavaScript": 170303,
+    "JSON": 163481,
+    "Markdown": 499923,
+    "JavaScript": 170353,
+    "TypeScript": 1654487,
     "Python": 2103349,
-    "Markdown": 490811,
     "Swift": 358,
     "HTML": 9029,
     "Astro": 1214,
@@ -139,7 +147,7 @@
   "heatmap": [
     {
       "date": "2025-12-21",
-      "count": 153
+      "count": 89
     },
     {
       "date": "2025-12-28",
@@ -291,7 +299,11 @@
     },
     {
       "date": "2026-09-13",
-      "count": 1154
+      "count": 1179
+    },
+    {
+      "date": "2026-09-20",
+      "count": 24
     }
   ],
   "repositories": [
@@ -299,22 +311,43 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-18",
+      "last_push": "2026-09-20",
       "stars": 0
     },
     {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-09-18",
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-09-20",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-09-18",
+      "last_push": "2026-09-20",
       "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-09-20",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-09-19",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-09-18",
+      "stars": 4
     },
     {
       "name": "spark",
@@ -322,27 +355,6 @@
       "language": "Python",
       "last_push": "2026-09-18",
       "stars": 7
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-09-18",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-09-18",
-      "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-09-17",
-      "stars": 4
     },
     {
       "name": "afterwords",
@@ -356,13 +368,6 @@
       "description": "obliterate the chains that bind you",
       "language": "Python",
       "last_push": "2026-08-23",
-      "stars": 0
-    },
-    {
-      "name": "clawdcraft",
-      "description": "Claude Code living in your Minecraft server as Clawd, an in-game creature players talk to in chat",
-      "language": "JavaScript",
-      "last_push": "2026-08-21",
       "stars": 0
     }
   ]
