@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-09-20T20:08:40.747Z",
+  "generated_at": "2026-09-22T20:08:58.962Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 352,
-    "commit_contributions_9mo": 9056,
-    "active_repositories": 9,
+    "total_commits": 320,
+    "commit_contributions_9mo": 9055,
+    "active_repositories": 8,
     "total_repositories": 100,
-    "total_stars": 43,
+    "total_stars": 44,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
     {
       "name": "spark",
-      "commits": 4232
+      "commits": 4237
     },
     {
       "name": "failure-first",
-      "commits": 1804
+      "commits": 1806
     },
     {
       "name": "adrianwedd.com",
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 222
+      "commits": 214
     },
     {
       "name": "afterwords-app",
@@ -115,29 +115,25 @@
     {
       "week": "2026-09-13",
       "repos": {
-        "adrianwedd.com": 6,
-        "status": 7,
-        "twitb-status": 7,
-        "spark": 52,
-        "failure-first": 6,
-        "afterwords": 1
+        "adrianwedd.com": 1
       }
     },
     {
       "week": "2026-09-20",
       "repos": {
-        "twitb-status": 2,
-        "status": 5,
-        "failure-first": 1
+        "status": 21,
+        "failure-first": 3,
+        "twitb-status": 9,
+        "spark": 16
       }
     }
   ],
   "languages": {
-    "JSON": 163481,
-    "Markdown": 499923,
-    "JavaScript": 170353,
-    "TypeScript": 1654487,
-    "Python": 2103349,
+    "JSON": 163511,
+    "Markdown": 509508,
+    "JavaScript": 170544,
+    "Python": 2103101,
+    "TypeScript": 1654488,
     "Swift": 358,
     "HTML": 9029,
     "Astro": 1214,
@@ -147,7 +143,7 @@
   "heatmap": [
     {
       "date": "2025-12-21",
-      "count": 89
+      "count": 43
     },
     {
       "date": "2025-12-28",
@@ -303,7 +299,7 @@
     },
     {
       "date": "2026-09-20",
-      "count": 24
+      "count": 137
     }
   ],
   "repositories": [
@@ -311,50 +307,50 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-20",
+      "last_push": "2026-09-22",
       "stars": 0
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-09-20",
+      "last_push": "2026-09-22",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-09-20",
+      "last_push": "2026-09-22",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-09-20",
+      "last_push": "2026-09-22",
       "stars": 0
+    },
+    {
+      "name": "spark",
+      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
+      "language": "Python",
+      "last_push": "2026-09-21",
+      "stars": 7
     },
     {
       "name": "adrianwedd.com",
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
-      "last_push": "2026-09-19",
+      "last_push": "2026-09-20",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-09-18",
+      "last_push": "2026-09-20",
       "stars": 4
-    },
-    {
-      "name": "spark",
-      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
-      "language": "Python",
-      "last_push": "2026-09-18",
-      "stars": 7
     },
     {
       "name": "afterwords",
@@ -362,13 +358,6 @@
       "language": "Python",
       "last_push": "2026-09-16",
       "stars": 2
-    },
-    {
-      "name": "OBLITERATUS",
-      "description": "obliterate the chains that bind you",
-      "language": "Python",
-      "last_push": "2026-08-23",
-      "stars": 0
     }
   ]
 }
