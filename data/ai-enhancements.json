@@ -1,121 +1,117 @@
 {
-  "status": "SUCCESS",
-  "generated_at": "2026-09-20T20:12:43.196Z",
+  "status": "FAILED",
+  "generated_at": "2026-09-22T20:12:44.286Z",
   "provider": "openrouter",
   "model": "deepseek/deepseek-v4-flash",
   "usage": {
     "input": 21565,
-    "output": 5707
+    "output": 6249
   },
   "sections": {
     "professional_summary": {
       "verdict": "unchanged",
-      "text": "",
-      "rationale": "The existing summary is already strong, distinctive, and factually supported; no improvement is needed.",
+      "text": "Systems builder, AI safety researcher, and adversarial thinker — writing code since age six, with fifteen years of applied infrastructure, security, and delivery across government, university, and campaign organisations. The failure-first methodology didn't come from papers — it came from coordinating communications and logistics for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: leading the cybersecurity uplift for Tasmania's public housing sector — translating the ~900-control ACSC ISM into a tracked delivery program alongside Essential Eight and IDAM work; an adversarial evaluation practice spanning 257 models and 142,068 adversarial prompts across 346 attack techniques; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD — the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built.",
+      "rationale": "The existing summary is highly personal, authentic, and effectively communicates the author's unique blend of systems building, adversarial thinking, and operational security experience; adding mined metrics would dilute the voice without improving clarity or relevance.",
       "original": "Systems builder, AI safety researcher, and adversarial thinker — writing code since age six, with fifteen years of applied infrastructure, security, and delivery across government, university, and campaign organisations. The failure-first methodology didn't come from papers — it came from coordinating communications and logistics for Greenpeace's Actions unit against well-resourced opponents where getting the risk assessment wrong had real consequences. That operational security instinct runs through everything: leading the cybersecurity uplift for Tasmania's public housing sector — translating the ~900-control ACSC ISM into a tracked delivery program alongside Essential Eight and IDAM work; an adversarial evaluation practice spanning 257 models and 142,068 adversarial prompts across 346 attack techniques; and production AI systems with hallucination detection and content safety gates built in from the start. Currently freelancing across client delivery (healthcare ecosystems, multilingual sites, ops tooling) and independent AI safety research. AuDHD — the hyperfocus and pattern recognition are features, not bugs. Most interested in where complex systems break and what that reveals about how they were built."
     },
     "experience[0].description": {
       "verdict": "unchanged",
       "text": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
-      "rationale": "The existing text is concise, specific, and authentically reflects the freelance role without corporate jargon; evidence supports the claims but does not necessitate revision.",
+      "rationale": "The existing text is authentic, well-framed, and already aligns with the evidence; nothing in the supplied data justifies rewriting it.",
       "original": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure."
     },
     "experience[1].description": {
       "verdict": "unchanged",
       "text": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023.",
-      "rationale": "The existing text is already strong, specific, and appropriately voiced; no improvement is warranted based on the provided evidence.",
+      "rationale": "The existing text is already strong, specific, and human-voiced; adding GitHub-derived metrics would be irrelevant to this role and would dilute the focused, professional tone.",
       "original": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023."
     },
     "experience[2].description": {
       "verdict": "unchanged",
       "text": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since.",
-      "rationale": "The existing text is concise, personal, and effectively conveys the breadth of experience and its lasting impact without needing alteration.",
+      "rationale": "The existing text is already strong, authentic, and well-voiced; the evidence provides no additional relevant metrics or achievements for this role.",
       "original": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since."
     },
     "experience[3].description": {
       "verdict": "unchanged",
-      "text": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to.",
-      "rationale": "The existing text is authentic, concise, and effectively conveys the role and a key insight without needing embellishment.",
+      "text": "",
+      "rationale": "The existing text is concise, authentic, and effectively conveys the author's voice and learning; evidence does not offer relevant achievements or metrics to improve it.",
       "original": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to."
     },
     "experience[4].description": {
       "verdict": "unchanged",
       "text": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking.",
-      "rationale": "The existing text is already strong, authentic, and concise; no improvements are needed based on the supplied evidence.",
+      "rationale": "The existing text is already strong and authentic; no new evidence or framing improves its clarity or relevance.",
       "original": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking."
     },
     "experience[5].description": {
       "verdict": "unchanged",
       "text": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
-      "rationale": "The existing text is already strong, authentic, and specific to the role; no improvement needed.",
+      "rationale": "The existing text is vivid, specific, and authentic; it effectively conveys the high-stakes nature of the role without needing embellishment.",
       "original": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested."
     },
     "experience[6].description": {
       "verdict": "unchanged",
       "text": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them.",
-      "rationale": "The existing text is already strong, authentic, and captures the author's voice without needing improvement; no evidence supports adding any new claims or metrics.",
+      "rationale": "The original text is concise, authentic, and effectively conveys the freelance technologist identity without requiring any factual or stylistic improvements.",
       "original": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them."
     },
     "projects[0].description": {
       "verdict": "unchanged",
       "text": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
-      "rationale": "The existing text is clear, specific, and well-supported by the evidence; no improvements are needed.",
+      "rationale": "The existing text is concise, specific, and effectively communicates the project's unique value without needing revision.",
       "original": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development."
-    },
-    "projects[1].description": {
-      "verdict": "unchanged",
-      "text": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing.",
-      "rationale": "The existing text is concise, accurate, and effectively describes the project without needing embellishment.",
-      "original": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing."
     },
     "projects[2].description": {
       "verdict": "unchanged",
       "text": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery.",
-      "rationale": "The existing text is clear, specific, and preserves the author's voice; no improvement is needed.",
+      "rationale": "The existing text is concise, specific, and factual with a clear description, inspiration, enhancement, and metric; no improvement needed.",
       "original": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery."
     },
     "projects[3].description": {
       "verdict": "unchanged",
-      "text": "Four-site digital presence for a healthcare practitioner: AHPRA-compliant chiropractic clinic site, coaching/personal brand platform, author hub, and business evolution site. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 170+ issues tracked across phased delivery.",
-      "rationale": "The existing text is already specific, well-framed, and contains concrete technical details and metrics; no improvement is necessary.",
+      "text": "",
+      "rationale": "The existing text is already specific, factual, and avoids corporate beige, so no genuine improvement is needed.",
       "original": "Four-site digital presence for a healthcare practitioner: AHPRA-compliant chiropractic clinic site, coaching/personal brand platform, author hub, and business evolution site. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 170+ issues tracked across phased delivery."
     },
     "projects[4].description": {
       "verdict": "unchanged",
       "text": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering.",
-      "rationale": "The existing text is already clear, specific, and factually supported; no improvement is warranted.",
+      "rationale": "The existing description is concise, factual, and well-voiced; no supplementary evidence relates to the Tanda Pizza project.",
       "original": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering."
     },
     "projects[5].description": {
       "verdict": "unchanged",
-      "text": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation.",
-      "rationale": "The existing text is already concise, technically specific, and achieves a high ATS score; any rewording would risk diluting the author's direct voice or adding unnecessary fluff.",
+      "text": "",
+      "rationale": "The existing text is detailed, technically specific, and accurately reflects the project scope without exaggeration or missing evidence; no improvement is needed.",
       "original": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation."
     },
     "projects[6].description": {
       "verdict": "unchanged",
-      "text": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs.",
-      "rationale": "The existing text is already concise, technically precise, and well-framed; no additional evidence or metrics specific to this project justify altering it.",
+      "text": "",
+      "rationale": "The existing text is already clear, specific, and well-voiced; no improvements are necessary.",
       "original": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs."
     },
     "projects[7].description": {
       "verdict": "unchanged",
       "text": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box.",
-      "rationale": "The existing text is already clear, specific, and effectively communicates the project's unique value without needing improvement.",
+      "rationale": "The existing text is already precise, technically specific, and avoids corporate jargon, accurately reflecting the project's key features without needing improvement.",
       "original": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box."
     },
     "projects[8].description": {
       "verdict": "unchanged",
       "text": "Claude-powered robot companion for a neurodivergent child, built on SunFounder PiCar-X and Raspberry Pi 5. Voice-controlled robotics platform with three-layer cognitive architecture and REST API. Designed around the AuDHD frameworks from This Wasn't in the Brochure.",
-      "rationale": "The existing text is already specific, authentic, and well-framed; any alteration would risk losing the author's voice or introducing unnecessary jargon.",
+      "rationale": "The existing text is already concise, clearly voiced, and factually consistent with the evidence; no improvement needed.",
       "original": "Claude-powered robot companion for a neurodivergent child, built on SunFounder PiCar-X and Raspberry Pi 5. Voice-controlled robotics platform with three-layer cognitive architecture and REST API. Designed around the AuDHD frameworks from This Wasn't in the Brochure."
     },
     "projects[9].description": {
       "verdict": "unchanged",
       "text": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base.",
-      "rationale": "The existing text is already clear, specific, and well-voiced; no additional evidence supports altering or improving it.",
+      "rationale": "The existing text is clear, factual, and concise, with no evidence suggesting that improvements in framing or relevance are needed while preserving the author's voice.",
       "original": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base."
     }
   },
-  "errors": []
+  "errors": [
+    "projects[1].description: malformed proposal: {\"verdict\":\"unchanged\"}"
+  ]
 }
