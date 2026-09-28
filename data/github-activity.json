@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-22T20:08:58.962Z",
+  "generated_at": "2026-09-28T20:09:42.581Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 320,
-    "commit_contributions_9mo": 9055,
-    "active_repositories": 8,
+    "total_commits": 293,
+    "commit_contributions_9mo": 9034,
+    "active_repositories": 9,
     "total_repositories": 100,
     "total_stars": 44,
     "tracking_status": "active"
@@ -12,15 +12,15 @@
   "top_commit_repositories": [
     {
       "name": "spark",
-      "commits": 4237
+      "commits": 4242
     },
     {
       "name": "failure-first",
-      "commits": 1806
+      "commits": 1812
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1590
+      "commits": 1599
     },
     {
       "name": "afterwords",
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 214
+      "commits": 188
     },
     {
       "name": "afterwords-app",
@@ -63,16 +63,16 @@
       "commits": 40
     },
     {
-      "name": "adrianwedd",
-      "commits": 38
-    },
-    {
       "name": "orbitr",
       "commits": 37
     },
     {
+      "name": "adrianwedd",
+      "commits": 36
+    },
+    {
       "name": "ADHDo",
-      "commits": 29
+      "commits": 27
     },
     {
       "name": "rlm-mcp",
@@ -83,12 +83,12 @@
       "commits": 26
     },
     {
-      "name": "terminal",
-      "commits": 22
-    },
-    {
       "name": "why-demonstrated-risk-is-ignored",
       "commits": 21
+    },
+    {
+      "name": "terminal",
+      "commits": 20
     },
     {
       "name": "homelab-scripts",
@@ -100,41 +100,37 @@
     },
     {
       "name": "afterglow-engine",
-      "commits": 15
+      "commits": 12
     },
     {
       "name": "robotics-specs",
       "commits": 11
     },
     {
-      "name": "factory-floor-site",
+      "name": "book.adrianwedd.com",
       "commits": 9
     }
   ],
   "commit_timeline": [
     {
-      "week": "2026-09-13",
+      "week": "2026-09-27",
       "repos": {
-        "adrianwedd.com": 1
-      }
-    },
-    {
-      "week": "2026-09-20",
-      "repos": {
-        "status": 21,
-        "failure-first": 3,
-        "twitb-status": 9,
-        "spark": 16
+        "afterwords": 1,
+        "adrianwedd.com": 15,
+        "status": 8,
+        "spark": 1,
+        "failure-first": 1,
+        "twitb-status": 3
       }
     }
   ],
   "languages": {
-    "JSON": 163511,
-    "Markdown": 509508,
-    "JavaScript": 170544,
-    "Python": 2103101,
-    "TypeScript": 1654488,
-    "Swift": 358,
+    "Swift": 373,
+    "JSON": 163599,
+    "Python": 2103165,
+    "TypeScript": 1654691,
+    "JavaScript": 170782,
+    "Markdown": 537955,
     "HTML": 9029,
     "Astro": 1214,
     "Java": 41939,
@@ -142,12 +138,8 @@
   },
   "heatmap": [
     {
-      "date": "2025-12-21",
-      "count": 43
-    },
-    {
       "date": "2025-12-28",
-      "count": 229
+      "count": 138
     },
     {
       "date": "2026-01-04",
@@ -291,73 +283,84 @@
     },
     {
       "date": "2026-09-06",
-      "count": 642
+      "count": 814
     },
     {
       "date": "2026-09-13",
-      "count": 1179
+      "count": 1704
     },
     {
       "date": "2026-09-20",
-      "count": 137
+      "count": 572
+    },
+    {
+      "date": "2026-09-27",
+      "count": 363
     }
   ],
   "repositories": [
     {
+      "name": "afterwords-app",
+      "description": "Native macOS menu-bar app for the Afterwords TTS server",
+      "language": "Swift",
+      "last_push": "2026-09-28",
+      "stars": 0
+    },
+    {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-22",
+      "last_push": "2026-09-28",
       "stars": 0
     },
     {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-09-22",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-09-22",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-09-22",
-      "stars": 0
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-09-28",
+      "stars": 2
     },
     {
       "name": "spark",
       "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
       "language": "Python",
-      "last_push": "2026-09-21",
+      "last_push": "2026-09-28",
       "stars": 7
     },
     {
       "name": "adrianwedd.com",
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
-      "last_push": "2026-09-20",
+      "last_push": "2026-09-28",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-09-28",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-09-28",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-09-28",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-09-20",
+      "last_push": "2026-09-22",
       "stars": 4
-    },
-    {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-09-16",
-      "stars": 2
     }
   ]
 }
