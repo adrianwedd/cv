@@ -1,97 +1,82 @@
 {
   "status": "FAILED",
-  "generated_at": "2026-09-28T20:14:47.388Z",
+  "generated_at": "2026-09-29T20:15:37.846Z",
   "provider": "openrouter",
   "model": "deepseek/deepseek-v4-flash",
   "usage": {
-    "input": 17742,
-    "output": 10325
+    "input": 15166,
+    "output": 9078
   },
   "sections": {
-    "experience[1].description": {
+    "experience[0].description": {
       "verdict": "unchanged",
-      "text": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023.",
-      "rationale": "The existing text is concise, impactful, and accurately reflects the role without needing improvement.",
-      "original": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023."
+      "text": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
+      "rationale": "The existing text is concise, specific, and authentically reflects the author's focus on AI safety and deep client engagement; no improvement needed.",
+      "original": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure."
     },
-    "experience[2].description": {
+    "experience[4].description": {
       "verdict": "unchanged",
-      "text": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since.",
-      "rationale": "The existing text is already strong, authentic, and effectively conveys the value of the role without needing revision.",
-      "original": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since."
-    },
-    "experience[3].description": {
-      "verdict": "unchanged",
-      "text": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to.",
-      "rationale": "The existing text is strong, authentic, and requires no improvement based on available evidence.",
-      "original": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to."
+      "text": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking.",
+      "rationale": "The existing text is already strong, concise, and conveys the breadth of responsibility without needing embellishment.",
+      "original": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking."
     },
     "experience[5].description": {
       "verdict": "unchanged",
       "text": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
-      "rationale": "The existing text is strong, authentic, and effectively conveys the high-stakes context without needing revision.",
+      "rationale": "The existing text is strong, authentic, and effectively conveys the high-stakes nature of the role without needing improvement.",
       "original": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested."
-    },
-    "experience[6].description": {
-      "verdict": "unchanged",
-      "text": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them.",
-      "rationale": "The existing text is already strong, authentic, and captures the period without needing additional specifics from the evidence.",
-      "original": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them."
     },
     "projects[0].description": {
       "verdict": "unchanged",
       "text": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
-      "rationale": "The existing text is clear, specific, and well-voiced; no improvement is necessary or supported by the evidence.",
+      "rationale": "The existing text is concise, specific, and effectively communicates the project's unique value without needing changes.",
       "original": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development."
     },
     "projects[1].description": {
       "verdict": "unchanged",
       "text": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing.",
-      "rationale": "The existing description is concise, accurate, and effectively communicates the project's scope without requiring modification.",
+      "rationale": "The existing text is concise, technically specific, and accurately describes the project without unnecessary embellishment.",
       "original": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing."
     },
-    "projects[2].description": {
+    "projects[3].description": {
       "verdict": "unchanged",
-      "text": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery.",
-      "rationale": "The existing text is concise, specific, and accurately describes the project without needing modification.",
-      "original": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery."
+      "text": "Four-site digital presence for a healthcare practitioner: AHPRA-compliant chiropractic clinic site, coaching/personal brand platform, author hub, and business evolution site. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 170+ issues tracked across phased delivery.",
+      "rationale": "The existing text is already specific, factual, and well-framed; no improvement is needed without inventing details.",
+      "original": "Four-site digital presence for a healthcare practitioner: AHPRA-compliant chiropractic clinic site, coaching/personal brand platform, author hub, and business evolution site. Shared CSS design token system, Cliniko API integration for appointment management, GA4-to-GTM analytics migration, Cloudflare Pages deployment with serverless functions, and quarterly regulatory compliance workflow. 170+ issues tracked across phased delivery."
     },
     "projects[4].description": {
       "verdict": "unchanged",
       "text": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering.",
-      "rationale": "The existing description is concise, clear, and covers key features without needing alteration.",
+      "rationale": "The description is already clear, concise, and effectively captures the project's key features.",
       "original": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering."
-    },
-    "projects[5].description": {
-      "verdict": "unchanged",
-      "text": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation.",
-      "rationale": "The existing text is already clear, comprehensive, and matches the author's technical voice; no improvement needed.",
-      "original": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation."
     },
     "projects[6].description": {
       "verdict": "unchanged",
       "text": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs.",
-      "rationale": "The existing text is concise, technically precise, and clearly conveys the project's architecture and stack without any unsupported claims.",
+      "rationale": "The existing text is concise, specific, and accurately describes the project without needing augmentation.",
       "original": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs."
     },
     "projects[7].description": {
       "verdict": "unchanged",
       "text": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box.",
-      "rationale": "The existing text is concise, impactful, and authentically voiced; no improvement needed.",
+      "rationale": "The existing text is concise, specific, and effectively communicates the project's unique value proposition without needing revision.",
       "original": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box."
     },
     "projects[9].description": {
       "verdict": "unchanged",
       "text": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base.",
-      "rationale": "The existing description is clear and concise, accurately reflecting the project's dual public/private nature without needing embellishment.",
+      "rationale": "The existing text is clear, concise, and accurately describes the project without needing embellishment.",
       "original": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base."
     }
   },
   "errors": [
-    "professional_summary: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1790626487-pOLkxluSti4YuUEqSll5\",\"object\":\"chat.completion\",\"created\":1790626487,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f",
-    "experience[0].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1790626496-5EK18umkAXeHXdgaHUbF\",\"object\":\"chat.completion\",\"created\":1790626496,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f",
-    "experience[4].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790626521-Ajg8sYDmrf25z2Voz8R6\",\"object\":\"chat.completion\",\"created\":1790626521,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
-    "projects[3].description: Unterminated string in JSON at position 401",
-    "projects[8].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1790626597-ch38GvI681LXxhn8nuAv\",\"object\":\"chat.completion\",\"created\":1790626597,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f"
+    "professional_summary: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790712938-uelSo7vrMiYpZpazMDxy\",\"object\":\"chat.completion\",\"created\":1790712938,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reas",
+    "experience[1].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790712962-32HDXHOLVmIsN5HS4ZeN\",\"object\":\"chat.completion\",\"created\":1790712962,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reas",
+    "experience[2].description: Expected ',' or '}' after property value in JSON at position 408",
+    "experience[3].description: Unterminated string in JSON at position 171",
+    "experience[6].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790713017-I7kKXwdI1ESQiboiZpud\",\"object\":\"chat.completion\",\"created\":1790713017,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "projects[2].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790713050-rLDXBf62iYfWF4p8FdN9\",\"object\":\"chat.completion\",\"created\":1790713050,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reas",
+    "projects[5].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790713075-pdfK7Z0CJID4icOIyGz4\",\"object\":\"chat.completion\",\"created\":1790713075,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "projects[8].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1790713100-HAm8VAJd8GD7KAVUtnlL\",\"object\":\"chat.completion\",\"created\":1790713100,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reas"
   ]
 }
