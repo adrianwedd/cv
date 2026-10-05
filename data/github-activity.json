@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-29T20:10:59.521Z",
+  "generated_at": "2026-10-05T20:16:06.506Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 293,
-    "commit_contributions_9mo": 9032,
-    "active_repositories": 10,
+    "total_commits": 278,
+    "commit_contributions_9mo": 8840,
+    "active_repositories": 11,
     "total_repositories": 100,
-    "total_stars": 44,
+    "total_stars": 45,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -20,15 +20,15 @@
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1600
+      "commits": 1601
     },
     {
       "name": "afterwords",
-      "commits": 303
+      "commits": 321
     },
     {
       "name": "cv",
-      "commits": 184
+      "commits": 151
     },
     {
       "name": "afterwords-app",
@@ -39,44 +39,32 @@
       "commits": 89
     },
     {
-      "name": "squishmallowdex",
-      "commits": 88
-    },
-    {
       "name": "notebooklm-automation",
       "commits": 72
     },
     {
       "name": "lunar_tools_prototypes",
-      "commits": 64
+      "commits": 62
     },
     {
-      "name": "before-the-words-existed",
-      "commits": 58
+      "name": "squishmallowdex",
+      "commits": 61
     },
     {
       "name": "clawdcraft",
       "commits": 42
     },
     {
-      "name": "Footnotes-at-the-Edge-of-Reality",
-      "commits": 40
-    },
-    {
       "name": "orbitr",
-      "commits": 37
-    },
-    {
-      "name": "adrianwedd",
-      "commits": 36
-    },
-    {
-      "name": "ADHDo",
-      "commits": 27
+      "commits": 30
     },
     {
       "name": "rlm-mcp",
       "commits": 27
+    },
+    {
+      "name": "ADHDo",
+      "commits": 26
     },
     {
       "name": "status",
@@ -87,16 +75,16 @@
       "commits": 21
     },
     {
-      "name": "terminal",
-      "commits": 20
-    },
-    {
       "name": "homelab-scripts",
       "commits": 20
     },
     {
       "name": "Agentic-Index",
       "commits": 19
+    },
+    {
+      "name": "adrianwedd",
+      "commits": 18
     },
     {
       "name": "afterglow-engine",
@@ -107,30 +95,46 @@
       "commits": 11
     },
     {
+      "name": "factory-floor-site",
+      "commits": 9
+    },
+    {
       "name": "book.adrianwedd.com",
       "commits": 9
+    },
+    {
+      "name": "twitb-status",
+      "commits": 8
+    },
+    {
+      "name": "failurefirst-status",
+      "commits": 8
     }
   ],
   "commit_timeline": [
     {
       "week": "2026-09-27",
       "repos": {
-        "status": 6,
-        "failure-first": 1,
-        "adrianwedd.com": 6,
-        "spark": 1,
-        "twitb-status": 2,
-        "afterwords": 1
+        "status": 13,
+        "twitb-status": 6
+      }
+    },
+    {
+      "week": "2026-10-04",
+      "repos": {
+        "status": 12,
+        "afterwords": 5,
+        "twitb-status": 5
       }
     }
   ],
   "languages": {
-    "JSON": 163614,
-    "TypeScript": 1655105,
-    "JavaScript": 170853,
-    "Markdown": 542787,
+    "JSON": 163645,
+    "Python": 3006306,
+    "JavaScript": 171067,
+    "TypeScript": 1658959,
+    "Markdown": 571439,
     "Swift": 373,
-    "Python": 2103165,
     "HTML": 9029,
     "Astro": 1214,
     "Java": 41939,
@@ -138,12 +142,8 @@
   },
   "heatmap": [
     {
-      "date": "2025-12-28",
-      "count": 89
-    },
-    {
       "date": "2026-01-04",
-      "count": 307
+      "count": 68
     },
     {
       "date": "2026-01-11",
@@ -295,7 +295,11 @@
     },
     {
       "date": "2026-09-27",
-      "count": 505
+      "count": 878
+    },
+    {
+      "date": "2026-10-04",
+      "count": 129
     }
   ],
   "repositories": [
@@ -303,35 +307,63 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-09-29",
+      "last_push": "2026-10-05",
       "stars": 0
     },
     {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-09-29",
+      "name": "spark",
+      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
+      "language": "Python",
+      "last_push": "2026-10-05",
+      "stars": 7
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-10-05",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-09-29",
+      "last_push": "2026-10-05",
       "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-10-05",
+      "stars": 4
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-10-05",
+      "stars": 0
+    },
+    {
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-10-05",
+      "stars": 2
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-09-29",
+      "last_push": "2026-10-05",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-09-29",
+      "last_push": "2026-10-05",
       "stars": 0
     },
     {
@@ -342,32 +374,11 @@
       "stars": 0
     },
     {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-09-28",
-      "stars": 4
-    },
-    {
       "name": "afterwords-app",
       "description": "Native macOS menu-bar app for the Afterwords TTS server",
       "language": "Swift",
       "last_push": "2026-09-28",
       "stars": 0
-    },
-    {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-09-28",
-      "stars": 2
-    },
-    {
-      "name": "spark",
-      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
-      "language": "Python",
-      "last_push": "2026-09-28",
-      "stars": 7
     }
   ]
 }
