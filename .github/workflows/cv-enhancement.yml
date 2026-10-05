@@ -92,17 +92,12 @@ jobs:
         id: propose
         run: |
           cd .github/scripts
-          set +e
-          timeout 600 node enhance.js
-          EXIT=$?
-          set -e
-          STATUS=$(jq -r '.status // "FAILED"' ../../data/ai-enhancements.json 2>/dev/null || echo FAILED)
-          echo "status=$STATUS" >> "$GITHUB_OUTPUT"
-          echo "AI proposal stage: $STATUS (exit $EXIT)"
+          node run-proposals.js
           # FAILED proposals never block the pipeline — the site can still be
           # validated and re-rendered from curated content — but the status is
           # carried into the commit message, not laundered into success.
         env:
+          CV_PROPOSAL_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
@@ -115,6 +110,8 @@ jobs:
           node verify-proposals.js | tee /tmp/verify.log
           APPLIED=$(grep -oE '^APPLIED=[0-9]+' /tmp/verify.log | cut -d= -f2)
           echo "applied=${APPLIED:-0}" >> "$GITHUB_OUTPUT"
+        env:
+          CV_PROPOSAL_RUN_ID: ${{ steps.propose.outputs.run_id }}
 
       # ── Stage 4: hard validation gate ───────────────────────────────────────
       - name: Validate — content integrity gate
