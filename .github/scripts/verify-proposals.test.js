@@ -29,14 +29,14 @@ function runGate(sections, cv) {
   fs.mkdirSync(dataDir);
   fs.writeFileSync(path.join(dataDir, 'base-cv.json'), JSON.stringify(cv));
   fs.writeFileSync(path.join(dataDir, 'ai-enhancements.json'), JSON.stringify({
-    status: 'SUCCESS', generated_at: new Date().toISOString(), sections,
+    status: 'SUCCESS', run_id: 'fixture-run', completed: true, generated_at: new Date().toISOString(), sections,
   }));
   // verify-proposals resolves the repo root relative to its own location, so we
   // run a copy of the script inside the sandbox tree.
   const scriptsDir = path.join(dir, '.github', 'scripts');
   fs.mkdirSync(scriptsDir, { recursive: true });
   fs.copyFileSync(SCRIPT, path.join(scriptsDir, 'verify-proposals.js'));
-  const out = execFileSync('node', [path.join(scriptsDir, 'verify-proposals.js')], { encoding: 'utf8' });
+  const out = execFileSync('node', [path.join(scriptsDir, 'verify-proposals.js')], { encoding: 'utf8', env: { PATH: process.env.PATH, CV_PROPOSAL_RUN_ID: 'fixture-run' } });
   const review = JSON.parse(fs.readFileSync(path.join(dataDir, 'proposal-review.json'), 'utf8'));
   const cvAfter = JSON.parse(fs.readFileSync(path.join(dataDir, 'base-cv.json'), 'utf8'));
   fs.rmSync(dir, { recursive: true, force: true });
