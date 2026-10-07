@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-05T20:16:06.506Z",
+  "generated_at": "2026-10-07T20:11:03.597Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 278,
-    "commit_contributions_9mo": 8840,
-    "active_repositories": 11,
+    "total_commits": 270,
+    "commit_contributions_9mo": 8828,
+    "active_repositories": 12,
     "total_repositories": 100,
     "total_stars": 45,
     "tracking_status": "active"
@@ -28,7 +28,7 @@
     },
     {
       "name": "cv",
-      "commits": 151
+      "commits": 143
     },
     {
       "name": "afterwords-app",
@@ -84,7 +84,7 @@
     },
     {
       "name": "adrianwedd",
-      "commits": 18
+      "commits": 16
     },
     {
       "name": "afterglow-engine",
@@ -115,25 +115,25 @@
     {
       "week": "2026-09-27",
       "repos": {
-        "status": 13,
-        "twitb-status": 6
+        "status": 1
       }
     },
     {
       "week": "2026-10-04",
       "repos": {
+        "twitb-status": 10,
         "status": 12,
-        "afterwords": 5,
-        "twitb-status": 5
+        "hermes-agent": 4,
+        "afterwords": 7
       }
     }
   ],
   "languages": {
-    "JSON": 163645,
-    "Python": 3006306,
-    "JavaScript": 171067,
+    "JSON": 163674,
+    "Markdown": 580829,
+    "Python": 3017703,
+    "JavaScript": 171293,
     "TypeScript": 1658959,
-    "Markdown": 571439,
     "Swift": 373,
     "HTML": 9029,
     "Astro": 1214,
@@ -143,7 +143,7 @@
   "heatmap": [
     {
       "date": "2026-01-04",
-      "count": 68
+      "count": 37
     },
     {
       "date": "2026-01-11",
@@ -291,15 +291,15 @@
     },
     {
       "date": "2026-09-20",
-      "count": 572
+      "count": 573
     },
     {
       "date": "2026-09-27",
-      "count": 878
+      "count": 880
     },
     {
       "date": "2026-10-04",
-      "count": 129
+      "count": 437
     }
   ],
   "repositories": [
@@ -307,28 +307,42 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-10-05",
+      "last_push": "2026-10-07",
       "stars": 0
     },
     {
-      "name": "spark",
-      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
-      "language": "Python",
-      "last_push": "2026-10-05",
-      "stars": 7
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-10-07",
+      "stars": 0
     },
     {
       "name": "hermes-agent",
       "description": "The agent that grows with you",
       "language": "Python",
-      "last_push": "2026-10-05",
+      "last_push": "2026-10-07",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-10-05",
+      "last_push": "2026-10-07",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-10-07",
+      "stars": 0
+    },
+    {
+      "name": "OBLITERATUS",
+      "description": "obliterate the chains that bind you",
+      "language": "Python",
+      "last_push": "2026-10-06",
       "stars": 0
     },
     {
@@ -337,6 +351,13 @@
       "language": "JavaScript",
       "last_push": "2026-10-05",
       "stars": 4
+    },
+    {
+      "name": "spark",
+      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
+      "language": "Python",
+      "last_push": "2026-10-05",
+      "stars": 7
     },
     {
       "name": "adrianwedd.com",
@@ -351,20 +372,6 @@
       "language": "Python",
       "last_push": "2026-10-05",
       "stars": 2
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-10-05",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-10-05",
-      "stars": 0
     },
     {
       "name": "clawdcraft",
