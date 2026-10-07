@@ -1,92 +1,72 @@
 {
   "status": "FAILED",
-  "generated_at": "2026-10-05T21:22:01.247Z",
+  "generated_at": "2026-10-07T20:15:58.488Z",
   "provider": "openrouter",
   "model": "deepseek/deepseek-v4-flash",
   "usage": {
-    "input": 17795,
-    "output": 10360
+    "input": 12507,
+    "output": 7344
   },
   "sections": {
-    "experience[0].description": {
-      "verdict": "unchanged",
-      "text": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure.",
-      "rationale": "The existing text is concise, authentic, and effectively conveys the author's focus and methodology without needing revision.",
-      "original": "Client web delivery and independent AI safety research, transitioning from seven years in government. Small client base by design — deep engagement over volume. Specialising in red-teaming, adversarial testing, evaluation frameworks, and failure-first methodology for frontier AI models. Building multi-agent systems, LLM tooling, and open-source AI safety infrastructure."
-    },
     "experience[2].description": {
       "verdict": "unchanged",
       "text": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since.",
-      "rationale": "The existing text is already strong, personal, and connects the role to later work; no improvement needed without inventing details.",
+      "rationale": "The existing text is already strong, concise, and authentically voiced; no additional evidence supports changes.",
       "original": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since."
     },
     "experience[3].description": {
       "verdict": "unchanged",
       "text": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to.",
-      "rationale": "The existing text is concise, authentic, and effectively communicates the role and key insight without needing improvement.",
+      "rationale": "The existing text is authentic, concise, and effectively conveys the role and key learning without needing embellishment.",
       "original": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to."
     },
     "experience[4].description": {
       "verdict": "unchanged",
       "text": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking.",
-      "rationale": "The existing text is strong and no additional evidence is available to improve it.",
+      "rationale": "The existing text is already strong, concise, and reflective of the role's breadth without needing additional metrics or buzzwords.",
       "original": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking."
-    },
-    "experience[5].description": {
-      "verdict": "unchanged",
-      "text": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
-      "rationale": "The existing text is already strong, clearly describing the role's context and required skills without needing changes.",
-      "original": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested."
-    },
-    "experience[6].description": {
-      "verdict": "unchanged",
-      "text": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them.",
-      "rationale": "The existing text is strong, authentic, and captures the essence of the freelance period without needing improvement.",
-      "original": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them."
     },
     "projects[0].description": {
       "verdict": "unchanged",
       "text": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
-      "rationale": "The existing text is clear, specific, and well-framed; no additional evidence supports changes.",
+      "rationale": "The existing text is already clear, concise, and effectively communicates the project's unique value and scope without needing improvement.",
       "original": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development."
     },
     "projects[1].description": {
       "verdict": "unchanged",
       "text": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing.",
-      "rationale": "The existing description is concise, technically precise, and effectively communicates the project's capabilities without needing alteration.",
+      "rationale": "The existing description is concise, technically accurate, and clearly conveys the project's scope and features; no improvement is necessary.",
       "original": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing."
-    },
-    "projects[2].description": {
-      "verdict": "unchanged",
-      "text": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery.",
-      "rationale": "The existing text is concise, technically descriptive, and already optimized for ATS; no improvement is necessary without inventing details.",
-      "original": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery."
     },
     "projects[4].description": {
       "verdict": "unchanged",
       "text": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering.",
-      "rationale": "The existing text is concise, specific, and effectively communicates the project's scope and features without unnecessary embellishment.",
+      "rationale": "The current description is clear, concise, and factual; no improvements are necessary.",
       "original": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering."
     },
-    "projects[5].description": {
+    "projects[6].description": {
       "verdict": "unchanged",
-      "text": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation.",
-      "rationale": "The existing text is already specific, detailed, and clearly communicates the project's scope without needing alteration.",
-      "original": "Red-teaming and benchmarking framework for embodied and agentic AI systems. Focused on adversarial testing, recursive failure analysis, recovery evaluation, and human-in-the-loop safety. Includes computer vision vulnerability research on VLA models, neural network robustness evaluation, automated attack adapters (TAP), cross-modal failure analysis, prompt injection and jailbreak testing, bias detection, interpretability analysis, model evaluation pipelines, and AI ethics documentation."
+      "text": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs.",
+      "rationale": "The existing text is already concise, technically precise, and well-aligned with the author's voice and evidence; no improvement is necessary.",
+      "original": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs."
     },
     "projects[9].description": {
       "verdict": "unchanged",
       "text": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base.",
-      "rationale": "The existing description is clear, concise, and effectively communicates the project's purpose and features without needing modification.",
+      "rationale": "The existing text is clear, concise, and accurately describes the project without requiring additional details or corporate jargon.",
       "original": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base."
     }
   },
   "errors": [
-    "professional_summary: Expected double-quoted property name in JSON at position 27",
-    "experience[1].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1791235332-GnaVhIWAskmMFDds5lMH\",\"object\":\"chat.completion\",\"created\":1791235332,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
-    "projects[3].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1791235375-LZ9li4JtHc3FPGeJnZZA\",\"object\":\"chat.completion\",\"created\":1791235375,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
-    "projects[6].description: Unterminated string in JSON at position 353",
-    "projects[7].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1791235393-YEekzhC2YZtmxSGZVhk2\",\"object\":\"chat.completion\",\"created\":1791235393,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f",
-    "projects[8].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1791235400-n3um8qjic0M2uU8yYzJR\",\"object\":\"chat.completion\",\"created\":1791235400,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f"
+    "professional_summary: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791404158-jZWw0GLFTZbSQDoHjGh2\",\"object\":\"chat.completion\",\"created\":1791404158,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "experience[0].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791404169-tVEIlr0wKarkaLo8EFLA\",\"object\":\"chat.completion\",\"created\":1791404169,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "experience[1].description: Unterminated string in JSON at position 28",
+    "experience[5].description: Unterminated string in JSON at position 517",
+    "experience[6].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791404216-uhatw7gaId63TYHJAq2O\",\"object\":\"chat.completion\",\"created\":1791404216,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "projects[2].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791404239-4ZsqNcDHFnw6NUEqAZKr\",\"object\":\"chat.completion\",\"created\":1791404239,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "projects[3].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791404250-SHa6Swrtz1pZbN3fsXNV\",\"object\":\"chat.completion\",\"created\":1791404250,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
+    "projects[5].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1791404270-t1ulGBjgezWTYuTUHJ3H\",\"object\":\"chat.completion\",\"created\":1791404270,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f",
+    "projects[7].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1791404283-mI4d83HXQVcE9c9CAmTI\",\"object\":\"chat.completion\",\"created\":1791404283,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f",
+    "projects[8].description: empty response (finish: length): \n         \n\n         \n\n         \n{\"id\":\"gen-1791404292-0h3p31U1Q6aUIMzO2Wu9\",\"object\":\"chat.completion\",\"created\":1791404292,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_f"
   ]
 }
