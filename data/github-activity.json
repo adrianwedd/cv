@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-07T20:11:03.597Z",
+  "generated_at": "2026-10-09T20:10:09.386Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 270,
-    "commit_contributions_9mo": 8828,
-    "active_repositories": 12,
+    "total_commits": 397,
+    "commit_contributions_9mo": 8940,
+    "active_repositories": 13,
     "total_repositories": 100,
     "total_stars": 45,
     "tracking_status": "active"
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1812
+      "commits": 1817
     },
     {
       "name": "adrianwedd.com",
@@ -24,11 +24,11 @@
     },
     {
       "name": "afterwords",
-      "commits": 321
+      "commits": 444
     },
     {
       "name": "cv",
-      "commits": 143
+      "commits": 135
     },
     {
       "name": "afterwords-app",
@@ -71,10 +71,6 @@
       "commits": 26
     },
     {
-      "name": "why-demonstrated-risk-is-ignored",
-      "commits": 21
-    },
-    {
       "name": "homelab-scripts",
       "commits": 20
     },
@@ -85,6 +81,10 @@
     {
       "name": "adrianwedd",
       "commits": 16
+    },
+    {
+      "name": "why-demonstrated-risk-is-ignored",
+      "commits": 13
     },
     {
       "name": "afterglow-engine",
@@ -113,27 +113,21 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-09-27",
-      "repos": {
-        "status": 1
-      }
-    },
-    {
       "week": "2026-10-04",
       "repos": {
-        "twitb-status": 10,
-        "status": 12,
-        "hermes-agent": 4,
-        "afterwords": 7
+        "afterwords": 79,
+        "twitb-status": 4,
+        "failure-first": 1,
+        "status": 4
       }
     }
   ],
   "languages": {
-    "JSON": 163674,
-    "Markdown": 580829,
-    "Python": 3017703,
-    "JavaScript": 171293,
-    "TypeScript": 1658959,
+    "JSON": 163703,
+    "JavaScript": 171294,
+    "Python": 3076637,
+    "TypeScript": 1659103,
+    "Markdown": 590284,
     "Swift": 373,
     "HTML": 9029,
     "Astro": 1214,
@@ -142,12 +136,8 @@
   },
   "heatmap": [
     {
-      "date": "2026-01-04",
-      "count": 37
-    },
-    {
       "date": "2026-01-11",
-      "count": 165
+      "count": 112
     },
     {
       "date": "2026-01-18",
@@ -295,11 +285,11 @@
     },
     {
       "date": "2026-09-27",
-      "count": 880
+      "count": 884
     },
     {
       "date": "2026-10-04",
-      "count": 437
+      "count": 833
     }
   ],
   "repositories": [
@@ -307,36 +297,64 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-10-07",
+      "last_push": "2026-10-09",
       "stars": 0
     },
     {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-10-07",
-      "stars": 0
-    },
-    {
-      "name": "hermes-agent",
-      "description": "The agent that grows with you",
-      "language": "Python",
-      "last_push": "2026-10-07",
+      "name": "ComfyUI",
+      "description": "A powerful and modular stable diffusion GUI with a graph/nodes interface.",
+      "language": null,
+      "last_push": "2026-10-09",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-10-07",
+      "last_push": "2026-10-09",
+      "stars": 0
+    },
+    {
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-10-09",
+      "stars": 2
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-10-09",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-10-09",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-10-07",
+      "last_push": "2026-10-09",
       "stars": 0
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-10-08",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-10-07",
+      "stars": 4
     },
     {
       "name": "OBLITERATUS",
@@ -346,32 +364,11 @@
       "stars": 0
     },
     {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-10-05",
-      "stars": 4
-    },
-    {
       "name": "spark",
       "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
       "language": "Python",
       "last_push": "2026-10-05",
       "stars": 7
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-10-05",
-      "stars": 0
-    },
-    {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-10-05",
-      "stars": 2
     },
     {
       "name": "clawdcraft",
