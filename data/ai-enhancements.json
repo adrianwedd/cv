@@ -1,92 +1,87 @@
 {
   "status": "FAILED",
-  "generated_at": "2026-10-09T20:14:14.681Z",
+  "generated_at": "2026-10-14T20:13:58.201Z",
   "provider": "openrouter",
   "model": "deepseek/deepseek-v4-flash",
   "usage": {
-    "input": 16296,
-    "output": 9915
+    "input": 13747,
+    "output": 8838
   },
   "sections": {
     "experience[1].description": {
       "verdict": "unchanged",
       "text": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023.",
-      "rationale": "The existing text is concise, specific, and effectively conveys the role's impact without requiring modification.",
+      "rationale": "The existing text is strong, specific, and impactful; no improvement needed.",
       "original": "Led systems integration, security uplift, and digital transformation for Tasmania's public housing sector — an agency holding sensitive personal data on vulnerable Tasmanians. Built the department's ISM-aligned security program and the automation and integration backbone of a regulated system-of-record environment. Acting Senior Change Analyst, Feb–Nov 2023."
     },
     "experience[2].description": {
       "verdict": "unchanged",
       "text": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since.",
-      "rationale": "The existing text is strong, authentic, and effectively connects past experience to current skills without needing alteration.",
+      "rationale": "The existing text is already strong, concise, and captures the essence of the role without needing modification.",
       "original": "IT support across the full university user base — researchers, academics, administrative staff. Exposure to an unusually wide range of systems and problems built the diagnostic instinct that carries through everything since."
-    },
-    "experience[3].description": {
-      "verdict": "unchanged",
-      "text": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to.",
-      "rationale": "The existing text is a strong, authentic narrative that conveys a key insight; no evidence supports adding specific achievements or metrics.",
-      "original": "Ran a small digital agency focused on nonprofits and small businesses — Google Grants, AdWords, Analytics, and web presence. Learned quickly that clients don't buy strategy; they buy outcomes they can point to."
     },
     "experience[4].description": {
       "verdict": "unchanged",
       "text": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking.",
-      "rationale": "The existing text is strong, specific, and authentically voiced, requiring no improvement.",
+      "rationale": "The existing text is concise, authentic, and effectively conveys the breadth of responsibility without unnecessary embellishment.",
       "original": "End-to-end IT infrastructure ownership for a national environmental organisation with distributed operations across Australia. Responsible for all server environments, network infrastructure, and communication systems — the kind of breadth that builds genuine systems thinking."
-    },
-    "experience[5].description": {
-      "verdict": "unchanged",
-      "text": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested.",
-      "rationale": "The existing text is strong, specific, and conveys the high-stakes nature of the role without needing revision.",
-      "original": "Operational planning and execution for Greenpeace Australia Pacific's direct action campaigns. The Actions unit operates against well-resourced opponents, and the work required genuine operational security, threat modelling, and risk assessment under conditions where failure meant people getting hurt or arrested."
     },
     "experience[6].description": {
       "verdict": "unchanged",
       "text": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them.",
-      "rationale": "The existing text is strong, personal, and captures the systems-thinking ethos without needing revision.",
+      "rationale": "The existing text is authentic, concise, and effectively conveys the systems-oriented, tool-building approach across a decade of freelance work; no improvement needed.",
       "original": "A decade of freelance work across music, multimedia art, and technology. DJing, audio production, visual art, and building whatever clients or collaborators needed. The thread through all of it was systems — sound systems, visual systems, technical systems — and the instinct to build tools rather than just use them."
     },
     "projects[0].description": {
       "verdict": "unchanged",
       "text": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development.",
-      "rationale": "The existing text is already concise, specific, and clearly communicates the project's unique value without needing modification.",
+      "rationale": "The existing text is clear, specific, and already strong; no improvements are needed without inventing achievements.",
       "original": "Practical, neurodiversity-affirming guide for co-parents raising children with ADHD, Autism, PDA, and ODD. The first book written specifically for the co-parenting context. Four localised editions (AU, US, UK, NZ) with culturally-appropriate legal, medical, and educational systems. Companion children's book in development."
     },
     "projects[1].description": {
       "verdict": "unchanged",
       "text": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing.",
-      "rationale": "The existing description is concise, specific, and accurately reflects the project without requiring embellishment.",
+      "rationale": "The existing text is concise, accurate, and already strong; no improvement is necessary without inventing unsupported details.",
       "original": "CLI automation toolkit for Google NotebookLM with research quality controls, deterministic exports, template engine, JSON schema validation, and comprehensive integration testing."
     },
     "projects[2].description": {
       "verdict": "unchanged",
       "text": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery.",
-      "rationale": "The existing text is clear, specific, and well-framed; no improvement is needed without additional evidence.",
+      "rationale": "The existing text is clear, concise, and accurately describes the project without requiring modification.",
       "original": "Multi-track polyphonic AI sequencer with concentric ring interface. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation. 36 issues tracked across phased delivery."
     },
     "projects[4].description": {
       "verdict": "unchanged",
       "text": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering.",
-      "rationale": "The existing description is concise, specific, and accurately reflects the project without needing embellishment.",
+      "rationale": "The existing text is clear, concise, and contains all relevant details without unnecessary embellishment.",
       "original": "Static website for a Bali-based restaurant, localized to 5 languages with WhatsApp ordering integration and gluten-free menu filtering."
     },
-    "projects[8].description": {
+    "projects[6].description": {
       "verdict": "unchanged",
-      "text": "Claude-powered robot companion for a neurodivergent child, built on SunFounder PiCar-X and Raspberry Pi 5. Voice-controlled robotics platform with three-layer cognitive architecture and REST API. Designed around the AuDHD frameworks from This Wasn't in the Brochure.",
-      "rationale": "The existing description is concise, specific, and accurately reflects the project without needing enhancement.",
-      "original": "Claude-powered robot companion for a neurodivergent child, built on SunFounder PiCar-X and Raspberry Pi 5. Voice-controlled robotics platform with three-layer cognitive architecture and REST API. Designed around the AuDHD frameworks from This Wasn't in the Brochure."
+      "text": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs.",
+      "rationale": "The existing text is already clear, concise, and accurately describes the project without needing alteration.",
+      "original": "Real-time telephony platform with LLM-powered conversations, tool use (calendar, SMS, email), tri-layer memory (Redis/SQLite/vectors), safety oracle for pre-execution checks, and human handoff. Built on vocode-python with Whisper, GPT-4, and ElevenLabs."
+    },
+    "projects[7].description": {
+      "verdict": "unchanged",
+      "text": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box.",
+      "rationale": "The existing text is concise, clear, and maintains a strong, authentic voice while effectively communicating the project's unique value proposition.",
+      "original": "Give Claude Code a voice. Local zero-shot voice cloning TTS server for Mac — clone any voice from a 15-second YouTube clip and run it on Apple Silicon. Pairs with Claude Code for full voice conversations. No cloud API, no subscription, no data leaves the machine. ~15 voices included out of the box."
     },
     "projects[9].description": {
       "verdict": "unchanged",
       "text": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base.",
-      "rationale": "The existing description is clear, concise, and accurately reflects the project without needing embellishment.",
+      "rationale": "The existing description is clear, concise, and accurately captures the project's scope without needing modification.",
       "original": "Public website and private operations hub for Wolf Clan Zen Do Kai martial arts club. Club information, blog with historical research, class schedules, and an authenticated hub for instructors with lesson plans, grading records, and knowledge base."
     }
   },
   "errors": [
-    "professional_summary: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791576854-miixaD1VzDRNWLVAuHmh\",\"object\":\"chat.completion\",\"created\":1791576854,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
-    "experience[0].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791576865-jFmxsRExHqpB6Y9LulhX\",\"object\":\"chat.completion\",\"created\":1791576865,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
-    "projects[3].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791576968-iQra3dUWSVS6VJr1s7OD\",\"object\":\"chat.completion\",\"created\":1791576968,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logpr",
-    "projects[5].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791577001-8R0mzk8UOP5BJ9BpRY6E\",\"object\":\"chat.completion\",\"created\":1791577001,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length",
-    "projects[6].description: Unterminated string in JSON at position 96",
-    "projects[7].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1791577021-xwe7XuBjJwOMp3cDEdqC\",\"object\":\"chat.completion\",\"created\":1791577021,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reas"
+    "professional_summary: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1792008838-RASgwpX8FGrcyHbJ43nV\",\"object\":\"chat.completion\",\"created\":1792008838,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
+    "experience[0].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1792008843-XRrCHKHXrOWPG98a4rzm\",\"object\":\"chat.completion\",\"created\":1792008843,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
+    "experience[3].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1792008858-OKC23JGQaCvP97HELGoS\",\"object\":\"chat.completion\",\"created\":1792008858,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
+    "experience[5].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1792008869-efAuISO4HYbYlPSXG02X\",\"object\":\"chat.completion\",\"created\":1792008869,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
+    "projects[3].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1792008891-DLxr5ZubNqSwStP5EGzA\",\"object\":\"chat.completion\",\"created\":1792008891,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
+    "projects[5].description: empty response (finish: length): \n         \n\n         \n{\"id\":\"gen-1792008900-3YYJnLNOJl2UH8h9G1XA\",\"object\":\"chat.completion\",\"created\":1792008900,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"service_tier\":null,\"choices\":[{\"index\":0,\"logprobs\":null,\"finish_reason\":\"length\",\"native_finish_reaso",
+    "projects[8].description: empty response (finish: length): \n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1792008915-fsUqzUYZmn6ieBeVc2wA\",\"object\":\"chat.completion\",\"created\":1792008915,\"model\":\"deepseek/deepseek-v4-flash\",\"provider\":\"Relace\",\"system_fingerprint\":null,\"ser"
   ]
 }
