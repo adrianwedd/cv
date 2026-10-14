@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-09T20:10:09.386Z",
+  "generated_at": "2026-10-14T20:09:38.770Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 397,
-    "commit_contributions_9mo": 8940,
-    "active_repositories": 13,
+    "total_commits": 392,
+    "commit_contributions_9mo": 8879,
+    "active_repositories": 14,
     "total_repositories": 100,
-    "total_stars": 45,
+    "total_stars": 47,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1817
+      "commits": 1819
     },
     {
       "name": "adrianwedd.com",
@@ -27,12 +27,12 @@
       "commits": 444
     },
     {
-      "name": "cv",
-      "commits": 135
-    },
-    {
       "name": "afterwords-app",
       "commits": 131
+    },
+    {
+      "name": "cv",
+      "commits": 115
     },
     {
       "name": "ModelAtlas",
@@ -59,15 +59,11 @@
       "commits": 30
     },
     {
-      "name": "rlm-mcp",
-      "commits": 27
-    },
-    {
-      "name": "ADHDo",
+      "name": "status",
       "commits": 26
     },
     {
-      "name": "status",
+      "name": "ADHDo",
       "commits": 26
     },
     {
@@ -79,14 +75,6 @@
       "commits": 19
     },
     {
-      "name": "adrianwedd",
-      "commits": 16
-    },
-    {
-      "name": "why-demonstrated-risk-is-ignored",
-      "commits": 13
-    },
-    {
       "name": "afterglow-engine",
       "commits": 12
     },
@@ -95,11 +83,15 @@
       "commits": 11
     },
     {
-      "name": "factory-floor-site",
-      "commits": 9
+      "name": "why-demonstrated-risk-is-ignored",
+      "commits": 10
     },
     {
       "name": "book.adrianwedd.com",
+      "commits": 9
+    },
+    {
+      "name": "factory-floor-site",
       "commits": 9
     },
     {
@@ -109,25 +101,34 @@
     {
       "name": "failurefirst-status",
       "commits": 8
+    },
+    {
+      "name": "adrianwedd",
+      "commits": 5
+    },
+    {
+      "name": "adrianwedd.dev",
+      "commits": 4
     }
   ],
   "commit_timeline": [
     {
-      "week": "2026-10-04",
+      "week": "2026-10-11",
       "repos": {
-        "afterwords": 79,
-        "twitb-status": 4,
-        "failure-first": 1,
-        "status": 4
+        "hermes-agent": 20,
+        "status": 11,
+        "twitb-status": 2,
+        "failure-first": 2,
+        "afterwords": 1
       }
     }
   ],
   "languages": {
-    "JSON": 163703,
-    "JavaScript": 171294,
-    "Python": 3076637,
-    "TypeScript": 1659103,
-    "Markdown": 590284,
+    "JSON": 163720,
+    "Python": 3091696,
+    "JavaScript": 171486,
+    "Markdown": 613893,
+    "TypeScript": 1659105,
     "Swift": 373,
     "HTML": 9029,
     "Astro": 1214,
@@ -137,7 +138,7 @@
   "heatmap": [
     {
       "date": "2026-01-11",
-      "count": 112
+      "count": 4
     },
     {
       "date": "2026-01-18",
@@ -149,11 +150,11 @@
     },
     {
       "date": "2026-02-01",
-      "count": 532
+      "count": 528
     },
     {
       "date": "2026-02-08",
-      "count": 713
+      "count": 711
     },
     {
       "date": "2026-02-15",
@@ -289,7 +290,11 @@
     },
     {
       "date": "2026-10-04",
-      "count": 833
+      "count": 928
+    },
+    {
+      "date": "2026-10-11",
+      "count": 799
     }
   ],
   "repositories": [
@@ -297,8 +302,64 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-10-09",
+      "last_push": "2026-10-14",
       "stars": 0
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-10-14",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-10-14",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-10-14",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-10-14",
+      "stars": 0
+    },
+    {
+      "name": "V3R1T4S",
+      "description": "liberating known unknowns",
+      "language": null,
+      "last_push": "2026-10-13",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-10-11",
+      "stars": 0
+    },
+    {
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-10-11",
+      "stars": 2
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-10-09",
+      "stars": 4
     },
     {
       "name": "ComfyUI",
@@ -306,55 +367,6 @@
       "language": null,
       "last_push": "2026-10-09",
       "stars": 0
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-10-09",
-      "stars": 0
-    },
-    {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-10-09",
-      "stars": 2
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-10-09",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-10-09",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-10-09",
-      "stars": 0
-    },
-    {
-      "name": "hermes-agent",
-      "description": "The agent that grows with you",
-      "language": "Python",
-      "last_push": "2026-10-08",
-      "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-10-07",
-      "stars": 4
     },
     {
       "name": "OBLITERATUS",
