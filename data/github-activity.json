@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-14T20:09:38.770Z",
+  "generated_at": "2026-10-17T20:08:38.322Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 392,
-    "commit_contributions_9mo": 8879,
+    "total_commits": 226,
+    "commit_contributions_9mo": 8867,
     "active_repositories": 14,
     "total_repositories": 100,
     "total_stars": 47,
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1819
+      "commits": 1821
     },
     {
       "name": "adrianwedd.com",
@@ -24,7 +24,7 @@
     },
     {
       "name": "afterwords",
-      "commits": 444
+      "commits": 452
     },
     {
       "name": "afterwords-app",
@@ -32,7 +32,7 @@
     },
     {
       "name": "cv",
-      "commits": 115
+      "commits": 103
     },
     {
       "name": "ModelAtlas",
@@ -59,11 +59,11 @@
       "commits": 30
     },
     {
-      "name": "status",
+      "name": "ADHDo",
       "commits": 26
     },
     {
-      "name": "ADHDo",
+      "name": "status",
       "commits": 26
     },
     {
@@ -83,15 +83,11 @@
       "commits": 11
     },
     {
-      "name": "why-demonstrated-risk-is-ignored",
-      "commits": 10
-    },
-    {
-      "name": "book.adrianwedd.com",
+      "name": "factory-floor-site",
       "commits": 9
     },
     {
-      "name": "factory-floor-site",
+      "name": "book.adrianwedd.com",
       "commits": 9
     },
     {
@@ -109,26 +105,30 @@
     {
       "name": "adrianwedd.dev",
       "commits": 4
+    },
+    {
+      "name": "before-the-words-existed",
+      "commits": 3
     }
   ],
   "commit_timeline": [
     {
       "week": "2026-10-11",
       "repos": {
-        "hermes-agent": 20,
-        "status": 11,
-        "twitb-status": 2,
-        "failure-first": 2,
-        "afterwords": 1
+        "afterwords": 38,
+        "twitb-status": 9,
+        "status": 12,
+        "failure-first": 1,
+        "hermes-agent": 10
       }
     }
   ],
   "languages": {
-    "JSON": 163720,
-    "Python": 3091696,
-    "JavaScript": 171486,
-    "Markdown": 613893,
-    "TypeScript": 1659105,
+    "Markdown": 627926,
+    "JSON": 163764,
+    "TypeScript": 1659536,
+    "Python": 3154645,
+    "JavaScript": 171720,
     "Swift": 373,
     "HTML": 9029,
     "Astro": 1214,
@@ -137,12 +137,8 @@
   },
   "heatmap": [
     {
-      "date": "2026-01-11",
-      "count": 4
-    },
-    {
       "date": "2026-01-18",
-      "count": 133
+      "count": 115
     },
     {
       "date": "2026-01-25",
@@ -154,7 +150,7 @@
     },
     {
       "date": "2026-02-08",
-      "count": 711
+      "count": 710
     },
     {
       "date": "2026-02-15",
@@ -294,44 +290,65 @@
     },
     {
       "date": "2026-10-11",
-      "count": 799
+      "count": 1044
     }
   ],
   "repositories": [
     {
-      "name": "failurefirst-status",
-      "description": "Status page for failurefirst.org — powered by Upptime",
-      "language": "JSON",
-      "last_push": "2026-10-14",
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-10-17",
       "stars": 0
     },
     {
-      "name": "hermes-agent",
-      "description": "The agent that grows with you",
-      "language": "Python",
-      "last_push": "2026-10-14",
+      "name": "failurefirst-status",
+      "description": "Status page for failurefirst.org — powered by Upptime",
+      "language": "JSON",
+      "last_push": "2026-10-17",
       "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-10-17",
+      "stars": 0
+    },
+    {
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-10-17",
+      "stars": 2
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-10-14",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-10-14",
+      "last_push": "2026-10-17",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-10-14",
+      "last_push": "2026-10-17",
       "stars": 0
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-10-16",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-10-14",
+      "stars": 4
     },
     {
       "name": "V3R1T4S",
@@ -339,27 +356,6 @@
       "language": null,
       "last_push": "2026-10-13",
       "stars": 0
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-10-11",
-      "stars": 0
-    },
-    {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-10-11",
-      "stars": 2
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-10-09",
-      "stars": 4
     },
     {
       "name": "ComfyUI",
