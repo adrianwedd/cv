@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-17T20:08:38.322Z",
+  "generated_at": "2026-10-18T20:08:21.128Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 226,
-    "commit_contributions_9mo": 8867,
-    "active_repositories": 14,
+    "total_commits": 222,
+    "commit_contributions_9mo": 8887,
+    "active_repositories": 15,
     "total_repositories": 100,
     "total_stars": 47,
     "tracking_status": "active"
@@ -32,19 +32,19 @@
     },
     {
       "name": "cv",
-      "commits": 103
+      "commits": 99
     },
     {
       "name": "ModelAtlas",
       "commits": 89
     },
     {
-      "name": "notebooklm-automation",
-      "commits": 72
+      "name": "lunar_tools_prototypes",
+      "commits": 86
     },
     {
-      "name": "lunar_tools_prototypes",
-      "commits": 62
+      "name": "notebooklm-automation",
+      "commits": 72
     },
     {
       "name": "squishmallowdex",
@@ -115,20 +115,29 @@
     {
       "week": "2026-10-11",
       "repos": {
-        "afterwords": 38,
+        "afterwords": 49,
+        "failure-first": 2,
+        "status": 19,
         "twitb-status": 9,
-        "status": 12,
-        "failure-first": 1,
-        "hermes-agent": 10
+        "hermes-agent": 1
+      }
+    },
+    {
+      "week": "2026-10-18",
+      "repos": {
+        "status": 1,
+        "lunar_tools_prototypes": 11,
+        "twitb-status": 2,
+        "afterwords": 8
       }
     }
   ],
   "languages": {
-    "Markdown": 627926,
-    "JSON": 163764,
-    "TypeScript": 1659536,
-    "Python": 3154645,
-    "JavaScript": 171720,
+    "Markdown": 632743,
+    "JSON": 163778,
+    "Python": 3160621,
+    "JavaScript": 171769,
+    "TypeScript": 1659731,
     "Swift": 373,
     "HTML": 9029,
     "Astro": 1214,
@@ -138,7 +147,7 @@
   "heatmap": [
     {
       "date": "2026-01-18",
-      "count": 115
+      "count": 52
     },
     {
       "date": "2026-01-25",
@@ -291,6 +300,10 @@
     {
       "date": "2026-10-11",
       "count": 1044
+    },
+    {
+      "date": "2026-10-18",
+      "count": 63
     }
   ],
   "repositories": [
@@ -298,43 +311,57 @@
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-10-17",
+      "last_push": "2026-10-18",
       "stars": 0
     },
     {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-10-17",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-10-17",
+      "last_push": "2026-10-18",
       "stars": 0
     },
     {
       "name": "afterwords",
       "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
       "language": "Python",
-      "last_push": "2026-10-17",
+      "last_push": "2026-10-18",
       "stars": 2
+    },
+    {
+      "name": "lunar_tools_prototypes",
+      "description": "Oneiric interfaces and audiovisual installations: Dream Interpreters, Fingerprint Painters, and Cosmic Murals.",
+      "language": "Python",
+      "last_push": "2026-10-18",
+      "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-10-17",
+      "last_push": "2026-10-18",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-10-18",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-10-17",
+      "last_push": "2026-10-18",
       "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-10-17",
+      "stars": 4
     },
     {
       "name": "hermes-agent",
@@ -342,13 +369,6 @@
       "language": "Python",
       "last_push": "2026-10-16",
       "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-10-14",
-      "stars": 4
     },
     {
       "name": "V3R1T4S",
