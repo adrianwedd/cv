@@ -1,38 +1,34 @@
 {
-  "generated_at": "2026-10-18T20:08:21.128Z",
+  "generated_at": "2026-10-24T20:08:00.288Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 222,
-    "commit_contributions_9mo": 8887,
-    "active_repositories": 15,
+    "total_commits": 357,
+    "commit_contributions_9mo": 9014,
+    "active_repositories": 19,
     "total_repositories": 100,
-    "total_stars": 47,
+    "total_stars": 48,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
     {
       "name": "spark",
-      "commits": 4242
+      "commits": 4251
     },
     {
       "name": "failure-first",
-      "commits": 1821
+      "commits": 1825
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1601
+      "commits": 1617
     },
     {
       "name": "afterwords",
-      "commits": 452
+      "commits": 564
     },
     {
       "name": "afterwords-app",
-      "commits": 131
-    },
-    {
-      "name": "cv",
-      "commits": 99
+      "commits": 134
     },
     {
       "name": "ModelAtlas",
@@ -41,6 +37,10 @@
     {
       "name": "lunar_tools_prototypes",
       "commits": 86
+    },
+    {
+      "name": "cv",
+      "commits": 75
     },
     {
       "name": "notebooklm-automation",
@@ -52,15 +52,15 @@
     },
     {
       "name": "clawdcraft",
-      "commits": 42
+      "commits": 47
     },
     {
       "name": "orbitr",
-      "commits": 30
+      "commits": 31
     },
     {
       "name": "ADHDo",
-      "commits": 26
+      "commits": 27
     },
     {
       "name": "status",
@@ -83,19 +83,19 @@
       "commits": 11
     },
     {
-      "name": "factory-floor-site",
-      "commits": 9
-    },
-    {
       "name": "book.adrianwedd.com",
       "commits": 9
     },
     {
-      "name": "twitb-status",
-      "commits": 8
+      "name": "factory-floor-site",
+      "commits": 9
     },
     {
       "name": "failurefirst-status",
+      "commits": 8
+    },
+    {
+      "name": "twitb-status",
       "commits": 8
     },
     {
@@ -113,45 +113,38 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-10-11",
-      "repos": {
-        "afterwords": 49,
-        "failure-first": 2,
-        "status": 19,
-        "twitb-status": 9,
-        "hermes-agent": 1
-      }
-    },
-    {
       "week": "2026-10-18",
       "repos": {
-        "status": 1,
-        "lunar_tools_prototypes": 11,
-        "twitb-status": 2,
-        "afterwords": 8
+        "adrianwedd.com": 14,
+        "spark": 7,
+        "why-demonstrated-risk-is-ignored": 11,
+        "orbitr": 2,
+        "TEL3SIS": 8,
+        "twitb-status": 1,
+        "ADHDo": 3,
+        "status": 3,
+        "afterwords-app": 1,
+        "clawdcraft": 1,
+        "afterwords": 2
       }
     }
   ],
   "languages": {
-    "Markdown": 632743,
-    "JSON": 163778,
-    "Python": 3160621,
-    "JavaScript": 171769,
-    "TypeScript": 1659731,
-    "Swift": 373,
-    "HTML": 9029,
-    "Astro": 1214,
+    "TypeScript": 1657489,
+    "HTML": 8917,
+    "JSON": 163795,
+    "Astro": 1370,
+    "Python": 3232227,
+    "JavaScript": 171973,
+    "Markdown": 661061,
+    "Swift": 376,
     "Java": 41939,
     "Jupyter Notebook": 12365
   },
   "heatmap": [
     {
-      "date": "2026-01-18",
-      "count": 52
-    },
-    {
       "date": "2026-01-25",
-      "count": 60
+      "count": 44
     },
     {
       "date": "2026-02-01",
@@ -259,7 +252,7 @@
     },
     {
       "date": "2026-08-02",
-      "count": 458
+      "count": 461
     },
     {
       "date": "2026-08-09",
@@ -283,7 +276,7 @@
     },
     {
       "date": "2026-09-13",
-      "count": 1704
+      "count": 1705
     },
     {
       "date": "2026-09-20",
@@ -291,83 +284,139 @@
     },
     {
       "date": "2026-09-27",
-      "count": 884
+      "count": 896
     },
     {
       "date": "2026-10-04",
-      "count": 928
+      "count": 954
     },
     {
       "date": "2026-10-11",
-      "count": 1044
+      "count": 1219
     },
     {
       "date": "2026-10-18",
-      "count": 63
+      "count": 1001
     }
   ],
   "repositories": [
     {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-10-18",
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "TEL3SIS",
+      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
+      "language": "HTML",
+      "last_push": "2026-10-24",
       "stars": 0
     },
     {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-10-18",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "orbitr",
+      "description": "🎵 Multi-track polyphonic AI sequencer with concentric rings. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation.",
+      "language": "TypeScript",
+      "last_push": "2026-10-24",
+      "stars": 2
+    },
+    {
+      "name": "why-demonstrated-risk-is-ignored",
+      "description": "Research portfolio on why organisations fail to act on known, demonstrated risks: canonical essay, dependency-ordered research backlog, codebook, and agent-assistance audit trail.",
+      "language": "Astro",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "spark",
+      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
+      "language": "Python",
+      "last_push": "2026-10-24",
+      "stars": 7
+    },
+    {
+      "name": "ADHDo",
+      "description": "🧠⚡ Neurodiversity-affirming AI assistant for ADHD executive function support. Features crisis detection, circuit breaker psychology, and local-first processing.",
+      "language": "Python",
+      "last_push": "2026-10-24",
+      "stars": 24
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "clawdcraft",
+      "description": "Claude Code living in your Minecraft server as Clawd, an in-game creature players talk to in chat",
+      "language": "JavaScript",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "afterwords-app",
+      "description": "Native macOS menu-bar app for the Afterwords TTS server",
+      "language": "Swift",
+      "last_push": "2026-10-24",
       "stars": 0
     },
     {
       "name": "afterwords",
       "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
       "language": "Python",
-      "last_push": "2026-10-18",
+      "last_push": "2026-10-24",
       "stars": 2
-    },
-    {
-      "name": "lunar_tools_prototypes",
-      "description": "Oneiric interfaces and audiovisual installations: Dream Interpreters, Fingerprint Painters, and Cosmic Murals.",
-      "language": "Python",
-      "last_push": "2026-10-18",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-10-18",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-10-18",
-      "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-10-18",
+      "last_push": "2026-10-24",
+      "stars": 0
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-10-23",
+      "stars": 0
+    },
+    {
+      "name": "ComfyUI",
+      "description": "A powerful and modular stable diffusion GUI with a graph/nodes interface.",
+      "language": null,
+      "last_push": "2026-10-22",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-10-17",
+      "last_push": "2026-10-18",
       "stars": 4
     },
     {
-      "name": "hermes-agent",
-      "description": "The agent that grows with you",
+      "name": "lunar_tools_prototypes",
+      "description": "Oneiric interfaces and audiovisual installations: Dream Interpreters, Fingerprint Painters, and Cosmic Murals.",
       "language": "Python",
-      "last_push": "2026-10-16",
+      "last_push": "2026-10-18",
       "stars": 0
     },
     {
@@ -378,38 +427,10 @@
       "stars": 0
     },
     {
-      "name": "ComfyUI",
-      "description": "A powerful and modular stable diffusion GUI with a graph/nodes interface.",
-      "language": null,
-      "last_push": "2026-10-09",
-      "stars": 0
-    },
-    {
       "name": "OBLITERATUS",
       "description": "obliterate the chains that bind you",
       "language": "Python",
       "last_push": "2026-10-06",
-      "stars": 0
-    },
-    {
-      "name": "spark",
-      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
-      "language": "Python",
-      "last_push": "2026-10-05",
-      "stars": 7
-    },
-    {
-      "name": "clawdcraft",
-      "description": "Claude Code living in your Minecraft server as Clawd, an in-game creature players talk to in chat",
-      "language": "JavaScript",
-      "last_push": "2026-09-28",
-      "stars": 0
-    },
-    {
-      "name": "afterwords-app",
-      "description": "Native macOS menu-bar app for the Afterwords TTS server",
-      "language": "Swift",
-      "last_push": "2026-09-28",
       "stars": 0
     }
   ]
