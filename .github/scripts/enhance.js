@@ -18,6 +18,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { randomUUID } = require('crypto');
 const { execFileSync } = require('child_process');
 const { chat } = require('./ai/client');
 
@@ -71,6 +72,23 @@ function parseProposal(raw) {
 }
 
 async function main() {
+  // Invalidate any previous success before reading evidence or calling AI.
+  // Only run-proposals.js may certify completion after observing a clean exit.
+  const output = {
+    status: 'FAILED',
+    run_id: process.env.CV_PROPOSAL_RUN_ID || randomUUID(),
+    completed: false,
+    generated_at: new Date().toISOString(),
+    provider: null,
+    model: null,
+    usage: { input: 0, output: 0 },
+    sections: {},
+    errors: ['proposal process did not complete'],
+  };
+  fs.writeFileSync(path.join(DATA_DIR, 'ai-enhancements.json'), JSON.stringify(output, null, 2) + '\n');
+  fs.writeFileSync(path.join(DATA_DIR, 'proposal-review.json'), JSON.stringify({
+    status: 'SKIPPED', run_id: output.run_id, reason: 'current proposals have not been verified', results: [],
+  }, null, 2) + '\n');
   const cv = readJSON(path.join(DATA_DIR, 'base-cv.json'));
   if (!cv) {
     console.error('FATAL: data/base-cv.json missing or invalid');
@@ -87,15 +105,8 @@ async function main() {
   ].filter(Boolean).join('\n\n') || 'No additional evidence collected this run.';
 
   const targets = collectTargets(cv);
-  const output = {
-    status: 'SUCCESS',
-    generated_at: new Date().toISOString(),
-    provider: null,
-    model: null,
-    usage: { input: 0, output: 0 },
-    sections: {},
-    errors: [],
-  };
+  output.status = 'SUCCESS';
+  output.errors = [];
 
   for (const t of targets) {
     const res = await chat({
@@ -107,7 +118,7 @@ async function main() {
     output.model = res.model;
 
     if (res.status === 'SKIPPED') {
-      output.status = 'SKIPPED';
+      output.status = output.status === 'FAILED' ? 'FAILED' : 'SKIPPED';
       output.errors.push(res.error);
       break;
     }
