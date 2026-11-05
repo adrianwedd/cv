@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-10-24T20:08:00.288Z",
+  "generated_at": "2026-11-05T20:05:51.144Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 357,
-    "commit_contributions_9mo": 9014,
-    "active_repositories": 19,
+    "total_commits": 363,
+    "commit_contributions_9mo": 8895,
+    "active_repositories": 20,
     "total_repositories": 100,
-    "total_stars": 48,
+    "total_stars": 50,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -16,15 +16,15 @@
     },
     {
       "name": "failure-first",
-      "commits": 1825
+      "commits": 1753
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1617
+      "commits": 1640
     },
     {
       "name": "afterwords",
-      "commits": 564
+      "commits": 566
     },
     {
       "name": "afterwords-app",
@@ -39,14 +39,6 @@
       "commits": 86
     },
     {
-      "name": "cv",
-      "commits": 75
-    },
-    {
-      "name": "notebooklm-automation",
-      "commits": 72
-    },
-    {
       "name": "squishmallowdex",
       "commits": 61
     },
@@ -55,12 +47,20 @@
       "commits": 47
     },
     {
+      "name": "notebooklm-automation",
+      "commits": 39
+    },
+    {
+      "name": "ADHDo",
+      "commits": 31
+    },
+    {
       "name": "orbitr",
       "commits": 31
     },
     {
-      "name": "ADHDo",
-      "commits": 27
+      "name": "cv",
+      "commits": 28
     },
     {
       "name": "status",
@@ -103,60 +103,56 @@
       "commits": 5
     },
     {
-      "name": "adrianwedd.dev",
+      "name": "TEL3SIS",
       "commits": 4
     },
     {
-      "name": "before-the-words-existed",
-      "commits": 3
+      "name": "adrianwedd.dev",
+      "commits": 4
     }
   ],
   "commit_timeline": [
     {
-      "week": "2026-10-18",
+      "week": "2026-10-25",
       "repos": {
-        "adrianwedd.com": 14,
-        "spark": 7,
-        "why-demonstrated-risk-is-ignored": 11,
-        "orbitr": 2,
-        "TEL3SIS": 8,
-        "twitb-status": 1,
-        "ADHDo": 3,
-        "status": 3,
-        "afterwords-app": 1,
-        "clawdcraft": 1,
-        "afterwords": 2
+        "failure-first": 2,
+        "twitb-status": 5,
+        "status": 9,
+        "ADHDo": 7
+      }
+    },
+    {
+      "week": "2026-11-01",
+      "repos": {
+        "twitb-status": 7,
+        "adrianwedd.com": 3,
+        "Bluetti_ESP32_Bridge": 1,
+        "status": 7,
+        "failure-first": 2,
+        "hermes-agent": 2
       }
     }
   ],
   "languages": {
-    "TypeScript": 1657489,
-    "HTML": 8917,
-    "JSON": 163795,
+    "JSON": 163976,
+    "JavaScript": 172232,
+    "TypeScript": 1668415,
+    "Markdown": 717395,
+    "HTML": 9076,
+    "Python": 3301311,
     "Astro": 1370,
-    "Python": 3232227,
-    "JavaScript": 171973,
-    "Markdown": 661061,
     "Swift": 376,
     "Java": 41939,
     "Jupyter Notebook": 12365
   },
   "heatmap": [
     {
-      "date": "2026-01-25",
-      "count": 44
-    },
-    {
-      "date": "2026-02-01",
-      "count": 528
-    },
-    {
       "date": "2026-02-08",
-      "count": 710
+      "count": 705
     },
     {
       "date": "2026-02-15",
-      "count": 946
+      "count": 943
     },
     {
       "date": "2026-02-22",
@@ -288,7 +284,7 @@
     },
     {
       "date": "2026-10-04",
-      "count": 954
+      "count": 958
     },
     {
       "date": "2026-10-11",
@@ -296,37 +292,101 @@
     },
     {
       "date": "2026-10-18",
-      "count": 1001
+      "count": 1041
+    },
+    {
+      "date": "2026-10-25",
+      "count": 844
+    },
+    {
+      "date": "2026-11-01",
+      "count": 498
     }
   ],
   "repositories": [
     {
+      "name": "failurefirst-status",
+      "description": "Status page for failurefirst.org — powered by Upptime",
+      "language": "JSON",
+      "last_push": "2026-11-05",
+      "stars": 0
+    },
+    {
+      "name": "Bluetti_ESP32_Bridge",
+      "description": "Bluetti Power Station ESP32 Bluetooth to MQTT Bridge",
+      "language": null,
+      "last_push": "2026-11-05",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-11-05",
+      "stars": 0
+    },
+    {
       "name": "adrianwedd.com",
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
-      "last_push": "2026-10-24",
+      "last_push": "2026-11-05",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-05",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-11-05",
       "stars": 0
     },
     {
       "name": "TEL3SIS",
       "description": "Telephony-Linked Embedded LLM System for Interactive Support",
       "language": "HTML",
-      "last_push": "2026-10-24",
+      "last_push": "2026-11-02",
       "stars": 0
     },
     {
-      "name": "failurefirst-status",
-      "description": "Status page for failurefirst.org — powered by Upptime",
-      "language": "JSON",
-      "last_push": "2026-10-24",
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-11-01",
+      "stars": 2
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-11-01",
       "stars": 0
+    },
+    {
+      "name": "ADHDo",
+      "description": "🧠⚡ Neurodiversity-affirming AI assistant for ADHD executive function support. Features crisis detection, circuit breaker psychology, and local-first processing.",
+      "language": "Python",
+      "last_push": "2026-10-31",
+      "stars": 25
     },
     {
       "name": "orbitr",
       "description": "🎵 Multi-track polyphonic AI sequencer with concentric rings. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation.",
       "language": "TypeScript",
-      "last_push": "2026-10-24",
+      "last_push": "2026-10-26",
       "stars": 2
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-10-24",
+      "stars": 4
     },
     {
       "name": "why-demonstrated-risk-is-ignored",
@@ -340,33 +400,12 @@
       "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
       "language": "Python",
       "last_push": "2026-10-24",
-      "stars": 7
-    },
-    {
-      "name": "ADHDo",
-      "description": "🧠⚡ Neurodiversity-affirming AI assistant for ADHD executive function support. Features crisis detection, circuit breaker psychology, and local-first processing.",
-      "language": "Python",
-      "last_push": "2026-10-24",
-      "stars": 24
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-10-24",
-      "stars": 0
+      "stars": 8
     },
     {
       "name": "clawdcraft",
       "description": "Claude Code living in your Minecraft server as Clawd, an in-game creature players talk to in chat",
       "language": "JavaScript",
-      "last_push": "2026-10-24",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
       "last_push": "2026-10-24",
       "stars": 0
     },
@@ -378,39 +417,11 @@
       "stars": 0
     },
     {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-10-24",
-      "stars": 2
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-10-24",
-      "stars": 0
-    },
-    {
-      "name": "hermes-agent",
-      "description": "The agent that grows with you",
-      "language": "Python",
-      "last_push": "2026-10-23",
-      "stars": 0
-    },
-    {
       "name": "ComfyUI",
       "description": "A powerful and modular stable diffusion GUI with a graph/nodes interface.",
       "language": null,
       "last_push": "2026-10-22",
       "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-10-18",
-      "stars": 4
     },
     {
       "name": "lunar_tools_prototypes",
