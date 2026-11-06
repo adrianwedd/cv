@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-05T20:05:51.144Z",
+  "generated_at": "2026-11-06T20:05:53.007Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 363,
-    "commit_contributions_9mo": 8895,
-    "active_repositories": 20,
+    "total_commits": 366,
+    "commit_contributions_9mo": 8833,
+    "active_repositories": 19,
     "total_repositories": 100,
     "total_stars": 50,
     "tracking_status": "active"
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1753
+      "commits": 1732
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1640
+      "commits": 1642
     },
     {
       "name": "afterwords",
@@ -47,10 +47,6 @@
       "commits": 47
     },
     {
-      "name": "notebooklm-automation",
-      "commits": 39
-    },
-    {
       "name": "ADHDo",
       "commits": 31
     },
@@ -59,12 +55,12 @@
       "commits": 31
     },
     {
-      "name": "cv",
-      "commits": 28
-    },
-    {
       "name": "status",
       "commits": 26
+    },
+    {
+      "name": "cv",
+      "commits": 24
     },
     {
       "name": "homelab-scripts",
@@ -83,19 +79,19 @@
       "commits": 11
     },
     {
-      "name": "book.adrianwedd.com",
-      "commits": 9
-    },
-    {
       "name": "factory-floor-site",
       "commits": 9
     },
     {
-      "name": "failurefirst-status",
-      "commits": 8
+      "name": "book.adrianwedd.com",
+      "commits": 9
     },
     {
       "name": "twitb-status",
+      "commits": 8
+    },
+    {
+      "name": "failurefirst-status",
       "commits": 8
     },
     {
@@ -103,42 +99,36 @@
       "commits": 5
     },
     {
+      "name": "adrianwedd.dev",
+      "commits": 4
+    },
+    {
       "name": "TEL3SIS",
       "commits": 4
     },
     {
-      "name": "adrianwedd.dev",
-      "commits": 4
+      "name": "before-the-words-existed",
+      "commits": 3
     }
   ],
   "commit_timeline": [
     {
-      "week": "2026-10-25",
-      "repos": {
-        "failure-first": 2,
-        "twitb-status": 5,
-        "status": 9,
-        "ADHDo": 7
-      }
-    },
-    {
       "week": "2026-11-01",
       "repos": {
-        "twitb-status": 7,
-        "adrianwedd.com": 3,
-        "Bluetti_ESP32_Bridge": 1,
-        "status": 7,
-        "failure-first": 2,
-        "hermes-agent": 2
+        "status": 10,
+        "twitb-status": 5,
+        "Bluetti_ESP32_Bridge": 3,
+        "adrianwedd.com": 2,
+        "failure-first": 1
       }
     }
   ],
   "languages": {
-    "JSON": 163976,
-    "JavaScript": 172232,
-    "TypeScript": 1668415,
-    "Markdown": 717395,
-    "HTML": 9076,
+    "JSON": 163991,
+    "JavaScript": 169123,
+    "HTML": 9085,
+    "Markdown": 722137,
+    "TypeScript": 1668412,
     "Python": 3301311,
     "Astro": 1370,
     "Swift": 376,
@@ -148,7 +138,7 @@
   "heatmap": [
     {
       "date": "2026-02-08",
-      "count": 705
+      "count": 504
     },
     {
       "date": "2026-02-15",
@@ -300,7 +290,7 @@
     },
     {
       "date": "2026-11-01",
-      "count": 498
+      "count": 646
     }
   ],
   "repositories": [
@@ -308,21 +298,49 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-05",
+      "last_push": "2026-11-06",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-11-06",
+      "stars": 4
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-11-06",
+      "stars": 0
+    },
+    {
+      "name": "TEL3SIS",
+      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
+      "language": "HTML",
+      "last_push": "2026-11-06",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-06",
       "stars": 0
     },
     {
       "name": "Bluetti_ESP32_Bridge",
       "description": "Bluetti Power Station ESP32 Bluetooth to MQTT Bridge",
       "language": null,
-      "last_push": "2026-11-05",
+      "last_push": "2026-11-06",
       "stars": 0
     },
     {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-11-05",
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-11-06",
       "stars": 0
     },
     {
@@ -330,27 +348,6 @@
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
       "last_push": "2026-11-05",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-11-05",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-11-05",
-      "stars": 0
-    },
-    {
-      "name": "TEL3SIS",
-      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
-      "language": "HTML",
-      "last_push": "2026-11-02",
       "stars": 0
     },
     {
@@ -380,13 +377,6 @@
       "language": "TypeScript",
       "last_push": "2026-10-26",
       "stars": 2
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-10-24",
-      "stars": 4
     },
     {
       "name": "why-demonstrated-risk-is-ignored",
@@ -435,13 +425,6 @@
       "description": "liberating known unknowns",
       "language": null,
       "last_push": "2026-10-13",
-      "stars": 0
-    },
-    {
-      "name": "OBLITERATUS",
-      "description": "obliterate the chains that bind you",
-      "language": "Python",
-      "last_push": "2026-10-06",
       "stars": 0
     }
   ]
