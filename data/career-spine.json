@@ -2,7 +2,7 @@
   "schema_version": "1.1.0",
   "title": "Canonical career spine — Adrian Wedd",
   "purpose": "The smallest machine-readable export of verified career facts. This repo (adrianwedd/cv) owns canonical facts: employment dates, roles, durable achievements, technologies actually used, project facts, stable metrics. Downstream consumers (adrianwedd/job-search) snapshot this file explicitly, record the source commit, and must not contradict it silently. Role-specific prose may EXTEND these claims only with its own evidence; it never rewrites them.",
-  "last_updated": "2026-08-25",
+  "last_updated": "2026-11-06",
   "statuses": {
     "verified": "Documented evidence exists (employment records, repo history, published data, or explicit confirmation by Adrian recorded in a QA trail).",
     "qualified": "True with the stated bounds; do not restate more broadly than the claim text.",
@@ -87,7 +87,7 @@
       "category": "experience-aggregate",
       "status": "qualified",
       "claim": "Fifteen years of applied infrastructure, security and delivery across government, university and campaign organisations (2010 – 2026); writing code since age six (Microbee BASIC, ~1981).",
-      "qualification": "The age-six fact is biography, not professional experience. Never convert it into a years-of-experience quantifier ('45 years across the stack' is RETIRED — see ret.45-years)."
+      "qualification": "The age-six fact is biography, not professional employment. Adrian explicitly confirmed 45 years of programming and hacking on 2026-11-06; use exp.programming-history for that technical-practice span, never as 45 years of paid employment. The phrase 45 years across the stack remains retired."
     },
     {
       "id": "ach.homes.ism-program",
@@ -198,7 +198,7 @@
       "id": "ret.45-years",
       "category": "retired",
       "status": "retired",
-      "claim": "RETIRED: 'nearly 45 years across the stack'. Derived from first code at age six (~1981); not a professional-experience figure. Use exp.breadth or exp.tas-public-institutions instead.",
+      "claim": "RETIRED: nearly 45 years across the stack as professional experience. Childhood programming is not employment tenure. The separate user-confirmed 45-year programming and hacking history is supported by exp.programming-history; do not conflate the two.",
       "last_verified": "2026-08-25"
     },
     {
@@ -235,6 +235,32 @@
       "status": "unresolved",
       "claim": "UNRESOLVED: interview-prep material (job-search alignerr/) attributes a RAG chatbot over Homes Tasmania public data, a Twilio voice interface, and BabyAGI policy loops to work inside Homes; the QA'd application canon deliberately claims only the generative-AI policy at Homes and attributes AI builds to independent practice. Do not assert the Homes attribution until Adrian confirms scope and employer approval.",
       "last_verified": "2026-08-25"
+    },
+    {
+      "id": "exp.programming-history",
+      "category": "experience-aggregate",
+      "status": "verified",
+      "claim": "Adrian reports 45 years of programming and hacking, beginning in childhood.",
+      "qualification": "Technical practice, not 45 years of salaried software-engineering employment or mastery of every modern stack.",
+      "evidence": [
+        "Explicit user statement in job-search conversation, 2026-11-06: I have been programming and hacking for 45 years.",
+        "job-search/qa/spine-candidates/exp.programming-history.md",
+        "adrianwedd.com/src/content/blog/after-vibe-coding.md corroborates childhood BASIC and decades of practice; exact count comes from the user."
+      ],
+      "last_verified": "2026-11-06"
+    },
+    {
+      "id": "proj.neuroconnect-elevenlabs",
+      "category": "project",
+      "status": "qualified",
+      "claim": "NeuroConnect is an independent voice-agent prototype with an implemented ElevenLabs TTS streaming integration: asynchronous HTTP client, callback audio path, first-chunk timing and stop control, plus a telephony adapter.",
+      "qualification": "Built with coding-agent assistance. Source inspection establishes implementation, not live provider execution, deployed clinical service, achieved latency or commercial scale.",
+      "evidence": [
+        "github.com/adrianwedd/neuroconnect-helpline/blob/b2c8450b10dc2dfed6dd1b969e2747a60147bc69/src/voice/tts.py",
+        "github.com/adrianwedd/neuroconnect-helpline/blob/b2c8450b10dc2dfed6dd1b969e2747a60147bc69/src/voice/adapters.py",
+        "job-search/qa/spine-candidates/proj.neuroconnect-elevenlabs.md"
+      ],
+      "last_verified": "2026-11-06"
     }
   ]
 }
