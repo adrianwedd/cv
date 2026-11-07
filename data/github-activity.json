@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-06T20:05:53.007Z",
+  "generated_at": "2026-11-07T20:05:11.318Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 366,
-    "commit_contributions_9mo": 8833,
-    "active_repositories": 19,
+    "total_commits": 249,
+    "commit_contributions_9mo": 8832,
+    "active_repositories": 20,
     "total_repositories": 100,
-    "total_stars": 50,
+    "total_stars": 51,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1732
+      "commits": 1731
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1642
+      "commits": 1644
     },
     {
       "name": "afterwords",
@@ -60,7 +60,7 @@
     },
     {
       "name": "cv",
-      "commits": 24
+      "commits": 22
     },
     {
       "name": "homelab-scripts",
@@ -115,21 +115,21 @@
     {
       "week": "2026-11-01",
       "repos": {
-        "status": 10,
-        "twitb-status": 5,
-        "Bluetti_ESP32_Bridge": 3,
-        "adrianwedd.com": 2,
-        "failure-first": 1
+        "twitb-status": 6,
+        "status": 13,
+        "failure-first": 2,
+        "adrianwedd.com": 4,
+        "Bluetti_ESP32_Bridge": 3
       }
     }
   ],
   "languages": {
-    "JSON": 163991,
-    "JavaScript": 169123,
+    "JSON": 164006,
+    "JavaScript": 169350,
+    "Markdown": 726812,
+    "TypeScript": 1668418,
     "HTML": 9085,
-    "Markdown": 722137,
-    "TypeScript": 1668412,
-    "Python": 3301311,
+    "Python": 3299340,
     "Astro": 1370,
     "Swift": 376,
     "Java": 41939,
@@ -138,11 +138,11 @@
   "heatmap": [
     {
       "date": "2026-02-08",
-      "count": 504
+      "count": 439
     },
     {
       "date": "2026-02-15",
-      "count": 943
+      "count": 942
     },
     {
       "date": "2026-02-22",
@@ -290,7 +290,7 @@
     },
     {
       "date": "2026-11-01",
-      "count": 646
+      "count": 791
     }
   ],
   "repositories": [
@@ -298,6 +298,34 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
+      "last_push": "2026-11-07",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-11-07",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-07",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-11-07",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
       "last_push": "2026-11-06",
       "stars": 0
     },
@@ -309,23 +337,9 @@
       "stars": 4
     },
     {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-11-06",
-      "stars": 0
-    },
-    {
       "name": "TEL3SIS",
       "description": "Telephony-Linked Embedded LLM System for Interactive Support",
       "language": "HTML",
-      "last_push": "2026-11-06",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
       "last_push": "2026-11-06",
       "stars": 0
     },
@@ -337,18 +351,11 @@
       "stars": 0
     },
     {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-11-06",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-11-05",
-      "stars": 0
+      "name": "yamaha-rs7000",
+      "description": "Reverse-engineered firmware reference for the Yamaha RS7000 Music Production Studio (OS v1.22)",
+      "language": null,
+      "last_push": "2026-11-02",
+      "stars": 1
     },
     {
       "name": "afterwords",
