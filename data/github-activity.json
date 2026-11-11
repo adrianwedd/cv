@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-07T20:05:11.318Z",
+  "generated_at": "2026-11-11T20:05:57.279Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 249,
-    "commit_contributions_9mo": 8832,
-    "active_repositories": 20,
+    "total_commits": 270,
+    "commit_contributions_9mo": 8800,
+    "active_repositories": 21,
     "total_repositories": 100,
-    "total_stars": 51,
+    "total_stars": 50,
     "tracking_status": "active"
   },
   "top_commit_repositories": [
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1731
+      "commits": 1726
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1644
+      "commits": 1620
     },
     {
       "name": "afterwords",
@@ -59,12 +59,12 @@
       "commits": 26
     },
     {
-      "name": "cv",
-      "commits": 22
-    },
-    {
       "name": "homelab-scripts",
       "commits": 20
+    },
+    {
+      "name": "cv",
+      "commits": 19
     },
     {
       "name": "Agentic-Index",
@@ -113,23 +113,21 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-11-01",
+      "week": "2026-11-08",
       "repos": {
-        "twitb-status": 6,
-        "status": 13,
-        "failure-first": 2,
-        "adrianwedd.com": 4,
-        "Bluetti_ESP32_Bridge": 3
+        "status": 6,
+        "adrianwedd.com": 8,
+        "twitb-status": 2
       }
     }
   ],
   "languages": {
-    "JSON": 164006,
-    "JavaScript": 169350,
-    "Markdown": 726812,
-    "TypeScript": 1668418,
+    "Markdown": 745353,
+    "JSON": 163989,
+    "Python": 3311131,
+    "JavaScript": 169368,
+    "TypeScript": 1671106,
     "HTML": 9085,
-    "Python": 3299340,
     "Astro": 1370,
     "Swift": 376,
     "Java": 41939,
@@ -138,15 +136,15 @@
   "heatmap": [
     {
       "date": "2026-02-08",
-      "count": 439
+      "count": 99
     },
     {
       "date": "2026-02-15",
-      "count": 942
+      "count": 941
     },
     {
       "date": "2026-02-22",
-      "count": 632
+      "count": 630
     },
     {
       "date": "2026-03-01",
@@ -282,7 +280,7 @@
     },
     {
       "date": "2026-10-18",
-      "count": 1041
+      "count": 1043
     },
     {
       "date": "2026-10-25",
@@ -291,49 +289,67 @@
     {
       "date": "2026-11-01",
       "count": 791
+    },
+    {
+      "date": "2026-11-08",
+      "count": 675
     }
   ],
   "repositories": [
     {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-11",
+      "stars": 0
+    },
+    {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-07",
+      "last_push": "2026-11-11",
+      "stars": 0
+    },
+    {
+      "name": "jailbreaks",
+      "description": "LIST OF ALL MY JAILBREAKS",
+      "language": null,
+      "last_push": "2026-11-11",
+      "stars": 0
+    },
+    {
+      "name": "hermes-agent",
+      "description": "The agent that grows with you",
+      "language": "Python",
+      "last_push": "2026-11-11",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-11-07",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-11-07",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-11-07",
+      "last_push": "2026-11-11",
       "stars": 0
     },
     {
       "name": "adrianwedd.com",
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
-      "last_push": "2026-11-06",
+      "last_push": "2026-11-11",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-11-11",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-11-06",
+      "last_push": "2026-11-07",
       "stars": 4
     },
     {
@@ -363,13 +379,6 @@
       "language": "Python",
       "last_push": "2026-11-01",
       "stars": 2
-    },
-    {
-      "name": "hermes-agent",
-      "description": "The agent that grows with you",
-      "language": "Python",
-      "last_push": "2026-11-01",
-      "stars": 0
     },
     {
       "name": "ADHDo",
