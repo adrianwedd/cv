@@ -97,14 +97,24 @@ function applyToCV(cv, id, text) {
 }
 
 function main() {
+  const runId = process.env.CV_PROPOSAL_RUN_ID;
+  const review = { status: 'SKIPPED', run_id: runId || null, reviewed_at: new Date().toISOString(), results: [] };
+  const writeReview = () => fs.writeFileSync(path.join(DATA_DIR, 'proposal-review.json'), JSON.stringify(review, null, 2) + '\n');
+  // Clear any old accepted results even when this run has nothing to verify.
+  writeReview();
   const cv = readJSON(path.join(DATA_DIR, 'base-cv.json'));
   const proposals = readJSON(path.join(DATA_DIR, 'ai-enhancements.json'));
   if (!cv || !proposals) {
+    review.status = 'FAILED';
+    review.reason = 'base-cv.json or ai-enhancements.json missing/invalid';
+    writeReview();
     console.error('FATAL: base-cv.json or ai-enhancements.json missing/invalid');
     process.exit(1);
   }
-  if (proposals.status !== 'SUCCESS') {
-    console.log(`Nothing to verify: enhancement status is ${proposals.status}`);
+  if (!runId || proposals.run_id !== runId || proposals.completed !== true || proposals.status !== 'SUCCESS') {
+    review.reason = 'no completed SUCCESS proposal from the expected current run';
+    writeReview();
+    console.log(`Nothing to verify: ${review.reason}`);
     console.log('APPLIED=0');
     return;
   }
@@ -125,7 +135,8 @@ function main() {
   }
   const corpus = normalise(corpusParts.join(' '));
 
-  const review = { reviewed_at: new Date().toISOString(), source_generated_at: proposals.generated_at, results: [] };
+  review.status = 'SUCCESS';
+  review.source_generated_at = proposals.generated_at;
   let applied = 0;
   for (const [id, proposal] of Object.entries(proposals.sections)) {
     const result = verifyProposal(id, proposal, corpus);
@@ -139,7 +150,7 @@ function main() {
     }
   }
 
-  fs.writeFileSync(path.join(DATA_DIR, 'proposal-review.json'), JSON.stringify(review, null, 2) + '\n');
+  writeReview();
   if (applied > 0) {
     fs.writeFileSync(path.join(DATA_DIR, 'base-cv.json'), JSON.stringify(cv, null, 2) + '\n');
   }
