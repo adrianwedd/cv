@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-11T20:05:57.279Z",
+  "generated_at": "2026-11-13T20:05:40.678Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 270,
-    "commit_contributions_9mo": 8800,
-    "active_repositories": 21,
+    "total_commits": 275,
+    "commit_contributions_9mo": 8718,
+    "active_repositories": 20,
     "total_repositories": 100,
     "total_stars": 50,
     "tracking_status": "active"
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1726
+      "commits": 1728
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1620
+      "commits": 1548
     },
     {
       "name": "afterwords",
@@ -40,7 +40,7 @@
     },
     {
       "name": "squishmallowdex",
-      "commits": 61
+      "commits": 49
     },
     {
       "name": "clawdcraft",
@@ -115,19 +115,19 @@
     {
       "week": "2026-11-08",
       "repos": {
-        "status": 6,
-        "adrianwedd.com": 8,
-        "twitb-status": 2
+        "adrianwedd.com": 23,
+        "status": 11,
+        "twitb-status": 5
       }
     }
   ],
   "languages": {
-    "Markdown": 745353,
-    "JSON": 163989,
+    "JSON": 164018,
+    "Markdown": 754981,
+    "HTML": 9094,
+    "JavaScript": 169595,
+    "TypeScript": 1671289,
     "Python": 3311131,
-    "JavaScript": 169368,
-    "TypeScript": 1671106,
-    "HTML": 9085,
     "Astro": 1370,
     "Swift": 376,
     "Java": 41939,
@@ -135,12 +135,8 @@
   },
   "heatmap": [
     {
-      "date": "2026-02-08",
-      "count": 99
-    },
-    {
       "date": "2026-02-15",
-      "count": 941
+      "count": 798
     },
     {
       "date": "2026-02-22",
@@ -292,23 +288,58 @@
     },
     {
       "date": "2026-11-08",
-      "count": 675
+      "count": 945
     }
   ],
   "repositories": [
     {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-11-11",
-      "stars": 0
-    },
-    {
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-11",
+      "last_push": "2026-11-13",
       "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-13",
+      "stars": 0
+    },
+    {
+      "name": "TEL3SIS",
+      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
+      "language": "HTML",
+      "last_push": "2026-11-13",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-11-13",
+      "stars": 0
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
+      "last_push": "2026-11-13",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-11-13",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-11-11",
+      "stars": 4
     },
     {
       "name": "jailbreaks",
@@ -322,41 +353,6 @@
       "description": "The agent that grows with you",
       "language": "Python",
       "last_push": "2026-11-11",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-11-11",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-11-11",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-11-11",
-      "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-11-07",
-      "stars": 4
-    },
-    {
-      "name": "TEL3SIS",
-      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
-      "language": "HTML",
-      "last_push": "2026-11-06",
       "stars": 0
     },
     {
@@ -434,13 +430,6 @@
       "description": "Oneiric interfaces and audiovisual installations: Dream Interpreters, Fingerprint Painters, and Cosmic Murals.",
       "language": "Python",
       "last_push": "2026-10-18",
-      "stars": 0
-    },
-    {
-      "name": "V3R1T4S",
-      "description": "liberating known unknowns",
-      "language": null,
-      "last_push": "2026-10-13",
       "stars": 0
     }
   ]
