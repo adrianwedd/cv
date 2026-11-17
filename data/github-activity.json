@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T20:05:40.678Z",
+  "generated_at": "2026-11-17T20:06:19.035Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 275,
-    "commit_contributions_9mo": 8718,
-    "active_repositories": 20,
+    "total_commits": 178,
+    "commit_contributions_9mo": 8658,
+    "active_repositories": 19,
     "total_repositories": 100,
     "total_stars": 50,
     "tracking_status": "active"
@@ -16,11 +16,11 @@
     },
     {
       "name": "failure-first",
-      "commits": 1728
+      "commits": 1731
     },
     {
       "name": "adrianwedd.com",
-      "commits": 1548
+      "commits": 1492
     },
     {
       "name": "afterwords",
@@ -51,12 +51,12 @@
       "commits": 31
     },
     {
-      "name": "orbitr",
-      "commits": 31
-    },
-    {
       "name": "status",
       "commits": 26
+    },
+    {
+      "name": "orbitr",
+      "commits": 24
     },
     {
       "name": "homelab-scripts",
@@ -115,19 +115,28 @@
     {
       "week": "2026-11-08",
       "repos": {
-        "adrianwedd.com": 23,
-        "status": 11,
+        "status": 20,
+        "twitb-status": 7,
+        "adrianwedd.com": 8,
+        "failure-first": 1
+      }
+    },
+    {
+      "week": "2026-11-15",
+      "repos": {
+        "adrianwedd.com": 1,
+        "status": 5,
         "twitb-status": 5
       }
     }
   ],
   "languages": {
-    "JSON": 164018,
-    "Markdown": 754981,
+    "JSON": 164077,
+    "JavaScript": 169830,
+    "TypeScript": 1671315,
+    "Markdown": 773649,
     "HTML": 9094,
-    "JavaScript": 169595,
-    "TypeScript": 1671289,
-    "Python": 3311131,
+    "Python": 3311143,
     "Astro": 1370,
     "Swift": 376,
     "Java": 41939,
@@ -136,7 +145,7 @@
   "heatmap": [
     {
       "date": "2026-02-15",
-      "count": 798
+      "count": 177
     },
     {
       "date": "2026-02-22",
@@ -284,11 +293,15 @@
     },
     {
       "date": "2026-11-01",
-      "count": 791
+      "count": 793
     },
     {
       "date": "2026-11-08",
-      "count": 945
+      "count": 1061
+    },
+    {
+      "date": "2026-11-15",
+      "count": 309
     }
   ],
   "repositories": [
@@ -296,41 +309,55 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-13",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-11-13",
-      "stars": 0
-    },
-    {
-      "name": "TEL3SIS",
-      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
-      "language": "HTML",
-      "last_push": "2026-11-13",
+      "last_push": "2026-11-17",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-11-13",
+      "last_push": "2026-11-17",
       "stars": 0
     },
     {
       "name": "adrianwedd.com",
       "description": "adrianwedd.com — living workshop",
       "language": "TypeScript",
-      "last_push": "2026-11-13",
+      "last_push": "2026-11-17",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-17",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
+      "last_push": "2026-11-17",
+      "stars": 0
+    },
+    {
+      "name": "TEL3SIS",
+      "description": "Telephony-Linked Embedded LLM System for Interactive Support",
+      "language": "HTML",
+      "last_push": "2026-11-16",
+      "stars": 0
+    },
+    {
+      "name": "spark",
+      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
+      "language": "Python",
+      "last_push": "2026-11-16",
+      "stars": 8
+    },
+    {
+      "name": "why-demonstrated-risk-is-ignored",
+      "description": "Research portfolio on why organisations fail to act on known, demonstrated risks: canonical essay, dependency-ordered research backlog, codebook, and agent-assistance audit trail.",
+      "language": "Astro",
       "last_push": "2026-11-13",
       "stars": 0
     },
@@ -338,7 +365,7 @@
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-11-11",
+      "last_push": "2026-11-13",
       "stars": 4
     },
     {
@@ -391,20 +418,6 @@
       "stars": 2
     },
     {
-      "name": "why-demonstrated-risk-is-ignored",
-      "description": "Research portfolio on why organisations fail to act on known, demonstrated risks: canonical essay, dependency-ordered research backlog, codebook, and agent-assistance audit trail.",
-      "language": "Astro",
-      "last_push": "2026-10-24",
-      "stars": 0
-    },
-    {
-      "name": "spark",
-      "description": "SPARK — a Claude-powered robot companion for a neurodivergent kid. Built on SunFounder PiCar-X + Raspberry Pi.",
-      "language": "Python",
-      "last_push": "2026-10-24",
-      "stars": 8
-    },
-    {
       "name": "clawdcraft",
       "description": "Claude Code living in your Minecraft server as Clawd, an in-game creature players talk to in chat",
       "language": "JavaScript",
@@ -423,13 +436,6 @@
       "description": "A powerful and modular stable diffusion GUI with a graph/nodes interface.",
       "language": null,
       "last_push": "2026-10-22",
-      "stars": 0
-    },
-    {
-      "name": "lunar_tools_prototypes",
-      "description": "Oneiric interfaces and audiovisual installations: Dream Interpreters, Fingerprint Painters, and Cosmic Murals.",
-      "language": "Python",
-      "last_push": "2026-10-18",
       "stars": 0
     }
   ]
