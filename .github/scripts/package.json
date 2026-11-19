@@ -5,10 +5,10 @@
   "main": "cv-generator.js",
   "scripts": {
     "collect": "node activity-collector.js",
-    "enhance": "node enhance.js",
+    "enhance": "node run-proposals.js",
     "verify": "node verify-proposals.js",
     "generate": "node cv-generator.js",
-    "test": "node --test --test-concurrency=1 cv-generator.test.js verify-proposals.test.js",
+    "test": "node --test --test-concurrency=1 cv-generator.test.js verify-proposals.test.js proposal-run.test.js",
     "lint": "eslint --max-warnings=0 *.js ai/*.js",
     "format": "prettier --write *.js ai/*.js"
   },
