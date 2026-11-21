@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-17T20:06:19.035Z",
+  "generated_at": "2026-11-21T20:05:13.458Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 178,
-    "commit_contributions_9mo": 8658,
-    "active_repositories": 19,
+    "total_commits": 153,
+    "commit_contributions_9mo": 8633,
+    "active_repositories": 18,
     "total_repositories": 100,
     "total_stars": 50,
     "tracking_status": "active"
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1731
+      "commits": 1722
     },
     {
       "name": "adrianwedd.com",
@@ -39,12 +39,12 @@
       "commits": 86
     },
     {
-      "name": "squishmallowdex",
-      "commits": 49
-    },
-    {
       "name": "clawdcraft",
       "commits": 47
+    },
+    {
+      "name": "squishmallowdex",
+      "commits": 32
     },
     {
       "name": "ADHDo",
@@ -59,12 +59,12 @@
       "commits": 24
     },
     {
-      "name": "homelab-scripts",
+      "name": "cv",
       "commits": 20
     },
     {
-      "name": "cv",
-      "commits": 19
+      "name": "homelab-scripts",
+      "commits": 20
     },
     {
       "name": "Agentic-Index",
@@ -115,26 +115,25 @@
     {
       "week": "2026-11-08",
       "repos": {
-        "status": 20,
-        "twitb-status": 7,
-        "adrianwedd.com": 8,
-        "failure-first": 1
+        "status": 7,
+        "twitb-status": 1
       }
     },
     {
       "week": "2026-11-15",
       "repos": {
-        "adrianwedd.com": 1,
-        "status": 5,
-        "twitb-status": 5
+        "cv": 2,
+        "status": 12,
+        "twitb-status": 9,
+        "adrianwedd.com": 1
       }
     }
   ],
   "languages": {
-    "JSON": 164077,
-    "JavaScript": 169830,
+    "JSON": 164136,
+    "JavaScript": 169853,
+    "Markdown": 792394,
     "TypeScript": 1671315,
-    "Markdown": 773649,
     "HTML": 9094,
     "Python": 3311143,
     "Astro": 1370,
@@ -144,12 +143,8 @@
   },
   "heatmap": [
     {
-      "date": "2026-02-15",
-      "count": 177
-    },
-    {
       "date": "2026-02-22",
-      "count": 630
+      "count": 529
     },
     {
       "date": "2026-03-01",
@@ -301,7 +296,7 @@
     },
     {
       "date": "2026-11-15",
-      "count": 309
+      "count": 819
     }
   ],
   "repositories": [
@@ -309,34 +304,41 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-17",
+      "last_push": "2026-11-21",
       "stars": 0
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-11-17",
-      "stars": 0
-    },
-    {
-      "name": "adrianwedd.com",
-      "description": "adrianwedd.com — living workshop",
-      "language": "TypeScript",
-      "last_push": "2026-11-17",
+      "last_push": "2026-11-21",
       "stars": 0
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-11-17",
+      "last_push": "2026-11-21",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
+      "last_push": "2026-11-21",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-11-19",
+      "stars": 4
+    },
+    {
+      "name": "adrianwedd.com",
+      "description": "adrianwedd.com — living workshop",
+      "language": "TypeScript",
       "last_push": "2026-11-17",
       "stars": 0
     },
@@ -360,13 +362,6 @@
       "language": "Astro",
       "last_push": "2026-11-13",
       "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-11-13",
-      "stars": 4
     },
     {
       "name": "jailbreaks",
@@ -429,13 +424,6 @@
       "description": "Native macOS menu-bar app for the Afterwords TTS server",
       "language": "Swift",
       "last_push": "2026-10-24",
-      "stars": 0
-    },
-    {
-      "name": "ComfyUI",
-      "description": "A powerful and modular stable diffusion GUI with a graph/nodes interface.",
-      "language": null,
-      "last_push": "2026-10-22",
       "stars": 0
     }
   ]
