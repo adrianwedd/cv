@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-21T20:05:13.458Z",
+  "generated_at": "2026-11-23T20:05:34.364Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 153,
-    "commit_contributions_9mo": 8633,
-    "active_repositories": 18,
+    "total_commits": 115,
+    "commit_contributions_9mo": 8574,
+    "active_repositories": 16,
     "total_repositories": 100,
     "total_stars": 50,
     "tracking_status": "active"
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1722
+      "commits": 1672
     },
     {
       "name": "adrianwedd.com",
@@ -43,10 +43,6 @@
       "commits": 47
     },
     {
-      "name": "squishmallowdex",
-      "commits": 32
-    },
-    {
       "name": "ADHDo",
       "commits": 31
     },
@@ -57,6 +53,10 @@
     {
       "name": "orbitr",
       "commits": 24
+    },
+    {
+      "name": "squishmallowdex",
+      "commits": 23
     },
     {
       "name": "cv",
@@ -113,29 +113,30 @@
   ],
   "commit_timeline": [
     {
-      "week": "2026-11-08",
+      "week": "2026-11-15",
       "repos": {
-        "status": 7,
-        "twitb-status": 1
+        "status": 10,
+        "twitb-status": 10,
+        "cv": 2
       }
     },
     {
-      "week": "2026-11-15",
+      "week": "2026-11-22",
       "repos": {
-        "cv": 2,
-        "status": 12,
-        "twitb-status": 9,
-        "adrianwedd.com": 1
+        "twitb-status": 2,
+        "afterwords": 3,
+        "status": 3,
+        "failure-first": 1
       }
     }
   ],
   "languages": {
-    "JSON": 164136,
-    "JavaScript": 169853,
-    "Markdown": 792394,
+    "JSON": 164093,
+    "Python": 3311400,
+    "JavaScript": 170292,
+    "Markdown": 801467,
     "TypeScript": 1671315,
     "HTML": 9094,
-    "Python": 3311143,
     "Astro": 1370,
     "Swift": 376,
     "Java": 41939,
@@ -144,7 +145,7 @@
   "heatmap": [
     {
       "date": "2026-02-22",
-      "count": 529
+      "count": 361
     },
     {
       "date": "2026-03-01",
@@ -296,7 +297,11 @@
     },
     {
       "date": "2026-11-15",
-      "count": 819
+      "count": 833
+    },
+    {
+      "date": "2026-11-22",
+      "count": 278
     }
   ],
   "repositories": [
@@ -304,35 +309,42 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-21",
+      "last_push": "2026-11-23",
       "stars": 0
+    },
+    {
+      "name": "afterwords",
+      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
+      "language": "Python",
+      "last_push": "2026-11-23",
+      "stars": 2
     },
     {
       "name": "adrianwedd",
       "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
       "language": "JavaScript",
-      "last_push": "2026-11-21",
+      "last_push": "2026-11-23",
       "stars": 0
     },
     {
       "name": "status",
       "description": "Status page and uptime monitoring for adrianwedd.com and related services",
       "language": "Markdown",
-      "last_push": "2026-11-21",
+      "last_push": "2026-11-23",
       "stars": 0
     },
     {
       "name": "twitb-status",
       "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
       "language": "Markdown",
-      "last_push": "2026-11-21",
+      "last_push": "2026-11-23",
       "stars": 0
     },
     {
       "name": "cv",
       "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
       "language": "JavaScript",
-      "last_push": "2026-11-19",
+      "last_push": "2026-11-21",
       "stars": 4
     },
     {
@@ -392,13 +404,6 @@
       "stars": 1
     },
     {
-      "name": "afterwords",
-      "description": "Give Claude Code a voice. Zero-shot voice cloning on Apple Silicon. Voices included.",
-      "language": "Python",
-      "last_push": "2026-11-01",
-      "stars": 2
-    },
-    {
       "name": "ADHDo",
       "description": "🧠⚡ Neurodiversity-affirming AI assistant for ADHD executive function support. Features crisis detection, circuit breaker psychology, and local-first processing.",
       "language": "Python",
@@ -411,20 +416,6 @@
       "language": "TypeScript",
       "last_push": "2026-10-26",
       "stars": 2
-    },
-    {
-      "name": "clawdcraft",
-      "description": "Claude Code living in your Minecraft server as Clawd, an in-game creature players talk to in chat",
-      "language": "JavaScript",
-      "last_push": "2026-10-24",
-      "stars": 0
-    },
-    {
-      "name": "afterwords-app",
-      "description": "Native macOS menu-bar app for the Afterwords TTS server",
-      "language": "Swift",
-      "last_push": "2026-10-24",
-      "stars": 0
     }
   ]
 }
