@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-23T20:05:34.364Z",
+  "generated_at": "2026-11-25T20:05:36.269Z",
   "lookback_period_days": 30,
   "summary": {
-    "total_commits": 115,
-    "commit_contributions_9mo": 8574,
-    "active_repositories": 16,
+    "total_commits": 99,
+    "commit_contributions_9mo": 8510,
+    "active_repositories": 15,
     "total_repositories": 100,
     "total_stars": 50,
     "tracking_status": "active"
@@ -16,7 +16,7 @@
     },
     {
       "name": "failure-first",
-      "commits": 1672
+      "commits": 1608
     },
     {
       "name": "adrianwedd.com",
@@ -115,26 +115,25 @@
     {
       "week": "2026-11-15",
       "repos": {
-        "status": 10,
-        "twitb-status": 10,
-        "cv": 2
+        "status": 2,
+        "twitb-status": 3
       }
     },
     {
       "week": "2026-11-22",
       "repos": {
-        "twitb-status": 2,
-        "afterwords": 3,
-        "status": 3,
-        "failure-first": 1
+        "failure-first": 2,
+        "status": 6,
+        "afterwords": 4,
+        "twitb-status": 4
       }
     }
   ],
   "languages": {
-    "JSON": 164093,
+    "JSON": 164123,
+    "JavaScript": 170304,
+    "Markdown": 810980,
     "Python": 3311400,
-    "JavaScript": 170292,
-    "Markdown": 801467,
     "TypeScript": 1671315,
     "HTML": 9094,
     "Astro": 1370,
@@ -145,7 +144,7 @@
   "heatmap": [
     {
       "date": "2026-02-22",
-      "count": 361
+      "count": 82
     },
     {
       "date": "2026-03-01",
@@ -301,7 +300,7 @@
     },
     {
       "date": "2026-11-22",
-      "count": 278
+      "count": 638
     }
   ],
   "repositories": [
@@ -309,8 +308,36 @@
       "name": "failurefirst-status",
       "description": "Status page for failurefirst.org — powered by Upptime",
       "language": "JSON",
-      "last_push": "2026-11-23",
+      "last_push": "2026-11-25",
       "stars": 0
+    },
+    {
+      "name": "adrianwedd",
+      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
+      "language": "JavaScript",
+      "last_push": "2026-11-25",
+      "stars": 0
+    },
+    {
+      "name": "status",
+      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
+      "language": "Markdown",
+      "last_push": "2026-11-25",
+      "stars": 0
+    },
+    {
+      "name": "twitb-status",
+      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
+      "language": "Markdown",
+      "last_push": "2026-11-25",
+      "stars": 0
+    },
+    {
+      "name": "cv",
+      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
+      "language": "JavaScript",
+      "last_push": "2026-11-23",
+      "stars": 4
     },
     {
       "name": "afterwords",
@@ -318,34 +345,6 @@
       "language": "Python",
       "last_push": "2026-11-23",
       "stars": 2
-    },
-    {
-      "name": "adrianwedd",
-      "description": "Forensic systems architecture: instrumenting autonomy, stress-testing trust, keeping humans sovereign when inputs get strange",
-      "language": "JavaScript",
-      "last_push": "2026-11-23",
-      "stars": 0
-    },
-    {
-      "name": "status",
-      "description": "Status page and uptime monitoring for adrianwedd.com and related services",
-      "language": "Markdown",
-      "last_push": "2026-11-23",
-      "stars": 0
-    },
-    {
-      "name": "twitb-status",
-      "description": "Status page for thiswasntinthebrochure.wtf — powered by Upptime",
-      "language": "Markdown",
-      "last_push": "2026-11-23",
-      "stars": 0
-    },
-    {
-      "name": "cv",
-      "description": "🤖 AI-Enhanced CV System: Intelligent resume optimization with Claude AI, automated GitHub integration, version-controlled prompt engineering, and enterprise-grade CI/CD deployment",
-      "language": "JavaScript",
-      "last_push": "2026-11-21",
-      "stars": 4
     },
     {
       "name": "adrianwedd.com",
@@ -409,13 +408,6 @@
       "language": "Python",
       "last_push": "2026-10-31",
       "stars": 25
-    },
-    {
-      "name": "orbitr",
-      "description": "🎵 Multi-track polyphonic AI sequencer with concentric rings. Inspired by Playtronica's Orbita, enhanced with Meta's MusicGen for real-time sample generation.",
-      "language": "TypeScript",
-      "last_push": "2026-10-26",
-      "stars": 2
     }
   ]
 }
